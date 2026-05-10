@@ -10,7 +10,7 @@ import { monsters } from '../../../data/monsters';
 const PLATFORM_META: Record<InfographicSocialPost['platform'], { label: string; color: string; shareUrl?: string }> = {
   instagram:  { label: 'Instagram',   color: '#E1306C' },
   facebook:   { label: 'Facebook',    color: '#1877F2', shareUrl: 'https://www.facebook.com/sharer/sharer.php?u={url}' },
-  x:          { label: '𝕏 (Twitter)', color: '#000000', shareUrl: 'https://twitter.com/intent/tweet?text={title}&url={url}' },
+  x:          { label: 'X',           color: '#000000', shareUrl: 'https://twitter.com/intent/tweet?text={title}&url={url}' },
   tiktok:     { label: 'TikTok',      color: '#FF0050' },
   pinterest:  { label: 'Pinterest',   color: '#E60023', shareUrl: 'https://pinterest.com/pin/create/button/?url={url}&description={title}' },
   threads:    { label: 'Threads',     color: '#101010', shareUrl: 'https://www.threads.net/intent/post?text={title}%20{url}' },
@@ -203,15 +203,22 @@ const jsonLd = [
             )}
           </div>
 
+          <!-- ── Utility row: Copy Link + Download (above share card) ── -->
+          <div class="id-util-row">
+            <button class="id-util-action id-util-copy" id="ig-copy-link-btn" data-action="copy">
+              🔗 Copy Link
+            </button>
+            {post.live && (
+              <button class="id-util-action id-util-download id-download-btn" id="ig-download-btn">
+                ⬇ Download
+              </button>
+            )}
+          </div>
+
           <!-- ── Share bar 1: platform share buttons ── -->
           <div class="id-share-bar">
             <span class="id-share-label">Share this</span>
             <div class="id-share-btns">
-              <!-- Copy link -->
-              <button class="id-share-btn" id="ig-copy-link-btn" data-action="copy">
-                🔗 Copy Link
-              </button>
-              <!-- Platform share buttons -->
               {SHARE_PLATFORMS.map(platform => {
                 const meta = PLATFORM_META[platform];
                 const hasShare = !!meta.shareUrl;
@@ -228,12 +235,6 @@ const jsonLd = [
                   </button>
                 );
               })}
-              <!-- Download (live posts only) -->
-              {post.live && (
-                <button class="id-share-btn id-download-btn" id="ig-download-btn">
-                  ⬇ Download
-                </button>
-              )}
             </div>
           </div>
 
@@ -513,17 +514,38 @@ const jsonLd = [
 
   /* Share bars */
   .id-share-bar {
-    display: flex; align-items: flex-start; gap: .625rem;
-    padding: .875rem 1rem; background: var(--k-bg-card);
+    display: flex; align-items: center; gap: .625rem;
+    padding: .75rem 1rem; background: var(--k-bg-card);
     border: 1px solid var(--k-border); border-radius: .875rem;
     flex-wrap: wrap; margin-bottom: .75rem;
   }
   .id-share-label {
     font-size: .72rem; font-weight: 700; color: var(--k-text-muted);
     font-family: 'Poppins', sans-serif;
-    white-space: nowrap; padding-top: .35rem; min-width: 72px;
+    white-space: nowrap; min-width: 72px;
   }
-  .id-share-btns { display: flex; flex-wrap: wrap; gap: .4rem; flex: 1; }
+  .id-share-btns {
+    display: flex; flex-wrap: wrap; gap: .4rem;
+    flex: 1; justify-content: flex-end; align-items: center;
+  }
+  /* Utility row — Copy Link + Download, above share card */
+  .id-util-row {
+    display: flex; justify-content: flex-end; gap: .625rem;
+    margin-bottom: .875rem;
+  }
+  .id-util-action {
+    padding: .5rem 1.25rem; border-radius: .625rem;
+    border: none; font-size: .8rem; font-weight: 800;
+    cursor: pointer; font-family: 'Poppins', sans-serif;
+    transition: opacity .18s, transform .15s;
+    display: inline-flex; align-items: center; gap: .375rem;
+  }
+  .id-util-action:hover { opacity: .85; transform: translateY(-1px); }
+  .id-util-action:active { transform: translateY(0); }
+  /* Copy Link — dark slate */
+  .id-util-copy { background: #1e2a2f; color: #e8f5f1; }
+  /* Download — solid teal */
+  .id-util-download { background: #5CCFAF; color: #0f1e1a; }
 
   /* Generic share button / link */
   .id-share-btn {
@@ -541,12 +563,7 @@ const jsonLd = [
     background: color-mix(in srgb, var(--pc, var(--ic)) 8%, transparent);
   }
 
-  /* Download button — always teal */
-  .id-download-btn {
-    border-color: color-mix(in srgb, #5CCFAF 50%, transparent);
-    color: #5CCFAF; --pc: #5CCFAF;
-  }
-  .id-download-btn.loading { opacity: .6; cursor: wait; }
+  .id-download-btn.loading { opacity: .6; cursor: wait; transform: none; }
 
   /* "Find this on" second bar */
   .id-social-posts-bar { border-style: dashed; }
