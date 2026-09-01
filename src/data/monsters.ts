@@ -99,6 +99,48 @@ export const monsters: Monster[] = [
     status: 'coming-soon',
     tagline: 'Unleashing soon.',
   },
+  {
+    id: 'future-6',
+    name: '???ooo',
+    module: 'Unknown',
+    description:
+      'A mystery. A future module. Identity unknown — but it is coming.',
+    color: '#B699FF',
+    colorLight: '#DDD6FE',
+    textColor: '#2A3439',
+    route: '/future-monsters',
+    image: '/images/Monsters/devooo.png',
+    status: 'coming-soon',
+    tagline: 'In the lab.',
+  },
+  {
+    id: 'future-7',
+    name: '???ooo',
+    module: 'Unknown',
+    description:
+      'A mystery. A future module. Identity unknown — but it is coming.',
+    color: '#5CCFAF',
+    colorLight: '#A7F3D0',
+    textColor: '#2A3439',
+    route: '/future-monsters',
+    image: '/images/Monsters/infooo.png',
+    status: 'coming-soon',
+    tagline: 'Brewing.',
+  },
+  {
+    id: 'future-8',
+    name: '???ooo',
+    module: 'Unknown',
+    description:
+      'A mystery. A future module. Identity unknown — but it is coming.',
+    color: '#6CA6FF',
+    colorLight: '#BFDBFE',
+    textColor: '#2A3439',
+    route: '/future-monsters',
+    image: '/images/Monsters/freeooo.png',
+    status: 'coming-soon',
+    tagline: 'Almost ready.',
+  },
 ];
 
 export const activeMonsters = monsters.filter((m) => m.status === 'active');
