@@ -10,9 +10,7 @@ export default {
         'k-dark':     '#2A3439',
         // Monster colors
         'artooo':     '#F5CF5C',
-        'infooo':     '#5CCFAF',
         'toolooo':    '#F7933C',
-        'freeooo':    '#6CA6FF',
         'future-1':   '#B699FF',
         'future-2':   '#5DB3D7',
         'future-3':   '#DF78A0',

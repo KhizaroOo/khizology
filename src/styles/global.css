@@ -5,9 +5,7 @@
   --color-k-bg:       #F5F5F8;
   --color-k-dark:     #2A3439;
   --color-artooo:     #F5CF5C;
-  --color-infooo:     #5CCFAF;
   --color-toolooo:    #F7933C;
-  --color-freeooo:    #6CA6FF;
   --color-future-1:   #B699FF;
   --color-future-2:   #5DB3D7;
   --color-future-3:   #DF78A0;
@@ -36,12 +34,8 @@
   /* Monster colors */
   --m-artooo:         #F5CF5C;
   --m-artooo-light:   #FDE68A;
-  --m-infooo:         #5CCFAF;
-  --m-infooo-light:   #A7F3D0;
   --m-toolooo:        #F7933C;
   --m-toolooo-light:  #FED7AA;
-  --m-freeooo:        #6CA6FF;
-  --m-freeooo-light:  #BFDBFE;
   --m-future-1:       #B699FF;
   --m-future-2:       #5DB3D7;
   --m-future-3:       #DF78A0;

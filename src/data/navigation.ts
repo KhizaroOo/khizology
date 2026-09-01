@@ -12,9 +12,7 @@ export interface NavGroup {
 
 export const mainNav: NavItem[] = [
   { label: 'Artworks',       href: '/artworks',        color: '#F5CF5C' },
-  { label: 'Infographics',   href: '/infographics',    color: '#5CCFAF' },
   { label: 'Toolbox',        href: '/toolbox',         color: '#F7933C' },
-  { label: 'Freebies',       href: '/freebies',        color: '#6CA6FF' },
   { label: 'Future Monsters',href: '/future-monsters', color: '#B699FF' },
   { label: 'My Portfolio',   href: '/my-portfolio' },
 ];
@@ -24,9 +22,7 @@ export const footerNav: NavGroup[] = [
     label: 'Monsters',
     items: [
       { label: 'artooo — Artworks',     href: '/artworks' },
-      { label: 'infooo — Infographics', href: '/infographics' },
       { label: 'toolooo — Toolbox',     href: '/toolbox' },
-      { label: 'freeooo — Freebies',    href: '/freebies' },
       { label: 'Future Monsters',       href: '/future-monsters' },
     ],
   },

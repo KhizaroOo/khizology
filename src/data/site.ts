@@ -2,7 +2,7 @@ export const SITE = {
   name: 'khizology',
   title: 'khizology — A Monster-Powered Creative Universe',
   description:
-    'khizology is a creative knowledge universe by khizooo. Explore Artworks, Infographics, Toolbox calculators, and Freebies — powered by monsters.',
+    'khizology is a creative knowledge universe by khizooo. Explore Artworks and Toolbox calculators — powered by monsters.',
   url: 'https://khizarooo.github.io/khizology',
   author: 'khizooo',
   authorHandle: '@khizooo',

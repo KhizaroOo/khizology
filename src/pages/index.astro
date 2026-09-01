@@ -4,24 +4,14 @@ import MonsterCard from '../components/ui/MonsterCard.astro';
 import SectionHeader from '../components/ui/SectionHeader.astro';
 import { monsters } from '../data/monsters';
 import { featuredArtworks } from '../data/artworks';
-import { infographicTypes } from '../data/infographics';
-import { infographicTypes as infoSections, getAllInfographicPosts } from '../data/infographicsData';
-const featuredPost = getAllInfographicPosts().find(({ post }) => post.live);
 import { url, img } from '../utils/url';
-
-const featuredFreebieCategories = [
-  { slug: 'icons', title: 'Icons', desc: '50+ curated icon libraries' },
-  { slug: 'illustrations', title: 'Illustrations', desc: 'Free illustration packs' },
-  { slug: 'backgrounds', title: 'Backgrounds', desc: 'Beautiful background assets' },
-  { slug: 'typography', title: 'Typography', desc: 'Fonts and type resources' },
-];
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'khizology',
   url: 'https://khizarooo.github.io/khizology/',
-  description: 'A monster-powered creative universe by khizooo — artworks, infographics, free design resources, and web tools.',
+  description: 'A monster-powered creative universe by khizooo — artworks and web tools.',
   author: {
     '@type': 'Person',
     name: 'Khizar Imtiaz',
@@ -42,7 +32,7 @@ const jsonLd = {
 
 <BaseLayout
   title="khizology — A Monster-Powered Creative Universe"
-  description="khizology is a creative knowledge universe by khizooo. Explore Artworks, Infographics, Toolbox calculators, and free design resources — all powered by monsters."
+  description="khizology is a creative knowledge universe by khizooo. Explore Artworks and Toolbox calculators — all powered by monsters."
   jsonLd={jsonLd}
 >
 
@@ -61,7 +51,7 @@ const jsonLd = {
         <p class="hero-subtitle">
           By luck, a programmer. By nature, an artist.<br />
           Welcome to <strong>khizology.</strong><br /><br />
-          A monster-powered universe of Artworks, Infographics, free Tools, and curated Resources.
+          A monster-powered universe of Artworks and free Tools.
         </p>
         <div class="hero-ctas">
           <a href="#monsters" class="btn-primary">Explore Monsters</a>
@@ -71,11 +61,7 @@ const jsonLd = {
         <div class="hero-stats">
           <div class="stat"><strong>168+</strong><span>Artworks</span></div>
           <div class="stat-divider"></div>
-          <div class="stat"><strong>0</strong><span>Info Sections</span></div>
-          <div class="stat-divider"></div>
           <div class="stat"><strong>0</strong><span>Free Tools</span></div>
-          <div class="stat-divider"></div>
-          <div class="stat"><strong>0</strong><span>Freebie Sets</span></div>
         </div>
       </div>
 
@@ -86,7 +72,7 @@ const jsonLd = {
             <img src={img('/images/Monsters/khizooo.png')} alt="khizology" width="64" height="64" />
             <span>khizology</span>
           </div>
-          <!-- All 9 monsters -->
+          <!-- All monsters -->
           {monsters.map(m => (
             <div
               class={`hug-card${m.status === 'coming-soon' ? ' hug-soon' : ''}`}
@@ -114,7 +100,7 @@ const jsonLd = {
       <SectionHeader
         label="The Universe"
         title="Meet the Monsters"
-        description="Each monster is a creative module. A world of its own. 4 are live. 5 are being unleashed."
+        description="Each monster is a creative module. A world of its own. 2 are live. More are being unleashed."
         accentColor="var(--k-accent)"
         align="center"
       />
@@ -188,77 +174,6 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- INFOGRAPHICS -->
-  <section class="k-section infographics-section">
-    <div class="k-container">
-      <SectionHeader
-        label="infooo — Infographics"
-        title="Knowledge, Visualized"
-        description="Complex ideas made simple through beautiful visual infographics. 16 knowledge sections and growing."
-        accentColor="#5CCFAF"
-        cta={{ label: 'Explore Infographics', href: url('/infographics') }}
-      />
-      <!-- Featured live post -->
-      {featuredPost && (
-        <a href={url(`/infographics/${featuredPost.section.slug}/${featuredPost.post.slug}`)} class="info-featured-post">
-          <span class="info-fp-live">
-            <span class="info-fp-dot"></span>Live Now
-          </span>
-          <span class="info-fp-title">{featuredPost.post.title}</span>
-          <span class="info-fp-tags">
-            {featuredPost.post.tags.slice(0, 3).map(t => <span class="info-fp-tag">{t}</span>)}
-          </span>
-          <span class="info-fp-cta">View Infographic →</span>
-        </a>
-      )}
-      <div class="info-types-grid">
-        {infoSections.slice(0, 8).map(t => (
-          <a href={url(`/infographics/${t.slug}`)} class="info-type-card">
-            <span class="info-type-icon-wrap">
-              <span class="info-type-icon">{t.icon}</span>
-            </span>
-            <div class="info-type-body">
-              <h3>{t.title}</h3>
-              <p>{t.description.slice(0, 72)}…</p>
-            </div>
-            <span class="info-type-arrow">→</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- FREEBIES -->
-  <section class="k-section freebies-section">
-    <div class="k-container">
-      <SectionHeader
-        label="freeooo — Freebies"
-        title="Free. Always."
-        description="A curated library of free design resources, tools, icons, illustrations, and assets for creators and developers."
-        accentColor="#6CA6FF"
-        cta={{ label: 'Browse Freebies', href: url('/freebies') }}
-      />
-      <div class="freebies-preview">
-        {featuredFreebieCategories.map(cat => (
-          <a href={url('/freebies/' + cat.slug)} class="freebie-cat-card">
-            <div class="freebie-icon-box">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-            </div>
-            <span class="freebie-title">{cat.title}</span>
-            <span class="freebie-desc">{cat.desc}</span>
-          </a>
-        ))}
-      </div>
-      <div class="freebies-cta-banner">
-        <div class="fcb-text">
-          <strong>13 categories. Hundreds of resources.</strong>
-          <span>Icons, illustrations, backgrounds, fonts, components — all free.</span>
-        </div>
-        <a href={url('/freebies')} class="btn-primary">Get Free Resources →</a>
-      </div>
-    </div>
-  </section>
-
   <!-- BEHIND THE VIBES TEASER -->
   <section class="k-section btv-section">
     <div class="k-container">
@@ -293,7 +208,7 @@ const jsonLd = {
           ))}
         </div>
         <h2>Stay in the universe.</h2>
-        <p>New artworks, infographics, tools, and freebies drop regularly. Don't miss it.</p>
+        <p>New artworks and tools drop regularly. Don't miss it.</p>
         <div class="follow-ctas">
           <a href={url('/drop-a-vibe')} class="btn-primary-inv">Drop a Vibe</a>
           <a href={url('/you-ask-i-answer')} class="btn-outline-inv">You Ask, I Answer</a>
@@ -581,109 +496,6 @@ const jsonLd = {
   .tb-cat-arrow { color: var(--k-text-muted); font-size: 1.2rem; transition: transform 0.2s; }
   .tb-cat-card:hover .tb-cat-arrow { transform: translateX(4px); color: #F7933C; }
 
-  /* INFOGRAPHICS */
-  .infographics-section { background: var(--k-bg-card); }
-  .info-types-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
-  }
-  .info-type-card {
-    display: flex; flex-direction: column; gap: 0.625rem;
-    padding: 1.25rem;
-    background: var(--k-bg); border: 1px solid var(--k-border);
-    border-top: 3px solid #5CCFAF;
-    border-radius: 0 0 0.875rem 0.875rem;
-    text-decoration: none; color: inherit;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .info-type-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(92,207,175,.12); }
-  .info-type-icon-wrap {
-    width: 2.5rem; height: 2.5rem; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(92,207,175,0.12); border-radius: 0.625rem;
-    transition: background 0.2s;
-  }
-  .info-type-card:hover .info-type-icon-wrap { background: rgba(92,207,175,0.22); }
-  .info-type-icon { font-size: 1.25rem; }
-  .info-type-body { flex: 1; }
-  .info-type-body h3 { font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--k-text); margin: 0 0 0.2rem; transition: color 0.2s; }
-  .info-type-card:hover .info-type-body h3 { color: #5CCFAF; }
-  .info-type-body p { font-size: 0.75rem; color: var(--k-text-muted); margin: 0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-  .info-type-arrow { color: #5CCFAF; font-size: 0.875rem; font-weight: 700; align-self: flex-end; opacity: 0; transition: opacity 0.2s; }
-  .info-type-card:hover .info-type-arrow { opacity: 1; }
-
-  /* Featured live infographic post */
-  .info-featured-post {
-    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
-    padding: .875rem 1.25rem; margin-bottom: 1.25rem;
-    background: color-mix(in srgb, #5CCFAF 8%, transparent);
-    border: 1.5px solid color-mix(in srgb, #5CCFAF 35%, transparent);
-    border-radius: 1rem; text-decoration: none;
-    transition: border-color .2s, background .2s;
-  }
-  .info-featured-post:hover {
-    border-color: #5CCFAF;
-    background: color-mix(in srgb, #5CCFAF 12%, transparent);
-  }
-  .info-fp-live {
-    display: inline-flex; align-items: center; gap: .375rem;
-    font-size: .68rem; font-weight: 800; color: #5CCFAF;
-    font-family: 'Poppins', sans-serif; text-transform: uppercase;
-    letter-spacing: .06em; flex-shrink: 0;
-  }
-  .info-fp-dot {
-    width: 6px; height: 6px; border-radius: 50%; background: #5CCFAF;
-    animation: fp-pulse 2s infinite;
-  }
-  @keyframes fp-pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: .4; transform: scale(1.4); }
-  }
-  .info-fp-title {
-    font-family: 'Poppins', sans-serif; font-size: .875rem;
-    font-weight: 700; color: var(--k-text); flex: 1; min-width: 180px;
-  }
-  .info-fp-tags { display: flex; gap: .3rem; }
-  .info-fp-tag {
-    font-size: .65rem; font-weight: 600; color: var(--k-text-muted);
-    background: var(--k-bg); border: 1px solid var(--k-border);
-    padding: .1rem .45rem; border-radius: 999px;
-  }
-  .info-fp-cta {
-    font-size: .78rem; font-weight: 800; color: #5CCFAF;
-    font-family: 'Poppins', sans-serif; flex-shrink: 0;
-    white-space: nowrap;
-  }
-
-  /* FREEBIES */
-  .freebies-section { background: var(--k-bg-card); }
-  .freebies-preview {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;
-  }
-  .freebie-cat-card {
-    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem;
-    padding: 1.5rem 1rem;
-    background: var(--k-bg-card); border: 1px solid var(--k-border); border-radius: 1rem;
-    text-decoration: none; color: inherit;
-    transition: transform 0.2s, border-color 0.2s;
-  }
-  .freebie-cat-card:hover { transform: translateY(-4px); border-color: #6CA6FF; }
-  .freebie-icon-box {
-    width: 2.5rem; height: 2.5rem;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(108,166,255,0.1); border-radius: 0.625rem;
-    color: #6CA6FF;
-  }
-  .freebie-title { font-family: 'Poppins', sans-serif; font-size: 0.875rem; font-weight: 700; color: var(--k-text); }
-  .freebie-desc { font-size: 0.75rem; color: var(--k-text-muted); }
-  .freebies-cta-banner {
-    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
-    padding: 1.5rem 2rem;
-    background: var(--k-bg-card); border: 1px solid #6CA6FF; border-radius: 1rem;
-  }
-  .fcb-text { display: flex; flex-direction: column; gap: 0.25rem; }
-  .fcb-text strong { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 700; color: var(--k-text); }
-  .fcb-text span { font-size: 0.875rem; color: var(--k-text-muted); }
-
   /* BEHIND THE VIBES */
   .btv-section { background: var(--k-bg); }
   .btv-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
@@ -742,11 +554,8 @@ const jsonLd = {
     .hero-inner { grid-template-columns: 1fr; }
     .hero-visual { display: none; }
     .artworks-masonry { grid-template-columns: repeat(2, 1fr); }
-    .info-types-grid { grid-template-columns: repeat(2, 1fr); }
     .btv-inner { grid-template-columns: 1fr; }
     .btv-visual { order: -1; }
-    .freebies-cta-banner { flex-direction: column; text-align: center; }
-    .freebies-preview { grid-template-columns: repeat(2, 1fr); }
     .toolbox-two-cats { grid-template-columns: 1fr; }
   }
   @media (max-width: 480px) {

@@ -4,14 +4,14 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import { monsters } from '../data/monsters';
 import { url } from '../utils/url';
 
-const futureMonsters = monsters.filter(m => m.status === 'coming-soon');
+const futureMonsters = monsters.filter(m => m.status === 'coming-soon' && m.id.startsWith('future-'));
 const activeMonsters = monsters.filter(m => m.status === 'active');
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout
   title="Future Monsters — khizology Universe Expanding"
-  description="5 new monsters are being built inside the khizology creative lab. Each one has a color, a purpose, and a mystery. Catch a glimpse of what's coming."
+  description="4 new monsters are being built inside the khizology creative lab. Each one has a color, a purpose, and a mystery. Catch a glimpse of what's coming."
   accentColor="var(--k-accent)"
 >
   <!-- Hero -->
@@ -25,7 +25,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             The Lab is active
           </div>
           <h1 class="fm-hero-title">
-            5 Monsters<br />
+            4 Monsters<br />
             <span class="fm-hero-accent">Being Unleashed.</span>
           </h1>
           <p class="fm-hero-lead">
@@ -53,7 +53,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <section class="k-section fm-cards-section">
     <div class="k-container">
       <span class="k-section-label" style="color: var(--k-accent)">Inside the Lab</span>
-      <h2 class="fm-section-title">5 Upcoming Monsters</h2>
+      <h2 class="fm-section-title">4 Upcoming Monsters</h2>
       <p class="fm-section-sub">Each one is taking shape. Each one is a universe of its own.</p>
 
       <div class="fm-grid">

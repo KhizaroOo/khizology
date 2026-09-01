@@ -8,7 +8,7 @@ const principles = [
   { title: 'Code is a Brush', body: 'Programming isn\'t a cold, logical act. It\'s a creative process. The way you structure a system, name a variable, design an interface — it\'s all art with a different medium.' },
   { title: 'Knowledge Should Be Free', body: 'The best ideas grow when they\'re shared. khizology exists to make knowledge accessible, visual, and useful — because learning shouldn\'t be locked behind paywalls.' },
   { title: 'Monsters Represent Ideas', body: 'Each monster in khizology is a living module — a personality with a purpose. They\'re not just mascots. They\'re the brand itself, the creative DNA of the universe.' },
-  { title: 'Slow and Intentional', body: 'Nothing here is rushed. Every artwork, every infographic, every tool is made with intention. Quality over quantity. Meaning over noise.' },
+  { title: 'Slow and Intentional', body: 'Nothing here is rushed. Every artwork, every tool is made with intention. Quality over quantity. Meaning over noise.' },
   { title: 'Always Building', body: 'khizology is never finished. It\'s a living project that grows with time, ideas, and new monsters waiting to be unleashed. The journey is the destination.' },
 ];
 
@@ -23,15 +23,15 @@ const faqs = [
   },
   {
     q: 'Why "monsters"?',
-    a: 'Monsters are bold, memorable, and full of personality. Each monster module (artooo, infooo, toolooo, freeooo) has its own identity, color, and purpose. Monsters don\'t follow rules — and neither does creativity.',
+    a: 'Monsters are bold, memorable, and full of personality. Each monster module (artooo, toolooo) has its own identity, color, and purpose. Monsters don\'t follow rules — and neither does creativity.',
   },
   {
     q: 'Is khizology free to use?',
-    a: 'Yes. All tools, infographics, and freebie resources on khizology are free. The artworks are original creative work and protected, but the knowledge and utilities are shared openly.',
+    a: 'Yes. All tools on khizology are free. The artworks are original creative work and protected, but the utilities are shared openly.',
   },
   {
     q: 'How often does new content appear?',
-    a: 'Regularly. New artworks, infographics, tools, and resources are added as they\'re made. There\'s no rigid schedule — only intention and quality.',
+    a: 'Regularly. New artworks and tools are added as they\'re made. There\'s no rigid schedule — only intention and quality.',
   },
 ];
 ---
@@ -90,9 +90,8 @@ const faqs = [
         </p>
         <p>
           Each monster represents a core part of khizology:
-          <strong>artooo</strong> (artworks), <strong>infooo</strong> (infographics),
-          <strong>toolooo</strong> (tools), and <strong>freeooo</strong> (freebies).
-          Five more are in the lab, waiting to be unleashed.
+          <strong>artooo</strong> (artworks) and <strong>toolooo</strong> (tools).
+          Four more are in the lab, waiting to be unleashed.
         </p>
         <h2>What Drives This</h2>
         <p>
@@ -109,28 +108,20 @@ const faqs = [
             <span class="sf-label">Original Artworks</span>
           </div>
           <div class="sf-item">
-            <span class="sf-num">16</span>
-            <span class="sf-label">Knowledge Sections</span>
-          </div>
-          <div class="sf-item">
             <span class="sf-num">50+</span>
             <span class="sf-label">Free Online Tools</span>
           </div>
           <div class="sf-item">
-            <span class="sf-num">13</span>
-            <span class="sf-label">Freebie Categories</span>
-          </div>
-          <div class="sf-item">
-            <span class="sf-num">4</span>
+            <span class="sf-num">2</span>
             <span class="sf-label">Live Monsters</span>
           </div>
           <div class="sf-item">
-            <span class="sf-num">5</span>
+            <span class="sf-num">4</span>
             <span class="sf-label">Monsters Coming</span>
           </div>
         </div>
         <div class="story-monsters">
-          {['artooo', 'infooo', 'toolooo', 'freeooo'].map(m => (
+          {['artooo', 'toolooo'].map(m => (
             <img src={img('/images/Monsters/' + m + '.png')} alt={m} width="52" height="52" />
           ))}
         </div>
