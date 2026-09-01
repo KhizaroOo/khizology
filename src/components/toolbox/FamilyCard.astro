@@ -1,0 +1,72 @@
+---
+import { url } from '../../utils/url';
+import type { Family } from '../../data/families';
+
+interface Props {
+  family: Family;
+  count: number;
+}
+const { family, count } = Astro.props;
+---
+
+<button type="button" class="family-card" data-family-filter={family.id} style={`--fc: ${family.color}`}>
+  <span class="fc-icon">{family.icon}</span>
+  <h3 class="fc-name">{family.name}</h3>
+  <p class="fc-question">"{family.question}"</p>
+  <p class="fc-desc">{family.description}</p>
+  <span class="fc-count">{count} tool{count === 1 ? '' : 's'}</span>
+</button>
+
+<style>
+  .family-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.375rem;
+    text-align: left;
+    background: var(--k-bg-card);
+    border: 1.5px solid var(--k-border);
+    border-top: 3px solid var(--fc);
+    border-radius: 0 0 1rem 1rem;
+    padding: 1.25rem;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+  }
+  .family-card:hover {
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--fc) 15%, transparent);
+    transform: translateY(-2px);
+  }
+  .family-card.is-active {
+    border-color: var(--fc);
+    background: color-mix(in srgb, var(--fc) 6%, var(--k-bg-card));
+  }
+  .fc-icon { font-size: 1.75rem; line-height: 1; }
+  .fc-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--k-text);
+    margin: 0.25rem 0 0;
+  }
+  .fc-question {
+    font-size: 0.78rem;
+    font-style: italic;
+    color: var(--fc);
+    margin: 0;
+    font-weight: 600;
+  }
+  .fc-desc {
+    font-size: 0.8rem;
+    color: var(--k-text-muted);
+    line-height: 1.5;
+    margin: 0.125rem 0 0.25rem;
+  }
+  .fc-count {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--fc);
+    font-family: 'Poppins', sans-serif;
+  }
+</style>

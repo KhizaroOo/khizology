@@ -1,0 +1,112 @@
+---
+import { url } from '../../utils/url';
+import type { Tool } from '../../data/tools';
+import { getFamilyById } from '../../data/families';
+
+interface Props {
+  tool: Tool;
+}
+const { tool } = Astro.props;
+const family = getFamilyById(tool.family);
+---
+
+<a
+  href={url(`/toolbox/${tool.slug}`)}
+  class="tool-card"
+  data-tool-card
+  data-family={tool.family}
+  data-tags={tool.tags.join('|')}
+  style={`--fc: ${family?.color ?? '#F7933C'}`}
+>
+  <div class="tc-top">
+    <span class="tc-icon">{tool.icon}</span>
+    {tool.status !== 'active' && (
+      <span class="tc-status">{tool.status === 'planned' ? 'Planned' : 'Experimental'}</span>
+    )}
+  </div>
+  <h3 class="tc-name">{tool.name}</h3>
+  <p class="tc-desc">{tool.shortDescription}</p>
+  <div class="tc-footer">
+    <span class="tc-family">{family?.icon} {family?.name}</span>
+    <div class="tc-tags">
+      {tool.tags.slice(0, 3).map((t) => (
+        <span class="tc-tag">{t}</span>
+      ))}
+    </div>
+  </div>
+</a>
+
+<style>
+  .tool-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    background: var(--k-bg-card);
+    border: 1px solid var(--k-border);
+    border-left: 3px solid var(--fc);
+    border-radius: 0 1rem 1rem 0;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .tool-card:hover {
+    box-shadow: 0 4px 20px color-mix(in srgb, var(--fc) 12%, transparent);
+    border-left-color: var(--fc);
+  }
+  .tc-top { display: flex; align-items: center; justify-content: space-between; }
+  .tc-icon { font-size: 1.5rem; line-height: 1; }
+  .tc-status {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: var(--k-bg);
+    color: var(--k-text-muted);
+    border: 1px solid var(--k-border);
+    font-family: 'Poppins', sans-serif;
+    white-space: nowrap;
+  }
+  .tc-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--k-text);
+    margin: 0;
+  }
+  .tool-card:hover .tc-name { color: var(--fc); }
+  .tc-desc {
+    font-size: 0.8rem;
+    color: var(--k-text-muted);
+    line-height: 1.5;
+    margin: 0;
+    flex: 1;
+  }
+  .tc-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+    padding-top: 0.625rem;
+    border-top: 1px solid var(--k-border);
+  }
+  .tc-family {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--fc);
+    font-family: 'Poppins', sans-serif;
+  }
+  .tc-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .tc-tag {
+    font-size: 0.62rem;
+    font-weight: 600;
+    padding: 0.1rem 0.45rem;
+    border-radius: 999px;
+    background: var(--k-bg);
+    border: 1px solid var(--k-border);
+    color: var(--k-text-muted);
+    font-family: 'Poppins', sans-serif;
+  }
+</style>

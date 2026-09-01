@@ -1,0 +1,28 @@
+---
+interface Props {
+  text?: string;
+}
+const { text = 'Processed entirely in your browser. Nothing is uploaded, stored, or sent anywhere.' } = Astro.props;
+---
+
+<div class="privacy-notice">
+  <span class="pn-icon">🔒</span>
+  <span class="pn-text">{text}</span>
+</div>
+
+<style>
+  .privacy-notice {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #16a34a;
+    background: color-mix(in srgb, #22c55e 8%, transparent);
+    border: 1px solid color-mix(in srgb, #22c55e 25%, transparent);
+    border-radius: 0.625rem;
+    padding: 0.5rem 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+  .pn-icon { font-size: 0.85rem; flex-shrink: 0; }
+</style>

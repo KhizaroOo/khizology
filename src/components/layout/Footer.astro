@@ -1,5 +1,6 @@
 ---
 import { monsters } from '../../data/monsters';
+import { families } from '../../data/families';
 import { url, img } from '../../utils/url';
 const activeMonsters = monsters.filter(m => m.status === 'active');
 const currentYear = new Date().getFullYear();
@@ -100,10 +101,9 @@ const currentYear = new Date().getFullYear();
         <h3 class="k-footer-heading">Toolbox</h3>
         <ul>
           <li><a href={url('/toolbox')} class="k-footer-link">All Tools</a></li>
-          <li><a href={url('/toolbox/calculators/percentage-calculator')} class="k-footer-link">Percentage Calculator</a></li>
-          <li><a href={url('/toolbox/calculators/age-calculator')} class="k-footer-link">Age Calculator</a></li>
-          <li><a href={url('/toolbox/calculators/profit-margin-calculator')} class="k-footer-link">Profit Margin</a></li>
-          <li><a href={url('/toolbox/tools/instagram-bio-score')} class="k-footer-link">Instagram Bio Score</a></li>
+          {families.map(f => (
+            <li><a href={url(`/toolbox#${f.id}`)} class="k-footer-link">{f.icon} {f.name}</a></li>
+          ))}
         </ul>
       </div>
 

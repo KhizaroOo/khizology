@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import ComingSoonCard from '../../components/ui/ComingSoonCard.astro';
+import ToolHeader from '../../components/toolbox/ToolHeader.astro';
+import ToolCard from '../../components/toolbox/ToolCard.astro';
+import PrivacyNotice from '../../components/toolbox/PrivacyNotice.astro';
+import { tools } from '../../data/tools';
+import { getFamilyById } from '../../data/families';
+import { monsters } from '../../data/monsters';
+import { url } from '../../utils/url';
+
+import ApiPayloadDoctor from '../../components/toolbox/tools/ApiPayloadDoctor';
+import RetryStormSimulator from '../../components/toolbox/tools/RetryStormSimulator';
+import DatabaseDecisionLab from '../../components/toolbox/tools/DatabaseDecisionLab';
+import StickyNoteFramePlanner from '../../components/toolbox/tools/StickyNoteFramePlanner';
+import DrawingGridMaker from '../../components/toolbox/tools/DrawingGridMaker';
+import JwtTimeMachine from '../../components/toolbox/tools/JwtTimeMachine';
+import CorsDoctor from '../../components/toolbox/tools/CorsDoctor';
+import PrintReadyDoctor from '../../components/toolbox/tools/PrintReadyDoctor';
+import CacheValueSimulator from '../../components/toolbox/tools/CacheValueSimulator';
+import CircuitBreakerPlayground from '../../components/toolbox/tools/CircuitBreakerPlayground';
+import NPlusOneQueryVisualizer from '../../components/toolbox/tools/NPlusOneQueryVisualizer';
+import RateLimitPlayground from '../../components/toolbox/tools/RateLimitPlayground';
+import FanOutLatencySimulator from '../../components/toolbox/tools/FanOutLatencySimulator';
+import BuildVsBuy from '../../components/toolbox/tools/BuildVsBuy';
+import FrameFitFinder from '../../components/toolbox/tools/FrameFitFinder';
+import BleedSafeAreaBuilder from '../../components/toolbox/tools/BleedSafeAreaBuilder';
+import TechStackBattle from '../../components/toolbox/tools/TechStackBattle';
+import DistributedSystemsTax from '../../components/toolbox/tools/DistributedSystemsTax';
+import MonolithVsMicroservicesLab from '../../components/toolbox/tools/MonolithVsMicroservicesLab';
+import RestVsGraphqlDecisionLab from '../../components/toolbox/tools/RestVsGraphqlDecisionLab';
+import TimeoutChainPlanner from '../../components/toolbox/tools/TimeoutChainPlanner';
+import QueueCapacityPlanner from '../../components/toolbox/tools/QueueCapacityPlanner';
+import SlaChainVisualizer from '../../components/toolbox/tools/SlaChainVisualizer';
+import ConnectionPoolSimulator from '../../components/toolbox/tools/ConnectionPoolSimulator';
+import HttpCacheLab from '../../components/toolbox/tools/HttpCacheLab';
+import ScopeCreepVisualizer from '../../components/toolbox/tools/ScopeCreepVisualizer';
+import PaperNestingPlanner from '../../components/toolbox/tools/PaperNestingPlanner';
+import ProjectQuoteRiskPlanner from '../../components/toolbox/tools/ProjectQuoteRiskPlanner';
+import RoadmapCollisionDetector from '../../components/toolbox/tools/RoadmapCollisionDetector';
+import CropGuardian from '../../components/toolbox/tools/CropGuardian';
+import ValueStudyMaker from '../../components/toolbox/tools/ValueStudyMaker';
+import PerspectiveGridMaker from '../../components/toolbox/tools/PerspectiveGridMaker';
+
+export async function getStaticPaths() {
+  return tools.map((tool) => ({
+    params: { slug: tool.slug },
+    props: { tool },
+  }));
+}
+
+const { tool } = Astro.props;
+const family = getFamilyById(tool.family)!;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const related = tools.filter((t) => t.slug !== tool.slug && t.family === tool.family).slice(0, 3);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: `${tool.name} — toolooo`,
+  url: `https://khizarooo.github.io/khizology/toolbox/${tool.slug}`,
+  description: tool.shortDescription,
+  applicationCategory: 'UtilityApplication',
+  isAccessibleForFree: true,
+  author: { '@type': 'Person', name: 'Khizar Imtiaz' },
+};
+---
+
+<BaseLayout
+  title={`${tool.name} — toolooo by khizooo`}
+  description={tool.shortDescription}
+  keywords={tool.keywords.join(', ')}
+  accentColor={family.color}
+  jsonLd={jsonLd}
+>
+  <section class="tp-hero">
+    <div class="k-container">
+      <Breadcrumb
+        crumbs={[
+          { label: 'toolooo', href: url('/toolbox') },
+          { label: tool.name },
+        ]}
+        accentColor={family.color}
+      />
+      <div class="tp-hero-inner">
+        <ToolHeader tool={tool} />
+      </div>
+    </div>
+  </section>
+
+  <section class="k-section tp-main-section">
+    <div class="k-container">
+      <div class="tp-layout">
+        <div class="tp-main">
+          {tool.privacySensitive && <PrivacyNotice />}
+
+          {tool.status === 'active' ? (
+            <>
+              {tool.slug === 'api-payload-doctor' && <ApiPayloadDoctor client:load />}
+              {tool.slug === 'retry-storm-simulator' && <RetryStormSimulator client:load />}
+              {tool.slug === 'database-decision-lab' && <DatabaseDecisionLab client:load />}
+              {tool.slug === 'sticky-note-frame-planner' && <StickyNoteFramePlanner client:load />}
+              {tool.slug === 'drawing-grid-maker' && <DrawingGridMaker client:load />}
+              {tool.slug === 'jwt-time-machine' && <JwtTimeMachine client:load />}
+              {tool.slug === 'cors-doctor' && <CorsDoctor client:load />}
+              {tool.slug === 'print-ready-doctor' && <PrintReadyDoctor client:load />}
+              {tool.slug === 'cache-value-simulator' && <CacheValueSimulator client:load />}
+              {tool.slug === 'circuit-breaker-playground' && <CircuitBreakerPlayground client:load />}
+              {tool.slug === 'n-plus-1-query-visualizer' && <NPlusOneQueryVisualizer client:load />}
+              {tool.slug === 'rate-limit-playground' && <RateLimitPlayground client:load />}
+              {tool.slug === 'fan-out-latency-simulator' && <FanOutLatencySimulator client:load />}
+              {tool.slug === 'build-vs-buy' && <BuildVsBuy client:load />}
+              {tool.slug === 'frame-fit-finder' && <FrameFitFinder client:load />}
+              {tool.slug === 'bleed-safe-area-builder' && <BleedSafeAreaBuilder client:load />}
+              {tool.slug === 'tech-stack-battle' && <TechStackBattle client:load />}
+              {tool.slug === 'distributed-systems-tax' && <DistributedSystemsTax client:load />}
+              {tool.slug === 'monolith-vs-microservices-lab' && <MonolithVsMicroservicesLab client:load />}
+              {tool.slug === 'rest-vs-graphql-decision-lab' && <RestVsGraphqlDecisionLab client:load />}
+              {tool.slug === 'timeout-chain-planner' && <TimeoutChainPlanner client:load />}
+              {tool.slug === 'queue-capacity-planner' && <QueueCapacityPlanner client:load />}
+              {tool.slug === 'sla-chain-visualizer' && <SlaChainVisualizer client:load />}
+              {tool.slug === 'connection-pool-simulator' && <ConnectionPoolSimulator client:load />}
+              {tool.slug === 'http-cache-lab' && <HttpCacheLab client:load />}
+              {tool.slug === 'scope-creep-visualizer' && <ScopeCreepVisualizer client:load />}
+              {tool.slug === 'paper-nesting-planner' && <PaperNestingPlanner client:load />}
+              {tool.slug === 'project-quote-risk-planner' && <ProjectQuoteRiskPlanner client:load />}
+              {tool.slug === 'roadmap-collision-detector' && <RoadmapCollisionDetector client:load />}
+              {tool.slug === 'crop-guardian' && <CropGuardian client:load />}
+              {tool.slug === 'value-study-maker' && <ValueStudyMaker client:load />}
+              {tool.slug === 'perspective-grid-maker' && <PerspectiveGridMaker client:load />}
+            </>
+          ) : (
+            <ComingSoonCard
+              title={`${tool.name} is ${tool.status === 'experimental' ? 'experimental' : 'coming soon'}`}
+              description={tool.shortDescription}
+              accentColor={family.color}
+              icon={tool.icon}
+            />
+          )}
+
+          <div class="tp-about">
+            <h2 class="tp-section-h2">About {tool.name}</h2>
+            <p class="tp-about-text">{tool.longDescription}</p>
+          </div>
+        </div>
+
+        <aside class="tp-sidebar">
+          <div class="tp-sidebar-card">
+            <h3 class="tp-sidebar-h3">Tool Info</h3>
+            <div class="tp-info-rows">
+              <div class="tp-info-row"><span class="tp-info-label">Family</span><span class="tp-info-val">{family.icon} {family.name}</span></div>
+              <div class="tp-info-row"><span class="tp-info-label">Price</span><span class="tp-info-val" style="color:#22c55e;font-weight:700">Free</span></div>
+              <div class="tp-info-row"><span class="tp-info-label">Login</span><span class="tp-info-val">Not required</span></div>
+              <div class="tp-info-row">
+                <span class="tp-info-label">Status</span>
+                <span class="tp-info-val" style={`color: ${tool.status === 'active' ? '#22c55e' : 'var(--k-text-muted)'}; font-weight:700`}>
+                  {tool.status === 'active' ? 'Live ✓' : tool.status === 'planned' ? 'Planned' : 'Experimental'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {related.length > 0 && (
+            <div class="tp-sidebar-card">
+              <h3 class="tp-sidebar-h3">More {family.name} tools</h3>
+              <div class="tp-related-list">
+                {related.map((rt) => (
+                  <a href={url(`/toolbox/${rt.slug}`)} class="tp-related-item">
+                    <span class="tp-related-icon">{rt.icon}</span>
+                    <div>
+                      <div class="tp-related-name">{rt.name}</div>
+                      <div class="tp-related-desc">{rt.shortDescription.slice(0, 55)}…</div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div class="tp-sidebar-card">
+            <h3 class="tp-sidebar-h3">More khizology</h3>
+            <div class="tp-monsters">
+              {monsters.filter((m) => m.status === 'active' && m.id !== 'toolooo').map((m) => (
+                <a href={url(m.route)} class="tp-monster-link" style={`--mc: ${m.color}`}>
+                  <img src={`${base}${m.image}`} alt={m.name} width="22" height="22" />
+                  <span>{m.module}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .tp-hero { background: var(--k-bg); padding: 2.5rem 0 2rem; border-bottom: 1px solid var(--k-border); }
+  .tp-hero-inner { margin-top: 1rem; }
+
+  .tp-main-section { background: var(--k-bg); }
+  .tp-layout { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+  @media (min-width: 900px) { .tp-layout { grid-template-columns: 1fr 280px; } }
+
+  .tp-about { background: var(--k-bg-card); border: 1px solid var(--k-border); border-radius: 1rem; padding: 1.5rem; margin-top: 1.5rem; }
+  .tp-section-h2 { font-family: 'Poppins', sans-serif; font-size: 1.0625rem; font-weight: 800; color: var(--k-text); margin: 0 0 .875rem; }
+  .tp-about-text { font-size: .9rem; color: var(--k-text-muted); line-height: 1.75; margin: 0; }
+
+  .tp-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+  .tp-sidebar-card { background: var(--k-bg-card); border: 1px solid var(--k-border); border-radius: 1rem; padding: 1.25rem; }
+  .tp-sidebar-h3 { font-family: 'Poppins', sans-serif; font-size: .875rem; font-weight: 800; color: var(--k-text); margin: 0 0 .75rem; }
+  .tp-info-rows { display: flex; flex-direction: column; gap: .375rem; }
+  .tp-info-row { display: flex; justify-content: space-between; font-size: .825rem; padding: .375rem 0; border-bottom: 1px solid var(--k-border); }
+  .tp-info-row:last-child { border-bottom: none; }
+  .tp-info-label { color: var(--k-text-muted); font-weight: 600; }
+  .tp-info-val { color: var(--k-text); font-weight: 600; font-family: 'Poppins', sans-serif; }
+
+  .tp-related-list { display: flex; flex-direction: column; gap: .625rem; }
+  .tp-related-item { display: flex; gap: .75rem; align-items: flex-start; text-decoration: none; color: inherit; padding: .5rem; border-radius: .5rem; transition: background .2s; }
+  .tp-related-item:hover { background: var(--k-bg); }
+  .tp-related-icon { font-size: 1.25rem; flex-shrink: 0; }
+  .tp-related-name { font-size: .825rem; font-weight: 700; color: var(--k-text); font-family: 'Poppins', sans-serif; }
+  .tp-related-desc { font-size: .75rem; color: var(--k-text-muted); line-height: 1.4; }
+
+  .tp-monsters { display: flex; flex-direction: column; gap: .375rem; }
+  .tp-monster-link { display: flex; align-items: center; gap: .5rem; padding: .5rem .625rem; border-radius: .625rem; border: 1px solid var(--k-border); text-decoration: none; color: var(--k-text-muted); font-size: .8rem; font-weight: 600; transition: border-color .2s, color .2s; }
+  .tp-monster-link:hover { border-color: var(--mc); color: var(--mc); }
+  .tp-monster-link img { border-radius: .25rem; object-fit: contain; }
+</style>

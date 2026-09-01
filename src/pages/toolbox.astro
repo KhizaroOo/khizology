@@ -1,20 +1,24 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
-import { calculatorCategories } from '../data/calculators';
-import { webToolCategories } from '../data/webtools';
+import FamilyCard from '../components/toolbox/FamilyCard.astro';
+import ToolCard from '../components/toolbox/ToolCard.astro';
+import { families } from '../data/families';
+import { tools, getToolCountByFamily, allTags } from '../data/tools';
 import { monsters } from '../data/monsters';
 import { url } from '../utils/url';
 
 const ACCENT = '#F7933C';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+const activeCount = tools.filter((t) => t.status === 'active').length;
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: 'toolooo — Toolbox by khizooo',
   url: 'https://khizarooo.github.io/khizology/toolbox',
-  description: 'Free online tools and calculators for creators, builders, and professionals. 800+ web tools and 200+ calculators across 40 categories.',
+  description: 'Small browser-only tools that help you check, simulate, decide, plan and create. Turn invisible problems into visible ones.',
   applicationCategory: 'UtilityApplication',
   isAccessibleForFree: true,
   author: { '@type': 'Person', name: 'Khizar Imtiaz' },
@@ -22,8 +26,8 @@ const jsonLd = {
 ---
 
 <BaseLayout
-  title="toolooo — Free Online Tools & Calculators by khizooo"
-  description="Free online tools and calculators for creators, builders, and professionals. 800+ web tools and 200+ calculators across 40 categories — always free."
+  title="toolooo — Turn Invisible Problems Into Visible Ones"
+  description="toolooo is a set of small browser-only tools organized around what they DO for you: check, simulate, decide, plan, and create. No signup, no backend, no bullshit."
   accentColor={ACCENT}
   jsonLd={jsonLd}
 >
@@ -32,151 +36,66 @@ const jsonLd = {
     <div class="k-container">
       <Breadcrumb crumbs={[{ label: 'toolooo', href: url('/toolbox') }]} accentColor={ACCENT} />
       <div class="tb-hero-inner">
-        <div class="tb-hero-text">
-          <div class="tb-hero-badge">
-            <img src={`${base}/images/Monsters/toolooo.png`} alt="toolooo" width="40" height="40" class="tb-hero-monster" />
-            <span class="k-section-label" style={`color: ${ACCENT}`}>toolooo · Toolbox</span>
-          </div>
-          <h1 class="tb-hero-title">
-            Free Web Tools.<br />
-            <span class="tb-hero-accent">Actually Useful.</span>
-          </h1>
-          <p class="tb-hero-lead">
-            Web tools, calculators, and utilities crafted to save time,
-            solve problems, and make your work easier. Always free.
-          </p>
-          <div class="tb-hero-stats">
-            <div class="tb-stat">
-              <span class="tb-stat-num">800+</span>
-              <span class="tb-stat-label">Web Tools</span>
-            </div>
-            <div class="tb-stat">
-              <span class="tb-stat-num">200+</span>
-              <span class="tb-stat-label">Calculators</span>
-            </div>
-            <div class="tb-stat">
-              <span class="tb-stat-num">Free</span>
-              <span class="tb-stat-label">Always</span>
-            </div>
-          </div>
-          <div class="tb-coming-badge">
-            <span class="tb-badge-dot"></span>
-            All tools coming soon
-          </div>
+        <div class="tb-hero-badge">
+          <img src={`${base}/images/Monsters/toolooo.png`} alt="toolooo" width="40" height="40" class="tb-hero-monster" />
+          <span class="k-section-label" style={`color: ${ACCENT}`}>toolooo · Toolbox</span>
         </div>
-        <div class="tb-hero-visual">
-          <div class="tb-tool-preview">
-            {webToolCategories.slice(0, 5).map((cat, i) => (
-              <div class="tb-preview-chip" style={`--idx: ${i}`}>
-                <span>{cat.icon}</span>
-                <span>{cat.title}</span>
-                <span class="tb-preview-soon">Soon</span>
-              </div>
-            ))}
-          </div>
+        <h1 class="tb-hero-title">
+          Turn invisible problems<br />
+          <span class="tb-hero-accent">into visible ones.</span>
+        </h1>
+        <p class="tb-hero-lead">
+          Small browser tools that help you check, simulate, decide, plan and create.
+          Useful, fast, beautiful — no signup, no backend, no bullshit.
+        </p>
+        <div class="tb-hero-stats">
+          <div class="tb-stat"><span class="tb-stat-num">{tools.length}</span><span class="tb-stat-label">Tools Planned</span></div>
+          <div class="tb-stat"><span class="tb-stat-num">{activeCount}</span><span class="tb-stat-label">Live Now</span></div>
+          <div class="tb-stat"><span class="tb-stat-num">5</span><span class="tb-stat-label">Families</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Web Tools -->
-  <section class="k-section tb-webtools-section">
+  <!-- Families -->
+  <section class="k-section tb-families-section" id="families">
     <div class="k-container">
       <div class="tb-section-header">
-        <span class="k-section-label" style={`color: ${ACCENT}`}>Web Tools</span>
-        <h2 class="tb-section-title">800+ Tools Across 26 Categories</h2>
-        <p class="tb-section-sub">Developer tools, design tools, SEO, marketing, productivity — all in one place.</p>
+        <span class="k-section-label" style={`color: ${ACCENT}`}>Five Ways In</span>
+        <h2 class="tb-section-title">Every tool answers one of these questions</h2>
+        <p class="tb-section-sub">Click a family to filter the tools below.</p>
       </div>
-      <div class="tb-webtools-grid">
-        {webToolCategories.map(cat => (
-          <div class="tb-cat-card">
-            <div class="tb-cat-top">
-              <div class="tb-cat-icon-wrap">
-                <span class="tb-cat-icon">{cat.icon}</span>
-              </div>
-              <span class="tb-badge-soon">Soon</span>
-            </div>
-            <h3 class="tb-cat-name">{cat.title}</h3>
-            <p class="tb-cat-desc">{cat.description}</p>
-            <div class="tb-cat-count">{cat.tools.length} tools</div>
-            <div class="tb-chip-list">
-              {cat.tools.slice(0, 8).map(tool => (
-                <span class="tb-chip">{tool}</span>
-              ))}
-              {cat.tools.length > 8 && (
-                <span class="tb-chip tb-chip-more">+{cat.tools.length - 8} more</span>
-              )}
-            </div>
-          </div>
+      <div class="tb-families-grid">
+        {families.map((f) => (
+          <FamilyCard family={f} count={getToolCountByFamily(f.id)} />
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Calculators -->
-  <section class="k-section tb-calc-section">
+  <!-- Tools -->
+  <section class="k-section tb-tools-section" id="tools">
     <div class="k-container">
-      <div class="tb-section-header">
-        <span class="k-section-label" style={`color: ${ACCENT}`}>Calculators</span>
-        <h2 class="tb-section-title">200+ Calculators Across 14 Categories</h2>
-        <p class="tb-section-sub">From finance to physics, everyday life to sports — a calculator for every problem.</p>
+      <div class="tb-tools-header">
+        <div>
+          <span class="k-section-label" style={`color: ${ACCENT}`}>All Tools</span>
+          <h2 class="tb-section-title">
+            Showing <span id="tb-visible-count">{tools.length}</span> of {tools.length}
+          </h2>
+        </div>
+        <button type="button" id="tb-clear-filters" class="tb-clear-btn" hidden>Clear filters ✕</button>
       </div>
-      <div class="tb-calc-grid">
-        {calculatorCategories.map(cat => (
-          <div class="tb-cat-card">
-            <div class="tb-cat-top">
-              <div class="tb-cat-icon-wrap">
-                <span class="tb-cat-icon">{cat.icon}</span>
-              </div>
-              <span class="tb-badge-soon">Soon</span>
-            </div>
-            <h3 class="tb-cat-name">{cat.title}</h3>
-            <p class="tb-cat-desc">{cat.description}</p>
-            <div class="tb-cat-count">{cat.count} calculators</div>
-            <div class="tb-chip-list">
-              {cat.items.slice(0, 8).map(item => (
-                <span class="tb-chip">{item}</span>
-              ))}
-              {cat.items.length > 8 && (
-                <span class="tb-chip tb-chip-more">+{cat.items.length - 8} more</span>
-              )}
-            </div>
-          </div>
+
+      <div class="tb-tag-row">
+        {allTags.map((tag) => (
+          <button type="button" class="tb-tag-btn" data-tag-filter={tag}>{tag}</button>
         ))}
       </div>
-    </div>
-  </section>
 
-  <!-- Why Toolooo -->
-  <section class="tb-why-section">
-    <div class="k-container">
-      <div class="tb-why-inner">
-        <div class="tb-why-text">
-          <span class="k-section-label" style={`color: ${ACCENT}`}>Why toolooo?</span>
-          <h2 class="tb-why-title">Tools that don't waste your time.</h2>
-          <p class="tb-why-desc">
-            Most online tools are cluttered with ads, slow to load, and painful to use.
-            toolooo is different — fast, clean, and focused on one thing: solving your problem immediately.
-          </p>
-          <div class="tb-features">
-            {[
-              { icon: '⚡', label: 'Instant results' },
-              { icon: '🎯', label: 'No ads, no clutter' },
-              { icon: '📱', label: 'Mobile-first design' },
-              { icon: '🌙', label: 'Dark mode support' },
-              { icon: '🔒', label: 'No data stored' },
-              { icon: '♾️', label: 'Always free' },
-            ].map(f => (
-              <div class="tb-feature">
-                <span class="tb-feature-icon">{f.icon}</span>
-                <span class="tb-feature-label">{f.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div class="tb-why-img">
-          <img src={`${base}/images/Monsters/toolooo.png`} alt="toolooo monster" width="220" height="220" class="tb-why-monster" />
-        </div>
+      <div class="tb-tools-grid">
+        {tools.map((tool) => (
+          <ToolCard tool={tool} />
+        ))}
       </div>
     </div>
   </section>
@@ -199,17 +118,62 @@ const jsonLd = {
   </section>
 </BaseLayout>
 
+<script>
+  const familyButtons = document.querySelectorAll<HTMLElement>('[data-family-filter]');
+  const tagButtons = document.querySelectorAll<HTMLElement>('[data-tag-filter]');
+  const cards = document.querySelectorAll<HTMLElement>('[data-tool-card]');
+  const countEl = document.getElementById('tb-visible-count');
+  const clearBtn = document.getElementById('tb-clear-filters');
+
+  let activeFamily = 'all';
+  let activeTag = 'all';
+
+  function applyFilter() {
+    let visible = 0;
+    cards.forEach((card) => {
+      const family = card.getAttribute('data-family');
+      const tags = (card.getAttribute('data-tags') || '').split('|');
+      const familyMatch = activeFamily === 'all' || family === activeFamily;
+      const tagMatch = activeTag === 'all' || tags.includes(activeTag);
+      const show = familyMatch && tagMatch;
+      card.hidden = !show;
+      if (show) visible++;
+    });
+    if (countEl) countEl.textContent = String(visible);
+    if (clearBtn) clearBtn.hidden = activeFamily === 'all' && activeTag === 'all';
+  }
+
+  familyButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-family-filter') || 'all';
+      activeFamily = activeFamily === id ? 'all' : id;
+      familyButtons.forEach((b) => b.classList.toggle('is-active', b.getAttribute('data-family-filter') === activeFamily));
+      applyFilter();
+    });
+  });
+
+  tagButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const tag = btn.getAttribute('data-tag-filter') || 'all';
+      activeTag = activeTag === tag ? 'all' : tag;
+      tagButtons.forEach((b) => b.classList.toggle('is-active', b.getAttribute('data-tag-filter') === activeTag));
+      applyFilter();
+    });
+  });
+
+  clearBtn?.addEventListener('click', () => {
+    activeFamily = 'all';
+    activeTag = 'all';
+    familyButtons.forEach((b) => b.classList.remove('is-active'));
+    tagButtons.forEach((b) => b.classList.remove('is-active'));
+    applyFilter();
+  });
+</script>
+
 <style>
   /* Hero */
-  .tb-hero {
-    background: var(--k-bg); padding: 3rem 0 2rem;
-    border-bottom: 1px solid var(--k-border);
-  }
-  .tb-hero-inner {
-    display: grid; grid-template-columns: 1fr; gap: 3rem;
-    align-items: center; margin-top: 1rem;
-  }
-  @media (min-width: 900px) { .tb-hero-inner { grid-template-columns: 1fr 1fr; } }
+  .tb-hero { background: var(--k-bg); padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--k-border); }
+  .tb-hero-inner { margin-top: 1rem; max-width: 640px; }
   .tb-hero-badge { display: flex; align-items: center; gap: .625rem; margin-bottom: .5rem; }
   .tb-hero-monster { border-radius: .5rem; object-fit: contain; }
   .tb-hero-title {
@@ -219,10 +183,10 @@ const jsonLd = {
   }
   .tb-hero-accent { color: #F7933C; }
   .tb-hero-lead {
-    font-size: 1rem; color: var(--k-text-muted); line-height: 1.7;
-    max-width: 480px; margin: 0 0 1.5rem;
+    font-size: 1.05rem; color: var(--k-text-muted); line-height: 1.7;
+    margin: 0 0 1.5rem;
   }
-  .tb-hero-stats { display: flex; gap: 2rem; margin-bottom: 1.25rem; }
+  .tb-hero-stats { display: flex; gap: 2rem; }
   .tb-stat { display: flex; flex-direction: column; gap: .125rem; }
   .tb-stat-num {
     font-family: 'Poppins', sans-serif; font-size: 1.5rem;
@@ -232,145 +196,51 @@ const jsonLd = {
     font-size: .72rem; font-weight: 700; text-transform: uppercase;
     letter-spacing: .08em; color: var(--k-text-muted);
   }
-  .tb-coming-badge {
-    display: inline-flex; align-items: center; gap: .5rem;
-    padding: .35rem .875rem; border-radius: 999px;
-    background: color-mix(in srgb, #F7933C 12%, transparent);
-    border: 1px solid color-mix(in srgb, #F7933C 30%, transparent);
-    font-size: .75rem; font-weight: 700; color: #F7933C;
-    font-family: 'Poppins', sans-serif;
-  }
-  .tb-badge-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: #F7933C; animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: .5; transform: scale(1.4); }
-  }
-
-  /* Hero preview */
-  .tb-tool-preview { display: flex; flex-direction: column; gap: .625rem; }
-  .tb-preview-chip {
-    display: flex; align-items: center; gap: .75rem;
-    background: var(--k-bg-card); border: 1px solid var(--k-border);
-    border-radius: .875rem; padding: .875rem 1.125rem;
-    font-size: .875rem; color: var(--k-text); font-family: 'Poppins', sans-serif;
-    font-weight: 600; animation: slideIn .3s ease both;
-    animation-delay: calc(var(--idx) * .08s);
-  }
-  .tb-preview-soon {
-    margin-left: auto; font-size: .65rem; font-weight: 700;
-    text-transform: uppercase; color: #F7933C;
-    background: color-mix(in srgb, #F7933C 12%, transparent);
-    padding: .15rem .5rem; border-radius: 999px;
-  }
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateX(20px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
 
   /* Section headers */
-  .tb-section-header { margin-bottom: 2rem; }
+  .tb-section-header { margin-bottom: 1.75rem; }
   .tb-section-title {
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800;
-    color: var(--k-text); margin: .25rem 0 .5rem;
+    font-size: clamp(1.375rem, 3vw, 1.875rem); font-weight: 800;
+    color: var(--k-text); margin: .25rem 0 .375rem;
   }
-  .tb-section-sub { font-size: .9rem; color: var(--k-text-muted); margin: 0; }
+  .tb-section-sub { font-size: .875rem; color: var(--k-text-muted); margin: 0; }
 
-  /* Category cards — shared by web tools + calculators */
-  .tb-webtools-section { background: var(--k-bg-card); border-top: 1px solid var(--k-border); }
-  .tb-calc-section { background: var(--k-bg); border-top: 1px solid var(--k-border); }
-
-  .tb-webtools-grid,
-  .tb-calc-grid {
+  /* Families */
+  .tb-families-section { background: var(--k-bg-card); border-top: 1px solid var(--k-border); }
+  .tb-families-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.25rem;
-  }
-  .tb-cat-card {
-    background: var(--k-bg-card);
-    border: 1px solid var(--k-border);
-    border-left: 3px solid #F7933C;
-    border-radius: 0 1rem 1rem 0;
-    padding: 1.25rem;
-    display: flex; flex-direction: column; gap: .625rem;
-    transition: box-shadow .2s, border-color .2s;
-  }
-  .tb-calc-section .tb-cat-card { background: var(--k-bg-card); }
-  .tb-cat-card:hover { box-shadow: 0 4px 20px rgba(247,147,60,.1); border-color: #F7933C; }
-  .tb-cat-top { display: flex; align-items: center; justify-content: space-between; }
-  .tb-cat-icon-wrap {
-    width: 40px; height: 40px; border-radius: .625rem;
-    background: color-mix(in srgb, #F7933C 12%, transparent);
-    display: flex; align-items: center; justify-content: center; font-size: 1.25rem;
-  }
-  .tb-cat-icon { line-height: 1; }
-  .tb-badge-soon {
-    font-size: .65rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: .06em; padding: .15rem .5rem; border-radius: 999px;
-    background: var(--k-bg); color: var(--k-text-muted);
-    border: 1px solid var(--k-border); font-family: 'Poppins', sans-serif;
-  }
-  .tb-cat-name {
-    font-family: 'Poppins', sans-serif; font-size: .95rem;
-    font-weight: 800; color: var(--k-text); margin: 0;
-    transition: color .2s;
-  }
-  .tb-cat-card:hover .tb-cat-name { color: #F7933C; }
-  .tb-cat-desc { font-size: .78rem; color: var(--k-text-muted); line-height: 1.5; margin: 0; }
-  .tb-cat-count {
-    font-size: .72rem; font-weight: 700; color: #F7933C;
-    font-family: 'Poppins', sans-serif;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.125rem;
   }
 
-  /* Chip list */
-  .tb-chip-list {
-    display: flex; flex-wrap: wrap; gap: .375rem; margin-top: .25rem;
+  /* Tools */
+  .tb-tools-section { background: var(--k-bg); border-top: 1px solid var(--k-border); }
+  .tb-tools-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    flex-wrap: wrap; gap: .75rem; margin-bottom: 1.25rem;
   }
-  .tb-chip {
-    font-size: .68rem; font-weight: 600;
-    padding: .2rem .55rem; border-radius: 999px;
-    background: color-mix(in srgb, #F7933C 8%, transparent);
-    border: 1px solid color-mix(in srgb, #F7933C 20%, transparent);
-    color: var(--k-text-muted);
-    font-family: 'Poppins', sans-serif;
-    white-space: nowrap;
+  .tb-clear-btn {
+    background: transparent; border: 1px solid var(--k-border);
+    color: var(--k-text-muted); padding: .4rem .875rem; border-radius: .5rem;
+    font-size: .78rem; font-weight: 700; cursor: pointer; font-family: 'Poppins', sans-serif;
   }
-  .tb-chip-more {
-    background: var(--k-bg); border-color: var(--k-border);
-    color: var(--k-text-muted); font-style: italic;
-  }
+  .tb-clear-btn:hover { border-color: #F7933C; color: #F7933C; }
 
-  /* Why */
-  .tb-why-section { background: var(--k-bg); padding: 5rem 0; border-top: 1px solid var(--k-border); }
-  .tb-why-inner {
-    display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center;
+  .tb-tag-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.75rem; }
+  .tb-tag-btn {
+    background: var(--k-bg-card); border: 1px solid var(--k-border);
+    color: var(--k-text-muted); padding: .3rem .75rem; border-radius: 999px;
+    font-size: .72rem; font-weight: 700; cursor: pointer; font-family: 'Poppins', sans-serif;
+    transition: border-color .2s, color .2s, background .2s;
   }
-  @media (min-width: 768px) { .tb-why-inner { grid-template-columns: 1fr auto; } }
-  .tb-why-title {
-    font-family: 'Poppins', sans-serif; font-size: clamp(1.5rem, 3vw, 2.25rem);
-    font-weight: 900; color: var(--k-text); margin: .5rem 0 1rem;
-  }
-  .tb-why-desc { font-size: .95rem; color: var(--k-text-muted); line-height: 1.7; margin: 0 0 1.5rem; }
-  .tb-features {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem;
-  }
-  @media (min-width: 480px) { .tb-features { grid-template-columns: repeat(3, 1fr); } }
-  .tb-feature {
-    display: flex; align-items: center; gap: .5rem;
-    font-size: .8rem; color: var(--k-text-muted);
-  }
-  .tb-feature-icon { font-size: 1.125rem; }
-  .tb-feature-label { font-weight: 600; }
-  .tb-why-monster {
-    opacity: .9; filter: drop-shadow(0 20px 40px rgba(247, 147, 60, .2));
-    animation: float 6s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+  .tb-tag-btn:hover { border-color: #F7933C; color: #F7933C; }
+  .tb-tag-btn.is-active { background: #F7933C; border-color: #F7933C; color: #fff; }
+
+  .tb-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1.125rem;
   }
 
   /* Other monsters */
