@@ -4,6 +4,8 @@ import MonsterCard from '../components/ui/MonsterCard.astro';
 import SectionHeader from '../components/ui/SectionHeader.astro';
 import { monsters } from '../data/monsters';
 import { featuredArtworks } from '../data/artworks';
+import { families } from '../data/families';
+import { getToolCountByFamily, tools as toolboxTools } from '../data/tools';
 import { url, img } from '../utils/url';
 
 const jsonLd = {
@@ -144,32 +146,22 @@ const jsonLd = {
     <div class="k-container">
       <SectionHeader
         label="toolooo — Toolbox"
-        title="Tools That Work"
-        description="Free online calculators and tools designed to solve real problems. The productivity engine of khizology."
+        title="Turn Invisible Problems Into Visible Ones"
+        description={`${toolboxTools.length} small browser tools that help you check, simulate, decide, plan, and create. No signup, no backend, no bullshit.`}
         accentColor="#F7933C"
         cta={{ label: 'Open Toolbox', href: url('/toolbox') }}
       />
       <div class="toolbox-two-cats">
-        <a href={url('/toolbox/calculators/finance-calculator')} class="tb-cat-card">
-          <div class="tb-cat-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
-          </div>
-          <div class="tb-cat-body">
-            <h3>Calculators</h3>
-            <p>50+ calculators for finance, health, math &amp; more</p>
-          </div>
-          <span class="tb-cat-arrow">→</span>
-        </a>
-        <a href={url('/toolbox/tools')} class="tb-cat-card">
-          <div class="tb-cat-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-          </div>
-          <div class="tb-cat-body">
-            <h3>Web Tools</h3>
-            <p>Free tools for helping daily tasks</p>
-          </div>
-          <span class="tb-cat-arrow">→</span>
-        </a>
+        {families.map((f) => (
+          <a href={url(`/toolbox/family/${f.id}`)} class="tb-cat-card" style={`--fc: ${f.color}`}>
+            <div class="tb-cat-icon">{f.icon}</div>
+            <div class="tb-cat-body">
+              <h3>{f.name}</h3>
+              <p>{getToolCountByFamily(f.id)} tool{getToolCountByFamily(f.id) === 1 ? '' : 's'} · "{f.question}"</p>
+            </div>
+            <span class="tb-cat-arrow">→</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -466,11 +458,11 @@ const jsonLd = {
   .artwork-hover span { color:#fff; font-size:0.75rem; font-weight:600; }
   .artwork-thumb:hover .artwork-hover { opacity: 1; }
 
-  /* TOOLBOX - 2 categories */
+  /* TOOLBOX - 5 families */
   .toolbox-section { background: var(--k-bg-card); }
   .toolbox-two-cats {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.25rem;
   }
   .tb-cat-card {
@@ -481,20 +473,20 @@ const jsonLd = {
     transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   }
   .tb-cat-card:hover {
-    border-color: #F7933C; transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(247,147,60,0.1);
+    border-color: var(--fc, #F7933C); transform: translateY(-3px);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--fc, #F7933C) 15%, transparent);
   }
   .tb-cat-icon {
     width: 3rem; height: 3rem; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    background: rgba(247,147,60,0.1); border-radius: 0.75rem;
-    color: #F7933C;
+    background: color-mix(in srgb, var(--fc, #F7933C) 12%, transparent); border-radius: 0.75rem;
+    font-size: 1.375rem;
   }
   .tb-cat-body { flex: 1; }
   .tb-cat-body h3 { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 700; color: var(--k-text); margin: 0 0 0.25rem; }
   .tb-cat-body p { font-size: 0.8rem; color: var(--k-text-muted); margin: 0; }
   .tb-cat-arrow { color: var(--k-text-muted); font-size: 1.2rem; transition: transform 0.2s; }
-  .tb-cat-card:hover .tb-cat-arrow { transform: translateX(4px); color: #F7933C; }
+  .tb-cat-card:hover .tb-cat-arrow { transform: translateX(4px); color: var(--fc, #F7933C); }
 
   /* BEHIND THE VIBES */
   .btv-section { background: var(--k-bg); }

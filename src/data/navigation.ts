@@ -38,10 +38,12 @@ export const footerNav: NavGroup[] = [
   {
     label: 'Toolbox',
     items: [
-      { label: 'All Calculators',           href: '/toolbox' },
-      { label: 'Profit Margin Calculator',  href: '/toolbox/calculators/profit-margin-calculator' },
-      { label: 'Age Calculator',            href: '/toolbox/calculators/age-calculator' },
-      { label: 'Percentage Calculator',     href: '/toolbox/calculators/percentage-calculator' },
+      { label: 'All Tools',       href: '/toolbox' },
+      { label: 'Check',           href: '/toolbox/family/check' },
+      { label: 'Simulate',        href: '/toolbox/family/simulate' },
+      { label: 'Decide',          href: '/toolbox/family/decide' },
+      { label: 'Plan',            href: '/toolbox/family/plan' },
+      { label: 'Create',          href: '/toolbox/family/create' },
     ],
   },
 ];

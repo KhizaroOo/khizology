@@ -34,14 +34,14 @@ export const monsters: Monster[] = [
     name: 'toolooo',
     module: 'Toolbox',
     description:
-      'Handy online tools and calculators crafted to simplify work, boost productivity, solve problems, and save your time.',
+      'Small browser tools that help you check, simulate, decide, plan, and create — turning invisible problems into visible ones.',
     color: '#F7933C',
     colorLight: '#FED7AA',
     textColor: '#2A3439',
     route: '/toolbox',
     image: '/images/Monsters/toolooo.png',
     status: 'active',
-    tagline: 'Tools that work.',
+    tagline: 'Make it visible.',
   },
   {
     id: 'future-2',

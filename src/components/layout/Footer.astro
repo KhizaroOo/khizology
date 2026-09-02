@@ -102,7 +102,7 @@ const currentYear = new Date().getFullYear();
         <ul>
           <li><a href={url('/toolbox')} class="k-footer-link">All Tools</a></li>
           {families.map(f => (
-            <li><a href={url(`/toolbox#${f.id}`)} class="k-footer-link">{f.icon} {f.name}</a></li>
+            <li><a href={url(`/toolbox/family/${f.id}`)} class="k-footer-link">{f.icon} {f.name}</a></li>
           ))}
         </ul>
       </div>
