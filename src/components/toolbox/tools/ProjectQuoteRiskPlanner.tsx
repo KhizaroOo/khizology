@@ -3,6 +3,7 @@ import InputField from '../shared/InputField';
 import Metric from '../shared/Metric';
 import Warning from '../shared/Warning';
 import VisualizationContainer from '../shared/VisualizationContainer';
+import { clamp, formatNumber, safeDiv, safeNumber } from '../shared/mathHelpers';
 
 const LINE_ITEMS_INIT = [
   { name: 'Design', riskPct: 15 },
@@ -14,6 +15,8 @@ const LINE_ITEMS_INIT = [
 ];
 
 const HOURS_INIT = [20, 30, 30, 10, 10, 15];
+
+const MAX_HOURS = 100_000;
 
 interface LineItem {
   name: string;
@@ -33,26 +36,32 @@ export default function ProjectQuoteRiskPlanner() {
   );
 
   const updateHours = (index: number, value: string) => {
-    const parsed = Math.max(0, parseFloat(value) || 0);
+    const parsed = clamp(safeNumber(value, 0), 0, MAX_HOURS);
     setItems((prev) => prev.map((it, i) => (i === index ? { ...it, hours: parsed } : it)));
   };
 
   const computed = useMemo(() => {
-    const withAdjusted = items.map((it) => ({
-      ...it,
-      riskAdjustedHours: it.hours * (1 + it.riskPct / 100),
-    }));
+    const withAdjusted = items.map((it) => {
+      const riskAdjustedHours = it.hours * (1 + it.riskPct / 100);
+      // Risk-safe applies the same historical risk a second time, on top of the
+      // already-adjusted hours -- a deliberately conservative "quote this if you
+      // need certainty" number, not a second independent risk.
+      const riskSafeHours = riskAdjustedHours * (1 + it.riskPct / 100);
+      return { ...it, riskAdjustedHours, riskSafeHours };
+    });
     const totalQuoted = withAdjusted.reduce((sum, it) => sum + it.hours, 0);
     const totalRiskAdjusted = withAdjusted.reduce((sum, it) => sum + it.riskAdjustedHours, 0);
-    const bufferPct = totalQuoted > 0 ? ((totalRiskAdjusted - totalQuoted) / totalQuoted) * 100 : 0;
+    const totalRiskSafe = withAdjusted.reduce((sum, it) => sum + it.riskSafeHours, 0);
+    const bufferPct = safeDiv(totalRiskAdjusted - totalQuoted, totalQuoted, 0) * 100;
     const sortedForChart = [...withAdjusted].sort((a, b) => b.riskPct - a.riskPct);
     const highestRisk = withAdjusted.reduce((max, it) => (it.riskPct > max.riskPct ? it : max), withAdjusted[0]);
-    return { withAdjusted, totalQuoted, totalRiskAdjusted, bufferPct, sortedForChart, highestRisk };
+    return { withAdjusted, totalQuoted, totalRiskAdjusted, totalRiskSafe, bufferPct, sortedForChart, highestRisk };
   }, [items]);
 
-  const { totalQuoted, totalRiskAdjusted, bufferPct, sortedForChart, highestRisk } = computed;
+  const { totalQuoted, totalRiskAdjusted, totalRiskSafe, bufferPct, sortedForChart, highestRisk } = computed;
 
   const level = highestRisk.riskPct >= 40 ? 'danger' : highestRisk.riskPct >= 25 ? 'warn' : 'good';
+  const levelColor = level === 'danger' ? '#ef4444' : level === 'warn' ? '#F7933C' : '#22c55e';
 
   // chart layout
   const labelWidth = 178;
@@ -64,6 +73,32 @@ export default function ProjectQuoteRiskPlanner() {
   const topPad = 8;
   const chartHeight = sortedForChart.length * rowHeight + topPad;
   const maxScale = Math.max(1, ...sortedForChart.map((it) => it.riskAdjustedHours)) * 1.08;
+
+  // three-scenario comparison (Optimistic -> Likely -> Risk-safe), scaled to the largest of the three
+  const scenarios = [
+    {
+      label: 'Optimistic',
+      value: totalQuoted,
+      color: '#6CA6FF',
+      opacity: 0.9,
+      note: 'No risk applied — the raw quoted hours',
+    },
+    {
+      label: 'Likely',
+      value: totalRiskAdjusted,
+      color: levelColor,
+      opacity: 0.55,
+      note: "Each item's historical risk applied once — the realistic total",
+    },
+    {
+      label: 'Risk-safe',
+      value: totalRiskSafe,
+      color: levelColor,
+      opacity: 1,
+      note: 'That same risk applied a second time — quote this when the client needs certainty',
+    },
+  ];
+  const scenarioMax = Math.max(1, totalQuoted, totalRiskAdjusted, totalRiskSafe);
 
   return (
     <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
@@ -175,19 +210,82 @@ export default function ProjectQuoteRiskPlanner() {
         </span>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '.75rem', marginTop: '1.5rem' }}>
-        <Metric label="Total quoted hours" value={`${totalQuoted}h`} />
-        <Metric
-          label="Risk-adjusted hours"
-          value={`${totalRiskAdjusted.toFixed(0)}h`}
-          color={level === 'danger' ? '#ef4444' : level === 'warn' ? '#F7933C' : '#22c55e'}
-        />
-        <Metric
-          label="Recommended buffer"
-          value={`${bufferPct.toFixed(0)}%`}
-          sublabel="add this to your quoted total"
-          color={level === 'danger' ? '#ef4444' : level === 'warn' ? '#F7933C' : '#22c55e'}
-        />
+      <div style={{ marginTop: '2rem' }}>
+        <h3
+          style={{
+            fontFamily: "'Poppins', sans-serif",
+            fontWeight: 700,
+            fontSize: '.85rem',
+            color: 'var(--k-text)',
+            margin: '0 0 .25rem',
+            textTransform: 'uppercase',
+            letterSpacing: '.06em',
+          }}
+        >
+          Three numbers to quote from
+        </h3>
+        <p style={{ fontSize: '.78rem', color: 'var(--k-text-muted)', margin: '0 0 1rem', lineHeight: 1.5 }}>
+          This is a planning aid, not an exact estimator — treat these as three defensible totals to choose between,
+          not three guaranteed outcomes.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '.75rem', marginBottom: '1.25rem' }}>
+          <Metric label="Optimistic" value={`${formatNumber(totalQuoted, 0)}h`} color="#6CA6FF" sublabel="No risk applied" />
+          <Metric label="Likely" value={`${formatNumber(totalRiskAdjusted, 0)}h`} color={levelColor} sublabel="Risk applied once" />
+          <Metric label="Risk-safe" value={`${formatNumber(totalRiskSafe, 0)}h`} color={levelColor} sublabel="Risk applied twice" />
+          <Metric
+            label="Recommended buffer"
+            value={`${formatNumber(bufferPct, 0)}%`}
+            sublabel="add this to reach Likely"
+            color={levelColor}
+          />
+        </div>
+
+        <VisualizationContainer minHeight={150}>
+          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '.9rem' }}>
+            {scenarios.map((s) => (
+              <div key={s.label}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'baseline',
+                    gap: '.75rem',
+                    marginBottom: '.3rem',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "'Poppins', sans-serif",
+                      fontWeight: 700,
+                      fontSize: '.8rem',
+                      color: 'var(--k-text)',
+                    }}
+                  >
+                    {s.label}
+                  </span>
+                  <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '.85rem', color: s.color }}>
+                    {formatNumber(s.value, 0)}h
+                  </span>
+                </div>
+                <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '999px', height: '14px', overflow: 'hidden' }}>
+                  <div
+                    style={{
+                      width: `${clamp(safeDiv(s.value, scenarioMax, 0) * 100, 0, 100)}%`,
+                      height: '100%',
+                      background: s.color,
+                      opacity: s.opacity,
+                      transition: 'width .2s',
+                    }}
+                  />
+                </div>
+                <div style={{ fontSize: '.72rem', color: 'var(--k-text-muted)', marginTop: '.25rem', fontFamily: "'Mulish', sans-serif" }}>
+                  {s.note}
+                </div>
+              </div>
+            ))}
+          </div>
+        </VisualizationContainer>
       </div>
 
       <div style={{ marginTop: '1.25rem' }}>

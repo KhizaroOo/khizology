@@ -1,22 +1,35 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type MouseEvent } from 'react';
 import Warning from '../shared/Warning';
 import Metric from '../shared/Metric';
+import RangeControl from '../shared/RangeControl';
 import { loadImageFromFile, type LoadedImage } from '../shared/loadImage';
+import { downloadCanvasPNG } from '../shared/exportHelpers';
+import { clamp, safeDiv, formatNumber } from '../shared/mathHelpers';
 
 interface RatioDef {
   key: string;
   label: string;
   ratio: number;
+  defaultOn: boolean;
 }
 
 const RATIOS: RatioDef[] = [
-  { key: 'square', label: 'Square (1:1)', ratio: 1 },
-  { key: 'landscape', label: 'Landscape (16:9)', ratio: 16 / 9 },
-  { key: 'portrait', label: 'Portrait (4:5)', ratio: 4 / 5 },
-  { key: 'story', label: 'Story (9:16)', ratio: 9 / 16 },
+  { key: 'square', label: 'Square (1:1)', ratio: 1, defaultOn: true },
+  { key: 'landscape', label: 'Landscape (16:9)', ratio: 16 / 9, defaultOn: true },
+  { key: 'portrait', label: 'Portrait (4:5)', ratio: 4 / 5, defaultOn: true },
+  { key: 'story', label: 'Story (9:16)', ratio: 9 / 16, defaultOn: true },
+  { key: 'banner', label: 'Wide banner (3:1)', ratio: 3, defaultOn: false },
+  { key: 'pin', label: 'Pin (2:3)', ratio: 2 / 3, defaultOn: false },
 ];
 
 const MAX_LONG_EDGE = 2000;
+const FOCAL_PREVIEW_MAX = 420;
+const ACCENT = '#F7933C';
+
+interface Focal {
+  fx: number;
+  fy: number;
+}
 
 interface CropRect {
   x: number;
@@ -25,23 +38,53 @@ interface CropRect {
   h: number;
 }
 
-function centeredCropRect(imgW: number, imgH: number, targetRatio: number): CropRect {
-  const srcRatio = imgW / imgH;
+/**
+ * Focal-aware crop: finds the largest crop of `targetRatio` that fits inside the image
+ * (optionally shrunk by `zoomPercent`, 100 = no zoom), then positions it so its center
+ * lands as close as possible to the focal point while staying fully inside the image
+ * bounds. With focal = {0.5, 0.5} and zoomPercent = 100 this reduces exactly to the old
+ * always-centered crop.
+ */
+function focalCropRect(imgW: number, imgH: number, targetRatio: number, focal: Focal, zoomPercent: number): CropRect {
+  const srcRatio = safeDiv(imgW, imgH, 1);
+  let baseW: number;
+  let baseH: number;
   if (srcRatio > targetRatio) {
-    // image is wider than target — crop left/right, keep full height
-    const cropW = imgH * targetRatio;
-    return { x: (imgW - cropW) / 2, y: 0, w: cropW, h: imgH };
+    // image is wider than target — full height, crop left/right
+    baseH = imgH;
+    baseW = imgH * targetRatio;
+  } else {
+    // image is taller than target (or equal) — full width, crop top/bottom
+    baseW = imgW;
+    baseH = imgW / targetRatio;
   }
-  // image is taller than target (or equal) — crop top/bottom, keep full width
-  const cropH = imgW / targetRatio;
-  return { x: 0, y: (imgH - cropH) / 2, w: imgW, h: cropH };
+
+  const z = clamp(zoomPercent, 100, 200) / 100;
+  const w = clamp(baseW / z, 1, imgW);
+  const h = clamp(baseH / z, 1, imgH);
+
+  const cx = clamp(focal.fx, 0, 1) * imgW;
+  const cy = clamp(focal.fy, 0, 1) * imgH;
+
+  const x = clamp(cx - w / 2, 0, Math.max(0, imgW - w));
+  const y = clamp(cy - h / 2, 0, Math.max(0, imgH - h));
+
+  return { x, y, w, h };
 }
 
 function outputSize(cropW: number, cropH: number): { w: number; h: number } {
   const longEdge = Math.max(cropW, cropH);
-  if (longEdge <= MAX_LONG_EDGE) return { w: Math.round(cropW), h: Math.round(cropH) };
+  if (longEdge <= 0) return { w: 1, h: 1 };
+  if (longEdge <= MAX_LONG_EDGE) return { w: Math.max(1, Math.round(cropW)), h: Math.max(1, Math.round(cropH)) };
   const scale = MAX_LONG_EDGE / longEdge;
-  return { w: Math.round(cropW * scale), h: Math.round(cropH * scale) };
+  return { w: Math.max(1, Math.round(cropW * scale)), h: Math.max(1, Math.round(cropH * scale)) };
+}
+
+/** Scale (w,h) down (or up) so both dimensions fit within `max`, preserving aspect ratio. */
+function fitWithin(w: number, h: number, max: number): { w: number; h: number } {
+  if (w <= 0 || h <= 0) return { w: max, h: max };
+  const scale = Math.min(max / w, max / h);
+  return { w: Math.max(1, Math.round(w * scale)), h: Math.max(1, Math.round(h * scale)) };
 }
 
 function slugify(label: string): string {
@@ -52,6 +95,7 @@ function slugify(label: string): string {
 }
 
 function drawCrop(canvas: HTMLCanvasElement, img: HTMLImageElement, crop: CropRect, outW: number, outH: number) {
+  if (outW <= 0 || outH <= 0) return;
   canvas.width = outW;
   canvas.height = outH;
   const ctx = canvas.getContext('2d');
@@ -60,35 +104,51 @@ function drawCrop(canvas: HTMLCanvasElement, img: HTMLImageElement, crop: CropRe
   ctx.drawImage(img, crop.x, crop.y, crop.w, crop.h, 0, 0, outW, outH);
 }
 
-function downloadCanvas(canvas: HTMLCanvasElement, filename: string) {
-  canvas.toBlob((blob) => {
-    if (!blob) return;
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }, 'image/png');
+function drawFocalPreview(canvas: HTMLCanvasElement, img: HTMLImageElement, w: number, h: number, focal: Focal) {
+  if (w <= 0 || h <= 0) return;
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  ctx.clearRect(0, 0, w, h);
+  ctx.drawImage(img, 0, 0, w, h);
+
+  const px = clamp(focal.fx, 0, 1) * w;
+  const py = clamp(focal.fy, 0, 1) * h;
+  const r = Math.max(9, Math.min(w, h) * 0.035);
+
+  const drawMark = (color: string, lineWidth: number) => {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineWidth;
+    ctx.beginPath();
+    ctx.arc(px, py, r, 0, Math.PI * 2);
+    ctx.moveTo(px - r - 8, py);
+    ctx.lineTo(px + r + 8, py);
+    ctx.moveTo(px, py - r - 8);
+    ctx.lineTo(px, py + r + 8);
+    ctx.stroke();
+  };
+  // dark outline first so the marker stays visible on light image areas
+  drawMark('rgba(0,0,0,.65)', 4);
+  drawMark(ACCENT, 2);
 }
 
 export default function CropGuardian() {
   const [img, setImg] = useState<LoadedImage | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [checked, setChecked] = useState<Record<string, boolean>>({
-    square: true,
-    landscape: true,
-    portrait: true,
-    story: true,
-  });
+  const [checked, setChecked] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(RATIOS.map((r) => [r.key, r.defaultOn]))
+  );
+  const [focal, setFocal] = useState<Focal>({ fx: 0.5, fy: 0.5 });
+  const [zoom, setZoom] = useState(100);
   const canvasRefs = useMemo(() => new Map<string, HTMLCanvasElement>(), []);
 
   const handleFile = async (file: File) => {
     try {
       setImg(await loadImageFromFile(file));
       setError(null);
+      setFocal({ fx: 0.5, fy: 0.5 });
+      setZoom(100);
     } catch (e) {
       setError((e as Error).message);
       setImg(null);
@@ -99,14 +159,29 @@ export default function CropGuardian() {
     setChecked((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
+  const handleFocalClick = (e: MouseEvent<HTMLCanvasElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return;
+    setFocal({
+      fx: clamp((e.clientX - rect.left) / rect.width, 0, 1),
+      fy: clamp((e.clientY - rect.top) / rect.height, 0, 1),
+    });
+  };
+
+  const focalPreviewSize = useMemo(() => (img ? fitWithin(img.width, img.height, FOCAL_PREVIEW_MAX) : null), [img]);
+
   const crops = useMemo(() => {
     if (!img) return [];
+    const originalArea = img.width * img.height;
     return RATIOS.filter((r) => checked[r.key]).map((r) => {
-      const rect = centeredCropRect(img.width, img.height, r.ratio);
+      const rect = focalCropRect(img.width, img.height, r.ratio, focal, zoom);
       const out = outputSize(rect.w, rect.h);
-      return { ...r, rect, out };
+      const lossPct = clamp(100 - safeDiv(rect.w * rect.h, originalArea, 1) * 100, 0, 100);
+      return { ...r, rect, out, lossPct };
     });
-  }, [img, checked]);
+  }, [img, checked, focal, zoom]);
+
+  const isCentered = Math.abs(focal.fx - 0.5) < 0.001 && Math.abs(focal.fy - 0.5) < 0.001;
 
   return (
     <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
@@ -157,7 +232,7 @@ export default function CropGuardian() {
               type="checkbox"
               checked={!!checked[r.key]}
               onChange={() => toggle(r.key)}
-              style={{ width: '16px', height: '16px', accentColor: '#F7933C', cursor: 'pointer' }}
+              style={{ width: '16px', height: '16px', accentColor: ACCENT, cursor: 'pointer' }}
             />
             {r.label}
           </label>
@@ -169,7 +244,89 @@ export default function CropGuardian() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '.75rem', marginBottom: '1.5rem' }}>
             <Metric label="Source image" value={`${img.width} × ${img.height}px`} />
             <Metric label="File size" value={`${(img.fileSizeBytes / 1024).toFixed(0)} KB`} />
-            <Metric label="Crops selected" value={String(crops.length)} color={crops.length ? '#22c55e' : '#F7933C'} />
+            <Metric label="Crops selected" value={String(crops.length)} color={crops.length ? '#22c55e' : ACCENT} />
+            <Metric
+              label="Focal point"
+              value={`${Math.round(focal.fx * 100)}%, ${Math.round(focal.fy * 100)}%`}
+              color={isCentered ? undefined : ACCENT}
+              sublabel={isCentered ? 'center (default)' : undefined}
+            />
+          </div>
+
+          <div
+            style={{
+              fontSize: '.8rem',
+              fontWeight: 700,
+              color: 'var(--k-text-muted)',
+              textTransform: 'uppercase',
+              letterSpacing: '.06em',
+              fontFamily: "'Poppins', sans-serif",
+              marginBottom: '.6rem',
+            }}
+          >
+            Focal lock
+          </div>
+          <p style={{ fontSize: '.82rem', color: 'var(--k-text-muted)', marginTop: 0, marginBottom: '.75rem', lineHeight: 1.5 }}>
+            Click anywhere on the image below to mark what must stay in frame. Every crop below is
+            recomputed to keep that point as centered as possible.
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '.5rem', marginBottom: '1.5rem' }}>
+            <div
+              style={{
+                backgroundImage:
+                  'linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%)',
+                backgroundSize: '16px 16px',
+                backgroundPosition: '0 0, 0 8px, 8px -8px, -8px 0px',
+                border: '1px solid var(--k-border)',
+                borderRadius: '.75rem',
+                overflow: 'hidden',
+                display: 'inline-flex',
+                maxWidth: '100%',
+              }}
+            >
+              {focalPreviewSize && (
+                <canvas
+                  ref={(el) => {
+                    if (!el || !img) return;
+                    drawFocalPreview(el, img.image, focalPreviewSize.w, focalPreviewSize.h, focal);
+                  }}
+                  onClick={handleFocalClick}
+                  style={{ width: '100%', maxWidth: `${FOCAL_PREVIEW_MAX}px`, height: 'auto', display: 'block', cursor: 'crosshair' }}
+                />
+              )}
+            </div>
+            {!isCentered && (
+              <button
+                onClick={() => setFocal({ fx: 0.5, fy: 0.5 })}
+                style={{
+                  background: 'transparent',
+                  color: 'var(--k-text-muted)',
+                  border: '1px solid var(--k-border)',
+                  padding: '.35rem .75rem',
+                  borderRadius: '.5rem',
+                  fontWeight: 700,
+                  fontSize: '.75rem',
+                  fontFamily: "'Poppins', sans-serif",
+                  cursor: 'pointer',
+                }}
+              >
+                Reset to center
+              </button>
+            )}
+          </div>
+
+          <div style={{ maxWidth: '360px', marginBottom: '1.5rem' }}>
+            <RangeControl
+              label="Zoom"
+              value={zoom}
+              onChange={setZoom}
+              min={100}
+              max={200}
+              step={1}
+              formatValue={(v) => `${Math.round(v)}%`}
+              accent={ACCENT}
+            />
           </div>
 
           {crops.length === 0 ? (
@@ -214,10 +371,13 @@ export default function CropGuardian() {
                   <div style={{ fontSize: '.72rem', color: 'var(--k-text-muted)' }}>
                     {c.out.w} × {c.out.h}px
                   </div>
+                  <div style={{ fontSize: '.72rem', color: 'var(--k-text-muted)' }}>
+                    {formatNumber(c.lossPct, 1)}% of original cropped out
+                  </div>
                   <button
                     onClick={() => {
                       const canvas = canvasRefs.get(c.key);
-                      if (canvas) downloadCanvas(canvas, `crop-${slugify(c.label)}.png`);
+                      if (canvas) downloadCanvasPNG(canvas, `crop-${slugify(c.label)}.png`);
                     }}
                     style={{
                       background: '#93B96A',
@@ -240,7 +400,11 @@ export default function CropGuardian() {
 
           <div style={{ marginTop: '1.25rem' }}>
             <Warning level="info" title="How the crop is chosen">
-              For each ratio, Crop Guardian finds the largest possible centered crop that matches it exactly — trimming the sides if your image is wider than the target, or the top/bottom if it's taller. No stretching, no distortion.
+              For each ratio, Crop Guardian finds the largest possible crop that matches it exactly — trimming the
+              sides if your image is wider than the target, or the top/bottom if it's taller — no stretching, no
+              distortion. That crop is then positioned so its center lands as close as possible to your focal point
+              (the marker on the image above), while staying fully inside the photo. Zoom shrinks every crop around
+              that same locked point, so whatever you marked stays in frame across every ratio.
             </Warning>
           </div>
         </>
