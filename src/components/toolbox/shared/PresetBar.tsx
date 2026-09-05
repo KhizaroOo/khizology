@@ -20,6 +20,7 @@ export default function PresetBar<T>({ presets, activeLabel, onSelect, accent = 
           <button
             key={p.label}
             type="button"
+            aria-pressed={active}
             onClick={() => onSelect(p.values, p.label)}
             style={{
               padding: '.4rem .875rem',

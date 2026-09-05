@@ -4,7 +4,8 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import FamilyCard from '../components/toolbox/FamilyCard.astro';
 import ToolCard from '../components/toolbox/ToolCard.astro';
 import { families } from '../data/families';
-import { tools, getToolCountByFamily, allTags } from '../data/tools';
+import { tools, getToolCountByFamily, getActiveToolCountByFeatureLevel, allTags } from '../data/tools';
+import { toolFeatureLevels } from '../data/featureLevels';
 import { monsters } from '../data/monsters';
 import { url } from '../utils/url';
 
@@ -49,9 +50,9 @@ const jsonLd = {
           Useful, fast, beautiful — no signup, no backend, no bullshit.
         </p>
         <div class="tb-hero-stats">
-          <div class="tb-stat"><span class="tb-stat-num">{tools.length}</span><span class="tb-stat-label">Tools Planned</span></div>
+          <div class="tb-stat"><span class="tb-stat-num">{tools.length}</span><span class="tb-stat-label">Total Tools</span></div>
           <div class="tb-stat"><span class="tb-stat-num">{activeCount}</span><span class="tb-stat-label">Live Now</span></div>
-          <div class="tb-stat"><span class="tb-stat-num">5</span><span class="tb-stat-label">Families</span></div>
+          <div class="tb-stat"><span class="tb-stat-num">{families.length}</span><span class="tb-stat-label">Families</span></div>
         </div>
       </div>
     </div>
@@ -73,6 +74,30 @@ const jsonLd = {
     </div>
   </section>
 
+  <section class="tb-levels-section" aria-labelledby="feature-levels-title">
+    <div class="k-container tb-levels-inner">
+      <div class="tb-levels-intro">
+        <span class="k-section-label" style={`color: ${ACCENT}`}>Toolooo Feature Levels</span>
+        <h2 id="feature-levels-title" class="tb-levels-title">How deep does the tool go?</h2>
+        <p>Levels describe experience maturity. Every current production tool targets LV2.</p>
+      </div>
+      <div class="tb-level-list">
+        {toolFeatureLevels.map((definition) => {
+          const count = getActiveToolCountByFeatureLevel(definition.level);
+          return (
+            <div class:list={['tb-level-item', { 'is-current': count > 0 }]}>
+              <div class="tb-level-heading">
+                <strong>LV{definition.level} · {definition.name}</strong>
+                {count > 0 && <span>{count} active</span>}
+              </div>
+              <p>{definition.shortDescription}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
   <!-- Tools -->
   <section class="k-section tb-tools-section" id="tools">
     <div class="k-container">
@@ -88,7 +113,7 @@ const jsonLd = {
 
       <div class="tb-tag-row">
         {allTags.map((tag) => (
-          <button type="button" class="tb-tag-btn" data-tag-filter={tag}>{tag}</button>
+          <button type="button" class="tb-tag-btn" data-tag-filter={tag} aria-pressed="false">{tag}</button>
         ))}
       </div>
 
@@ -147,7 +172,11 @@ const jsonLd = {
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-family-filter') || 'all';
       activeFamily = activeFamily === id ? 'all' : id;
-      familyButtons.forEach((b) => b.classList.toggle('is-active', b.getAttribute('data-family-filter') === activeFamily));
+      familyButtons.forEach((b) => {
+        const selected = b.getAttribute('data-family-filter') === activeFamily;
+        b.classList.toggle('is-active', selected);
+        b.setAttribute('aria-pressed', String(selected));
+      });
       applyFilter();
     });
   });
@@ -156,7 +185,11 @@ const jsonLd = {
     btn.addEventListener('click', () => {
       const tag = btn.getAttribute('data-tag-filter') || 'all';
       activeTag = activeTag === tag ? 'all' : tag;
-      tagButtons.forEach((b) => b.classList.toggle('is-active', b.getAttribute('data-tag-filter') === activeTag));
+      tagButtons.forEach((b) => {
+        const selected = b.getAttribute('data-tag-filter') === activeTag;
+        b.classList.toggle('is-active', selected);
+        b.setAttribute('aria-pressed', String(selected));
+      });
       applyFilter();
     });
   });
@@ -164,8 +197,10 @@ const jsonLd = {
   clearBtn?.addEventListener('click', () => {
     activeFamily = 'all';
     activeTag = 'all';
-    familyButtons.forEach((b) => b.classList.remove('is-active'));
-    tagButtons.forEach((b) => b.classList.remove('is-active'));
+    [...familyButtons, ...tagButtons].forEach((b) => {
+      b.classList.remove('is-active');
+      b.setAttribute('aria-pressed', 'false');
+    });
     applyFilter();
   });
 </script>
@@ -213,6 +248,20 @@ const jsonLd = {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 1.125rem;
   }
+
+  .tb-levels-section { background: var(--k-bg); border-top: 1px solid var(--k-border); padding: 2rem 0; }
+  .tb-levels-inner { display: grid; grid-template-columns: minmax(220px, .7fr) minmax(0, 1.3fr); gap: 2rem; align-items: center; }
+  .tb-levels-title { font-family: 'Poppins', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--k-text); margin: .25rem 0 .35rem; }
+  .tb-levels-intro p { color: var(--k-text-muted); font-size: .85rem; line-height: 1.55; margin: 0; }
+  .tb-level-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+  .tb-level-item { padding: .85rem; border: 1px solid var(--k-border); border-radius: .75rem; background: var(--k-bg-card); }
+  .tb-level-item.is-current { border-color: color-mix(in srgb, #F7933C 55%, var(--k-border)); background: color-mix(in srgb, #F7933C 7%, var(--k-bg-card)); }
+  .tb-level-heading { display: flex; gap: .4rem; align-items: baseline; justify-content: space-between; flex-wrap: wrap; }
+  .tb-level-heading strong { font-family: 'Poppins', sans-serif; font-size: .75rem; color: var(--k-text); }
+  .tb-level-heading span { font-size: .62rem; font-weight: 800; color: #F7933C; text-transform: uppercase; }
+  .tb-level-item p { margin: .3rem 0 0; font-size: .7rem; line-height: 1.45; color: var(--k-text-muted); }
+  @media (max-width: 760px) { .tb-levels-inner { grid-template-columns: 1fr; gap: 1rem; } }
+  @media (max-width: 580px) { .tb-level-list { grid-template-columns: 1fr; } }
 
   /* Tools */
   .tb-tools-section { background: var(--k-bg); border-top: 1px solid var(--k-border); }

@@ -1,3 +1,5 @@
+import { useId } from 'react';
+
 interface InputFieldProps {
   label: string;
   type?: string;
@@ -10,9 +12,11 @@ interface InputFieldProps {
 }
 
 export default function InputField({ label, type = 'number', value, onChange, placeholder, step, min, suffix }: InputFieldProps) {
+  const id = useId();
   return (
     <div>
       <label
+        htmlFor={id}
         style={{
           display: 'block',
           fontSize: '.8rem',
@@ -28,6 +32,7 @@ export default function InputField({ label, type = 'number', value, onChange, pl
       </label>
       <div style={{ position: 'relative' }}>
         <input
+          id={id}
           type={type}
           value={value}
           step={step}
@@ -43,7 +48,6 @@ export default function InputField({ label, type = 'number', value, onChange, pl
             color: 'var(--k-text)',
             fontSize: '.9rem',
             fontFamily: "'Mulish', sans-serif",
-            outline: 'none',
             boxSizing: 'border-box',
           }}
         />

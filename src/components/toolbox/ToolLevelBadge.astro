@@ -1,0 +1,48 @@
+---
+import { getToolFeatureLevel, type ToolFeatureLevel } from '../../data/featureLevels';
+
+interface Props {
+  level: ToolFeatureLevel;
+}
+
+const { level } = Astro.props;
+const definition = getToolFeatureLevel(level);
+---
+
+<details class="tool-level">
+  <summary aria-label={`Feature level ${level}: ${definition.name}. Select to learn what it means.`}>
+    LV{level} · {definition.name}
+  </summary>
+  <div class="tool-level-explanation">
+    <strong>{definition.shortDescription}</strong>
+    <span>{definition.principle} Feature Level describes the depth of the tool experience.</span>
+  </div>
+</details>
+
+<style>
+  .tool-level { position: relative; }
+  .tool-level summary {
+    list-style: none; cursor: pointer; white-space: nowrap;
+    font-family: 'Poppins', sans-serif; font-size: .62rem; font-weight: 800;
+    letter-spacing: .06em; text-transform: uppercase;
+    padding: .2rem .6rem; border-radius: 999px;
+    background: var(--k-bg-elevated); color: var(--k-text);
+    border: 1px solid var(--k-border);
+  }
+  .tool-level summary::-webkit-details-marker { display: none; }
+  .tool-level summary:hover, .tool-level summary:focus-visible { border-color: var(--fc, #F7933C); }
+  .tool-level-explanation {
+    position: absolute; z-index: 10; top: calc(100% + .5rem); left: 0;
+    width: min(280px, calc(100vw - 3rem));
+    display: flex; flex-direction: column; gap: .35rem;
+    padding: .8rem; border: 1px solid var(--k-border); border-radius: .75rem;
+    background: var(--k-bg-card); box-shadow: 0 8px 30px var(--k-shadow);
+    font-size: .75rem; line-height: 1.45; color: var(--k-text-muted);
+  }
+  .tool-level-explanation strong { color: var(--k-text); font-family: 'Poppins', sans-serif; }
+  @media (max-width: 600px) {
+    .tool-level[open] { flex-basis: 100%; }
+    .tool-level summary { width: fit-content; }
+    .tool-level-explanation { position: static; margin-top: .5rem; width: min(280px, 100%); }
+  }
+</style>

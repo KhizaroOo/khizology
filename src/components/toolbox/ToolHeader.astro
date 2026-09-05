@@ -2,6 +2,7 @@
 import type { Tool } from '../../data/tools';
 import { getFamilyById } from '../../data/families';
 import TagChip from './TagChip.astro';
+import ToolLevelBadge from './ToolLevelBadge.astro';
 
 interface Props {
   tool: Tool;
@@ -17,6 +18,7 @@ const family = getFamilyById(tool.family);
   <div class="th-text">
     <div class="th-badges">
       <span class="th-family-badge">{family?.icon} {family?.name}</span>
+      <ToolLevelBadge level={tool.featureLevel} />
       {tool.status !== 'active' && (
         <span class="th-status-badge">{tool.status === 'planned' ? 'Planned' : 'Experimental'}</span>
       )}

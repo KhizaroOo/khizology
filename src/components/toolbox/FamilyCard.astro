@@ -9,7 +9,7 @@ interface Props {
 const { family, count } = Astro.props;
 ---
 
-<button type="button" class="family-card" data-family-filter={family.id} style={`--fc: ${family.color}`}>
+<button type="button" class="family-card" data-family-filter={family.id} aria-pressed="false" style={`--fc: ${family.color}`}>
   <span class="fc-icon">{family.icon}</span>
   <h3 class="fc-name">{family.name}</h3>
   <p class="fc-question">"{family.question}"</p>

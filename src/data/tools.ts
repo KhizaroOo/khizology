@@ -1,4 +1,5 @@
 import type { FamilyId } from './families';
+import type { ToolFeatureLevel } from './featureLevels';
 
 export type ToolStatus = 'active' | 'planned' | 'experimental';
 
@@ -11,6 +12,7 @@ export interface Tool {
   family: FamilyId;
   tags: string[];
   status: ToolStatus;
+  featureLevel: ToolFeatureLevel;
   featured?: boolean;
   privacySensitive?: boolean;
   icon: string;
@@ -28,6 +30,7 @@ export const tools: Tool[] = [
     family: 'check',
     tags: ['Engineering', 'Backend', 'API'],
     status: 'active',
+    featureLevel: 2,
     featured: true,
     privacySensitive: true,
     icon: '🩺',
@@ -42,6 +45,7 @@ export const tools: Tool[] = [
     family: 'check',
     tags: ['Engineering', 'Backend', 'Security', 'API'],
     status: 'active',
+    featureLevel: 2,
     privacySensitive: true,
     icon: '🕰️',
     keywords: ['jwt decoder', 'token expiry', 'jwt debugger', 'auth token checker'],
@@ -55,6 +59,7 @@ export const tools: Tool[] = [
     family: 'check',
     tags: ['Engineering', 'Backend', 'Networking', 'Security', 'API'],
     status: 'active',
+    featureLevel: 2,
     privacySensitive: true,
     icon: '🌐',
     keywords: ['cors error debugger', 'cors checker', 'preflight request', 'access-control-allow-origin'],
@@ -68,12 +73,63 @@ export const tools: Tool[] = [
     family: 'check',
     tags: ['Print', 'Design'],
     status: 'active',
+    featureLevel: 2,
     privacySensitive: true,
     icon: '🖨️',
     keywords: ['print ready checker', 'document print check', 'print resolution', 'safe area checker'],
   },
 
+  {
+    id: 'schema-drift-doctor',
+    name: 'Schema Drift Doctor',
+    slug: 'schema-drift-doctor',
+    shortDescription: 'Compare JSON or CSV samples and see where a data contract may have changed.',
+    longDescription: 'Compare before and after samples to reveal added or missing fields, type and nullability changes, nested structure drift, and possible renames. Explore the affected paths and the checks a consumer may need, with all parsing and comparison kept in your browser.',
+    family: 'check',
+    tags: ['Data', 'API', 'Engineering', 'Schema', 'Debugging'],
+    status: 'active',
+    featureLevel: 2,
+    privacySensitive: true,
+    icon: '🧬',
+    keywords: ['schema drift detector', 'json schema comparison', 'data contract changes', 'csv structure comparison'],
+  },
+  {
+    id: 'environment-drift-detector',
+    name: 'Environment Drift Detector',
+    slug: 'environment-drift-detector',
+    shortDescription: 'Compare environment configuration structures while keeping values masked by default.',
+    longDescription: 'Paste or open local environment files to compare key presence, empty settings, and apparent value types across development, staging, and production. See structural drift in a configuration matrix and export a sanitized checklist without uploading or saving your configuration.',
+    family: 'check',
+    tags: ['Engineering', 'DevOps', 'Configuration', 'Environment', 'Debugging'],
+    status: 'active',
+    featureLevel: 2,
+    privacySensitive: true,
+    icon: '🧩',
+    keywords: ['environment drift', 'env file comparison', 'configuration matrix', 'missing environment variables'],
+  },
+
   // ── SIMULATE ───────────────────────────────────────
+  {
+    id: 'responsive-content-fit-lab', name: 'Responsive Content Fit Lab', slug: 'responsive-content-fit-lab',
+    shortDescription: 'Resize your content and see where headings, copy, and actions start to struggle.',
+    longDescription: 'Test a configurable content card at real browser widths. Explore typography, spacing, action layouts, and card limits, then inspect measured wrapping and overflow alongside clearly labeled readability heuristics at common breakpoints.',
+    family: 'simulate', tags: ['Design', 'Frontend', 'Responsive', 'Content', 'UX'], status: 'active', featureLevel: 2,
+    icon: '↔️', keywords: ['responsive content tester', 'text wrapping', 'button overflow', 'breakpoint preview'],
+  },
+  {
+    id: 'webhook-delivery-simulator', name: 'Webhook Delivery Simulator', slug: 'webhook-delivery-simulator',
+    shortDescription: 'See how failures, retries, and duplicate events affect webhook delivery and processing.',
+    longDescription: 'Explore a deterministic webhook delivery model with receiver failures, timeouts, retry delays, recovery, and idempotency. Inspect event timelines and compare acknowledged deliveries with actual processing to understand retries, duplicate side effects, and unresolved work.',
+    family: 'simulate', tags: ['Engineering', 'Backend', 'API', 'Webhooks', 'Reliability'], status: 'active', featureLevel: 2,
+    icon: '📨', keywords: ['webhook simulator', 'webhook retries', 'idempotency', 'duplicate events', 'delivery timeline'],
+  },
+  {
+    id: 'capacity-cliff-simulator', name: 'Capacity Cliff Simulator', slug: 'capacity-cliff-simulator',
+    shortDescription: 'Find when growing demand crosses your safe threshold and available capacity.',
+    longDescription: 'Plot demand growth against a current and expanded capacity plan. Explore peaks, temporary capacity loss, expansion timing, and your chosen safe-utilization threshold to see margins, crossings, and the capacity needed through the planning horizon.',
+    family: 'simulate', tags: ['Engineering', 'Capacity', 'Planning', 'Performance', 'Growth'], status: 'active', featureLevel: 2,
+    icon: '📈', keywords: ['capacity planning simulator', 'demand growth', 'utilization threshold', 'capacity expansion'],
+  },
   {
     id: 'retry-storm-simulator',
     name: 'Retry Storm Simulator',
@@ -83,6 +139,7 @@ export const tools: Tool[] = [
     family: 'simulate',
     tags: ['Engineering', 'Backend', 'Reliability', 'Architecture'],
     status: 'active',
+    featureLevel: 2,
     featured: true,
     icon: '🔁',
     keywords: ['retry storm', 'retry amplification', 'exponential backoff', 'thundering herd'],
@@ -96,6 +153,7 @@ export const tools: Tool[] = [
     family: 'simulate',
     tags: ['Engineering', 'Backend', 'Architecture', 'Reliability'],
     status: 'active',
+    featureLevel: 2,
     icon: '💾',
     keywords: ['cache hit rate', 'ttl simulator', 'cache eviction', 'cache staleness'],
   },
@@ -108,6 +166,7 @@ export const tools: Tool[] = [
     family: 'simulate',
     tags: ['Engineering', 'Backend', 'API', 'Reliability'],
     status: 'active',
+    featureLevel: 2,
     icon: '🚦',
     keywords: ['rate limiting', 'token bucket', 'sliding window', 'api throttling'],
   },
@@ -120,6 +179,7 @@ export const tools: Tool[] = [
     family: 'simulate',
     tags: ['Engineering', 'Backend', 'Architecture', 'Reliability'],
     status: 'active',
+    featureLevel: 2,
     icon: '📥',
     keywords: ['queue capacity', 'queue buildup', 'message queue simulator', 'backpressure'],
   },
@@ -132,6 +192,7 @@ export const tools: Tool[] = [
     family: 'simulate',
     tags: ['Engineering', 'Backend', 'Architecture', 'Reliability'],
     status: 'active',
+    featureLevel: 2,
     icon: '🔗',
     keywords: ['sla calculator', 'combined uptime', 'availability chain', 'five nines'],
   },
@@ -144,6 +205,7 @@ export const tools: Tool[] = [
     family: 'simulate',
     tags: ['Engineering', 'Backend', 'Architecture', 'Networking'],
     status: 'active',
+    featureLevel: 2,
     icon: '🌳',
     keywords: ['fan-out latency', 'tail latency', 'parallel requests', 'p99 latency'],
   },
@@ -156,6 +218,7 @@ export const tools: Tool[] = [
     family: 'simulate',
     tags: ['Engineering', 'Backend', 'Reliability', 'Architecture'],
     status: 'active',
+    featureLevel: 2,
     icon: '⚡',
     keywords: ['circuit breaker', 'fault tolerance', 'half-open state', 'resilience pattern'],
   },
@@ -168,6 +231,7 @@ export const tools: Tool[] = [
     family: 'simulate',
     tags: ['Engineering', 'Backend', 'Database'],
     status: 'active',
+    featureLevel: 2,
     icon: '🔢',
     keywords: ['n+1 problem', 'orm query explosion', 'eager loading', 'lazy loading query count'],
   },
@@ -180,6 +244,7 @@ export const tools: Tool[] = [
     family: 'simulate',
     tags: ['Engineering', 'Backend', 'Database', 'Reliability'],
     status: 'active',
+    featureLevel: 2,
     icon: '🔌',
     keywords: ['connection pool', 'database pool sizing', 'pool exhaustion', 'concurrent connections'],
   },
@@ -192,6 +257,7 @@ export const tools: Tool[] = [
     family: 'simulate',
     tags: ['Engineering', 'Backend', 'Networking', 'API'],
     status: 'active',
+    featureLevel: 2,
     icon: '🗄️',
     keywords: ['http caching', 'cache-control header', 'etag', 'cdn caching behavior'],
   },
@@ -204,11 +270,19 @@ export const tools: Tool[] = [
     family: 'simulate',
     tags: ['Freelance', 'Money', 'Projects'],
     status: 'active',
+    featureLevel: 2,
     icon: '📉',
     keywords: ['scope creep', 'freelance rate calculator', 'effective hourly rate', 'project scope tracker'],
   },
 
   // ── DECIDE ─────────────────────────────────────────
+  {
+    id: 'ai-project-pricing-lab', name: 'AI Project Pricing Lab', slug: 'ai-project-pricing-lab',
+    shortDescription: 'Compare AI-assisted effort with the risk, review, and support you still own.',
+    longDescription: 'Use your own effort estimates and hourly baseline to compare straightforward time costing with a transparent contingency range. Explore revisions, uncertainty, review, support, and ownership without treating AI speed as a universal project price.',
+    family: 'decide', tags: ['Freelance', 'AI', 'Money', 'Projects', 'Business', 'Pricing'], status: 'active', featureLevel: 2,
+    icon: '⚖️', keywords: ['AI project pricing', 'freelance quote planning', 'risk-adjusted effort', 'AI assisted estimates'],
+  },
   {
     id: 'database-decision-lab',
     name: 'Database Decision Lab',
@@ -218,6 +292,7 @@ export const tools: Tool[] = [
     family: 'decide',
     tags: ['Engineering', 'Database', 'Architecture'],
     status: 'active',
+    featureLevel: 2,
     featured: true,
     icon: '🗃️',
     keywords: ['database comparison', 'postgres vs mongodb', 'database decision', 'sql vs nosql'],
@@ -231,6 +306,7 @@ export const tools: Tool[] = [
     family: 'decide',
     tags: ['Engineering', 'Projects', 'Money'],
     status: 'active',
+    featureLevel: 2,
     icon: '🏗️',
     keywords: ['build vs buy', 'make or buy decision', 'third party vs in house'],
   },
@@ -243,6 +319,7 @@ export const tools: Tool[] = [
     family: 'decide',
     tags: ['Engineering', 'Architecture', 'Projects'],
     status: 'active',
+    featureLevel: 2,
     icon: '⚔️',
     keywords: ['tech stack comparison', 'stack decision', 'framework comparison'],
   },
@@ -255,6 +332,7 @@ export const tools: Tool[] = [
     family: 'decide',
     tags: ['Engineering', 'Architecture', 'Backend'],
     status: 'active',
+    featureLevel: 2,
     icon: '💸',
     keywords: ['distributed systems cost', 'microservices tax', 'network hop cost'],
   },
@@ -267,6 +345,7 @@ export const tools: Tool[] = [
     family: 'decide',
     tags: ['Engineering', 'Architecture', 'Backend'],
     status: 'active',
+    featureLevel: 2,
     icon: '🧱',
     keywords: ['monolith vs microservices', 'architecture decision', 'service decomposition'],
   },
@@ -279,11 +358,26 @@ export const tools: Tool[] = [
     family: 'decide',
     tags: ['Engineering', 'Backend', 'API'],
     status: 'active',
+    featureLevel: 2,
     icon: '🔀',
     keywords: ['rest vs graphql', 'api design decision', 'graphql vs rest api'],
   },
 
   // ── PLAN ───────────────────────────────────────────
+  {
+    id: 'multi-format-campaign-planner', name: 'Multi-Format Campaign Planner', slug: 'multi-format-campaign-planner',
+    shortDescription: 'Group campaign destinations into reusable master compositions and see the crop tradeoffs.',
+    longDescription: 'Choose destination canvases or add custom sizes, then explore how a chosen crop-loss limit changes the master layouts your campaign needs. Compare an existing ratio, inspect retained frames, and copy a production plan with destination-specific checks.',
+    family: 'plan', tags: ['Creator', 'Design', 'Social Media', 'Campaign', 'Art', 'Content'], status: 'active', featureLevel: 2,
+    icon: '🖼️', keywords: ['campaign format planner', 'master compositions', 'aspect ratio groups', 'social media layouts'],
+  },
+  {
+    id: 'api-pagination-planner', name: 'API Pagination Planner', slug: 'api-pagination-planner',
+    shortDescription: 'Compare pagination behavior and explore the tradeoff between page size and request count.',
+    longDescription: 'Compare offset queries, cursor APIs, and keyset queries for your navigation and data-update pattern. Explore payload sizes, deep-page work, stable ordering, and page-jump requirements to choose an approach and a starting page-size range to test.',
+    family: 'plan', tags: ['Engineering', 'API', 'Backend', 'Performance', 'Data'], status: 'active', featureLevel: 2,
+    icon: '📑', keywords: ['API pagination planner', 'offset vs keyset', 'cursor pagination', 'page size calculator'],
+  },
   {
     id: 'sticky-note-frame-planner',
     name: 'Sticky Note Frame Planner',
@@ -293,6 +387,7 @@ export const tools: Tool[] = [
     family: 'plan',
     tags: ['Art', 'Print', 'Design'],
     status: 'active',
+    featureLevel: 2,
     featured: true,
     icon: '🗒️',
     keywords: ['sticky note layout', 'frame planner', 'sticky note grid', 'art board planner'],
@@ -306,6 +401,7 @@ export const tools: Tool[] = [
     family: 'plan',
     tags: ['Engineering', 'Backend', 'Reliability', 'Architecture'],
     status: 'active',
+    featureLevel: 2,
     icon: '⏱️',
     keywords: ['timeout budget', 'service chain timeout', 'request timeout planning'],
   },
@@ -318,6 +414,7 @@ export const tools: Tool[] = [
     family: 'plan',
     tags: ['Art', 'Print', 'Framing'],
     status: 'active',
+    featureLevel: 2,
     icon: '🖼️',
     keywords: ['frame size finder', 'art framing calculator', 'picture frame fit'],
   },
@@ -330,6 +427,7 @@ export const tools: Tool[] = [
     family: 'plan',
     tags: ['Art', 'Print', 'Design'],
     status: 'active',
+    featureLevel: 2,
     icon: '📄',
     keywords: ['paper nesting', 'print layout planner', 'cut layout optimizer'],
   },
@@ -342,6 +440,7 @@ export const tools: Tool[] = [
     family: 'plan',
     tags: ['Freelance', 'Money', 'Projects'],
     status: 'active',
+    featureLevel: 2,
     icon: '📋',
     keywords: ['project quote risk', 'freelance quote planner', 'scope risk estimator'],
   },
@@ -354,6 +453,7 @@ export const tools: Tool[] = [
     family: 'plan',
     tags: ['Projects', 'Productivity'],
     status: 'active',
+    featureLevel: 2,
     icon: '🗺️',
     keywords: ['roadmap planner', 'project timeline collision', 'resource overlap planner'],
   },
@@ -368,6 +468,7 @@ export const tools: Tool[] = [
     family: 'create',
     tags: ['Art', 'Design'],
     status: 'active',
+    featureLevel: 2,
     privacySensitive: true,
     icon: '✂️',
     keywords: ['multi crop tool', 'aspect ratio cropper', 'batch image crop'],
@@ -381,6 +482,7 @@ export const tools: Tool[] = [
     family: 'create',
     tags: ['Art', 'Drawing'],
     status: 'active',
+    featureLevel: 2,
     featured: true,
     privacySensitive: true,
     icon: '🔳',
@@ -395,6 +497,7 @@ export const tools: Tool[] = [
     family: 'create',
     tags: ['Print', 'Design'],
     status: 'active',
+    featureLevel: 2,
     icon: '🎯',
     keywords: ['bleed guide generator', 'safe area template', 'print bleed calculator'],
   },
@@ -407,6 +510,7 @@ export const tools: Tool[] = [
     family: 'create',
     tags: ['Art', 'Drawing'],
     status: 'active',
+    featureLevel: 2,
     privacySensitive: true,
     icon: '🌓',
     keywords: ['value study generator', 'tonal value reference', 'shading practice tool'],
@@ -420,6 +524,7 @@ export const tools: Tool[] = [
     family: 'create',
     tags: ['Art', 'Drawing'],
     status: 'active',
+    featureLevel: 2,
     privacySensitive: true,
     icon: '📐',
     keywords: ['perspective grid generator', 'vanishing point grid', 'drawing perspective tool'],
@@ -437,6 +542,9 @@ export const getToolCountByFamily = (familyId: string): number =>
 
 export const activeTools: Tool[] = tools.filter((t) => t.status === 'active');
 export const featuredTools: Tool[] = tools.filter((t) => t.featured);
+
+export const getActiveToolCountByFeatureLevel = (featureLevel: ToolFeatureLevel): number =>
+  activeTools.filter((tool) => tool.featureLevel === featureLevel).length;
 
 export const allTags: string[] = Array.from(
   new Set(tools.flatMap((t) => t.tags))

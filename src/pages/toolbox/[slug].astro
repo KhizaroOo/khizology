@@ -42,6 +42,14 @@ import RoadmapCollisionDetector from '../../components/toolbox/tools/RoadmapColl
 import CropGuardian from '../../components/toolbox/tools/CropGuardian';
 import ValueStudyMaker from '../../components/toolbox/tools/ValueStudyMaker';
 import PerspectiveGridMaker from '../../components/toolbox/tools/PerspectiveGridMaker';
+import SchemaDriftDoctor from '../../components/toolbox/tools/SchemaDriftDoctor';
+import EnvironmentDriftDetector from '../../components/toolbox/tools/EnvironmentDriftDetector';
+import WebhookDeliverySimulator from '../../components/toolbox/tools/WebhookDeliverySimulator';
+import CapacityCliffSimulator from '../../components/toolbox/tools/CapacityCliffSimulator';
+import ApiPaginationPlanner from '../../components/toolbox/tools/ApiPaginationPlanner';
+import ResponsiveContentFitLab from '../../components/toolbox/tools/ResponsiveContentFitLab';
+import MultiFormatCampaignPlanner from '../../components/toolbox/tools/MultiFormatCampaignPlanner';
+import AiProjectPricingLab from '../../components/toolbox/tools/AiProjectPricingLab';
 
 export async function getStaticPaths() {
   return tools.map((tool) => ({
@@ -130,6 +138,14 @@ const jsonLd = {
               {tool.slug === 'crop-guardian' && <CropGuardian client:load />}
               {tool.slug === 'value-study-maker' && <ValueStudyMaker client:load />}
               {tool.slug === 'perspective-grid-maker' && <PerspectiveGridMaker client:load />}
+              {tool.slug === 'schema-drift-doctor' && <SchemaDriftDoctor client:load />}
+              {tool.slug === 'environment-drift-detector' && <EnvironmentDriftDetector client:load />}
+              {tool.slug === 'webhook-delivery-simulator' && <WebhookDeliverySimulator client:load />}
+              {tool.slug === 'capacity-cliff-simulator' && <CapacityCliffSimulator client:load />}
+              {tool.slug === 'api-pagination-planner' && <ApiPaginationPlanner client:load />}
+              {tool.slug === 'responsive-content-fit-lab' && <ResponsiveContentFitLab client:load />}
+              {tool.slug === 'multi-format-campaign-planner' && <MultiFormatCampaignPlanner client:load />}
+              {tool.slug === 'ai-project-pricing-lab' && <AiProjectPricingLab client:load />}
             </>
           ) : (
             <ComingSoonCard
@@ -202,6 +218,7 @@ const jsonLd = {
 
   .tp-main-section { background: var(--k-bg); }
   .tp-layout { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+  .tp-main { min-width: 0; }
   @media (min-width: 900px) { .tp-layout { grid-template-columns: 1fr 280px; } }
 
   .tp-about { background: var(--k-bg-card); border: 1px solid var(--k-border); border-radius: 1rem; padding: 1.5rem; margin-top: 1.5rem; }

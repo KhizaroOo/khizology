@@ -182,7 +182,8 @@ export default function ValueStudyMaker() {
       px[i + 2] = quantized;
     }
 
-    ctx.putImageData(new ImageData(px, w, h), 0, 0);
+    raw.data.set(px);
+    ctx.putImageData(raw, 0, 0);
 
     setHistogram(bins);
     setTonal({

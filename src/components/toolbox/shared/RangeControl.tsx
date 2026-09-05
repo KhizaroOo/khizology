@@ -1,3 +1,5 @@
+import { useId } from 'react';
+
 interface RangeControlProps {
   label: string;
   value: number;
@@ -10,10 +12,12 @@ interface RangeControlProps {
 }
 
 export default function RangeControl({ label, value, onChange, min, max, step = 1, formatValue, accent = '#F7933C' }: RangeControlProps) {
+  const id = useId();
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '.375rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '.25rem .5rem', marginBottom: '.375rem' }}>
         <label
+          htmlFor={id}
           style={{
             fontSize: '.8rem',
             fontWeight: 700,
@@ -30,6 +34,7 @@ export default function RangeControl({ label, value, onChange, min, max, step = 
         </span>
       </div>
       <input
+        id={id}
         type="range"
         min={min}
         max={max}
