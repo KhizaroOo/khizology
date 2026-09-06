@@ -108,7 +108,7 @@ const jsonLd = pageSchema({
   <section class="k-section tp-main-section">
     <div class="k-container">
       <div class="tp-layout">
-        <div class="tp-main">
+        <div class="tp-main" data-tool-slug={tool.slug} data-tool-family={tool.family} data-feature-level={tool.featureLevel}>
           {tool.privacySensitive && <PrivacyNotice />}
 
           {tool.status === 'active' ? (

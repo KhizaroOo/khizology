@@ -31,3 +31,8 @@ Use this checklist as `https://khizooology.com` is connected. The repository bui
 - [ ] Run PageSpeed Insights for mobile and desktop on the homepage, Artooo, Toolooo, and one interactive tool.
 - [ ] Check layout stability, artwork loading, keyboard use, and light/dark themes on the live build.
 - [ ] Create the real analytics property before adding analytics; keep the integration centralized in the shared layout.
+
+
+## Mission 5 search and measurement checkpoint
+
+Local preparation adds an indexable Privacy page: 56 generated pages / 52 indexable URLs. See SEARCH-ANALYTICS-SETUP.md for account setup, consent/network validation and the manual IndexNow command; see MISSION-5-VALIDATION.md for evidence and pending live checks. Google requests are expected only after explicit analytics acceptance. Any private tool input in an analytics request remains a failure. Search submission receipts must never be reported as indexing evidence.

@@ -139,10 +139,11 @@ for (const [route, html] of htmlByRoute) {
 
 const toolRoutes = [...htmlByRoute.keys()].filter((route) => /^\/toolbox\/[^/]+\/$/.test(route));
 const familyRoutes = [...htmlByRoute.keys()].filter((route) => /^\/toolbox\/family\/[^/]+\/$/.test(route));
-if (htmlFiles.length !== 55) errors.push(`Expected 55 HTML pages, found ${htmlFiles.length}`);
+const expectedHtmlPages = walk(path.join(root, 'src/pages')).filter(file => file.endsWith('.astro') && !file.includes('[')).length + 40 + 5;
+if (htmlFiles.length !== expectedHtmlPages) errors.push(`Expected ${expectedHtmlPages} HTML pages, found ${htmlFiles.length}`);
 if (toolRoutes.length !== 40) errors.push(`Expected 40 tool routes, found ${toolRoutes.length}`);
 if (familyRoutes.length !== 5) errors.push(`Expected 5 family routes, found ${familyRoutes.length}`);
-if (indexableRoutes.length !== 51) errors.push(`Expected 51 indexable pages, found ${indexableRoutes.length}`);
+if (indexableRoutes.length !== expectedHtmlPages - 4) errors.push(`Expected ${expectedHtmlPages - 4} indexable pages, found ${indexableRoutes.length}`);
 if (noindexRoutes.length !== 4) errors.push(`Expected 4 noindex/redirect pages, found ${noindexRoutes.length}`);
 
 const artworkHtml = htmlByRoute.get('/artworks/') || '';
@@ -155,7 +156,7 @@ if (imageEntries !== 168) errors.push(`Expected 168 image sitemap entries, found
 
 const sitemap = files.find((file) => /sitemap-\d+\.xml$/.test(file));
 const sitemapUrls = sitemap ? count(fs.readFileSync(sitemap, 'utf8'), /<url>/g) : 0;
-if (sitemapUrls !== 51) errors.push(`Expected 51 sitemap URLs, found ${sitemapUrls}`);
+if (sitemapUrls !== indexableRoutes.length) errors.push(`Expected ${indexableRoutes.length} sitemap URLs, found ${sitemapUrls}`);
 
 const publicLeaks = files.filter((file) => /\.(?:map|ts|tsx|astro|md|log)$/i.test(file));
 if (publicLeaks.length) errors.push(`Unexpected source/debug files in dist: ${publicLeaks.map(rel).join(', ')}`);

@@ -1,3 +1,4 @@
+import { trackArtworkView } from '../../utils/analytics';
 import { useState, useEffect, useCallback, useRef } from 'react';
 
 interface Artwork {
@@ -161,7 +162,7 @@ export default function ArtworkGrid({ artworks, base }: Props) {
               className="aw-card"
               data-artwork-id={a.id}
               data-artwork-slug={a.slug}
-              onClick={() => setSelected(a)}
+              onClick={() => { setSelected(a); trackArtworkView(a.slug); }}
               aria-label={`View ${a.title}`}
               style={{ '--aw-delay': `${(i % 12) * 0.04}s` } as React.CSSProperties}
             >

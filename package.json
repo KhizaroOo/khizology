@@ -12,7 +12,11 @@
     "audit:prelaunch": "npm run build && node scripts/audit-seo.mjs && node scripts/audit-prelaunch.mjs",
     "audit:domain": "npm run build && node scripts/audit-seo.mjs && node scripts/audit-prelaunch.mjs && node scripts/audit-domain.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "indexnow:check": "node scripts/indexnow.mjs",
+    "indexnow:submit": "node scripts/indexnow.mjs --submit",
+    "audit:search": "npm run audit:domain && node scripts/audit-search.mjs && node scripts/test-analytics.mjs",
+    "audit:ga-config": "node scripts/audit-ga-config.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.5",

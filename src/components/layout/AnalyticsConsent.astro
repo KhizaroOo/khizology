@@ -1,0 +1,47 @@
+---
+import { url } from '../../utils/url';
+---
+<section id="analytics-consent" aria-labelledby="analytics-consent-title" hidden>
+  <h2 id="analytics-consent-title">Help me understand what people use</h2>
+  <p>Optional analytics measures visits and public tool interactions. Your tool inputs, files, JWTs, JSON and image uploads are never sent to analytics. <a href={url('/privacy')}>Privacy</a></p>
+  <p id="analytics-unconfigured" hidden>Analytics is not configured yet. You can still save your preference.</p>
+  <div class="consent-actions">
+    <button type="button" id="analytics-accept">Accept analytics</button>
+    <button type="button" id="analytics-decline">Decline</button>
+  </div>
+</section>
+<script>
+  import { consent, configured, setConsent, initializeAnalytics } from '../../utils/analytics';
+  const banner = document.getElementById('analytics-consent')!;
+  let opener: HTMLElement | null = null;
+  function sync() { banner.hidden = consent() !== null; }
+  document.getElementById('analytics-unconfigured')!.hidden = configured();
+  initializeAnalytics();
+  sync();
+  document.addEventListener('analytics-consent-change', sync);
+  document.querySelectorAll<HTMLElement>('[data-analytics-preferences]').forEach(button => {
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      opener = button;
+      banner.hidden = false;
+      document.getElementById('analytics-accept')?.focus();
+    });
+  });
+  for (const [id, value] of [['analytics-accept', 'accepted'], ['analytics-decline', 'declined']] as const) {
+    document.getElementById(id)?.addEventListener('click', () => {
+      setConsent(value);
+      sync();
+      opener?.focus();
+    });
+  }
+</script>
+<style>
+  #analytics-consent { position:fixed; bottom:1rem; left:1rem; right:1rem; margin-inline:auto; max-width:40rem; max-height:80vh; overflow:auto; z-index:1000; padding:1rem; border:1px solid var(--k-border); border-radius:1rem; background:var(--k-bg-card); color:var(--k-text); box-shadow:0 4px 24px #0003; }
+  #analytics-consent[hidden] { display:none; }
+  h2 { font-size:1rem; margin:0 0 .5rem; }
+  p { font-size:.875rem; line-height:1.5; margin:.5rem 0; }
+  a { color:inherit; text-decoration:underline; }
+  .consent-actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:.75rem; }
+  button { flex:1 1 10rem; min-height:44px; padding:.6rem; border:1px solid var(--k-text-muted); background:var(--k-bg); color:var(--k-text); border-radius:.5rem; cursor:pointer; font:inherit; font-weight:700; }
+  button:focus-visible, a:focus-visible { outline:3px solid var(--k-accent); outline-offset:3px; }
+</style>

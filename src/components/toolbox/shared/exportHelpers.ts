@@ -1,5 +1,6 @@
+import { trackToolExport } from '../../../utils/analytics';
 /** Trigger a local file download from a Blob — never leaves the browser. */
-function downloadBlob(blob: Blob, filename: string) {
+function downloadBlob(blob: Blob, filename: string, exportType: 'svg' | 'png' | 'json') {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
@@ -8,23 +9,24 @@ function downloadBlob(blob: Blob, filename: string) {
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
+  trackToolExport(exportType);
 }
 
 export function downloadSVG(svg: SVGSVGElement, filename: string) {
   const serialized = new XMLSerializer().serializeToString(svg);
   const blob = new Blob([serialized], { type: 'image/svg+xml' });
-  downloadBlob(blob, filename.endsWith('.svg') ? filename : `${filename}.svg`);
+  downloadBlob(blob, filename.endsWith('.svg') ? filename : `${filename}.svg`, 'svg');
 }
 
 export function downloadCanvasPNG(canvas: HTMLCanvasElement, filename: string) {
   canvas.toBlob((blob) => {
-    if (blob) downloadBlob(blob, filename.endsWith('.png') ? filename : `${filename}.png`);
+    if (blob) downloadBlob(blob, filename.endsWith('.png') ? filename : `${filename}.png`, 'png');
   }, 'image/png');
 }
 
 export function downloadJSON(data: unknown, filename: string) {
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  downloadBlob(blob, filename.endsWith('.json') ? filename : `${filename}.json`);
+  downloadBlob(blob, filename.endsWith('.json') ? filename : `${filename}.json`, 'json');
 }
 
 export async function copyText(text: string): Promise<boolean> {

@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { pageSchema } from '../utils/schema';
+const title = 'Privacy & Optional Analytics | Khizooology';
+const description = 'How Khizooology handles local tool inputs, uploaded images, optional analytics and your consent preferences.';
+const jsonLd = pageSchema({ path: '/privacy', name: title, description, breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Privacy', path: '/privacy' }] }, { site: Astro.site!, base: import.meta.env.BASE_URL });
+---
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <section class="k-section"><div class="k-container privacy-copy">
+    <h1>Privacy</h1>
+    <p>Toolooo calculations run in your browser. Khizooology does not upload your submitted tool data. Images you open in a tool stay local to your browser.</p>
+    <h2>Your inputs stay out of analytics</h2>
+    <p>JWTs, JSON, .env files, configuration, pasted text, custom URLs, filenames, pricing amounts and generated outputs are not sent to analytics.</p>
+    <h2>Optional usage measurement</h2>
+    <p>Google Analytics 4 loads only after you accept analytics. It measures page visits and public interactions: starting a tool, opening an artwork, exporting a format, or choosing a contact channel. Page queries and referrers are excluded from our events. Declining does not limit Artooo or Toolooo.</p>
+    <p>After acceptance, Google receives usage events and connection information such as your IP address and browser information; analytics cookies can recognize repeat visits. Advertising features are disabled. See <a href="https://policies.google.com/privacy" rel="noopener">Google’s privacy policy</a> for its handling of data.</p>
+    <h2>Your choice and local storage</h2>
+    <p>Your accepted or declined choice is saved locally as <code>khizooology-analytics-consent</code>. Theme and some tool preferences also use browser storage. If storage is unavailable, your analytics choice lasts for the current page.</p>
+    <p>You can change your choice below or in the footer. Withdrawing consent disables analytics, clears this site's Google Analytics cookies, and reloads the page to remove the running analytics code. Previously sent events cannot be recalled through this control.</p>
+    <button type="button" data-analytics-preferences hidden>Analytics preferences</button>
+    <h2>External destinations</h2>
+    <p>Social and other external links take you to services with their own privacy policies. Khizooology's contact form currently has no submission backend.</p>
+  </div></section>
+</BaseLayout>
+<style>
+  .privacy-copy { max-width: 48rem; overflow-wrap: anywhere; }
+  h1 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+  h2 { font-size: 1.25rem; margin: 2rem 0 .75rem; }
+  p { line-height: 1.8; margin-bottom: 1rem; }
+  a { text-decoration: underline; }
+  button { padding: .75rem 1rem; border: 1px solid currentColor; border-radius: .5rem; font: inherit; cursor: pointer; }
+  button:focus-visible { outline: 3px solid var(--k-accent); outline-offset: 3px; }
+</style>

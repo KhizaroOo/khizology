@@ -90,6 +90,8 @@ const currentYear = new Date().getFullYear();
       <div class="k-footer-col">
         <h3 class="k-footer-heading">Explore</h3>
         <ul>
+          <li><a href={url('/privacy')} class="k-footer-link">Privacy</a></li>
+          <li><button type="button" data-analytics-preferences hidden class="k-footer-link">Analytics preferences</button></li>
           <li><a href={url('/my-portfolio')} class="k-footer-link">My Portfolio</a></li>
           <li><a href={url('/behind-the-vibes')} class="k-footer-link">Behind the Vibes</a></li>
           <li><a href={url('/you-ask-i-answer')} class="k-footer-link">You Ask, I Answer</a></li>
@@ -118,6 +120,7 @@ const currentYear = new Date().getFullYear();
 </footer>
 
 <style>
+  button.k-footer-link { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; text-align: left; }
   .k-footer {
     background: var(--k-bg-card);
     border-top: 1px solid var(--k-border);

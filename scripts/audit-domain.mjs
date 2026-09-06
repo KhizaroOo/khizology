@@ -86,7 +86,8 @@ if (formerOriginOccurrences) errors.push(`Former GitHub Pages origin occurs ${fo
 if (formerBaseOccurrences) errors.push(`Former /khizology/ base occurs ${formerBaseOccurrences} time(s) in dist`);
 if (mixedContentResources) errors.push(`Found ${mixedContentResources} insecure HTTP resource reference(s)`);
 if (canonicalUrls !== htmlFiles.length) errors.push(`Expected ${htmlFiles.length} canonicals, found ${canonicalUrls}`);
-if (sitemapUrls.length !== 51) errors.push(`Expected 51 normal sitemap URLs, found ${sitemapUrls.length}`);
+const indexableCount = htmlFiles.filter(file => !/noindex|http-equiv=["']refresh/i.test(fs.readFileSync(file, 'utf8'))).length;
+if (sitemapUrls.length !== indexableCount) errors.push(`Expected ${indexableCount} normal sitemap URLs, found ${sitemapUrls.length}`);
 if (imageUrls.length !== 168) errors.push(`Expected 168 image sitemap URLs, found ${imageUrls.length}`);
 
 const report = {
