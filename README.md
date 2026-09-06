@@ -1,20 +1,22 @@
-# khizology
+# Khizooology
 
 > **Art meets Code.** A monster-powered creative knowledge universe.
 
 Live site: **https://khizarooo.github.io/khizology**
 
+Planned custom domain: **khizooology.com** (deployment migration is tracked separately)
+
 Built with **Astro 6**, **TypeScript**, **Tailwind CSS v4**, and **React**.
 
 ---
 
-## What Is khizology?
+## What Is Khizooology?
 
-**khizology** is the personal creative brand site of **khizooo** — a universe organized around five monsters:
+**Khizooology** is the personal creative brand site of **khizooo** — a universe organized around five monsters:
 
 | Monster | Module | Route |
 |---------|--------|-------|
-| 🎨 artooo | Artworks (168+ original pieces) | `/artworks` |
+| 🎨 artooo | Artworks (168 original pieces) | `/artworks` |
 | 📊 infooo | Infographics (16 knowledge sections) | `/infographics` |
 | 🔧 toolooo | Toolbox (calculators & tools) | `/toolbox` |
 | 🎁 freeooo | Freebies (curated design resources) | `/freebies` |
@@ -39,6 +41,7 @@ npm run dev
 | `npm install` | Install dependencies |
 | `npm run dev` | Dev server at `localhost:4321` |
 | `npm run build` | Build to `./dist/` |
+| `npm run audit:seo` | Build and audit metadata, schemas, links, assets, and sitemaps |
 | `npm run preview` | Preview the build locally |
 | `npm run astro check` | TypeScript check |
 
@@ -51,12 +54,12 @@ khizology/
 ├── public/
 │   ├── images/
 │   │   ├── Monsters/     Monster PNG assets
-│   │   ├── artworks/     168+ original artwork JPGs
+│   │   ├── artworks/     168 original artwork images
 │   │   └── site/         Profile and brand images
 │   ├── favicon.svg
 │   ├── favicon_32x32.png
 │   ├── favicon_16x16.png
-│   └── robots.txt
+│   └── apple-touch-icon.png
 ├── src/
 │   ├── components/
 │   │   ├── layout/       BaseLayout, Navbar, Footer, SEO
@@ -65,7 +68,9 @@ khizology/
 │   │   └── calculators/  ProfitMarginCalc, WebsiteCostCalc, PercentageCalc, AgeCalc (React islands)
 │   ├── data/
 │   │   ├── monsters.ts       9 monsters with metadata
-│   │   ├── artworks.ts       168+ artwork entries
+│   │   ├── artworks.ts       168 artwork entries
+│   │   ├── artworkDimensions.ts  Artwork width and height data
+│   │   ├── toolSeo.ts        Tool search intent and support copy
 │   │   ├── infographicsData.ts  16 sections × 2 posts = 32 infographic posts
 │   │   ├── toolbox.ts        Calculator categories + items, Tool categories + items
 │   │   ├── freebies.ts       13 freebie category + resource data
@@ -122,7 +127,7 @@ Push to `main` → CI builds → auto-deploys. Done.
 
 ## Theme System
 
-Khizology uses CSS custom properties (`--k-*` global + `--m-*` per-monster overrides) for theming.
+Khizooology uses CSS custom properties (`--k-*` global + `--m-*` per-monster overrides) for theming.
 
 ### Global tokens (defined in `global.css`)
 | Token | Purpose |
@@ -141,7 +146,7 @@ Khizology uses CSS custom properties (`--k-*` global + `--m-*` per-monster overr
 | `--m-accent-light` | Monster light tint |
 
 ### Dark mode
-Dark mode is toggled via the `html.dark` class, persisted to `localStorage('khizology-theme')`. The theme script in `<head>` runs before paint to prevent FOUC.
+Dark mode is toggled via the `html.dark` class, persisted to the legacy-compatible `localStorage('khizology-theme')` key. The theme script in `<head>` runs before paint to prevent FOUC.
 
 ---
 
@@ -156,8 +161,9 @@ Dark mode is toggled via the `html.dark` class, persisted to `localStorage('khiz
 
 ### Add an Artwork
 
-1. Drop artwork JPG in `public/public/images/artworks/`
+1. Drop the artwork image in `public/images/artworks/`
 2. Add entry to `src/data/artworks.ts` with all metadata
+3. Add its real dimensions to `src/data/artworkDimensions.ts`
 
 ### Add an Infographic Post
 
@@ -168,10 +174,10 @@ Dark mode is toggled via the `html.dark` class, persisted to `localStorage('khiz
 
 ### Add a Tool
 
-1. Open `src/data/toolbox.ts`
-2. Add item to the relevant `toolCategories` or `allTools` array
-3. Create a React component in `src/components/tools/YourTool.tsx`
-4. Add a case in `src/pages/toolbox/tools/[slug].astro` to render it
+1. Add the tool and its search-intent terms to `src/data/tools.ts`
+2. Create its React component in `src/components/toolbox/tools/YourTool.tsx`
+3. Add its render case in `src/pages/toolbox/[slug].astro`
+4. Add behavior-specific assumptions to `src/data/toolSeo.ts` when needed
 
 ### Add a Calculator
 

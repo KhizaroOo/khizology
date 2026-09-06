@@ -6,6 +6,8 @@ import { families } from '../../../data/families';
 import { getToolsByFamily } from '../../../data/tools';
 import { monsters } from '../../../data/monsters';
 import { url } from '../../../utils/url';
+import { absoluteUrl } from '../../../utils/seo';
+import { pageSchema } from '../../../utils/schema';
 
 export async function getStaticPaths() {
   return families.map((family) => ({
@@ -18,24 +20,36 @@ const { family } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const familyTools = getToolsByFamily(family.id);
 const otherFamilies = families.filter((f) => f.id !== family.id);
+const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  name: `${family.name} Tools — toolooo`,
-  url: `https://khizarooo.github.io/khizology/toolbox/family/${family.id}`,
-  description: family.description,
-  isPartOf: {
-    '@type': 'WebSite',
-    name: 'khizology',
-    url: 'https://khizarooo.github.io/khizology/',
+const jsonLd = pageSchema({
+  type: 'CollectionPage',
+  path: `/toolbox/family/${family.id}`,
+  name: family.seoTitle,
+  description: family.seoDescription,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Toolooo', path: '/toolbox' },
+    { name: family.name, path: `/toolbox/family/${family.id}` },
+  ],
+  extra: {
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: familyTools.length,
+      itemListElement: familyTools.map((tool, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: tool.name,
+        url: absoluteUrl(`/toolbox/${tool.slug}`, seoContext),
+      })),
+    },
   },
-};
+}, seoContext);
 ---
 
 <BaseLayout
-  title={`${family.name} Tools — toolooo by khizooo`}
-  description={`${familyTools.length} browser-only tools that ${family.question.toLowerCase().replace(/\?$/, '')} — ${family.description}`}
+  title={family.seoTitle}
+  description={family.seoDescription}
   accentColor={family.color}
   jsonLd={jsonLd}
 >
@@ -66,6 +80,20 @@ const jsonLd = {
             <span>Free, browser-only</span>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fp-guide-section" aria-labelledby="family-guide-title">
+    <div class="k-container fp-guide-grid">
+      <div>
+        <span class="k-section-label" style={`color: ${family.color}`}>How this family helps</span>
+        <h2 id="family-guide-title">A clearer way to {family.name.toLowerCase()}</h2>
+        <p>{family.intro}</p>
+      </div>
+      <div class="fp-guide-card">
+        <h3>How to use these tools</h3>
+        <p>{family.howToUse}</p>
       </div>
     </div>
   </section>
@@ -106,7 +134,7 @@ const jsonLd = {
   <section class="fp-monsters-section">
     <div class="k-container">
       <div class="fp-monsters-inner">
-        <p class="fp-other-label">More khizology monsters →</p>
+        <p class="fp-other-label">More Khizooology monsters →</p>
         <div class="fp-other-links">
           {monsters.filter((m) => m.status === 'active' && m.id !== 'toolooo').map((m) => (
             <a href={url(m.route)} class="fp-other-link" style={`--oc: ${m.color}`}>
@@ -148,6 +176,13 @@ const jsonLd = {
   }
   .fp-hero-meta { display: flex; gap: 0.5rem; font-size: 0.85rem; color: var(--k-text-muted); flex-wrap: wrap; }
 
+  .fp-guide-section { padding: 2.25rem 0; background: var(--k-bg-card); border-bottom: 1px solid var(--k-border); }
+  .fp-guide-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr); gap: 2rem; align-items: start; }
+  .fp-guide-grid h2 { font-family: 'Poppins', sans-serif; font-size: clamp(1.25rem, 3vw, 1.75rem); color: var(--k-text); margin: .3rem 0 .75rem; }
+  .fp-guide-grid p { color: var(--k-text-muted); line-height: 1.75; margin: 0; }
+  .fp-guide-card { padding: 1.25rem; border: 1px solid color-mix(in srgb, var(--fc) 35%, var(--k-border)); border-radius: 1rem; background: var(--k-bg); }
+  .fp-guide-card h3 { font-family: 'Poppins', sans-serif; color: var(--k-text); font-size: .95rem; margin: 0 0 .5rem; }
+
   /* Tools grid */
   .fp-tools-section { background: var(--k-bg); }
   .fp-tools-grid {
@@ -178,4 +213,5 @@ const jsonLd = {
   .fp-other-link img { border-radius: 0.25rem; object-fit: contain; }
   .fp-other-icon { font-size: 1rem; }
   .fp-other-all { border-style: dashed; }
+  @media (max-width: 720px) { .fp-guide-grid { grid-template-columns: 1fr; gap: 1rem; } }
 </style>

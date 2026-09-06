@@ -1,10 +1,13 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 interface Artwork {
+  id: string;
   slug: string;
   title: string;
   filename: string;
   tags: string[];
+  width: number;
+  height: number;
   description?: string;
 }
 
@@ -22,13 +25,35 @@ function ArtworkModal({
   base: string;
   onClose: () => void;
 }) {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    const previouslyFocused = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+    closeButtonRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key !== 'Tab') return;
+      const modal = closeButtonRef.current?.closest('.aw-modal-box');
+      const focusable = modal?.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (!focusable?.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
     document.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
+      previouslyFocused?.focus();
     };
   }, [onClose]);
 
@@ -44,11 +69,14 @@ function ArtworkModal({
       aria-label={artwork.title}
     >
       <div className="aw-modal-box" onClick={e => e.stopPropagation()}>
-        <button className="aw-modal-close" onClick={onClose} aria-label="Close">✕</button>
+        <button ref={closeButtonRef} className="aw-modal-close" onClick={onClose} aria-label="Close artwork dialog">✕</button>
         <div className="aw-modal-img-wrap">
           <img
             src={`${base}/images/artworks/${artwork.filename}`}
             alt={artwork.title}
+            width={artwork.width}
+            height={artwork.height}
+            decoding="async"
             className="aw-modal-img"
           />
         </div>
@@ -70,9 +98,6 @@ export default function ArtworkGrid({ artworks, base }: Props) {
   const [query, setQuery] = useState('');
   const [activeTag, setActiveTag] = useState('');
   const [selected, setSelected] = useState<Artwork | null>(null);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => { setLoaded(true); }, []);
 
   const allTags = Array.from(new Set(artworks.flatMap(a => a.tags))).sort();
 
@@ -84,16 +109,6 @@ export default function ArtworkGrid({ artworks, base }: Props) {
   });
 
   const handleClose = useCallback(() => setSelected(null), []);
-
-  if (!loaded) {
-    return (
-      <div className="aw-skeleton-grid">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <div key={i} className="aw-skeleton-card skeleton" />
-        ))}
-      </div>
-    );
-  }
 
   return (
     <>
@@ -142,8 +157,10 @@ export default function ArtworkGrid({ artworks, base }: Props) {
         <div className="aw-masonry">
           {filtered.map((a, i) => (
             <button
-              key={a.slug}
+              key={a.id}
               className="aw-card"
+              data-artwork-id={a.id}
+              data-artwork-slug={a.slug}
               onClick={() => setSelected(a)}
               aria-label={`View ${a.title}`}
               style={{ '--aw-delay': `${(i % 12) * 0.04}s` } as React.CSSProperties}
@@ -151,7 +168,10 @@ export default function ArtworkGrid({ artworks, base }: Props) {
               <img
                 src={`${base}/images/artworks/${a.filename}`}
                 alt={a.title}
+                width={a.width}
+                height={a.height}
                 loading="lazy"
+                decoding="async"
                 className="aw-card-img"
               />
               <div className="aw-card-overlay">
@@ -258,19 +278,6 @@ export default function ArtworkGrid({ artworks, base }: Props) {
           border: none; border-radius: .5rem; font-weight: 700; cursor: pointer;
           font-family: 'Poppins', sans-serif; font-size: .875rem;
         }
-        .aw-skeleton-grid {
-          columns: 2; column-gap: .75rem;
-        }
-        @media (min-width: 640px) { .aw-skeleton-grid { columns: 3; } }
-        @media (min-width: 1024px) { .aw-skeleton-grid { columns: 4; } }
-        .aw-skeleton-card {
-          break-inside: avoid; width: 100%; margin-bottom: .75rem;
-          border-radius: .75rem;
-        }
-        .aw-skeleton-card:nth-child(odd) { height: 180px; }
-        .aw-skeleton-card:nth-child(even) { height: 240px; }
-        .aw-skeleton-card:nth-child(3n) { height: 200px; }
-
         /* Modal */
         .aw-modal-backdrop {
           position: fixed; inset: 0; z-index: 1000;

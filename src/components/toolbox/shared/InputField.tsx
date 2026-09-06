@@ -8,10 +8,11 @@ interface InputFieldProps {
   placeholder?: string;
   step?: string;
   min?: string;
+  max?: string;
   suffix?: string;
 }
 
-export default function InputField({ label, type = 'number', value, onChange, placeholder, step, min, suffix }: InputFieldProps) {
+export default function InputField({ label, type = 'number', value, onChange, placeholder, step, min, max, suffix }: InputFieldProps) {
   const id = useId();
   return (
     <div>
@@ -37,6 +38,7 @@ export default function InputField({ label, type = 'number', value, onChange, pl
           value={value}
           step={step}
           min={min}
+          max={max}
           placeholder={placeholder}
           onChange={(e) => onChange(e.target.value)}
           style={{

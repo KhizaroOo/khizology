@@ -45,8 +45,8 @@ function buildExampleToken(nowSec: number): string {
   const iat = nowSec - 5400; // issued 90 minutes ago
   const payload = {
     sub: 'khizooo',
-    iss: 'https://auth.khizology.dev',
-    aud: 'khizology-app',
+    iss: 'https://auth.khizooology.dev',
+    aud: 'khizooology-app',
     iat,
     nbf: iat,
     exp: nowSec - 1800, // expired 30 minutes ago, by default

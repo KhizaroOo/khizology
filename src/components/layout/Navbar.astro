@@ -1,5 +1,6 @@
 ---
 import { url, img } from '../../utils/url';
+import { SITE } from '../../data/site';
 
 const navLinks = [
   { label: 'Home', href: url('/') },
@@ -15,9 +16,9 @@ const currentPath = Astro.url.pathname;
   <div class="k-container">
     <nav class="k-nav-inner" aria-label="Main navigation">
       <!-- Logo -->
-      <a href={url('/')} class="k-logo" aria-label="khizology home">
+      <a href={url('/')} class="k-logo" aria-label={`${SITE.name} home`}>
         <img src={img('/images/Monsters/khizooo.png')} alt="" width="32" height="32" class="k-logo-img" />
-        <span class="k-logo-text">khiz<span class="k-logo-accent">ology</span></span>
+        <span class="k-logo-text">{SITE.name.slice(0, 4)}<span class="k-logo-accent">{SITE.name.slice(4)}</span></span>
       </a>
 
       <!-- Desktop nav links -->
@@ -27,6 +28,7 @@ const currentPath = Astro.url.pathname;
             <a
               href={link.href}
               class={`k-nav-link ${currentPath === link.href || currentPath.startsWith(link.href + '/') ? 'active' : ''}`}
+              aria-current={currentPath === link.href || currentPath.startsWith(link.href + '/') ? 'page' : undefined}
               style={link.accent ? `--link-accent: ${link.accent}` : ''}
             >
               {link.label}
@@ -258,6 +260,17 @@ const currentPath = Astro.url.pathname;
     .k-cta-btn { display: none; }
     .k-hamburger { display: flex; }
   }
+  @media (max-width: 390px) {
+    .k-nav-inner { gap: 0.5rem; }
+    .k-logo {
+      gap: 0.375rem;
+      font-size: clamp(1.1rem, 5vw, 1.25rem);
+    }
+    .k-logo-img {
+      width: 32px;
+      height: 32px;
+    }
+  }
 </style>
 
 <script>
@@ -274,7 +287,17 @@ const currentPath = Astro.url.pathname;
   hamburger?.addEventListener('click', () => {
     const isOpen = mobileMenu?.classList.toggle('open');
     hamburger.setAttribute('aria-expanded', String(isOpen));
+    hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
     mobileMenu?.setAttribute('aria-hidden', String(!isOpen));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || !mobileMenu?.classList.contains('open')) return;
+    mobileMenu.classList.remove('open');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    hamburger?.setAttribute('aria-expanded', 'false');
+    hamburger?.setAttribute('aria-label', 'Open menu');
+    hamburger?.focus();
   });
 
   // Navbar scroll shadow

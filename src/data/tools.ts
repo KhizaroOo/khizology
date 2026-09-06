@@ -353,8 +353,8 @@ export const tools: Tool[] = [
     id: 'rest-vs-graphql-decision-lab',
     name: 'REST vs GraphQL Decision Lab',
     slug: 'rest-vs-graphql-decision-lab',
-    shortDescription: 'Compare REST and GraphQL against your API\'s actual shape, with a transparent, weighted score.',
-    longDescription: 'Set how much your API needs query flexibility, simple caching, and team familiarity, and get a transparent, weighted comparison between REST and GraphQL for your specific case — not a blanket opinion.',
+    shortDescription: 'Compare REST, GraphQL, and gRPC against your API\'s actual shape with a transparent, weighted score.',
+    longDescription: 'Set how much your API needs query flexibility, simple caching, team familiarity, and streaming, then compare REST, GraphQL, and gRPC for your specific case — not a blanket opinion.',
     family: 'decide',
     tags: ['Engineering', 'Backend', 'API'],
     status: 'active',
@@ -536,6 +536,26 @@ export const getToolBySlug = (slug: string): Tool | undefined =>
 
 export const getToolsByFamily = (familyId: string): Tool[] =>
   tools.filter((t) => t.family === familyId);
+
+export function getRelatedTools(tool: Tool, limit = 3): Tool[] {
+  const tagSet = new Set(tool.tags);
+  const keywordSet = new Set(tool.keywords);
+
+  return tools
+    .filter((candidate) => candidate.status === 'active' && candidate.slug !== tool.slug)
+    .map((candidate) => ({
+      candidate,
+      score:
+        (candidate.family === tool.family ? 8 : 0)
+        + candidate.tags.filter((tag) => tagSet.has(tag)).length * 3
+        + candidate.keywords.filter((keyword) => keywordSet.has(keyword)).length * 2
+        + (candidate.featured ? 1 : 0),
+    }))
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score || a.candidate.name.localeCompare(b.candidate.name))
+    .slice(0, limit)
+    .map(({ candidate }) => candidate);
+}
 
 export const getToolCountByFamily = (familyId: string): number =>
   tools.filter((t) => t.family === familyId).length;

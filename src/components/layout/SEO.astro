@@ -1,5 +1,6 @@
 ---
 import { SITE } from '../../data/site';
+import { absoluteUrl } from '../../utils/seo';
 
 interface Props {
   title?: string;
@@ -8,7 +9,10 @@ interface Props {
   ogType?: string;
   canonical?: string;
   noindex?: boolean;
-  keywords?: string;
+  robots?: string;
+  socialTitle?: string;
+  socialDescription?: string;
+  ogImageAlt?: string;
   publishedAt?: string;
   updatedAt?: string;
   articleTags?: string[];
@@ -21,17 +25,28 @@ const {
   ogType = 'website',
   canonical,
   noindex = false,
-  keywords,
+  robots,
+  socialTitle,
+  socialDescription,
+  ogImageAlt = SITE.ogImageAlt,
   publishedAt,
   updatedAt,
   articleTags,
 } = Astro.props;
 
-const fullTitle = title ? `${title} — khizology` : SITE.title;
-const canonicalURL = canonical
-  ? new URL(canonical, SITE.url).href
-  : new URL(Astro.url.pathname, SITE.url).href;
-const ogImageURL = ogImage.startsWith('http') ? ogImage : `${SITE.url}${ogImage}`;
+const fullTitle = !title
+  ? SITE.title
+  : title.includes(SITE.name)
+    ? title
+    : `${title} — ${SITE.name}`;
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const canonicalURL = absoluteUrl(canonical || Astro.url.pathname, context);
+const ogImageURL = absoluteUrl(ogImage, context);
+const socialCardTitle = socialTitle || fullTitle;
+const socialCardDescription = socialDescription || description;
+const robotsContent = robots || (noindex
+  ? 'noindex, follow'
+  : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -40,19 +55,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content={description} />
 <meta name="author" content={SITE.author} />
-{keywords && <meta name="keywords" content={keywords} />}
-{noindex && <meta name="robots" content="noindex, nofollow" />}
+<meta name="robots" content={robotsContent} />
 <link rel="canonical" href={canonicalURL} />
 
 <!-- Open Graph -->
 <meta property="og:type" content={ogType} />
 <meta property="og:site_name" content={SITE.name} />
-<meta property="og:title" content={fullTitle} />
-<meta property="og:description" content={description} />
+<meta property="og:title" content={socialCardTitle} />
+<meta property="og:description" content={socialCardDescription} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:image" content={ogImageURL} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content={ogImageAlt} />
 {ogType === 'article' && publishedAt && <meta property="article:published_time" content={publishedAt} />}
 {ogType === 'article' && updatedAt && <meta property="article:modified_time" content={updatedAt} />}
 {ogType === 'article' && <meta property="article:author" content={SITE.author} />}
@@ -62,14 +78,21 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <meta name="twitter:card" content={SITE.twitterCard} />
 <meta name="twitter:site" content={SITE.authorHandle} />
 <meta name="twitter:creator" content={SITE.authorHandle} />
-<meta name="twitter:title" content={fullTitle} />
-<meta name="twitter:description" content={description} />
+<meta name="twitter:title" content={socialCardTitle} />
+<meta name="twitter:description" content={socialCardDescription} />
 <meta name="twitter:image" content={ogImageURL} />
+<meta name="twitter:image:alt" content={ogImageAlt} />
 
 <!-- Favicon -->
-<link rel="icon" href={`${base}/favicon.png`} type="image/svg+xml" />
+<link rel="icon" href={`${base}/favicon.png`} type="image/png" />
 <link rel="icon" type="image/png" sizes="32x32" href={`${base}/favicon_32x32.png`} />
 <link rel="icon" type="image/png" sizes="16x16" href={`${base}/favicon_16x16.png`} />
+<link rel="apple-touch-icon" sizes="180x180" href={`${base}/apple-touch-icon.png`} />
+
+<!-- Fonts: preserve the visual identity without a render-blocking CSS @import. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" />
 
 <!-- Theme color -->
 <meta name="theme-color" content={SITE.themeColor} />

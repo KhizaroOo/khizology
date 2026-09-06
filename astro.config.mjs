@@ -11,15 +11,34 @@ import sitemap from '@astrojs/sitemap';
 // Current config: project site at khizarooo.github.io/khizology
 // Change SITE and BASE below to match your actual repo.
 
-const SITE = 'https://khizarooo.github.io';
-const BASE = '/khizology';
+const SITE = process.env.SITE_URL?.trim() || 'https://khizarooo.github.io';
+const configuredBase = process.env.BASE_URL?.trim() || '/khizology';
+const BASE = configuredBase === '/'
+  ? '/'
+  : `/${configuredBase.replace(/^\/+|\/+$/g, '')}`;
+
+const sitemapExcludedRoutes = new Set([
+  '/404.html',
+  '/frop-a-vibe/',
+  '/future-monsters/',
+  '/you-ask-i-answer/',
+]);
 
 export default defineConfig({
   site: SITE,
   base: BASE,
   integrations: [
     react(),
-    sitemap(),
+    sitemap({
+      filter(page) {
+        const pathname = new URL(page).pathname;
+        const basePrefix = BASE === '/' ? '' : BASE;
+        const route = pathname.startsWith(basePrefix)
+          ? pathname.slice(basePrefix.length) || '/'
+          : pathname;
+        return !sitemapExcludedRoutes.has(route);
+      },
+    }),
   ],
   vite: {
     plugins: [tailwindcss()],

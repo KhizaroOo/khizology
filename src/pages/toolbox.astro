@@ -8,27 +8,44 @@ import { tools, getToolCountByFamily, getActiveToolCountByFeatureLevel, allTags 
 import { toolFeatureLevels } from '../data/featureLevels';
 import { monsters } from '../data/monsters';
 import { url } from '../utils/url';
+import { absoluteUrl } from '../utils/seo';
+import { pageSchema } from '../utils/schema';
 
 const ACCENT = '#F7933C';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const activeCount = tools.filter((t) => t.status === 'active').length;
+const toolboxTitle = 'Toolooo — Free Visual Browser Tools | Khizooology';
+const toolboxDescription = `${activeCount} free visual tools to check, simulate, decide, plan, and create in your browser. No signup, no backend, and no uploads.`;
+const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: 'toolooo — Toolbox by khizooo',
-  url: 'https://khizarooo.github.io/khizology/toolbox',
-  description: 'Small browser-only tools that help you check, simulate, decide, plan and create. Turn invisible problems into visible ones.',
-  applicationCategory: 'UtilityApplication',
-  isAccessibleForFree: true,
-  author: { '@type': 'Person', name: 'Khizar Imtiaz' },
-};
+const jsonLd = pageSchema({
+  type: 'CollectionPage',
+  path: '/toolbox',
+  name: toolboxTitle,
+  description: toolboxDescription,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Toolooo', path: '/toolbox' },
+  ],
+  extra: {
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: families.length,
+      itemListElement: families.map((family, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: `${family.name} tools`,
+        url: absoluteUrl(`/toolbox/family/${family.id}`, seoContext),
+      })),
+    },
+  },
+}, seoContext);
 ---
 
 <BaseLayout
-  title="toolooo — Turn Invisible Problems Into Visible Ones"
-  description="toolooo is a set of small browser-only tools organized around what they DO for you: check, simulate, decide, plan, and create. No signup, no backend, no bullshit."
+  title={toolboxTitle}
+  description={toolboxDescription}
   accentColor={ACCENT}
   jsonLd={jsonLd}
 >
@@ -122,6 +139,10 @@ const jsonLd = {
           <ToolCard tool={tool} />
         ))}
       </div>
+      <div id="tb-no-results" class="tb-no-results" hidden>
+        <p><strong>No tools match those filters.</strong></p>
+        <p>Clear the filters and try another way in.</p>
+      </div>
     </div>
   </section>
 
@@ -129,7 +150,7 @@ const jsonLd = {
   <section class="tb-other-section">
     <div class="k-container">
       <div class="tb-other-inner">
-        <p class="tb-other-label">More khizology monsters →</p>
+        <p class="tb-other-label">More Khizooology monsters →</p>
         <div class="tb-other-links">
           {monsters.filter(m => m.status === 'active' && m.id !== 'toolooo').map(m => (
             <a href={url(m.route)} class="tb-other-link" style={`--mc: ${m.color}`}>
@@ -149,6 +170,7 @@ const jsonLd = {
   const cards = document.querySelectorAll<HTMLElement>('[data-tool-card]');
   const countEl = document.getElementById('tb-visible-count');
   const clearBtn = document.getElementById('tb-clear-filters');
+  const noResults = document.getElementById('tb-no-results');
 
   let activeFamily = 'all';
   let activeTag = 'all';
@@ -166,6 +188,7 @@ const jsonLd = {
     });
     if (countEl) countEl.textContent = String(visible);
     if (clearBtn) clearBtn.hidden = activeFamily === 'all' && activeTag === 'all';
+    if (noResults) noResults.hidden = visible !== 0;
   }
 
   familyButtons.forEach((btn) => {
@@ -275,6 +298,13 @@ const jsonLd = {
     font-size: .78rem; font-weight: 700; cursor: pointer; font-family: 'Poppins', sans-serif;
   }
   .tb-clear-btn:hover { border-color: #F7933C; color: #F7933C; }
+  .tb-no-results {
+    margin-top: 1.25rem; padding: 2rem; text-align: center;
+    border: 1px dashed var(--k-border); border-radius: 1rem;
+    color: var(--k-text-muted); background: var(--k-bg-card);
+  }
+  .tb-no-results p { margin: .2rem 0; }
+  .tb-no-results strong { color: var(--k-text); }
 
   .tb-tag-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.75rem; }
   .tb-tag-btn {

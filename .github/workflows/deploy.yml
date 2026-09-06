@@ -1,4 +1,4 @@
-name: Deploy khizology to GitHub Pages
+name: Deploy Khizooology to GitHub Pages
 
 on:
   push:

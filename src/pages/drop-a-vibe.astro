@@ -2,9 +2,25 @@
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import { url, img } from '../utils/url';
+import { pageSchema } from '../utils/schema';
+
+const pageTitle = 'Contact Khizar Imtiaz (khizooo) — Drop a Vibe | Khizooology';
+const pageDescription = 'Contact Khizar Imtiaz (khizooo) to share feedback, propose a collaboration, report a bug, suggest a Toolooo idea, or say hello.';
+const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const jsonLd = pageSchema({
+  type: 'ContactPage',
+  path: '/drop-a-vibe',
+  name: pageTitle,
+  description: pageDescription,
+  aboutCreator: true,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Drop a Vibe', path: '/drop-a-vibe' },
+  ],
+}, seoContext);
 
 const vibeModes = [
-  { label: 'General Feedback', desc: 'Thoughts on khizology, ideas, suggestions' },
+  { label: 'General Feedback', desc: 'Thoughts on Khizooology, ideas, suggestions' },
   { label: 'Collaboration', desc: 'Art commissions, creative partnerships' },
   { label: 'Bug Report', desc: 'Something broken? Let me know' },
   { label: 'Feature Idea', desc: 'A tool or monster you\'d like to see' },
@@ -24,9 +40,10 @@ const socialLinks = [
 ---
 
 <BaseLayout
-  title="Drop a Vibe — Contact khizooo | Say Hello, Collaborate, or Report a Bug"
-  description="Send a message to khizooo — share feedback, pitch a collaboration, report a bug, suggest a feature, or just say hi. Every vibe is welcome at khizology."
+  title={pageTitle}
+  description={pageDescription}
   accentColor="var(--k-accent)"
+  jsonLd={jsonLd}
 >
   <div class="k-container" style="padding-top: 2rem;">
     <Breadcrumb crumbs={[{ label: 'Drop a Vibe' }]} accentColor="var(--k-accent)" />

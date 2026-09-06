@@ -1,9 +1,24 @@
 ---
 // Redirect alias for the typo in original PDF: "frop-a-vibe" → "drop-a-vibe"
+import { absoluteUrl } from '../utils/seo';
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const target = `${base}/drop-a-vibe`;
+const canonical = absoluteUrl('/drop-a-vibe', { site: Astro.site!, base: import.meta.env.BASE_URL });
 ---
-<meta http-equiv="refresh" content={`0; url=${target}`} />
-<link rel="canonical" href={target} />
-<script define:vars={{ target }}>window.location.replace(target);</script>
-<p>Redirecting to <a href={target}>Drop a Vibe</a>...</p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Compatibility redirect to the Khizooology contact page." />
+    <meta name="robots" content="noindex, follow" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={canonical} />
+    <title>Redirecting to Drop a Vibe — Khizooology</title>
+  </head>
+  <body>
+    <script define:vars={{ target }}>window.location.replace(target);</script>
+    <p>Redirecting to <a href={target}>Drop a Vibe</a>...</p>
+  </body>
+</html>

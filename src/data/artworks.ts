@@ -1,8 +1,13 @@
+import { artworkDimensions } from './artworkDimensions';
+
 export interface Artwork {
+  id: string;
   slug: string;
   title: string;
   filename: string;
   tags: string[];
+  width: number;
+  height: number;
 }
 
 function slugToTitle(slug: string): string {
@@ -10,6 +15,23 @@ function slugToTitle(slug: string): string {
     .replace(/\.(jpg|jpeg|png|webp)$/i, '')
     .replace(/[-_]/g, ' ')
     .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function normalizeArtworkSlug(filename: string): string {
+  return filename
+    .replace(/\.(jpg|jpeg|png|webp)$/i, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function stableFilenameHash(filename: string): string {
+  let hash = 2166136261;
+  for (const character of filename) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0).toString(36).slice(0, 6);
 }
 
 const rawFiles: Array<{ filename: string; tags: string[] }> = [
@@ -167,12 +189,29 @@ const rawFiles: Array<{ filename: string; tags: string[] }> = [
   })),
 ];
 
-export const artworks: Artwork[] = rawFiles.map(({ filename, tags }) => ({
-  slug: filename.replace(/\.(jpg|jpeg|png|webp)$/i, '').toLowerCase().replace(/\s+/g, '-'),
-  title: slugToTitle(filename),
-  filename,
-  tags,
-}));
+const normalizedSlugCounts = rawFiles.reduce((counts, { filename }) => {
+  const slug = normalizeArtworkSlug(filename);
+  counts.set(slug, (counts.get(slug) || 0) + 1);
+  return counts;
+}, new Map<string, number>());
+
+export const artworks: Artwork[] = rawFiles.map(({ filename, tags }) => {
+  const normalizedSlug = normalizeArtworkSlug(filename);
+  const slug = normalizedSlugCounts.get(normalizedSlug)! > 1
+    ? `${normalizedSlug}-${stableFilenameHash(filename)}`
+    : normalizedSlug;
+  const dimensions = artworkDimensions[filename as keyof typeof artworkDimensions];
+
+  return {
+    id: `artwork:${filename}`,
+    slug,
+    title: slugToTitle(filename),
+    filename,
+    tags,
+    width: dimensions.width,
+    height: dimensions.height,
+  };
+});
 
 // Unique tag list
 export const artworkTags = [...new Set(artworks.flatMap((a) => a.tags))].sort();

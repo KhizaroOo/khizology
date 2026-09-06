@@ -5,16 +5,39 @@ import ArtworkGrid from '../components/artworks/ArtworkGrid';
 import { artworks } from '../data/artworks';
 import { monsters } from '../data/monsters';
 import { url, img } from '../utils/url';
+import { pageSchema } from '../utils/schema';
 
 const ACCENT = '#F5CF5C';
 const monster = monsters.find(m => m.id === 'artooo')!;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const artworkTitle = 'Artooo — 168 Original Artworks by khizooo | Khizooology';
+const artworkDescription = `${artworks.length} original sticky-note artworks, illustrations, digital paintings, and visual stories by Khizar Imtiaz (khizooo).`;
+const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const jsonLd = pageSchema({
+  type: 'CollectionPage',
+  path: '/artworks',
+  name: artworkTitle,
+  description: artworkDescription,
+  aboutCreator: true,
+  primaryImage: `/images/artworks/${artworks[0].filename}`,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Artooo', path: '/artworks' },
+  ],
+  extra: {
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: artworks.length,
+    },
+  },
+}, seoContext);
 ---
 
 <BaseLayout
-  title="artooo — Artworks by khizooo"
-  description={`168+ original artworks — sticky-note art, illustrations, digital paintings, and visual stories by khizooo. Browse the full gallery.`}
+  title={artworkTitle}
+  description={artworkDescription}
   accentColor={ACCENT}
+  jsonLd={jsonLd}
 >
   <!-- Hero -->
   <section class="art-hero">
@@ -27,7 +50,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             <span class="k-section-label" style={`color: ${ACCENT}`}>artooo · Artworks</span>
           </div>
           <h1 class="art-hero-title">
-            168+ Artworks.<br />
+            {artworks.length} Artworks.<br />
             <span class="art-hero-accent">Every one original.</span>
           </h1>
           <p class="art-hero-lead">
@@ -56,7 +79,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
                 <img
                   src={`${base}/images/artworks/${a.filename}`}
                   alt={a.title}
+                  width={a.width}
+                  height={a.height}
                   loading={i < 2 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  fetchpriority={i === 0 ? 'high' : 'auto'}
                 />
               </div>
             ))}
@@ -84,7 +111,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <div class="art-cta-inner">
         <div class="art-cta-text">
           <h2>Explore more monsters</h2>
-          <p>artooo is just one corner of the khizology universe.</p>
+          <p>artooo is just one corner of the Khizooology universe.</p>
         </div>
         <div class="art-cta-links">
           {monsters.filter(m => m.status === 'active' && m.id !== 'artooo').map(m => (

@@ -12,6 +12,14 @@ interface NestResult {
   count: number;
 }
 
+const MAX_DIMENSION = 1_000_000;
+const MAX_PREVIEW_PIECES = 2_000;
+
+function safeDimension(value: string): number {
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) ? Math.min(MAX_DIMENSION, Math.max(0, parsed)) : 0;
+}
+
 function nest(sheetW: number, sheetH: number, pieceW: number, pieceH: number, spacing: number): NestResult {
   if (pieceW <= 0 || pieceH <= 0) return { cols: 0, rows: 0, count: 0 };
   const cols = Math.max(0, Math.floor((sheetW + spacing) / (pieceW + spacing)));
@@ -30,13 +38,13 @@ export default function PaperNestingPlanner() {
 
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const sW = parseFloat(sheetW) || 0;
-  const sH = parseFloat(sheetH) || 0;
-  const pW = parseFloat(pieceW) || 0;
-  const pH = parseFloat(pieceH) || 0;
-  const gap = Math.max(0, parseFloat(spacing) || 0);
-  const marginVal = Math.max(0, parseFloat(margin) || 0);
-  const bleedVal = Math.max(0, parseFloat(bleed) || 0);
+  const sW = safeDimension(sheetW);
+  const sH = safeDimension(sheetH);
+  const pW = safeDimension(pieceW);
+  const pH = safeDimension(pieceH);
+  const gap = safeDimension(spacing);
+  const marginVal = safeDimension(margin);
+  const bleedVal = safeDimension(bleed);
 
   // Margin is dead space around the whole sheet -- pack into the sheet minus 2x margin on each axis.
   const effSheetW = Math.max(0, sW - 2 * marginVal);
@@ -83,16 +91,16 @@ export default function PaperNestingPlanner() {
   return (
     <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
-        <InputField label="Sheet width" value={sheetW} onChange={setSheetW} step="0.25" min="0" suffix="in" />
-        <InputField label="Sheet height" value={sheetH} onChange={setSheetH} step="0.25" min="0" suffix="in" />
-        <InputField label="Piece width" value={pieceW} onChange={setPieceW} step="0.25" min="0" suffix="in" />
-        <InputField label="Piece height" value={pieceH} onChange={setPieceH} step="0.25" min="0" suffix="in" />
-        <InputField label="Spacing between pieces" value={spacing} onChange={setSpacing} step="0.0625" min="0" suffix="in" />
+        <InputField label="Sheet width" value={sheetW} onChange={setSheetW} step="0.25" min="0" max={String(MAX_DIMENSION)} suffix="in" />
+        <InputField label="Sheet height" value={sheetH} onChange={setSheetH} step="0.25" min="0" max={String(MAX_DIMENSION)} suffix="in" />
+        <InputField label="Piece width" value={pieceW} onChange={setPieceW} step="0.25" min="0" max={String(MAX_DIMENSION)} suffix="in" />
+        <InputField label="Piece height" value={pieceH} onChange={setPieceH} step="0.25" min="0" max={String(MAX_DIMENSION)} suffix="in" />
+        <InputField label="Spacing between pieces" value={spacing} onChange={setSpacing} step="0.0625" min="0" max={String(MAX_DIMENSION)} suffix="in" />
       </div>
 
       <AdvancedDisclosure summary="Margin &amp; bleed">
-        <InputField label="Sheet margin" value={margin} onChange={setMargin} step="0.125" min="0" suffix="in" />
-        <InputField label="Bleed per piece" value={bleed} onChange={setBleed} step="0.0625" min="0" suffix="in" />
+        <InputField label="Sheet margin" value={margin} onChange={setMargin} step="0.125" min="0" max={String(MAX_DIMENSION)} suffix="in" />
+        <InputField label="Bleed per piece" value={bleed} onChange={setBleed} step="0.0625" min="0" max={String(MAX_DIMENSION)} suffix="in" />
       </AdvancedDisclosure>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '.5rem', marginBottom: '.75rem' }}>
@@ -152,7 +160,7 @@ export default function PaperNestingPlanner() {
                 strokeWidth={1.25}
               />
             )}
-            {Array.from({ length: result.best.rows }).map((_, r) =>
+            {result.best.count <= MAX_PREVIEW_PIECES ? Array.from({ length: result.best.rows }).map((_, r) =>
               Array.from({ length: result.best.cols }).map((_, c) => {
                 const cellX = marginVal + c * (result.footprintW + gap);
                 const cellY = marginVal + r * (result.footprintH + gap);
@@ -189,6 +197,10 @@ export default function PaperNestingPlanner() {
                   </g>
                 );
               })
+            ) : (
+              <text x="50%" y="50%" textAnchor="middle" fill="var(--k-text-muted)" fontSize="14">
+                Preview simplified — {result.best.count.toLocaleString()} pieces
+              </text>
             )}
           </svg>
         ) : (

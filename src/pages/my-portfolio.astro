@@ -2,12 +2,17 @@
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import { url, img } from '../utils/url';
+import { pageSchema, personSchema } from '../utils/schema';
+import { artworks } from '../data/artworks';
+import { tools } from '../data/tools';
+
+const activeToolCount = tools.filter((tool) => tool.status === 'active').length;
 
 const stats = [
   { num: '8+', label: 'Years Experience' },
   { num: '20+', label: 'Projects Delivered' },
-  { num: '168+', label: 'Original Artworks' },
-  { num: '50+', label: 'Free Online Tools' },
+  { num: String(artworks.length), label: 'Original Artworks' },
+  { num: String(activeToolCount), label: 'Free Online Tools' },
 ];
 
 const strengths = [
@@ -233,7 +238,7 @@ const projectGroups = [
   {
     group: 'Personal & Open-Source',
     projects: [
-      { name: 'khizology', period: '2024 – Present', desc: 'A monster-powered creative knowledge universe. Artworks and Toolbox — all in one creative brand built with Astro, TypeScript, and React.', tags: ['Astro', 'TypeScript', 'React', 'Personal Brand'], link: url('/') },
+      { name: 'Khizooology', period: '2024 – Present', desc: 'A monster-powered creative knowledge universe. Artworks and Toolbox — all in one creative brand built with Astro, TypeScript, and React.', tags: ['Astro', 'TypeScript', 'React', 'Personal Brand'], link: url('/') },
     ],
   },
 ];
@@ -241,26 +246,35 @@ const projectGroups = [
 const softSkills = ['Leadership', 'Communication', 'Problem-Solving', 'Creativity', 'Empathy', 'Attention to Detail', 'Adaptability', 'Continuous Learning', 'Mentoring'];
 const hobbies = ['Drawing & Illustration', 'Digital Art', 'Travel', 'Photography', 'Reading', 'Exploring New Tech', 'Playing with AI Tools'];
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Khizar Imtiaz',
-  alternateName: 'khizooo',
-  url: 'https://khizarooo.github.io/khizology/my-portfolio',
+const portfolioTitle = 'Khizar Imtiaz (khizooo) — Engineer, Delivery Lead & Artist | Khizooology';
+const portfolioDescription = 'Meet Khizar Imtiaz (khizooo), a technical delivery manager, full-stack developer, and artist with 8+ years of experience and the creator of Khizooology.';
+const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const profilePage = pageSchema({
+  type: 'ProfilePage',
+  path: '/my-portfolio',
+  name: portfolioTitle,
+  description: portfolioDescription,
+  aboutCreator: true,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'My Portfolio', path: '/my-portfolio' },
+  ],
+}, seoContext);
+const profilePerson = {
+  ...personSchema(seoContext),
   jobTitle: 'Technical Delivery Manager',
   worksFor: { '@type': 'Organization', name: 'VAIVAL Technologies' },
   knowsAbout: ['Full-Stack Development', 'React', 'Node.js', 'TypeScript', 'AWS', 'Team Leadership', 'Digital Art'],
-  sameAs: [
-    'https://github.com/KhizaroOo',
-    'https://www.linkedin.com/in/khizar-imtiaz',
-    'https://www.instagram.com/khizooo_art',
-  ],
+};
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [...profilePage['@graph'], profilePerson],
 };
 ---
 
 <BaseLayout
-  title="My Portfolio — Khizar Imtiaz | Technical Delivery Manager & Developer"
-  description="Khizar Imtiaz (khizooo) — Technical Delivery Manager, full-stack developer, and artist. 8+ years at VAIVAL. Creator of khizology."
+  title={portfolioTitle}
+  description={portfolioDescription}
   accentColor="var(--k-accent)"
   jsonLd={jsonLd}
 >
@@ -281,7 +295,7 @@ const jsonLd = {
               8+ years at VAIVAL Technologies — leading teams, shipping products, and solving complex problems at scale. Expert in full-stack development, blockchain/Web3, and AI integration.
             </p>
             <p>
-              By luck, a programmer. By nature, an artist. I believe the best digital experiences live at the intersection of technical excellence and creative vision. <strong>khizology</strong> is proof of that.
+              By luck, a programmer. By nature, an artist. I believe the best digital experiences live at the intersection of technical excellence and creative vision. <strong>Khizooology</strong> is proof of that.
             </p>
           </div>
           <div class="pf-hero-ctas">
@@ -292,7 +306,7 @@ const jsonLd = {
         </div>
         <div class="pf-hero-visual">
           <div class="pf-img-wrap">
-            <img src={img('/images/site/lp-profile-img.png')} alt="Khizar Imtiaz" loading="eager" />
+            <img src={img('/images/site/lp-profile-img.png')} alt="Khizar Imtiaz" loading="eager" decoding="async" fetchpriority="high" width="270" height="270" />
             <div class="pf-img-badge">Technical Delivery Manager</div>
           </div>
         </div>
@@ -320,7 +334,7 @@ const jsonLd = {
       <div class="pf-summary-card">
         <div class="pf-summary-label">Professional Summary</div>
         <p class="pf-summary-text">
-          Technical Delivery Manager with 8+ years at VAIVAL Technologies. Expert in full-stack development, technical team leadership, client management, blockchain/Web3, AI/ML integration, and creative design. I bridge the gap between technical complexity and business objectives — ensuring products are not just built, but built right. Outside of engineering, I am an artist and the creator of khizology — a monster-powered creative universe.
+          Technical Delivery Manager with 8+ years at VAIVAL Technologies. Expert in full-stack development, technical team leadership, client management, blockchain/Web3, AI/ML integration, and creative design. I bridge the gap between technical complexity and business objectives — ensuring products are not just built, but built right. Outside of engineering, I am an artist and the creator of Khizooology — a monster-powered creative universe.
         </p>
       </div>
     </div>

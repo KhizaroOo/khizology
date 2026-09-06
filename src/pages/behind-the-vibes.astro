@@ -2,20 +2,39 @@
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import { url, img } from '../utils/url';
+import { pageSchema } from '../utils/schema';
+import { artworks } from '../data/artworks';
+import { tools } from '../data/tools';
+
+const pageTitle = 'Behind Khizooology — Art, Code & the Monster Universe';
+const pageDescription = 'Meet Khizar Imtiaz (khizooo) and learn why Khizooology brings original art, visual knowledge, browser tools, and monster characters into one creative universe.';
+const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const activeToolCount = tools.filter((tool) => tool.status === 'active').length;
+const jsonLd = pageSchema({
+  type: 'AboutPage',
+  path: '/behind-the-vibes',
+  name: pageTitle,
+  description: pageDescription,
+  aboutCreator: true,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Behind the Vibes', path: '/behind-the-vibes' },
+  ],
+}, seoContext);
 
 const principles = [
   { title: 'Art is Language', body: 'Every sketch, every line, every color choice is a word in a sentence. Art doesn\'t need translation — it speaks directly to whoever is ready to listen.' },
   { title: 'Code is a Brush', body: 'Programming isn\'t a cold, logical act. It\'s a creative process. The way you structure a system, name a variable, design an interface — it\'s all art with a different medium.' },
-  { title: 'Knowledge Should Be Free', body: 'The best ideas grow when they\'re shared. khizology exists to make knowledge accessible, visual, and useful — because learning shouldn\'t be locked behind paywalls.' },
-  { title: 'Monsters Represent Ideas', body: 'Each monster in khizology is a living module — a personality with a purpose. They\'re not just mascots. They\'re the brand itself, the creative DNA of the universe.' },
+  { title: 'Knowledge Should Be Free', body: 'The best ideas grow when they\'re shared. Khizooology exists to make knowledge accessible, visual, and useful — because learning shouldn\'t be locked behind paywalls.' },
+  { title: 'Monsters Represent Ideas', body: 'Each monster in Khizooology is a living module — a personality with a purpose. They\'re not just mascots. They\'re the brand itself, the creative DNA of the universe.' },
   { title: 'Slow and Intentional', body: 'Nothing here is rushed. Every artwork, every tool is made with intention. Quality over quantity. Meaning over noise.' },
-  { title: 'Always Building', body: 'khizology is never finished. It\'s a living project that grows with time, ideas, and new monsters waiting to be unleashed. The journey is the destination.' },
+  { title: 'Always Building', body: 'Khizooology is never finished. It\'s a living project that grows with time, ideas, and new monsters waiting to be unleashed. The journey is the destination.' },
 ];
 
 const faqs = [
   {
-    q: 'What is khizology?',
-    a: 'khizology is a personal creative brand universe by khizooo — a space where artworks, visual knowledge, tools, and free resources live together. It\'s powered by "monsters" — each one representing a module of content.',
+    q: 'What is Khizooology?',
+    a: 'Khizooology is a personal creative brand universe by khizooo — a space where artworks, visual knowledge, tools, and free resources live together. It\'s powered by "monsters" — each one representing a module of content.',
   },
   {
     q: 'Who is khizooo?',
@@ -26,8 +45,8 @@ const faqs = [
     a: 'Monsters are bold, memorable, and full of personality. Each monster module (artooo, toolooo) has its own identity, color, and purpose. Monsters don\'t follow rules — and neither does creativity.',
   },
   {
-    q: 'Is khizology free to use?',
-    a: 'Yes. All tools on khizology are free. The artworks are original creative work and protected, but the utilities are shared openly.',
+    q: 'Is Khizooology free to use?',
+    a: 'Yes. All tools on Khizooology are free. The artworks are original creative work and protected, but the utilities are shared openly.',
   },
   {
     q: 'How often does new content appear?',
@@ -37,9 +56,10 @@ const faqs = [
 ---
 
 <BaseLayout
-  title="Behind the Vibes"
-  description="The story behind khizology — why it exists, how it was built, what drives it. A candid look at the creative universe of khizooo."
+  title={pageTitle}
+  description={pageDescription}
   accentColor="var(--k-accent)"
+  jsonLd={jsonLd}
 >
   <div class="k-container" style="padding-top: 2rem;">
     <Breadcrumb crumbs={[{ label: 'Behind the Vibes' }]} accentColor="var(--k-accent)" />
@@ -52,7 +72,7 @@ const faqs = [
         <span class="k-section-label" style="color:var(--k-accent)">Behind the Vibes</span>
         <h1 class="btv-title">The Story Behind<br />the Universe</h1>
         <p class="btv-lead">
-          khizology didn't start as a plan. It started as a feeling — the need to create
+          Khizooology didn't start as a plan. It started as a feeling — the need to create
           something that was entirely, authentically, unmistakably <em>mine</em>.
           A place where art and code didn't compete but collaborated.
         </p>
@@ -79,7 +99,7 @@ const faqs = [
           systems. In the way I named things.
         </p>
         <p>
-          So I stopped fighting it and started building with it. khizology is the result:
+          So I stopped fighting it and started building with it. Khizooology is the result:
           a creative universe where the two sides of my brain finally shake hands.
         </p>
         <h2>Why Monsters?</h2>
@@ -89,14 +109,14 @@ const faqs = [
           they're bold, they're memorable, and they don't apologize for who they are.
         </p>
         <p>
-          Each monster represents a core part of khizology:
+          Each monster represents a core part of Khizooology:
           <strong>artooo</strong> (artworks) and <strong>toolooo</strong> (tools).
           Seven more are in the lab, waiting to be unleashed.
         </p>
         <h2>What Drives This</h2>
         <p>
           Not money. Not metrics. Not algorithms. Curiosity. The desire to make something
-          that lasts. The need to share what I know and what I feel. khizology is proof that
+          that lasts. The need to share what I know and what I feel. Khizooology is proof that
           you can build something genuinely yours and share it with the world — no brand deal
           required, no artificial persona needed.
         </p>
@@ -104,11 +124,11 @@ const faqs = [
       <div class="story-sidebar">
         <div class="story-facts">
           <div class="sf-item">
-            <span class="sf-num">168+</span>
+            <span class="sf-num">{artworks.length}</span>
             <span class="sf-label">Original Artworks</span>
           </div>
           <div class="sf-item">
-            <span class="sf-num">50+</span>
+            <span class="sf-num">{activeToolCount}</span>
             <span class="sf-label">Free Online Tools</span>
           </div>
           <div class="sf-item">

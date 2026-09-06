@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://khizarooo.github.io/khizology/sitemap-index.xml

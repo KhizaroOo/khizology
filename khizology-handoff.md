@@ -1,4 +1,4 @@
-# khizology — Handoff for Codex / ChatGPT Plus
+# Khizooology — Handoff for Codex / ChatGPT Plus
 
 This document briefs a new AI collaborator (or a new human dev) on the `khizology`
 repository: what it is, how it's built, what conventions must be respected, and
@@ -13,12 +13,12 @@ deployment.
 
 ## 1. What this project is
 
-`khizology` is Khizar Imtiaz's personal site, branded as "Art meets Code," built
-around a **monster mascot system**. Each major site section is personified as a
-monster:
+**Khizooology** is Khizar Imtiaz's personal site. Its tagline is **Art meets Code.**
+The site is built around a **monster mascot system**. Each major site section is
+personified as a monster:
 
 - **artooo** — Artworks (sticky-note art, sketches, illustrations)
-- **toolooo** — Toolbox (32 free, browser-only developer/freelance/art utilities —
+- **toolooo** — Toolbox (40 free, browser-only developer/freelance/art utilities —
   this is where almost all recent work happened)
 - Several **coming-soon "???ooo" mystery monsters** on `/future-monsters` (a few of
   these secretly carry the retired brand colors/art of old modules — see
@@ -108,12 +108,12 @@ src/
     404.astro
     toolbox.astro                 # Toolooo hub: hero, 5 family cards, tag filters, tool grid
     toolbox/
-      [slug].astro                 # dynamic route — ONE file generates all 32 tool pages
+      [slug].astro                 # dynamic route — ONE file generates all 40 tool pages
       family/[id].astro            # dynamic route — generates the 5 family detail pages
 
   data/                           # SINGLE SOURCE OF TRUTH — see §5
     families.ts                    # 5 Toolooo families
-    tools.ts                       # all 32 tools' metadata
+    tools.ts                       # all 40 tools' metadata
     monsters.ts                    # monster roster (drives homepage/footer/cross-links)
     site.ts                        # global site meta
     navigation.ts                  # NOTE: mainNav/footerNav exports here are DEAD CODE,
@@ -141,7 +141,7 @@ src/
         VisualizationContainer.tsx, DecisionLab.tsx, PresetBar.tsx, AdvancedDisclosure.tsx,
         Insight.tsx, loadImage.ts, exportHelpers.ts, mathHelpers.ts,
         useUrlState.ts, useLocalPref.ts
-      tools/                       # the 32 actual tool components — one file per tool
+      tools/                       # the 40 actual tool components — one file per tool
 
   styles/global.css                # CSS custom properties, light/dark theme — see §4
   utils/url.ts                     # url()/img() helpers, see §2
@@ -221,7 +221,7 @@ export interface Tool {
   featured?: boolean; privacySensitive?: boolean;
   icon: string; keywords: string[];
 }
-export const tools: Tool[];                    // all 32, all status: 'active'
+export const tools: Tool[];                    // all 40, all status: 'active'
 export const getToolBySlug, getToolsByFamily, getToolCountByFamily;
 export const activeTools, featuredTools, allTags;   // derived, don't hand-maintain
 ```
@@ -237,7 +237,7 @@ page by `[slug].astro` — do not add a second one inside the tool component its
 
 ### 5.2 Routing
 
-- `src/pages/toolbox/[slug].astro` — **one file generates all 32 tool pages** via
+- `src/pages/toolbox/[slug].astro` — **one file generates all 40 tool pages** via
   `getStaticPaths()` over `tools`. Near the top it has a long but intentional
   block: every active tool component is imported, then conditionally rendered:
   `{tool.slug === 'x' && <X client:load />}`. This is not bloat — Astro
@@ -317,30 +317,32 @@ change this shape without also updating `[slug].astro`.
 
 ---
 
-## 7. Current state of all 32 tools (as of this handoff)
+## 7. Current state of all 40 tools (as of this handoff)
 
-All 32 tools are **active** and have been upgraded to "V2" depth in the most
+All 40 tools are **active** and have been upgraded to "V2" depth in the most
 recent work session (see §8). Every tool follows the shared conventions above.
 
-**Check (4)**: API Payload Doctor, JWT Time Machine, CORS Doctor, Print Ready
+**Check (6)**: API Payload Doctor, JWT Time Machine, CORS Doctor, Print Ready
 Doctor (this absorbed a previously-separate "Artwork Print Doctor" tool that the
 user explicitly chose to remove and merge into this one — if you ever see a
 reference to "Artwork Print Doctor" anywhere, it's stale, there is no such tool
-anymore).
+anymore), Schema Drift Doctor, Environment Drift Detector.
 
-**Simulate (11)**: Retry Storm Simulator, Cache Value Simulator, Rate Limit
-Playground, Queue Capacity Planner, SLA Chain Visualizer, Fan-Out Latency
+**Simulate (14)**: Responsive Content Fit Lab, Webhook Delivery Simulator,
+Capacity Cliff Simulator, Retry Storm Simulator, Cache Value Simulator, Rate
+Limit Playground, Queue Capacity Planner, SLA Chain Visualizer, Fan-Out Latency
 Simulator, Circuit Breaker Playground, N+1 Query Visualizer, Connection Pool
 Simulator, HTTP Cache Lab, Scope Creep Visualizer.
 
-**Decide (6)**: Database Decision Lab, Build vs Buy, Tech Stack Battle,
-Distributed Systems Tax, Monolith vs Microservices Lab, REST vs GraphQL Decision
-Lab (this one now includes **gRPC as a 3rd option** plus a "Real-time/Streaming"
+**Decide (7)**: AI Project Pricing Lab, Database Decision Lab, Build vs Buy,
+Tech Stack Battle, Distributed Systems Tax, Monolith vs Microservices Lab, REST
+vs GraphQL Decision Lab (this one now includes **gRPC as a 3rd option** plus a "Real-time/Streaming"
 dimension — added with explicit user approval; don't revert it to a 2-way
 comparison without asking).
 
-**Plan (6)**: Sticky Note Frame Planner, Timeout Chain Planner, Frame Fit Finder,
-Paper Nesting Planner, Project Quote Risk Planner, Roadmap Collision Detector.
+**Plan (8)**: Multi-Format Campaign Planner, API Pagination Planner, Sticky Note
+Frame Planner, Timeout Chain Planner, Frame Fit Finder, Paper Nesting Planner,
+Project Quote Risk Planner, Roadmap Collision Detector.
 
 **Create (5)**: Crop Guardian, Drawing Grid Maker, Bleed & Safe Area Builder,
 Value Study Maker, Perspective Grid Maker (this one has **draggable vanishing
@@ -349,7 +351,7 @@ points** — a real click-and-drag canvas interaction, not just sliders).
 Full per-tool feature detail lives in the component files themselves and in the
 tool descriptions in `tools.ts` — those are accurate and up to date.
 
-`npm run build` currently succeeds with **zero errors, 47 static pages**. That's
+`npm run build` currently succeeds with **zero errors, 55 static pages**. That's
 the baseline to preserve — always re-run it after any change and treat a build
 failure as blocking.
 
@@ -358,7 +360,7 @@ failure as blocking.
 ## 8. What just happened (context on the most recent work)
 
 The prior work session executed a large, spec-driven "Toolooo V2" upgrade: every
-one of the 32 MVP-depth tools was rewritten to add presets, richer
+one of the 40 MVP-depth tools was rewritten to add presets, richer
 visualizations, Basic/Advanced control splits, deal-breaker-aware decision
 scoring, draggable/interactive canvases, exports, and so on — using a shared new
 foundation (`PresetBar`, `AdvancedDisclosure`, `Insight`, `mathHelpers`,
@@ -384,9 +386,9 @@ Also completed in the same session, sitewide (not just Toolooo):
 - Navbar reordered to **Home / Portfolio / Artworks / Toolbox**.
 - Homepage, Footer, and `navigation.ts` all updated to point at the current
   Toolooo structure (5 family pages at `/toolbox/family/{id}`, not dead links).
-- A full sitewide broken-link audit was run against the actual built `dist/`
-  output (not just source) — zero broken internal links, zero broken fragment
-  anchors, across all 47 pages / 83+ internal links at the time.
+- A full sitewide SEO/link audit now runs against the actual built `dist/`
+  output (not just source) — zero broken local references across all 55
+  generated HTML pages.
 - The family-color unification described in §5 (`TOOLOOO_COLOR`).
 
 ---
@@ -422,13 +424,35 @@ These were noted during the V2 project but intentionally left out of scope
   sensitive pasted content).
 - No local-storage-based "favorites" or "recent tools" list exists yet, though
   `useLocalPref` is ready to support one if wanted.
-- Artooo (the Artworks module) and the rest of the site were explicitly kept
-  out of scope during the Toolooo V2 project — they haven't been touched and may
-  warrant their own review pass.
+- Artooo now server-renders all 168 artwork cards with stable source IDs,
+  collision-safe slugs, intrinsic dimensions, and an image sitemap. Individual
+  artwork detail pages remain a future product decision.
 
 ---
 
-## 11. Quick-start checklist for a new session
+## 11. SEO foundation (Mission 2)
+
+- `src/components/layout/SEO.astro` is the single metadata layer. Canonicals,
+  social URLs, schemas, `robots.txt`, and both sitemaps derive from Astro's
+  configured `site` and `base` through `src/utils/seo.ts`.
+- The current deployment remains `https://khizarooo.github.io/khizology/`.
+  A future domain switch can set `SITE_URL=https://khizooology.com` and
+  `BASE_URL=/`; that alternate configuration has passed the build and SEO audit
+  without any page-level URL edits.
+- The generated site has 51 indexable pages, three noindex content/error pages,
+  and one noindex compatibility redirect. The normal sitemap contains exactly
+  the 51 indexable canonical URLs.
+- All 40 active Toolooo pages have unique metadata, static support content,
+  visible and JSON-LD breadcrumbs, family links, and relevance-ranked related
+  links. Tool schemas use `WebPage`.
+- `npm run audit:seo` builds first, then checks titles, descriptions, canonicals,
+  robots, H1s, social metadata, JSON-LD, internal references, assets, sitemap
+  consistency, and Artooo SSR coverage.
+- Post-domain actions are tracked in `docs/SEO-LAUNCH-CHECKLIST.md`.
+
+---
+
+## 12. Quick-start checklist for a new session
 
 1. `npm install` (Node >= 22.12.0), then `npm run dev` → `http://localhost:4321`.
 2. Before any git operation: `git status` and `git stash list` first (see §2/§8).
@@ -436,6 +460,6 @@ These were noted during the V2 project but intentionally left out of scope
    Toolooo-related — they're short and are the actual source of truth.
 4. Never hardcode a `/toolbox/...` or `/images/...` path — use `url()`/`img()`.
 5. Never add Tailwind classes — inline `style={{}}` + the `--k-*` CSS variables.
-6. After any change: `npm run build` must complete with zero errors before
-   calling anything done.
+6. After any change: `npm run build` must complete with zero errors. For SEO or
+   routing changes, also run `npm run audit:seo`.
 7. Do not print the git remote URL. Do not commit unless explicitly asked.

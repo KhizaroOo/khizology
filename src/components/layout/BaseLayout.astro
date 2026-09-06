@@ -12,7 +12,10 @@ interface Props {
   ogType?: string;
   canonical?: string;
   noindex?: boolean;
-  keywords?: string;
+  robots?: string;
+  socialTitle?: string;
+  socialDescription?: string;
+  ogImageAlt?: string;
   publishedAt?: string;
   updatedAt?: string;
   articleTags?: string[];
@@ -28,7 +31,10 @@ const {
   ogType,
   canonical,
   noindex,
-  keywords,
+  robots,
+  socialTitle,
+  socialDescription,
+  ogImageAlt,
   publishedAt,
   updatedAt,
   articleTags,
@@ -48,7 +54,10 @@ const {
       ogType={ogType}
       canonical={canonical}
       noindex={noindex}
-      keywords={keywords}
+      robots={robots}
+      socialTitle={socialTitle}
+      socialDescription={socialDescription}
+      ogImageAlt={ogImageAlt}
       publishedAt={publishedAt}
       updatedAt={updatedAt}
       articleTags={articleTags}

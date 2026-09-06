@@ -3,38 +3,24 @@ import BaseLayout from '../components/layout/BaseLayout.astro';
 import MonsterCard from '../components/ui/MonsterCard.astro';
 import SectionHeader from '../components/ui/SectionHeader.astro';
 import { monsters } from '../data/monsters';
-import { featuredArtworks } from '../data/artworks';
+import { artworks, featuredArtworks } from '../data/artworks';
 import { families } from '../data/families';
 import { getToolCountByFamily, tools as toolboxTools } from '../data/tools';
+import { SITE } from '../data/site';
 import { url, img } from '../utils/url';
+import { personSchema, websiteSchema } from '../utils/schema';
 
+const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const activeToolCount = toolboxTools.filter((tool) => tool.status === 'active').length;
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'khizology',
-  url: 'https://khizarooo.github.io/khizology/',
-  description: 'A monster-powered creative universe by khizooo — artworks and web tools.',
-  author: {
-    '@type': 'Person',
-    name: 'Khizar Imtiaz',
-    url: 'https://khizarooo.github.io/khizology/my-portfolio',
-    sameAs: [
-      'https://github.com/KhizaroOo',
-      'https://www.linkedin.com/in/khizar-imtiaz',
-      'https://www.instagram.com/khizooo_art',
-    ],
-  },
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: 'https://khizarooo.github.io/khizology/toolbox',
-    'query-input': 'required name=search_term_string',
-  },
+  '@graph': [websiteSchema(seoContext), personSchema(seoContext)],
 };
 ---
 
 <BaseLayout
-  title="khizology — A Monster-Powered Creative Universe"
-  description="khizology is a creative knowledge universe by khizooo. Explore Artworks and Toolbox calculators — all powered by monsters."
+  title={SITE.title}
+  description={SITE.description}
   jsonLd={jsonLd}
 >
 
@@ -52,7 +38,7 @@ const jsonLd = {
         </h1>
         <p class="hero-subtitle">
           By luck, a programmer. By nature, an artist.<br />
-          Welcome to <strong>khizology.</strong><br /><br />
+          Welcome to <strong>Khizooology.</strong><br /><br />
           A monster-powered universe of Artworks and free Tools.
         </p>
         <div class="hero-ctas">
@@ -61,9 +47,9 @@ const jsonLd = {
           <a href={url('/artworks')} class="btn-ghost">View Artworks</a>
         </div>
         <div class="hero-stats">
-          <div class="stat"><strong>168+</strong><span>Artworks</span></div>
+          <div class="stat"><strong>{artworks.length}</strong><span>Artworks</span></div>
           <div class="stat-divider"></div>
-          <div class="stat"><strong>0</strong><span>Free Tools</span></div>
+          <div class="stat"><strong>{activeToolCount}</strong><span>Free Tools</span></div>
         </div>
       </div>
 
@@ -71,8 +57,8 @@ const jsonLd = {
         <div class="hero-universe-grid">
           <!-- Logo center -->
           <div class="hug-logo">
-            <img src={img('/images/Monsters/khizooo.png')} alt="khizology" width="64" height="64" />
-            <span>khizology</span>
+            <img src={img('/images/Monsters/khizooo.png')} alt="Khizooology" width="64" height="64" />
+            <span>Khizooology</span>
           </div>
           <!-- All monsters -->
           {monsters.map(m => (
@@ -118,7 +104,7 @@ const jsonLd = {
       <SectionHeader
         label="artooo — Artworks"
         title="Visual Playground"
-        description="A collection of 168+ original artworks — sketches, illustrations, emotions, and stories told through lines."
+        description={`A collection of ${artworks.length} original artworks — sketches, illustrations, emotions, and stories told through lines.`}
         accentColor="#F5CF5C"
         cta={{ label: 'View all Artworks', href: url('/artworks') }}
       />
@@ -129,8 +115,9 @@ const jsonLd = {
               src={img('/images/artworks/' + art.filename)}
               alt={art.title}
               loading="lazy"
-              width="300"
-              height="300"
+              width={art.width}
+              height={art.height}
+              decoding="async"
             />
             <div class="artwork-hover">
               <span>{art.title}</span>
@@ -174,7 +161,7 @@ const jsonLd = {
           <span class="k-section-label" style="color: var(--k-accent)">Behind the Vibes</span>
           <h2>By luck, a programmer.<br />By nature, an artist.</h2>
           <p>
-            khizology isn't just a website — it's a living record of ideas, experiments,
+            Khizooology isn't just a website — it's a living record of ideas, experiments,
             and creative exploration. Behind every monster is a story. Behind every artwork
             is an emotion. Behind every tool is a problem waiting to be solved.
           </p>
@@ -184,7 +171,7 @@ const jsonLd = {
           </div>
         </div>
         <div class="btv-visual">
-          <img src={img('/images/site/creative-01.png')} alt="khizooo creative" loading="lazy" />
+          <img src={img('/images/site/creative-01.png')} alt="Khizar Imtiaz drawing original Khizooology artwork" loading="lazy" decoding="async" width="600" height="596" />
         </div>
       </div>
     </div>

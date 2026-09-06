@@ -1,14 +1,21 @@
 export const SITE = {
-  name: 'khizology',
-  title: 'khizology — A Monster-Powered Creative Universe',
+  name: 'Khizooology',
+  title: 'Khizooology — Art meets Code | Visual Tools & Original Art',
   description:
-    'khizology is a creative knowledge universe by khizooo. Explore Artworks and Toolbox — powered by monsters.',
-  url: 'https://khizarooo.github.io/khizology',
-  author: 'khizooo',
-  authorHandle: '@khizooo',
+    'Explore original artworks by khizooo and 40 free visual browser tools built by Khizar Imtiaz inside the monster-powered Khizooology universe.',
+  domain: 'khizooology.com',
+  author: 'Khizar Imtiaz',
+  artistName: 'khizooo',
+  authorHandle: '@khizaroo',
   tagline: 'Art meets Code.',
   subTagline: 'A monster-powered creative knowledge universe.',
-  ogImage: '/images/site/khizooo.png',
+  ogImage: '/images/site/khizooology-social.png',
+  ogImageAlt: 'Khizooology — Art meets Code. Original art and visual browser tools by khizooo.',
   twitterCard: 'summary_large_image' as const,
   themeColor: '#f82d48',
+  sameAs: [
+    'https://github.com/KhizaroOo',
+    'https://www.linkedin.com/in/khizar-imtiaz',
+    'https://www.instagram.com/khizooo_art',
+  ],
 };

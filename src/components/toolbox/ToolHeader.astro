@@ -24,7 +24,7 @@ const family = getFamilyById(tool.family);
       )}
     </div>
     <h1 class="th-title">{tool.name}</h1>
-    <p class="th-desc">{tool.longDescription}</p>
+    <p class="th-desc">{tool.shortDescription}</p>
     <div class="th-tags">
       {tool.tags.map((t) => (
         <TagChip label={t} />
