@@ -1,10 +1,10 @@
 # Khizooology SEO launch checklist
 
-Use this checklist after `https://khizooology.com` is connected. The current GitHub Pages project base remains `/khizology` until that domain mission.
+Use this checklist as `https://khizooology.com` is connected. The repository build now targets the custom domain at the root; GitHub and DNS activation remain human-controlled steps.
 
 ## Domain and deployment
 
-- [ ] Point the authoritative Astro `site` value to `https://khizooology.com` and set `base` to `/` in one deployment change.
+- [x] Point the authoritative Astro `site` value to `https://khizooology.com` and set `base` to `/` in one deployment change.
 - [ ] Confirm the live homepage loads over HTTPS and GitHub Pages enforces HTTPS.
 - [ ] Confirm page canonicals, Open Graph URLs, JSON-LD URLs, `robots.txt`, and both sitemaps now use `https://khizooology.com/` with no `/khizology` base.
 - [ ] Open `/robots.txt`, `/sitemap-index.xml`, `/sitemap-0.xml`, and `/image-sitemap.xml` on the live domain.

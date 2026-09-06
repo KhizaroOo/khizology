@@ -4,8 +4,9 @@ import { join, relative, sep } from 'node:path';
 const root = process.cwd();
 const dist = join(root, 'dist');
 const errors = [];
-const configuredBase = process.env.BASE_URL?.trim() || '/khizology';
+const configuredBase = process.env.BASE_URL?.trim() || '/';
 const basePath = configuredBase === '/' ? '' : `/${configuredBase.replace(/^\/+|\/+$/g, '')}`;
+const expectedSite = new URL(process.env.SITE_URL?.trim() || 'https://khizooology.com').origin;
 
 function fail(message) {
   errors.push(message);
@@ -152,6 +153,8 @@ for (const page of pages) {
     try {
       const parsed = new URL(canonical);
       if (parsed.protocol !== 'https:' || parsed.search || parsed.hash || !parsed.pathname.endsWith('/')) fail(`${route}: invalid canonical ${canonical}`);
+      if (parsed.origin !== expectedSite) fail(`${route}: canonical uses unexpected origin ${parsed.origin}`);
+      if (basePath && !parsed.pathname.startsWith(`${basePath}/`)) fail(`${route}: canonical escapes configured base ${basePath}`);
     } catch { fail(`${route}: malformed canonical ${canonical}`); }
 
     for (const key of ['title', 'description', 'url', 'image', 'image:alt']) {
@@ -159,6 +162,15 @@ for (const page of pages) {
     }
     for (const key of ['card', 'title', 'description', 'image', 'image:alt']) {
       if (meta(head, 'name', `twitter:${key}`).length !== 1) fail(`${route}: missing or duplicate twitter:${key}`);
+    }
+    for (const [label, value] of [
+      ['og:url', meta(head, 'property', 'og:url')[0]?.content],
+      ['og:image', meta(head, 'property', 'og:image')[0]?.content],
+      ['twitter:image', meta(head, 'name', 'twitter:image')[0]?.content],
+    ]) {
+      try {
+        if (new URL(value).origin !== expectedSite) fail(`${route}: ${label} uses an unexpected origin`);
+      } catch { fail(`${route}: ${label} is not a valid absolute URL`); }
     }
 
     const schemas = parseJsonLd(html, route);
@@ -196,6 +208,12 @@ const sitemap = existsSync(sitemapFile) ? readFileSync(sitemapFile, 'utf8') : ''
 const sitemapUrls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => decode(match[1]));
 const canonicalUrls = [...canonicalOwners.keys()].sort();
 if (new Set(sitemapUrls).size !== sitemapUrls.length) fail('sitemap: duplicate URLs');
+for (const url of sitemapUrls) {
+  try {
+    const parsed = new URL(url);
+    if (parsed.origin !== expectedSite) fail(`sitemap: unexpected origin ${parsed.origin}`);
+  } catch { fail(`sitemap: malformed URL ${url}`); }
+}
 if (sitemapUrls.length !== canonicalUrls.length || sitemapUrls.slice().sort().some((url, index) => url !== canonicalUrls[index])) {
   fail(`sitemap: URL set differs from ${canonicalUrls.length} indexable canonicals`);
 }
@@ -204,6 +222,10 @@ const robotsFile = join(dist, 'robots.txt');
 const robotsText = existsSync(robotsFile) ? readFileSync(robotsFile, 'utf8') : '';
 if (!/^User-agent: \*$/m.test(robotsText) || !/^Allow: \/$/m.test(robotsText)) fail('robots.txt: crawl policy is missing');
 if (!/sitemap-index\.xml$/m.test(robotsText) || !/image-sitemap\.xml$/m.test(robotsText)) fail('robots.txt: sitemap declarations are missing');
+if (!robotsText.includes(`Sitemap: ${expectedSite}${basePath}/sitemap-index.xml`)
+  || !robotsText.includes(`Sitemap: ${expectedSite}${basePath}/image-sitemap.xml`)) {
+  fail('robots.txt: sitemap declarations use an unexpected origin or base');
+}
 
 const imageSitemapFile = join(dist, 'image-sitemap.xml');
 const imageSitemap = existsSync(imageSitemapFile) ? readFileSync(imageSitemapFile, 'utf8') : '';
@@ -220,6 +242,7 @@ if (new Set(artworkIds).size !== artworkCards || new Set(artworkSlugs).size !== 
 if (!artworkIds.includes('artwork:flower-05.jpg') || !artworkIds.includes('artwork:Flower 05.jpg')) fail('Artooo: both Flower 05 source identities must remain present');
 for (const imageUrl of imageLocs) {
   const parsed = new URL(imageUrl);
+  if (parsed.origin !== expectedSite) fail(`image sitemap: unexpected origin ${parsed.origin}`);
   const target = localTarget(parsed.pathname);
   if (!target || !existsSync(target)) fail(`image sitemap: missing asset ${imageUrl}`);
 }

@@ -4,15 +4,10 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
-// GitHub Pages deployment:
-// Option A — user/org site (username.github.io):  set site only, leave base as '/'
-// Option B — project site (username.github.io/repo): set both site AND base
-//
-// Current config: project site at khizarooo.github.io/khizology
-// Change SITE and BASE below to match your actual repo.
-
-const SITE = process.env.SITE_URL?.trim() || 'https://khizarooo.github.io';
-const configuredBase = process.env.BASE_URL?.trim() || '/khizology';
+// Production uses the verified apex custom domain at the web root. Environment
+// overrides remain available for deliberate local validation only.
+const SITE = process.env.SITE_URL?.trim() || 'https://khizooology.com';
+const configuredBase = process.env.BASE_URL?.trim() || '/';
 const BASE = configuredBase === '/'
   ? '/'
   : `/${configuredBase.replace(/^\/+|\/+$/g, '')}`;

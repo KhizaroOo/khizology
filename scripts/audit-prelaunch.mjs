@@ -4,8 +4,8 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
-const expectedBase = (process.env.BASE_URL || '/khizology').replace(/\/$/, '') || '';
-const expectedHost = process.env.SITE_URL || 'https://khizarooo.github.io';
+const expectedBase = (process.env.BASE_URL || '/').replace(/\/$/, '') || '';
+const expectedHost = process.env.SITE_URL || 'https://khizooology.com';
 const errors = [];
 const warnings = [];
 

@@ -32,17 +32,16 @@ the answer. Make the answer visible." This philosophy governs Toolooo specifical
 
 ## 2. Tech stack & hard constraints
 
-- **Astro 6** (static output, `output: 'static'` in `astro.config.mjs`)
+- **Astro 7** (static output, `output: 'static'` in `astro.config.mjs`)
 - **React 19** islands (`client:load`) only where a component needs interactivity
 - **TypeScript**
 - **Tailwind 4** is installed (`@tailwindcss/vite`) but **is not used anywhere in
   practice** — see §4 styling conventions. Do not add Tailwind utility classes;
   follow the existing inline-style/CSS-variable pattern instead.
 - **GitHub Pages** deployment via GitHub Actions (`.github/workflows/deploy.yml`),
-  triggered on push to `main`. Site config:
-  - `site: 'https://khizarooo.github.io'`
-  - `base: '/khizology'` (this is a **project site**, not a user/org site — every
-    internal path must be prefixed with `/khizology` in production)
+  triggered on push to `main`. Production site config:
+  - `site: 'https://khizooology.com'`
+  - `base: '/'`
 - **No backend of any kind.** No API routes, no serverless functions, no database,
   no auth, no server-side secrets. Everything must run in the browser. This is a
   hard constraint for the entire Toolooo module — see §6.
@@ -55,22 +54,21 @@ npm run build     # astro build → dist/ (production)
 npm run preview   # serve the built dist/ locally
 ```
 
-Node >= 22.12.0 required (`engines` in `package.json`).
+Node >= 22.19.0 required (`engines` in `package.json`).
 
 ### The `url()` / `img()` helpers — mandatory
 
 `src/utils/url.ts` exports two helpers that prepend `BASE_URL`:
 
 ```ts
-url('/toolbox')          // → '/khizology/toolbox' in production, '/toolbox' in dev
+url('/toolbox')          // → '/toolbox' at the production-domain root
 img('/images/foo.png')   // same, for asset paths
 ```
 
 **Every internal `href` and asset `src` in the codebase must go through one of
-these.** A hardcoded `/toolbox/...` link will 404 in production because the real
-path is `/khizology/toolbox/...`. This has been a recurring source of bugs across
-the project's history — always grep for raw `href="/` or `src="/` before shipping
-anything that adds links.
+these.** This keeps route and asset paths correct if the deployment base changes
+during local validation — always grep for raw `href="/` or `src="/` before
+shipping anything that adds links.
 
 ### Git safety — read before touching git
 
@@ -435,10 +433,8 @@ These were noted during the V2 project but intentionally left out of scope
 - `src/components/layout/SEO.astro` is the single metadata layer. Canonicals,
   social URLs, schemas, `robots.txt`, and both sitemaps derive from Astro's
   configured `site` and `base` through `src/utils/seo.ts`.
-- The current deployment remains `https://khizarooo.github.io/khizology/`.
-  A future domain switch can set `SITE_URL=https://khizooology.com` and
-  `BASE_URL=/`; that alternate configuration has passed the build and SEO audit
-  without any page-level URL edits.
+- The production configuration is `https://khizooology.com/` with a root `/`
+  base. Mission 4 validated that configuration without page-level URL edits.
 - The generated site has 51 indexable pages, three noindex content/error pages,
   and one noindex compatibility redirect. The normal sitemap contains exactly
   the 51 indexable canonical URLs.
@@ -454,7 +450,7 @@ These were noted during the V2 project but intentionally left out of scope
 
 ## 12. Quick-start checklist for a new session
 
-1. `npm install` (Node >= 22.12.0), then `npm run dev` → `http://localhost:4321`.
+1. `npm install` (Node >= 22.19.0), then `npm run dev` → `http://localhost:4321`.
 2. Before any git operation: `git status` and `git stash list` first (see §2/§8).
 3. Read `src/data/tools.ts` and `src/data/families.ts` before touching anything
    Toolooo-related — they're short and are the actual source of truth.

@@ -2,11 +2,9 @@
 
 > **Art meets Code.** A monster-powered creative knowledge universe.
 
-Live site: **https://khizarooo.github.io/khizology**
+Production domain: **https://khizooology.com**
 
-Planned custom domain: **khizooology.com** (deployment migration is tracked separately)
-
-Built with **Astro 6**, **TypeScript**, **Tailwind CSS v4**, and **React**.
+Built with **Astro 7**, **TypeScript**, **Tailwind CSS v4**, and **React**.
 
 ---
 
@@ -114,12 +112,13 @@ The site is deployed automatically on every push to `main` via GitHub Actions (`
 
 **Config in `astro.config.mjs`:**
 ```js
-site: 'https://khizarooo.github.io',
-base: '/khizology',
+site: 'https://khizooology.com',
+base: '/',
 ```
 
 **In GitHub → Repo Settings → Pages:**
 - Source: **GitHub Actions**
+- Custom domain: **khizooology.com** (set during the human domain checkpoint)
 
 Push to `main` → CI builds → auto-deploys. Done.
 

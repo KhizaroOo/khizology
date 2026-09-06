@@ -10,6 +10,7 @@
     "build": "astro build",
     "audit:seo": "npm run build && node scripts/audit-seo.mjs",
     "audit:prelaunch": "npm run build && node scripts/audit-seo.mjs && node scripts/audit-prelaunch.mjs",
+    "audit:domain": "npm run build && node scripts/audit-seo.mjs && node scripts/audit-prelaunch.mjs && node scripts/audit-domain.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
