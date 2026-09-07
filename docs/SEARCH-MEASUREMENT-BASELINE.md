@@ -14,10 +14,10 @@ Prepared: 2026-09-07. Domain: https://khizooology.com/. This is the local Missio
 | Google sitemap / image sitemap | SUBMITTED — owner confirmed both; processing/indexing evidence Pending |
 | Priority URL requests | 0 confirmed; 13 prepared |
 | Bing site / sitemap | CONNECTED / VERIFIED — owner confirmed; sitemap import status Pending |
-| IndexNow key | Local file validated; live hosting Pending deployment |
-| IndexNow initial submission | Pending; 0 submitted; 52 local candidates |
+| IndexNow key | Hosted and validated live |
+| IndexNow initial submission | Submitted 2026-09-07: 52 canonical URLs; HTTP 202 received / key validation pending; indexing Pending |
 | GA4 property / ID | CREATED — owner confirmed; G-6PNF4YPRPP configured as GitHub repository variable |
-| GA4 live measurement / Realtime | Pending |
+| GA4 live measurement / Realtime | Consent gating and tag load verified live; Realtime Pending human confirmation |
 
 ## Observations to fill with real evidence
 
@@ -49,7 +49,7 @@ Day 0 starts after deployment and verified setup, not this document's creation d
 
 | Review | Actions | Evidence |
 |---|---|---|
-| Day 0 | Confirm sitemap submission, request priority URLs, run initial IndexNow submission, verify consented GA Realtime. | Pending |
+| Day 0 | Search Console and Bing connected; both sitemaps submitted; IndexNow submitted 52 URLs (202); consented tag load checked. Request priority URLs and verify GA Realtime. | In progress |
 | Day 3 | Inspect crawl and indexing status. Early ranking changes are not a conclusion. | Pending |
 | Day 7 | Review first queries/impressions, indexing errors and top landing pages. | Pending |
 | Day 14 | Find tools gaining impressions and pages with impressions but low CTR; review the queries behind them. | Pending |

@@ -10,13 +10,13 @@ Validated locally 2026-09-07. Account setup was confirmed by the owner; the Goog
 | Priority URL Inspection | 0 confirmed submitted; 13 canonical URLs prepared |
 | Bing Webmaster Tools | CONNECTED / VERIFIED — owner confirmed |
 | Bing sitemap | WAITING for import/submission evidence |
-| IndexNow key | PASS locally: valid 32-character random hex key, exact UTF-8 file; live hosting pending |
-| IndexNow initial submission | WAITING; URLs submitted: 0; dry-run candidates: 52 |
+| IndexNow key | PASS locally and live: valid 32-character random hex key and exact public file |
+| IndexNow initial submission | PASS: 52 canonical URLs received by IndexNow (HTTP 202; key validation pending, not indexing evidence) |
 | GA4 property | CONFIGURED — G-6PNF4YPRPP centrally set as repository variable |
 | GA4 measurement | Google tag privacy configuration PASS; deployment, network validation and human Realtime evidence pending |
-| Analytics consent | PASS locally: unknown, decline, acceptance, withdrawal, persistence and preference reopening |
-| Analytics privacy | PASS local source review and mocked transport; live request inspection pending |
-| Private tool data to analytics | 0 occurrences in tested mock payloads; live inspection pending deployment |
+| Analytics consent | PASS locally and live: unknown and decline load no Google tag; acceptance loads the configured tag |
+| Analytics privacy | PASS source review, mocked transport, GA4 settings gate and live consent-gating check |
+| Private tool data to analytics | 0 occurrences in tested mock payloads; live custom-event payload inspection is limited by browser instrumentation |
 | Privacy page | PASS: title, description, H1, canonical, breadcrumb schema, footer link, sitemap |
 | Build | PASS with and without the Measurement ID; 56 HTML pages |
 | Types | PASS: `npm exec --yes --package=typescript --call "tsc --noEmit"` |
@@ -38,6 +38,6 @@ Across both themes and all five widths, the privacy page had no horizontal overf
 
 `npm run audit:search` combines the build, existing SEO/prelaunch/domain checks, the search artifact audit and isolated analytics tests. `npm run indexnow:check` validates the payload without sending it. The first build integration exposed an audit expectation missing the site's canonical trailing slash; that expectation and the priority URL document now use the actual canonical format.
 
-The owner confirmed Search Console verification, both Google sitemap submissions, Bing connection, and GA4 property creation. The GitHub Actions variable `GA_MEASUREMENT_ID` is set to the supplied measurement ID. The public tag configuration reports no Enhanced Measurement modules and no user-provided-data capabilities. New Privacy, consent and IndexNow features are still local until deployment. The complete post-deployment checks are in SEARCH-ANALYTICS-SETUP.md. Google/Bing indexing metrics remain Pending.
+The owner confirmed Search Console verification, both Google sitemap submissions, Bing connection, and GA4 property creation. The GitHub Actions variable `GA_MEASUREMENT_ID` is set to the supplied measurement ID. The public tag configuration reports no Enhanced Measurement modules and no user-provided-data capabilities. The GitHub Pages deployment for `5ab906d` completed successfully. The live homepage, Privacy, Toolooo, Artooo, five representative tools, robots, normal sitemap and image sitemap returned HTTPS 200 with correct canonicals and no mixed-content resource references. HTTP and www both redirect to the apex host. IndexNow received 52 URLs with HTTP 202. Google/Bing indexing metrics remain Pending.
 
-**🟢 CODE READY — DEPLOYMENT AND LIVE VALIDATION NEXT**
+**🟡 MISSION 5 TECHNICALLY COMPLETE — WAITING FOR GA4 REALTIME CONFIRMATION**

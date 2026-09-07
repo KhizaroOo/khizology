@@ -20,4 +20,4 @@ Prepared 2026-09-07 from current routes and the tool registry. These 13 priority
 | Plan: Paper Nesting Planner | https://khizooology.com/toolbox/paper-nesting-planner/ | Pending | Pending | Pending |
 | Create: Perspective Grid Maker | https://khizooology.com/toolbox/perspective-grid-maker/ | Pending | Pending | Pending |
 
-Priority requests submitted: **0 confirmed**. Sitemap submission: **SUBMITTED (owner confirmed)**. No 404, compatibility redirect, mystery-monster or Q&A preview URLs are included.
+Priority requests submitted: **0 confirmed**. Sitemap submission: **SUBMITTED (owner confirmed)**. The list is now live and ready for manual URL Inspection requests. No 404, compatibility redirect, mystery-monster or Q&A preview URLs are included.
