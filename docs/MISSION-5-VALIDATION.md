@@ -1,24 +1,24 @@
 # Mission 5 — code preparation scorecard
 
-Validated locally 2026-09-07. No Mission 5 commit, push, deployment or account submission has occurred. The account checkpoint is required by Mission 5 sections 35–38.
+Validated locally 2026-09-07. Account setup was confirmed by the owner; the Google tag's public configuration was also checked after Enhanced Measurement and user-provided-data capabilities were disabled. Deployment and live validation remain pending.
 
 | Check | Result / evidence |
 |---|---|
-| Google Search Console property | WAITING for human verification |
-| Google sitemap | WAITING for account submission/read status |
-| Google image sitemap | WAITING for account evidence |
+| Google Search Console property | VERIFIED — owner confirmed |
+| Google sitemap | SUBMITTED — owner confirmed |
+| Google image sitemap | SUBMITTED — owner confirmed |
 | Priority URL Inspection | 0 confirmed submitted; 13 canonical URLs prepared |
-| Bing Webmaster Tools | WAITING for human connection |
+| Bing Webmaster Tools | CONNECTED / VERIFIED — owner confirmed |
 | Bing sitemap | WAITING for import/submission evidence |
 | IndexNow key | PASS locally: valid 32-character random hex key, exact UTF-8 file; live hosting pending |
 | IndexNow initial submission | WAITING; URLs submitted: 0; dry-run candidates: 52 |
-| GA4 property | WAITING for real Measurement ID |
-| GA4 measurement | WAITING for configured deployment, network validation and human Realtime evidence |
+| GA4 property | CONFIGURED — G-6PNF4YPRPP centrally set as repository variable |
+| GA4 measurement | Google tag privacy configuration PASS; deployment, network validation and human Realtime evidence pending |
 | Analytics consent | PASS locally: unknown, decline, acceptance, withdrawal, persistence and preference reopening |
 | Analytics privacy | PASS local source review and mocked transport; live request inspection pending |
-| Private tool data to analytics | 0 occurrences in tested mock payloads; no live GA configured |
+| Private tool data to analytics | 0 occurrences in tested mock payloads; live inspection pending deployment |
 | Privacy page | PASS: title, description, H1, canonical, breadcrumb schema, footer link, sitemap |
-| Build | PASS with Measurement ID absent; 56 HTML pages |
+| Build | PASS with and without the Measurement ID; 56 HTML pages |
 | Types | PASS: `npm exec --yes --package=typescript --call "tsc --noEmit"` |
 | SEO audit | PASS: 52 unique indexable URLs, 168 images |
 | Prelaunch audit | PASS: 40 tools, 5 families, 2,119 links, 772 asset references |
@@ -38,6 +38,6 @@ Across both themes and all five widths, the privacy page had no horizontal overf
 
 `npm run audit:search` combines the build, existing SEO/prelaunch/domain checks, the search artifact audit and isolated analytics tests. `npm run indexnow:check` validates the payload without sending it. The first build integration exposed an audit expectation missing the site's canonical trailing slash; that expectation and the priority URL document now use the actual canonical format.
 
-The baseline public homepage, robots.txt, normal sitemap and image sitemap returned HTTP 200 before implementation. New Privacy, consent and IndexNow features are still local. The complete post-deployment checks are in SEARCH-ANALYTICS-SETUP.md and must be completed after account configuration. Google/Bing indexing metrics remain Pending.
+The owner confirmed Search Console verification, both Google sitemap submissions, Bing connection, and GA4 property creation. The GitHub Actions variable `GA_MEASUREMENT_ID` is set to the supplied measurement ID. The public tag configuration reports no Enhanced Measurement modules and no user-provided-data capabilities. New Privacy, consent and IndexNow features are still local until deployment. The complete post-deployment checks are in SEARCH-ANALYTICS-SETUP.md. Google/Bing indexing metrics remain Pending.
 
-**🟢 CODE READY — WAITING FOR SEARCH/ANALYTICS CHECKPOINT**
+**🟢 CODE READY — DEPLOYMENT AND LIVE VALIDATION NEXT**
