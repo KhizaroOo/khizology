@@ -45,13 +45,17 @@ const canonical = [...viewer.matchAll(/<link\b[^>]*>/gi)].map(match => match[0])
 assert.equal(attr(canonical || '', 'href'), `${auditOrigin}${worldPath}`, 'The viewer canonical must point to the public learning page');
 
 const moduleFiles = [];
+let learningLayer = '';
 for (const match of viewer.matchAll(/<(?:script|link|img)\b[^>]*>/gi)) {
   const tag = match[0];
   if (attr(tag, 'rel') === 'canonical') continue;
   const raw = attr(tag, 'src') || attr(tag, 'href');
   if (!raw) continue;
   const file = asset(raw);
-  if (file.endsWith('.js')) moduleFiles.push(file);
+  if (file.endsWith('.js')) {
+    if (raw.endsWith('learning-layer.js')) learningLayer = file;
+    else moduleFiles.push(file);
+  }
   if (file.endsWith('.css')) {
     const css = fs.readFileSync(file, 'utf8');
     for (const item of css.matchAll(/url\(\s*["']?([^"')\s]+)["']?\s*\)/g)) {
@@ -60,6 +64,12 @@ for (const match of viewer.matchAll(/<(?:script|link|img)\b[^>]*>/gi)) {
   }
 }
 assert.equal(moduleFiles.length, 1, 'Expected one self-hosted viewer module');
+assert.ok(learningLayer, 'The Infooo learning layer must be loaded with the viewer');
+const learning = fs.readFileSync(learningLayer, 'utf8');
+assert.ok(learning.includes('Follow the Blood'), 'The learning layer must include the Follow the Blood journey');
+assert.ok(learning.includes('What is it?') && learning.includes('Why does it matter?'), 'Supported structures need concise learning prompts');
+assert.ok(learning.includes('https://www.nhlbi.nih.gov/health/heart/blood-flow'), 'Learning claims need a source-backed reference');
+assert.ok(!/diagnos|treat(?:ment)?/i.test(learning), 'The learning layer must not make diagnostic or treatment claims');
 const bundle = fs.readFileSync(moduleFiles[0], 'utf8');
 assert.ok(bundle.includes('DecompressionStream'), 'Compressed anatomy decoding support is missing');
 assert.ok(!/["'`]\/models\//.test(bundle), 'An upstream /models URL would bypass the self-hosted assets');

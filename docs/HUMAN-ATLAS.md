@@ -10,4 +10,10 @@ After `npm run build`, run `npm run audit:human-atlas`. To also check HTTP respo
 
 Validation passed: production build; SEO, prelaunch, domain, and value audits; and 39 viewer/asset HTTP checks. The anatomy audit checked 2,234 parts, 3,432 concepts, and 15 geometry chunks. Browser checks confirmed rendering, search, keyboard selection, isolation, system visibility, reset, and exploded view, with no logged browser errors. Sampled widths from 320 to 1440 pixels showed no outer horizontal overflow. Small screens still require vertical scrolling; physical touch-device behavior and performance budgets have not been validated.
 
-This is a self-hosted precompiled upstream viewer with Infooo framing. The loading repair does not complete the full flagship specification: native source adaptation and richer guided learning remain separate work. No commit, push, or deployment was performed for this repair.
+This is a self-hosted precompiled upstream viewer with Infooo framing. The loading repair does not complete the full flagship specification: native source adaptation remains separate work. No commit, push, or deployment was performed for this repair.
+
+## Learning layer — 2026-09-09
+
+The viewer now has a small Infooo learning layer that leaves the rendering engine unchanged. It adds concise, source-backed knowledge for the supported heart, lungs, pulmonary vessels, aorta, and venae cavae; relationship cards that select related structures; and the `Follow the Blood` journey. The guide follows: heart → pulmonary trunk → lung → pulmonary vein → heart → aorta → vena cava. Its key insight is that artery and vein names describe direction from or to the heart, not oxygen level.
+
+The source for every educational statement is [NIH: How Blood Flows through the Heart](https://www.nhlbi.nih.gov/health/heart/blood-flow). The model remains an adult male BodyParts3D reference; it is educational only and not diagnostic, treatment, or medical advice.

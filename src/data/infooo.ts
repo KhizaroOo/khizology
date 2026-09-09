@@ -1,5 +1,6 @@
 import type { ValueLawScores } from './valueLaws';
 import { createIdeaEvaluation } from './valueLaws';
+import { followTheBloodGuide, humanAtlasEntities, humanAtlasRelationships } from './humanAtlasLearning';
 
 export const infoooIdentity = {
   id: 'infooo',
@@ -61,7 +62,7 @@ export interface InfoooWorld {
 }
 
 export const infoooWorlds: InfoooWorld[] = [
-  { id: 'world-001', slug: 'human-atlas', title: 'Human Atlas', description: 'Explore an adult male reference anatomy as connected systems, not only a list of organ names.', status: 'published', visibility: 'public', worldNumber: 1, category: 'Human systems', interactions: ['explore', 'isolate', 'layer', 'explode', 'compare', 'focus', 'reset'], modes: ['explore', 'guide'], share: { enabled: true, supportsEntity: false, supportsGuide: false }, performance: { lazyAssets: true, progressiveLoading: true }, accessibility: { entityList: true, textEquivalent: true, reducedMotion: true } },
+  { id: 'world-001', slug: 'human-atlas', title: 'Human Atlas', description: 'Explore an adult male reference anatomy as connected systems, not only a list of organ names.', status: 'published', visibility: 'public', worldNumber: 1, category: 'Human systems', interactions: ['explore', 'isolate', 'layer', 'explode', 'compare', 'focus', 'reset', 'connect'], modes: ['explore', 'guide'], entities: humanAtlasEntities, relationships: humanAtlasRelationships, guides: [followTheBloodGuide], ahaMoment: 'Artery and vein names describe direction from or to the heart, not oxygen level.', share: { enabled: true, supportsEntity: true, supportsGuide: true }, performance: { lazyAssets: true, progressiveLoading: true }, accessibility: { entityList: true, textEquivalent: true, reducedMotion: true } },
   { id: 'world-002', slug: 'what-happens-when-you-press-enter', title: 'What Happens When You Press Enter?', description: 'A future interactive view of the browser request journey.', status: 'private', visibility: 'private', worldNumber: 2, category: 'Web systems', interactions: ['explore', 'layer', 'animate', 'timeline', 'simulate', 'what-if'], modes: ['explore', 'guide', 'what-if'], share: { enabled: false, supportsEntity: false, supportsGuide: false }, performance: { lazyAssets: true, progressiveLoading: true, workerProcessing: true }, accessibility: { entityList: true, textEquivalent: true, reducedMotion: true } },
 ];
 
