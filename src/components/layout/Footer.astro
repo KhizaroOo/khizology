@@ -1,8 +1,9 @@
 ---
+import { preview } from "../../utils/imagePreview";
 import { monsters } from '../../data/monsters';
 import { families } from '../../data/families';
 import { SITE } from '../../data/site';
-import { url, img } from '../../utils/url';
+import { url } from '../../utils/url';
 const activeMonsters = monsters.filter(m => m.status === 'active');
 const currentYear = new Date().getFullYear();
 ---
@@ -14,7 +15,7 @@ const currentYear = new Date().getFullYear();
       <!-- Brand column -->
       <div class="k-footer-brand">
         <a href={url('/')} class="k-footer-logo" aria-label={`${SITE.name} home`}>
-          <img src={img('/images/Monsters/khizooo.png')} alt="" width="36" height="36" style="background: var(--k-accent);padding: 4px;border-radius: 50%;"/>
+          <img src={preview('/images/Monsters/khizooo.png')} alt="" width="36" height="36" style="background: var(--k-accent);padding: 4px;border-radius: 50%;"/>
           <span>{SITE.name.slice(0, 4)}<span class="accent">{SITE.name.slice(4)}</span></span>
         </a>
         <p class="k-footer-tagline">

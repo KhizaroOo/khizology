@@ -1,0 +1,23 @@
+---
+import type { ToolTruth as Truth } from '../../data/toolTruth';
+interface Props { truth: Truth; }
+const { truth } = Astro.props;
+const sections = [['How it works', truth.howItWorks], ['Assumptions', truth.assumptions], ['Limitations', truth.limitations], ['Formula / logic', truth.formulaOrLogic], ['Educational context', truth.educationalContext]].filter(([, content]) => content);
+---
+{sections.length > 0 && (
+  <details class="tool-truth">
+    <summary>How this tool stays honest</summary>
+    <div class="tool-truth-content">
+      {sections.map(([heading, content]) => <section><h3>{heading}</h3><p>{content}</p></section>)}
+      {truth.sources?.length && <section><h3>Sources</h3><ul>{truth.sources.map(source => <li><a href={source.url} rel="noopener">{source.label}</a></li>)}</ul></section>}
+      {truth.lastReviewed && <p>Last reviewed: {truth.lastReviewed}</p>}
+    </div>
+  </details>
+)}
+<style>
+  .tool-truth { margin: 1rem 0; border: 1px solid var(--k-border); border-radius: .875rem; background: var(--k-bg-card); }
+  summary { cursor: pointer; padding: .85rem 1rem; color: var(--k-text); font: 700 .84rem 'Poppins', sans-serif; }
+  .tool-truth-content { border-top: 1px solid var(--k-border); padding: 1rem; display: grid; gap: .75rem; }
+  h3 { margin: 0 0 .25rem; color: var(--k-text); font: 700 .73rem 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: .05em; }
+  p, li { margin: 0; color: var(--k-text-muted); font-size: .84rem; line-height: 1.55; } a { color: inherit; }
+</style>

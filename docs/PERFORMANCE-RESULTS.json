@@ -1,0 +1,483 @@
+{
+  "date": "2026-09-09",
+  "origin": "http://127.0.0.1:4322",
+  "measurement": "Lighthouse local production preview; default simulated throttling; fresh browser per run; no analytics consent",
+  "devices": {
+    "desktop": {
+      "lighthouseVersion": "12.8.2",
+      "before": {
+        "scores": {
+          "performance": 95,
+          "accessibility": 96,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "first-contentful-paint": 643.2336,
+          "largest-contentful-paint": 1407.0203250000002,
+          "total-blocking-time": 0,
+          "cumulative-layout-shift": 0.0036240373822089503,
+          "speed-index": 897.2484684993667
+        },
+        "bytes": {
+          "total": 27160862,
+          "image": 27054490,
+          "font": 72967,
+          "stylesheet": 15363,
+          "document": 13074,
+          "script": 3155,
+          "other": 1813,
+          "media": 0,
+          "third-party": 74429
+        }
+      },
+      "after": {
+        "scores": {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "first-contentful-paint": 375.3527,
+          "largest-contentful-paint": 632.2544999999998,
+          "total-blocking-time": 0,
+          "cumulative-layout-shift": 0.0002015573068437398,
+          "speed-index": 587.0336851080699
+        },
+        "bytes": {
+          "total": 424840,
+          "image": 321274,
+          "font": 71034,
+          "stylesheet": 14276,
+          "document": 13288,
+          "script": 3155,
+          "other": 1813,
+          "media": 0,
+          "third-party": 0
+        }
+      },
+      "runs": [
+        {
+          "scores": {
+            "performance": 99,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": 489.72979999999995,
+            "largest-contentful-paint": 859.4595999999999,
+            "total-blocking-time": 0,
+            "cumulative-layout-shift": 0.0002015573068437398,
+            "speed-index": 761.1086725578809
+          },
+          "bytes": {
+            "total": 424840,
+            "image": 321274,
+            "font": 71034,
+            "stylesheet": 14276,
+            "document": 13288,
+            "script": 3155,
+            "other": 1813,
+            "media": 0,
+            "third-party": 0
+          }
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": 375.3527,
+            "largest-contentful-paint": 632.2544999999998,
+            "total-blocking-time": 0,
+            "cumulative-layout-shift": 0.0002015573068437398,
+            "speed-index": 587.0336851080699
+          },
+          "bytes": {
+            "total": 424840,
+            "image": 321274,
+            "font": 71034,
+            "stylesheet": 14276,
+            "document": 13288,
+            "script": 3155,
+            "other": 1813,
+            "media": 0,
+            "third-party": 0
+          }
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": 371.08445000000006,
+            "largest-contentful-paint": 571.0844500000001,
+            "total-blocking-time": 0,
+            "cumulative-layout-shift": 0.0002015573068437398,
+            "speed-index": 555.7840145888581
+          },
+          "bytes": {
+            "total": 424840,
+            "image": 321274,
+            "font": 71034,
+            "stylesheet": 14276,
+            "document": 13288,
+            "script": 3155,
+            "other": 1813,
+            "media": 0,
+            "third-party": 0
+          }
+        }
+      ],
+      "reduction": {
+        "total": {
+          "bytes": 26736022,
+          "percent": 98.43583756656913
+        },
+        "image": {
+          "bytes": 26733216,
+          "percent": 98.81249286162851
+        }
+      },
+      "baselineLcp": "section.hero-section > div.k-container > div.hero-content > h1.hero-title",
+      "largestBaselineRequests": [
+        {
+          "url": "http://127.0.0.1:4322/images/artworks/dreamer.jpg",
+          "transferSize": 8468077
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/artworks/portal-to-the-past.jpg",
+          "transferSize": 6189540
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/artworks/space-love.jpg",
+          "transferSize": 5540401
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/artworks/blooming-frog.jpg",
+          "transferSize": 2407972
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/artworks/captured-mermaid.jpg",
+          "transferSize": 1191372
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/artworks/legendary-war-horse.jpg",
+          "transferSize": 672641
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/site/creative-01.png",
+          "transferSize": 488369
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/artworks/luna-pink-cat.jpg",
+          "transferSize": 402426
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/artworks/enchanted-lamp.jpg",
+          "transferSize": 372994
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/Monsters/freeooo.png",
+          "transferSize": 166045
+        }
+      ],
+      "baselineBlocking": [
+        {
+          "url": "https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap",
+          "totalBytes": 1462,
+          "wastedMs": 464
+        },
+        {
+          "url": "http://127.0.0.1:4322/_astro/index.Cw7VgLvr.css",
+          "totalBytes": 3160,
+          "wastedMs": 99
+        },
+        {
+          "url": "http://127.0.0.1:4322/_astro/BaseLayout.tyAU9pzr.css",
+          "totalBytes": 10741,
+          "wastedMs": 59
+        }
+      ],
+      "baselineDom": {
+        "type": "debugdata",
+        "totalElements": 469,
+        "maxChildren": 14,
+        "maxDepth": 9
+      },
+      "forcedReflowScore": 1,
+      "remaining": [
+        {
+          "key": "image-delivery-insight",
+          "description": "Est savings of 162 KiB"
+        },
+        {
+          "key": "network-dependency-tree-insight"
+        },
+        {
+          "key": "render-blocking-insight",
+          "description": "Est savings of 60 ms"
+        }
+      ]
+    },
+    "mobile": {
+      "lighthouseVersion": "12.8.2",
+      "before": {
+        "scores": {
+          "performance": 82,
+          "accessibility": 95,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "first-contentful-paint": 1786.0432999999998,
+          "largest-contentful-paint": 4642.2469249999995,
+          "total-blocking-time": 0,
+          "cumulative-layout-shift": 0.0010377455800222252,
+          "speed-index": 2185.212492022223
+        },
+        "bytes": {
+          "total": 1418499,
+          "image": 1320698,
+          "font": 64396,
+          "stylesheet": 15363,
+          "document": 13074,
+          "script": 3155,
+          "other": 1813,
+          "media": 0,
+          "third-party": 65858
+        }
+      },
+      "after": {
+        "scores": {
+          "performance": 100,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "first-contentful-paint": 1240.34715,
+          "largest-contentful-paint": 1676.8981000000003,
+          "total-blocking-time": 0,
+          "cumulative-layout-shift": 0.00007004351809528479,
+          "speed-index": 2208.575515992269
+        },
+        "bytes": {
+          "total": 237866,
+          "image": 142502,
+          "font": 62832,
+          "stylesheet": 14276,
+          "document": 13288,
+          "script": 3155,
+          "other": 1813,
+          "media": 0,
+          "third-party": 0
+        }
+      },
+      "runs": [
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": 1232.5031999999999,
+            "largest-contentful-paint": 1671.6688,
+            "total-blocking-time": 0,
+            "cumulative-layout-shift": 0.00007004351809528479,
+            "speed-index": 2174.0605200362497
+          },
+          "bytes": {
+            "total": 237866,
+            "image": 142502,
+            "font": 62832,
+            "stylesheet": 14276,
+            "document": 13288,
+            "script": 3155,
+            "other": 1813,
+            "media": 0,
+            "third-party": 0
+          }
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": 1240.34715,
+            "largest-contentful-paint": 1676.8981000000003,
+            "total-blocking-time": 0,
+            "cumulative-layout-shift": 0.00007004351809528479,
+            "speed-index": 2208.575515992269
+          },
+          "bytes": {
+            "total": 237866,
+            "image": 142502,
+            "font": 62832,
+            "stylesheet": 14276,
+            "document": 13288,
+            "script": 3155,
+            "other": 1813,
+            "media": 0,
+            "third-party": 0
+          }
+        },
+        {
+          "scores": {
+            "performance": 99,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "first-contentful-paint": 1254.6473999999998,
+            "largest-contentful-paint": 1686.4316,
+            "total-blocking-time": 0,
+            "cumulative-layout-shift": 0.00007004351809528479,
+            "speed-index": 2300.8592360600437
+          },
+          "bytes": {
+            "total": 237866,
+            "image": 142502,
+            "font": 62832,
+            "stylesheet": 14276,
+            "document": 13288,
+            "script": 3155,
+            "other": 1813,
+            "media": 0,
+            "third-party": 0
+          }
+        }
+      ],
+      "reduction": {
+        "total": {
+          "bytes": 1180633,
+          "percent": 83.23114785417543
+        },
+        "image": {
+          "bytes": 1178196,
+          "percent": 89.21009950798744
+        }
+      },
+      "baselineLcp": "section.hero-section > div.k-container > div.hero-content > p.hero-subtitle",
+      "largestBaselineRequests": [
+        {
+          "url": "http://127.0.0.1:4322/images/Monsters/freeooo.png",
+          "transferSize": 166045
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/Monsters/ff-01.png",
+          "transferSize": 162733
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/Monsters/infooo.png",
+          "transferSize": 155625
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/Monsters/ff-03.png",
+          "transferSize": 145530
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/Monsters/ff-02.png",
+          "transferSize": 144637
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/Monsters/toolooo.png",
+          "transferSize": 142127
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/Monsters/artooo.png",
+          "transferSize": 125530
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/Monsters/ff-04.png",
+          "transferSize": 120661
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/Monsters/devooo.png",
+          "transferSize": 103105
+        },
+        {
+          "url": "http://127.0.0.1:4322/images/Monsters/khizooo.png",
+          "transferSize": 54705
+        }
+      ],
+      "baselineBlocking": [
+        {
+          "url": "https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap",
+          "totalBytes": 1462,
+          "wastedMs": 1176
+        },
+        {
+          "url": "http://127.0.0.1:4322/_astro/BaseLayout.tyAU9pzr.css",
+          "totalBytes": 10741,
+          "wastedMs": 310
+        },
+        {
+          "url": "http://127.0.0.1:4322/_astro/index.Cw7VgLvr.css",
+          "totalBytes": 3160,
+          "wastedMs": 310
+        }
+      ],
+      "baselineDom": {
+        "type": "debugdata",
+        "totalElements": 469,
+        "maxChildren": 14,
+        "maxDepth": 9
+      },
+      "forcedReflowScore": 1,
+      "remaining": [
+        {
+          "key": "image-delivery-insight",
+          "description": "Est savings of 132 KiB"
+        },
+        {
+          "key": "network-dependency-tree-insight"
+        },
+        {
+          "key": "render-blocking-insight",
+          "description": "Est savings of 160 ms"
+        }
+      ]
+    }
+  },
+  "lightTheme": {
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": 382.0088,
+      "largest-contentful-paint": 562.6784,
+      "total-blocking-time": 0,
+      "cumulative-layout-shift": 0.0002015573068437398,
+      "speed-index": 581.5055993142064
+    },
+    "bytes": {
+      "total": 424840,
+      "image": 321274,
+      "font": 71034,
+      "stylesheet": 14276,
+      "document": 13288,
+      "script": 3155,
+      "other": 1813,
+      "media": 0,
+      "third-party": 0
+    }
+  }
+}

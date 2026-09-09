@@ -93,6 +93,16 @@ export function trackToolExport(exportType: 'svg' | 'png' | 'json') {
   const metadata = toolMetadata();
   if (metadata && ['svg', 'png', 'json'].includes(exportType)) emit('tool_export', { tool_slug: metadata.tool_slug, export_type: exportType });
 }
+type SharedFeatureMetadata = { monster: 'toolooo' | 'artooo' | 'infooo'; content_type: 'tool' | 'artwork' | 'infooo_world'; slug: string; action: string };
+function validSharedMetadata(metadata: SharedFeatureMetadata) {
+  return /^[a-z0-9-]+$/.test(metadata.slug) && /^[a-z_]+$/.test(metadata.action);
+}
+export function trackShareAction(metadata: SharedFeatureMetadata) {
+  if (validSharedMetadata(metadata)) emit('share_action', metadata);
+}
+export function trackRelatedContentClick(metadata: Omit<SharedFeatureMetadata, 'action'>) {
+  if (validSharedMetadata({ ...metadata, action: 'open' })) emit('related_content_click', metadata);
+}
 export function initializeAnalytics() {
   loadAnalytics();
   const tool = document.querySelector('[data-tool-slug]');
@@ -110,6 +120,16 @@ export function initializeAnalytics() {
     const target = new URL(link.href);
     const channel = target.protocol === 'mailto:' ? 'email' : channels[target.hostname.replace(/^www\./, '')];
     if (channel) emit('contact_click', { contact_type: channel });
+  });
+  document.addEventListener('click', (event) => {
+    if (!event.isTrusted || !(event.target instanceof Element)) return;
+    const link = event.target.closest<HTMLElement>('[data-related-content]');
+    const monster = link?.dataset.relatedMonster;
+    const contentType = link?.dataset.relatedContentType;
+    const slug = link?.dataset.relatedSlug;
+    if ((monster === 'toolooo' || monster === 'artooo') && (contentType === 'tool' || contentType === 'artwork') && slug && /^[a-z0-9-]+$/.test(slug)) {
+      trackRelatedContentClick({ monster, content_type: contentType, slug });
+    }
   });
   window.addEventListener('storage', event => {
     if (event.key === consentKey) {

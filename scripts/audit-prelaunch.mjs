@@ -56,6 +56,9 @@ if (!fs.existsSync(dist)) throw new Error('dist/ is missing. Run npm run build f
 const files = walk(dist);
 const htmlFiles = files.filter((file) => file.endsWith('.html'));
 const htmlByRoute = new Map(htmlFiles.map((file) => [routeFor(file), fs.readFileSync(file, 'utf8')]));
+// This isolated, client-rendered application is shipped alongside Astro pages.
+// It still needs complete metadata, valid assets and a no-script alternative.
+const embeddedViewerRoute = '/infooo/human-atlas-viewer/';
 const indexableRoutes = [];
 const noindexRoutes = [];
 const structuredTypes = new Map();
@@ -65,6 +68,7 @@ let assetReferences = 0;
 for (const [route, html] of htmlByRoute) {
   const location = `dist${route}`;
   const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1] || '';
+  const embeddedViewer = route === embeddedViewerRoute;
   if (!html.trim()) errors.push(`${location}: empty HTML`);
   if (!/<html\b[^>]*\blang=["']en["']/i.test(html)) errors.push(`${location}: missing html[lang=en]`);
   const noindex = /<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)
@@ -74,9 +78,15 @@ for (const [route, html] of htmlByRoute) {
   if (count(head, /<title\b[^>]*>[^<]+<\/title>/gi) !== 1) errors.push(`${location}: expected one non-empty title`);
   if (count(head, /<meta\b[^>]*name=["']description["'][^>]*content=["'][^"']+["']/gi) !== 1) errors.push(`${location}: expected one non-empty meta description`);
   if (count(head, /<link\b[^>]*rel=["']canonical["'][^>]*href=["'][^"']+["']/gi) !== 1) errors.push(`${location}: expected one canonical`);
-  if (route !== '/frop-a-vibe/' && count(html, /<h1\b/gi) !== 1) errors.push(`${location}: expected one h1`);
-  if (route !== '/frop-a-vibe/' && count(html, /<main\b/gi) !== 1) errors.push(`${location}: expected one main landmark`);
-  if (route !== '/frop-a-vibe/' && count(html, /<nav\b/gi) < 1) errors.push(`${location}: missing nav landmark`);
+  if (embeddedViewer) {
+    if (!noindex) errors.push(`${location}: embedded application must be noindex`);
+    if (!/id=["']root["']/.test(html)) errors.push(`${location}: missing application mount point`);
+    if (!/<noscript\b[^>]*>[\s\S]*?<a\b[^>]*href=["'][^"']+["'][\s\S]*?<\/noscript>/i.test(html)) errors.push(`${location}: missing no-script alternative link`);
+  } else if (route !== '/frop-a-vibe/') {
+    if (count(html, /<h1\b/gi) !== 1) errors.push(`${location}: expected one h1`);
+    if (count(html, /<main\b/gi) !== 1) errors.push(`${location}: expected one main landmark`);
+    if (count(html, /<nav\b/gi) < 1) errors.push(`${location}: missing nav landmark`);
+  }
 
   if (!noindex) {
     for (const check of [
@@ -139,12 +149,14 @@ for (const [route, html] of htmlByRoute) {
 
 const toolRoutes = [...htmlByRoute.keys()].filter((route) => /^\/toolbox\/[^/]+\/$/.test(route));
 const familyRoutes = [...htmlByRoute.keys()].filter((route) => /^\/toolbox\/family\/[^/]+\/$/.test(route));
-const expectedHtmlPages = walk(path.join(root, 'src/pages')).filter(file => file.endsWith('.astro') && !file.includes('[')).length + 40 + 5;
+const expectedSitePages = walk(path.join(root, 'src/pages')).filter(file => file.endsWith('.astro') && !file.includes('[')).length + 40 + 5;
+const expectedHtmlPages = expectedSitePages + 1;
+if (!htmlByRoute.has(embeddedViewerRoute)) errors.push('Missing self-hosted Human Atlas application document');
 if (htmlFiles.length !== expectedHtmlPages) errors.push(`Expected ${expectedHtmlPages} HTML pages, found ${htmlFiles.length}`);
 if (toolRoutes.length !== 40) errors.push(`Expected 40 tool routes, found ${toolRoutes.length}`);
 if (familyRoutes.length !== 5) errors.push(`Expected 5 family routes, found ${familyRoutes.length}`);
-if (indexableRoutes.length !== expectedHtmlPages - 4) errors.push(`Expected ${expectedHtmlPages - 4} indexable pages, found ${indexableRoutes.length}`);
-if (noindexRoutes.length !== 4) errors.push(`Expected 4 noindex/redirect pages, found ${noindexRoutes.length}`);
+if (indexableRoutes.length !== expectedSitePages - 4) errors.push(`Expected ${expectedSitePages - 4} indexable pages, found ${indexableRoutes.length}`);
+if (noindexRoutes.length !== 5) errors.push(`Expected 5 noindex/redirect documents (including the embedded viewer), found ${noindexRoutes.length}`);
 
 const artworkHtml = htmlByRoute.get('/artworks/') || '';
 const artworkCards = count(artworkHtml, /data-artwork-id=/gi);
@@ -198,6 +210,8 @@ const largestJs = [...jsAssets].sort((a, b) => fs.statSync(b).size - fs.statSync
 
 const report = {
   generatedHtmlPages: htmlFiles.length,
+  siteHtmlPages: htmlFiles.length - Number(htmlByRoute.has(embeddedViewerRoute)),
+  embeddedApplicationDocuments: Number(htmlByRoute.has(embeddedViewerRoute)),
   indexablePages: indexableRoutes.length,
   noindexOrRedirectPages: noindexRoutes.length,
   toolRoutes: toolRoutes.length,

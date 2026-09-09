@@ -24,17 +24,21 @@
   --k-bg-elevated:    #FFFFFF;
   --k-dark:           #2A3439;
   --k-text:           #2A3439;
-  --k-text-muted:     #6B7280;
+  --k-text-muted:     #626976;
   --k-border:         #E5E7EB;
   --k-shadow:         rgba(42, 52, 57, 0.08);
   --k-accent:         #f82d48;
   --k-accent-dark:    #eb1431;
+  --k-accent-text:    #bd1730;
 
   /* Monster colors */
   --m-artooo:         #F5CF5C;
   --m-artooo-light:   #FDE68A;
   --m-toolooo:        #F7933C;
   --m-toolooo-light:  #FED7AA;
+  /* Reserved for the locked Infooo foundation; no public surface consumes it. */
+  --m-infooo:         #5CCFAF;
+  --m-infooo-light:   #A7F3D0;
   --m-future-1:       #B699FF;
   --m-future-2:       #5DB3D7;
   --m-future-3:       #DF78A0;
@@ -50,6 +54,7 @@
    DARK MODE
 ────────────────────────────────────────────── */
 html.dark {
+  --k-accent-text: #ff647c;
   --k-bg:             #0F1117;
   --k-bg-card:        #1A1F2E;
   --k-bg-elevated:    #242938;
@@ -213,5 +218,6 @@ html.dark .coming-soon-overlay {
   to   { opacity: 1; transform: translateY(0); }
 }
 .page-enter {
-  animation: fadeIn 0.35s ease forwards;
+  /* Release the transform after entry so fixed dialogs stay viewport-bound. */
+  animation: fadeIn 0.35s ease;
 }

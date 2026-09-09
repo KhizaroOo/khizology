@@ -8,6 +8,13 @@ export interface Artwork {
   tags: string[];
   width: number;
   height: number;
+  story?: string;
+  year?: number;
+  medium?: string;
+  whatIWasThinking?: string;
+  collection?: string;
+  relatedArtwork?: string[];
+  behindTheSketch?: string;
 }
 
 function slugToTitle(slug: string): string {
@@ -215,6 +222,18 @@ export const artworks: Artwork[] = rawFiles.map(({ filename, tags }) => {
 
 // Unique tag list
 export const artworkTags = [...new Set(artworks.flatMap((a) => a.tags))].sort();
+
+// Collections remain empty until Khizar provides intentional classification.
+export const artworkCollections = [...new Set(artworks.flatMap((artwork) => artwork.collection ? [artwork.collection] : []))].sort();
+
+export function getRelatedArtworks(artwork: Artwork, limit = 3): Artwork[] {
+  const tags = new Set(artwork.tags);
+  const explicit = new Set(artwork.relatedArtwork || []);
+  return artworks.filter(candidate => candidate.id !== artwork.id)
+    .map(candidate => ({ candidate, score: (explicit.has(candidate.slug) ? 20 : 0) + candidate.tags.filter(tag => tags.has(tag)).length }))
+    .filter(item => item.score > 0).sort((a, b) => b.score - a.score || a.candidate.title.localeCompare(b.candidate.title))
+    .slice(0, limit).map(item => item.candidate);
+}
 
 // Featured artworks for homepage preview (hand-picked)
 export const featuredArtworks: Artwork[] = [

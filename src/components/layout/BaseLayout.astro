@@ -5,6 +5,9 @@ import Navbar from './Navbar.astro';
 import Footer from './Footer.astro';
 import ScrollTop from '../ui/ScrollTop.astro';
 import '../../styles/global.css';
+import '../../styles/fonts.css';
+import mulishFont from '@fontsource-variable/mulish/files/mulish-latin-wght-normal.woff2?url';
+import poppinsHeading from '@fontsource/poppins/files/poppins-latin-900-normal.woff2?url';
 
 interface Props {
   title?: string;
@@ -48,6 +51,8 @@ const {
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="preload" href={mulishFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={poppinsHeading} as="font" type="font/woff2" crossorigin />
     <SEO
       title={title}
       description={description}

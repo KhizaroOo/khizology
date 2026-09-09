@@ -19,20 +19,22 @@ const {
 
 <div class={`section-header align-${align}`}>
   {label && (
-    <span class="sh-label" style={accentColor ? `color: ${accentColor}` : ''}>
+    <span class="sh-label" style={accentColor ? `--sh-accent: ${accentColor}` : ''}>
       {label}
     </span>
   )}
   <h2 class="sh-title">{title}</h2>
   {description && <p class="sh-desc">{description}</p>}
   {cta && (
-    <a href={cta.href} class="sh-cta" style={accentColor ? `border-color: ${accentColor}; color: ${accentColor}` : ''}>
+    <a href={cta.href} class="sh-cta" style={accentColor ? `--sh-accent: ${accentColor}; border-color: ${accentColor}` : ''}>
       {cta.label} →
     </a>
   )}
 </div>
 
 <style>
+  .sh-label, .sh-cta { color: color-mix(in srgb, var(--sh-accent, var(--k-text-muted)), #000 55%); }
+  :global(html.dark) .sh-label, :global(html.dark) .sh-cta { color: color-mix(in srgb, var(--sh-accent, var(--k-text-muted)), #fff 12%); }
   .section-header { margin-bottom: 2.5rem; }
   .align-center { text-align: center; }
   .align-left { text-align: left; }
@@ -44,7 +46,7 @@ const {
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--m-accent, var(--k-text-muted));
+
     margin-bottom: 0.5rem;
   }
 

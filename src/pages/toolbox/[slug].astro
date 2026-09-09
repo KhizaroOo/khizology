@@ -5,9 +5,14 @@ import ComingSoonCard from '../../components/ui/ComingSoonCard.astro';
 import ToolHeader from '../../components/toolbox/ToolHeader.astro';
 import ToolCard from '../../components/toolbox/ToolCard.astro';
 import PrivacyNotice from '../../components/toolbox/PrivacyNotice.astro';
-import { tools, getRelatedTools } from '../../data/tools';
+import ToolKnowledge from '../../components/toolbox/ToolKnowledge.astro';
+import ToolTruth from '../../components/toolbox/ToolTruth.astro';
+import ShareResultFoundation from '../../components/toolbox/ShareResultFoundation';
+import { tools, getRelatedTools, getTryNextTools } from '../../data/tools';
 import { getFamilyById } from '../../data/families';
 import { getToolSeo } from '../../data/toolSeo';
+import { getToolKnowledge } from '../../data/toolKnowledge';
+import { getToolTruth } from '../../data/toolTruth';
 import { monsters } from '../../data/monsters';
 import { url } from '../../utils/url';
 import { pageSchema } from '../../utils/schema';
@@ -67,6 +72,9 @@ const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
 const seo = getToolSeo(tool, family);
 
 const related = getRelatedTools(tool, 3);
+const tryNext = getTryNextTools(tool, 2).filter(candidate => !related.some(item => item.slug === candidate.slug));
+const knowledge = getToolKnowledge(tool);
+const truth = getToolTruth(tool, seo);
 
 const jsonLd = pageSchema({
   type: 'WebPage',
@@ -163,6 +171,9 @@ const jsonLd = pageSchema({
             />
           )}
 
+          <ToolKnowledge knowledge={knowledge} accent={family.color} />
+          <ToolTruth truth={truth} />
+
           <div class="tp-about">
             <h2 class="tp-section-h2">Understand {tool.name}</h2>
             <div class="tp-guide-grid">
@@ -211,7 +222,7 @@ const jsonLd = pageSchema({
               <h3 class="tp-sidebar-h3">Related tools</h3>
               <div class="tp-related-list">
                 {related.map((rt) => (
-                  <a href={url(`/toolbox/${rt.slug}`)} class="tp-related-item">
+                  <a href={url(`/toolbox/${rt.slug}`)} class="tp-related-item" data-related-content data-related-monster="toolooo" data-related-content-type="tool" data-related-slug={rt.slug}>
                     <span class="tp-related-icon">{rt.icon}</span>
                     <div>
                       <div class="tp-related-name">{rt.name}</div>
@@ -222,6 +233,21 @@ const jsonLd = pageSchema({
               </div>
             </div>
           )}
+
+          {tryNext.length > 0 && (
+            <div class="tp-sidebar-card">
+              <h3 class="tp-sidebar-h3">Try next</h3>
+              <div class="tp-related-list">
+                {tryNext.map((rt) => (
+                  <a href={url(`/toolbox/${rt.slug}`)} class="tp-related-item" data-related-content data-related-monster="toolooo" data-related-content-type="tool" data-related-slug={rt.slug}>
+                    <span class="tp-related-icon">{rt.icon}</span><div><div class="tp-related-name">{rt.name}</div><div class="tp-related-desc">A useful next move after this tool.</div></div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <ShareResultFoundation client:load monster="toolooo" contentType="tool" slug={tool.slug} title={tool.name} />
 
           <div class="tp-sidebar-card">
             <h3 class="tp-sidebar-h3">More Khizooology</h3>

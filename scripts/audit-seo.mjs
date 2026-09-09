@@ -67,13 +67,12 @@ function collectSchemaTypes(value, types = new Set()) {
   return types;
 }
 
-function localTarget(raw) {
+function localTarget(raw, route = '/') {
   const value = decode(raw).trim();
   if (!value || value.startsWith('#') || /^(?:https?:|mailto:|tel:|data:|javascript:)/i.test(value)) return null;
-  const clean = value.split(/[?#]/, 1)[0];
+  const clean = new URL(value, `${expectedSite}${basePath}${route}`).pathname;
   let pathname;
   try { pathname = decodeURIComponent(clean); } catch { pathname = clean; }
-  if (!pathname.startsWith('/')) return null;
   if (basePath && pathname === basePath) pathname = '/';
   else if (basePath && pathname.startsWith(`${basePath}/`)) pathname = pathname.slice(basePath.length);
   if (pathname === '/') return join(dist, 'index.html');
@@ -108,7 +107,7 @@ const pages = htmlFiles.map((file) => {
 });
 
 const indexable = pages.filter((page) => !page.noindex && !page.redirect);
-const noindexContentRoutes = new Set(['/404.html', '/future-monsters/', '/you-ask-i-answer/']);
+const noindexContentRoutes = new Set(['/404.html', '/future-monsters/', '/you-ask-i-answer/', '/infooo/human-atlas-viewer/']);
 const redirectRoutes = new Set(['/frop-a-vibe/']);
 const titleOwners = new Map();
 const descriptionOwners = new Map();
@@ -189,9 +188,9 @@ for (const page of pages) {
     if (!image.width || !image.height) fail(`${route}: image missing intrinsic dimensions (${image.src || 'unknown source'})`);
   }
 
-  for (const element of html.matchAll(/<(?:a|link|script|img)\b[^>]*>/gi)) {
+  for (const element of html.matchAll(/<(?:a|link|script|img|iframe)\b[^>]*>/gi)) {
     const properties = attrs(element[0]);
-    const target = localTarget(properties.href || properties.src);
+    const target = localTarget(properties.href || properties.src, route);
     if (target && !existsSync(target)) fail(`${route}: broken local reference ${properties.href || properties.src}`);
   }
 }
@@ -231,9 +230,13 @@ const imageSitemapFile = join(dist, 'image-sitemap.xml');
 const imageSitemap = existsSync(imageSitemapFile) ? readFileSync(imageSitemapFile, 'utf8') : '';
 const imageLocs = [...imageSitemap.matchAll(/<image:loc>(.*?)<\/image:loc>/g)].map((match) => decode(match[1]));
 const artworkPage = pages.find((page) => page.route === '/artworks/');
-const artworkSources = new Set([...(artworkPage?.html || '').matchAll(/<img\b[^>]*src=["']([^"']*\/images\/artworks\/[^"']+)["']/gi)].map((match) => decode(match[1])));
+
 const artworkButtonTags = [...(artworkPage?.html || '').matchAll(/<button\b[^>]*class=["'][^"']*\baw-card\b[^>]*>/gi)].map((match) => attrs(match[0]));
 const artworkCards = artworkButtonTags.length;
+const artworkSources = new Set(artworkButtonTags.map(button => button['data-artwork-original']));
+for (const source of artworkSources) {
+  if (!source || !imageLocs.includes(new URL(source, expectedSite).href)) fail(`Artooo: original missing from sitemap: ${source}`);
+}
 const artworkIds = artworkButtonTags.map((button) => button['data-artwork-id']);
 const artworkSlugs = artworkButtonTags.map((button) => button['data-artwork-slug']);
 if (imageLocs.length !== artworkSources.size) fail(`Artooo: image sitemap/gallery mismatch (${imageLocs.length}/${artworkSources.size})`);

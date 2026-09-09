@@ -62,7 +62,7 @@ for (const file of htmlFiles) {
     socialImageUrls++;
     assertProductionUrl(url, `${relative} social image`);
   }
-  mixedContentResources += values(html, /<(?:link|script|img|source|video|audio)\b[^>]*(?:href|src)=["'](http:\/\/[^"']+)["']/gi).length;
+  mixedContentResources += values(html, /<(?:link|script|img|source|video|audio|iframe)\b[^>]*(?:href|src)=["'](http:\/\/[^"']+)["']/gi).length;
 }
 
 const sitemap = fs.readFileSync(path.join(dist, 'sitemap-0.xml'), 'utf8');

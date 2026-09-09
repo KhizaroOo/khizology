@@ -41,7 +41,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
               <div class="fm-orb" style={`--fc: ${m.color}; --idx: ${i}`}>
                 <div class="fm-orb-glow"></div>
                 <img src={`${base}${m.image}`} alt={`Future monster ${i + 1}`} width="48" height="48" loading={i < 2 ? 'eager' : 'lazy'} />
-                <span class="fm-orb-emoji">{m.emoji}</span>
               </div>
             ))}
           </div>
@@ -72,7 +71,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             </div>
             <div class="fm-card-body">
               <div class="fm-name-row">
-                <span class="fm-name">{m.emoji} ???ooo</span>
+                <span class="fm-name">???ooo</span>
               </div>
               <p class="fm-desc">{m.description}</p>
               <span class="fm-tagline">{m.tagline}</span>

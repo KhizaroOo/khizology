@@ -1,0 +1,28 @@
+---
+import type { ToolKnowledge as Knowledge } from '../../data/toolKnowledge';
+interface Props { knowledge: Knowledge; accent: string; }
+const { knowledge, accent } = Astro.props;
+const sections = [
+  ['What is this?', knowledge.whatIsThis], ['Why does it matter?', knowledge.whyDoesItMatter],
+  ['What am I seeing?', knowledge.whatAmISeeing], ['What should I do?', knowledge.whatShouldIDo],
+  ['Assumptions', knowledge.assumptions], ['Try next', knowledge.tryNext],
+].filter(([, content]) => content);
+---
+{sections.length > 0 && (
+  <section class="tool-knowledge" style={`--knowledge-accent:${accent}`} aria-labelledby="tool-knowledge-title">
+    <h2 id="tool-knowledge-title">A quick guide</h2>
+    <div class="tool-knowledge-grid">
+      {sections.map(([heading, content]) => <section><h3>{heading}</h3><p>{content}</p></section>)}
+    </div>
+  </section>
+)}
+<style>
+  .tool-knowledge { margin: 1.5rem 0; padding: 1.25rem; border: 1px solid var(--k-border); border-radius: 1rem; background: var(--k-bg-card); }
+  h2, h3 { font-family: 'Poppins', sans-serif; color: var(--k-text); }
+  h2 { margin: 0 0 1rem; font-size: 1.1rem; }
+  .tool-knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: .875rem; }
+  .tool-knowledge-grid section { border-left: 3px solid var(--knowledge-accent); padding-left: .75rem; }
+  h3 { font-size: .78rem; margin: 0 0 .25rem; text-transform: uppercase; letter-spacing: .05em; }
+  p { color: var(--k-text-muted); font-size: .86rem; line-height: 1.55; margin: 0; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>

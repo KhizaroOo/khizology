@@ -1,4 +1,5 @@
 ---
+import { preview, previewSrcset } from "../utils/imagePreview";
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import MonsterCard from '../components/ui/MonsterCard.astro';
 import SectionHeader from '../components/ui/SectionHeader.astro';
@@ -7,7 +8,7 @@ import { artworks, featuredArtworks } from '../data/artworks';
 import { families } from '../data/families';
 import { getToolCountByFamily, tools as toolboxTools } from '../data/tools';
 import { SITE } from '../data/site';
-import { url, img } from '../utils/url';
+import { url } from '../utils/url';
 import { personSchema, websiteSchema } from '../utils/schema';
 
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
@@ -33,7 +34,7 @@ const jsonLd = {
           A Creative Knowledge Universe
         </span>
         <h1 class="hero-title">
-          Where <span class="k-gradient-text">Art</span> meets
+          Where <span class="k-gradient-text">Art</span> meets{' '}
           <span class="k-gradient-text">Code</span>
         </h1>
         <p class="hero-subtitle">
@@ -57,7 +58,7 @@ const jsonLd = {
         <div class="hero-universe-grid">
           <!-- Logo center -->
           <div class="hug-logo">
-            <img src={img('/images/Monsters/khizooo.png')} alt="Khizooology" width="64" height="64" />
+            <img src={preview('/images/Monsters/khizooo.png')} alt="Khizooology" width="64" height="64" />
             <span>Khizooology</span>
           </div>
           <!-- All monsters -->
@@ -66,7 +67,7 @@ const jsonLd = {
               class={`hug-card${m.status === 'coming-soon' ? ' hug-soon' : ''}`}
               style={`--mc: ${m.color}`}
             >
-              <img src={img(m.image)} alt={m.name} width="40" height="40" />
+              <img src={preview(m.image)} alt={m.name} width="40" height="40" />
               <span>{m.status === 'coming-soon' ? '???ooo' : m.name}</span>
               <small>{m.status === 'coming-soon' ? 'Unknown' : m.module}</small>
             </div>
@@ -112,8 +113,10 @@ const jsonLd = {
         {featuredArtworks.slice(0, 8).map((art) => (
           <a href={url('/artworks')} class="artwork-thumb" aria-label={art.title}>
             <img
-              src={img('/images/artworks/' + art.filename)}
-              alt={art.title}
+              src={preview('/images/artworks/' + art.filename)}
+              srcset={previewSrcset('/images/artworks/' + art.filename)}
+              sizes="(max-width: 600px) 50vw, (max-width: 1024px) 25vw, 280px"
+              alt=""
               loading="lazy"
               width={art.width}
               height={art.height}
@@ -158,7 +161,7 @@ const jsonLd = {
     <div class="k-container">
       <div class="btv-inner">
         <div class="btv-content">
-          <span class="k-section-label" style="color: var(--k-accent)">Behind the Vibes</span>
+          <span class="k-section-label" style="color: var(--k-accent-text)">Behind the Vibes</span>
           <h2>By luck, a programmer.<br />By nature, an artist.</h2>
           <p>
             Khizooology isn't just a website — it's a living record of ideas, experiments,
@@ -171,7 +174,7 @@ const jsonLd = {
           </div>
         </div>
         <div class="btv-visual">
-          <img src={img('/images/site/creative-01.png')} alt="Khizar Imtiaz drawing original Khizooology artwork" loading="lazy" decoding="async" width="600" height="596" />
+          <img src={preview('/images/site/creative-01.png')} srcset={previewSrcset('/images/site/creative-01.png')} sizes="(max-width: 768px) 90vw, 600px" alt="Khizar Imtiaz drawing original Khizooology artwork" loading="lazy" decoding="async" width="600" height="596" />
         </div>
       </div>
     </div>
@@ -183,7 +186,7 @@ const jsonLd = {
       <div class="follow-inner">
         <div class="follow-monsters">
           {monsters.map(m => (
-            <img src={img(m.image)} alt={m.name} width="40" height="40" class="follow-monster-img" />
+            <img src={preview(m.image)} alt={m.name} width="40" height="40" class="follow-monster-img" />
           ))}
         </div>
         <h2>Stay in the universe.</h2>
@@ -337,7 +340,6 @@ const jsonLd = {
   .hug-card img { width: 36px; height: 36px; object-fit: contain; }
   /* Coming-soon cards: dimmed + dashed border */
   .hug-soon {
-    opacity: 0.55;
     border-style: dashed;
   }
   .hug-soon img { filter: grayscale(0.4); }
@@ -514,11 +516,11 @@ const jsonLd = {
   .follow-ctas { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
   .btn-primary-inv {
     display: inline-flex; align-items: center; padding: 0.65rem 1.5rem;
-    background: var(--k-accent); color: #fff;
+    background: #cf1934; color: #fff;
     border-radius: 0.625rem; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.875rem;
     text-decoration: none; transition: opacity 0.2s, transform 0.2s;
   }
-  .btn-primary-inv:hover { opacity: 0.85; transform: translateY(-2px); }
+  .btn-primary-inv:hover { background: #b9152e; transform: translateY(-2px); }
   .btn-outline-inv {
     display: inline-flex; align-items: center; padding: 0.65rem 1.5rem;
     background: transparent; color: var(--k-text-muted);
@@ -526,7 +528,7 @@ const jsonLd = {
     border-radius: 0.625rem; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.875rem;
     text-decoration: none; transition: border-color 0.2s, color 0.2s;
   }
-  .btn-outline-inv:hover { border-color: var(--k-accent); color: var(--k-accent); }
+  .btn-outline-inv:hover { border-color: var(--k-accent); color: var(--k-accent-text); }
 
   /* RESPONSIVE */
   @media (max-width: 768px) {

@@ -1,0 +1,14 @@
+/* Local WOFF2 files are fingerprinted by Vite; no external font CSS chain. */
+@import "@fontsource/poppins/latin-400.css";
+@import "@fontsource/poppins/latin-500.css";
+@import "@fontsource/poppins/latin-600.css";
+@import "@fontsource/poppins/latin-700.css";
+@import "@fontsource/poppins/latin-800.css";
+@import "@fontsource/poppins/latin-900.css";
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 1000;
+  src: url('@fontsource-variable/mulish/files/mulish-latin-wght-normal.woff2') format('woff2');
+}

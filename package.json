@@ -16,7 +16,12 @@
     "indexnow:check": "node scripts/indexnow.mjs",
     "indexnow:submit": "node scripts/indexnow.mjs --submit",
     "audit:search": "npm run audit:domain && node scripts/audit-search.mjs && node scripts/test-analytics.mjs",
-    "audit:ga-config": "node scripts/audit-ga-config.mjs"
+    "audit:ga-config": "node scripts/audit-ga-config.mjs",
+    "audit:value": "npm run build && node scripts/audit-value.mjs",
+    "audit:human-atlas": "node scripts/audit-human-atlas.mjs",
+    "images:generate": "node scripts/generate-thumbnails.mjs",
+    "prebuild": "npm run images:generate",
+    "predev": "npm run images:generate"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.5",
@@ -26,5 +31,12 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@fontsource-variable/mulish": "^5.3.0",
+    "@fontsource/poppins": "^5.3.0",
+    "sharp": "^0.35.4",
+    "typescript": "^6.0.3"
   }
 }

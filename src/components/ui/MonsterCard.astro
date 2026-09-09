@@ -1,6 +1,7 @@
 ---
+import { preview } from "../../utils/imagePreview";
 import type { Monster } from '../../data/monsters';
-import { url, img } from '../../utils/url';
+import { url } from '../../utils/url';
 
 interface Props {
   monster: Monster;
@@ -15,7 +16,6 @@ const isActive = monster.status === 'active';
   href={url(monster.route)}
   class={`monster-card ${size === 'large' ? 'monster-card-lg' : ''} ${!isActive ? 'monster-card-locked' : ''}`}
   style={`--m-color: ${monster.color}; --m-color-light: ${monster.colorLight}`}
-  aria-label={`${monster.name} — ${monster.module}${!isActive ? ' (Coming Soon)' : ''}`}
 >
   <!-- Glow background -->
   <div class="mc-glow"></div>
@@ -23,8 +23,8 @@ const isActive = monster.status === 'active';
   <!-- Monster image -->
   <div class="mc-image-wrap">
     <img
-      src={img(monster.image)}
-      alt={monster.name}
+      src={preview(monster.image)}
+      alt=""
       width="72"
       height="72"
       class="mc-image"
@@ -77,7 +77,7 @@ const isActive = monster.status === 'active';
 
   .monster-card-locked {
     cursor: default;
-    opacity: 0.85;
+
   }
   .monster-card-locked:hover {
     transform: translateY(-2px);
@@ -138,7 +138,7 @@ const isActive = monster.status === 'active';
     font-family: 'Poppins', sans-serif;
     font-weight: 800;
     font-size: 1rem;
-    color: var(--m-color);
+    color: color-mix(in srgb, var(--m-color), #000 55%);
   }
   .mc-arrow { color: var(--k-text-muted); font-size: 0.875rem; }
   .mc-module {
@@ -165,7 +165,7 @@ const isActive = monster.status === 'active';
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--m-color);
+    color: color-mix(in srgb, var(--m-color), #000 55%);
   }
 
   /* Locked overlay */
@@ -192,7 +192,7 @@ const isActive = monster.status === 'active';
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--m-color);
+    color: color-mix(in srgb, var(--m-color), #000 55%);
   }
 
   /* Large variant */
@@ -205,4 +205,5 @@ const isActive = monster.status === 'active';
   .monster-card-lg .mc-image { width: 68px; height: 68px; }
   .monster-card-lg .mc-name { font-size: 1.1rem; }
   .monster-card-lg .mc-desc { -webkit-line-clamp: 2; }
+  :global(html.dark) .mc-name, :global(html.dark) .mc-tagline, :global(html.dark) .mc-lock-text { color: var(--m-color); }
 </style>

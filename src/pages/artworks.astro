@@ -1,4 +1,5 @@
 ---
+import { preview, previewSrcset } from "../utils/imagePreview";
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import ArtworkGrid from '../components/artworks/ArtworkGrid';
@@ -6,6 +7,7 @@ import { artworks } from '../data/artworks';
 import { monsters } from '../data/monsters';
 import { url, img } from '../utils/url';
 import { pageSchema } from '../utils/schema';
+import { monsterVoices } from '../data/monsterVoices';
 
 const ACCENT = '#F5CF5C';
 const monster = monsters.find(m => m.id === 'artooo')!;
@@ -46,7 +48,7 @@ const jsonLd = pageSchema({
         <div class="art-hero-text">
           <Breadcrumb crumbs={[{ label: 'artooo', href: url('/artworks') }]} accentColor={ACCENT} />
           <div class="art-hero-badge">
-            <img src={`${base}/images/Monsters/artooo.png`} alt="artooo" width="40" height="40" class="art-hero-monster" />
+            <img src={preview("/images/Monsters/artooo.png")} alt="artooo" width="40" height="40" class="art-hero-monster" />
             <span class="k-section-label" style={`color: ${ACCENT}`}>artooo · Artworks</span>
           </div>
           <h1 class="art-hero-title">
@@ -57,6 +59,7 @@ const jsonLd = pageSchema({
             Sticky-note art, digital illustrations, emotional portraits, and visual stories.
             Each piece is a feeling given form — scroll, search, explore.
           </p>
+          <p class="art-hero-voice">{monsterVoices.artooo.microcopy}</p>
           <div class="art-hero-stats">
             <div class="art-stat">
               <span class="art-stat-num">{artworks.length}</span>
@@ -77,7 +80,9 @@ const jsonLd = pageSchema({
             {artworks.slice(0, 6).map((a, i) => (
               <div class={`art-mosaic-cell cell-${i}`}>
                 <img
-                  src={`${base}/images/artworks/${a.filename}`}
+                  src={preview(`/images/artworks/${a.filename}`)}
+                  srcset={previewSrcset(`/images/artworks/${a.filename}`)}
+                  sizes="(max-width: 768px) 30vw, 180px"
                   alt={a.title}
                   width={a.width}
                   height={a.height}
@@ -116,7 +121,7 @@ const jsonLd = pageSchema({
         <div class="art-cta-links">
           {monsters.filter(m => m.status === 'active' && m.id !== 'artooo').map(m => (
             <a href={url(m.route)} class="art-cta-monster" style={`--mc: ${m.color}`}>
-              <img src={`${base}${m.image}`} alt={m.name} width="32" height="32" />
+              <img src={preview(m.image)} alt={m.name} width="32" height="32" />
               <span>{m.module}</span>
             </a>
           ))}
@@ -171,6 +176,7 @@ const jsonLd = pageSchema({
     max-width: 480px;
     margin: 0 0 1.5rem;
   }
+  .art-hero-voice { margin: -1rem 0 1.25rem; color: var(--k-text-muted); font-size: .78rem; font-style: italic; }
 
   .art-hero-stats {
     display: flex;

@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { url, img } from '../../utils/url';
+---
+<BaseLayout title="Infooo — Interactive Knowledge Worlds | Khizooology" description="See it. Touch it. Understand it. Explore interactive knowledge worlds by Khizooology." accentColor="#5CCFAF" accentColorLight="#A7F3D0" jsonLd={[{'@context':'https://schema.org','@type':'CollectionPage',name:'Infooo',url:'https://khizooology.com/infooo'},{'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:'https://khizooology.com/'},{'@type':'ListItem',position:2,name:'Infooo',item:'https://khizooology.com/infooo'}]}]}>
+  <div class="infooo"><section class="k-container"><img src={img('/images/Monsters/infooo.png')} alt="infooo" width="92" height="92" /><p>INFOOO · INTERACTIVE KNOWLEDGE WORLDS</p><h1>See it. Touch it. Understand it.</h1><p class="lead">Words weren't enough. So I made it move.</p><a href={url('/infooo/human-atlas')}>Explore Human Atlas →</a></section></div>
+</BaseLayout>
+<style>.infooo{padding:6rem 0;min-height:65vh;background:var(--k-bg)}.infooo section{max-width:760px}.infooo img{margin-bottom:1rem}.infooo p:first-of-type{color:#278a73;font:800 .75rem Poppins,sans-serif;letter-spacing:.1em}.infooo h1{font:900 clamp(2.4rem,7vw,5rem)/1.05 Poppins,sans-serif;margin:.5rem 0}.lead{color:var(--k-text-muted);font-size:1.2rem}.infooo a{display:inline-block;margin-top:1rem;background:#5CCFAF;color:#173c35;padding:.8rem 1.1rem;border-radius:.7rem;font:800 .9rem Poppins,sans-serif}</style>

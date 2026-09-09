@@ -1,4 +1,6 @@
+import { preview, previewSrcset } from "../../utils/imagePreview";
 import { trackArtworkView } from '../../utils/analytics';
+import ShareResultFoundation from '../toolbox/ShareResultFoundation';
 import { useState, useEffect, useCallback, useRef } from 'react';
 
 interface Artwork {
@@ -10,6 +12,7 @@ interface Artwork {
   width: number;
   height: number;
   description?: string;
+  story?: string; year?: number; medium?: string; whatIWasThinking?: string; collection?: string; relatedArtwork?: string[]; behindTheSketch?: string;
 }
 
 interface Props {
@@ -21,10 +24,14 @@ function ArtworkModal({
   artwork,
   base,
   onClose,
+  related,
+  onSelect,
 }: {
   artwork: Artwork;
   base: string;
   onClose: () => void;
+  related: Artwork[];
+  onSelect: (artwork: Artwork) => void;
 }) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -89,6 +96,12 @@ function ArtworkModal({
               <span key={t} className="aw-tag">{t}</span>
             ))}
           </div>
+          {(artwork.year || artwork.medium || artwork.collection) && <p className="aw-modal-meta">{[artwork.year, artwork.medium, artwork.collection].filter(Boolean).join(' · ')}</p>}
+          {artwork.story && <p className="aw-modal-desc">{artwork.story}</p>}
+          {artwork.whatIWasThinking && <p className="aw-modal-desc"><strong>What I was thinking:</strong> {artwork.whatIWasThinking}</p>}
+          {artwork.behindTheSketch && <p className="aw-modal-desc"><strong>Behind the sketch:</strong> {artwork.behindTheSketch}</p>}
+          <ShareResultFoundation monster="artooo" contentType="artwork" slug={artwork.slug} title={artwork.title} />
+          {related.length > 0 && <section className="aw-related"><h3>Related artworks</h3><div>{related.map(item => <button key={item.id} type="button" onClick={() => onSelect(item)} data-related-content data-related-monster="artooo" data-related-content-type="artwork" data-related-slug={item.slug}>{item.title}</button>)}</div></section>}
         </div>
       </div>
     </div>
@@ -110,6 +123,8 @@ export default function ArtworkGrid({ artworks, base }: Props) {
   });
 
   const handleClose = useCallback(() => setSelected(null), []);
+  const selectArtwork = useCallback((artwork: Artwork) => { setSelected(artwork); trackArtworkView(artwork.slug); }, []);
+  const related = selected ? artworks.filter(candidate => candidate.id !== selected.id && candidate.tags.some(tag => selected.tags.includes(tag))).slice(0, 3) : [];
 
   return (
     <>
@@ -162,12 +177,15 @@ export default function ArtworkGrid({ artworks, base }: Props) {
               className="aw-card"
               data-artwork-id={a.id}
               data-artwork-slug={a.slug}
-              onClick={() => { setSelected(a); trackArtworkView(a.slug); }}
+              data-artwork-original={`${base}/images/artworks/${a.filename}`}
+              onClick={() => selectArtwork(a)}
               aria-label={`View ${a.title}`}
               style={{ '--aw-delay': `${(i % 12) * 0.04}s` } as React.CSSProperties}
             >
               <img
-                src={`${base}/images/artworks/${a.filename}`}
+                src={preview(`/images/artworks/${a.filename}`)}
+                srcSet={previewSrcset(`/images/artworks/${a.filename}`)}
+                sizes="(max-width: 600px) 50vw, (max-width: 1024px) 33vw, 320px"
                 alt={a.title}
                 width={a.width}
                 height={a.height}
@@ -189,7 +207,7 @@ export default function ArtworkGrid({ artworks, base }: Props) {
       )}
 
       {selected && (
-        <ArtworkModal artwork={selected} base={base} onClose={handleClose} />
+        <ArtworkModal artwork={selected} base={base} onClose={handleClose} related={related} onSelect={selectArtwork} />
       )}
 
       <style>{`
@@ -321,6 +339,12 @@ export default function ArtworkGrid({ artworks, base }: Props) {
         .aw-modal-desc { font-size: .875rem; color: var(--k-text-muted); line-height: 1.6; margin: 0; }
         .aw-modal-tags { display: flex; flex-wrap: wrap; gap: .375rem; }
         .aw-modal-tags .aw-tag { font-size: .7rem; }
+        .aw-modal-meta { font-size: .78rem; color: var(--k-text-muted); margin: 0; }
+        .aw-related { border-top: 1px solid var(--k-border); padding-top: .875rem; }
+        .aw-related h3 { margin: 0 0 .5rem; font: 700 .75rem 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: .06em; color: var(--k-text); }
+        .aw-related div { display: flex; flex-wrap: wrap; gap: .375rem; }
+        .aw-related button { border: 1px solid var(--k-border); border-radius: .5rem; background: var(--k-bg); color: var(--k-text); cursor: pointer; font: 600 .72rem inherit; padding: .4rem .55rem; }
+        .aw-related button:focus-visible { outline: 3px solid #F5CF5C; outline-offset: 2px; }
 
         @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(16px) } to { opacity: 1; transform: translateY(0) } }

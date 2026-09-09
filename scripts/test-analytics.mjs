@@ -7,11 +7,11 @@ const source = fs.readFileSync(new URL('../src/utils/analytics.ts', import.meta.
 function fixture(id = 'G-TESTONLY00', saved = null, brokenStorage = false) {
   const scripts = [], docListeners = {}, toolListeners = {};
   let reloads = 0;
-  class Element { closest() { return this; } }
+  class Element { dataset = {}; closest() { return this; } }
   const tool = { dataset: { toolSlug: 'schema-drift-doctor', toolFamily: 'check', featureLevel: '2' }, addEventListener: (name, fn) => toolListeners[name] = fn };
   const doc = { title: 'Public tool title', cookie: '_ga=abc', querySelector: selector => selector.includes('canonical') ? { href: 'https://khizooology.com/toolbox/schema-drift-doctor' } : tool,
     querySelectorAll: () => [{ dataset: { artworkSlug: 'public-art' } }], createElement: () => ({ remove() {} }), head: { appendChild: s => scripts.push(s) },
-    getElementById: () => scripts[0], addEventListener: (name, fn) => docListeners[name] = fn, dispatchEvent() {} };
+    getElementById: () => scripts[0], addEventListener: (name, fn) => { const previous = docListeners[name]; docListeners[name] = event => { previous?.(event); fn(event); }; }, dispatchEvent() {} };
   const win = { location: { href: 'https://khizooology.com/?private=NEVER_SEND', reload: () => reloads++ }, addEventListener() {} };
   const context = vm.createContext({ window: win, document: doc, Element, URL, Event, localStorage: { getItem: () => { if (brokenStorage) throw Error(); return saved; }, setItem: (_, v) => { if (brokenStorage) throw Error(); saved = v; } } });
   vm.runInContext(stripTypeScriptTypes(source.replace('import.meta.env.PUBLIC_GA_MEASUREMENT_ID', JSON.stringify(id))).replace(/export /g, ''), context);

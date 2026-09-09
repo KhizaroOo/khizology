@@ -557,6 +557,17 @@ export function getRelatedTools(tool: Tool, limit = 3): Tool[] {
     .map(({ candidate }) => candidate);
 }
 
+const nextFamily: Record<FamilyId, FamilyId> = { check: 'simulate', simulate: 'decide', decide: 'plan', plan: 'create', create: 'check' };
+export function getTryNextTools(tool: Tool, limit = 2): Tool[] {
+  const tagSet = new Set(tool.tags);
+  return tools
+    .filter(candidate => candidate.status === 'active' && candidate.family === nextFamily[tool.family])
+    .map(candidate => ({ candidate, score: candidate.tags.filter(tag => tagSet.has(tag)).length * 3 + (candidate.featured ? 1 : 0) }))
+    .sort((a, b) => b.score - a.score || a.candidate.name.localeCompare(b.candidate.name))
+    .slice(0, limit)
+    .map(({ candidate }) => candidate);
+}
+
 export const getToolCountByFamily = (familyId: string): number =>
   tools.filter((t) => t.family === familyId).length;
 
