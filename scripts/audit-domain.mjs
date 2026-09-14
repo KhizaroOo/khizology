@@ -88,7 +88,8 @@ if (mixedContentResources) errors.push(`Found ${mixedContentResources} insecure 
 if (canonicalUrls !== htmlFiles.length) errors.push(`Expected ${htmlFiles.length} canonicals, found ${canonicalUrls}`);
 const indexableCount = htmlFiles.filter(file => !/noindex|http-equiv=["']refresh/i.test(fs.readFileSync(file, 'utf8'))).length;
 if (sitemapUrls.length !== indexableCount) errors.push(`Expected ${indexableCount} normal sitemap URLs, found ${sitemapUrls.length}`);
-if (imageUrls.length !== 168) errors.push(`Expected 168 image sitemap URLs, found ${imageUrls.length}`);
+const expectedArtworkCount = fs.readdirSync(path.join(root, 'public', 'images', 'artworks')).filter(file => /\.(?:jpe?g|png|webp)$/i.test(file)).length;
+if (imageUrls.length !== expectedArtworkCount) errors.push(`Expected ${expectedArtworkCount} image sitemap URLs, found ${imageUrls.length}`);
 
 const report = {
   productionOrigin,

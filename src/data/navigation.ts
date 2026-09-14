@@ -13,8 +13,8 @@ export interface NavGroup {
 export const mainNav: NavItem[] = [
   { label: 'Artworks',       href: '/artworks',        color: '#F5CF5C' },
   { label: 'Toolbox',        href: '/toolbox',         color: '#F7933C' },
+  { label: 'Infooo',         href: '/infooo',          color: '#5CCFAF' },
   { label: 'Future Monsters',href: '/future-monsters', color: '#B699FF' },
-  { label: 'My Portfolio',   href: '/my-portfolio' },
 ];
 
 export const footerNav: NavGroup[] = [
@@ -23,13 +23,13 @@ export const footerNav: NavGroup[] = [
     items: [
       { label: 'artooo — Artworks',     href: '/artworks' },
       { label: 'toolooo — Toolbox',     href: '/toolbox' },
+      { label: 'infooo — Interactive Knowledge Worlds', href: '/infooo' },
       { label: 'Future Monsters',       href: '/future-monsters' },
     ],
   },
   {
     label: 'Explore',
     items: [
-      { label: 'My Portfolio',      href: '/my-portfolio' },
       { label: 'Behind The Vibes',  href: '/behind-the-vibes' },
       { label: 'You Ask I Answer',  href: '/you-ask-i-answer' },
       { label: 'Drop a Vibe',       href: '/drop-a-vibe' },

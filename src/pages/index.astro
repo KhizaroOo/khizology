@@ -7,12 +7,14 @@ import { monsters } from '../data/monsters';
 import { artworks, featuredArtworks } from '../data/artworks';
 import { families } from '../data/families';
 import { getToolCountByFamily, tools as toolboxTools } from '../data/tools';
+import { infoooWorlds } from '../data/infooo';
 import { SITE } from '../data/site';
 import { url } from '../utils/url';
 import { personSchema, websiteSchema } from '../utils/schema';
 
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
 const activeToolCount = toolboxTools.filter((tool) => tool.status === 'active').length;
+const publishedInfoooCount = infoooWorlds.filter((world) => world.status === 'published' && world.visibility === 'public').length;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [websiteSchema(seoContext), personSchema(seoContext)],
@@ -40,17 +42,20 @@ const jsonLd = {
         <p class="hero-subtitle">
           By luck, a programmer. By nature, an artist.<br />
           Welcome to <strong>Khizooology.</strong><br /><br />
-          A monster-powered universe of Artworks and free Tools.
+          A monster-powered universe of Artworks, free Tools, and interactive knowledge worlds.
         </p>
         <div class="hero-ctas">
           <a href="#monsters" class="btn-primary">Explore Monsters</a>
           <a href={url('/toolbox')} class="btn-secondary">Try Toolbox</a>
           <a href={url('/artworks')} class="btn-ghost">View Artworks</a>
+          <a href={url('/my-portfolio')} class="btn-portfolio">View Portfolio <span aria-hidden="true">↗</span></a>
         </div>
         <div class="hero-stats">
           <div class="stat"><strong>{artworks.length}</strong><span>Artworks</span></div>
           <div class="stat-divider"></div>
           <div class="stat"><strong>{activeToolCount}</strong><span>Free Tools</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><strong>{publishedInfoooCount}</strong><span>Infooo Worlds</span></div>
         </div>
       </div>
 
@@ -89,7 +94,7 @@ const jsonLd = {
       <SectionHeader
         label="The Universe"
         title="Meet the Monsters"
-        description="Each monster is a creative module. A world of its own. 2 are live. More are being unleashed."
+        description="Each monster is a creative module. A world of its own. 3 are live. More are being unleashed."
         accentColor="var(--k-accent)"
         align="center"
       />
@@ -413,6 +418,16 @@ const jsonLd = {
     white-space: nowrap;
   }
   .btn-ghost:hover { border-color: var(--k-text); color: var(--k-text); }
+  .btn-portfolio {
+    display: inline-flex; align-items: center; gap: .45rem;
+    padding: 0.65rem 1.1rem;
+    color: var(--k-accent-text); background: color-mix(in srgb, var(--k-accent) 10%, var(--k-bg-card));
+    border: 1px solid color-mix(in srgb, var(--k-accent) 55%, var(--k-border)); border-radius: 0.625rem;
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.875rem; text-decoration: none;
+    transition: transform .2s, background .2s;
+  }
+  .btn-portfolio:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--k-accent) 18%, var(--k-bg-card)); }
+  .btn-portfolio span { font-size: 1rem; }
 
   /* MONSTERS GRID */
   .monsters-section { background: var(--k-bg-card); }

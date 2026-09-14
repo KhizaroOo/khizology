@@ -12,7 +12,7 @@ import { monsterVoices } from '../data/monsterVoices';
 const ACCENT = '#F5CF5C';
 const monster = monsters.find(m => m.id === 'artooo')!;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const artworkTitle = 'Artooo — 168 Original Artworks by khizooo | Khizooology';
+const artworkTitle = `Artooo — ${artworks.length} Original Artworks | Khizooology`;
 const artworkDescription = `${artworks.length} original sticky-note artworks, illustrations, digital paintings, and visual stories by Khizar Imtiaz (khizooo).`;
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
 const jsonLd = pageSchema({

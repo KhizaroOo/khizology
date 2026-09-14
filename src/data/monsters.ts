@@ -44,6 +44,20 @@ export const monsters: Monster[] = [
     tagline: 'Make it visible.',
   },
   {
+    id: 'infooo',
+    name: 'infooo',
+    module: 'Interactive Knowledge Worlds',
+    description:
+      'Interactive worlds that make difficult knowledge visible, explorable, and easier to understand.',
+    color: '#5CCFAF',
+    colorLight: '#A7F3D0',
+    textColor: '#2A3439',
+    route: '/infooo',
+    image: '/images/Monsters/infooo.png',
+    status: 'active',
+    tagline: 'See it. Touch it. Understand it.',
+  },
+  {
     id: 'future-2',
     name: '???ooo',
     module: 'Unknown',
@@ -112,20 +126,6 @@ export const monsters: Monster[] = [
     image: '/images/Monsters/devooo.png',
     status: 'coming-soon',
     tagline: 'In the lab.',
-  },
-  {
-    id: 'infooo',
-    name: 'infooo',
-    module: 'Interactive Knowledge Worlds',
-    description:
-      'Interactive worlds that make difficult knowledge visible, explorable, and easier to understand.',
-    color: '#5CCFAF',
-    colorLight: '#A7F3D0',
-    textColor: '#2A3439',
-    route: '/infooo',
-    image: '/images/Monsters/infooo.png',
-    status: 'active',
-    tagline: 'See it. Touch it. Understand it.',
   },
   {
     id: 'future-8',

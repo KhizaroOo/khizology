@@ -158,13 +158,14 @@ if (familyRoutes.length !== 5) errors.push(`Expected 5 family routes, found ${fa
 if (indexableRoutes.length !== expectedSitePages - 4) errors.push(`Expected ${expectedSitePages - 4} indexable pages, found ${indexableRoutes.length}`);
 if (noindexRoutes.length !== 5) errors.push(`Expected 5 noindex/redirect documents (including the embedded viewer), found ${noindexRoutes.length}`);
 
+const expectedArtworkCount = fs.readdirSync(path.join(root, 'public', 'images', 'artworks')).filter(file => /\.(?:jpe?g|png|webp)$/i.test(file)).length;
 const artworkHtml = htmlByRoute.get('/artworks/') || '';
 const artworkCards = count(artworkHtml, /data-artwork-id=/gi);
-if (artworkCards !== 168) errors.push(`Expected 168 server-rendered artwork cards, found ${artworkCards}`);
+if (artworkCards !== expectedArtworkCount) errors.push(`Expected ${expectedArtworkCount} server-rendered artwork cards, found ${artworkCards}`);
 
 const imageSitemap = fs.readFileSync(path.join(dist, 'image-sitemap.xml'), 'utf8');
 const imageEntries = count(imageSitemap, /<image:image>/g);
-if (imageEntries !== 168) errors.push(`Expected 168 image sitemap entries, found ${imageEntries}`);
+if (imageEntries !== expectedArtworkCount) errors.push(`Expected ${expectedArtworkCount} image sitemap entries, found ${imageEntries}`);
 
 const sitemap = files.find((file) => /sitemap-\d+\.xml$/.test(file));
 const sitemapUrls = sitemap ? count(fs.readFileSync(sitemap, 'utf8'), /<url>/g) : 0;

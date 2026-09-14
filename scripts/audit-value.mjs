@@ -44,17 +44,17 @@ for (const tool of lv3Tools) {
 const lv3Workspace = fs.readFileSync(path.join(root, 'src/components/toolbox/lv3/workspace.ts'), 'utf8');
 assert.ok(lv3Workspace.includes('slice(0, LIMIT)') && !/input|payload|token/i.test(lv3Workspace), 'My Toolooo storage must be bounded and metadata-only');
 
-
 const infooo = fs.readFileSync(path.join(root, 'src/data/infooo.ts'), 'utf8');
 assert.ok(infooo.includes("status: 'active' as const"), 'Infooo must be active with a published world');
 assert.ok(infooo.includes("tagline: 'See it. Touch it. Understand it.'"), 'Infooo identity missing');
-assert.ok(infooo.includes("title: 'Human Atlas'") && infooo.includes("title: 'What Happens When You Press Enter?'"), 'Reserved Infooo worlds missing');
-assert.ok(infooo.includes("status: 'published'") && infooo.includes("visibility: 'public'"), 'World 001 must be published');
-assert.equal((infooo.match(/status: 'private'/g) || []).length, 1, 'Only World 002 must remain private');
+assert.ok(infooo.includes("title: 'Human Atlas'"), 'Human Atlas world is missing');
+assert.equal((infooo.match(/status: 'published'/g) || []).length, 1, 'Infooo must have exactly one published world');
+assert.equal((infooo.match(/status: 'private'/g) || []).length, 0, 'No unfinished private Infooo world should be presented as public content');
+assert.ok(!/internet-request-journey|What Happens When You Press Enter|world-002/.test(infooo), 'Discarded World 002 must not remain in the Infooo registry');
 assert.ok(infooo.includes('InfoooCandidateChecks') && infooo.includes('factualSources') && infooo.includes('requiredPassed'), 'Infooo candidate gate missing');
 assert.ok(infooo.includes('fact?:') && infooo.includes('model?:') && infooo.includes('simulation?:') && infooo.includes('sources?:'), 'Infooo truth fields missing');
-assert.ok(!infooo.includes('sources: ['), 'Infooo must not contain fake source records');
-assert.ok(fs.existsSync(path.join(root, 'src/pages/infooo/index.astro')) && fs.existsSync(path.join(root, 'src/pages/infooo/human-atlas.astro')), 'Published Infooo routes missing');
+assert.ok(fs.existsSync(path.join(root, 'src/pages/infooo/index.astro')) && fs.existsSync(path.join(root, 'src/pages/infooo/human-atlas.astro')), 'Infooo routes missing');
+for (const discarded of ['src/pages/infooo/internet-request-journey.astro', 'src/components/infooo/InternetRequestWorld.tsx', 'src/data/internetRequestJourney.ts']) assert.ok(!fs.existsSync(path.join(root, discarded)), `Discarded World 002 file remains: ${discarded}`);
 
 const dist = path.join(root, 'dist');
 const pages = fs.readdirSync(dist, { recursive: true }).filter(file => String(file).endsWith('.html'));
@@ -63,6 +63,6 @@ assert.ok(html.includes('A quick guide'), 'Tool knowledge layer missing from bui
 assert.ok(html.includes('Try next'), 'Workflow-related tools missing from build');
 assert.ok(!/href=["'][^"']*notooo[^"']*["']/i.test(html), 'Inactive Notooo must not be publicly linked');
 assert.ok(html.includes('Human Atlas') && html.includes('See it. Touch it. Understand it.'), 'Published Infooo identity is missing');
-assert.ok(!html.includes('What Happens When You Press Enter?'), 'World 002 must remain private');
+assert.ok(!/What Happens When You Press Enter|internet-request-journey|Cache hit vs cache miss/.test(html), 'Discarded World 002 content remains in the build');
 for (const match of html.matchAll(/data-related-content[^>]*data-related-slug=["']([^"']+)["']/g)) assert.ok(/^[a-z0-9-]+$/.test(match[1]), 'Invalid related content slug');
 console.log(`Value audit passed: ${valueLaws.length} laws, hard gates, knowledge, relationships, privacy and manifest structure checked across ${pages.length} HTML pages.`);

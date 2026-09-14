@@ -116,6 +116,17 @@ export function trackContractDriftRun(changeCount: number, summary: { likelyBrea
   emit('contract_drift_run', { tool_id: 'api-payload-doctor', change_count_bucket: bucket, likely_breaking_count: summary.likelyBreaking, needs_review_count: summary.needsReview, additive_count: summary.additive });
 }
 
+type InfoooAnalyticsMetadata = { world_slug: string; entity_id?: string; guide_id?: string };
+function validInfoooMetadata(metadata: InfoooAnalyticsMetadata) {
+  return /^[a-z0-9-]+$/.test(metadata.world_slug) && (!metadata.entity_id || /^[a-z0-9-]+$/.test(metadata.entity_id)) && (!metadata.guide_id || /^[a-z0-9-]+$/.test(metadata.guide_id));
+}
+// Infooo events carry only public world metadata. Never pass search text, viewer state, or personal information.
+export function trackInfoooWorldStart(world_slug: string) { if (validInfoooMetadata({ world_slug })) emit('infooo_world_start', { world_slug }); }
+export function trackInfoooEntityView(world_slug: string, entity_id: string) { if (validInfoooMetadata({ world_slug, entity_id })) emit('infooo_entity_view', { world_slug, entity_id }); }
+export function trackInfoooGuideStart(world_slug: string, guide_id: string) { if (validInfoooMetadata({ world_slug, guide_id })) emit('infooo_guide_start', { world_slug, guide_id }); }
+export function trackInfoooGuideComplete(world_slug: string, guide_id: string) { if (validInfoooMetadata({ world_slug, guide_id })) emit('infooo_guide_complete', { world_slug, guide_id }); }
+export function trackInfoooShare(world_slug: string) { if (validInfoooMetadata({ world_slug })) emit('infooo_share', { world_slug }); }
+
 export function initializeAnalytics() {
   loadAnalytics();
   const tool = document.querySelector('[data-tool-slug]');

@@ -31,14 +31,11 @@ the answer. Make the answer visible." This philosophy governs Toolooo specifical
 ### Internal Infooo foundation (Mission 6B)
 
 `src/data/infooo.ts` and `src/components/infooo/InfoooWorldFoundation.tsx` hold the
-typed, reusable foundation for **Infooo — Interactive Knowledge Worlds**. It is
-strictly internal and locked: do not add a public route, navigation entry, sitemap
-entry, or public identity copy until a real world passes Truth, accessibility,
-performance, and Value Laws review. World 001 (Human Atlas) and World 002 (What
-Happens When You Press Enter?) are private metadata only; neither has content,
-assets, medical data, or a renderer. `docs/INFOOO-IDENTITY.md` is the product
-contract. The historic `future-7` mystery card and its `infooo.png` image must
-remain publicly anonymous as `???ooo`.
+typed, reusable foundation for **Infooo — Interactive Knowledge Worlds**. World 001
+(**Human Atlas**) is the only current public Infooo world. Future worlds are added
+only when a real idea passes Truth, accessibility, performance, and Value Laws
+review; Infooo does not grow by filling slots. `docs/INFOOO-IDENTITY.md` is the
+product contract.
 
 ---
 

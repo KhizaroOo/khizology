@@ -45,9 +45,10 @@ export interface InfoooKnowledge {
   sources?: Array<{ label: string; url: string }>;
 }
 export interface InfoooEntity { id: string; title: string; shortTitle?: string; description?: string; knowledge?: InfoooKnowledge; layerId?: string; }
-export interface InfoooLayer { id: string; label: string; description?: string; }
-export interface InfoooGuide { id: string; title: string; steps: string[]; }
-export interface InfoooScenario { id: string; label: string; prompt: string; }
+export interface InfoooLayer { id: string; label: string; description?: string; visible?: boolean; disabled?: boolean; icon?: string; color?: string; pattern?: string; }
+export interface InfoooGuideStep { id: string; label?: string; description?: string; targetId?: string; action?: unknown; }
+export interface InfoooGuide { id: string; title: string; steps: Array<string | InfoooGuideStep>; }
+export interface InfoooScenario { id: string; label: string; prompt: string; payload?: unknown; }
 export interface InfoooCompareMode { id: string; label: string; description?: string; }
 export type InfoooWorldStatus = 'idea' | 'research' | 'prototype' | 'private' | 'ready' | 'published' | 'retired';
 
@@ -63,7 +64,6 @@ export interface InfoooWorld {
 
 export const infoooWorlds: InfoooWorld[] = [
   { id: 'world-001', slug: 'human-atlas', title: 'Human Atlas', description: 'Explore an adult male reference anatomy as connected systems, not only a list of organ names.', status: 'published', visibility: 'public', worldNumber: 1, category: 'Human systems', interactions: ['explore', 'isolate', 'layer', 'explode', 'compare', 'focus', 'reset', 'connect'], modes: ['explore', 'guide'], entities: humanAtlasEntities, relationships: humanAtlasRelationships, guides: [followTheBloodGuide], ahaMoment: 'Artery and vein names describe direction from or to the heart, not oxygen level.', share: { enabled: true, supportsEntity: true, supportsGuide: true }, performance: { lazyAssets: true, progressiveLoading: true }, accessibility: { entityList: true, textEquivalent: true, reducedMotion: true } },
-  { id: 'world-002', slug: 'what-happens-when-you-press-enter', title: 'What Happens When You Press Enter?', description: 'A future interactive view of the browser request journey.', status: 'private', visibility: 'private', worldNumber: 2, category: 'Web systems', interactions: ['explore', 'layer', 'animate', 'timeline', 'simulate', 'what-if'], modes: ['explore', 'guide', 'what-if'], share: { enabled: false, supportsEntity: false, supportsGuide: false }, performance: { lazyAssets: true, progressiveLoading: true, workerProcessing: true }, accessibility: { entityList: true, textEquivalent: true, reducedMotion: true } },
 ];
 
 export const infoooPriorityValueLaws = ['truth', 'depth', 'visuality', 'interaction', 'clarity', 'utility', 'originalContribution'] as const;

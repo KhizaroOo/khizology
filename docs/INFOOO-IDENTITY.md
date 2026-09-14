@@ -29,9 +29,8 @@ Worlds provide semantic controls, keyboard-operable entity lists, searchable obj
 
 An Infooo candidate passes only when text alone is insufficient, relationships/processes matter, interaction improves comprehension, visualization can be accurate, a mental-model gap exists, and factual knowledge can be sourced. An aha moment is desirable. It uses the shared Value Laws, emphasizing Truth, Depth, Visuality, Interaction, Clarity, Utility, and Original Contribution.
 
-## Reserved worlds and unlock rule
+## Current world and future rule
 
-- **World 001 — Human Atlas:** private/planned. No anatomy, medical content, assets, models, or renderer are part of this foundation.
-- **World 002 — What Happens When You Press Enter?:** private/planned. No public world is built.
+- **World 001 — Human Atlas:** published as Infooo’s current public world.
 
-Infooo stays locked with no public route, navigation, sitemap entry, or public identity copy. Unlock only after a real world passes Truth, accessibility, performance, and Value Laws review.
+Future worlds are added only after a real idea passes Truth, accessibility, performance, and the Khizooology Value Laws. Infooo does not need multiple worlds simply to grow the count. A world is added only when the idea deserves to exist. Quality over quantity.
