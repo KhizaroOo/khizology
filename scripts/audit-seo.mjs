@@ -279,12 +279,12 @@ for (const imageUrl of imageLocs) {
 }
 
 const artworkRegistrySource = readFileSync(join(root, 'src', 'data', 'artworks.ts'), 'utf8');
-const titleOverridesSource = artworkRegistrySource.match(/const artworkTitleOverrides: Record<string, string> = \{([\s\S]*?)\n\};\n\nconst rawFiles/);
+const titleOverridesSource = artworkRegistrySource.match(/const artworkTitleOverrides: Record<string, string> = \{([\s\S]*?)\r?\n\};\r?\n\r?\nconst rawFiles/);
 if (!titleOverridesSource) {
   fail('Artooo: artwork title override registry is missing');
 }
 const artworkTitleOverrides = new Map(
-  [...(titleOverridesSource?.[1] || '').matchAll(/^\s*'([^']+)': '([^']+)',$/gm)].map(([, filename, title]) => [filename, title]),
+  [...(titleOverridesSource?.[1] || '').matchAll(/^\s*'([^']+)': '([^']+)',\r?$/gm)].map(([, filename, title]) => [filename, title]),
 );
 const artworkAssetDirectory = join(root, 'public', 'images', 'artworks');
 const artworkFilenames = readdirSync(artworkAssetDirectory).filter((filename) => /\.(jpg|jpeg|png|webp)$/i.test(filename));
