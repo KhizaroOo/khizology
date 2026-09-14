@@ -19,6 +19,7 @@
     "audit:ga-config": "node scripts/audit-ga-config.mjs",
     "audit:value": "npm run build && node scripts/audit-value.mjs",
     "audit:human-atlas": "node scripts/audit-human-atlas.mjs",
+    "test:contract-drift": "node --experimental-strip-types scripts/test-contract-drift.ts",
     "images:generate": "node scripts/generate-thumbnails.mjs",
     "prebuild": "npm run images:generate",
     "predev": "npm run images:generate"

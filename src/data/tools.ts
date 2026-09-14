@@ -3,6 +3,21 @@ import type { ToolFeatureLevel } from './featureLevels';
 
 export type ToolStatus = 'active' | 'planned' | 'experimental';
 
+export type ToolLv3Capability = 'scenario' | 'shareResults' | 'myToolooo' | 'smartNextMoves' | 'toolChains';
+export interface ToolNextMove {
+  id: string;
+  type: 'tool';
+  label: string;
+  description: string;
+  targetToolId: string;
+  priority?: number;
+}
+export interface ToolLv3Config {
+  capabilities: Partial<Record<ToolLv3Capability, boolean>>;
+  nextMoves?: ToolNextMove[];
+  chainIds?: string[];
+}
+
 export interface Tool {
   id: string;
   name: string;
@@ -17,6 +32,7 @@ export interface Tool {
   privacySensitive?: boolean;
   icon: string;
   keywords: string[];
+  lv3?: ToolLv3Config;
 }
 
 export const tools: Tool[] = [
@@ -30,11 +46,19 @@ export const tools: Tool[] = [
     family: 'check',
     tags: ['Engineering', 'Backend', 'API'],
     status: 'active',
-    featureLevel: 2,
+    featureLevel: 3,
     featured: true,
     privacySensitive: true,
     icon: '🩺',
     keywords: ['json validator', 'api payload checker', 'request debugging', 'response diagnostics'],
+    lv3: {
+      capabilities: { scenario: true, shareResults: true, myToolooo: true, smartNextMoves: true },
+      nextMoves: [
+        { id: 'check-schema', type: 'tool', label: 'Check the schema', description: 'Compare the observed drift with a broader schema diagnosis.', targetToolId: 'schema-drift-doctor', priority: 1 },
+        { id: 'check-environment', type: 'tool', label: 'Check the environment', description: 'Find configuration differences that can explain a changed payload.', targetToolId: 'environment-drift-detector', priority: 2 },
+        { id: 'plan-pagination', type: 'tool', label: 'Plan the response shape', description: 'Design a safer paginated response when payload growth is the issue.', targetToolId: 'api-pagination-planner', priority: 3 },
+      ],
+    },
   },
   {
     id: 'jwt-time-machine',
@@ -127,8 +151,16 @@ export const tools: Tool[] = [
     id: 'capacity-cliff-simulator', name: 'Capacity Cliff Simulator', slug: 'capacity-cliff-simulator',
     shortDescription: 'Find when growing demand crosses your safe threshold and available capacity.',
     longDescription: 'Plot demand growth against a current and expanded capacity plan. Explore peaks, temporary capacity loss, expansion timing, and your chosen safe-utilization threshold to see margins, crossings, and the capacity needed through the planning horizon.',
-    family: 'simulate', tags: ['Engineering', 'Capacity', 'Planning', 'Performance', 'Growth'], status: 'active', featureLevel: 2,
+    family: 'simulate', tags: ['Engineering', 'Capacity', 'Planning', 'Performance', 'Growth'], status: 'active', featureLevel: 3,
     icon: '📈', keywords: ['capacity planning simulator', 'demand growth', 'utilization threshold', 'capacity expansion'],
+    lv3: {
+      capabilities: { scenario: true, shareResults: true, myToolooo: true, smartNextMoves: true, toolChains: true },
+      nextMoves: [
+        { id: 'size-the-queue', type: 'tool', label: 'Queue Capacity Planner', description: 'Turn the expected load into a queue-size and drain-rate plan.', targetToolId: 'queue-capacity-planner', priority: 1 },
+        { id: 'test-service-levels', type: 'tool', label: 'SLA Chain Visualizer', description: 'Check whether downstream service targets still fit the capacity plan.', targetToolId: 'sla-chain-visualizer', priority: 2 },
+      ],
+      chainIds: ['capacity-planning'],
+    },
   },
   {
     id: 'retry-storm-simulator',
@@ -306,9 +338,17 @@ export const tools: Tool[] = [
     family: 'decide',
     tags: ['Engineering', 'Projects', 'Money'],
     status: 'active',
-    featureLevel: 2,
+    featureLevel: 3,
     icon: '🏗️',
     keywords: ['build vs buy', 'make or buy decision', 'third party vs in house'],
+    lv3: {
+      capabilities: { myToolooo: true, smartNextMoves: true, toolChains: true },
+      nextMoves: [
+        { id: 'price-the-work', type: 'tool', label: 'AI Project Pricing Lab', description: 'Price the delivery work before comparing it against a vendor quote.', targetToolId: 'ai-project-pricing-lab', priority: 1 },
+        { id: 'test-the-quote', type: 'tool', label: 'Project Quote Risk Planner', description: 'Make the assumptions and risk margin behind the preferred option visible.', targetToolId: 'project-quote-risk-planner', priority: 2 },
+      ],
+      chainIds: ['delivery-strategy'],
+    },
   },
   {
     id: 'tech-stack-battle',

@@ -48,6 +48,11 @@ for (const event of f.events()) {
   assert.equal(event[2].page_location, 'https://khizooology.com/toolbox/schema-drift-doctor');
   assert.ok(Object.keys(event[2]).every(key => ['page_location', 'page_referrer', 'page_title', 'tool_slug', 'tool_family', 'feature_level', 'artwork_slug', 'export_type', 'contact_type'].includes(key)));
 }
+f.run('trackToolFavorite("capacity-cliff-simulator", true); trackToolScenarioSelect("capacity-cliff-simulator", "safer-plan"); trackToolNextMove("capacity-cliff-simulator", "queue-capacity-planner"); trackToolChainAction("tool_chain_next", "capacity-cliff-simulator", "capacity-planning", "queue-capacity-planner"); trackContractDriftRun(4, { likelyBreaking: 1, needsReview: 2, additive: 1 })');
+const lv3Events = f.events().slice(-5);
+assert.deepEqual(Array.from(lv3Events, event => event[1]), ['tool_favorite', 'tool_scenario_select', 'tool_next_move', 'tool_chain_next', 'contract_drift_run']);
+for (const event of lv3Events) assert.ok(Object.keys(event[2]).every(key => ['page_location', 'page_referrer', 'page_title', 'tool_id', 'scenario_id', 'target_tool_id', 'chain_id', 'change_count_bucket', 'likely_breaking_count', 'needs_review_count', 'additive_count'].includes(key)));
+assert.ok(!/NEVER_SEND|super-secret|api[_-]?key/i.test(JSON.stringify(lv3Events)), 'LV3 analytics must remain metadata-only');
 f.run('setConsent("declined"); trackToolExport("json")'); assert.equal(f.win['ga-disable-G-TESTONLY00'], true); assert.equal(f.events().length, 0); assert.equal(f.reloads(), 1);
 const failed = fixture('G-TESTONLY00', 'accepted'); failed.run('initializeAnalytics()'); failed.scripts[0].onerror(); failed.run('trackToolExport("png")'); assert.equal(failed.events().length, 0);
 const storage = fixture('G-TESTONLY00', null, true); storage.run('initializeAnalytics(); setConsent("accepted"); setConsent("declined")'); assert.equal(storage.reloads(), 1);

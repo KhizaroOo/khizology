@@ -8,6 +8,7 @@ import PresetBar from '../shared/PresetBar';
 import InputField from '../shared/InputField';
 import { useLocalPref } from '../shared/useLocalPref';
 import { clamp, formatNumber, safeDiv, safeNumber } from '../shared/mathHelpers';
+import ApiPayloadContractDrift from './ApiPayloadContractDrift';
 
 type Level = 'info' | 'warn' | 'danger' | 'good';
 type FindingKind = 'validity' | 'size' | 'depth' | 'casing' | 'nulls' | 'dates' | 'shapes';
@@ -322,6 +323,7 @@ const labelStyle = {
 };
 
 export default function ApiPayloadDoctor() {
+  const [mode, setMode] = useState<'diagnose' | 'contract-drift'>('diagnose');
   const [raw, setRaw] = useState('');
   const [diagnosedRaw, setDiagnosedRaw] = useState('');
   const [fileError, setFileError] = useState<string | null>(null);
@@ -370,7 +372,11 @@ export default function ApiPayloadDoctor() {
   const requestsPerDayNum = clamp(safeNumber(requestsPerDayStr, 0), 0, 1_000_000_000);
 
   return (
-    <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
+    <div>
+      <div role="tablist" aria-label="API Payload Doctor mode" style={{ display: 'flex', gap: '.5rem', marginBottom: '.85rem', flexWrap: 'wrap' }}>
+        {(['diagnose', 'contract-drift'] as const).map((nextMode) => <button key={nextMode} type="button" role="tab" aria-selected={mode === nextMode} onClick={() => setMode(nextMode)} style={{ minHeight: 38, border: `1px solid ${mode === nextMode ? '#DF78A0' : 'var(--k-border)'}`, borderRadius: '.5rem', padding: '.45rem .75rem', background: mode === nextMode ? 'color-mix(in srgb, #DF78A0 12%, var(--k-bg-card))' : 'var(--k-bg-card)', color: mode === nextMode ? '#C3355E' : 'var(--k-text)', cursor: 'pointer', font: '800 .73rem Poppins, sans-serif' }}>{nextMode === 'diagnose' ? 'Diagnose' : 'Contract Drift'}</button>)}
+      </div>
+      {mode === 'contract-drift' ? <ApiPayloadContractDrift /> : <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '.75rem', flexWrap: 'wrap', gap: '.5rem' }}>
         <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1.15rem', color: 'var(--k-text)', margin: 0 }}>
           Paste your payload
@@ -599,6 +605,7 @@ export default function ApiPayloadDoctor() {
           </div>
         </div>
       )}
+      </div>}
     </div>
   );
 }

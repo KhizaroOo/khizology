@@ -1,0 +1,17 @@
+import type { Tool } from '../../../data/tools';
+import type { ToolChain } from '../../../data/toolChains';
+import { trackToolChainAction, trackToolNextMove } from '../../../utils/analytics';
+import ToolFavoriteButton from './ToolFavoriteButton';
+import { markChainStep } from './workspace';
+
+export default function ToolLv3Panel({ tool, chains, base }: { tool: Tool; chains: ToolChain[]; base: string }) {
+  const moves = (tool.lv3?.nextMoves || []).slice().sort((a, b) => (a.priority || 99) - (b.priority || 99)).slice(0, 3);
+  const openMove = (target: string) => { trackToolNextMove(tool.id, target); window.location.assign(`${base}/toolbox/${target}`); };
+  const openChainStep = (chain: ToolChain, index: number) => { const next = chain.steps[index + 1]; markChainStep(chain.id, tool.id); trackToolChainAction('tool_chain_next', tool.id, chain.id, next?.toolId); if (next) window.location.assign(`${base}/toolbox/${next.toolId}`); };
+  if (!tool.lv3) return null;
+  return <section aria-label="Toolooo connections" style={{ display: 'grid', gap: '.85rem', margin: '1rem 0' }}>
+    {tool.lv3.capabilities.myToolooo && <div style={{ display: 'flex', justifyContent: 'space-between', gap: '.75rem', alignItems: 'center', padding: '.8rem', border: '1px solid var(--k-border)', borderRadius: '.75rem', background: 'var(--k-bg)' }}><div><strong style={{ font: '800 .78rem Poppins, sans-serif', color: 'var(--k-text)' }}>My Toolooo</strong><div style={{ fontSize: '.73rem', color: 'var(--k-text-muted)', marginTop: '.15rem' }}>Saved only in this browser.</div></div><ToolFavoriteButton toolId={tool.id} toolName={tool.name} /></div>}
+    {moves.length > 0 && <div style={{ padding: '.9rem', border: '1px solid var(--k-border)', borderRadius: '.75rem', background: 'var(--k-bg-card)' }}><strong style={{ font: '800 .78rem Poppins, sans-serif', color: 'var(--k-text)' }}>Smart next moves</strong><div style={{ display: 'grid', gap: '.5rem', marginTop: '.65rem' }}>{moves.map((move) => <button key={move.id} type="button" onClick={() => openMove(move.targetToolId)} style={{ textAlign: 'left', border: '1px solid var(--k-border)', background: 'var(--k-bg)', borderRadius: '.55rem', padding: '.6rem', color: 'var(--k-text)', cursor: 'pointer' }}><span style={{ display: 'block', font: '800 .74rem Poppins, sans-serif' }}>{move.label}</span><span style={{ display: 'block', marginTop: '.15rem', fontSize: '.72rem', lineHeight: 1.45, color: 'var(--k-text-muted)' }}>{move.description}</span></button>)}</div></div>}
+    {chains.map((chain) => { const index = chain.steps.findIndex((step) => step.toolId === tool.id); const next = chain.steps[index + 1]; return <div key={chain.id} style={{ padding: '.9rem', border: '1px solid var(--k-border)', borderRadius: '.75rem', background: 'var(--k-bg-card)' }}><strong style={{ font: '800 .78rem Poppins, sans-serif', color: 'var(--k-text)' }}>{chain.title} · Step {index + 1} of {chain.steps.length}</strong><p style={{ margin: '.35rem 0 .6rem', fontSize: '.73rem', lineHeight: 1.45, color: 'var(--k-text-muted)' }}>{chain.steps[index]?.reason}</p>{next && <button type="button" onClick={() => openChainStep(chain, index)} style={{ minHeight: 36, border: '1px solid #F7933C', background: 'color-mix(in srgb, #F7933C 9%, var(--k-bg-card))', borderRadius: '.5rem', padding: '.4rem .7rem', color: '#C66B19', font: '700 .72rem Poppins, sans-serif', cursor: 'pointer' }}>Next: {next.label}</button>}</div>; })}
+  </section>;
+}

@@ -8,7 +8,10 @@ import PrivacyNotice from '../../components/toolbox/PrivacyNotice.astro';
 import ToolKnowledge from '../../components/toolbox/ToolKnowledge.astro';
 import ToolTruth from '../../components/toolbox/ToolTruth.astro';
 import ShareResultFoundation from '../../components/toolbox/ShareResultFoundation';
+import ToolWorkspaceTracker from '../../components/toolbox/lv3/ToolWorkspaceTracker';
+import ToolLv3Panel from '../../components/toolbox/lv3/ToolLv3Panel';
 import { tools, getRelatedTools, getTryNextTools } from '../../data/tools';
+import { getToolChain } from '../../data/toolChains';
 import { getFamilyById } from '../../data/families';
 import { getToolSeo } from '../../data/toolSeo';
 import { getToolKnowledge } from '../../data/toolKnowledge';
@@ -75,6 +78,7 @@ const related = getRelatedTools(tool, 3);
 const tryNext = getTryNextTools(tool, 2).filter(candidate => !related.some(item => item.slug === candidate.slug));
 const knowledge = getToolKnowledge(tool);
 const truth = getToolTruth(tool, seo);
+const lv3Chains = (tool.lv3?.chainIds || []).map(getToolChain).filter((chain): chain is NonNullable<typeof chain> => Boolean(chain));
 
 const jsonLd = pageSchema({
   type: 'WebPage',
@@ -117,6 +121,7 @@ const jsonLd = pageSchema({
     <div class="k-container">
       <div class="tp-layout">
         <div class="tp-main" data-tool-slug={tool.slug} data-tool-family={tool.family} data-feature-level={tool.featureLevel}>
+          <ToolWorkspaceTracker client:load toolId={tool.id} />
           {tool.privacySensitive && <PrivacyNotice />}
 
           {tool.status === 'active' ? (
@@ -170,6 +175,8 @@ const jsonLd = pageSchema({
               icon={tool.icon}
             />
           )}
+
+          {tool.lv3 && <ToolLv3Panel client:load tool={tool} chains={lv3Chains} base={base} />}
 
           <ToolKnowledge knowledge={knowledge} accent={family.color} />
           <ToolTruth truth={truth} />

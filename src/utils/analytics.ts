@@ -103,6 +103,19 @@ export function trackShareAction(metadata: SharedFeatureMetadata) {
 export function trackRelatedContentClick(metadata: Omit<SharedFeatureMetadata, 'action'>) {
   if (validSharedMetadata({ ...metadata, action: 'open' })) emit('related_content_click', metadata);
 }
+function validToolId(value: string) { return /^[a-z0-9-]+$/.test(value); }
+function trackToolLv3(event: 'tool_favorite' | 'tool_unfavorite' | 'tool_scenario_select' | 'tool_next_move' | 'tool_chain_next', toolId: string, extra: Record<string, string> = {}) {
+  if (validToolId(toolId) && Object.values(extra).every((value) => /^[a-z0-9-]+$/.test(value))) emit(event, { tool_id: toolId, ...extra });
+}
+export function trackToolFavorite(toolId: string, favorite: boolean) { trackToolLv3(favorite ? 'tool_favorite' : 'tool_unfavorite', toolId); }
+export function trackToolScenarioSelect(toolId: string, scenarioId: string) { trackToolLv3('tool_scenario_select', toolId, { scenario_id: scenarioId }); }
+export function trackToolNextMove(toolId: string, targetToolId: string) { trackToolLv3('tool_next_move', toolId, { target_tool_id: targetToolId }); }
+export function trackToolChainAction(event: 'tool_chain_next', toolId: string, chainId: string, targetToolId?: string) { trackToolLv3(event, toolId, { chain_id: chainId, ...(targetToolId ? { target_tool_id: targetToolId } : {}) }); }
+export function trackContractDriftRun(changeCount: number, summary: { likelyBreaking: number; needsReview: number; additive: number }) {
+  const bucket = changeCount === 0 ? 'none' : changeCount <= 3 ? 'few' : changeCount <= 10 ? 'several' : 'many';
+  emit('contract_drift_run', { tool_id: 'api-payload-doctor', change_count_bucket: bucket, likely_breaking_count: summary.likelyBreaking, needs_review_count: summary.needsReview, additive_count: summary.additive });
+}
+
 export function initializeAnalytics() {
   loadAnalytics();
   const tool = document.querySelector('[data-tool-slug]');

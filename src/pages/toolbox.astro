@@ -3,6 +3,7 @@ import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import FamilyCard from '../components/toolbox/FamilyCard.astro';
 import ToolCard from '../components/toolbox/ToolCard.astro';
+import MyTooloooPanel from '../components/toolbox/lv3/MyTooloooPanel';
 import { families } from '../data/families';
 import { tools, getToolCountByFamily, getActiveToolCountByFeatureLevel, allTags } from '../data/tools';
 import { toolFeatureLevels } from '../data/featureLevels';
@@ -74,6 +75,8 @@ const jsonLd = pageSchema({
       </div>
     </div>
   </section>
+
+  <MyTooloooPanel client:load tools={tools.map(({ id, slug, name, icon, family }) => ({ id, slug, name, icon, family }))} base={base} />
 
   <!-- Families -->
   <section class="k-section tb-families-section" id="families">

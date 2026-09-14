@@ -24,6 +24,26 @@ assert.ok(!/fetch\(|XMLHttpRequest|localStorage|location\.search/.test(knowledge
 const analytics = fs.readFileSync(path.join(root, 'src/utils/analytics.ts'), 'utf8');
 assert.ok(analytics.includes("page_referrer: ''"), 'Analytics must suppress referrer');
 assert.ok(analytics.includes('trackShareAction') && analytics.includes('trackRelatedContentClick'), 'Shared feature events missing');
+assert.ok(analytics.includes('trackToolFavorite') && analytics.includes('trackToolScenarioSelect') && analytics.includes('trackToolChainAction') && analytics.includes('trackContractDriftRun'), 'Toolooo LV3 analytics hooks missing');
+assert.ok(!/raw_input|result_value|payload_text/i.test(analytics), 'LV3 analytics must not define raw input or result fields');
+
+const toolsSource = fs.readFileSync(path.join(root, 'src/data/tools.ts'), 'utf8');
+const toolRegistry = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(toolsSource))}`);
+const chainsSource = fs.readFileSync(path.join(root, 'src/data/toolChains.ts'), 'utf8').replace("import type { Tool } from './tools';\n", '');
+const chainsModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(chainsSource))}`);
+assert.deepEqual(chainsModule.validateToolChains(toolRegistry.tools), [], 'Tool chains must use real canonical tool IDs and unique IDs');
+const lv3Tools = toolRegistry.tools.filter((tool) => tool.lv3);
+assert.equal(lv3Tools.length, 3, 'LV3 upgrades must stay limited to the three reviewed tools');
+assert.ok(lv3Tools.some((tool) => tool.id === 'api-payload-doctor'), 'API Payload Doctor must be LV3 after Contract Drift');
+for (const tool of lv3Tools) {
+  assert.equal(tool.featureLevel, 3, `${tool.id} must be LV3 when it declares LV3 capabilities`);
+  assert.ok(Object.values(tool.lv3.capabilities).some(Boolean), `${tool.id} has an empty LV3 capability declaration`);
+  for (const move of tool.lv3.nextMoves || []) assert.ok(toolRegistry.tools.some((candidate) => candidate.id === move.targetToolId), `${tool.id} has an invalid smart next move`);
+  for (const chainId of tool.lv3.chainIds || []) assert.ok(chainsModule.toolChains.some((chain) => chain.id === chainId), `${tool.id} has an invalid chain reference`);
+}
+const lv3Workspace = fs.readFileSync(path.join(root, 'src/components/toolbox/lv3/workspace.ts'), 'utf8');
+assert.ok(lv3Workspace.includes('slice(0, LIMIT)') && !/input|payload|token/i.test(lv3Workspace), 'My Toolooo storage must be bounded and metadata-only');
+
 
 const infooo = fs.readFileSync(path.join(root, 'src/data/infooo.ts'), 'utf8');
 assert.ok(infooo.includes("status: 'active' as const"), 'Infooo must be active with a published world');

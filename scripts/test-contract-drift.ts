@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import { compareContractJson, compareContractValues, driftSummary } from '../src/components/toolbox/tools/contractDrift.ts';
+
+const changes = (expected: unknown, actual: unknown) => compareContractValues(expected, actual).items;
+assert.equal(changes({ name: 'Alice' }, { name: 'Bob' }).length, 0, 'value changes are not drift');
+assert.equal(changes({}, { role: 'admin' })[0]?.category, 'added');
+assert.equal(changes({ email: 'a' }, {})[0]?.category, 'removed');
+assert.equal(changes({ id: 1 }, { id: '1' })[0]?.category, 'type-change');
+assert.equal(changes({ email: null }, {}).at(0)?.category, 'removed');
+assert.equal(changes({ email: null }, { email: 'a' })[0]?.category, 'nullability-change');
+assert.equal(changes({ profile: { id: 1 } }, { profile: 'x' })[0]?.category, 'shape-change');
+assert.equal(changes({ orders: [{ price: 1 }] }, { orders: 'none' })[0]?.category, 'shape-change');
+assert.ok(changes({ orders: [{ price: 1 }] }, { orders: [{ price: '1' }] }).some(item => item.path === 'orders[].price' && item.category === 'type-change'));
+assert.ok(changes({ orders: [{ id: 1 }, { name: 'x' }] }, { orders: [{ id: 1 }] }).some(item => item.category === 'array-review'));
+assert.ok(changes({ user: { profile: { email: 'a' } } }, { user: { profile: {} } }).some(item => item.path === 'user.profile.email'));
+assert.ok(compareContractJson('{', '{}').expectedError, 'invalid expected JSON is reported');
+assert.ok(compareContractJson('{}', '{').actualError, 'invalid actual JSON is reported');
+const deep = Array.from({ length: 2_000 }, (_, index) => ({ [`k${index}`]: index }));
+assert.equal(compareContractValues(deep, []).limited, false, 'large array comparison stays bounded');
+const summary = driftSummary(changes({ id: 1, old: true }, { id: '1', role: 'x' }));
+assert.deepEqual(summary, { likelyBreaking: 2, needsReview: 0, additive: 1 });
+console.log('Contract drift tests passed.');

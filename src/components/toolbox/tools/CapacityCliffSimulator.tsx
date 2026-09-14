@@ -7,6 +7,9 @@ import PresetBar from '../shared/PresetBar';
 import RangeControl from '../shared/RangeControl';
 import ResultPanel from '../shared/ResultPanel';
 import Warning from '../shared/Warning';
+import ShareResultFoundation from '../ShareResultFoundation';
+import ToolScenarioSwitcher, { type ToolScenario } from '../lv3/ToolScenarioSwitcher';
+import { trackToolScenarioSelect } from '../../../utils/analytics';
 import { formatNumber } from '../shared/mathHelpers';
 import { capacityPointAt, capacityUtilization, simulateCapacity, type CapacityPoint, type CapacityScenario, type CapacityValues } from './capacityCliffModel';
 
@@ -28,6 +31,11 @@ const PRESETS: { label: string; values: CapacityPreset }[] = [
   { label: 'Peak season', values: { fields: { ...DEFAULT_VALUES, demand: '550', growthPercent: 2, peakMultiplier: 1.8, additionalUnits: 4, expansionMonth: 1 }, unit: 'orders/hour' } },
   { label: 'Maintenance window', values: { fields: { ...DEFAULT_VALUES, demand: '600', growthPercent: 3, peakMultiplier: 1.15, capacityPerUnit: '200', additionalUnits: 3, expansionMonth: 3, lossPercent: 40, lossStartMonth: 4, lossDurationMonths: 2 }, unit: 'jobs/min' } },
   { label: 'Flat demand', values: { fields: { ...DEFAULT_VALUES, demand: '400', growthPercent: 0, peakMultiplier: 1.25, expansionMonth: 3 }, unit: 'users' } },
+];
+const LV3_SCENARIOS: ToolScenario<CapacityValues>[] = [
+  { id: 'current', label: 'Current', description: 'The default growing API plan.', inputPatch: DEFAULT_VALUES },
+  { id: 'safer-plan', label: 'Safer plan', description: 'Earlier capacity with a lower planning peak.', inputPatch: { demand: '550', peakMultiplier: 1.05, additionalUnits: 4, expansionMonth: 0, lossPercent: 0 } },
+  { id: 'maintenance-risk', label: 'Maintenance risk', description: 'A temporary availability loss against higher demand.', inputPatch: { demand: '700', growthPercent: 7, peakMultiplier: 1.3, additionalUnits: 2, expansionMonth: 3, lossPercent: 35, lossStartMonth: 4, lossDurationMonths: 2 } },
 ];
 
 const mutedStyle: CSSProperties = { fontSize: '.78rem', lineHeight: 1.6, color: 'var(--k-text-muted)' };
@@ -65,6 +73,7 @@ export default function CapacityCliffSimulator() {
   const [unitLabel, setUnitLabel] = useState('req/s');
   const [calendarStart, setCalendarStart] = useState('');
   const [activePreset, setActivePreset] = useState<string | null>('Growing API');
+  const [activeLv3Scenario, setActiveLv3Scenario] = useState<string | null>('current');
   const [selectedScenario, setSelectedScenario] = useState<CapacityScenario>('current');
   const [inspectMonth, setInspectMonth] = useState(6);
   const result = useMemo(() => simulateCapacity(fields), [fields]);
@@ -77,14 +86,21 @@ export default function CapacityCliffSimulator() {
   const update = (key: keyof CapacityValues, value: number | string) => {
     setFields((current) => ({ ...current, [key]: value }));
     setActivePreset(null);
+    setActiveLv3Scenario(null);
   };
   const applyPreset = (preset: CapacityPreset, label: string) => {
     setFields({ ...preset.fields });
     setUnitLabel(preset.unit);
     setCalendarStart('');
     setActivePreset(label);
+    setActiveLv3Scenario(label === 'Growing API' ? 'current' : null);
     setSelectedScenario('current');
     setInspectMonth(6);
+  };
+  const applyLv3Scenario = (scenario: ToolScenario<CapacityValues>) => {
+    setFields({ ...DEFAULT_VALUES, ...scenario.inputPatch });
+    setUnitLabel('req/s'); setCalendarStart(''); setActivePreset(null); setActiveLv3Scenario(scenario.id); setSelectedScenario('current'); setInspectMonth(6);
+    trackToolScenarioSelect('capacity-cliff-simulator', scenario.id);
   };
 
   const selected = projection?.[selectedScenario];
@@ -126,6 +142,7 @@ export default function CapacityCliffSimulator() {
         <button type="button" onClick={() => applyPreset(PRESETS[0].values, PRESETS[0].label)} style={buttonStyle}>Reset</button>
       </div>
       <PresetBar presets={PRESETS} activeLabel={activePreset} onSelect={applyPreset} accent={ACCENT} />
+      <ToolScenarioSwitcher scenarios={LV3_SCENARIOS} activeId={activeLv3Scenario} onSelect={applyLv3Scenario} onReset={() => applyLv3Scenario(LV3_SCENARIOS[0])} />
 
       <div style={{ ...gridStyle, marginBottom: '1.25rem' }}>
         <InputField label="Current demand" value={fields.demand} onChange={(value) => update('demand', value)} min="0" step="any" suffix={unit} />
@@ -158,6 +175,7 @@ export default function CapacityCliffSimulator() {
 
       {projection && selected && chart && cursor && (
         <>
+          <ShareResultFoundation monster="toolooo" contentType="tool" slug="capacity-cliff-simulator" title="Capacity Cliff Simulator" result={{ summary: `Current plan reaches the ${projection.inputs.safeUtilizationPercent}% safety threshold ${crossingText(projection.current.safeCrossingMonth).toLowerCase()}; expanded capacity reaches it ${crossingText(projection.expanded.safeCrossingMonth).toLowerCase()}. This is a browser-side planning model, not a forecast.` }} />
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.6rem', alignItems: 'center', margin: '1rem 0' }} aria-label="Plan to inspect">
             {(['current', 'expanded'] as const).map((scenario) => <button key={scenario} type="button" aria-pressed={selectedScenario === scenario} onClick={() => setSelectedScenario(scenario)} style={{ ...buttonStyle, borderColor: selectedScenario === scenario ? ACCENT : 'var(--k-border)', color: selectedScenario === scenario ? ACCENT : 'var(--k-text)', background: selectedScenario === scenario ? `color-mix(in srgb, ${ACCENT} 10%, var(--k-bg-card))` : 'var(--k-bg)' }}>{scenario === 'current' ? 'Current plan' : `Expanded capacity · +${quantity(projection.addedCapacity)} ${unit}`}</button>)}
           </div>
