@@ -124,6 +124,7 @@ for (const page of pages) {
 
   if (!/^<!doctype html>/i.test(html) || !/<html\b[^>]*\blang=["']en["']/i.test(html)) fail(`${route}: missing HTML5 doctype or lang=en`);
   if (titleMatches.length !== 1 || !titleMatches[0]) fail(`${route}: expected exactly one non-empty title`);
+  if (!page.noindex && !page.redirect && titleMatches[0]?.length >= 70) fail(`${route}: title must be under 70 characters (${titleMatches[0].length})`);
   if (descriptionTags.length !== 1 || !descriptionTags[0]?.content) fail(`${route}: expected exactly one meta description`);
   if (robotsTags.length !== 1 || !page.robots) fail(`${route}: expected exactly one robots directive`);
   if (canonicalTags.length !== 1 || !canonicalTags[0]?.href) fail(`${route}: expected exactly one canonical`);
@@ -242,12 +243,81 @@ const artworkSlugs = artworkButtonTags.map((button) => button['data-artwork-slug
 if (imageLocs.length !== artworkSources.size) fail(`Artooo: image sitemap/gallery mismatch (${imageLocs.length}/${artworkSources.size})`);
 if (artworkCards !== artworkSources.size) fail(`Artooo: expected ${artworkSources.size} server-rendered artwork cards, found ${artworkCards}`);
 if (new Set(artworkIds).size !== artworkCards || new Set(artworkSlugs).size !== artworkCards) fail('Artooo: artwork IDs or slugs are not unique');
+const normalizeArtworkSlug = (filename) => filename
+  .replace(/\.(jpg|jpeg|png|webp)$/i, '')
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '');
+const stableArtworkFilenameHash = (filename) => {
+  let hash = 2166136261;
+  for (const character of filename) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0).toString(36).slice(0, 6);
+};
+const galleryFilenames = artworkButtonTags.map((button) => decodeURIComponent(new URL(button['data-artwork-original'], expectedSite).pathname.split('/').pop() || ''));
+const gallerySlugCounts = galleryFilenames.reduce((counts, filename) => {
+  const slug = normalizeArtworkSlug(filename);
+  counts.set(slug, (counts.get(slug) || 0) + 1);
+  return counts;
+}, new Map());
+for (const [index, button] of artworkButtonTags.entries()) {
+  const filename = galleryFilenames[index];
+  const normalizedSlug = normalizeArtworkSlug(filename);
+  const expectedSlug = gallerySlugCounts.get(normalizedSlug) > 1
+    ? `${normalizedSlug}-${stableArtworkFilenameHash(filename)}`
+    : normalizedSlug;
+  if (button['data-artwork-slug'] !== expectedSlug) fail(`Artooo: slug changed from filename identity for ${filename}`);
+}
 if (!artworkIds.includes('artwork:flower-05.jpg') || !artworkIds.includes('artwork:Flower 05.jpg')) fail('Artooo: both Flower 05 source identities must remain present');
 for (const imageUrl of imageLocs) {
   const parsed = new URL(imageUrl);
   if (parsed.origin !== expectedSite) fail(`image sitemap: unexpected origin ${parsed.origin}`);
   const target = localTarget(parsed.pathname);
   if (!target || !existsSync(target)) fail(`image sitemap: missing asset ${imageUrl}`);
+}
+
+const artworkRegistrySource = readFileSync(join(root, 'src', 'data', 'artworks.ts'), 'utf8');
+const titleOverridesSource = artworkRegistrySource.match(/const artworkTitleOverrides: Record<string, string> = \{([\s\S]*?)\n\};\n\nconst rawFiles/);
+if (!titleOverridesSource) {
+  fail('Artooo: artwork title override registry is missing');
+}
+const artworkTitleOverrides = new Map(
+  [...(titleOverridesSource?.[1] || '').matchAll(/^\s*'([^']+)': '([^']+)',$/gm)].map(([, filename, title]) => [filename, title]),
+);
+const artworkAssetDirectory = join(root, 'public', 'images', 'artworks');
+const artworkFilenames = readdirSync(artworkAssetDirectory).filter((filename) => /\.(jpg|jpeg|png|webp)$/i.test(filename));
+const artworkTitleOwners = new Map();
+const suspiciousArtworkTitle = /\b(?:random|untitled|drawing|image|artwork|test|temp)\b/i;
+const numberedGenericArtworkTitle = /^(?:flower|drawing|image|artwork|sketch|raw beauty|tree house|jack and sally|random)\s+\d+$/i;
+const titleFromFilename = (filename) => filename
+  .replace(/\.(jpg|jpeg|png|webp)$/i, '')
+  .replace(/[-_]/g, ' ')
+  .replace(/\b\w/g, (character) => character.toUpperCase());
+
+for (const filename of artworkFilenames) {
+  const title = artworkTitleOverrides.get(filename) || titleFromFilename(filename);
+  const titleKey = title.toLocaleLowerCase();
+  if (!title.trim()) fail(`Artooo: empty title for ${filename}`);
+  if (/\.(jpg|jpeg|png|webp)$/i.test(title)) fail(`Artooo: filename extension in title for ${filename}`);
+  if (!/[a-z]/i.test(title)) fail(`Artooo: title is mostly numeric for ${filename}`);
+  if (suspiciousArtworkTitle.test(title) || numberedGenericArtworkTitle.test(title)) fail(`Artooo: placeholder or import-style title for ${filename}: ${title}`);
+  if (title.length > 54) fail(`Artooo: title cannot form a sub-70-character SEO title for ${filename}: ${title}`);
+  if (artworkTitleOwners.has(titleKey)) fail(`Artooo: duplicate title ${title} for ${filename} and ${artworkTitleOwners.get(titleKey)}`);
+  else artworkTitleOwners.set(titleKey, filename);
+}
+for (const filename of artworkTitleOverrides.keys()) {
+  if (!artworkFilenames.includes(filename)) fail(`Artooo: title override references a missing asset: ${filename}`);
+}
+if (artworkTitleOwners.size !== artworkFilenames.length) fail('Artooo: title audit did not review every artwork asset');
+const renderedArtworkTitles = [...(artworkPage?.html || '').matchAll(/<span\b[^>]*class=["'][^"']*\baw-card-title\b[^"']*["'][^>]*>([\s\S]*?)<\/span>/gi)]
+  .map((match) => decode(match[1]).replace(/<[^>]+>/g, '').trim());
+if (renderedArtworkTitles.length !== artworkCards) fail(`Artooo: expected ${artworkCards} rendered artwork titles, found ${renderedArtworkTitles.length}`);
+const renderedArtworkTitleKeys = renderedArtworkTitles.map((title) => title.toLocaleLowerCase()).sort();
+const registryArtworkTitleKeys = [...artworkTitleOwners.keys()].sort();
+if (renderedArtworkTitleKeys.some((title, index) => title !== registryArtworkTitleKeys[index])) {
+  fail('Artooo: generated artwork titles differ from the central registry');
 }
 
 for (const page of indexable.filter((item) => /^\/toolbox\/[^/]+\/$/.test(item.route))) {
@@ -270,11 +340,13 @@ const summary = {
   noindexContentPages: pages.filter((page) => page.noindex && !page.redirect).length,
   compatibilityRedirects: pages.filter((page) => page.redirect).length,
   uniqueTitles: titleOwners.size,
+  longIndexableTitles: [...titleOwners.keys()].filter((title) => title.length >= 70).length,
   uniqueDescriptions: descriptionOwners.size,
   uniqueCanonicals: canonicalOwners.size,
   sitemapUrls: sitemapUrls.length,
   imageSitemapEntries: imageLocs.length,
   serverRenderedArtworkCards: artworkCards,
+  reviewedArtworkTitles: artworkTitleOwners.size,
   errors: errors.length,
 };
 

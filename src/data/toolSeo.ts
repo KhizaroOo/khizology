@@ -49,16 +49,6 @@ function sentenceList(values: string[]): string {
   return `${values.slice(0, -1).join(', ')}, and ${values.at(-1)}`;
 }
 
-function titleCaseIntent(value: string): string {
-  const acronyms = new Map([
-    ['ai', 'AI'], ['api', 'API'], ['cors', 'CORS'], ['csv', 'CSV'], ['http', 'HTTP'],
-    ['json', 'JSON'], ['jwt', 'JWT'], ['orm', 'ORM'], ['ppi', 'PPI'], ['sla', 'SLA'],
-    ['sql', 'SQL'], ['svg', 'SVG'], ['ttl', 'TTL'], ['url', 'URL'],
-  ]);
-  return value.split(' ').map((word) => acronyms.get(word.toLowerCase())
-    || `${word.charAt(0).toUpperCase()}${word.slice(1)}`).join(' ');
-}
-
 export function getToolSeo(tool: Tool, family: Family): ToolSeoContent {
   const primaryProblem = tool.keywords[0] || tool.name;
   const relatedPhrases = tool.keywords.slice(1, 4);
@@ -66,7 +56,7 @@ export function getToolSeo(tool: Tool, family: Family): ToolSeoContent {
   const searchLanguage = [primaryProblem, ...relatedPhrases.slice(0, 2)];
 
   return {
-    title: `${tool.name} — ${titleCaseIntent(primaryProblem)} | Toolooo · Khizooology`,
+    title: `${tool.name} | Toolooo`,
     description: tool.shortDescription,
     primaryProblem,
     relatedPhrases,
