@@ -11,6 +11,7 @@ export interface Monster {
   route: string;
   image: string;
   status: MonsterStatus;
+  role?: 'FEEL' | 'USE' | 'UNDERSTAND';
   tagline: string;
 }
 
@@ -27,6 +28,7 @@ export const monsters: Monster[] = [
     route: '/artworks',
     image: '/images/Monsters/artooo.png',
     status: 'active',
+    role: 'FEEL',
     tagline: 'Art that feels.',
   },
   {
@@ -41,6 +43,7 @@ export const monsters: Monster[] = [
     route: '/toolbox',
     image: '/images/Monsters/toolooo.png',
     status: 'active',
+    role: 'USE',
     tagline: 'Make it visible.',
   },
   {
@@ -55,6 +58,7 @@ export const monsters: Monster[] = [
     route: '/infooo',
     image: '/images/Monsters/infooo.png',
     status: 'active',
+    role: 'UNDERSTAND',
     tagline: 'See it. Touch it. Understand it.',
   },
   {

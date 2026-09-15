@@ -5,11 +5,13 @@ import { url, img } from '../utils/url';
 import { pageSchema } from '../utils/schema';
 import { artworks } from '../data/artworks';
 import { tools } from '../data/tools';
+import { activeMonsters } from '../data/monsters';
 
 const pageTitle = 'Behind Khizooology — Art, Code & the Monster Universe';
 const pageDescription = 'Meet Khizar Imtiaz (khizooo) and learn why Khizooology brings original art, visual knowledge, browser tools, and monster characters into one creative universe.';
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
 const activeToolCount = tools.filter((tool) => tool.status === 'active').length;
+const monsterRoleLabel = (role: 'FEEL' | 'USE' | 'UNDERSTAND' | undefined) => role === 'USE' ? 'USE / DO' : role;
 const jsonLd = pageSchema({
   type: 'AboutPage',
   path: '/behind-the-vibes',
@@ -107,11 +109,11 @@ const faqs = [
           I wanted something with personality. Something with life. Monsters felt right —
           they're bold, they're memorable, and they don't apologize for who they are.
         </p>
-        <p>
-          Each monster represents a core part of Khizooology:
-          <strong>artooo</strong> (artworks) and <strong>toolooo</strong> (tools).
-          Seven more are in the lab, waiting to be unleashed.
-        </p>
+        <div class="btv-role-list" aria-label="Khizooology monster roles">
+          {activeMonsters.map((monster) => (
+            <p><strong>{monster.name}</strong><span>{monsterRoleLabel(monster.role)}</span></p>
+          ))}
+        </div>
         <h2>What Drives This</h2>
         <p>
           Not money. Not metrics. Not algorithms. Curiosity. The desire to make something
@@ -233,6 +235,9 @@ const faqs = [
   }
   .story-content h2:not(:first-child) { margin-top: 2.5rem; }
   .story-content p { font-size: 0.95rem; color: var(--k-text-muted); line-height: 1.75; margin: 0 0 1rem; }
+  .btv-role-list { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 1rem; }
+  .btv-role-list p { margin: 0; padding: .4rem .6rem; border: 1px solid var(--k-border); border-radius: .5rem; font-size: .78rem; }
+  .btv-role-list span { margin-left: .4rem; color: var(--k-accent); font-weight: 800; }
 
   .story-sidebar { position: sticky; top: 5rem; }
   .story-facts {
