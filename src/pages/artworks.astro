@@ -5,12 +5,13 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import ArtworkGrid from '../components/artworks/ArtworkGrid';
 import { artworks } from '../data/artworks';
 import { monsters } from '../data/monsters';
-import { url, img } from '../utils/url';
+import { url } from '../utils/url';
 import { pageSchema } from '../utils/schema';
-import { monsterVoices } from '../data/monsterVoices';
+import { getMonsterVoice } from '../data/monsterVoices';
 
 const ACCENT = '#F5CF5C';
 const monster = monsters.find(m => m.id === 'artooo')!;
+const artoooVoice = getMonsterVoice(monster);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const artworkTitle = `Artooo — ${artworks.length} Original Artworks | Khizooology`;
 const artworkDescription = `${artworks.length} original sticky-note artworks, illustrations, digital paintings, and visual stories by Khizar Imtiaz (khizooo).`;
@@ -59,7 +60,7 @@ const jsonLd = pageSchema({
             Sticky-note art, digital illustrations, emotional portraits, and visual stories.
             Each piece is a feeling given form — scroll, search, explore.
           </p>
-          <p class="art-hero-voice">{monsterVoices.artooo.microcopy}</p>
+          <p class="art-hero-voice">{artoooVoice.microcopy.intro}</p>
           <div class="art-hero-stats">
             <div class="art-stat">
               <span class="art-stat-num">{artworks.length}</span>
@@ -106,7 +107,7 @@ const jsonLd = pageSchema({
         <h2 class="art-gallery-title">Browse All Artworks</h2>
         <p class="art-gallery-sub">Click any artwork to see it up close.</p>
       </div>
-      <ArtworkGrid artworks={artworks} base={base} client:load />
+      <ArtworkGrid artworks={artworks} base={base} emptyStateText={artoooVoice.microcopy.empty} client:load />
     </div>
   </section>
 

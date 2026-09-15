@@ -18,6 +18,7 @@ interface Artwork {
 interface Props {
   artworks: Artwork[];
   base: string;
+  emptyStateText: string;
 }
 
 function ArtworkModal({
@@ -108,7 +109,7 @@ function ArtworkModal({
   );
 }
 
-export default function ArtworkGrid({ artworks, base }: Props) {
+export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
   const [query, setQuery] = useState('');
   const [activeTag, setActiveTag] = useState('');
   const [selected, setSelected] = useState<Artwork | null>(null);
@@ -164,7 +165,7 @@ export default function ArtworkGrid({ artworks, base }: Props) {
         <div className="aw-empty">
           <span className="aw-empty-icon">🎨</span>
           <h3>No artworks found</h3>
-          <p>Try a different search or tag.</p>
+          <p>{emptyStateText}</p>
           <button className="aw-empty-reset" onClick={() => { setQuery(''); setActiveTag(''); }}>
             Reset filters
           </button>

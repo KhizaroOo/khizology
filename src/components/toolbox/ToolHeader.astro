@@ -3,7 +3,6 @@ import type { Tool } from '../../data/tools';
 import { getFamilyById } from '../../data/families';
 import TagChip from './TagChip.astro';
 import ToolLevelBadge from './ToolLevelBadge.astro';
-import { monsterVoices } from '../../data/monsterVoices';
 
 interface Props {
   tool: Tool;
@@ -26,7 +25,6 @@ const family = getFamilyById(tool.family);
     </div>
     <h1 class="th-title">{tool.name}</h1>
     <p class="th-desc">{tool.shortDescription}</p>
-    <p class="th-voice">{monsterVoices.toolooo.microcopy}</p>
     <div class="th-tags">
       {tool.tags.map((t) => (
         <TagChip label={t} />
@@ -96,5 +94,4 @@ const family = getFamilyById(tool.family);
     margin: 0 0 0.875rem;
   }
   .th-tags { display: flex; flex-wrap: wrap; gap: 0.375rem; }
-  .th-voice { margin: 0 0 .75rem; color: var(--k-text-muted); font-size: .78rem; font-style: italic; }
 </style>

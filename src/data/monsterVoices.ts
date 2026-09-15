@@ -1,18 +1,77 @@
-export type MonsterVoiceId = 'artooo' | 'toolooo' | 'infooo' | 'notooo';
+import { getMonsterById, type Monster } from './monsters';
+
+export type MonsterVoiceContext = 'intro' | 'discovery' | 'empty' | 'next';
+
 export interface MonsterVoice {
   personality: string;
   tone: string;
-  microcopy: string;
-  success: string;
-  warning: string;
-  emptyState: string;
-  reactions: string[];
-  active: boolean;
+  microcopy: Record<MonsterVoiceContext, string>;
+  signatureLine?: string;
 }
 
-export const monsterVoices: Record<MonsterVoiceId, MonsterVoice> = {
-  artooo: { personality: 'observant and warm', tone: 'quiet, visual, unforced', microcopy: 'No calculation this time. Just look.', success: 'Found a piece to sit with.', warning: 'This image stays in your browser.', emptyState: 'Nothing here yet. Try another feeling.', reactions: ['Look closer.', 'Let it linger.'], active: true },
-  toolooo: { personality: 'calm and practical', tone: 'plain, useful, never bossy', microcopy: 'I did the math. You make the call.', success: 'A clearer next step.', warning: 'Treat this as a model, then check your real context.', emptyState: 'Start with a preset or one small input.', reactions: ['Make it visible.', 'Try one change.'], active: true },
-  infooo: { personality: 'curious, observant, clever', tone: 'short, visual, simple, never patronizing', microcopy: "Words weren't enough. So I made it move.", success: 'Something interesting happens here.', warning: 'Not public yet.', emptyState: 'Locked in the lab.', reactions: ['Wait… look at this.', "Tap it. Let's see what it does.", 'Looks simple. It isn’t.'], active: false },
-  notooo: { personality: 'reflective note-maker', tone: 'short and considered', microcopy: 'A thought worth keeping.', success: 'Reserved for future notes.', warning: 'Not public yet.', emptyState: 'Locked in the lab.', reactions: [], active: false },
+export const baseMonsterVoice: MonsterVoice = {
+  personality: 'curious and clear',
+  tone: 'simple, visual, human, and direct',
+  microcopy: {
+    intro: 'Start with what is here. The rest can unfold from there.',
+    discovery: 'Look once. Then look again.',
+    empty: 'Nothing matches that view. Try a different path.',
+    next: 'Keep exploring when the next question appears.',
+  },
 };
+
+export const mysteryMonsterVoice: MonsterVoice = {
+  personality: 'quiet and curious',
+  tone: 'minimal, teasing, and unrevealing',
+  microcopy: {
+    intro: 'The lab is still forming.',
+    discovery: 'Not everything in the lab has a name yet.',
+    empty: 'This door is still locked.',
+    next: 'More will make sense when it is ready.',
+  },
+};
+
+export const monsterVoices: Partial<Record<Monster['id'], MonsterVoice>> = {
+  artooo: {
+    personality: 'observant, warm, and quietly curious',
+    tone: 'short, reflective, visual, and open-ended',
+    microcopy: {
+      intro: 'Take your time. Some details show up after a second look.',
+      discovery: 'Look closer. The small marks matter.',
+      empty: 'No artworks match that view. Try another tag or search.',
+      next: 'Follow the line somewhere else.',
+    },
+  },
+  toolooo: {
+    personality: 'practical, precise, and systems-minded',
+    tone: 'compact, active, clear, and never bossy',
+    microcopy: {
+      intro: 'Choose a question. Then make the moving parts visible.',
+      discovery: 'Change one thing. Watch what follows.',
+      empty: 'No tools match that combination. Clear a filter and try another path.',
+      next: 'Use what you found to choose the next move.',
+    },
+    signatureLine: 'Turn invisible problems into visible ones.',
+  },
+  infooo: {
+    personality: 'curious, patient, and observant',
+    tone: 'inviting, simple, and never condescending',
+    microcopy: {
+      intro: "Words weren't enough. So I made it move.",
+      discovery: 'Try isolating one system. Connections become easier to see.',
+      empty: 'Nothing matches that search yet. Try another structure.',
+      next: 'Follow one connection at a time.',
+    },
+    signatureLine: 'See it. Touch it. Understand it.',
+  },
+};
+
+export function getMonsterVoice(monster: Pick<Monster, 'id' | 'status'>): MonsterVoice {
+  if (monster.status === 'coming-soon') return mysteryMonsterVoice;
+  return monsterVoices[monster.id] ?? baseMonsterVoice;
+}
+
+export function voiceForMonsterId(id: Monster['id']): MonsterVoice {
+  const monster = getMonsterById(id);
+  return monster ? getMonsterVoice(monster) : baseMonsterVoice;
+}

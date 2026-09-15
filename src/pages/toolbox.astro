@@ -11,11 +11,13 @@ import { monsters } from '../data/monsters';
 import { url } from '../utils/url';
 import { absoluteUrl } from '../utils/seo';
 import { pageSchema } from '../utils/schema';
+import { voiceForMonsterId } from '../data/monsterVoices';
 
 const ACCENT = '#F7933C';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const activeCount = tools.filter((t) => t.status === 'active').length;
+const tooloooVoice = voiceForMonsterId('toolooo');
 const toolboxTitle = 'Toolooo — Free Visual Browser Tools | Khizooology';
 const toolboxDescription = `${activeCount} free visual tools to check, simulate, decide, plan, and create in your browser. No signup, no backend, and no uploads.`;
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
@@ -67,6 +69,7 @@ const jsonLd = pageSchema({
           Small browser tools that help you check, simulate, decide, plan and create.
           Useful, fast, beautiful — no signup, no backend, no bullshit.
         </p>
+        <p class="tb-hero-voice">{tooloooVoice.microcopy.intro}</p>
         <div class="tb-hero-stats">
           <div class="tb-stat"><span class="tb-stat-num">{tools.length}</span><span class="tb-stat-label">Total Tools</span></div>
           <div class="tb-stat"><span class="tb-stat-num">{activeCount}</span><span class="tb-stat-label">Live Now</span></div>
@@ -144,7 +147,7 @@ const jsonLd = pageSchema({
       </div>
       <div id="tb-no-results" class="tb-no-results" hidden>
         <p><strong>No tools match those filters.</strong></p>
-        <p>Clear the filters and try another way in.</p>
+        <p>{tooloooVoice.microcopy.empty}</p>
       </div>
     </div>
   </section>
@@ -247,6 +250,7 @@ const jsonLd = pageSchema({
     font-size: 1.05rem; color: var(--k-text-muted); line-height: 1.7;
     margin: 0 0 1.5rem;
   }
+  .tb-hero-voice { margin: -1rem 0 1.5rem; color: var(--k-text-muted); font-size: .82rem; font-style: italic; }
   .tb-hero-stats { display: flex; gap: 2rem; }
   .tb-stat { display: flex; flex-direction: column; gap: .125rem; }
   .tb-stat-num {
