@@ -1,357 +1,111 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import RangeControl from '../shared/RangeControl';
+import InputField from '../shared/InputField';
 import Metric from '../shared/Metric';
 import Warning from '../shared/Warning';
 import VisualizationContainer from '../shared/VisualizationContainer';
 import PresetBar from '../shared/PresetBar';
+import Insight from '../shared/Insight';
+import ShareResultFoundation from '../ShareResultFoundation';
 import { clamp } from '../shared/mathHelpers';
 
-interface SlaPreset {
-  numServices: number;
-  perServiceSLA: number;
-  redundantIndices: number[];
+export interface ReliabilityDependency { id: string; name: string; availabilityPct: number; required: boolean; }
+export interface ReliabilityPlan { targetPct: number; dependencies: ReliabilityDependency[]; }
+const COLORS = ['#F7933C', '#6CA6FF', '#DF78A0', '#93B96A', '#f2c14e', '#8b7fd6'];
+const MIN_DEPENDENCIES = 1;
+const MAX_DEPENDENCIES = 6;
+const WINDOWS = [{ label: '24 hours', minutes: 1440 }, { label: '7 days', minutes: 10080 }, { label: '30 days', minutes: 43200 }, { label: '365 days', minutes: 525600 }];
+
+export function formatAvailability(value: number): string { return clamp(value, 0, 100).toFixed(3) + '%'; }
+export function formatDuration(minutes: number): string {
+  if (minutes < 1) return Math.round(minutes * 60) + 's';
+  if (minutes < 60) return minutes.toFixed(1) + 'm';
+  if (minutes < 1440) return (minutes / 60).toFixed(1) + 'h';
+  return (minutes / 1440).toFixed(1) + 'd';
+}
+/** Required-path availability model. It assumes sufficiently independent binary availability events. */
+export function evaluateReliabilityPlan(plan: ReliabilityPlan) {
+  const required = plan.dependencies.filter((dependency) => dependency.required);
+  const modeledPct = required.reduce((product, dependency) => product * (clamp(dependency.availabilityPct, 0, 100) / 100), 1) * 100;
+  const targetPct = clamp(plan.targetPct, 0, 100);
+  const targetUnavailability = 100 - targetPct;
+  const modeledUnavailability = 100 - modeledPct;
+  const contributor = required.length ? required.reduce((lowest, dependency) => clamp(dependency.availabilityPct, 0, 100) < clamp(lowest.availabilityPct, 0, 100) ? dependency : lowest) : null;
+  const alternativePct = contributor && required.length > 1 ? required.filter((dependency) => dependency.id !== contributor.id).reduce((product, dependency) => product * (clamp(dependency.availabilityPct, 0, 100) / 100), 1) * 100 : null;
+  return { required, optional: plan.dependencies.filter((dependency) => !dependency.required), modeledPct, targetPct, targetUnavailability, modeledUnavailability, gapPp: modeledPct - targetPct, meetsTarget: modeledPct >= targetPct, contributor, alternativePct };
 }
 
-const PRESETS: { label: string; values: SlaPreset }[] = [
-  { label: 'Simple API chain', values: { numServices: 3, perServiceSLA: 99.9, redundantIndices: [] } },
-  { label: 'Payment pipeline', values: { numServices: 5, perServiceSLA: 99.95, redundantIndices: [1, 3] } },
-  { label: 'Legacy 2-hop dependency', values: { numServices: 2, perServiceSLA: 99.5, redundantIndices: [] } },
-  { label: 'Fully redundant critical path', values: { numServices: 4, perServiceSLA: 99.9, redundantIndices: [0, 1, 2, 3] } },
+const DEFAULT_DEPS: ReliabilityDependency[] = [
+  { id: 'd0', name: 'API', availabilityPct: 99.95, required: true },
+  { id: 'd1', name: 'Service A', availabilityPct: 99.99, required: true },
+  { id: 'd2', name: 'Database', availabilityPct: 99.9, required: true },
+];
+interface Scenario { targetPct: number; deps: ReliabilityDependency[]; sharedRisk: boolean; }
+const SCENARIOS: { label: string; values: Scenario }[] = [
+  { label: 'Simple chain', values: { targetPct: 99.8, deps: DEFAULT_DEPS, sharedRisk: false } },
+  { label: 'Many required dependencies', values: { targetPct: 99.9, deps: [...DEFAULT_DEPS, { id: 'd3', name: 'Identity', availabilityPct: 99.95, required: true }, { id: 'd4', name: 'Payments', availabilityPct: 99.99, required: true }], sharedRisk: false } },
+  { label: 'One weaker dependency', values: { targetPct: 99.9, deps: [{ id: 'd0', name: 'API', availabilityPct: 99.99, required: true }, { id: 'd1', name: 'Search', availabilityPct: 99.5, required: true }, { id: 'd2', name: 'Database', availabilityPct: 99.99, required: true }], sharedRisk: false } },
+  { label: 'Optional dependency', values: { targetPct: 99.9, deps: [{ id: 'd0', name: 'API', availabilityPct: 99.99, required: true }, { id: 'd1', name: 'Recommendations', availabilityPct: 99.5, required: false }, { id: 'd2', name: 'Database', availabilityPct: 99.99, required: true }], sharedRisk: false } },
+  { label: 'High objective', values: { targetPct: 99.99, deps: DEFAULT_DEPS, sharedRisk: false } },
+  { label: 'Shared-failure risk', values: { targetPct: 99.9, deps: DEFAULT_DEPS, sharedRisk: true } },
 ];
 
-function downtimeMinutesPerYearFor(availabilityPct: number): number {
-  return (1 - clamp(availabilityPct, 0, 100) / 100) * 365 * 24 * 60;
-}
+export default function SLAChainVisualizer() {
+  const [targetPct, setTargetPct] = useState(99.9);
+  const [dependencies, setDependencies] = useState<ReliabilityDependency[]>(DEFAULT_DEPS);
+  const [windowMinutes, setWindowMinutes] = useState(43200);
+  const [sharedRisk, setSharedRisk] = useState(false);
+  const [activePreset, setActivePreset] = useState<string | null>(null);
+  const nextId = useRef(3);
+  const clearPreset = () => setActivePreset(null);
+  const updateDependency = (index: number, change: Partial<ReliabilityDependency>) => { setDependencies((current) => current.map((dependency, i) => i === index ? { ...dependency, ...change } : dependency)); clearPreset(); };
+  const addDependency = () => setDependencies((current) => current.length >= MAX_DEPENDENCIES ? current : [...current, { id: 'd' + nextId.current++, name: 'Dependency ' + (current.length + 1), availabilityPct: 99.9, required: true }]);
+  const removeDependency = (index: number) => { setDependencies((current) => current.length <= MIN_DEPENDENCIES ? current : current.filter((_, i) => i !== index)); clearPreset(); };
+  const applyScenario = (scenario: Scenario, label: string) => { setTargetPct(scenario.targetPct); setDependencies(scenario.deps.map((dependency) => ({ ...dependency }))); setSharedRisk(scenario.sharedRisk); setActivePreset(label); };
+  const result = useMemo(() => evaluateReliabilityPlan({ targetPct, dependencies }), [targetPct, dependencies]);
+  const window = WINDOWS.find((candidate) => candidate.minutes === windowMinutes) || WINDOWS[2];
+  const targetBudgetMinutes = (result.targetUnavailability / 100) * windowMinutes;
+  const modeledUnavailableMinutes = (result.modeledUnavailability / 100) * windowMinutes;
+  const budgetDifferenceMinutes = targetBudgetMinutes - modeledUnavailableMinutes;
+  const color = result.meetsTarget ? '#22c55e' : '#ef4444';
+  const W = 650, H = Math.max(150, 76 + dependencies.length * 40), PAD = 140;
+  const barW = W - PAD - 24;
+  const alternativeAssumption = result.alternativePct !== null ? `If ${result.contributor?.name} can genuinely be optional, modeled availability becomes ${formatAvailability(result.alternativePct)}. This is a comparison, not a recommendation to remove it.` : 'Add another required dependency before making an optional-path comparison.';
 
-function formatDowntime(minutes: number): string {
-  if (!Number.isFinite(minutes) || minutes <= 0) return '0.0m';
-  if (minutes > 1440) return `${(minutes / 1440).toFixed(1)}d`;
-  if (minutes > 60) return `${(minutes / 60).toFixed(1)}h`;
-  return `${minutes.toFixed(1)}m`;
-}
-
-function severityColor(availabilityPct: number): string {
-  if (availabilityPct < 99) return '#ef4444';
-  if (availabilityPct < 99.9) return '#F7933C';
-  return '#22c55e';
-}
-
-/**
- * Availability numbers this close to 100% get rounded away at a fixed decimal count (a redundant
- * service can read as a misleading "100.000%"). Escalate decimals only as far as needed to keep
- * the number honest, otherwise stick to the tool's usual 3 decimals.
- */
-function formatAvailability(pct: number): string {
-  if (!Number.isFinite(pct)) return '0.000%';
-  const value = clamp(pct, 0, 100);
-  let decimals = 3;
-  while (decimals < 8 && value < 100 && parseFloat(value.toFixed(decimals)) >= 100) {
-    decimals += 1;
-  }
-  return `${value.toFixed(decimals)}%`;
-}
-
-/** Two independent instances of the same SLA in parallel -- either one being up is enough. */
-function redundantAvailability(baseSlaPct: number): number {
-  const p = clamp(baseSlaPct, 0, 100) / 100;
-  return (1 - Math.pow(1 - p, 2)) * 100;
-}
-
-function simulate(numServices: number, perServiceSLA: number, redundant: Set<number>) {
-  const effective: number[] = [];
-  const cumulative: number[] = [];
-  let runningFraction = 1;
-  for (let i = 0; i < numServices; i++) {
-    const availabilityPct = redundant.has(i) ? redundantAvailability(perServiceSLA) : perServiceSLA;
-    effective.push(availabilityPct);
-    runningFraction *= availabilityPct / 100;
-    cumulative.push(runningFraction * 100);
-  }
-  const combinedAvailability = cumulative.length ? cumulative[cumulative.length - 1] : 100;
-  // Same chain, no backups -- the tool's original formula, kept as-is for comparison.
-  const baselineCombinedAvailability = Math.pow(perServiceSLA / 100, numServices) * 100;
-  const perServiceDowntimeMinutes = downtimeMinutesPerYearFor(perServiceSLA);
-  const combinedDowntimeMinutes = downtimeMinutesPerYearFor(combinedAvailability);
-  const baselineDowntimeMinutes = downtimeMinutesPerYearFor(baselineCombinedAvailability);
-  return {
-    effective,
-    cumulative,
-    combinedAvailability,
-    baselineCombinedAvailability,
-    perServiceDowntimeMinutes,
-    combinedDowntimeMinutes,
-    baselineDowntimeMinutes,
-  };
-}
-
-export default function SlaChainVisualizer() {
-  const [numServices, setNumServices] = useState(3);
-  const [perServiceSLA, setPerServiceSLA] = useState(99.9);
-  const [redundant, setRedundant] = useState<Set<number>>(() => new Set());
-  const [activePreset, setActivePreset] = useState<string | null>('Simple API chain');
-
-  const result = useMemo(() => simulate(numServices, perServiceSLA, redundant), [numServices, perServiceSLA, redundant]);
-  const activeRedundantIndices = useMemo(
-    () => Array.from(redundant).filter((i) => i < numServices).sort((a, b) => a - b),
-    [redundant, numServices]
-  );
-  const combinedColor = severityColor(result.combinedAvailability);
-  const downtimeMultiplier = result.combinedDowntimeMinutes / result.perServiceDowntimeMinutes;
-  const downtimeSavedByRedundancy = Math.max(0, result.baselineDowntimeMinutes - result.combinedDowntimeMinutes);
-
-  function handleNumServicesChange(v: number) {
-    setNumServices(Math.round(v));
-    setActivePreset(null);
-  }
-  function handlePerServiceSLAChange(v: number) {
-    setPerServiceSLA(v);
-    setActivePreset(null);
-  }
-  function handleToggleRedundant(i: number) {
-    setRedundant((prev) => {
-      const next = new Set(prev);
-      if (next.has(i)) next.delete(i);
-      else next.add(i);
-      return next;
-    });
-    setActivePreset(null);
-  }
-  function handlePresetSelect(values: SlaPreset, label: string) {
-    setNumServices(values.numServices);
-    setPerServiceSLA(values.perServiceSLA);
-    setRedundant(new Set(values.redundantIndices));
-    setActivePreset(label);
-  }
-
-  const boxW = 100;
-  const boxH = 50;
-  const gap = 40;
-  const finalBoxW = 170;
-  const boxY = 30;
-  const finalBoxY = 12;
-  const finalBoxH = 86;
-  const centerY = boxY + boxH / 2;
-  const totalW = numServices * (boxW + gap) + finalBoxW;
-  const finalX = numServices * (boxW + gap);
-
-  return (
-    <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
-      <PresetBar presets={PRESETS} activeLabel={activePreset} onSelect={handlePresetSelect} accent="#F7933C" />
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
-        <RangeControl
-          label="Services in the chain"
-          value={numServices}
-          onChange={handleNumServicesChange}
-          min={2}
-          max={8}
-          formatValue={(v) => `${v} services`}
-          accent="#F7933C"
-        />
-        <RangeControl
-          label="Per-service SLA (uptime)"
-          value={perServiceSLA}
-          onChange={handlePerServiceSLAChange}
-          min={95}
-          max={99.99}
-          step={0.01}
-          formatValue={(v) => `${v.toFixed(2)}%`}
-          accent="#F7933C"
-        />
-      </div>
-
-      <div style={{ marginBottom: '1.5rem' }}>
-        <div
-          style={{
-            fontSize: '.8rem',
-            fontWeight: 700,
-            color: 'var(--k-text-muted)',
-            fontFamily: "'Poppins', sans-serif",
-            textTransform: 'uppercase',
-            letterSpacing: '.06em',
-            marginBottom: '.5rem',
-          }}
-        >
-          Which services have a redundant backup? (2× parallel instances)
-        </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.5rem' }}>
-          {Array.from({ length: numServices }, (_, i) => {
-            const active = redundant.has(i);
-            return (
-              <button
-                key={i}
-                type="button"
-                aria-pressed={active}
-                onClick={() => handleToggleRedundant(i)}
-                style={{
-                  padding: '.4rem .875rem',
-                  borderRadius: '999px',
-                  border: `1.5px solid ${active ? '#22c55e' : 'var(--k-border)'}`,
-                  background: active ? 'color-mix(in srgb, #22c55e 14%, transparent)' : 'var(--k-bg)',
-                  color: active ? '#22c55e' : 'var(--k-text-muted)',
-                  fontSize: '.78rem',
-                  fontWeight: 700,
-                  fontFamily: "'Poppins', sans-serif",
-                  cursor: 'pointer',
-                  transition: 'border-color .15s, color .15s, background .15s',
-                }}
-              >
-                Service {i + 1}{active ? ' ×2' : ''}
-              </button>
-            );
-          })}
-        </div>
-
-        {activeRedundantIndices.length > 0 && (
-          <div
-            style={{
-              background: 'var(--k-bg-elevated)',
-              border: '1px solid var(--k-border)',
-              borderRadius: '.75rem',
-              padding: '.75rem 1rem',
-              marginTop: '.75rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '.35rem',
-            }}
-          >
-            <div style={{ fontSize: '.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.06em', color: 'var(--k-text-muted)', fontFamily: "'Poppins', sans-serif" }}>
-              Redundancy impact (per service)
-            </div>
-            {activeRedundantIndices.map((i) => (
-              <div key={i} style={{ fontSize: '.8rem', lineHeight: 1.5 }}>
-                <span style={{ fontWeight: 700, color: 'var(--k-text)' }}>Service {i + 1}:</span>{' '}
-                <span style={{ color: 'var(--k-text-muted)' }}>{perServiceSLA.toFixed(2)}%</span>
-                {' → '}
-                <span style={{ fontWeight: 700, color: '#22c55e' }}>{formatAvailability(result.effective[i])}</span>
-                <span style={{ color: 'var(--k-text-muted)' }}> with a second instance in parallel</span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <VisualizationContainer minHeight={200}>
-        <svg
-          viewBox={`0 0 ${totalW} 120`}
-          style={{ width: '100%', maxWidth: `${totalW}px`, height: 'auto' }}
-          role="img"
-          aria-label={`A chain of ${numServices} services, each ${perServiceSLA.toFixed(2)}% available${
-            activeRedundantIndices.length > 0 ? ` (${activeRedundantIndices.length} with a redundant backup)` : ''
-          }, compounding down to ${formatAvailability(result.combinedAvailability)} combined availability`}
-        >
-          <defs>
-            <marker id="sla-chain-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--k-text-muted)" />
-            </marker>
-          </defs>
-
-          {Array.from({ length: numServices }, (_, i) => {
-            const x = i * (boxW + gap);
-            const isRedundant = redundant.has(i);
-            const cum = result.cumulative[i];
-            const cumColor = severityColor(cum);
-            const boxStroke = isRedundant ? '#22c55e' : 'var(--k-border)';
-            return (
-              <g key={i}>
-                {i > 0 && (
-                  <line x1={x - gap} x2={x} y1={centerY} y2={centerY} stroke="var(--k-text-muted)" strokeWidth={2} markerEnd="url(#sla-chain-arrow)" />
-                )}
-                {isRedundant && (
-                  <rect
-                    x={x - 5}
-                    y={boxY - 5}
-                    width={boxW + 10}
-                    height={boxH + 10}
-                    rx={11}
-                    fill="none"
-                    stroke="#22c55e"
-                    strokeWidth={1.25}
-                    strokeDasharray="4 3"
-                    opacity={0.7}
-                  />
-                )}
-                <rect x={x} y={boxY} width={boxW} height={boxH} rx={8} fill="var(--k-bg-elevated)" stroke={boxStroke} strokeWidth={1.5} />
-                <text
-                  x={x + boxW / 2}
-                  y={boxY + 20}
-                  textAnchor="middle"
-                  fontSize="10"
-                  fontWeight="700"
-                  fill={isRedundant ? '#22c55e' : 'var(--k-text-muted)'}
-                  style={{ fontFamily: "'Poppins', sans-serif" }}
-                >
-                  Service {i + 1}{isRedundant ? ' ×2' : ''}
-                </text>
-                <text x={x + boxW / 2} y={boxY + 38} textAnchor="middle" fontSize="14" fontWeight="800" fill="var(--k-text)" style={{ fontFamily: "'Poppins', sans-serif" }}>
-                  {isRedundant ? formatAvailability(result.effective[i]) : `${perServiceSLA.toFixed(2)}%`}
-                </text>
-                <text x={x + boxW / 2} y={boxY + boxH + 20} textAnchor="middle" fontSize="10" fontWeight="700" fill={cumColor} style={{ fontFamily: "'Poppins', sans-serif" }}>
-                  chain so far: {formatAvailability(cum)}
-                </text>
-              </g>
-            );
-          })}
-
-          <line x1={finalX - gap} x2={finalX} y1={centerY} y2={centerY} stroke="var(--k-text-muted)" strokeWidth={2} markerEnd="url(#sla-chain-arrow)" />
-          <rect
-            x={finalX}
-            y={finalBoxY}
-            width={finalBoxW}
-            height={finalBoxH}
-            rx={10}
-            fill={`color-mix(in srgb, ${combinedColor} 16%, var(--k-bg-card))`}
-            stroke={combinedColor}
-            strokeWidth={2}
-          />
-          <text x={finalX + finalBoxW / 2} y={finalBoxY + 22} textAnchor="middle" fontSize="10" fontWeight="700" fill="var(--k-text-muted)" style={{ fontFamily: "'Poppins', sans-serif", textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-            Combined chain
-          </text>
-          <text x={finalX + finalBoxW / 2} y={finalBoxY + 50} textAnchor="middle" fontSize="20" fontWeight="800" fill={combinedColor} style={{ fontFamily: "'Poppins', sans-serif" }}>
-            {formatAvailability(result.combinedAvailability)}
-          </text>
-          <text x={finalX + finalBoxW / 2} y={finalBoxY + 70} textAnchor="middle" fontSize="10" fill="var(--k-text-muted)" style={{ fontFamily: "'Poppins', sans-serif" }}>
-            {formatDowntime(result.combinedDowntimeMinutes)} downtime/yr
-          </text>
-        </svg>
-      </VisualizationContainer>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '.75rem', marginTop: '1.5rem' }}>
-        <Metric label="Combined availability" value={formatAvailability(result.combinedAvailability)} color={combinedColor} />
-        <Metric
-          label="Downtime per service/year"
-          value={formatDowntime(result.perServiceDowntimeMinutes)}
-          sublabel="assuming this SLA holds all year"
-        />
-        <Metric
-          label="Combined downtime/year"
-          value={formatDowntime(result.combinedDowntimeMinutes)}
-          color={combinedColor}
-          sublabel={`${downtimeMultiplier.toFixed(1)}× a single service's downtime`}
-        />
-      </div>
-
-      <div style={{ marginTop: '1.25rem' }}>
-        {result.combinedAvailability < 99 ? (
-          <Warning level="danger" title={`${numServices} services at "${perServiceSLA.toFixed(2)}%" each compound into ${formatAvailability(result.combinedAvailability)} — worse than any one of them alone`}>
-            Availability multiplies down a chain, it doesn't average. Every service in the request path has to be up at the same time, so each one only ever subtracts from the total — never adds. {numServices} services each individually rated "{perServiceSLA.toFixed(2)}%" turn into {formatDowntime(result.combinedDowntimeMinutes)} of expected downtime a year, versus {formatDowntime(result.perServiceDowntimeMinutes)} for any single one of them. The chain is exactly as reliable as its weakest link, multiplied by how many links there are.
-            {activeRedundantIndices.length > 0 && (
-              <>
-                {' '}Redundancy is already softening this: the same chain with no backups at all would only hold {formatAvailability(result.baselineCombinedAvailability)} ({formatDowntime(result.baselineDowntimeMinutes)}/yr) — the {activeRedundantIndices.length} backed-up service{activeRedundantIndices.length > 1 ? 's' : ''} buy back {formatDowntime(downtimeSavedByRedundancy)} of downtime a year. It still isn't enough on its own, because the services without a backup are the ones now setting the ceiling.
-              </>
-            )}
-          </Warning>
-        ) : (
-          <Warning level="good" title={`Still ${formatAvailability(result.combinedAvailability)} — but already below every service in it`}>
-            The combined number still looks respectable, but it's already worse than the {perServiceSLA.toFixed(2)}% each individual service promises — that's what chaining does, on purpose or not. Add a 4th, 5th, or 6th service to this same chain and watch it keep eroding: nothing here degrades gracefully, it just compounds.
-            {activeRedundantIndices.length > 0 && (
-              <>
-                {' '}Redundancy is doing real work here: without backups, this same chain would land at {formatAvailability(result.baselineCombinedAvailability)} instead — the {activeRedundantIndices.length} backed-up service{activeRedundantIndices.length > 1 ? 's' : ''} recover {formatDowntime(downtimeSavedByRedundancy)} of downtime a year. Two independent instances only go down together if both fail at once, which is why doubling up on your weakest link matters more than doubling up on one that's already solid.
-              </>
-            )}
-          </Warning>
-        )}
-      </div>
+  return <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
+    <div style={{ font: '800 .76rem Poppins, sans-serif', letterSpacing: '.06em', color: 'var(--k-text-muted)', marginBottom: '.45rem' }}>RELIABILITY BUDGET LAB</div>
+    <div style={{ font: '700 .8rem Poppins, sans-serif', color: 'var(--k-text-muted)', textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: '.5rem' }}>Try a scenario</div>
+    <PresetBar presets={SCENARIOS} activeLabel={activePreset} onSelect={applyScenario} accent="#93B96A" />
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '1rem', marginBottom: '.8rem' }}>
+      <RangeControl label="Service objective" value={targetPct} onChange={(value) => { setTargetPct(value); clearPreset(); }} min={95} max={99.99} step={0.01} formatValue={(value) => `${value.toFixed(2)}%`} accent="#93B96A" />
+      <div><div style={{ font: '700 .72rem Poppins, sans-serif', color: 'var(--k-text-muted)', textTransform: 'uppercase', marginBottom: '.35rem' }}>Measurement window</div><div style={{ display: 'flex', flexWrap: 'wrap', gap: '.35rem' }}>{WINDOWS.map((candidate) => <button key={candidate.minutes} type="button" aria-pressed={windowMinutes === candidate.minutes} onClick={() => setWindowMinutes(candidate.minutes)} style={{ padding: '.4rem .55rem', borderRadius: '.45rem', border: '1px solid ' + (windowMinutes === candidate.minutes ? '#93B96A' : 'var(--k-border)'), background: windowMinutes === candidate.minutes ? 'color-mix(in srgb, #93B96A 14%, transparent)' : 'transparent', color: windowMinutes === candidate.minutes ? '#93B96A' : 'var(--k-text-muted)', fontSize: '.72rem', fontWeight: 700, cursor: 'pointer' }}>{candidate.label}</button>)}</div></div>
+      <label style={{ display: 'flex', alignItems: 'center', gap: '.45rem', fontSize: '.8rem', color: 'var(--k-text-muted)', marginTop: '1.35rem' }}><input type="checkbox" checked={sharedRisk} onChange={(event) => { setSharedRisk(event.target.checked); clearPreset(); }} /> Shared-failure risk exists</label>
     </div>
-  );
+    <p style={{ margin: '.2rem 0 1rem', fontSize: '.76rem', color: 'var(--k-text-muted)' }}>SLI is what is measured. SLO is the selected target. SLA is a formal commitment with defined terms. This tool displays a simplified modeled reliability, never a contractual SLA.</p>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(205px, 1fr))', gap: '.85rem' }}>{dependencies.map((dependency, index) => <div key={dependency.id} style={{ background: 'var(--k-bg)', border: '1px solid var(--k-border)', borderRadius: '.75rem', padding: '.8rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '.4rem', marginBottom: '.6rem' }}><span style={{ width: 9, height: 9, borderRadius: 3, background: COLORS[index % COLORS.length] }} /><strong style={{ fontSize: '.75rem', textTransform: 'uppercase' }}>Dependency {index + 1}</strong>{dependencies.length > MIN_DEPENDENCIES && <button type="button" onClick={() => removeDependency(index)} aria-label={`Remove ${dependency.name}`} style={{ border: 0, background: 'transparent', color: 'var(--k-text-muted)', marginLeft: 'auto', cursor: 'pointer', fontSize: '1.15rem' }}>×</button>}</div>
+      <InputField label="Name" type="text" value={dependency.name} onChange={(value) => updateDependency(index, { name: value })} />
+      <RangeControl label="Availability assumption" value={dependency.availabilityPct} onChange={(value) => updateDependency(index, { availabilityPct: value })} min={90} max={99.99} step={0.01} formatValue={(value) => `${value.toFixed(2)}%`} accent={COLORS[index % COLORS.length]} />
+      <button type="button" aria-pressed={dependency.required} onClick={() => updateDependency(index, { required: !dependency.required })} style={{ border: '1px solid ' + (dependency.required ? COLORS[index % COLORS.length] : 'var(--k-border)'), background: dependency.required ? 'color-mix(in srgb, #6CA6FF 12%, transparent)' : 'transparent', color: dependency.required ? COLORS[index % COLORS.length] : 'var(--k-text-muted)', borderRadius: '.45rem', padding: '.4rem .55rem', fontWeight: 700, fontSize: '.72rem', cursor: 'pointer' }}>{dependency.required ? 'Required path' : 'Optional · degraded response accepted'}</button>
+    </div>)}</div>
+    <button type="button" onClick={addDependency} disabled={dependencies.length >= MAX_DEPENDENCIES} style={{ marginTop: '.85rem', padding: '.45rem .8rem', borderRadius: '.5rem', border: '1px dashed var(--k-border)', background: 'var(--k-bg)', color: 'var(--k-text-muted)', cursor: dependencies.length >= MAX_DEPENDENCIES ? 'not-allowed' : 'pointer' }}>+ Add dependency ({dependencies.length}/{MAX_DEPENDENCIES})</button>
+    <VisualizationContainer minHeight={H}><div style={{ fontSize: '.73rem', color: 'var(--k-text-muted)', marginBottom: '.4rem' }}>USER OBJECTIVE → REQUIRED DEPENDENCIES → MODELED END-TO-END AVAILABILITY → ERROR BUDGET</div><svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', maxWidth: `${W}px`, height: 'auto' }} role="img" aria-label={`${result.required.length} required dependencies model ${formatAvailability(result.modeledPct)} end-to-end availability against a ${formatAvailability(result.targetPct)} objective.`}>
+      <text x={PAD} y={16} fontSize="10" fill="var(--k-text-muted)">required-path availability</text><line x1={PAD} x2={PAD + barW} y1={23} y2={23} stroke="var(--k-border)" />
+      {dependencies.map((dependency, index) => { const y = 40 + index * 40; const fill = dependency.required ? COLORS[index % COLORS.length] : '#94a3b8'; const width = clamp(dependency.availabilityPct, 0, 100) / 100 * barW; return <g key={dependency.id}><text x={PAD - 9} y={y + 12} textAnchor="end" fontSize="10" fill="var(--k-text-muted)">{dependency.name}</text><rect x={PAD} y={y} width={barW} height={18} rx={4} fill="var(--k-border)" /><rect x={PAD} y={y} width={width} height={18} rx={4} fill={fill} opacity={dependency.required ? .9 : .5} /><text x={PAD + 5} y={y + 12} fontSize="9" fill="#1a1a1a" fontWeight="700">{dependency.availabilityPct.toFixed(2)}% · {dependency.required ? 'required' : 'optional'}</text></g>; })}
+      <rect x={PAD} y={H - 34} width={barW} height={22} rx={5} fill="var(--k-border)" /><rect x={PAD} y={H - 34} width={result.modeledPct / 100 * barW} height={22} rx={5} fill={color} /><text x={PAD + 6} y={H - 19} fontSize="10" fill="#1a1a1a" fontWeight="800">MODELED END-TO-END {formatAvailability(result.modeledPct)}</text><text x={W - 12} y={H - 19} textAnchor="end" fontSize="10" fill={color} fontWeight="800">target {formatAvailability(result.targetPct)}</text>
+    </svg></VisualizationContainer>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '.75rem', marginTop: '1rem' }}>
+      <Metric label="Modeled availability" value={formatAvailability(result.modeledPct)} color={color} sublabel={`${result.required.length} required dependencies`} /><Metric label={result.meetsTarget ? 'Reliability headroom' : 'Gap to target'} value={`${Math.abs(result.gapPp).toFixed(3)} percentage points`} color={color} sublabel={result.meetsTarget ? 'under the selected assumptions' : 'simplified model misses target'} /><Metric label="Target error budget" value={formatDuration(targetBudgetMinutes)} sublabel={`${formatAvailability(result.targetPct)} over ${window.label}`} /><Metric label="Modeled unavailable time" value={formatDuration(modeledUnavailableMinutes)} color={color} sublabel={budgetDifferenceMinutes >= 0 ? `${formatDuration(budgetDifferenceMinutes)} budget headroom` : `${formatDuration(Math.abs(budgetDifferenceMinutes))} over budget`} /><Metric label="Largest reliability contributor" value={result.contributor?.name || 'None'} sublabel={result.contributor ? `${formatAvailability(result.contributor.availabilityPct)} lowest required assumption` : 'no required dependencies'} />
+    </div>
+    <div style={{ marginTop: '.85rem', padding: '.8rem', border: '1px solid var(--k-border)', borderRadius: '.7rem', fontSize: '.78rem' }}><strong>Reliability translator · {window.label}:</strong> 99% = {formatDuration(.01 * windowMinutes)}, 99.9% = {formatDuration(.001 * windowMinutes)}, 99.99% = {formatDuration(.0001 * windowMinutes)}, 99.999% = {formatDuration(.00001 * windowMinutes)} modeled unavailable time. These are availability budgets for the selected window, not claims about latency or planned downtime.</div>
+    <div style={{ marginTop: '.85rem', padding: '.8rem', border: '1px solid var(--k-border)', borderRadius: '.7rem', fontSize: '.78rem', color: 'var(--k-text-muted)' }}><strong style={{ color: 'var(--k-text)' }}>Current vs degraded-response comparison:</strong> {alternativeAssumption}</div>
+    <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '.65rem' }}>
+      {!result.meetsTarget && <Warning level="danger" title="This simplified model does not meet the selected target">The modeled path is {formatAvailability(result.modeledPct)} against a {formatAvailability(result.targetPct)} objective. {result.contributor?.name} is the lowest-availability required assumption, not a proven production root cause.</Warning>}
+      {result.optional.length > 0 && <Warning level="info" title="Optional means degraded response accepted in this model">Optional dependencies are excluded only from the hard availability path. Their loss can still remove functionality or harm user experience.</Warning>}
+      {sharedRisk && <Warning level="warn" title="Shared-failure risk makes the multiplication model optimistic">Required dependencies can share a region, network, database, identity provider, or deployment path. This model does not invent a correlation coefficient or double-count a shared dependency.</Warning>}
+      <Warning level="info" title="Independence and measurement assumptions">Required availability values are multiplied as a simplified binary model. Vendor terms, measurement windows, exclusions, fallback behavior, and correlation mean this is not a guaranteed customer SLA.</Warning>
+    </div>
+    <div style={{ marginTop: '1rem' }}><Insight what={`The selected objective is ${formatAvailability(result.targetPct)} over ${window.label}; the required path models ${formatAvailability(result.modeledPct)}.`} why="Availability and latency are separate dimensions. A timeout is an operational limit, while an SLO is a target and an SLA is a defined commitment. Neither is derived automatically from the other." tip={sharedRisk ? 'Map shared infrastructure and common failure modes before interpreting this independent-path calculation as comfortable.' : !result.meetsTarget ? `Inspect ${result.contributor?.name || 'the lowest availability dependency'} and the product contract before changing architecture. Higher availability can add cost and operational complexity.` : 'Use Fan-Out to inspect latency critical paths and Timeout Chain Planner to test deadline budgets; those are different from reliability objectives.'} /></div>
+    <ShareResultFoundation monster="toolooo" contentType="tool" slug="sla-chain-visualizer" title="SLA Chain Visualizer" result={{ summary: `Educational reliability model: ${result.required.length} required dependencies, ${formatAvailability(result.modeledPct)} modeled availability against a ${formatAvailability(result.targetPct)} objective over ${window.label}; ${result.meetsTarget ? `${result.gapPp.toFixed(3)} percentage-point headroom` : `${Math.abs(result.gapPp).toFixed(3)} percentage-point gap`}. Independence is an assumption.` }} />
+  </div>;
 }

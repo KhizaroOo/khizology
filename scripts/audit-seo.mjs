@@ -7,6 +7,20 @@ const errors = [];
 const configuredBase = process.env.BASE_URL?.trim() || '/';
 const basePath = configuredBase === '/' ? '' : `/${configuredBase.replace(/^\/+|\/+$/g, '')}`;
 const expectedSite = new URL(process.env.SITE_URL?.trim() || 'https://khizooology.com').origin;
+const quality = {
+  missingDescriptions: 0,
+  duplicateDescriptions: 0,
+  missingH1: 0,
+  missingCanonicals: 0,
+  invalidCanonicals: 0,
+  missingImageAlt: 0,
+  invalidJsonLd: 0,
+  brokenInternalLinks: 0,
+  orphanIndexablePages: 0,
+  placeholderFindings: 0,
+};
+const incomingLinks = new Map();
+const visiblePlaceholder = /\b(?:lorem ipsum|todo\b|fixme\b|placeholder)\b/i;
 
 function fail(message) {
   errors.push(message);
@@ -86,7 +100,7 @@ function parseJsonLd(html, route) {
   const pattern = /<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
   for (const match of html.matchAll(pattern)) {
     try { values.push(JSON.parse(decode(match[1]))); }
-    catch (error) { fail(`${route}: malformed JSON-LD (${error.message})`); }
+    catch (error) { quality.invalidJsonLd += 1; fail(`${route}: malformed JSON-LD (${error.message})`); }
   }
   return values;
 }
@@ -125,9 +139,9 @@ for (const page of pages) {
   if (!/^<!doctype html>/i.test(html) || !/<html\b[^>]*\blang=["']en["']/i.test(html)) fail(`${route}: missing HTML5 doctype or lang=en`);
   if (titleMatches.length !== 1 || !titleMatches[0]) fail(`${route}: expected exactly one non-empty title`);
   if (!page.noindex && !page.redirect && titleMatches[0]?.length >= 70) fail(`${route}: title must be under 70 characters (${titleMatches[0].length})`);
-  if (descriptionTags.length !== 1 || !descriptionTags[0]?.content) fail(`${route}: expected exactly one meta description`);
+  if (descriptionTags.length !== 1 || !descriptionTags[0]?.content) { quality.missingDescriptions += 1; fail(`${route}: expected exactly one meta description`); }
   if (robotsTags.length !== 1 || !page.robots) fail(`${route}: expected exactly one robots directive`);
-  if (canonicalTags.length !== 1 || !canonicalTags[0]?.href) fail(`${route}: expected exactly one canonical`);
+  if (canonicalTags.length !== 1 || !canonicalTags[0]?.href) { quality.missingCanonicals += 1; fail(`${route}: expected exactly one canonical`); }
   if (tags(head, 'meta').some((item) => item.name === 'keywords')) fail(`${route}: obsolete meta keywords found`);
 
   if (page.redirect) {
@@ -141,21 +155,21 @@ for (const page of pages) {
 
   if (!page.noindex && !page.redirect) {
     if (!page.robots.includes('index') || !page.robots.includes('follow') || !page.robots.includes('max-image-preview:large')) fail(`${route}: incomplete indexable robots directive`);
-    if (h1Count !== 1) fail(`${route}: expected exactly one H1, found ${h1Count}`);
+    if (h1Count !== 1) { quality.missingH1 += 1; fail(`${route}: expected exactly one H1, found ${h1Count}`); }
 
     const title = titleMatches[0];
     const description = descriptionTags[0].content;
     const canonical = canonicalTags[0].href;
     for (const [value, owner, label] of [[title, titleOwners, 'title'], [description, descriptionOwners, 'description'], [canonical, canonicalOwners, 'canonical']]) {
-      if (owner.has(value)) fail(`${route}: duplicate ${label} also used by ${owner.get(value)}`);
+      if (owner.has(value)) { if (label === 'description') quality.duplicateDescriptions += 1; fail(`${route}: duplicate ${label} also used by ${owner.get(value)}`); }
       else owner.set(value, route);
     }
     try {
       const parsed = new URL(canonical);
-      if (parsed.protocol !== 'https:' || parsed.search || parsed.hash || !parsed.pathname.endsWith('/')) fail(`${route}: invalid canonical ${canonical}`);
-      if (parsed.origin !== expectedSite) fail(`${route}: canonical uses unexpected origin ${parsed.origin}`);
-      if (basePath && !parsed.pathname.startsWith(`${basePath}/`)) fail(`${route}: canonical escapes configured base ${basePath}`);
-    } catch { fail(`${route}: malformed canonical ${canonical}`); }
+      if (parsed.protocol !== 'https:' || parsed.search || parsed.hash || !parsed.pathname.endsWith('/')) { quality.invalidCanonicals += 1; fail(`${route}: invalid canonical ${canonical}`); }
+      if (parsed.origin !== expectedSite) { quality.invalidCanonicals += 1; fail(`${route}: canonical uses unexpected origin ${parsed.origin}`); }
+      if (basePath && !parsed.pathname.startsWith(`${basePath}/`)) { quality.invalidCanonicals += 1; fail(`${route}: canonical escapes configured base ${basePath}`); }
+    } catch { quality.invalidCanonicals += 1; fail(`${route}: malformed canonical ${canonical}`); }
 
     for (const key of ['title', 'description', 'url', 'image', 'image:alt']) {
       if (meta(head, 'property', `og:${key}`).length !== 1) fail(`${route}: missing or duplicate og:${key}`);
@@ -182,18 +196,27 @@ for (const page of pages) {
 
   const visible = decode(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' '));
   if (/\bKhizology\b/.test(visible)) fail(`${route}: old public brand spelling found`);
+  if (!page.noindex && !page.redirect && visiblePlaceholder.test(visible)) { quality.placeholderFindings += 1; fail(`${route}: visible placeholder content found`); }
 
   for (const imageTag of html.matchAll(/<img\b[^>]*>/gi)) {
     const image = attrs(imageTag[0]);
-    if (!Object.hasOwn(image, 'alt')) fail(`${route}: image missing alt attribute (${image.src || 'unknown source'})`);
+    if (!Object.hasOwn(image, 'alt')) { quality.missingImageAlt += 1; fail(`${route}: image missing alt attribute (${image.src || 'unknown source'})`); }
     if (!image.width || !image.height) fail(`${route}: image missing intrinsic dimensions (${image.src || 'unknown source'})`);
   }
 
   for (const element of html.matchAll(/<(?:a|link|script|img|iframe)\b[^>]*>/gi)) {
     const properties = attrs(element[0]);
     const target = localTarget(properties.href || properties.src, route);
-    if (target && !existsSync(target)) fail(`${route}: broken local reference ${properties.href || properties.src}`);
+    if (target && !existsSync(target)) { quality.brokenInternalLinks += 1; fail(`${route}: broken local reference ${properties.href || properties.src}`); }
+    if (target && existsSync(target) && indexable.some((page) => page.file === target) && routeFor(target) !== route) {
+      const targetRoute = routeFor(target);
+      incomingLinks.set(targetRoute, (incomingLinks.get(targetRoute) || 0) + 1);
+    }
   }
+}
+
+for (const page of indexable) {
+  if (page.route !== '/' && !incomingLinks.get(page.route)) { quality.orphanIndexablePages += 1; fail(`${page.route}: indexable page has no internal discovery link`); }
 }
 
 for (const expected of noindexContentRoutes) {
@@ -270,7 +293,8 @@ for (const [index, button] of artworkButtonTags.entries()) {
     : normalizedSlug;
   if (button['data-artwork-slug'] !== expectedSlug) fail(`Artooo: slug changed from filename identity for ${filename}`);
 }
-if (!artworkIds.includes('artwork:flower-05.jpg') || !artworkIds.includes('artwork:Flower 05.jpg')) fail('Artooo: both Flower 05 source identities must remain present');
+if (artworkIds.includes('artwork:flower-05.jpg')) fail('Artooo: duplicate Flowers in a Jar source identity must not remain');
+if (!artworkIds.includes('artwork:Flower 05.jpg')) fail('Artooo: retained Flower 05 source identity is missing');
 for (const imageUrl of imageLocs) {
   const parsed = new URL(imageUrl);
   if (parsed.origin !== expectedSite) fail(`image sitemap: unexpected origin ${parsed.origin}`);
@@ -342,6 +366,16 @@ const summary = {
   uniqueTitles: titleOwners.size,
   longIndexableTitles: [...titleOwners.keys()].filter((title) => title.length >= 70).length,
   uniqueDescriptions: descriptionOwners.size,
+  missingDescriptions: quality.missingDescriptions,
+  duplicateDescriptions: quality.duplicateDescriptions,
+  missingH1: quality.missingH1,
+  missingCanonicals: quality.missingCanonicals,
+  invalidCanonicals: quality.invalidCanonicals,
+  imagesMissingAlt: quality.missingImageAlt,
+  invalidJsonLd: quality.invalidJsonLd,
+  brokenInternalLinks: quality.brokenInternalLinks,
+  orphanIndexablePages: quality.orphanIndexablePages,
+  placeholderFindings: quality.placeholderFindings,
   uniqueCanonicals: canonicalOwners.size,
   sitemapUrls: sitemapUrls.length,
   imageSitemapEntries: imageLocs.length,

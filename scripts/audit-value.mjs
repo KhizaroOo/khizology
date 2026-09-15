@@ -29,12 +29,25 @@ assert.ok(!/raw_input|result_value|payload_text/i.test(analytics), 'LV3 analytic
 
 const toolsSource = fs.readFileSync(path.join(root, 'src/data/tools.ts'), 'utf8');
 const toolRegistry = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(toolsSource))}`);
+const knowledgeModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(knowledge))}`);
+const knowledgeSlugs = Object.keys(knowledgeModule.toolKnowledgeWhyBySlug);
+assert.deepEqual(new Set(knowledgeSlugs), new Set(toolRegistry.tools.map((tool) => tool.slug)), 'Every registered tool needs one specific Why explanation');
+for (const [slug, why] of Object.entries(knowledgeModule.toolKnowledgeWhyBySlug)) {
+  assert.ok(why.trim().length > 0, `${slug} needs a Why explanation`);
+  assert.ok(!/^(this tool|this page|analyze your system)/i.test(why.trim()), `${slug} must not use generic knowledge copy`);
+  assert.ok(!/consider optimizing|best practice for everyone/i.test(why), `${slug} uses an unsupported generic recommendation`);
+}
+for (const tool of toolRegistry.tools) {
+  assert.ok(tool.shortDescription.trim().length > 0, `${tool.slug} needs a What description`);
+  assert.ok(!/^(this tool|this page) /i.test(tool.shortDescription.trim()), `${tool.slug} has generic What copy`);
+}
 const chainsSource = fs.readFileSync(path.join(root, 'src/data/toolChains.ts'), 'utf8').replace("import type { Tool } from './tools';\n", '');
 const chainsModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(chainsSource))}`);
 assert.deepEqual(chainsModule.validateToolChains(toolRegistry.tools), [], 'Tool chains must use real canonical tool IDs and unique IDs');
 const lv3Tools = toolRegistry.tools.filter((tool) => tool.lv3);
-assert.equal(lv3Tools.length, 3, 'LV3 upgrades must stay limited to the three reviewed tools');
+assert.equal(lv3Tools.length, 12, 'LV3 upgrades must stay limited to the twelve reviewed tools');
 assert.ok(lv3Tools.some((tool) => tool.id === 'api-payload-doctor'), 'API Payload Doctor must be LV3 after Contract Drift');
+for (const id of ['retry-storm-simulator', 'rate-limit-playground', 'circuit-breaker-playground', 'connection-pool-simulator', 'n-plus-1-query-visualizer', 'queue-capacity-planner', 'fan-out-latency-simulator', 'timeout-chain-planner', 'sla-chain-visualizer']) assert.ok(lv3Tools.some((tool) => tool.id === id), `${id} must be LV3 after its reviewed upgrade`);
 for (const tool of lv3Tools) {
   assert.equal(tool.featureLevel, 3, `${tool.id} must be LV3 when it declares LV3 capabilities`);
   assert.ok(Object.values(tool.lv3.capabilities).some(Boolean), `${tool.id} has an empty LV3 capability declaration`);
@@ -59,10 +72,42 @@ for (const discarded of ['src/pages/infooo/internet-request-journey.astro', 'src
 const dist = path.join(root, 'dist');
 const pages = fs.readdirSync(dist, { recursive: true }).filter(file => String(file).endsWith('.html'));
 const html = pages.map(file => fs.readFileSync(path.join(dist, file), 'utf8')).join('\n');
-assert.ok(html.includes('A quick guide'), 'Tool knowledge layer missing from build');
-assert.ok(html.includes('Try next'), 'Workflow-related tools missing from build');
+const toolPages = pages.filter(file => /toolbox[\\/]([^\\/]+)[\\/]index\.html$/.test(String(file)));
+assert.equal(toolPages.length, toolRegistry.tools.length, 'Expected one generated page per registered tool');
+for (const file of toolPages) {
+  const toolHtml = fs.readFileSync(path.join(dist, file), 'utf8');
+  for (const heading of ['What', 'Why']) assert.ok(new RegExp(`<h3[^>]*>${heading}</h3>`, 'i').test(toolHtml), `${file}: missing static ${heading} knowledge`);
+  assert.ok(/Model note/i.test(toolHtml), `${file}: missing model note`);
+}
+for (const tool of toolRegistry.tools) {
+  const toolHtml = fs.readFileSync(path.join(dist, 'toolbox', tool.slug, 'index.html'), 'utf8');
+  if (tool.lv3) {
+    assert.ok(/Smart next moves/i.test(toolHtml), `${tool.slug}: LV3 next moves must remain available`);
+    assert.ok(!/data-tool-knowledge-next/.test(toolHtml), `${tool.slug}: LV3 must not render duplicate canonical Next links`);
+  } else {
+    assert.ok(/data-tool-knowledge-next/.test(toolHtml), `${tool.slug}: missing canonical Next section after the tool output`);
+    assert.ok(!/Smart next moves/i.test(toolHtml), `${tool.slug}: non-LV3 must not render an orphaned Smart Next system`);
+  }
+}
+const toolComponentsDirectory = path.join(root, 'src/components/toolbox/tools');
+const toolComponents = fs.readdirSync(toolComponentsDirectory).filter((file) => file.endsWith('.tsx') && file !== 'ApiPayloadContractDrift.tsx');
+assert.equal(toolComponents.length, toolRegistry.tools.length, 'Expected one source component per registered tool');
+for (const component of toolComponents) {
+  const source = fs.readFileSync(path.join(toolComponentsDirectory, component), 'utf8');
+  assert.ok(/ResultPanel|<Metric|DecisionLab|<Insight|Result/.test(source), `${component}: missing a local calculated result surface`);
+  assert.ok(/<Insight|<Warning|DecisionLab|recommend|suggest|Action|tip=/.test(source), `${component}: missing a local result-driven action surface`);
+}
+const toolPageSource = fs.readFileSync(path.join(root, 'src/pages/toolbox/[slug].astro'), 'utf8');
+assert.ok(toolPageSource.indexOf('variant="intro"') < toolPageSource.indexOf("tool.slug === 'api-payload-doctor'"), 'What and Why must appear before a tool runs');
+assert.ok(toolPageSource.includes('variant="next" nextTools={tryNext}') && !toolPageSource.includes('<h3 class="tp-sidebar-h3">Try next</h3>'), 'Next must reuse the canonical next-tool system after the tool result');
+const insightSource = fs.readFileSync(path.join(root, 'src/components/toolbox/shared/Insight.tsx'), 'utf8');
+for (const label of ['Result', 'Why it matters', 'Action']) assert.ok(insightSource.includes(label), `Insight is missing ${label} labeling`);
+const knowledgeGuide = path.join(root, 'docs/TOOLOOO-KNOWLEDGE.md');
+assert.ok(fs.existsSync(knowledgeGuide), 'Toolooo knowledge guide is missing');
+for (const concept of ['**What**', '**Why**', '**Result**', '**Action**', '**Next**']) assert.ok(fs.readFileSync(knowledgeGuide, 'utf8').includes(concept), `Toolooo knowledge guide is missing ${concept}`);
 assert.ok(!/href=["'][^"']*notooo[^"']*["']/i.test(html), 'Inactive Notooo must not be publicly linked');
 assert.ok(html.includes('Human Atlas') && html.includes('See it. Touch it. Understand it.'), 'Published Infooo identity is missing');
 assert.ok(!/What Happens When You Press Enter|internet-request-journey|Cache hit vs cache miss/.test(html), 'Discarded World 002 content remains in the build');
 for (const match of html.matchAll(/data-related-content[^>]*data-related-slug=["']([^"']+)["']/g)) assert.ok(/^[a-z0-9-]+$/.test(match[1]), 'Invalid related content slug');
+console.log(`Knowledge audit passed: ${toolRegistry.tools.length}/${toolRegistry.tools.length} What and Why entries, ${toolComponents.length}/${toolComponents.length} result and action surfaces, ${lv3Tools.length} LV3 continuation systems, 0 invalid Next references, and 0 generic knowledge findings.`);
 console.log(`Value audit passed: ${valueLaws.length} laws, hard gates, knowledge, relationships, privacy and manifest structure checked across ${pages.length} HTML pages.`);

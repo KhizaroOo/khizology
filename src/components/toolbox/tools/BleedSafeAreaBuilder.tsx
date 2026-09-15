@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import InputField from '../shared/InputField';
 import Metric from '../shared/Metric';
+import Insight from '../shared/Insight';
 import VisualizationContainer from '../shared/VisualizationContainer';
 import PresetBar from '../shared/PresetBar';
 import { downloadSVG, downloadCanvasPNG } from '../shared/exportHelpers';
@@ -223,6 +224,14 @@ export default function BleedSafeAreaBuilder() {
         <Metric label="Finished trim size" value={`${tw}" × ${th}"`} />
         <Metric label="Full bleed canvas" value={`${(tw + 2 * b).toFixed(3)}" × ${(th + 2 * b).toFixed(3)}"`} />
         <Metric label="Output pixels" value={`${outW} × ${outH}`} sublabel={`at ${d} DPI`} />
+      </div>
+
+      <div style={{ marginTop: '1rem' }}>
+        <Insight
+          what={`Your guide has a ${tw}" × ${th}" finished trim, a ${b}" bleed edge, and a ${safe}" safe margin at ${d} DPI.`}
+          why="The bleed edge gives artwork room beyond trim, while the safe area keeps important text and details away from normal cutting tolerance."
+          tip="Keep background artwork through the bleed edge and place important content inside the blue safe area. Confirm the printer's own specification before sending the final file."
+        />
       </div>
 
       <div style={{ display: 'flex', gap: '.75rem', flexWrap: 'wrap', marginTop: '1.25rem' }}>

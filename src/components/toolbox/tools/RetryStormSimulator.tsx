@@ -5,271 +5,42 @@ import Insight from '../shared/Insight';
 import VisualizationContainer from '../shared/VisualizationContainer';
 import PresetBar from '../shared/PresetBar';
 import AdvancedDisclosure from '../shared/AdvancedDisclosure';
-import { clamp, safeDiv, formatNumber } from '../shared/mathHelpers';
+import Warning from '../shared/Warning';
+import ShareResultFoundation from '../ShareResultFoundation';
+import { simulateRetry, type RetryInputs, type RetryStrategy, type Idempotency } from './retryRateModels';
 
-const TICKS = 20;
-const OUTAGE_TICKS = 5; // the backend fails for the first 5 ticks, then recovers
-
-interface TickData {
-  tick: number;
-  original: number;
-  retries: number;
-  total: number;
-}
-
-interface RetryScenario {
-  originalRps: number;
-  failureRatePct: number;
-  maxRetries: number;
-  useBackoff: boolean;
-  useJitter: boolean;
-}
-
-const PRESETS: { label: string; values: RetryScenario }[] = [
-  { label: 'Healthy API', values: { originalRps: 120, failureRatePct: 5, maxRetries: 3, useBackoff: true, useJitter: true } },
-  { label: 'Partial outage', values: { originalRps: 150, failureRatePct: 40, maxRetries: 3, useBackoff: false, useJitter: false } },
-  { label: 'Major dependency outage', values: { originalRps: 300, failureRatePct: 85, maxRetries: 4, useBackoff: false, useJitter: false } },
-  { label: 'Slow recovery', values: { originalRps: 180, failureRatePct: 60, maxRetries: 3, useBackoff: true, useJitter: true } },
+const ACCENT = '#F7933C'; const label = { display: 'block' as const, font: '700 .76rem Poppins, sans-serif', textTransform: 'uppercase' as const, letterSpacing: '.06em', color: 'var(--k-text-muted)', marginBottom: '.4rem' };
+const scenarios: { label: string; values: Partial<RetryInputs> }[] = [
+  { label: 'Current · immediate', values: { originalRps: 140, failureRate: 55, failureDuration: 6, maxAttempts: 4, strategy: 'immediate', jitter: false, retryBudgetPercent: 100 } },
+  { label: 'Safer · bounded jitter', values: { originalRps: 140, failureRate: 55, failureDuration: 6, maxAttempts: 3, strategy: 'exponential', initialDelay: 1, multiplier: 2, maxDelay: 8, jitter: true, retryBudgetPercent: 25 } },
+  { label: 'Aggressive', values: { originalRps: 220, failureRate: 75, failureDuration: 8, maxAttempts: 6, strategy: 'immediate', jitter: false, retryBudgetPercent: 100 } },
 ];
-
-function backoffDelay(attempt: number, useBackoff: boolean, useJitter: boolean, seed: number): number {
-  if (!useBackoff) return 1;
-  const base = Math.min(2 ** attempt, 8);
-  if (!useJitter) return Math.round(base);
-  // deterministic pseudo-jitter so re-renders with the same seed are stable
-  const jitterFactor = 0.7 + (((seed * 9301 + 49297) % 233280) / 233280) * 0.6;
-  return Math.max(1, Math.round(base * jitterFactor));
-}
-
-// Every tick during the outage window independently fails and retries. Each origin
-// tick's failures cascade forward in time; how far apart those cascades land is exactly
-// what backoff controls — immediate retry bunches every generation close together
-// (they collide and stack), backoff spreads them out so they land on their own.
-function simulate(originalRps: number, failureRatePct: number, maxRetries: number, useBackoff: boolean, useJitter: boolean): TickData[] {
-  const ticks: TickData[] = Array.from({ length: TICKS }, (_, i) => ({ tick: i, original: 0, retries: 0, total: 0 }));
-  const failureRate = failureRatePct / 100;
-  const outageEnd = Math.min(OUTAGE_TICKS, TICKS);
-
-  for (let t = 0; t < outageEnd; t++) {
-    ticks[t].original = originalRps;
-  }
-
-  let seed = 1;
-  for (let originTick = 0; originTick < outageEnd; originTick++) {
-    let waveCount = originalRps;
-    let cumulativeDelay = 0;
-    for (let attempt = 1; attempt <= maxRetries; attempt++) {
-      const failed = waveCount * failureRate;
-      if (failed < 0.5) break;
-      const delay = backoffDelay(attempt, useBackoff, useJitter, seed++);
-      cumulativeDelay += delay;
-      const arrivesAt = originTick + Math.round(cumulativeDelay);
-      if (arrivesAt < TICKS) {
-        ticks[arrivesAt].retries += failed;
-      }
-      waveCount = failed;
-    }
-  }
-
-  for (const row of ticks) {
-    row.total = row.original + row.retries;
-  }
-  return ticks;
-}
-
+const base: RetryInputs = { originalRps: 140, failureRate: 55, failureDuration: 6, maxAttempts: 4, strategy: 'immediate', initialDelay: 1, multiplier: 2, maxDelay: 8, jitter: false, retryBudgetPercent: 100, capacity: 260, errorKind: 'transient', idempotency: 'yes' };
 export default function RetryStormSimulator() {
-  const [originalRps, setOriginalRps] = useState(100);
-  const [failureRate, setFailureRate] = useState(30);
-  const [maxRetries, setMaxRetries] = useState(3);
-  const [useBackoff, setUseBackoff] = useState(false);
-  const [useJitter, setUseJitter] = useState(false);
-  const [activePreset, setActivePreset] = useState<string | null>(null);
-
-  const applyPreset = (values: RetryScenario, label: string) => {
-    setOriginalRps(values.originalRps);
-    setFailureRate(values.failureRatePct);
-    setMaxRetries(values.maxRetries);
-    setUseBackoff(values.useBackoff);
-    setUseJitter(values.useJitter);
-    setActivePreset(label);
-  };
-
-  const data = useMemo(
-    () => simulate(originalRps, failureRate, maxRetries, useBackoff, useJitter),
-    [originalRps, failureRate, maxRetries, useBackoff, useJitter]
-  );
-
-  // What peak load would look like with the opposite backoff strategy, same traffic
-  // and failure rate — flipping to "backoff on" pairs it with jitter, since that's the
-  // realistic recommended combo; flipping to "backoff off" ignores jitter entirely,
-  // same as the live simulation does.
-  const compareUseBackoff = !useBackoff;
-  const compareUseJitter = compareUseBackoff;
-  const compareData = useMemo(
-    () => simulate(originalRps, failureRate, maxRetries, compareUseBackoff, compareUseJitter),
-    [originalRps, failureRate, maxRetries, compareUseBackoff, compareUseJitter]
-  );
-
-  const peak = Math.max(...data.map((d) => d.total));
-  const comparePeak = Math.max(...compareData.map((d) => d.total));
-  const amplification = safeDiv(peak, originalRps, 0);
-  const permanentlyFailed = Math.round(originalRps * (failureRate / 100) ** (maxRetries + 1));
-  const outageEnd = Math.min(OUTAGE_TICKS, TICKS);
-
-  // Rough estimates, not exact accounting: requests during the outage window that
-  // eventually get through vs. retry traffic generated by requests that never do.
-  const successfulRequests = Math.round(clamp(originalRps - permanentlyFailed, 0, originalRps));
-  const wastedRetryAttempts = Math.round(permanentlyFailed * outageEnd * maxRetries);
-
-  const chartHeight = 200;
-  const chartWidth = 640;
-  const barGap = 6;
-  const barWidth = (chartWidth - barGap * (TICKS - 1)) / TICKS;
-  const maxForScale = Math.max(peak, originalRps * 1.2, 1);
-
-  const level = amplification >= 4 ? 'danger' : amplification >= 2 ? 'warn' : 'good';
-  const levelColor = level === 'danger' ? '#ef4444' : level === 'warn' ? '#F7933C' : '#22c55e';
-
-  const currentLabel = useBackoff ? (useJitter ? 'Backoff + jitter (current)' : 'Backoff only (current)') : 'No backoff (current)';
-  const otherLabel = compareUseBackoff ? 'With backoff + jitter' : 'Without backoff';
-
-  const backoffPeak = useBackoff ? peak : comparePeak;
-  const noBackoffPeak = useBackoff ? comparePeak : peak;
-  const backoffReduction = safeDiv(noBackoffPeak, backoffPeak, 1);
-
-  return (
-    <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
-      <PresetBar presets={PRESETS} activeLabel={activePreset} onSelect={applyPreset} accent="#F7933C" />
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
-        <RangeControl
-          label="Original traffic"
-          value={originalRps}
-          onChange={(v) => { setOriginalRps(v); setActivePreset(null); }}
-          min={10} max={1000} step={10}
-          formatValue={(v) => `${v} req/s`}
-          accent="#F7933C"
-        />
-        <RangeControl
-          label="Failure rate"
-          value={failureRate}
-          onChange={(v) => { setFailureRate(v); setActivePreset(null); }}
-          min={0} max={90} step={5}
-          formatValue={(v) => `${v}%`}
-          accent="#F7933C"
-        />
-      </div>
-
-      <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
-        <label style={{ display: 'flex', alignItems: 'center', gap: '.5rem', fontSize: '.85rem', fontWeight: 700, color: 'var(--k-text)', cursor: 'pointer', fontFamily: "'Poppins', sans-serif" }}>
-          <input
-            type="checkbox"
-            checked={useBackoff}
-            onChange={(e) => { setUseBackoff(e.target.checked); setActivePreset(null); }}
-            style={{ accentColor: '#F7933C', width: '16px', height: '16px' }}
-          />
-          Exponential backoff
-        </label>
-      </div>
-
-      <AdvancedDisclosure summary="Advanced: max retries & jitter">
-        <RangeControl
-          label="Max retries"
-          value={maxRetries}
-          onChange={(v) => { setMaxRetries(v); setActivePreset(null); }}
-          min={0} max={5} step={1}
-          formatValue={(v) => `${v}`}
-          accent="#F7933C"
-        />
-        <label style={{ display: 'flex', alignItems: 'center', gap: '.5rem', fontSize: '.85rem', fontWeight: 700, color: useBackoff ? 'var(--k-text)' : 'var(--k-text-muted)', cursor: useBackoff ? 'pointer' : 'not-allowed', fontFamily: "'Poppins', sans-serif" }}>
-          <input
-            type="checkbox"
-            checked={useJitter}
-            disabled={!useBackoff}
-            onChange={(e) => { setUseJitter(e.target.checked); setActivePreset(null); }}
-            style={{ accentColor: '#F7933C', width: '16px', height: '16px' }}
-          />
-          Jitter
-        </label>
-      </AdvancedDisclosure>
-
-      <p style={{ fontSize: '.78rem', color: 'var(--k-text-muted)', margin: '0 0 .75rem', lineHeight: 1.5 }}>
-        Simulating a {OUTAGE_TICKS}-second outage: the server fails every request for the first {OUTAGE_TICKS} seconds, then recovers. Watch what happens to already-failed requests still trying to retry.
-      </p>
-
-      <VisualizationContainer minHeight={260}>
-        <svg viewBox={`0 0 ${chartWidth} ${chartHeight + 30}`} style={{ width: '100%', maxWidth: `${chartWidth}px`, height: 'auto' }} role="img" aria-label="Requests per second hitting the server over time, original traffic vs retry amplification">
-          {/* baseline (original traffic) reference line */}
-          <line
-            x1={0} x2={chartWidth}
-            y1={chartHeight - (originalRps / maxForScale) * chartHeight}
-            y2={chartHeight - (originalRps / maxForScale) * chartHeight}
-            stroke="var(--k-border)" strokeDasharray="4 4" strokeWidth={1}
-          />
-          {data.map((d, i) => {
-            const x = i * (barWidth + barGap);
-            const origH = (d.original / maxForScale) * chartHeight;
-            const retryH = (d.retries / maxForScale) * chartHeight;
-            return (
-              <g key={i}>
-                <rect x={x} y={chartHeight - origH} width={barWidth} height={origH} fill="#F7933C" opacity={0.85} />
-                <rect x={x} y={chartHeight - origH - retryH} width={barWidth} height={retryH} fill="#ef4444" opacity={0.85} />
-                <text x={x + barWidth / 2} y={chartHeight + 16} textAnchor="middle" fontSize="8" fill="var(--k-text-muted)">
-                  {i}s
-                </text>
-              </g>
-            );
-          })}
-        </svg>
-      </VisualizationContainer>
-
-      <div style={{ display: 'flex', gap: '1.25rem', marginTop: '.75rem', fontSize: '.78rem', color: 'var(--k-text-muted)', flexWrap: 'wrap' }}>
-        <span><span style={{ display: 'inline-block', width: '10px', height: '10px', background: '#F7933C', borderRadius: '2px', marginRight: '.375rem' }} />Original traffic</span>
-        <span><span style={{ display: 'inline-block', width: '10px', height: '10px', background: '#ef4444', borderRadius: '2px', marginRight: '.375rem' }} />Retry traffic</span>
-        <span><span style={{ display: 'inline-block', width: '10px', height: '1px', borderTop: '1px dashed var(--k-text-muted)', marginRight: '.375rem', verticalAlign: 'middle' }} />Original rate baseline</span>
-      </div>
-
-      <div style={{ background: 'var(--k-bg)', border: '1px solid var(--k-border)', borderRadius: '.875rem', padding: '1rem', marginTop: '1.25rem' }}>
-        <div style={{ fontSize: '.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.06em', color: 'var(--k-text-muted)', marginBottom: '.75rem', fontFamily: "'Poppins', sans-serif" }}>
-          Same traffic & failure rate — with vs. without backoff
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '.75rem' }}>
-          <Metric label={currentLabel} value={`${formatNumber(peak)} req/s`} sublabel="peak load, live chart above" color={levelColor} />
-          <Metric label={otherLabel} value={`${formatNumber(comparePeak)} req/s`} sublabel="peak load, same inputs" />
-        </div>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '.75rem', marginTop: '1.25rem' }}>
-        <Metric label="Peak load on server" value={`${formatNumber(peak)} req/s`} color={levelColor} />
-        <Metric label="Amplification" value={`${formatNumber(amplification, 1)}×`} sublabel="vs. original traffic" color={levelColor} />
-        <Metric label="Successful requests" value={`~${formatNumber(successfulRequests)} req/s`} sublabel={`of ~${originalRps} req/s during the outage`} color="#22c55e" />
-        <Metric label="Never succeed" value={`~${formatNumber(permanentlyFailed)} req/s`} sublabel={`still failing after ${maxRetries} retries`} color="#ef4444" />
-        <Metric label="Wasted retry attempts" value={`~${formatNumber(wastedRetryAttempts)}`} sublabel="retries from requests that never succeeded" />
-      </div>
-
-      <div style={{ marginTop: '1.25rem' }}>
-        <Insight
-          what={
-            level === 'danger'
-              ? `Peak load hits ${formatNumber(peak)} req/s — ${formatNumber(amplification, 1)}× the normal ${originalRps} req/s.`
-              : level === 'warn'
-              ? `Peak load reaches ${formatNumber(peak)} req/s, ${formatNumber(amplification, 1)}× normal — noticeable but survivable.`
-              : `Peak load stays close to normal at ${formatNumber(peak)} req/s (${formatNumber(amplification, 1)}× baseline).`
-          }
-          why={
-            level === 'good'
-              ? (useBackoff
-                  ? 'Backoff is spreading retries out over time instead of piling them on immediately, so the extra load never compounds into a storm.'
-                  : "At this failure rate, retries aren't compounding into a storm yet — but raise the failure rate and immediate retries stack on top of each other fast.")
-              : 'Immediate retries during an outage arrive in bunches and stack on top of each other and the still-recovering original traffic — the retries themselves become the load that keeps the server down. This is a simplified model of retry cascades, not a precise capacity forecast.'
-          }
-          tip={
-            backoffReduction > 1.05
-              ? `With backoff + jitter, peak load would be about ${formatNumber(backoffPeak)} req/s instead of ${formatNumber(noBackoffPeak)} req/s — roughly ${formatNumber(backoffReduction, 1)}× lower. ${useBackoff ? 'You already have it on.' : 'Turn on exponential backoff above to see it.'}`
-              : `Backoff makes little difference at these settings (${formatNumber(backoffPeak)} vs ${formatNumber(noBackoffPeak)} req/s) — try a higher failure rate or more max retries to see it matter.`
-          }
-        />
-      </div>
+  const [input, setInput] = useState<RetryInputs>(base); const [active, setActive] = useState<string | null>('Current · immediate');
+  const update = <K extends keyof RetryInputs>(key: K, value: RetryInputs[K]) => { setInput((old) => ({ ...old, [key]: value })); setActive(null); };
+  const apply = (values: Partial<RetryInputs>, name: string) => { setInput((old) => ({ ...old, ...values })); setActive(name); };
+  const model = useMemo(() => simulateRetry(input), [input]);
+  const comparison = useMemo(() => simulateRetry({ ...input, strategy: 'exponential', jitter: true, maxAttempts: Math.min(input.maxAttempts, 3), retryBudgetPercent: Math.min(input.retryBudgetPercent, 25) }), [input]);
+  const max = Math.max(...model.ticks.map((x) => x.total), input.capacity, 1); const w = 640; const h = 190; const bar = w / model.ticks.length;
+  const pressure = model.pressure === 'severe' ? ['danger', 'Severe retry pressure'] as const : model.pressure === 'risk' ? ['warn', 'Recovery risk'] as const : ['good', 'Low pressure'] as const;
+  const action = input.errorKind === 'non-retryable' ? 'This model treats the error as non-retryable. Resolve the request or API semantics before automating another attempt.' : input.idempotency !== 'yes' ? 'Review whether repeating this operation can repeat side effects before enabling automated retries.' : model.pressure !== 'low' ? 'Test fewer attempts, a bounded retry budget, and exponential backoff with jitter against your real dependency limits.' : 'Keep the policy bounded and test it with the API’s documented retryable errors and recovery behavior.';
+  return <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
+    <label style={label}>Retry Policy Lab</label><PresetBar presets={scenarios} activeLabel={active} onSelect={apply} accent={ACCENT} />
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: '1rem' }}>
+      <RangeControl label="Original traffic" value={input.originalRps} onChange={(v) => update('originalRps', v)} min={10} max={500} step={10} formatValue={(v) => `${v} req/s`} accent={ACCENT}/>
+      <RangeControl label="Failure rate during outage" value={input.failureRate} onChange={(v) => update('failureRate', v)} min={0} max={100} step={5} formatValue={(v) => `${v}%`} accent={ACCENT}/>
+      <RangeControl label="Failure duration" value={input.failureDuration} onChange={(v) => update('failureDuration', v)} min={1} max={12} step={1} formatValue={(v) => `${v} sec`} accent={ACCENT}/>
     </div>
-  );
+    <div style={{ margin: '1rem 0' }}><label style={label}>Backoff strategy</label><div style={{ display: 'flex', gap: '.5rem', flexWrap: 'wrap' }}>{(['immediate','fixed','exponential'] as RetryStrategy[]).map((item) => <button type="button" key={item} aria-pressed={input.strategy === item} onClick={() => update('strategy', item)} style={{ border: `1px solid ${input.strategy === item ? ACCENT : 'var(--k-border)'}`, background: input.strategy === item ? `color-mix(in srgb, ${ACCENT} 12%, var(--k-bg))` : 'var(--k-bg)', color: 'var(--k-text)', borderRadius: '.5rem', padding: '.45rem .7rem', font: '700 .75rem Poppins, sans-serif', cursor: 'pointer' }}>{item === 'immediate' ? 'Immediate' : item === 'fixed' ? 'Fixed delay' : 'Exponential'}</button>)}</div></div>
+    <AdvancedDisclosure summary="Advanced retry controls"><RangeControl label="Maximum attempts" value={input.maxAttempts} onChange={(v) => update('maxAttempts', v)} min={1} max={6} step={1} formatValue={(v) => `${v} total`} accent={ACCENT}/><RangeControl label="Initial delay" value={input.initialDelay} onChange={(v) => update('initialDelay', v)} min={0} max={5} step={1} formatValue={(v) => `${v} sec`} accent={ACCENT}/><RangeControl label="Backoff multiplier" value={input.multiplier} onChange={(v) => update('multiplier', v)} min={1} max={3} step={.5} formatValue={(v) => `${v}×`} accent={ACCENT}/><RangeControl label="Maximum delay" value={input.maxDelay} onChange={(v) => update('maxDelay', v)} min={1} max={16} step={1} formatValue={(v) => `${v} sec`} accent={ACCENT}/><RangeControl label="Retry budget" value={input.retryBudgetPercent} onChange={(v) => update('retryBudgetPercent', v)} min={0} max={100} step={5} formatValue={(v) => `${v}% of original traffic`} accent={ACCENT}/><RangeControl label="Simulated capacity" value={input.capacity} onChange={(v) => update('capacity', v)} min={20} max={700} step={10} formatValue={(v) => `${v} req/s`} accent={ACCENT}/></AdvancedDisclosure>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: '.75rem', marginBottom: '1rem' }}><label style={{ fontSize: '.82rem', color: 'var(--k-text)' }}> <input type="checkbox" checked={input.jitter} disabled={input.strategy === 'immediate'} onChange={(e) => update('jitter', e.target.checked)} /> Add deterministic jitter</label><label style={{ fontSize: '.82rem', color: 'var(--k-text)' }}> Operation idempotent? <select value={input.idempotency} onChange={(e) => update('idempotency', e.target.value as Idempotency)}><option value="yes">Yes</option><option value="no">No</option><option value="unknown">Unknown</option></select></label><label style={{ fontSize: '.82rem', color: 'var(--k-text)' }}> Error type <select value={input.errorKind} onChange={(e) => update('errorKind', e.target.value as RetryInputs['errorKind'])}><option value="transient">Transient / retryable</option><option value="non-retryable">Non-retryable</option></select></label></div>
+    {input.idempotency !== 'yes' && <Warning level="warn" title="Automated retries need review">Repeating this operation may repeat side effects. The simulator cannot infer idempotency.</Warning>}
+    <p style={{ fontSize: '.78rem', lineHeight: 1.5, color: 'var(--k-text-muted)' }}>Educational 24-second recovery model. It sends original traffic each second, fails the configured share only during the outage, and schedules bounded retry waves. It does not reproduce a specific SDK or production dependency.</p>
+    <VisualizationContainer minHeight={240}><svg viewBox={`0 0 ${w} ${h + 24}`} style={{ width: '100%', maxWidth: `${w}px`, height: 'auto' }} role="img" aria-label={`Original and retry traffic over time. Peak ${Math.round(model.peak)} requests per second, ${pressure[1].toLowerCase()}.`}><line x1="0" x2={w} y1={h - input.capacity / max * h} y2={h - input.capacity / max * h} stroke="var(--k-text-muted)" strokeDasharray="4 4"/>{model.ticks.map((tick, i) => <g key={i}><rect x={i * bar} y={h - tick.original / max * h} width={Math.max(2,bar-2)} height={tick.original / max * h} fill={ACCENT}/><rect x={i * bar} y={h - tick.total / max * h} width={Math.max(2,bar-2)} height={tick.retry / max * h} fill="#ef4444"/><text x={i*bar+bar/2} y={h+14} textAnchor="middle" fontSize="8" fill="var(--k-text-muted)">{i}s</text></g>)}</svg></VisualizationContainer>
+    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', fontSize: '.76rem', color: 'var(--k-text-muted)', marginTop: '.6rem' }}><span>🟧 Original traffic</span><span>🟥 Retry traffic</span><span>┄ Simulated capacity</span></div>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(145px,1fr))', gap: '.7rem', marginTop: '1rem' }}><Metric label="Load amplification" value={`${model.amplification.toFixed(1)}×`} sublabel="peak vs original" color={pressure[0] === 'danger' ? '#ef4444' : pressure[0] === 'warn' ? ACCENT : '#22c55e'}/><Metric label="Retry traffic" value={`${Math.round(model.totalRetry)}`} sublabel="24-second model"/><Metric label="Peak retry wave" value={`${Math.round(model.peakRetry)} req/s`}/><Metric label="Recovery pressure" value={pressure[1]}/><Metric label="Jitter comparison" value={`${Math.round(comparison.peak)} req/s`} sublabel="bounded exponential + jitter"/></div>
+    <div style={{ marginTop: '1rem' }}><Insight what={`The peak is ${Math.round(model.peak)} req/s: ${model.amplification.toFixed(1)}× the original ${input.originalRps} req/s.`} why={input.jitter ? 'Jitter spreads scheduled retries across adjacent seconds in this model, reducing synchronization; it does not guarantee a safe recovery.' : 'Without jitter, retry delays with the same policy land together more easily, producing visible waves in this model.'} tip={action}/></div>
+    <ShareResultFoundation monster="toolooo" contentType="tool" slug="retry-storm-simulator" title="Retry Storm Simulator" result={{ summary: `Educational retry model: ${input.strategy}${input.jitter ? ' + jitter' : ''}, ${input.maxAttempts} total attempts, ${model.amplification.toFixed(1)}× peak load amplification and ${Math.round(model.peakRetry)} req/s peak retry traffic.` }}/>
+  </div>;
 }

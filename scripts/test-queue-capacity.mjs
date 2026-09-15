@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import ts from 'typescript';
+const source = fs.readFileSync(new URL('../src/components/toolbox/tools/QueueCapacityPlanner.tsx', import.meta.url), 'utf8');
+const start = source.indexOf('const TICKS'); const end = source.indexOf('/** Increasing');
+const compiled = ts.transpileModule(source.slice(start, end), { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
+const { simulate } = await import(`data:text/javascript,${encodeURIComponent(compiled)}`);
+const steady = simulate(10, 5, 3); assert.equal(steady.peak, 0);
+const burst = simulate(10, 5, 3, 0, 3, 30); assert.ok(burst.peak > 0 && burst.drainTicks !== null);
+const overload = simulate(30, 4, 3); assert.equal(overload.stable, false); assert.equal(overload.drainTicks, null);
+const scaled = simulate(30, 4, 10); assert.equal(scaled.stable, true);
+console.log('Queue capacity model tests passed.');

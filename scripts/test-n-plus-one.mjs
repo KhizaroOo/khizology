@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import ts from 'typescript';
+
+const component = fs.readFileSync(new URL('../src/components/toolbox/tools/NPlusOneQueryVisualizer.tsx', import.meta.url), 'utf8');
+const start = component.indexOf('const MAX_PARENTS');
+const end = component.indexOf('const strategyColor');
+assert.ok(start >= 0 && end > start, 'Could not isolate the N+1 query model.');
+const source = 'const clamp = (value, min, max) => Math.min(Math.max(value, min), max);' + component.slice(start, end);
+const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
+const { modelQueryStrategy } = await import(`data:text/javascript,${encodeURIComponent(compiled)}`);
+
+const one = modelQueryStrategy('per-item', 1, 3, 5, 10, 10);
+assert.equal(one.queryCount, 2, 'one parent with per-item loading must be 1 + N queries');
+const ten = modelQueryStrategy('per-item', 10, 4, 5, 20, 10);
+assert.equal(ten.queryCount, 11, 'ten parents must produce 11 per-item queries');
+assert.equal(ten.sequentialLatencyMs, 55, 'sequential latency must use simulated round trips × latency');
+assert.equal(ten.potentialQueryRate, 220, 'request scale must multiply queries per request');
+assert.equal(ten.exceedsBudget, true, 'a user-defined query budget must be respected');
+const joined = modelQueryStrategy('join-eager', 10, 5, 5, 20, 10);
+assert.equal(joined.queryCount, 1, 'JOIN model must use one simulated command');
+assert.equal(joined.joinedRows, 50, 'JOIN row expansion must be parent rows × related rows');
+const batched = modelQueryStrategy('batched', 100, 3, 10, 20, 10);
+assert.equal(batched.queryCount, 2, 'batched model must avoid per-parent query multiplication');
+const split = modelQueryStrategy('split', 100, 3, 10, 20, 10);
+assert.equal(split.queryCount, 2, 'simplified split model must remain distinct from N+1');
+const bounded = modelQueryStrategy('per-item', 99999, -2, 0, -1, 0);
+assert.equal(bounded.parents, 500, 'large parent counts must remain bounded');
+assert.equal(bounded.childrenPerParent, 1, 'invalid related-row counts must remain bounded');
+console.log('N+1 query model tests passed.');

@@ -1,28 +1,62 @@
 ---
 import type { ToolKnowledge as Knowledge } from '../../data/toolKnowledge';
-interface Props { knowledge: Knowledge; accent: string; }
-const { knowledge, accent } = Astro.props;
-const sections = [
-  ['What is this?', knowledge.whatIsThis], ['Why does it matter?', knowledge.whyDoesItMatter],
-  ['What am I seeing?', knowledge.whatAmISeeing], ['What should I do?', knowledge.whatShouldIDo],
-  ['Assumptions', knowledge.assumptions], ['Try next', knowledge.tryNext],
-].filter(([, content]) => content);
+import type { Tool } from '../../data/tools';
+import { url } from '../../utils/url';
+
+interface Props {
+  knowledge: Knowledge;
+  accent: string;
+  variant?: 'intro' | 'next';
+  nextTools?: Tool[];
+}
+
+const { knowledge, accent, variant = 'intro', nextTools = [] } = Astro.props;
 ---
-{sections.length > 0 && (
-  <section class="tool-knowledge" style={`--knowledge-accent:${accent}`} aria-labelledby="tool-knowledge-title">
-    <h2 id="tool-knowledge-title">A quick guide</h2>
+{variant === 'intro' ? (
+  <section class="tool-knowledge" style={`--knowledge-accent:${accent}`} aria-labelledby="tool-knowledge-title" data-tool-knowledge-intro>
+    <h2 id="tool-knowledge-title">Before you start</h2>
     <div class="tool-knowledge-grid">
-      {sections.map(([heading, content]) => <section><h3>{heading}</h3><p>{content}</p></section>)}
+      <section><h3>What</h3><p>{knowledge.what}</p></section>
+      <section><h3>Why</h3><p>{knowledge.why}</p></section>
+    </div>
+    <p class="tool-knowledge-result-note">Your <strong>Result</strong> and <strong>Action</strong> update in the tool as you change its inputs.</p>
+    <details class="tool-knowledge-note"><summary>Model note</summary><p>{knowledge.modelNote}</p></details>
+  </section>
+) : nextTools.length > 0 ? (
+  <section class="tool-knowledge tool-knowledge-next" style={`--knowledge-accent:${accent}`} aria-labelledby="tool-knowledge-next-title" data-tool-knowledge-next>
+    <h2 id="tool-knowledge-next-title">Next</h2>
+    <p class="tool-knowledge-next-intro">Use the result to choose a connected next move.</p>
+    <div class="tool-knowledge-next-grid">
+      {nextTools.map((tool) => (
+        <a href={url(`/toolbox/${tool.slug}`)} data-related-content data-related-monster="toolooo" data-related-content-type="tool" data-related-slug={tool.slug}>
+          <span aria-hidden="true">{tool.icon}</span>
+          <span><strong>{tool.name}</strong><small>{tool.shortDescription}</small></span>
+        </a>
+      ))}
     </div>
   </section>
-)}
+) : null}
 <style>
-  .tool-knowledge { margin: 1.5rem 0; padding: 1.25rem; border: 1px solid var(--k-border); border-radius: 1rem; background: var(--k-bg-card); }
-  h2, h3 { font-family: 'Poppins', sans-serif; color: var(--k-text); }
-  h2 { margin: 0 0 1rem; font-size: 1.1rem; }
-  .tool-knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: .875rem; }
+  .tool-knowledge { margin: 1.25rem 0; padding: 1.1rem; border: 1px solid var(--k-border); border-radius: 1rem; background: var(--k-bg-card); }
+  h2, h3, strong, summary { font-family: 'Poppins', sans-serif; color: var(--k-text); }
+  h2 { margin: 0 0 .75rem; font-size: 1rem; }
+  .tool-knowledge-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
   .tool-knowledge-grid section { border-left: 3px solid var(--knowledge-accent); padding-left: .75rem; }
-  h3 { font-size: .78rem; margin: 0 0 .25rem; text-transform: uppercase; letter-spacing: .05em; }
-  p { color: var(--k-text-muted); font-size: .86rem; line-height: 1.55; margin: 0; }
+  h3 { font-size: .72rem; margin: 0 0 .25rem; text-transform: uppercase; letter-spacing: .06em; }
+  p, small { color: var(--k-text-muted); font-size: .84rem; line-height: 1.55; }
+  p { margin: 0; }
+  .tool-knowledge-result-note { margin-top: .9rem; font-size: .78rem; }
+  .tool-knowledge-note { margin-top: .7rem; }
+  .tool-knowledge-note summary { cursor: pointer; font-size: .76rem; font-weight: 700; }
+  .tool-knowledge-note p { margin-top: .45rem; font-size: .78rem; }
+  .tool-knowledge-next-intro { margin: -.3rem 0 .8rem; font-size: .8rem; }
+  .tool-knowledge-next-grid { display: grid; gap: .6rem; }
+  .tool-knowledge-next-grid a { display: flex; gap: .65rem; align-items: flex-start; padding: .75rem; border: 1px solid var(--k-border); border-radius: .7rem; color: inherit; text-decoration: none; background: var(--k-bg); }
+  .tool-knowledge-next-grid a:hover { border-color: var(--knowledge-accent); }
+  .tool-knowledge-next-grid a > span:first-child { font-size: 1.1rem; line-height: 1.1; }
+  .tool-knowledge-next-grid strong, .tool-knowledge-next-grid small { display: block; }
+  .tool-knowledge-next-grid strong { font-size: .8rem; }
+  .tool-knowledge-next-grid small { margin-top: .12rem; font-size: .74rem; }
+  @media (max-width: 560px) { .tool-knowledge-grid { grid-template-columns: 1fr; gap: .75rem; } }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>

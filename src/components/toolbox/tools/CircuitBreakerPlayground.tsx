@@ -4,6 +4,9 @@ import Metric from '../shared/Metric';
 import Warning from '../shared/Warning';
 import VisualizationContainer from '../shared/VisualizationContainer';
 import AdvancedDisclosure from '../shared/AdvancedDisclosure';
+import PresetBar from '../shared/PresetBar';
+import Insight from '../shared/Insight';
+import ShareResultFoundation from '../ShareResultFoundation';
 import { clamp, safeDiv, formatNumber } from '../shared/mathHelpers';
 
 const REQUEST_COUNT = 60;
@@ -25,18 +28,35 @@ interface RequestResult {
   state: CircuitState;
 }
 
-function simulate(
+interface CircuitScenario { failureRate: number; threshold: number; resetTimeout: number; probeCount: number; recoverAt: number; }
+interface CircuitPolicy { threshold: number; resetTimeout: number; probeCount: number; }
+const SCENARIOS: { label: string; values: CircuitScenario }[] = [
+  { label: 'Healthy dependency', values: { failureRate: 5, threshold: 3, resetTimeout: 5, probeCount: 1, recoverAt: 0 } },
+  { label: 'Intermittent failures', values: { failureRate: 35, threshold: 4, resetTimeout: 5, probeCount: 1, recoverAt: 0 } },
+  { label: 'Full outage', values: { failureRate: 100, threshold: 3, resetTimeout: 6, probeCount: 1, recoverAt: 0 } },
+  { label: 'Slow dependency', values: { failureRate: 65, threshold: 5, resetTimeout: 8, probeCount: 2, recoverAt: 0 } },
+  { label: 'Recovering dependency', values: { failureRate: 100, threshold: 3, resetTimeout: 5, probeCount: 1, recoverAt: 24 } },
+];
+const POLICIES: { label: string; values: CircuitPolicy }[] = [
+  { label: 'Current policy', values: { threshold: 3, resetTimeout: 5, probeCount: 1 } },
+  { label: 'Protects quickly', values: { threshold: 2, resetTimeout: 4, probeCount: 1 } },
+  { label: 'Tolerates more failures', values: { threshold: 6, resetTimeout: 8, probeCount: 2 } },
+];
+
+export function simulate(
   failureRatePct: number,
   threshold: number,
   resetTimeout: number,
   probeCount: number,
-  recoverAt: number
+  recoverAt: number,
+  breakerEnabled = true
 ) {
   const results: RequestResult[] = [];
   let state: CircuitState = 'closed';
   let consecutiveFailures = 0;
   let halfOpenSuccesses = 0;
   let openedAt = -1;
+  let firstOpenedAt: number | null = null;
   let transitions = 0;
   // First request index (at or after recoverAt) where the breaker actually finished
   // trusting the dependency again -- lets the UI show detection lag, not just the outcome.
@@ -91,9 +111,10 @@ function simulate(
     if (willFail) {
       consecutiveFailures++;
       results.push({ outcome: 'failure', state: 'closed' });
-      if (consecutiveFailures >= threshold) {
+      if (breakerEnabled && consecutiveFailures >= threshold) {
         state = 'open';
         openedAt = i;
+        if (firstOpenedAt === null) firstOpenedAt = i;
         transitions++;
       }
     } else {
@@ -105,6 +126,8 @@ function simulate(
   const rejected = results.filter((r) => r.outcome === 'rejected').length;
   const failed = results.filter((r) => r.outcome === 'failure').length;
   const succeeded = results.filter((r) => r.outcome === 'success').length;
+  const probeRequests = results.filter((r) => r.state === 'half-open').length;
+  const openRequests = results.filter((r) => r.state === 'open').length;
 
   return {
     results,
@@ -114,6 +137,9 @@ function simulate(
     transitions,
     finalState: state,
     recoveryDetectedAt,
+    firstOpenedAt,
+    probeRequests,
+    openRequests,
     safeProbeCount,
     safeRecoverAt,
   };
@@ -128,11 +154,23 @@ export default function CircuitBreakerPlayground() {
   const [resetTimeout, setResetTimeout] = useState(5);
   const [probeCount, setProbeCount] = useState(1);
   const [recoverAt, setRecoverAt] = useState(0);
+  const [activeScenario, setActiveScenario] = useState<string | null>(null);
+  const [activePolicy, setActivePolicy] = useState('Current policy');
+  const [retriesEnabled, setRetriesEnabled] = useState(false);
+
+  const applyScenario = (values: CircuitScenario, label: string) => {
+    setFailureRate(values.failureRate); setThreshold(values.threshold); setResetTimeout(values.resetTimeout); setProbeCount(values.probeCount); setRecoverAt(values.recoverAt); setActiveScenario(label);
+  };
+  const applyPolicy = (values: CircuitPolicy, label: string) => {
+    setThreshold(values.threshold); setResetTimeout(values.resetTimeout); setProbeCount(values.probeCount); setActivePolicy(label);
+  };
 
   const sim = useMemo(
     () => simulate(failureRate, threshold, resetTimeout, probeCount, recoverAt),
     [failureRate, threshold, resetTimeout, probeCount, recoverAt]
   );
+  const withoutBreaker = useMemo(() => simulate(failureRate, threshold, resetTimeout, probeCount, recoverAt, false), [failureRate, threshold, resetTimeout, probeCount, recoverAt]);
+  const retryPressure = retriesEnabled ? sim.failed : 0;
 
   const { safeProbeCount, safeRecoverAt } = sim;
   const recoveryActive = safeRecoverAt > 0 && safeRecoverAt < REQUEST_COUNT;
@@ -151,11 +189,15 @@ export default function CircuitBreakerPlayground() {
   const barH = 30;
   const probeStripY = 33;
   const probeStripH = 5;
-  const chartH = 40;
+  const chartH = 52;
   const recoveryLineX = recoveryActive ? safeRecoverAt * (cellW + cellGap) - cellGap / 2 : 0;
 
   return (
     <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
+      <div style={{ font: '800 .76rem Poppins, sans-serif', letterSpacing: '.06em', color: 'var(--k-text-muted)', marginBottom: '.45rem' }}>FAILURE CONTAINMENT LAB</div>
+      <PresetBar presets={SCENARIOS} activeLabel={activeScenario} onSelect={applyScenario} accent="#ef4444" />
+      <div style={{ font: '800 .7rem Poppins, sans-serif', letterSpacing: '.06em', color: 'var(--k-text-muted)', marginBottom: '.45rem' }}>POLICY COMPARISON</div>
+      <PresetBar presets={POLICIES} activeLabel={activePolicy} onSelect={applyPolicy} accent="#F7933C" />
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
         <RangeControl label="Dependency failure rate" value={failureRate} onChange={setFailureRate} min={0} max={100} step={5} formatValue={(v) => `${v}%`} accent="#ef4444" />
         <RangeControl label="Trip threshold" value={threshold} onChange={setThreshold} min={1} max={10} formatValue={(v) => `${v} in a row`} accent="#ef4444" />
@@ -183,6 +225,16 @@ export default function CircuitBreakerPlayground() {
         />
       </AdvancedDisclosure>
 
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem', fontSize: '.82rem', color: 'var(--k-text)' }}>
+        <label><input type="checkbox" checked={retriesEnabled} onChange={(e) => setRetriesEnabled(e.target.checked)} /> Retries enabled (conceptual)</label>
+      </div>
+
+      {activeScenario === 'Slow dependency' && (
+        <Warning level="info" title="Slow dependency is modeled as timeout and failure pressure">
+          This educational scenario shows why a breaker can contain repeated slow or timed-out calls. It does not model latency distributions or replace timeout configuration.
+        </Warning>
+      )}
+
       <VisualizationContainer minHeight={140}>
         <svg
           viewBox={`0 0 ${chartW} ${chartH}`}
@@ -207,6 +259,7 @@ export default function CircuitBreakerPlayground() {
               {r.state === 'half-open' && (
                 <rect x={i * (cellW + cellGap)} y={probeStripY} width={cellW} height={probeStripH} rx={1} fill="#F7933C" />
               )}
+              <rect x={i * (cellW + cellGap)} y={41} width={cellW} height={7} rx={1} fill={STATE_COLORS[r.state]} />
             </g>
           ))}
         </svg>
@@ -217,6 +270,7 @@ export default function CircuitBreakerPlayground() {
         <span><span style={{ display: 'inline-block', width: '10px', height: '10px', background: OUTCOME_COLORS.failure, borderRadius: '2px', marginRight: '.375rem' }} />Failure</span>
         <span><span style={{ display: 'inline-block', width: '10px', height: '10px', background: OUTCOME_COLORS.rejected, opacity: 0.5, borderRadius: '2px', marginRight: '.375rem' }} />Fast-rejected (circuit open)</span>
         <span><span style={{ display: 'inline-block', width: '10px', height: '4px', background: '#F7933C', borderRadius: '1px', marginRight: '.375rem', verticalAlign: 'middle' }} />Half-open probe</span>
+        <span>State strip: Closed / Open / Half-Open</span>
         {recoveryActive && (
           <span><span style={{ display: 'inline-block', width: '10px', height: '1px', borderTop: '1.5px dashed #6CA6FF', marginRight: '.375rem', verticalAlign: 'middle' }} />Dependency recovers</span>
         )}
@@ -226,6 +280,11 @@ export default function CircuitBreakerPlayground() {
         <Metric label="Current state" value={sim.finalState === 'half-open' ? 'Half-Open' : sim.finalState[0].toUpperCase() + sim.finalState.slice(1)} color={STATE_COLORS[sim.finalState]} />
         <Metric label="Requests fast-rejected" value={String(sim.rejected)} sublabel="never touched the dependency" />
         <Metric label="State transitions" value={String(sim.transitions)} />
+        <Metric label="Trip trigger" value={sim.firstOpenedAt === null ? 'Not reached' : `${threshold} consecutive failures`} sublabel={sim.firstOpenedAt === null ? 'selected pattern stayed below threshold' : `opened after request #${sim.firstOpenedAt + 1}`} />
+        <Metric label="Dependency calls avoided" value={String(sim.rejected)} sublabel="fast-rejected by breaker" />
+        <Metric label="Without breaker" value={`${withoutBreaker.failed} failed calls`} sublabel={`vs ${sim.failed} dependency failures with breaker`} />
+        <Metric label="Open wait / probes" value={`${sim.openRequests} / ${sim.probeRequests}`} sublabel="request opportunities open / half-open probes" />
+        <Metric label="Retry interaction" value={retriesEnabled ? `+${retryPressure} conceptual calls` : 'Off'} sublabel="Retry policy belongs in Retry Storm" />
         {recoveryActive && (
           <Metric
             label="Success rate: outage → recovery"
@@ -254,6 +313,8 @@ export default function CircuitBreakerPlayground() {
           </Warning>
         )}
       </div>
+      <div style={{ marginTop: '1rem' }}><Insight what={sim.rejected > 0 ? `The breaker opened after ${threshold} consecutive failures at request #${(sim.firstOpenedAt ?? 0) + 1} and blocked ${sim.rejected} calls that would otherwise reach the dependency.` : 'This policy did not open for the selected failure pattern.'} why={recoveryActive ? `The dependency recovers at request #${safeRecoverAt}; the breaker detects that only after its open wait and limited half-open probe${safeProbeCount === 1 ? '' : 's'}.` : 'Closed, Open, and Half-Open are a simplified state machine. Real libraries can use different failure windows, timeout rules, and probe policies.'} tip={sim.rejected === 0 ? 'Test a lower threshold only against realistic failure bursts; opening faster is not automatically better.' : retriesEnabled ? 'Retry calls can add pressure before the breaker opens. Compare that policy in Retry Storm Simulator.' : 'Use rate limiting to manage incoming volume; use a circuit breaker to stop calls to an unhealthy dependency.'} /></div>
+      <ShareResultFoundation monster="toolooo" contentType="tool" slug="circuit-breaker-playground" title="Circuit Breaker Playground" result={{ summary: `Educational breaker model: threshold ${threshold}, open wait ${resetTimeout} requests, ${sim.failed} dependency failures and ${sim.rejected} calls blocked before the dependency.` }} />
     </div>
   );
 }

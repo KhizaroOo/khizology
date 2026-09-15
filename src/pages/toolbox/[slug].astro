@@ -126,6 +126,7 @@ const jsonLd = pageSchema({
 
           {tool.status === 'active' ? (
             <>
+              <ToolKnowledge knowledge={knowledge} accent={family.color} variant="intro" />
               {tool.slug === 'api-payload-doctor' && <ApiPayloadDoctor client:load />}
               {tool.slug === 'retry-storm-simulator' && <RetryStormSimulator client:load />}
               {tool.slug === 'database-decision-lab' && <DatabaseDecisionLab client:load />}
@@ -178,7 +179,7 @@ const jsonLd = pageSchema({
 
           {tool.lv3 && <ToolLv3Panel client:load tool={tool} chains={lv3Chains} base={base} />}
 
-          <ToolKnowledge knowledge={knowledge} accent={family.color} />
+          {!tool.lv3 && <ToolKnowledge knowledge={knowledge} accent={family.color} variant="next" nextTools={tryNext} />}
           <ToolTruth truth={truth} />
 
           <div class="tp-about">
@@ -235,19 +236,6 @@ const jsonLd = pageSchema({
                       <div class="tp-related-name">{rt.name}</div>
                       <div class="tp-related-desc">{rt.shortDescription.slice(0, 55)}…</div>
                     </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {tryNext.length > 0 && (
-            <div class="tp-sidebar-card">
-              <h3 class="tp-sidebar-h3">Try next</h3>
-              <div class="tp-related-list">
-                {tryNext.map((rt) => (
-                  <a href={url(`/toolbox/${rt.slug}`)} class="tp-related-item" data-related-content data-related-monster="toolooo" data-related-content-type="tool" data-related-slug={rt.slug}>
-                    <span class="tp-related-icon">{rt.icon}</span><div><div class="tp-related-name">{rt.name}</div><div class="tp-related-desc">A useful next move after this tool.</div></div>
                   </a>
                 ))}
               </div>

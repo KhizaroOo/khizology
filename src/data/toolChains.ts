@@ -24,6 +24,36 @@ export const toolChains: ToolChain[] = [
       { toolId: 'project-quote-risk-planner', label: 'Project Quote Risk Planner', reason: 'Check the assumptions and risk margin.', handoff: { type: 'navigation' } },
     ],
   },
+  {
+    id: 'resilient-api-traffic',
+    title: 'Resilient API traffic',
+    description: 'See how retry policy changes request volume, control incoming traffic, then stop calls to an unhealthy dependency.',
+    steps: [
+      { toolId: 'retry-storm-simulator', label: 'Retry Storm Simulator', reason: 'Make retry waves, amplification, and recovery pressure visible.' },
+      { toolId: 'rate-limit-playground', label: 'Rate Limit Playground', reason: 'Test the modeled traffic against a rate-limit policy.', handoff: { type: 'navigation' } },
+      { toolId: 'circuit-breaker-playground', label: 'Circuit Breaker Playground', reason: 'Stop calls to a failing dependency while it recovers.', handoff: { type: 'navigation' } },
+    ],
+  },
+  {
+    id: 'database-pressure',
+    title: 'Database pressure',
+    description: 'Find query multiplication, see how it occupies limited pooled connections, then model the waiting backlog.',
+    steps: [
+      { toolId: 'n-plus-1-query-visualizer', label: 'N+1 Query Visualizer', reason: 'Make query multiplication visible before it extends connection hold time.' },
+      { toolId: 'connection-pool-simulator', label: 'Connection Pool Simulator', reason: 'See how database work occupies a limited pool and makes callers wait.', handoff: { type: 'navigation' } },
+      { toolId: 'queue-capacity-planner', label: 'Queue Capacity Planner', reason: 'Model the backlog when work arrives faster than the system can complete it.', handoff: { type: 'navigation' } },
+    ],
+  },
+  {
+    id: 'latency-deadlines',
+    title: 'Latency & deadlines',
+    description: 'Find what controls user latency, budget the shared deadline, then test the reliability objective.',
+    steps: [
+      { toolId: 'fan-out-latency-simulator', label: 'Fan-Out Latency Simulator', reason: 'What controls the user’s latency? Find the critical path and tail exposure.' },
+      { toolId: 'timeout-chain-planner', label: 'Timeout Chain Planner', reason: 'Can downstream work fit inside the end-to-end deadline?', handoff: { type: 'navigation' } },
+      { toolId: 'sla-chain-visualizer', label: 'SLA Chain Visualizer', reason: 'Can the complete service path meet its reliability objective?', handoff: { type: 'navigation' } },
+    ],
+  },
 ];
 
 export function getToolChain(id: string): ToolChain | undefined { return toolChains.find((chain) => chain.id === id); }

@@ -7,12 +7,13 @@ import VisualizationContainer from '../shared/VisualizationContainer';
 import PresetBar from '../shared/PresetBar';
 import AdvancedDisclosure from '../shared/AdvancedDisclosure';
 import Insight from '../shared/Insight';
+import ShareResultFoundation from '../ShareResultFoundation';
 import { safeNumber, clamp, formatNumber } from '../shared/mathHelpers';
 
 const TICKS = 30;
 const MAX_WORKERS_SEARCH = 200;
 
-function simulate(
+export function simulate(
   arrivalRate: number,
   processingRatePerWorker: number,
   workers: number,
@@ -94,9 +95,11 @@ interface QueuePresetValues {
 
 const PRESETS: { label: string; values: QueuePresetValues }[] = [
   { label: 'Steady load', values: { arrivalRate: 20, processingRate: 5, workers: 3, startingQueueDepth: 0, spikeDuration: 0, spikeArrivalRate: 40, messageSizeKb: 2 } },
-  { label: 'Black Friday spike', values: { arrivalRate: 15, processingRate: 5, workers: 4, startingQueueDepth: 0, spikeDuration: 8, spikeArrivalRate: 60, messageSizeKb: 4 } },
-  { label: 'Under-provisioned', values: { arrivalRate: 30, processingRate: 4, workers: 3, startingQueueDepth: 5, spikeDuration: 0, spikeArrivalRate: 30, messageSizeKb: 1 } },
-  { label: 'Post-deploy backlog', values: { arrivalRate: 10, processingRate: 8, workers: 2, startingQueueDepth: 40, spikeDuration: 0, spikeArrivalRate: 10, messageSizeKb: 8 } },
+  { label: 'Short burst', values: { arrivalRate: 15, processingRate: 5, workers: 4, startingQueueDepth: 0, spikeDuration: 8, spikeArrivalRate: 60, messageSizeKb: 4 } },
+  { label: 'Sustained overload', values: { arrivalRate: 30, processingRate: 4, workers: 3, startingQueueDepth: 5, spikeDuration: 0, spikeArrivalRate: 30, messageSizeKb: 1 } },
+  { label: 'Consumer slowdown', values: { arrivalRate: 20, processingRate: 2, workers: 3, startingQueueDepth: 5, spikeDuration: 0, spikeArrivalRate: 20, messageSizeKb: 2 } },
+  { label: 'Recovery / drain', values: { arrivalRate: 10, processingRate: 8, workers: 2, startingQueueDepth: 40, spikeDuration: 0, spikeArrivalRate: 10, messageSizeKb: 8 } },
+  { label: 'Scale out', values: { arrivalRate: 50, processingRate: 6, workers: 10, startingQueueDepth: 30, spikeDuration: 5, spikeArrivalRate: 80, messageSizeKb: 2 } },
 ];
 
 export default function QueueCapacityPlanner() {
@@ -109,6 +112,8 @@ export default function QueueCapacityPlanner() {
   const [messageSizeKb, setMessageSizeKb] = useState('2');
   const [targetSeconds, setTargetSeconds] = useState('');
   const [activePreset, setActivePreset] = useState<string | null>(null);
+  const [alternativeWorkers, setAlternativeWorkers] = useState(6);
+  const [downstreamSafeRate, setDownstreamSafeRate] = useState(40);
 
   const clearPreset = () => setActivePreset(null);
 
@@ -127,6 +132,11 @@ export default function QueueCapacityPlanner() {
     () => simulate(arrivalRate, processingRate, workers, startingQueueDepth, spikeDuration, spikeArrivalRate),
     [arrivalRate, processingRate, workers, startingQueueDepth, spikeDuration, spikeArrivalRate]
   );
+  const alternativeSim = useMemo(() => simulate(arrivalRate, processingRate, alternativeWorkers, startingQueueDepth, spikeDuration, spikeArrivalRate), [arrivalRate, processingRate, alternativeWorkers, startingQueueDepth, spikeDuration, spikeArrivalRate]);
+  const spareCapacity = sim.totalCapacity - arrivalRate;
+  const downstreamExceeded = sim.totalCapacity > downstreamSafeRate;
+  const drainRate = sim.totalCapacity - arrivalRate;
+  const estimatedDrainSeconds = sim.peak > 0 && drainRate > 0 ? Math.ceil(sim.peak / drainRate) : null;
 
   const messageSizeNum = clamp(safeNumber(messageSizeKb, 0), 0, 1_000_000);
   const storageKb = sim.peak * messageSizeNum;
@@ -174,6 +184,7 @@ export default function QueueCapacityPlanner() {
 
   return (
     <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
+      <div style={{ font: '800 .76rem Poppins, sans-serif', letterSpacing: '.06em', color: 'var(--k-text-muted)', marginBottom: '.45rem' }}>BACKLOG &amp; DRAIN LAB</div>
       <div
         style={{
           fontSize: '.8rem',
@@ -199,6 +210,8 @@ export default function QueueCapacityPlanner() {
           formatValue={(v) => `${v}/s`}
           accent="#F7933C"
         />
+        <RangeControl label="Alternative consumers" value={alternativeWorkers} onChange={setAlternativeWorkers} min={1} max={20} accent="#6CA6FF" />
+        <RangeControl label="Downstream safe rate" value={downstreamSafeRate} onChange={setDownstreamSafeRate} min={1} max={200} formatValue={(v) => `${v}/s`} accent="#DF78A0" />
         <RangeControl
           label="Processing rate / worker"
           value={processingRate}
@@ -390,6 +403,14 @@ export default function QueueCapacityPlanner() {
           sublabel="ticks from peak back down to zero"
         />
         <Metric label="Peak storage estimate" value={storageLabel} color="#6CA6FF" sublabel={`${formatNumber(sim.peak)} msgs × ${formatNumber(messageSizeNum, 1)} KB, rough estimate`} />
+        <Metric label="Spare processing capacity" value={spareCapacity > 0 ? `${spareCapacity}/s` : `${spareCapacity}/s`} color={spareCapacity > 0 ? '#22c55e' : '#ef4444'} sublabel="capacity minus normal arrival rate" />
+        <Metric label="Estimated drain time" value={sim.peak === 0 ? 'No backlog' : estimatedDrainSeconds === null ? 'Will not drain' : `≈ ${estimatedDrainSeconds}s`} sublabel="after peak, under current steady assumptions" />
+      </div>
+
+      <div style={{ marginTop: '1rem', padding: '1rem', border: `1.5px solid ${downstreamExceeded ? '#ef4444' : 'var(--k-border)'}`, borderRadius: '.75rem', background: 'var(--k-bg-elevated)' }}>
+        <div style={{ font: '800 .7rem Poppins, sans-serif', letterSpacing: '.06em', color: 'var(--k-text-muted)' }}>CURRENT VS SCALE-OUT · DOWNSTREAM CEILING</div>
+        <p style={{ margin: '.45rem 0', fontSize: '.85rem' }}><strong>{workers} consumers:</strong> {sim.totalCapacity}/s capacity, peak backlog {sim.peak}. <strong>{alternativeWorkers} consumers:</strong> {alternativeSim.totalCapacity}/s capacity, peak backlog {alternativeSim.peak}.</p>
+        <p style={{ margin: 0, fontSize: '.78rem', color: downstreamExceeded ? '#ef4444' : 'var(--k-text-muted)' }}>Current modeled consumer capacity {sim.totalCapacity}/s {downstreamExceeded ? `exceeds` : `stays within`} your selected downstream safe rate of {downstreamSafeRate}/s. This is an assumption, not a prediction that a downstream system will fail.</p>
       </div>
 
       <div style={{ marginTop: '1.25rem' }}>
@@ -409,6 +430,8 @@ export default function QueueCapacityPlanner() {
           </Warning>
         )}
       </div>
+      <div style={{ marginTop: '1rem' }}><Insight what={!sim.stable ? `Arrivals exceed modeled capacity by ${arrivalRate - sim.totalCapacity}/s, so backlog keeps growing.` : sim.peak > 0 ? `A temporary backlog peaks at ${sim.peak} and has ${spareCapacity}/s of steady drain capacity.` : 'The modeled queue remains empty under steady load.'} why={`Queue depth is a buffer, not failure by itself. Waiting depends on throughput, concurrency, ordering, retries, and message mix; this is a FIFO-like simplified model.`} tip={downstreamExceeded ? 'More consumers improve queue capacity here but exceed the selected downstream ceiling. Check the connection pool or reduce intake before scaling blindly.' : !sim.stable ? 'Increase sustainable processing, reduce intake, or both. A larger queue delays capacity limits; it does not create processing capacity.' : sim.peak > 0 ? 'The burst drains under current assumptions. Test whether permanent scale-out is necessary before adding consumers.' : 'Keep testing bursts and downstream limits before changing consumer counts.'} /></div>
+      <ShareResultFoundation monster="toolooo" contentType="tool" slug="queue-capacity-planner" title="Queue Capacity Planner" result={{ summary: `Educational queue model: ${arrivalRate}/s arriving, ${sim.totalCapacity}/s processing capacity, peak backlog ${sim.peak}, ${workers} consumers, and ${downstreamExceeded ? 'capacity above' : 'capacity within'} a ${downstreamSafeRate}/s downstream assumption.` }} />
     </div>
   );
 }
