@@ -1,336 +1,217 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
-import { url, img } from '../utils/url';
-import { pageSchema } from '../utils/schema';
-import { artworks } from '../data/artworks';
-import { tools } from '../data/tools';
 import { activeMonsters } from '../data/monsters';
+import { img, url } from '../utils/url';
+import { pageSchema } from '../utils/schema';
 
-const pageTitle = 'Behind Khizooology — Art, Code & the Monster Universe';
-const pageDescription = 'Meet Khizar Imtiaz (khizooo) and learn why Khizooology brings original art, visual knowledge, browser tools, and monster characters into one creative universe.';
+const pageTitle = 'Behind Khizooology — Why Art Meets Code';
+const pageDescription = 'Meet Khizar Imtiaz, the creator behind khizooo and Khizooology: a personal creative R&D laboratory where art, code, tools and knowledge worlds grow together.';
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
-const activeToolCount = tools.filter((tool) => tool.status === 'active').length;
-const monsterRoleLabel = (role: 'FEEL' | 'USE' | 'UNDERSTAND' | undefined) => role === 'USE' ? 'USE / DO' : role;
 const jsonLd = pageSchema({
-  type: 'AboutPage',
-  path: '/behind-the-vibes',
-  name: pageTitle,
-  description: pageDescription,
-  aboutCreator: true,
-  breadcrumbs: [
-    { name: 'Home', path: '/' },
-    { name: 'Behind the Vibes', path: '/behind-the-vibes' },
-  ],
+  type: 'AboutPage', path: '/behind-the-vibes', name: pageTitle, description: pageDescription, aboutCreator: true,
+  breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Behind the Vibes', path: '/behind-the-vibes' }],
 }, seoContext);
 
-const principles = [
-  { title: 'Art is Language', body: 'Every sketch, every line, every color choice is a word in a sentence. Art doesn\'t need translation — it speaks directly to whoever is ready to listen.' },
-  { title: 'Code is a Brush', body: 'Programming isn\'t a cold, logical act. It\'s a creative process. The way you structure a system, name a variable, design an interface — it\'s all art with a different medium.' },
-  { title: 'Knowledge Should Be Free', body: 'The best ideas grow when they\'re shared. Khizooology exists to make knowledge accessible, visual, and useful — because learning shouldn\'t be locked behind paywalls.' },
-  { title: 'Monsters Represent Ideas', body: 'Each monster in Khizooology is a living module — a personality with a purpose. They\'re not just mascots. They\'re the brand itself, the creative DNA of the universe.' },
-  { title: 'Slow and Intentional', body: 'Nothing here is rushed. Every artwork, every tool is made with intention. Quality over quantity. Meaning over noise.' },
-  { title: 'Always Building', body: 'Khizooology is never finished. It\'s a living project that grows with time, ideas, and new monsters waiting to be unleashed. The journey is the destination.' },
+const creativeLoop = ['Think', 'Create ideas', 'Score', 'Prototype', 'Build', 'Verify', 'Publish', 'Share', 'Measure', 'Improve', 'Build smarter'];
+const valueSignals = [
+  { title: 'Useful', body: 'It should give someone a real next move.' },
+  { title: 'Truthful', body: 'It should be honest about what it knows and what it does not.' },
+  { title: 'Understandable', body: 'Complexity should become easier to see, not harder to enter.' },
+  { title: 'Distinctive', body: 'It should carry an idea only this universe would make this way.' },
 ];
-
 const faqs = [
-  {
-    q: 'What is Khizooology?',
-    a: 'Khizooology is a personal creative brand universe by khizooo — a space where artworks, visual knowledge, tools, and free resources live together. It\'s powered by "monsters" — each one representing a module of content.',
-  },
-  {
-    q: 'Who is khizooo?',
-    a: 'khizooo is the creator. A programmer by profession and an artist by nature. Someone who believes that the best work lives at the intersection of logic and creativity.',
-  },
-  {
-    q: 'Why "monsters"?',
-    a: 'Monsters are bold, memorable, and full of personality. Each monster module (artooo, toolooo) has its own identity, color, and purpose. Monsters don\'t follow rules — and neither does creativity.',
-  },
-  {
-    q: 'Is Khizooology free to use?',
-    a: 'Yes. All tools on Khizooology are free. The artworks are original creative work and protected, but the utilities are shared openly.',
-  },
-  {
-    q: 'How often does new content appear?',
-    a: 'Regularly. New artworks and tools are added as they\'re made. There\'s no rigid schedule — only intention and quality.',
-  },
+  { question: 'What is Khizooology?', answer: 'Khizooology is my personal creative R&D laboratory. It is where original art, practical browser tools, interactive knowledge worlds, and small experiments can grow together.' },
+  { question: 'Is this a portfolio?', answer: 'Not exactly. My portfolio explains the work I have done professionally. This page explains why I made this universe and how I like to create inside it.' },
+  { question: 'Why monsters?', answer: 'They are different creative modes of the same brain: feeling through art, doing through tools, and understanding through interactive knowledge. They make each doorway into the universe easier to remember and explore.' },
+  { question: 'What comes next?', answer: 'The universe is still being made. New work appears when it has a real reason to exist, not because an empty slot needs filling.' },
 ];
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  accentColor="var(--k-accent)"
-  jsonLd={jsonLd}
->
-  <div class="k-container" style="padding-top: 2rem;">
-    <Breadcrumb crumbs={[{ label: 'Behind the Vibes' }]} accentColor="var(--k-accent)" />
-  </div>
+<BaseLayout title={pageTitle} description={pageDescription} accentColor="var(--k-accent)" jsonLd={jsonLd}>
+  <div class="k-container btv-breadcrumb"><Breadcrumb crumbs={[{ label: 'Behind the Vibes' }]} accentColor="var(--k-accent)" /></div>
 
-  <!-- HERO -->
-  <section class="k-section btv-hero">
-    <div class="k-container btv-hero-inner">
-      <div class="btv-hero-content">
+  <section class="btv-hero">
+    <div class="k-container btv-hero-grid">
+      <div class="btv-hero-copy">
         <span class="k-section-label" style="color:var(--k-accent)">Behind the Vibes</span>
-        <h1 class="btv-title">The Story Behind<br />the Universe</h1>
-        <p class="btv-lead">
-          Khizooology is my personal creative R&amp;D laboratory: engineering, visual art,
-          experimentation and public learning making things people can use, understand, feel and share.
-        </p>
+        <h1>Art meets <span>Code.</span></h1>
+        <p class="btv-hero-lead">Khizooology is where my engineering brain and artist brain stop arguing and start building things together.</p>
+        <p>It is my personal creative R&amp;D laboratory: a place to explore an idea, test it, make it useful, and share what survives the process.</p>
       </div>
-      <div class="btv-hero-quote">
-        <blockquote>
-          "By luck, I am a programmer.<br />
-          By nature, I am an artist."
-          <cite>— khizooo</cite>
-        </blockquote>
+      <aside class="btv-creator-card" aria-label="The creator behind Khizooology">
+        <div class="btv-creator-portrait"><img src={img('/images/site/lp-profile-img.png')} alt="Khizar Imtiaz" width="270" height="270" /></div>
+        <div>
+          <p class="btv-eyebrow">One creator</p>
+          <h2>Khizar Imtiaz</h2>
+          <p class="btv-identity"><strong>khizooo</strong> is my creator identity. <strong>Khizooology</strong> is the universe where the work lives.</p>
+          <blockquote>“By luck, I am a programmer.<br />By nature, I am an artist.”</blockquote>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="k-section btv-idea-section">
+    <div class="k-container btv-reading-grid">
+      <div class="btv-reading-copy">
+        <span class="k-section-label" style="color:var(--k-accent)">The idea</span>
+        <h2>Two ways of seeing, one way of making.</h2>
+        <p>I work in software, but I naturally think visually. Separating those sides never made much sense to me. Art helps me notice, feel, and explore. Engineering helps me give an idea structure, interaction, and a way to be useful.</p>
+        <p>Khizooology is where both sides get to work together. A drawing can hold an emotion. A tool can make an invisible system visible. A knowledge world can let someone experience a difficult idea instead of only reading about it.</p>
+      </div>
+      <div class="btv-art-code" aria-label="Art and code together create experiences people can use, understand, and feel">
+        <div class="btv-discipline btv-art"><p class="btv-eyebrow">Art</p><h3>Feel and observe</h3><p>Curiosity, emotion, visual thinking, and experimentation.</p></div>
+        <div class="btv-plus" aria-hidden="true">+</div>
+        <div class="btv-discipline btv-code"><p class="btv-eyebrow">Code</p><h3>Structure and test</h3><p>Logic, systems, interaction, and usefulness.</p></div>
+        <p class="btv-together">Together, ideas become experiences people can <strong>use</strong>, <strong>understand</strong>, and <strong>feel</strong>.</p>
       </div>
     </div>
   </section>
 
-  <!-- THE STORY -->
-  <section class="k-section story-section">
-    <div class="k-container story-inner">
-      <div class="story-content">
-        <h2>How It Started</h2>
-        <p>
-          I've always drawn. Notebooks, sticky notes, margins of textbooks — anything flat
-          became a canvas. When I discovered programming, I thought I'd left art behind.
-          But art kept showing up. In the way I designed interfaces. In the way I structured
-          systems. In the way I named things.
-        </p>
-        <p>
-          So I stopped fighting it and started building with it. Khizooology is where those two sides
-          keep testing ideas in public: make something, learn from it, then make the next thing smarter.
-        </p>
-        <h2>Why Monsters?</h2>
-        <p>
-          When I decided to organize my work into sections, I didn't want boring category names.
-          I wanted something with personality. Something with life. Monsters felt right —
-          they're bold, they're memorable, and they don't apologize for who they are.
-        </p>
-        <div class="btv-role-list" aria-label="Khizooology monster roles">
-          {activeMonsters.map((monster) => (
-            <p><strong>{monster.name}</strong><span>{monsterRoleLabel(monster.role)}</span></p>
-          ))}
-        </div>
-        <h2>What Drives This</h2>
-        <p>
-          Not money. Not metrics. Not algorithms. Curiosity. The desire to make something
-          that lasts. The need to share what I know and what I feel. Khizooology is proof that
-          you can build something genuinely yours and share it with the world — no brand deal
-          required, no artificial persona needed.
-        </p>
-      </div>
-      <div class="story-sidebar">
-        <div class="story-facts">
-          <div class="sf-item">
-            <span class="sf-num">{artworks.length}</span>
-            <span class="sf-label">Original Artworks</span>
-          </div>
-          <div class="sf-item">
-            <span class="sf-num">{activeToolCount}</span>
-            <span class="sf-label">Free Online Tools</span>
-          </div>
-          <div class="sf-item">
-            <span class="sf-num">2</span>
-            <span class="sf-label">Live Monsters</span>
-          </div>
-          <div class="sf-item">
-            <span class="sf-num">7</span>
-            <span class="sf-label">Monsters Coming</span>
-          </div>
-        </div>
-        <div class="story-monsters">
-          {['artooo', 'toolooo'].map(m => (
-            <img src={img('/images/Monsters/' + m + '.png')} alt={m} width="52" height="52" />
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CREATIVE PRINCIPLES -->
-  <section class="k-section principles-section">
+  <section class="k-section btv-monsters-section">
     <div class="k-container">
-      <h2 class="principles-heading">What I Believe</h2>
-      <div class="principles-grid">
-        {principles.map(p => (
-          <div class="principle-card">
-            <h3>{p.title}</h3>
-            <p>{p.body}</p>
-          </div>
+      <div class="btv-section-intro">
+        <span class="k-section-label" style="color:var(--k-accent)">One creator, many monsters</span>
+        <h2>The monsters are creative modes, not decoration.</h2>
+        <p>Each one is a door into a different kind of value. Together, they are different parts of the same creative brain.</p>
+      </div>
+      <div class="btv-monster-grid">
+        {activeMonsters.map((monster) => (
+          <a href={url(monster.route)} class="btv-monster-card" style={`--monster-color:${monster.color}; --monster-light:${monster.colorLight}`}>
+            <div class="btv-monster-image-wrap"><img src={img(monster.image)} alt="" width="88" height="88" loading="lazy" /></div>
+            <div class="btv-monster-copy">
+              <p class="btv-monster-role">{monster.role}</p><h3>{monster.name}</h3><p>{monster.description}</p><span>{monster.tagline} <b aria-hidden="true">→</b></span>
+            </div>
+          </a>
         ))}
       </div>
+      <div class="btv-mystery-note"><span aria-hidden="true">✦</span><p><strong>The universe is not finished.</strong> Some doors are still locked, and their identities stay mysterious until there is something real behind them.</p><a href={url('/future-monsters')}>Meet the mystery monsters <span aria-hidden="true">→</span></a></div>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section class="k-section faq-section">
-    <div class="k-container faq-inner">
-      <h2 class="faq-heading">Common Questions</h2>
-      <div class="faq-list">
-        {faqs.map(item => (
-          <details class="faq-item">
-            <summary class="faq-question">{item.q}</summary>
-            <div class="faq-answer"><p>{item.a}</p></div>
-          </details>
-        ))}
-      </div>
+  <section class="k-section btv-loop-section">
+    <div class="k-container btv-loop-grid">
+      <div class="btv-loop-intro"><span class="k-section-label" style="color:var(--k-accent)">The creative R&amp;D loop</span><h2>Make it. Learn from it. Make the next thing smarter.</h2><p>Khizooology is a place to think in public, without pretending every experiment is already a finished answer.</p></div>
+      <ol class="btv-loop" aria-label="Khizooology creative R and D process">{creativeLoop.map((step, index) => (<li><span>{String(index + 1).padStart(2, '0')}</span>{step}</li>))}</ol>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="k-section btv-cta">
+  <section class="k-section btv-values-section">
+    <div class="k-container btv-values-grid">
+      <div><span class="k-section-label" style="color:var(--k-accent)">What is worth building?</span><h2>Not more. Something worth existing.</h2><p>Before an idea earns a place here, I try to ask whether it helps, whether it is honest, whether people can understand it, and whether it feels unmistakably like it belongs in this universe.</p></div>
+      <div class="btv-values-list">{valueSignals.map((signal) => (<article><h3>{signal.title}</h3><p>{signal.body}</p></article>))}</div>
+    </div>
+  </section>
+
+  <section class="k-section btv-faq-section">
+    <div class="k-container btv-faq-grid">
+      <div><span class="k-section-label" style="color:var(--k-accent)">A few honest answers</span><h2>Questions behind the name.</h2><p>For the professional story and work history, visit my portfolio. This is the thinking behind the work.</p><a class="btv-text-link" href={url('/my-portfolio')}>Meet Khizar and view the portfolio <span aria-hidden="true">→</span></a></div>
+      <div class="btv-faq-list">{faqs.map((item) => (<details class="btv-faq-item"><summary>{item.question}</summary><p>{item.answer}</p></details>))}</div>
+    </div>
+  </section>
+
+  <section class="k-section btv-explore-section">
     <div class="k-container">
-      <div class="btv-cta-inner">
-        <h2>Still curious?</h2>
-        <p>Drop a vibe, ask a question, or just explore the universe.</p>
-        <div class="btv-cta-btns">
-          <a href={url('/drop-a-vibe')} class="btv-btn-dark">Drop a Vibe</a>
-          <a href={url('/you-ask-i-answer')} class="btv-btn-outline">You Ask, I Answer →</a>
-        </div>
+      <div class="btv-explore-heading"><span class="k-section-label" style="color:var(--k-accent)">Explore the universe</span><h2>Choose the kind of thing you need right now.</h2></div>
+      <div class="btv-explore-grid">
+        {activeMonsters.map((monster) => (<a href={url(monster.route)} class="btv-explore-card" style={`--monster-color:${monster.color}`}><span>{monster.role}</span><h3>{monster.name}</h3><p>{monster.module}</p><b aria-hidden="true">→</b></a>))}
+        <a href={url('/my-portfolio')} class="btv-explore-card btv-portfolio-card"><span>MEET</span><h3>Khizar</h3><p>Portfolio and professional story</p><b aria-hidden="true">→</b></a>
       </div>
     </div>
   </section>
-
 </BaseLayout>
 
 <style>
-  /* HERO */
-  .btv-hero { background: var(--k-bg-card); border-bottom: 1px solid var(--k-border); }
-  .btv-hero-inner {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
-  }
-  .btv-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; line-height: 1.1;
-    color: var(--k-text); margin: 0.5rem 0 1.25rem;
-  }
-  .btv-lead {
-    font-size: 1.05rem; color: var(--k-text-muted); line-height: 1.7; margin: 0;
-  }
-  .btv-hero-quote {
-    display: flex; align-items: center; justify-content: center;
-  }
-  blockquote {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.1rem; font-weight: 700; font-style: italic;
-    color: var(--k-text); line-height: 1.6;
-    border-left: 4px solid var(--k-accent);
-    padding-left: 1.5rem; margin: 0;
-  }
-  blockquote cite {
-    display: block; margin-top: 0.75rem;
-    font-size: 0.8rem; font-style: normal; font-weight: 600;
-    color: var(--k-accent);
-  }
+  .btv-breadcrumb { padding-top: 1.5rem; }
+  .btv-hero { padding: 2.5rem 0 4.5rem; background: var(--k-bg); }
+  .btv-hero-grid, .btv-reading-grid, .btv-loop-grid, .btv-values-grid, .btv-faq-grid { display: grid; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .btv-hero-grid { grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr); }
+  .btv-hero h1, .btv-reading-copy h2, .btv-section-intro h2, .btv-loop-intro h2, .btv-values-grid h2, .btv-faq-grid h2, .btv-explore-heading h2 { font-family: 'Poppins', sans-serif; color: var(--k-text); font-weight: 900; line-height: 1.08; margin: .5rem 0 1rem; }
+  .btv-hero h1 { font-size: clamp(3rem, 7vw, 5.5rem); letter-spacing: -.055em; max-width: 680px; }
+  .btv-hero h1 span { color: var(--k-accent); }
+  .btv-hero-lead { font-size: clamp(1.2rem, 2.2vw, 1.55rem); color: var(--k-text); font-weight: 700; line-height: 1.45; max-width: 650px; margin: 0 0 1rem; }
+  .btv-hero-copy > p:not(.btv-hero-lead), .btv-reading-copy p, .btv-section-intro > p, .btv-loop-intro p, .btv-values-grid > div > p, .btv-faq-grid > div > p { max-width: 680px; color: var(--k-text-muted); line-height: 1.75; margin: 0; }
+  .btv-creator-card { position: relative; overflow: hidden; display: grid; grid-template-columns: 124px 1fr; gap: 1.25rem; align-items: center; background: var(--k-bg-card); border: 1px solid var(--k-border); border-radius: 1.5rem; padding: 1.5rem; box-shadow: 0 16px 38px color-mix(in srgb, var(--k-text) 8%, transparent); }
+  .btv-creator-card::after { content: ''; position: absolute; inset: auto -3rem -4rem auto; width: 170px; height: 170px; border-radius: 50%; background: var(--k-accent); opacity: .08; pointer-events: none; }
+  .btv-creator-portrait { align-self: stretch; display: flex; align-items: end; justify-content: center; background: color-mix(in srgb, var(--k-accent) 10%, var(--k-bg)); border-radius: 1rem; overflow: hidden; }
+  .btv-creator-portrait img { width: 100%; height: auto; object-fit: cover; }
+  .btv-eyebrow, .btv-monster-role { font-family: 'Poppins', sans-serif; color: var(--k-accent); font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .35rem; }
+  .btv-creator-card h2 { color: var(--k-text); font-family: 'Poppins', sans-serif; font-size: 1.25rem; margin: 0 0 .5rem; }
+  .btv-identity { color: var(--k-text-muted); font-size: .85rem; line-height: 1.6; margin: 0 0 1rem; }
+  .btv-identity strong { color: var(--k-text); }
+  blockquote { border-left: 3px solid var(--k-accent); color: var(--k-text); font-family: 'Poppins', sans-serif; font-size: .88rem; font-weight: 700; line-height: 1.55; margin: 0; padding-left: .75rem; }
 
-  /* STORY */
-  .story-section { background: var(--k-bg); }
-  .story-inner { display: grid; grid-template-columns: 1fr 320px; gap: 4rem; align-items: flex-start; }
-  .story-content h2 {
-    font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 800;
-    color: var(--k-text); margin: 0 0 0.875rem;
-  }
-  .story-content h2:not(:first-child) { margin-top: 2.5rem; }
-  .story-content p { font-size: 0.95rem; color: var(--k-text-muted); line-height: 1.75; margin: 0 0 1rem; }
-  .btv-role-list { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 1rem; }
-  .btv-role-list p { margin: 0; padding: .4rem .6rem; border: 1px solid var(--k-border); border-radius: .5rem; font-size: .78rem; }
-  .btv-role-list span { margin-left: .4rem; color: var(--k-accent); font-weight: 800; }
+  .btv-idea-section, .btv-values-section { background: var(--k-bg-card); border-block: 1px solid var(--k-border); }
+  .btv-reading-grid { grid-template-columns: minmax(0, 1fr) minmax(300px, .85fr); }
+  .btv-reading-copy h2, .btv-section-intro h2, .btv-loop-intro h2, .btv-values-grid h2, .btv-faq-grid h2, .btv-explore-heading h2 { font-size: clamp(1.8rem, 3.4vw, 2.75rem); }
+  .btv-reading-copy p + p { margin-top: 1rem; }
+  .btv-art-code { display: grid; grid-template-columns: 1fr auto 1fr; gap: .75rem; align-items: center; padding: 1.25rem; border: 1px solid var(--k-border); border-radius: 1.25rem; background: var(--k-bg); }
+  .btv-discipline { min-height: 190px; padding: 1.25rem; border-radius: 1rem; }
+  .btv-art { background: color-mix(in srgb, #F5CF5C 20%, var(--k-bg-card)); }
+  .btv-code { background: color-mix(in srgb, #F7933C 18%, var(--k-bg-card)); }
+  .btv-discipline h3 { color: var(--k-text); font-family: 'Poppins', sans-serif; font-size: 1.1rem; margin: 0 0 .5rem; }
+  .btv-discipline p:last-child, .btv-together { color: var(--k-text-muted); font-size: .85rem; line-height: 1.6; margin: 0; }
+  .btv-plus { color: var(--k-accent); font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 900; }
+  .btv-together { grid-column: 1 / -1; padding: .5rem .25rem .15rem; }
+  .btv-together strong { color: var(--k-text); }
 
-  .story-sidebar { position: sticky; top: 5rem; }
-  .story-facts {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-    background: var(--k-bg-card); border: 1px solid var(--k-border);
-    border-radius: 1rem; padding: 1.25rem; margin-bottom: 1.5rem;
-  }
-  .sf-item { display: flex; flex-direction: column; gap: 0.1rem; }
-  .sf-num {
-    font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 900;
-    color: var(--k-accent);
-  }
-  .sf-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--k-text-muted); }
+  .btv-monsters-section { background: var(--k-bg); }
+  .btv-section-intro { max-width: 720px; margin-bottom: 2rem; }
+  .btv-monster-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .btv-monster-card { position: relative; display: grid; grid-template-columns: auto 1fr; gap: 1rem; min-width: 0; padding: 1.25rem; overflow: hidden; text-decoration: none; background: var(--k-bg-card); border: 1px solid var(--k-border); border-radius: 1.25rem; transition: transform .18s ease, border-color .18s ease; }
+  .btv-monster-card::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--monster-color); }
+  .btv-monster-card:hover { border-color: var(--monster-color); transform: translateY(-3px); }
+  .btv-monster-card:focus-visible, .btv-explore-card:focus-visible, .btv-text-link:focus-visible, .btv-mystery-note a:focus-visible { outline: 3px solid var(--k-accent); outline-offset: 3px; }
+  .btv-monster-image-wrap { width: 88px; height: 88px; display: grid; place-items: center; flex: 0 0 auto; border-radius: .9rem; background: var(--monster-light); }
+  .btv-monster-image-wrap img { width: 74px; height: 74px; object-fit: contain; }
+  .btv-monster-copy { min-width: 0; }
+  .btv-monster-role { color: var(--monster-color); }
+  .btv-monster-copy h3 { color: var(--k-text); font-family: 'Poppins', sans-serif; font-size: 1.1rem; margin: 0 0 .35rem; }
+  .btv-monster-copy p { color: var(--k-text-muted); font-size: .82rem; line-height: 1.55; margin: 0 0 .75rem; }
+  .btv-monster-copy span { color: var(--monster-color); font-family: 'Poppins', sans-serif; font-size: .72rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+  .btv-monster-copy b { margin-left: .15rem; }
+  .btv-mystery-note { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; margin-top: 1.5rem; padding: 1rem 1.25rem; background: var(--k-bg-card); border: 1px dashed var(--k-border); border-radius: 1rem; }
+  .btv-mystery-note > span { color: var(--k-accent); font-size: 1.2rem; }
+  .btv-mystery-note p { flex: 1 1 420px; color: var(--k-text-muted); font-size: .84rem; line-height: 1.55; margin: 0; }
+  .btv-mystery-note strong { color: var(--k-text); }
+  .btv-mystery-note a, .btv-text-link { color: var(--k-accent); font-family: 'Poppins', sans-serif; font-size: .8rem; font-weight: 800; text-decoration: none; }
+  .btv-mystery-note a:hover, .btv-text-link:hover { text-decoration: underline; }
 
-  .story-monsters {
-    display: flex; gap: 0.5rem; flex-wrap: wrap;
-    background: var(--k-bg-card); border: 1px solid var(--k-border);
-    border-radius: 1rem; padding: 1rem;
-  }
-  .story-monsters img { width:52px;height:52px;object-fit:contain; }
+  .btv-loop-section { background: var(--k-bg-card); border-block: 1px solid var(--k-border); }
+  .btv-loop-grid { grid-template-columns: minmax(0, .75fr) minmax(380px, 1.25fr); }
+  .btv-loop { display: flex; flex-wrap: wrap; gap: .55rem; padding: 0; margin: 0; list-style: none; }
+  .btv-loop li { display: inline-flex; align-items: center; gap: .45rem; color: var(--k-text); background: var(--k-bg); border: 1px solid var(--k-border); border-radius: 999px; font-family: 'Poppins', sans-serif; font-size: .78rem; font-weight: 700; padding: .55rem .8rem .55rem .55rem; }
+  .btv-loop li span { display: grid; place-items: center; width: 1.35rem; height: 1.35rem; color: var(--k-accent); background: color-mix(in srgb, var(--k-accent) 12%, transparent); border-radius: 50%; font-size: .58rem; }
 
-  /* PRINCIPLES */
-  .principles-section { background: var(--k-bg-card); }
-  .principles-heading {
-    font-family: 'Poppins', sans-serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800;
-    color: var(--k-text); margin: 0 0 2rem;
-  }
-  .principles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
-  .principle-card {
-    background: var(--k-bg); border: 1px solid var(--k-border);
-    border-left: 3px solid var(--k-accent);
-    border-radius: 0 1rem 1rem 0;
-    padding: 1.5rem; display: flex; flex-direction: column; gap: 0.625rem;
-  }
-  .principle-card h3 { font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--k-text); margin: 0; }
-  .principle-card p { font-size: 0.8rem; color: var(--k-text-muted); line-height: 1.6; margin: 0; }
+  .btv-values-grid { grid-template-columns: minmax(0, .8fr) minmax(350px, 1.2fr); }
+  .btv-values-list { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+  .btv-values-list article { padding: 1rem; border: 1px solid var(--k-border); border-radius: .9rem; background: var(--k-bg); }
+  .btv-values-list h3 { color: var(--k-accent); font-family: 'Poppins', sans-serif; font-size: .82rem; letter-spacing: .07em; margin: 0 0 .4rem; text-transform: uppercase; }
+  .btv-values-list p { color: var(--k-text-muted); font-size: .78rem; line-height: 1.55; margin: 0; }
 
-  /* FAQ */
-  .faq-section { background: var(--k-bg); }
-  .faq-inner { max-width: 720px; }
-  .faq-heading {
-    font-family: 'Poppins', sans-serif; font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: 800;
-    color: var(--k-text); margin: 0 0 2rem;
-  }
-  .faq-list { display: flex; flex-direction: column; gap: 0; }
-  .faq-item {
-    border-bottom: 1px solid var(--k-border);
-    padding: 0;
-  }
-  .faq-item:first-child { border-top: 1px solid var(--k-border); }
-  .faq-question {
-    font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 700;
-    color: var(--k-text); cursor: pointer; padding: 1.125rem 0;
-    display: flex; align-items: center; justify-content: space-between;
-    list-style: none; gap: 1rem;
-    user-select: none;
-  }
-  .faq-question::after {
-    content: '+'; font-size: 1.25rem; color: var(--k-accent); flex-shrink: 0; transition: transform 0.3s;
-  }
-  .faq-item[open] .faq-question::after { transform: rotate(45deg); }
-  .faq-answer { padding: 0 0 1.125rem; }
-  .faq-answer p { font-size: 0.9rem; color: var(--k-text-muted); line-height: 1.7; margin: 0; }
+  .btv-faq-section { background: var(--k-bg); }
+  .btv-faq-grid { grid-template-columns: minmax(0, .8fr) minmax(360px, 1.2fr); align-items: start; }
+  .btv-text-link { display: inline-block; margin-top: 1rem; }
+  .btv-faq-list { border-top: 1px solid var(--k-border); }
+  .btv-faq-item { border-bottom: 1px solid var(--k-border); }
+  .btv-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; color: var(--k-text); cursor: pointer; font-family: 'Poppins', sans-serif; font-size: .93rem; font-weight: 800; list-style: none; }
+  .btv-faq-item summary::-webkit-details-marker { display: none; }
+  .btv-faq-item summary::after { color: var(--k-accent); content: '+'; font-size: 1.3rem; font-weight: 500; }
+  .btv-faq-item[open] summary::after { content: '−'; }
+  .btv-faq-item > p { color: var(--k-text-muted); font-size: .88rem; line-height: 1.65; margin: 0; padding: 0 0 1rem; }
 
-  /* CTA */
-  .btv-cta { background: var(--k-bg-card); }
-  .btv-cta-inner { text-align: center; max-width: 480px; margin-inline: auto; }
-  .btv-cta-inner h2 {
-    font-family: 'Poppins', sans-serif; font-size: 1.75rem; font-weight: 800;
-    color: var(--k-text); margin: 0 0 0.75rem;
-  }
-  .btv-cta-inner p { font-size: 0.95rem; color: var(--k-text-muted); margin: 0 0 1.5rem; }
-  .btv-cta-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
-  .btv-btn-dark {
-    display: inline-flex; align-items: center; padding: 0.65rem 1.5rem;
-    background: var(--k-dark); color: var(--k-bg);
-    border-radius: 0.625rem; font-family: 'Poppins', sans-serif;
-    font-weight: 700; font-size: 0.875rem; text-decoration: none;
-    transition: opacity 0.2s, transform 0.2s;
-  }
-  .btv-btn-dark:hover { opacity: 0.85; transform: translateY(-2px); }
-  .btv-btn-outline {
-    display: inline-flex; align-items: center; padding: 0.65rem 1.5rem;
-    background: transparent; color: var(--k-text-muted);
-    border: 1px solid var(--k-border); border-radius: 0.625rem;
-    font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.875rem;
-    text-decoration: none; transition: border-color 0.2s, color 0.2s;
-  }
-  .btv-btn-outline:hover { border-color: var(--k-accent); color: var(--k-accent); }
+  .btv-explore-section { background: var(--k-bg-card); border-top: 1px solid var(--k-border); }
+  .btv-explore-heading { margin-bottom: 1.5rem; }
+  .btv-explore-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .85rem; }
+  .btv-explore-card { position: relative; min-height: 150px; padding: 1.1rem; overflow: hidden; text-decoration: none; background: var(--k-bg); border: 1px solid var(--k-border); border-top: 4px solid var(--monster-color, var(--k-accent)); border-radius: 1rem; transition: transform .18s ease, border-color .18s ease; }
+  .btv-explore-card:hover { border-color: var(--monster-color, var(--k-accent)); transform: translateY(-3px); }
+  .btv-explore-card > span { color: var(--monster-color, var(--k-accent)); font-family: 'Poppins', sans-serif; font-size: .67rem; font-weight: 800; letter-spacing: .1em; }
+  .btv-explore-card h3 { color: var(--k-text); font-family: 'Poppins', sans-serif; font-size: 1.05rem; margin: .5rem 0 .2rem; }
+  .btv-explore-card p { color: var(--k-text-muted); font-size: .76rem; line-height: 1.45; margin: 0; }
+  .btv-explore-card > b { position: absolute; right: 1rem; bottom: .9rem; color: var(--monster-color, var(--k-accent)); font-size: 1.1rem; }
+  .btv-portfolio-card { --monster-color: var(--k-accent); }
 
-  @media (max-width: 900px) {
-    .story-inner { grid-template-columns: 1fr; }
-    .story-sidebar { position: static; }
-    .btv-hero-inner { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 960px) { .btv-hero-grid, .btv-reading-grid, .btv-loop-grid, .btv-values-grid, .btv-faq-grid { grid-template-columns: 1fr; } .btv-monster-grid { grid-template-columns: 1fr; } .btv-explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .btv-creator-card { max-width: 620px; } }
+  @media (max-width: 560px) { .btv-breadcrumb { padding-top: 1rem; } .btv-hero { padding: 1.25rem 0 3rem; } .btv-creator-card { grid-template-columns: 94px 1fr; padding: 1rem; gap: .9rem; } .btv-monster-card { grid-template-columns: 72px 1fr; padding: 1rem; } .btv-monster-image-wrap { width: 72px; height: 72px; } .btv-monster-image-wrap img { width: 60px; height: 60px; } .btv-art-code { grid-template-columns: 1fr; } .btv-plus { justify-self: center; transform: rotate(90deg); } .btv-discipline { min-height: auto; } .btv-values-list, .btv-explore-grid { grid-template-columns: 1fr; } .btv-loop li { font-size: .72rem; } }
+  @media (prefers-reduced-motion: reduce) { .btv-monster-card, .btv-explore-card { transition: none; } }
 </style>

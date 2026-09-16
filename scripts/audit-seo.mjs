@@ -14,6 +14,7 @@ const quality = {
   missingCanonicals: 0,
   invalidCanonicals: 0,
   missingImageAlt: 0,
+  invalidImageAlt: 0,
   invalidJsonLd: 0,
   brokenInternalLinks: 0,
   orphanIndexablePages: 0,
@@ -126,6 +127,8 @@ const redirectRoutes = new Set(['/frop-a-vibe/']);
 const titleOwners = new Map();
 const descriptionOwners = new Map();
 const canonicalOwners = new Map();
+const requiredImageAltRoutes = new Set(['/', '/my-portfolio/']);
+const requiredImageAltResults = new Map();
 
 for (const page of pages) {
   const { html, route } = page;
@@ -198,11 +201,22 @@ for (const page of pages) {
   if (/\bKhizology\b/.test(visible)) fail(`${route}: old public brand spelling found`);
   if (!page.noindex && !page.redirect && visiblePlaceholder.test(visible)) { quality.placeholderFindings += 1; fail(`${route}: visible placeholder content found`); }
 
+  const imageAudit = { total: 0, missing: 0, invalid: 0 };
   for (const imageTag of html.matchAll(/<img\b[^>]*>/gi)) {
     const image = attrs(imageTag[0]);
-    if (!Object.hasOwn(image, 'alt')) { quality.missingImageAlt += 1; fail(`${route}: image missing alt attribute (${image.src || 'unknown source'})`); }
+    imageAudit.total += 1;
+    if (!Object.hasOwn(image, 'alt')) {
+      imageAudit.missing += 1;
+      quality.missingImageAlt += 1;
+      fail(`${route}: image missing alt attribute (${image.src || 'unknown source'})`);
+    } else if (['undefined', 'null'].includes(image.alt.trim().toLowerCase())) {
+      imageAudit.invalid += 1;
+      quality.invalidImageAlt += 1;
+      fail(`${route}: image has invalid alt value (${image.src || 'unknown source'})`);
+    }
     if (!image.width || !image.height) fail(`${route}: image missing intrinsic dimensions (${image.src || 'unknown source'})`);
   }
+  if (requiredImageAltRoutes.has(route)) requiredImageAltResults.set(route, imageAudit);
 
   for (const element of html.matchAll(/<(?:a|link|script|img|iframe)\b[^>]*>/gi)) {
     const properties = attrs(element[0]);
@@ -213,6 +227,13 @@ for (const page of pages) {
       incomingLinks.set(targetRoute, (incomingLinks.get(targetRoute) || 0) + 1);
     }
   }
+}
+
+for (const route of requiredImageAltRoutes) {
+  const result = requiredImageAltResults.get(route);
+  if (!result) fail(`${route}: required image-alt audit route missing`);
+  else if (!result.total) fail(`${route}: expected at least one rendered image for image-alt audit`);
+  else if (result.missing || result.invalid) fail(`${route}: required image-alt audit failed`);
 }
 
 for (const page of indexable) {
@@ -372,6 +393,7 @@ const summary = {
   missingCanonicals: quality.missingCanonicals,
   invalidCanonicals: quality.invalidCanonicals,
   imagesMissingAlt: quality.missingImageAlt,
+  imagesWithInvalidAlt: quality.invalidImageAlt,
   invalidJsonLd: quality.invalidJsonLd,
   brokenInternalLinks: quality.brokenInternalLinks,
   orphanIndexablePages: quality.orphanIndexablePages,
