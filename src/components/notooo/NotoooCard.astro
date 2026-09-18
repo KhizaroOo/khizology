@@ -1,0 +1,26 @@
+---
+import type { NotoooBook } from '../../data/notooo';
+import { preview, previewSrcset } from '../../utils/imagePreview';
+import { url } from '../../utils/url';
+
+interface Props { book: NotoooBook; }
+const { book } = Astro.props;
+---
+
+<article class="notooo-card">
+  <a href={url(`/notooo/${book.slug}`)} class="notooo-card-link" data-related-content data-related-monster="notooo" data-related-content-type="book" data-related-slug={book.slug}>
+    <img src={preview(book.summaryImage)} srcset={previewSrcset(book.summaryImage)} sizes="(max-width: 680px) 100vw, 360px" alt={book.alt} width="2100" height="2970" loading="lazy" decoding="async" />
+    <div><p>{book.category} · Handwritten note</p><h2>{book.title}</h2><span>{book.author}</span></div>
+  </a>
+</article>
+
+<style>
+  .notooo-card { border: 1px solid var(--k-border); border-radius: 1rem; overflow: hidden; background: var(--k-bg-card); }
+  .notooo-card-link { display: grid; text-decoration: none; color: inherit; }
+  .notooo-card img { width: 100%; aspect-ratio: 210 / 297; object-fit: cover; background: #f7f1e6; border-bottom: 1px solid var(--k-border); }
+  .notooo-card-link > div { padding: 1rem; }
+  .notooo-card p { margin: 0 0 .25rem; color: #8b72c5; font: 800 .68rem Poppins, sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+  .notooo-card h2 { margin: 0; color: var(--k-text); font: 800 1rem Poppins, sans-serif; }
+  .notooo-card span { display: block; margin-top: .3rem; color: var(--k-text-muted); font-size: .82rem; }
+  .notooo-card-link:hover h2, .notooo-card-link:focus-visible h2 { color: #8b72c5; }
+</style>

@@ -17,6 +17,7 @@ const quality = {
   invalidImageAlt: 0,
   invalidJsonLd: 0,
   brokenInternalLinks: 0,
+  nonCanonicalInternalLinks: 0,
   orphanIndexablePages: 0,
   placeholderFindings: 0,
 };
@@ -94,6 +95,22 @@ function localTarget(raw, route = '/') {
   const target = join(dist, pathname.replace(/^\/+/, ''));
   if (existsSync(target) && statSync(target).isFile()) return target;
   return join(target, 'index.html');
+}
+
+function localPagePath(raw, route = '/') {
+  const value = decode(raw).trim();
+  if (!value || value.startsWith('#') || /^(?:mailto:|tel:|data:|javascript:)/i.test(value)) return null;
+
+  let parsed;
+  try { parsed = new URL(value, `${expectedSite}${basePath}${route}`); }
+  catch { return null; }
+  if (parsed.origin !== expectedSite) return null;
+
+  let pathname;
+  try { pathname = decodeURIComponent(parsed.pathname); } catch { pathname = parsed.pathname; }
+  if (basePath && pathname === basePath) return '/';
+  if (basePath && pathname.startsWith(`${basePath}/`)) return pathname.slice(basePath.length);
+  return pathname;
 }
 
 function parseJsonLd(html, route) {
@@ -225,6 +242,14 @@ for (const page of pages) {
     if (target && existsSync(target) && indexable.some((page) => page.file === target) && routeFor(target) !== route) {
       const targetRoute = routeFor(target);
       incomingLinks.set(targetRoute, (incomingLinks.get(targetRoute) || 0) + 1);
+    }
+    if (/^<a\b/i.test(element[0]) && properties.href) {
+      const pathname = localPagePath(properties.href, route);
+      const hasFileExtension = /\/[^/]+\.[a-z0-9]+$/i.test(pathname || '');
+      if (pathname && !hasFileExtension && !pathname.endsWith('/')) {
+        quality.nonCanonicalInternalLinks += 1;
+        fail(`${route}: internal page link must use the trailing-slash canonical URL (${properties.href})`);
+      }
     }
   }
 }
@@ -396,6 +421,7 @@ const summary = {
   imagesWithInvalidAlt: quality.invalidImageAlt,
   invalidJsonLd: quality.invalidJsonLd,
   brokenInternalLinks: quality.brokenInternalLinks,
+  nonCanonicalInternalLinks: quality.nonCanonicalInternalLinks,
   orphanIndexablePages: quality.orphanIndexablePages,
   placeholderFindings: quality.placeholderFindings,
   uniqueCanonicals: canonicalOwners.size,

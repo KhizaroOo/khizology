@@ -64,6 +64,17 @@ export const monsterVoices: Partial<Record<Monster['id'], MonsterVoice>> = {
     },
     signatureLine: 'See it. Touch it. Understand it.',
   },
+  notooo: {
+    personality: 'thoughtful, calm, and human',
+    tone: 'concise, reflective, and never academic for its own sake',
+    microcopy: {
+      intro: 'One page can hold the part worth carrying forward.',
+      discovery: 'Look for the idea that stays useful after the book closes.',
+      empty: 'The first handwritten page is still being made.',
+      next: 'Keep the thought. Then return to the book when you can.',
+    },
+    signatureLine: 'Remember what matters.',
+  },
 };
 
 export function getMonsterVoice(monster: Pick<Monster, 'id' | 'status'>): MonsterVoice {

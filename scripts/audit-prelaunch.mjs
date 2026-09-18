@@ -149,7 +149,7 @@ for (const [route, html] of htmlByRoute) {
 
 const toolRoutes = [...htmlByRoute.keys()].filter((route) => /^\/toolbox\/[^/]+\/$/.test(route));
 const familyRoutes = [...htmlByRoute.keys()].filter((route) => /^\/toolbox\/family\/[^/]+\/$/.test(route));
-const expectedSitePages = walk(path.join(root, 'src/pages')).filter(file => file.endsWith('.astro') && !file.includes('[')).length + 40 + 5;
+const expectedSitePages = walk(path.join(root, 'src/pages')).filter(file => file.endsWith('.astro') && !file.includes('[')).length + 40 + 5 + 1;
 const expectedHtmlPages = expectedSitePages + 1;
 if (!htmlByRoute.has(embeddedViewerRoute)) errors.push('Missing self-hosted Human Atlas application document');
 if (htmlFiles.length !== expectedHtmlPages) errors.push(`Expected ${expectedHtmlPages} HTML pages, found ${htmlFiles.length}`);

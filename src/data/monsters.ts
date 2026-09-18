@@ -1,4 +1,4 @@
-export type MonsterStatus = 'active' | 'coming-soon';
+export type MonsterStatus = 'active' | 'coming-soon' | 'foundation';
 
 export interface Monster {
   id: string;
@@ -11,7 +11,7 @@ export interface Monster {
   route: string;
   image: string;
   status: MonsterStatus;
-  role?: 'FEEL' | 'USE' | 'UNDERSTAND';
+  role?: 'FEEL' | 'USE' | 'UNDERSTAND' | 'REMEMBER';
   tagline: string;
 }
 
@@ -62,6 +62,23 @@ export const monsters: Monster[] = [
     tagline: 'See it. Touch it. Understand it.',
   },
   {
+    id: 'notooo',
+    name: 'notooo',
+    module: 'Handwritten Book Notes',
+    description:
+      'One book, compressed into one human-made handwritten page worth returning to.',
+    // Matches the reserved ff-04 lab asset until Notooo receives final mascot art.
+    color: '#E38D7C',
+    colorLight: '#FED7AA',
+    textColor: '#2A3439',
+    route: '/notooo',
+    // This reserved lab asset is never presented as Notooo's final mascot identity.
+    image: '/images/Monsters/ff-04.png',
+    status: 'active',
+    role: 'REMEMBER',
+    tagline: 'One Book. One Handwritten Page.',
+  },
+  {
     id: 'future-2',
     name: '???ooo',
     module: 'Unknown',
@@ -100,20 +117,6 @@ export const monsters: Monster[] = [
     textColor: '#2A3439',
     route: '/future-monsters',
     image: '/images/Monsters/ff-03.png',
-    status: 'coming-soon',
-    tagline: 'Still forming.',
-  },
-  {
-    id: 'future-5',
-    name: '???ooo',
-    module: 'Unknown',
-    description:
-      'A mystery still taking shape in the Khizooology lab.',
-    color: '#E38D7C',
-    colorLight: '#FED7AA',
-    textColor: '#2A3439',
-    route: '/future-monsters',
-    image: '/images/Monsters/ff-04.png',
     status: 'coming-soon',
     tagline: 'Still forming.',
   },
