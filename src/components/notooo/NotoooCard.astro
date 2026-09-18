@@ -10,7 +10,7 @@ const { book } = Astro.props;
 <article class="notooo-card">
   <a href={url(`/notooo/${book.slug}`)} class="notooo-card-link" data-related-content data-related-monster="notooo" data-related-content-type="book" data-related-slug={book.slug}>
     <img src={preview(book.summaryImage)} srcset={previewSrcset(book.summaryImage)} sizes="(max-width: 680px) 100vw, 360px" alt={book.alt} width="2100" height="2970" loading="lazy" decoding="async" />
-    <div><p>{book.category} · Handwritten note</p><h2>{book.title}</h2><span>{book.author}</span></div>
+    <div><p>{book.category} · Visual knowledge page</p><h2>{book.title}</h2><span>{book.author}</span></div>
   </a>
 </article>
 

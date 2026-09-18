@@ -69,6 +69,20 @@ assert.ok(infooo.includes('fact?:') && infooo.includes('model?:') && infooo.incl
 assert.ok(fs.existsSync(path.join(root, 'src/pages/infooo/index.astro')) && fs.existsSync(path.join(root, 'src/pages/infooo/human-atlas.astro')), 'Infooo routes missing');
 for (const discarded of ['src/pages/infooo/internet-request-journey.astro', 'src/components/infooo/InternetRequestWorld.tsx', 'src/data/internetRequestJourney.ts']) assert.ok(!fs.existsSync(path.join(root, discarded)), `Discarded World 002 file remains: ${discarded}`);
 
+const notoooSource = fs.readFileSync(path.join(root, 'src/data/notooo.ts'), 'utf8');
+const notoooModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(notoooSource))}`);
+assert.deepEqual(notoooModule.notoooCategories, ['Mind', 'Money', 'Nature', 'Life', 'People', 'Society'], 'Notooo V1 must keep its six approved primary categories');
+assert.equal(notoooModule.notoooIdentity.role, 'REMEMBER', 'Notooo must own the REMEMBER role');
+assert.equal(notoooModule.notoooIdentity.tagline, 'One Book. One Page.', 'Notooo must keep its approved primary format');
+assert.equal(notoooModule.notoooIdentity.type, 'Book in One Page', 'Notooo must not expand into unapproved public formats');
+assert.deepEqual(notoooModule.validateNotoooBooks(notoooModule.notoooBooks), [], 'Notooo entries must use valid categories, metadata, and book-only format');
+assert.ok(notoooModule.publishedNotoooBooks.every((book) => book.format === 'book'), 'Published Notooo entries must remain books');
+const notoooGuide = path.join(root, 'docs/NOTOOO.md');
+assert.ok(fs.existsSync(notoooGuide), 'Notooo concept guide is missing');
+for (const concept of ['One Book. One Page.', 'Big knowledge. Small space. Simple words.', 'Discover → Understand → Download → Print → Keep', 'Clarity → Compression → Understanding → Memory']) {
+  assert.ok(fs.readFileSync(notoooGuide, 'utf8').includes(concept), `Notooo concept guide is missing ${concept}`);
+}
+
 const dist = path.join(root, 'dist');
 const pages = fs.readdirSync(dist, { recursive: true }).filter(file => String(file).endsWith('.html'));
 const html = pages.map(file => fs.readFileSync(path.join(dist, file), 'utf8')).join('\n');
@@ -105,7 +119,7 @@ for (const label of ['Result', 'Why it matters', 'Action']) assert.ok(insightSou
 const knowledgeGuide = path.join(root, 'docs/TOOLOOO-KNOWLEDGE.md');
 assert.ok(fs.existsSync(knowledgeGuide), 'Toolooo knowledge guide is missing');
 for (const concept of ['**What**', '**Why**', '**Result**', '**Action**', '**Next**']) assert.ok(fs.readFileSync(knowledgeGuide, 'utf8').includes(concept), `Toolooo knowledge guide is missing ${concept}`);
-assert.ok(!/href=["'][^"']*notooo[^"']*["']/i.test(html), 'Inactive Notooo must not be publicly linked');
+assert.ok(html.includes('One Book. One Page.') && html.includes('Notooo is not a replacement for reading the original book.'), 'Published Notooo identity and disclosure are missing');
 assert.ok(html.includes('Human Atlas') && html.includes('See it. Touch it. Understand it.'), 'Published Infooo identity is missing');
 assert.ok(!/What Happens When You Press Enter|internet-request-journey|Cache hit vs cache miss/.test(html), 'Discarded World 002 content remains in the build');
 for (const match of html.matchAll(/data-related-content[^>]*data-related-slug=["']([^"']+)["']/g)) assert.ok(/^[a-z0-9-]+$/.test(match[1]), 'Invalid related content slug');

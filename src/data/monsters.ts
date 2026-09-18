@@ -64,9 +64,9 @@ export const monsters: Monster[] = [
   {
     id: 'notooo',
     name: 'notooo',
-    module: 'Handwritten Book Notes',
+    module: 'Knowledge Notes',
     description:
-      'One book, compressed into one human-made handwritten page worth returning to.',
+      'One book, filtered into a visual page of ideas worth keeping.',
     // Matches the reserved ff-04 lab asset until Notooo receives final mascot art.
     color: '#E38D7C',
     colorLight: '#FED7AA',
@@ -76,7 +76,7 @@ export const monsters: Monster[] = [
     image: '/images/Monsters/ff-04.png',
     status: 'active',
     role: 'REMEMBER',
-    tagline: 'One Book. One Handwritten Page.',
+    tagline: 'One Book. One Page.',
   },
   {
     id: 'future-2',

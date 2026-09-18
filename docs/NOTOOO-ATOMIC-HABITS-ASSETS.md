@@ -1,6 +1,6 @@
-# Atomic Habits — Notooo #001 asset handoff
+# Atomic Habits — Notooo #001 optional asset handoff
 
-Add the real khizooo handwritten A4 portrait artifact here. Do not use a book cover, stock image, generated handwriting, or a handwriting font.
+Follow the canonical [Notooo concept](./NOTOOO.md). The current production entry is an HTML/CSS/SVG visual page and does not need a physical scan. These assets are optional future additions for a khizooo-made A4 page. Do not use a book cover, stock image, generated handwriting, or a handwriting font.
 
 Required files:
 
@@ -13,7 +13,7 @@ Recommended metadata when the entry is activated:
 - title: Atomic Habits
 - author: James Clear
 - category: Mind
-- alt: Handwritten one-page Notooo summary of Atomic Habits by James Clear
+- alt: Visual one-page Notooo synthesis of Atomic Habits by James Clear
 - filename stem: `notooo-atomic-habits-khizooo-a4`
 
-The note should contain khizooo's original visual interpretation: big idea, identity, systems, habit loop, Four Laws, environment, starting small, consistency, compounding, MY TAKE, and REMEMBER. It must not reproduce long book passages.
+The page should contain an original visual interpretation: big idea, identity, systems, habit loop, Four Laws, environment, starting small, consistency, compounding, KHIZOOO TAKE, and REMEMBER. It must not reproduce long book passages or imply khizooo personally read the complete book unless that is true.
