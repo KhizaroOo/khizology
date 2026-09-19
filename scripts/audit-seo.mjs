@@ -13,11 +13,13 @@ const quality = {
   missingH1: 0,
   missingCanonicals: 0,
   invalidCanonicals: 0,
+  nonSelfCanonicals: 0,
   missingImageAlt: 0,
   invalidImageAlt: 0,
   invalidJsonLd: 0,
   brokenInternalLinks: 0,
   nonCanonicalInternalLinks: 0,
+  internalLinksToRedirects: 0,
   orphanIndexablePages: 0,
   placeholderFindings: 0,
 };
@@ -139,6 +141,7 @@ const pages = htmlFiles.map((file) => {
 });
 
 const indexable = pages.filter((page) => !page.noindex && !page.redirect);
+const pagesByFile = new Map(pages.map((page) => [page.file, page]));
 const noindexContentRoutes = new Set(['/404.html', '/future-monsters/', '/you-ask-i-answer/', '/infooo/human-atlas-viewer/']);
 const redirectRoutes = new Set(['/frop-a-vibe/']);
 const titleOwners = new Map();
@@ -189,6 +192,8 @@ for (const page of pages) {
       if (parsed.protocol !== 'https:' || parsed.search || parsed.hash || !parsed.pathname.endsWith('/')) { quality.invalidCanonicals += 1; fail(`${route}: invalid canonical ${canonical}`); }
       if (parsed.origin !== expectedSite) { quality.invalidCanonicals += 1; fail(`${route}: canonical uses unexpected origin ${parsed.origin}`); }
       if (basePath && !parsed.pathname.startsWith(`${basePath}/`)) { quality.invalidCanonicals += 1; fail(`${route}: canonical escapes configured base ${basePath}`); }
+      const expectedCanonical = `${expectedSite}${basePath}${route}`;
+      if (canonical !== expectedCanonical) { quality.nonSelfCanonicals += 1; fail(`${route}: canonical must self-reference ${expectedCanonical}`); }
     } catch { quality.invalidCanonicals += 1; fail(`${route}: malformed canonical ${canonical}`); }
 
     for (const key of ['title', 'description', 'url', 'image', 'image:alt']) {
@@ -239,6 +244,10 @@ for (const page of pages) {
     const properties = attrs(element[0]);
     const target = localTarget(properties.href || properties.src, route);
     if (target && !existsSync(target)) { quality.brokenInternalLinks += 1; fail(`${route}: broken local reference ${properties.href || properties.src}`); }
+    if (/^<a\b/i.test(element[0]) && target && pagesByFile.get(target)?.redirect) {
+      quality.internalLinksToRedirects += 1;
+      fail(`${route}: internal page link points to compatibility redirect (${properties.href})`);
+    }
     if (target && existsSync(target) && indexable.some((page) => page.file === target) && routeFor(target) !== route) {
       const targetRoute = routeFor(target);
       incomingLinks.set(targetRoute, (incomingLinks.get(targetRoute) || 0) + 1);
@@ -282,6 +291,10 @@ for (const url of sitemapUrls) {
     const parsed = new URL(url);
     if (parsed.origin !== expectedSite) fail(`sitemap: unexpected origin ${parsed.origin}`);
   } catch { fail(`sitemap: malformed URL ${url}`); }
+  const sitemapPath = localPagePath(url);
+  const target = sitemapPath ? localTarget(sitemapPath) : null;
+  const page = target ? pagesByFile.get(target) : null;
+  if (!page || page.noindex || page.redirect) fail(`sitemap: excluded or missing page ${url}`);
 }
 if (sitemapUrls.length !== canonicalUrls.length || sitemapUrls.slice().sort().some((url, index) => url !== canonicalUrls[index])) {
   fail(`sitemap: URL set differs from ${canonicalUrls.length} indexable canonicals`);
@@ -417,11 +430,13 @@ const summary = {
   missingH1: quality.missingH1,
   missingCanonicals: quality.missingCanonicals,
   invalidCanonicals: quality.invalidCanonicals,
+  nonSelfCanonicals: quality.nonSelfCanonicals,
   imagesMissingAlt: quality.missingImageAlt,
   imagesWithInvalidAlt: quality.invalidImageAlt,
   invalidJsonLd: quality.invalidJsonLd,
   brokenInternalLinks: quality.brokenInternalLinks,
   nonCanonicalInternalLinks: quality.nonCanonicalInternalLinks,
+  internalLinksToRedirects: quality.internalLinksToRedirects,
   orphanIndexablePages: quality.orphanIndexablePages,
   placeholderFindings: quality.placeholderFindings,
   uniqueCanonicals: canonicalOwners.size,

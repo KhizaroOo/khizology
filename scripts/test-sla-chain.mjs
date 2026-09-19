@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { stripTypeScriptTypes } from 'node:module';
 
-const source = fs.readFileSync('src/components/toolbox/tools/SLAChainVisualizer.tsx', 'utf8');
+const source = fs.readFileSync('src/components/toolbox/tools/SlaChainVisualizer.tsx', 'utf8');
 const modelSource = source
   .slice(source.indexOf('export interface ReliabilityDependency'), source.indexOf('const DEFAULT_DEPS'))
   .replace("import { clamp } from '../shared/mathHelpers';", '')
