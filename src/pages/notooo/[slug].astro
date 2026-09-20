@@ -2,7 +2,7 @@
 import BaseLayout from '../../components/layout/BaseLayout.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import NotoooSheet from '../../components/notooo/NotoooSheet.astro';
-import { notoooIdentity, publishedNotoooBooks, type NotoooBook } from '../../data/notooo';
+import { notoooIdentity, publishedNotoooBooks, relatedNotoooBooks, type NotoooBook } from '../../data/notooo';
 import { url } from '../../utils/url';
 import { breadcrumbSchema, pageId, personReference } from '../../utils/seo';
 
@@ -14,6 +14,7 @@ const { book } = Astro.props as { book: NotoooBook };
 const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
 const number = String(book.number).padStart(3, '0');
 const downloadFilename = `notooo-${number}-${book.slug}-khizooology.png`;
+const relatedBooks = relatedNotoooBooks(book);
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -25,8 +26,8 @@ const jsonLd = [
       '@type': 'Book',
       name: book.title,
       author: { '@type': 'Person', name: book.author },
-      datePublished: '2018-10-16',
-      publisher: { '@type': 'Organization', name: 'Avery' },
+      ...(book.bookPublicationDate && { datePublished: book.bookPublicationDate }),
+      ...(book.publisher && { publisher: { '@type': 'Organization', name: book.publisher } }),
     },
     datePublished: book.publishedAt,
   },
@@ -49,21 +50,15 @@ const jsonLd = [
   <section class="k-section notooo-detail" style={`--notooo-color:${notoooIdentity.color};--notooo-color-light:${notoooIdentity.colorLight};`}>
     <div class="k-container detail">
       <Breadcrumb crumbs={[{ label: 'Notooo', href: url('/notooo') }, { label: book.title }]} accentColor={notoooIdentity.color} />
-      <header class="book-context">
-        <p class="eyebrow">NOTOOO {number} · {book.category.toUpperCase()}</p>
-        <h1>{book.title}</h1>
-        <p class="book-meta">{book.author}<span aria-hidden="true">·</span>{book.publicationYear}<span aria-hidden="true">·</span>{book.category}</p>
-      </header>
 
       <div class="artifact-frame" data-notooo-artifact-frame>
-        <NotoooSheet book={book} />
+        <NotoooSheet book={book} headingLevel={1} />
         <button class="fullscreen-close" type="button" data-exit-fullscreen aria-label="Exit fullscreen knowledge page">Exit fullscreen</button>
       </div>
 
       <div class="actions" aria-label="Knowledge page actions">
         <button type="button" data-fullscreen>View Fullscreen</button>
         <button type="button" data-download data-filename={downloadFilename}>Download Page</button>
-        <button type="button" data-print>Print Page</button>
         <p class="export-status" data-export-status role="status" aria-live="polite"></p>
       </div>
 
@@ -71,9 +66,17 @@ const jsonLd = [
         <h2>Why this book matters</h2>
         <p>{book.whyItMatters}</p>
         <h2>About this Notooo</h2>
-        <p>This one-page synthesis focuses on the book’s most useful ideas: identity, systems, the habit loop, the Four Laws of Behavior Change, environment design, starting small, and returning quickly after a miss.</p>
+        <p>{book.aboutThisNotooo}</p>
         <p class="disclosure">{notoooIdentity.disclosure}<br />{notoooIdentity.notReplacementNotice}</p>
       </div>
+
+      {relatedBooks.length > 0 && <aside class="related-notes" aria-labelledby="related-notes-title">
+        <p class="related-label">CONTINUE</p>
+        <h2 id="related-notes-title">Related Notooo notes</h2>
+        <ul>
+          {relatedBooks.map((related) => <li><a href={url(`/notooo/${related.slug}`)}>{related.title}<span>{related.author}</span></a></li>)}
+        </ul>
+      </aside>}
     </div>
   </section>
 </BaseLayout>
@@ -84,14 +87,12 @@ const jsonLd = [
   const fullscreenButton = document.querySelector<HTMLButtonElement>('[data-fullscreen]');
   const exitFullscreenButton = document.querySelector<HTMLButtonElement>('[data-exit-fullscreen]');
   const downloadButton = document.querySelector<HTMLButtonElement>('[data-download]');
-  const printButton = document.querySelector<HTMLButtonElement>('[data-print]');
   const exportStatus = document.querySelector<HTMLElement>('[data-export-status]');
 
   fullscreenButton?.addEventListener('click', async () => {
     try { await frame?.requestFullscreen(); } catch { exportStatus && (exportStatus.textContent = 'Fullscreen is unavailable in this browser.'); }
   });
   exitFullscreenButton?.addEventListener('click', () => document.exitFullscreen());
-  printButton?.addEventListener('click', () => window.print());
 
   downloadButton?.addEventListener('click', async () => {
     if (!sheet || !downloadButton) return;
@@ -111,36 +112,28 @@ const jsonLd = [
 </script>
 
 <style>
-  .detail { max-width: 1260px; }
-  .book-context { margin: .8rem auto 1.4rem; max-width: 1120px; }
-  .eyebrow { color: var(--notooo-color); font: 900 .72rem Poppins, sans-serif; letter-spacing: .11em; }
-  .book-context h1 { margin: .35rem 0; font: 900 clamp(2.3rem, 6vw, 4.6rem)/.95 Poppins, sans-serif; letter-spacing: -.04em; }
-  .book-meta { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; margin: 0; color: var(--k-text-muted); font-weight: 700; }
-  .book-meta span { color: var(--notooo-color); }
+  .notooo-detail { background: #fff; color: #171717; }
+  .detail { max-width: 1240px; }
   .artifact-frame { position: relative; margin: auto; }
   .fullscreen-close { display: none; }
-  .actions { display: flex; justify-content: center; align-items: center; gap: .65rem; flex-wrap: wrap; margin: 1.2rem auto .5rem; }
-  .actions button { min-height: 46px; border: 1px solid var(--notooo-color); border-radius: 999px; background: var(--k-bg-card); color: var(--k-text); padding: .6rem 1rem; font: 800 .8rem Poppins, sans-serif; cursor: pointer; transition: transform .2s ease, background .2s ease, color .2s ease; }
-  .actions button:hover:not(:disabled) { transform: translateY(-2px); background: var(--notooo-color); color: #fff; }
+  .actions { display: flex; justify-content: center; align-items: center; gap: .5rem; flex-wrap: wrap; margin: 1rem auto .35rem; }
+  .actions button { min-height: 42px; border: 1px solid #cfcfcf; border-radius: .35rem; background: #fff; color: #171717; padding: .5rem .8rem; font: 800 .75rem Poppins, sans-serif; cursor: pointer; transition: border-color .2s ease, color .2s ease; }
+  .actions button:hover:not(:disabled) { border-color: var(--notooo-color); color: #9e5346; }
   .actions button:focus-visible, .fullscreen-close:focus-visible { outline: 3px solid var(--notooo-color-light); outline-offset: 3px; }
   .actions button:disabled { cursor: wait; opacity: .65; }
   .export-status { flex-basis: 100%; min-height: 1.25rem; margin: 0; color: var(--k-text-muted); text-align: center; font-size: .82rem; }
-  .copy { max-width: 820px; margin: 2.4rem auto 0; color: var(--k-text-muted); line-height: 1.75; }
-  .copy h2 { margin: 1.5rem 0 .35rem; color: var(--k-text); font: 800 1.18rem Poppins, sans-serif; }
+  .copy { max-width: 820px; margin: 2rem auto 0; color: #505050; line-height: 1.75; }
+  .copy h2 { margin: 1.5rem 0 .35rem; color: #171717; font: 800 1.08rem Poppins, sans-serif; }
   .copy p { margin: 0; }
-  .disclosure { margin-top: 1.35rem !important; border-left: 3px solid var(--notooo-color); padding-left: .8rem; font-size: .87rem; }
-  .artifact-frame:fullscreen { box-sizing: border-box; display: grid; min-height: 100vh; place-items: center; overflow: auto; padding: 2rem 4.5rem; background: #182127; }
-  .artifact-frame:fullscreen .fullscreen-close { position: fixed; top: 1rem; right: 1rem; display: inline-flex; min-height: 44px; align-items: center; border: 1px solid var(--notooo-color); border-radius: 999px; background: #fff; color: #27303a; padding: .55rem .85rem; font: 800 .76rem Poppins, sans-serif; cursor: pointer; }
-  @media (max-width: 720px) { .book-context { margin-top: .55rem; } .book-context h1 { font-size: clamp(2.2rem, 13vw, 3.3rem); } .actions { justify-content: stretch; gap: .5rem; } .actions button { flex: 1 1 145px; } .artifact-frame:fullscreen { padding: 3.8rem .5rem 1rem; align-items: start; } }
-</style>
-
-<style is:global>
-  @media print {
-    @page { size: A4 portrait; margin: 0; }
-    html, body { width: 210mm; height: 297mm; margin: 0 !important; background: #fff !important; }
-    body > header, body > footer, .k-breadcrumb, .book-context, .actions, .copy, #analytics-consent, .scroll-top-btn, #dev-toolbar-root { display: none !important; }
-    main, .notooo-detail, .notooo-detail .detail, .notooo-detail .artifact-frame { width: auto !important; max-width: none !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; background: transparent !important; }
-    .notooo-detail .fullscreen-close { display: none !important; }
-    .notooo-detail [data-notooo-sheet] { display: grid !important; }
-  }
+  .disclosure { margin-top: 1.35rem !important; border-top: 1px solid #dedede; padding-top: .9rem; font-size: .87rem; }
+  .related-notes { max-width: 820px; margin: 2rem auto 0; border-top: 1px solid #dedede; padding-top: 1rem; }
+  .related-label { margin: 0 0 .24rem; color: #6a625f; font: 800 .65rem Poppins, sans-serif; letter-spacing: .1em; }
+  .related-notes h2 { margin: 0 0 .7rem; font: 800 1.08rem Poppins, sans-serif; }
+  .related-notes ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: .6rem; margin: 0; padding: 0; list-style: none; }
+  .related-notes a { display: block; border: 1px solid #dedede; border-radius: .5rem; padding: .75rem; color: #171717; font: 800 .86rem Poppins, sans-serif; text-decoration: none; }
+  .related-notes a:hover { border-color: var(--notooo-color); } .related-notes a:focus-visible { outline: 3px solid var(--notooo-color-light); outline-offset: 2px; }
+  .related-notes span { display: block; margin-top: .18rem; color: #5f5f5f; font: 400 .8rem/1.4 system-ui, sans-serif; }
+  .artifact-frame:fullscreen { box-sizing: border-box; display: grid; min-height: 100vh; place-items: center; overflow: auto; padding: 2rem 4.5rem; background: #fff; }
+  .artifact-frame:fullscreen .fullscreen-close { position: fixed; top: 1rem; right: 1rem; display: inline-flex; min-height: 40px; align-items: center; border: 1px solid #bdbdbd; border-radius: .35rem; background: #fff; color: #171717; padding: .45rem .7rem; font: 800 .72rem Poppins, sans-serif; cursor: pointer; }
+  @media (max-width: 720px) { .notooo-detail { padding-block: 2rem; } .actions { justify-content: stretch; gap: .5rem; } .actions button { flex: 1 1 145px; } .artifact-frame:fullscreen { padding: 3.8rem .5rem 1rem; align-items: start; } }
 </style>

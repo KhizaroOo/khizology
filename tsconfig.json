@@ -1,5 +1,11 @@
 {
   "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@notes/*": ["src/components/notes/*"]
+    }
+  },
   "include": [
     ".astro/types.d.ts",
     "**/*"

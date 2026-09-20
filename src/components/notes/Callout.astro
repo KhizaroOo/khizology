@@ -1,0 +1,22 @@
+---
+interface Props {
+  type?: 'note' | 'warning' | 'tip';
+  title?: string;
+}
+
+const { type = 'note', title } = Astro.props;
+const labels = { note: 'Note', warning: 'Watch out', tip: 'Try this' };
+---
+
+<aside class:list={['note-callout', `note-callout-${type}`]} aria-label={title || labels[type]}>
+  <strong>{title || labels[type]}</strong>
+  <div><slot /></div>
+</aside>
+
+<style>
+  .note-callout { border: 1px solid var(--k-border); border-left: 4px solid var(--k-accent); border-radius: .75rem; background: var(--k-bg-card); padding: 1rem 1.1rem; margin: 1.5rem 0; }
+  .note-callout strong { display: block; font: 800 .78rem Poppins, sans-serif; letter-spacing: .04em; text-transform: uppercase; color: var(--k-text); margin-bottom: .35rem; }
+  .note-callout :global(p:last-child) { margin-bottom: 0; }
+  .note-callout-warning { border-left-color: #d97706; }
+  .note-callout-tip { border-left-color: #278a73; }
+</style>

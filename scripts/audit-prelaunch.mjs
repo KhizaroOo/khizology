@@ -149,14 +149,18 @@ for (const [route, html] of htmlByRoute) {
 
 const toolRoutes = [...htmlByRoute.keys()].filter((route) => /^\/toolbox\/[^/]+\/$/.test(route));
 const familyRoutes = [...htmlByRoute.keys()].filter((route) => /^\/toolbox\/family\/[^/]+\/$/.test(route));
-const expectedSitePages = walk(path.join(root, 'src/pages')).filter(file => file.endsWith('.astro') && !file.includes('[')).length + 40 + 5 + 1;
+const notoooRoutes = [...htmlByRoute.keys()].filter((route) => /^\/notooo\/[^/]+\/$/.test(route));
+const noteRoutes = [...htmlByRoute.keys()].filter((route) => /^\/notes\/[^/]+\/$/.test(route));
+const expectedSitePages = walk(path.join(root, 'src/pages')).filter(file => file.endsWith('.astro') && !file.includes('[')).length + toolRoutes.length + familyRoutes.length + notoooRoutes.length + noteRoutes.length;
 const expectedHtmlPages = expectedSitePages + 1;
+const notesIndexIsNoindex = noindexRoutes.includes('/notes/');
+const expectedSiteNoindexPages = 4 + Number(notesIndexIsNoindex);
 if (!htmlByRoute.has(embeddedViewerRoute)) errors.push('Missing self-hosted Human Atlas application document');
 if (htmlFiles.length !== expectedHtmlPages) errors.push(`Expected ${expectedHtmlPages} HTML pages, found ${htmlFiles.length}`);
 if (toolRoutes.length !== 40) errors.push(`Expected 40 tool routes, found ${toolRoutes.length}`);
 if (familyRoutes.length !== 5) errors.push(`Expected 5 family routes, found ${familyRoutes.length}`);
-if (indexableRoutes.length !== expectedSitePages - 4) errors.push(`Expected ${expectedSitePages - 4} indexable pages, found ${indexableRoutes.length}`);
-if (noindexRoutes.length !== 5) errors.push(`Expected 5 noindex/redirect documents (including the embedded viewer), found ${noindexRoutes.length}`);
+if (indexableRoutes.length !== expectedSitePages - expectedSiteNoindexPages) errors.push(`Expected ${expectedSitePages - expectedSiteNoindexPages} indexable pages, found ${indexableRoutes.length}`);
+if (noindexRoutes.length !== expectedSiteNoindexPages + 1) errors.push(`Expected ${expectedSiteNoindexPages + 1} noindex/redirect documents (including the embedded viewer), found ${noindexRoutes.length}`);
 
 const expectedArtworkCount = fs.readdirSync(path.join(root, 'public', 'images', 'artworks')).filter(file => /\.(?:jpe?g|png|webp)$/i.test(file)).length;
 const artworkHtml = htmlByRoute.get('/artworks/') || '';

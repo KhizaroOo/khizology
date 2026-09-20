@@ -7,13 +7,12 @@ import { url } from '../utils/url';
 
 const futureMonsters = monsters.filter(m => m.status === 'coming-soon' && m.id.startsWith('future-'));
 const activeMonsters = monsters.filter(m => m.status === 'active');
-const upcomingMonsterCount = futureMonsters.length;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout
-  title="Future Monsters — Khizooology Universe Expanding"
-  description={`${upcomingMonsterCount} mystery monsters are taking shape inside the Khizooology creative lab. Their identities remain unrevealed until they are ready.`}
+  title="Mystery Monsters — Khizooology"
+  description="Future Khizooology monsters remain anonymous until a real flagship earns a distinct territory."
   noindex={true}
   accentColor="var(--k-accent)"
 >
@@ -28,12 +27,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             The Lab is active
           </div>
           <h1 class="fm-hero-title">
-            {upcomingMonsterCount} Monsters<br />
-            <span class="fm-hero-accent">Taking Shape.</span>
+            The Lab Is<br />
+            <span class="fm-hero-accent">Still Forming.</span>
           </h1>
           <p class="fm-hero-lead">
-            The Khizooology universe is still forming. These monsters are in the creative lab,
-            but their identities are not ready to be named.
+            Khizooology is unfinished. A new territory earns its name only when it has a clear purpose,
+            real visitor value, and a flagship worth opening.
           </p>
           <p class="fm-hero-voice">{mysteryMonsterVoice.microcopy.discovery}</p>
         </div>
@@ -42,7 +41,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             {futureMonsters.map((m, i) => (
               <div class="fm-orb" style={`--fc: ${m.color}; --idx: ${i}`}>
                 <div class="fm-orb-glow"></div>
-                <img src={`${base}${m.image}`} alt={`Future monster ${i + 1}`} width="48" height="48" loading={i < 2 ? 'eager' : 'lazy'} />
+                <img src={`${base}${m.image}`} alt="Locked mystery creature" width="48" height="48" loading={i < 2 ? 'eager' : 'lazy'} />
               </div>
             ))}
           </div>
@@ -55,8 +54,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <section class="k-section fm-cards-section">
     <div class="k-container">
       <span class="k-section-label" style="color: var(--k-accent)">Inside the Lab</span>
-      <h2 class="fm-section-title">{upcomingMonsterCount} Mystery Monsters</h2>
-      <p class="fm-section-sub">Each one is taking shape. Each one is a universe of its own.</p>
+      <h2 class="fm-section-title">Locked mysteries</h2>
+      <p class="fm-section-sub">They can stay unknown until a real experience earns a distinct territory.</p>
 
       <div class="fm-grid">
         {futureMonsters.map((m, i) => (
@@ -64,7 +63,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             <div class="fm-card-glow"></div>
             <div class="fm-card-top">
               <div class="fm-img-wrap">
-                <img src={`${base}${m.image}`} alt={`Mystery monster ${i + 1}`} width="64" height="64" loading="lazy" />
+                <img src={`${base}${m.image}`} alt="Locked mystery creature" width="64" height="64" loading="lazy" />
               </div>
               <div class="fm-card-meta">
                 <span class="fm-locked-badge">🔒 LOCKED</span>
@@ -94,21 +93,21 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <div class="fm-timeline-inner">
         <div class="fm-timeline-text">
           <span class="k-section-label" style="color: var(--k-accent)">The Process</span>
-          <h2 class="fm-timeline-title">When do they arrive?</h2>
-          <p class="fm-timeline-desc">No fixed date. The lab is still making room for what comes next.</p>
+          <h2 class="fm-timeline-title">A name comes after real value.</h2>
+          <p class="fm-timeline-desc">There is no launch calendar. Purpose, a distinct territory, and a real flagship come before a reveal.</p>
           <div class="fm-steps">
             <div class="fm-step active">
               <span class="fm-step-dot"></span>
               <div>
-                <strong>Forming</strong>
-                <p>Something is taking shape in the lab.</p>
+                <strong>Purpose first</strong>
+                <p>A new monster needs a job that existing territory cannot own.</p>
               </div>
             </div>
             <div class="fm-step">
               <span class="fm-step-dot"></span>
               <div>
-                <strong>Unrevealed</strong>
-                <p>The details remain private for now.</p>
+                <strong>Flagship first</strong>
+                <p>Nothing is promised until the experience is genuinely ready.</p>
               </div>
             </div>
           </div>
@@ -116,9 +115,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <div class="fm-cta-box">
           <div class="fm-cta-card">
             <span class="fm-cta-emoji">🔔</span>
-            <h3>Be first to know</h3>
-            <p>Drop a vibe to stay connected as the universe grows.</p>
-            <a href={url('/drop-a-vibe')} class="fm-cta-btn">Stay in the Loop →</a>
+            <h3>Explore what is ready</h3>
+            <p>The active monsters already have worlds to enter.</p>
+            <a href={url('/')} class="fm-cta-btn">Explore Khizooology →</a>
           </div>
         </div>
       </div>

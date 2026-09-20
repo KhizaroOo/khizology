@@ -1,6 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
+import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
@@ -19,11 +23,25 @@ const sitemapExcludedRoutes = new Set([
   '/you-ask-i-answer/',
 ]);
 
+function hasPublishedNotes(directory = './src/content/notes') {
+  if (!existsSync(directory)) return false;
+  for (const entry of readdirSync(directory)) {
+    const file = join(directory, entry);
+    if (statSync(file).isDirectory() && hasPublishedNotes(file)) return true;
+    if (/\.mdx?$/i.test(entry) && /^status:\s*['"]?published['"]?\s*$/mi.test(readFileSync(file, 'utf8'))) return true;
+  }
+  return false;
+}
+
+// Keep an empty notes index out of the sitemap until a real published note exists.
+if (!hasPublishedNotes()) sitemapExcludedRoutes.add('/notes/');
+
 export default defineConfig({
   site: SITE,
   base: BASE,
   integrations: [
     react(),
+    mdx(),
     sitemap({
       filter(page) {
         const pathname = new URL(page).pathname;
@@ -37,6 +55,11 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@notes': fileURLToPath(new URL('./src/components/notes', import.meta.url)),
+      },
+    },
   },
   output: 'static',
 });

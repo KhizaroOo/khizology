@@ -46,8 +46,6 @@ const jsonLd = {
         </p>
         <div class="hero-ctas">
           <a href="#monsters" class="btn-primary">Explore Monsters</a>
-          <a href={url('/toolbox')} class="btn-secondary">Try Toolbox</a>
-          <a href={url('/artworks')} class="btn-ghost">View Artworks</a>
           <a href={url('/my-portfolio')} class="btn-portfolio">View Portfolio <span aria-hidden="true">↗</span></a>
         </div>
         <div class="hero-stats">
@@ -393,19 +391,6 @@ const jsonLd = {
   }
   .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
 
-  .btn-secondary {
-    display: inline-flex; align-items: center;
-    padding: 0.65rem 1.5rem;
-    background: transparent; color: var(--k-text);
-    border: 2px solid var(--k-dark);
-    border-radius: 0.625rem;
-    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.875rem;
-    text-decoration: none;
-    transition: background 0.2s, color 0.2s, transform 0.2s;
-    white-space: nowrap;
-  }
-  .btn-secondary:hover { background: var(--k-dark); color: var(--k-bg); transform: translateY(-2px); }
-
   .btn-ghost {
     display: inline-flex; align-items: center;
     padding: 0.65rem 1.5rem;
@@ -433,7 +418,7 @@ const jsonLd = {
   .monsters-section { background: var(--k-bg-card); }
   .monsters-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1.25rem;
   }
 
@@ -553,6 +538,7 @@ const jsonLd = {
     .btv-inner { grid-template-columns: 1fr; }
     .btv-visual { order: -1; }
     .toolbox-two-cats { grid-template-columns: 1fr; }
+    .monsters-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 480px) {
     .artworks-masonry { grid-template-columns: repeat(2, 1fr); }

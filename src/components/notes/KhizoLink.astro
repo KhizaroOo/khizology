@@ -1,0 +1,14 @@
+---
+import { url } from '../../utils/url';
+
+interface Props {
+  kind: 'note' | 'toolooo' | 'infooo' | 'notooo';
+  slug: string;
+}
+
+const { kind, slug } = Astro.props;
+if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new Error('KhizoLink requires a lowercase, hyphenated slug.');
+const roots = { note: '/notes', toolooo: '/toolbox', infooo: '/infooo', notooo: '/notooo' };
+---
+
+<a href={url(`${roots[kind]}/${slug}`)}><slot /></a>

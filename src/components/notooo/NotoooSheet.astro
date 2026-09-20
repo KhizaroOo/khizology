@@ -1,57 +1,82 @@
 ---
 import { notoooIdentity, type NotoooBook } from '../../data/notooo';
+import { SITE } from '../../data/site';
+import { img } from '../../utils/url';
 
-interface Props { book: NotoooBook; compact?: boolean; }
+interface Props { book: NotoooBook; headingLevel?: 1 | 2; }
 
-const { book, compact = false } = Astro.props;
+const { book, headingLevel = 2 } = Astro.props;
 const number = String(book.number).padStart(3, '0');
+const Title = headingLevel === 1 ? 'h1' : 'h2';
+const sections = [book.bigIdea, ...book.sections];
 ---
 
-<article
-  class:list={['sheet', { compact }]}
-  data-notooo-sheet
-  aria-label={`${book.title} one-page visual synthesis`}
-  style={`--notooo-color:${notoooIdentity.color};--notooo-color-light:${notoooIdentity.colorLight};`}
->
-  <header class="sheet-header"><span>NOTOOO {number} · {book.category.toUpperCase()}</span><h2>{book.title}</h2><p>{book.author} · {book.publicationYear}</p></header>
-  <section class="big"><b>BIG IDEA</b><p>{book.sheet.bigIdea}</p><strong>{book.sheet.systemsLine}</strong></section>
-  <div class="two"><section><b>WHO ARE YOU BECOMING?</b><p>Instead of only asking “What do I want?”, ask “Who do I want to become?”</p><strong>{book.sheet.identity}</strong></section><section><b>GOAL vs SYSTEM</b><p>Goals choose the direction. Systems move you there.</p><strong>Destination ← Goal<br/>Path ← System</strong></section></div>
-  <section class="loop"><b>HOW A HABIT FORMS</b><strong>{book.sheet.habitLoop.join(' → ')} ↻</strong><p>Cue: notice · Craving: want · Response: act · Reward: value</p></section>
-  <section><b>THE FOUR LAWS</b><div class="laws">{book.sheet.laws.map((law, index)=><div><em>{index + 1}</em><strong>{law.title}</strong><p>{law.note}</p></div>)}</div><small>BREAK A BAD HABIT → Invisible · Unattractive · Difficult · Unsatisfying</small></section>
-  <div class="two"><section><b>DESIGN THE ROOM</b><p>{book.sheet.environment}</p><strong>🍎 visible · 🍪 hidden</strong></section><section><b>TWO-MINUTE RULE</b><p>{book.sheet.startSmall}</p><strong>2 minutes → start → continue</strong></section></div>
-  <div class="two"><section><b>PROGRESS NEEDS TIME</b><p>Small results can be invisible first.</p><svg viewBox="0 0 200 80" role="img" aria-label="An upward curve showing delayed visible results"><path d="M8 68 C70 68,110 66,130 45 S164 18,192 8" fill="none" stroke="currentColor" stroke-width="4"/><path d="M8 70H196" stroke="currentColor" stroke-width="2"/></svg></section><section><b>RETURN QUICKLY</b><p>{book.sheet.consistency}</p><strong>✓ ✓ ✓ ✓ ✕ ✓ ✓ ✓</strong></section></div>
-  <section class="example"><b>WANT TO BECOME A READER?</b><p>I am a reader. ↓ Leave a book visible. ↓ Read one page. ↓ Mark the day complete. ↓ Repeat tomorrow.</p></section>
-  <section class="take"><b>KHIZOOO TAKE</b><p>{book.sheet.takeaway}</p></section>
-  <footer class="sheet-footer"><b>REMEMBER →</b><strong>{book.sheet.remember}</strong><div class="artifact-brand"><span>NOTOOO · KHIZOOOLOGY</span><span>One Book. One Page.</span></div></footer>
+<article class="sheet" data-notooo-sheet aria-label={`${book.title} one-page knowledge document`} style={`--notooo-color:${notoooIdentity.color};`}>
+  <header class="sheet-header">
+    <div class="brand" aria-label={`${SITE.name} logo`}>
+      <img src={img('/images/Monsters/khizooo.png')} alt="Khizooology monster logo" width="30" height="30" />
+      <span>{SITE.name.slice(0, 4)}<i>{SITE.name.slice(4)}</i></span>
+    </div>
+    <p class="metadata">NOTOOO {number} · {book.category.toUpperCase()}</p>
+  </header>
+
+  <div class="title-area">
+    <Title>{book.title}</Title>
+    <p class="author">{book.author}{book.publicationYear && ` · ${book.publicationYear}`}</p>
+    <p class="subtitle">{book.subtitle}</p>
+  </div>
+
+  <div class="document-sections">
+    {sections.map((section, index) => (
+      <section class="document-section" data-number={String(index + 1).padStart(2, '0')}>
+        <span class="section-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+        <h3>{section.title}</h3>
+        <div class="section-content">
+          <p class="one-liner">{section.oneLiner}</p>
+          {section.points.length > 0 && <ul class="points">{section.points.map((point) => <li>{point}</li>)}</ul>}
+        </div>
+      </section>
+    ))}
+    <section class="document-section take" data-number={String(sections.length + 1).padStart(2, '0')}>
+      <span class="section-number" aria-hidden="true">{String(sections.length + 1).padStart(2, '0')}</span>
+      <h3>{book.khizoooTake.title}</h3>
+      <div class="section-content">
+        <p class="one-liner">{book.khizoooTake.oneLiner}</p>
+        {book.khizoooTake.points.length > 0 && <ul class="points">{book.khizoooTake.points.map((point) => <li>{point}</li>)}</ul>}
+      </div>
+    </section>
+    <section class="document-section remember" data-number={String(sections.length + 2).padStart(2, '0')}>
+      <span class="section-number" aria-hidden="true">{String(sections.length + 2).padStart(2, '0')}</span>
+      <h3>{book.remember.title}</h3>
+      <div class="section-content"><p class="one-liner">{book.remember.oneLiner}</p></div>
+    </section>
+  </div>
+
+  <footer class="sheet-footer"><span>NOTOOO · KHIZOOOLOGY</span><span>One Book. One Page.</span><span>khizooology.com</span></footer>
 </article>
 
 <style>
-  .sheet { --ink: #27303a; --accent: var(--notooo-color); box-sizing: border-box; width: min(100%, 1120px); aspect-ratio: 210 / 297; margin: auto; padding: clamp(1.1rem, 3.2vw, 2.5rem); display: flex; flex-direction: column; gap: clamp(.4rem, 1.1vw, .85rem); background: linear-gradient(135deg, #fffdf5, var(--notooo-color-light)); color: var(--ink); border: 2px solid var(--accent); border-radius: .3rem; box-shadow: 0 18px 54px #0002; font: clamp(.64rem, 1.25vw, 1rem)/1.4 Mulish, sans-serif; }
-  .sheet > * { flex: 0 0 auto; }
-  .sheet-header { border-bottom: 4px solid var(--accent); padding-bottom: .45rem; }
-  .sheet-header span, .sheet b { font: 900 .75em Poppins, sans-serif; letter-spacing: .09em; }
-  .sheet h2 { margin: 0; font: 900 clamp(1.6rem, 4vw, 3.4rem)/1 Poppins, sans-serif; }
-  .sheet p { margin: .25rem 0; }
-  .sheet section { border: 1.5px solid currentColor; border-radius: .45rem; padding: .6rem; background: #fffdf8d9; }
-  .sheet strong { display: block; font: 800 .9em Poppins, sans-serif; }
-  .big { text-align: center; border: 2px solid var(--accent) !important; background: #fffdf8 !important; }
-  .big p { font: 800 .95em/1.25 Poppins, sans-serif; }
-  .big strong { font-size: .82em; line-height: 1.2; }
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; }
-  .loop { text-align: center; }
-  .loop > strong { font-size: 1.1em; color: var(--accent); }
-  .laws { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4rem; margin: .35rem 0; }
-  .laws div { padding: .35rem; border: 1px dashed var(--accent); }
-  .laws em { font-style: normal; background: var(--accent); border-radius: 50%; padding: .05rem .25rem; font-weight: 900; }
-  .laws p { font-size: .85em; }
-  .sheet svg { width: 100%; height: 54px; color: var(--accent); }
-  .take { background: var(--notooo-color-light) !important; border-color: var(--accent) !important; transform: rotate(-.5deg); }
-  .example { border-style: dashed !important; }
-  .sheet-footer { display: grid; gap: .25rem; margin-top: auto; padding: .65rem 0 0; border-top: 4px solid var(--accent); }
-  .sheet-footer > strong { font-size: 1.1em; }
-  .artifact-brand { display: flex; justify-content: space-between; gap: .75rem; color: var(--accent); font: 900 .7em Poppins, sans-serif; letter-spacing: .07em; }
-  .compact { font-size: 35%; padding: 5%; box-shadow: none; border-width: 1px; }
-  .compact .sheet { pointer-events: none; }
-  @media (max-width: 720px) { .sheet { font-size: clamp(.5rem, 2.2vw, .72rem); padding: .8rem; gap: .3rem; } .two { gap: .3rem; } .laws { gap: .2rem; } .sheet section { padding: .35rem; } .artifact-brand { gap: .25rem; } }
-  @media print { .sheet { width: 210mm !important; height: 297mm !important; aspect-ratio: auto; margin: 0; padding: 10mm; border: 0; border-radius: 0; box-shadow: none; print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
+  .sheet { --ink: #171717; box-sizing: border-box; width: min(100%, 1200px); margin: auto; padding: 0 clamp(1.5rem, 5vw, 4.2rem) clamp(1.8rem, 5vw, 4rem); background: #fff; color: var(--ink); font: clamp(.94rem, 1.35vw, 1.06rem)/1.52 Mulish, sans-serif; }
+  .sheet-header { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 1rem; padding: 1.25rem 0 1.6rem; border-bottom: 1px solid var(--ink); }
+  .brand { display: inline-flex; align-items: center; gap: .48rem; color: var(--ink); font: 800 1.02rem/1 Poppins, sans-serif; letter-spacing: -.03em; }
+  .brand img { width: 30px; height: 30px; padding: 3px; object-fit: contain; border-radius: 50%; background: #f82d48; }
+  .brand i { color: #f82d48; font-style: normal; }
+  .metadata { margin: 0; color: var(--ink); text-align: right; font: 800 .69rem Poppins, sans-serif; letter-spacing: .13em; text-transform: uppercase; }
+  .title-area { padding: 2.6rem 0 1.8rem; border-bottom: 1px solid #dedede; }
+  .sheet h1, .sheet h2 { margin: 0; color: var(--ink); font: 900 clamp(2.8rem, 6.5vw, 5.2rem)/.94 Poppins, sans-serif; letter-spacing: -.055em; }
+  .author { margin: .42rem 0 0; color: #606060; font-weight: 700; }
+  .subtitle { max-width: 51rem; margin: 1rem 0 0; font-size: clamp(1.08rem, 1.8vw, 1.25rem); line-height: 1.48; }
+  .document-section { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 1rem; padding: 1.1rem 0; border-top: 1px solid #e5e5e5; }
+  .document-section:first-child { border-top: 0; }
+  .section-number { grid-row: span 2; color: var(--notooo-color); font: 800 1.18rem/1 Poppins, sans-serif; }
+  .document-section h3 { grid-column: 2; margin: 0; color: var(--ink); font: 800 .76rem/1.3 Poppins, sans-serif; letter-spacing: .11em; text-transform: uppercase; }
+  .section-content { grid-column: 2; }
+  .section-content p { margin: 0; }
+  .one-liner { font-weight: 700; line-height: 1.45; }
+  .points { display: grid; gap: .24rem; margin: .48rem 0 0; padding-left: 1.15rem; }
+  .points li::marker { color: var(--notooo-color); }
+  .take { margin-top: .25rem; border-top: 2px solid var(--ink); }
+  .remember { border-top-color: var(--ink); }
+  .sheet-footer { display: flex; justify-content: space-between; gap: .75rem; margin-top: .3rem; padding-top: 1rem; border-top: 1px solid var(--ink); color: #575757; font: 800 .64rem Poppins, sans-serif; letter-spacing: .075em; }
+  @media (max-width: 720px) { .sheet { width: 100%; padding: 0 1.25rem 1.5rem; font-size: 1rem; line-height: 1.55; } .sheet-header { gap: .75rem; padding: 1rem 0 1.25rem; } .metadata { font-size: .62rem; } .title-area { padding: 1.8rem 0 1.35rem; } .sheet h1, .sheet h2 { font-size: clamp(2.35rem, 13vw, 3.7rem); } .document-section { grid-template-columns: 1.75rem minmax(0, 1fr); gap: .65rem; padding: 1rem 0; } .section-number { font-size: 1rem; } .document-section h3 { font-size: .75rem; } .sheet-footer { align-items: flex-start; flex-direction: column; gap: .25rem; } }
 </style>

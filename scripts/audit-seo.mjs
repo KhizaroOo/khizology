@@ -143,6 +143,8 @@ const pages = htmlFiles.map((file) => {
 const indexable = pages.filter((page) => !page.noindex && !page.redirect);
 const pagesByFile = new Map(pages.map((page) => [page.file, page]));
 const noindexContentRoutes = new Set(['/404.html', '/future-monsters/', '/you-ask-i-answer/', '/infooo/human-atlas-viewer/']);
+const notesIndex = pages.find((page) => page.route === '/notes/');
+if (notesIndex?.noindex) noindexContentRoutes.add('/notes/');
 const redirectRoutes = new Set(['/frop-a-vibe/']);
 const titleOwners = new Map();
 const descriptionOwners = new Map();
@@ -408,6 +410,9 @@ for (const page of indexable.filter((item) => /^\/toolbox\/[^/]+\/$/.test(item.r
   if (!/class=["'][^"']*tp-related-item/.test(page.html)) fail(`${page.route}: missing crawlable related-tool links`);
   if (!page.html.includes(`/toolbox/family/`)) fail(`${page.route}: missing family link`);
 }
+
+if (notesIndex?.noindex && /data-note-card/.test(notesIndex.html)) fail('/notes/: noindex index cannot render note cards');
+if (notesIndex && !notesIndex.noindex && !/data-note-card/.test(notesIndex.html)) fail('/notes/: published notes index must render note cards');
 
 const socialImage = join(dist, 'images', 'site', 'khizooology-social.png');
 if (!existsSync(socialImage)) fail('social preview: default image is missing');

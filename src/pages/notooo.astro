@@ -1,11 +1,94 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
-import NotoooSheet from '../components/notooo/NotoooSheet.astro';
 import { notoooIdentity, publishedNotoooBooks } from '../data/notooo';
-import { url } from '../utils/url';
+import { getMonsterById } from '../data/monsters';
+import { img, url } from '../utils/url';
 import { breadcrumbSchema, pageId } from '../utils/seo';
+
 const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
-const jsonLd = [{ '@context': 'https://schema.org', '@type': 'CollectionPage', '@id': pageId('/notooo', context), name: 'Notooo', description: 'One-page visual book syntheses curated by khizooo.' }, breadcrumbSchema([{ name: 'Notooo', path: '/notooo' }], context)];
+const notoooMonster = getMonsterById('notooo')!;
+const categories = [...new Set(publishedNotoooBooks.map((book) => book.category))];
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'CollectionPage', '@id': pageId('/notooo', context), name: 'Notooo', description: 'One-page visual book syntheses curated by khizooo.' },
+  breadcrumbSchema([{ name: 'Notooo', path: '/notooo' }], context),
+];
 ---
-<BaseLayout title="Notooo — One Book, One Page" description="One-page visual book syntheses curated by khizooo." accentColor="#E38D7C" accentColorLight="#FED7AA" jsonLd={jsonLd}><section class="k-section"><div class="k-container"><Breadcrumb crumbs={[{label:'Notooo'}]} accentColor="#E38D7C"/><p class="eyebrow">NOTOOO · {publishedNotoooBooks.length} PAGE</p><h1>{notoooIdentity.tagline}</h1><p class="lead">{notoooIdentity.supportingLine}</p><div class="grid">{publishedNotoooBooks.map(book=><a href={url(`/notooo/${book.slug}`)}><NotoooSheet book={book} compact /><div><b>{String(book.number).padStart(3, '0')} · {book.category}</b><h2>{book.title}</h2><span>{book.author}</span><strong>Open Notooo →</strong></div></a>)}</div></div></section></BaseLayout><style>.eyebrow,.grid b{color:#c36c5c;font:800 .72rem Poppins,sans-serif;letter-spacing:.1em}.lead{color:var(--k-text-muted)}h1{font:900 clamp(2rem,5vw,3.5rem) Poppins,sans-serif;margin:.4rem 0}.grid{display:grid;grid-template-columns:minmax(0,360px);gap:1rem;margin-top:2rem}.grid a{overflow:hidden;border:1px solid var(--k-border);border-radius:1rem;background:var(--k-bg-card);color:var(--k-text);text-decoration:none}.grid a>div{padding:1rem}.grid h2{margin:.25rem 0;font:800 1.2rem Poppins,sans-serif}.grid span{color:var(--k-text-muted)}.grid strong{display:block;margin-top:.7rem;color:#c36c5c}</style>
+
+<BaseLayout title="Notooo — One Book, One Page" description="One-page visual book syntheses curated by khizooo." accentColor={notoooMonster.color} accentColorLight={notoooMonster.colorLight} jsonLd={jsonLd}>
+  <section class="k-section notooo-index" style={`--notooo-color:${notoooMonster.color};--notooo-light:${notoooMonster.colorLight};--notooo-text:${notoooMonster.textColor};`}>
+    <div class="k-container index-content">
+      <div class="breadcrumb-shell"><Breadcrumb crumbs={[{ label: 'Notooo' }]} accentColor={notoooMonster.color} /></div>
+
+      <header class="index-header">
+        <div class="header-copy">
+          <p class="eyebrow"><span aria-hidden="true"></span>NOTOOO · {notoooMonster.role}</p>
+          <h1>Notooo</h1>
+          <p class="tagline">{notoooMonster.tagline}</p>
+          <p class="lead">{notoooIdentity.supportingLine}</p>
+        </div>
+        <figure class="monster-portrait" aria-hidden="true"><div class="portrait-orbit"><img src={img(notoooMonster.image)} alt="" width="512" height="512" decoding="async" /></div></figure>
+      </header>
+
+      <section class="discovery" aria-labelledby="discover-notes">
+        <div>
+          <p class="section-label">DISCOVER</p>
+          <h2 id="discover-notes">Book notes by territory</h2>
+        </div>
+        <ul class="category-list" aria-label="Notooo categories">
+          {categories.map((category) => <li>{category}</li>)}
+        </ul>
+        <p>Every entry is a <strong>Book Note</strong> with topic tags, made for a short useful read and a clear next thought.</p>
+      </section>
+
+      <ul class="book-index" aria-label="Notooo books">
+        {publishedNotoooBooks.map((book) => (
+          <li>
+            <a href={url(`/notooo/${book.slug}`)}>
+              <div class="book-meta"><span>BOOK NOTE</span><span>{book.category}</span></div>
+              <h2>{book.title}</h2>
+              <p>{book.author} · {book.subtitle}</p>
+              <ul class="tag-list" aria-label={`${book.title} topics`}>{book.tags.slice(0, 3).map((tag) => <li>{tag}</li>)}</ul>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notooo-index { background: #fff; color: var(--notooo-text); }
+  .index-content { max-width: 920px; }
+  .breadcrumb-shell :global(.k-breadcrumb) { padding: .3rem 0 .55rem; font-size: .75rem; }
+  .breadcrumb-shell :global([aria-current="page"]) { font-weight: 700; }
+  .index-header { position: relative; display: flex; justify-content: space-between; gap: 2rem; overflow: hidden; margin-bottom: 1rem; padding: clamp(1.4rem, 3.6vw, 2.5rem) clamp(1.35rem, 4vw, 3rem); border: 1px solid color-mix(in srgb, var(--notooo-color) 42%, #fff); border-radius: 1rem; background: linear-gradient(135deg, color-mix(in srgb, var(--notooo-light) 32%, #fff), color-mix(in srgb, var(--notooo-color) 8%, #fff)); }
+  .index-header::before { position: absolute; inset: 0 0 auto; height: 4px; background: var(--notooo-color); content: ''; }
+  .header-copy { position: relative; z-index: 1; }
+  .eyebrow { display: flex; align-items: center; gap: .45rem; margin: 0 0 .55rem; color: var(--notooo-text); font: 800 .68rem Poppins, sans-serif; letter-spacing: .13em; text-transform: uppercase; }
+  .eyebrow span { width: .5rem; height: .5rem; border-radius: 50%; background: var(--notooo-color); box-shadow: 0 0 0 4px color-mix(in srgb, var(--notooo-color) 17%, transparent); }
+  h1 { margin: 0; color: var(--notooo-text); font: 900 clamp(2.4rem, 5vw, 4rem)/.98 Poppins, sans-serif; letter-spacing: -.045em; }
+  .tagline { margin: .7rem 0 0; color: var(--notooo-text); font: 800 clamp(1.05rem, 2vw, 1.2rem)/1.35 Poppins, sans-serif; }
+  .lead { max-width: 25rem; margin: .22rem 0 0; color: #5f5f5f; font-size: 1rem; line-height: 1.55; }
+  .monster-portrait { position: relative; display: grid; place-items: center; align-self: center; width: clamp(7.75rem, 17vw, 11rem); margin: 0; flex: 0 0 auto; }
+  .monster-portrait::before { position: absolute; inset: 9%; border: 1px solid color-mix(in srgb, var(--notooo-color) 52%, #fff); border-radius: 40% 60% 55% 45%; content: ''; transform: rotate(12deg); }
+  .portrait-orbit { display: grid; place-items: center; width: 100%; aspect-ratio: 1; border: 1px solid color-mix(in srgb, var(--notooo-color) 38%, #fff); border-radius: 1.3rem; background: radial-gradient(circle at 50% 34%, #fff 0 21%, color-mix(in srgb, var(--notooo-light) 39%, #fff) 22% 100%); box-shadow: 0 .8rem 1.7rem color-mix(in srgb, var(--notooo-color) 14%, transparent); transform: rotate(4deg); }
+  .portrait-orbit img { position: relative; z-index: 1; width: 84%; height: 84%; object-fit: contain; transform: rotate(-4deg); }
+  .discovery { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem 2rem; margin: 2.5rem 0 1.25rem; padding: 1.1rem 0; border-block: 1px solid #cfcfcf; }
+  .section-label, .book-meta { margin: 0 0 .28rem; color: #6a625f; font: 800 .65rem Poppins, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+  .discovery h2 { margin: 0; color: var(--notooo-text); font: 800 clamp(1.12rem, 2vw, 1.38rem)/1.2 Poppins, sans-serif; letter-spacing: -.025em; }
+  .discovery > p { grid-column: 1 / -1; max-width: 43rem; margin: 0; color: #5f5f5f; font-size: .92rem; line-height: 1.55; }
+  .category-list, .tag-list { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0; padding: 0; list-style: none; }
+  .category-list { justify-content: end; align-content: start; }
+  .category-list li, .tag-list li { border: 1px solid color-mix(in srgb, var(--notooo-color) 38%, #fff); border-radius: 99px; padding: .2rem .48rem; color: #5f5f5f; font: 700 .67rem Poppins, sans-serif; }
+  .book-index { margin: 0; padding: 0; border-top: 1px solid #cfcfcf; list-style: none; }
+  .book-index li { border-bottom: 1px solid #cfcfcf; }
+  .book-index a { display: block; padding: 1.15rem 0 1.2rem; color: inherit; text-decoration: none; transition: color .2s ease, padding-inline .2s ease; }
+  .book-index h2 { margin: 0; font: 800 clamp(1.25rem, 2.2vw, 1.6rem)/1.2 Poppins, sans-serif; letter-spacing: -.025em; }
+  .book-index p { margin: .3rem 0 .6rem; color: #5f5f5f; font-size: .98rem; line-height: 1.5; }
+  .book-meta { display: flex; gap: .55rem; margin-bottom: .42rem; } .book-meta span + span { border-left: 1px solid #cfcfcf; padding-left: .55rem; }
+  .book-index a:hover { color: color-mix(in srgb, var(--notooo-color) 68%, var(--notooo-text)); padding-inline: .35rem; }
+  .book-index a:focus-visible { outline: 3px solid var(--notooo-light); outline-offset: -3px; color: color-mix(in srgb, var(--notooo-color) 68%, var(--notooo-text)); }
+  @media (max-width: 720px) { .notooo-index { padding-block: 2rem; } .index-header { align-items: end; padding: 1.35rem 1.2rem 1.45rem; border-radius: .8rem; } .monster-portrait { width: 6.9rem; } .portrait-orbit { border-radius: 1rem; } .discovery { grid-template-columns: 1fr; gap: .7rem; margin-top: 1.7rem; } .category-list { justify-content: start; } .book-index a { padding-block: 1rem; } }
+  @media (max-width: 420px) { .index-header { gap: .75rem; } .monster-portrait { width: 5.2rem; } }
+</style>

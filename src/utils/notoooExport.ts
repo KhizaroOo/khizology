@@ -74,7 +74,8 @@ function rasterize(element: HTMLElement, scale: number) {
 
 export async function downloadNotoooPng(element: HTMLElement, filename: string) {
   await document.fonts?.ready;
-  const scale = Math.max(3, 2480 / element.getBoundingClientRect().width);
+  const targetWidth = 3360;
+  const scale = Math.max(3, targetWidth / element.getBoundingClientRect().width);
   const png = await rasterize(element, scale);
   const link = document.createElement('a');
   link.href = URL.createObjectURL(png);

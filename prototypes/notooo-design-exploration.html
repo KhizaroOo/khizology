@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notooo visual exploration</title>
+  <style>
+    /* Existing local Khizooology font packages; safe when this file opens directly. */
+    @font-face { font-family:'Prototype Poppins'; font-style:normal; font-weight:400; src:url('../node_modules/@fontsource/poppins/files/poppins-latin-400-normal.woff2') format('woff2'); }
+    @font-face { font-family:'Prototype Poppins'; font-style:normal; font-weight:700; src:url('../node_modules/@fontsource/poppins/files/poppins-latin-700-normal.woff2') format('woff2'); }
+    @font-face { font-family:'Prototype Poppins'; font-style:normal; font-weight:800; src:url('../node_modules/@fontsource/poppins/files/poppins-latin-800-normal.woff2') format('woff2'); }
+    @font-face { font-family:'Prototype Poppins'; font-style:normal; font-weight:900; src:url('../node_modules/@fontsource/poppins/files/poppins-latin-900-normal.woff2') format('woff2'); }
+    @font-face { font-family:'Prototype Mulish'; font-style:normal; font-weight:200 1000; src:url('../node_modules/@fontsource-variable/mulish/files/mulish-latin-wght-normal.woff2') format('woff2'); }
+    :root { --ink:#161616; --muted:#686868; --rule:#dedede; --paper:#fff; --canvas:#f2f1ee; --accent:#e38d7c; --accent-soft:#fae8e2; }
+    * { box-sizing:border-box; }
+    html { background:var(--canvas); }
+    body { margin:0; color:var(--ink); background:var(--canvas); font:16px/1.55 'Prototype Mulish', Arial, Helvetica, sans-serif; }
+    button { font:inherit; }
+    .comparison-bar { position:sticky; top:0; z-index:2; padding:1rem clamp(1rem,4vw,3rem); border-bottom:1px solid #d8d7d3; background:#fbfaf8ee; backdrop-filter:blur(12px); }
+    .comparison-bar__inner { display:flex; align-items:center; justify-content:space-between; gap:1rem; max-width:1240px; margin:auto; }
+    .comparison-title { margin:0; font-size:.78rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; white-space:nowrap; }
+    .switcher { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:.4rem; }
+    .switcher button { padding:.45rem .65rem; border:1px solid #cbc9c4; border-radius:0; color:#353535; background:#fff; font-size:.78rem; font-weight:700; cursor:pointer; }
+    .switcher button:hover, .switcher button[aria-pressed="true"] { border-color:var(--ink); color:#fff; background:var(--ink); }
+    .switcher button:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+    .exploration-note { max-width:1050px; margin:1.4rem auto 0; padding:0 1rem; color:var(--muted); font-size:.88rem; }
+    .engine-reference { max-width:1050px; margin:1.25rem auto 0; padding:1.2rem 1.35rem; border:1px solid #d8d6d1; background:#faf9f7; }
+    .engine-reference__top { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
+    .engine-reference h2 { margin:0 0 .25rem; font-size:.92rem; }
+    .engine-reference p { margin:.2rem 0; color:#5f5f5f; font-size:.88rem; }
+    .pipeline { display:flex; flex-wrap:wrap; gap:.35rem .55rem; margin:1rem 0 .65rem; padding:0; list-style:none; }
+    .pipeline li { display:flex; align-items:center; gap:.55rem; color:#333; font-size:.75rem; font-weight:700; }
+    .pipeline li:not(:last-child)::after { content:'↓'; color:var(--accent); font-size:1rem; }
+    .engine-note { border-top:1px solid #dedcd8; padding-top:.7rem; }
+    .engine-note b { color:var(--ink); }
+    .data-toggle { flex:0 0 auto; padding:.45rem .65rem; border:1px solid #bdbab4; color:var(--ink); background:#fff; font-size:.76rem; font-weight:800; cursor:pointer; }
+    .data-toggle:hover { border-color:var(--ink); }
+    .engine-data { overflow:auto; margin:1rem 0 0; padding:1rem; border:1px solid #dedcd8; background:#fff; color:#333; font:12px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; white-space:pre-wrap; }
+    #concepts { display:grid; gap:3rem; max-width:1240px; margin:1.75rem auto 4rem; padding:0 1rem; }
+    .concept[hidden] { display:none; }
+    .concept-label { width:min(100%,1040px); margin:0 auto .75rem; color:#4f4f4f; font-size:.76rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+    .concept-label span { color:var(--accent); }
+    .sheet { width:min(100%,1040px); margin:auto; padding:clamp(1.8rem,5vw,4.5rem); color:var(--ink); background:var(--paper); box-shadow:0 12px 35px #2221; }
+    .brand { display:inline-flex; align-items:center; gap:.48rem; font:800 1.02rem/1 'Prototype Poppins', Arial, Helvetica, sans-serif; letter-spacing:-.03em; }
+    .brand img { width:30px; height:30px; padding:3px; object-fit:contain; border-radius:50%; background:#f82d48; }
+    .brand strong { color:#f82d48; }
+    .meta, .eyebrow { margin:0; color:var(--accent); font-size:.69rem; font-weight:800; letter-spacing:.13em; text-transform:uppercase; }
+    .book-title { margin:.35rem 0 .18rem; font:800 clamp(2.5rem,7vw,5.3rem)/.94 Georgia, 'Times New Roman', serif; letter-spacing:-.055em; }
+    .author { margin:0; color:var(--muted); font-size:.96rem; font-weight:700; }
+    .opening { margin:0; font-size:clamp(1.08rem,2vw,1.35rem); line-height:1.48; }
+    .section { border-top:1px solid var(--rule); padding-top:1rem; }
+    .section h2 { margin:0 0 .35rem; font-size:.76rem; letter-spacing:.11em; text-transform:uppercase; }
+    .section p { margin:.2rem 0 0; }
+    .one-liner { font-weight:700; line-height:1.45; }
+    .key { font-weight:700; }
+    .small { color:var(--muted); font-size:.9rem; }
+    .points { display:grid; gap:.24rem; margin:.48rem 0 0; padding-left:1.15rem; }
+    .points li::marker { color:var(--accent); }
+    .footer { display:flex; justify-content:space-between; gap:1rem; margin-top:1.7rem; padding-top:.9rem; border-top:1px solid var(--ink); color:#616161; font-size:.66rem; font-weight:800; letter-spacing:.09em; text-transform:uppercase; }
+
+    /* A — generous editorial report */
+    .a { max-width:1000px; }
+    .a .masthead { display:flex; align-items:flex-end; justify-content:space-between; gap:1rem; padding-bottom:1.2rem; border-bottom:3px solid var(--ink); }
+    .a .masthead .meta { text-align:right; }
+    .a .title-area { padding:3rem 0 2.3rem; }
+    .a .opening { max-width:43rem; font:400 clamp(1.18rem,2vw,1.52rem)/1.55 Georgia, 'Times New Roman', serif; }
+    .a .sections { display:grid; gap:1.25rem; }
+    .a .section h2 { font-size:.7rem; }
+    .a .take { padding:1.15rem 0; border-bottom:1px solid var(--rule); }
+    .a .take p { max-width:44rem; font:700 1.15rem/1.45 Georgia, 'Times New Roman', serif; }
+
+    /* B — high-quality study notes */
+    .b { max-width:1040px; padding:clamp(1.4rem,4vw,3.4rem); font-size:1.01rem; }
+    .b .top { display:grid; grid-template-columns:1fr auto; gap:2rem; align-items:start; padding-bottom:1.4rem; border-bottom:1px solid var(--ink); }
+    .b .book-title { max-width:12ch; font-family:'Prototype Poppins', Arial, Helvetica, sans-serif; font-size:clamp(2.6rem,6vw,4.5rem); }
+    .b .stamp { min-width:120px; padding:.7rem 0 .2rem; border-top:4px solid var(--accent); text-align:right; }
+    .b .opening { margin:1.3rem 0 1.6rem; max-width:53rem; }
+    .b .section { display:grid; grid-template-columns:13.5rem 1fr; gap:2rem; padding:1rem 0; }
+    .b .section h2 { margin:.1rem 0 0; color:#2d2d2d; }
+    .b .section .content { max-width:49rem; }
+    .b .points { columns:2; column-gap:2rem; display:block; }
+    .b .points li { break-inside:avoid; margin-bottom:.26rem; }
+    .b .take .content { border-left:3px solid var(--accent); padding-left:1rem; font-weight:700; }
+    .b .footer { margin-top:.6rem; }
+
+    /* C — concise executive handout */
+    .c { max-width:1060px; padding:clamp(1.5rem,4vw,3.5rem); }
+    .c .masthead { display:grid; grid-template-columns:1fr auto; gap:1.5rem; align-items:start; padding-bottom:1.2rem; border-bottom:1px solid var(--ink); }
+    .c .masthead .meta { max-width:15ch; padding-top:.35rem; color:var(--ink); text-align:right; }
+    .c .book-title { max-width:13ch; font-family:'Prototype Poppins', Arial, Helvetica, sans-serif; font-size:clamp(2.7rem,5.6vw,4.6rem); }
+    .c .intro-grid { display:grid; grid-template-columns:1.2fr .8fr; gap:2.5rem; padding:1.5rem 0; border-bottom:1px solid var(--rule); }
+    .c .intro-grid .opening { font-size:1.18rem; }
+    .c .brief-key { margin:0; padding-left:1rem; border-left:3px solid var(--accent); font-size:.94rem; }
+    .c .brief-key b { display:block; margin-bottom:.25rem; font-size:.69rem; letter-spacing:.1em; text-transform:uppercase; }
+    .c .brief-grid { display:grid; grid-template-columns:1fr 1fr; gap:0 2.5rem; }
+    .c .section { padding:1.05rem 0; }
+    .c .wide { grid-column:1 / -1; }
+    .c .take { padding:.95rem 1.1rem; background:#fafafa; border-top:2px solid var(--ink); }
+    .c .footer { margin-top:1rem; }
+
+    /* D — quiet Google Docs plus */
+    .d { max-width:900px; padding:clamp(1.5rem,5vw,4rem) clamp(1.35rem,7vw,6rem); box-shadow:0 5px 20px #2221; font-size:1.04rem; }
+    .d .docbar { display:flex; justify-content:space-between; gap:1rem; padding-bottom:.8rem; border-bottom:1px solid var(--rule); }
+    .d .docbar .meta { color:var(--muted); }
+    .d .book-title { margin-top:2.5rem; font-family:'Prototype Poppins', Arial, Helvetica, sans-serif; font-size:clamp(2.5rem,5.5vw,4.25rem); }
+    .d .author { margin-bottom:2.1rem; }
+    .d .opening { margin-bottom:1.7rem; }
+    .d .section { padding:1.15rem 0; }
+    .d .section h2 { margin-bottom:.4rem; font-size:.8rem; }
+    .d .habit-line { padding:.55rem .75rem; border-left:2px solid var(--accent); background:#fcfafa; font-weight:700; letter-spacing:.02em; }
+    .d .take { padding-bottom:1.15rem; }
+    .d .take p { font-size:1.12rem; font-weight:700; }
+
+    /* E — personal reading journal */
+    .e { max-width:980px; padding:clamp(1.5rem,5vw,4.2rem); }
+    .e .journal-head { padding-bottom:1.5rem; border-bottom:1px solid var(--ink); }
+    .e .journal-head .meta { margin-top:1.2rem; }
+    .e .book-title { max-width:12ch; font-size:clamp(2.8rem,6.4vw,5rem); }
+    .e .opening { max-width:44rem; padding:1.3rem 0 1.5rem; font:400 1.24rem/1.55 Georgia, 'Times New Roman', serif; }
+    .e .section { display:grid; grid-template-columns:10rem 1fr; gap:1.25rem; padding:1.05rem 0; }
+    .e .section h2 { color:var(--accent); }
+    .e .content { max-width:45rem; }
+    .e .take { margin-top:.5rem; display:block; padding:1.25rem 0; border-top:2px solid var(--ink); border-bottom:1px solid var(--rule); }
+    .e .take h2 { margin-bottom:.45rem; color:var(--ink); font-size:.7rem; }
+    .e .take .content { font:700 1.22rem/1.45 Georgia, 'Times New Roman', serif; }
+    .e .remember { margin-top:1.3rem; font:700 1.18rem/1.4 Georgia, 'Times New Roman', serif; }
+
+    /* F — a modern sheet with restrained accent rhythm */
+    .f { max-width:1040px; padding:0 clamp(1.5rem,5vw,4.2rem) clamp(1.8rem,5vw,4rem); }
+    .f .f-head { display:grid; grid-template-columns:auto 1fr; gap:1rem; align-items:center; padding:1.25rem 0 1.6rem; border-bottom:5px solid var(--ink); }
+    .f .f-head .meta { color:var(--ink); text-align:right; }
+    .f .book-title { margin-top:2.6rem; font-family:'Prototype Poppins', Arial, Helvetica, sans-serif; font-size:clamp(3rem,6.5vw,5.2rem); }
+    .f .opening { max-width:51rem; padding:1rem 0 1.8rem; border-bottom:1px solid var(--rule); font-size:1.25rem; }
+    .f .section { display:grid; grid-template-columns:3.2rem 1fr; gap:1rem; padding:1.1rem 0; }
+    .f .section h2 { grid-column:2; margin:0; }
+    .f .section .content { grid-column:2; }
+    .f .section::before { grid-row:span 2; content:attr(data-number); color:var(--accent); font-size:1.2rem; font-weight:800; line-height:1; }
+    .f .points { grid-template-columns:1fr 1fr; gap:.3rem 1.5rem; }
+    .f .take { margin-top:.25rem; border-top:2px solid var(--ink); }
+    .f .take .content { font-weight:700; }
+
+    @media (max-width:700px) {
+      body { font-size:15px; }
+      .comparison-bar__inner { align-items:flex-start; flex-direction:column; }
+      .switcher { justify-content:flex-start; }
+      #concepts { gap:2rem; padding:0 .55rem; }
+      .sheet { padding:1.35rem; }
+      .book-title { font-size:clamp(2.35rem,13vw,3.7rem); }
+      .a .masthead, .b .top, .c .masthead, .c .intro-grid { grid-template-columns:1fr; }
+      .a .masthead .meta, .b .stamp, .c .masthead .meta { text-align:left; }
+      .b .section, .e .section { grid-template-columns:1fr; gap:.35rem; }
+      .b .points, .c .brief-grid, .f .points { columns:auto; grid-template-columns:1fr; }
+      .c .brief-grid { display:grid; }
+      .f .section { grid-template-columns:1.75rem 1fr; gap:.6rem; }
+      .footer { align-items:flex-start; flex-direction:column; gap:.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="comparison-bar">
+    <div class="comparison-bar__inner">
+      <p class="comparison-title">Notooo visual exploration</p>
+      <nav class="switcher" aria-label="Choose a visual concept">
+        <button type="button" data-view="a" aria-pressed="true">Concept A</button>
+        <button type="button" data-view="b" aria-pressed="false">Concept B</button>
+        <button type="button" data-view="c" aria-pressed="false">Concept C</button>
+        <button type="button" data-view="d" aria-pressed="false">Concept D</button>
+        <button type="button" data-view="e" aria-pressed="false">Concept E</button>
+        <button type="button" data-view="f" aria-pressed="false">Concept F</button>
+        <button type="button" data-view="all" aria-pressed="false">Show All</button>
+      </nav>
+    </div>
+  </header>
+  <p class="exploration-note">Standalone visual exploration only. Each concept uses the same Atomic Habits content so the comparison stays about the document system.</p>
+  <aside class="engine-reference" aria-label="Notooo Engine v1 prototype reference">
+    <div class="engine-reference__top">
+      <div><h2>Notooo Engine v1</h2><p>Prototype workflow only. This reference is outside the printable knowledge documents.</p></div>
+      <button class="data-toggle" type="button" data-engine-toggle aria-expanded="false">View Engine Data</button>
+    </div>
+    <ol class="pipeline"><li>Book Title</li><li>Research</li><li>Knowledge Map</li><li>Idea Scoring</li><li>Compression</li><li>Simple Language</li><li>Fact Check</li><li>Copyright Check</li><li>Notooo Structure</li><li>Khizooo Review</li><li>Publish</li></ol>
+    <p class="engine-note"><b>Internal idea scoring:</b> importance, usefulness, uniqueness, confidence, and explainability. Only strong ideas reach the one-page summary.</p>
+    <pre class="engine-data" data-engine-data hidden></pre>
+  </aside>
+  <main id="concepts" aria-live="polite"></main>
+
+  <script>
+    const logo = '../public/images/Monsters/khizooo.png';
+    // This is the only Atomic Habits content definition. Every concept below renders from it.
+    const notooo = {
+      number: '001',
+      title: 'Atomic Habits',
+      author: 'James Clear',
+      year: '2018',
+      category: 'Mind',
+      subtitle: 'Build small systems that make better choices easier to repeat.',
+      bigIdea: {
+        title: 'Big Idea',
+        oneLiner: 'Small actions repeated consistently can create large changes over time.',
+        points: ['Small actions become systems when you repeat them.', 'Systems slowly shape your identity and results.']
+      },
+      sections: [
+        { title: 'Identity', oneLiner: 'Build habits around the person you want to become, not only the result you want.', points: ['Ask: “Who do I want to become?”', 'Repeated actions are evidence of that identity.', 'Small wins make the new identity feel real.'] },
+        { title: 'Goals vs Systems', oneLiner: 'Goals choose the destination; systems are the repeated actions that move you there.', points: ['A goal shows where you want to go.', 'A system is what you do again and again.'] },
+        { title: 'Habit Loop', oneLiner: 'Habits form through a repeating cycle of cue, craving, response, and reward.', points: ['Cue: you notice something.', 'Craving: you want a change.', 'Response and reward teach the brain to repeat it.'] },
+        { title: 'Four Laws', oneLiner: 'Good habits become easier when they are obvious, attractive, easy, and satisfying.', points: ['Make the cue easy to see and the action easy to start.', 'Make the result feel useful enough to repeat.'] },
+        { title: 'Environment', oneLiner: 'Shape your surroundings so good choices become easier and bad choices become harder.', points: ['Keep useful cues in sight.', 'Move unhelpful cues out of reach.'] },
+        { title: 'Start Small', oneLiner: 'Make the first step so easy that starting requires almost no effort.', points: ['Read one page instead of planning a whole chapter.', 'Put on workout clothes before asking for a full workout.'] },
+        { title: 'Consistency', oneLiner: 'Missing once is normal; returning quickly stops one miss from becoming a pattern.', points: ['One miss is an event, not your identity.', 'Return to the system at the next chance.'] }
+      ],
+      khizoooTake: {
+        title: 'Khizooo Take',
+        oneLiner: 'Real change comes from designing repeatable systems instead of waiting for motivation.',
+        points: [],
+        note: 'AI-generated draft — khizooo approval is required before publishing.'
+      },
+      remember: {
+        title: 'Remember',
+        oneLiner: 'Don’t chase a perfect day; build a system you can return to tomorrow.',
+        points: []
+      },
+      sources: ['Author official material', 'Publisher information', 'Official summaries/interviews'],
+      confidence: 'High'
+    };
+    const settings = {
+      a: ['A', 'Premium editorial document', 'a'],
+      b: ['B', 'Modern study notes', 'b'],
+      c: ['C', 'Executive book brief', 'c'],
+      d: ['D', 'Minimal Google-Doc+', 'd'],
+      e: ['E', 'Book note / reading journal', 'e'],
+      f: ['F', 'Modern knowledge sheet', 'f']
+    };
+    const brand = '<div class="brand"><img src="' + logo + '" alt="Khizooology monster logo"><span>Khiz<strong>oo</strong>ology</span></div>';
+    const footer = '<footer class="footer"><span>NOTOOO · KHIZOOOLOGY</span><span>One Book. One Page.</span><span>khizooology.com</span></footer>';
+    const renderPoints = (points) => points.length ? '<ul class="points">' + points.map((point) => '<li>' + point + '</li>').join('') + '</ul>' : '';
+    const renderSection = (section, index, mode, extraClass = '') => {
+      const number = String(index + 1).padStart(2, '0');
+      return '<section class="section ' + extraClass + '" ' + (mode === 'f' ? 'data-number="' + number + '"' : '') + '><h2>' + section.title + '</h2><div class="content"><p class="one-liner">' + section.oneLiner + '</p>' + renderPoints(section.points) + '</div></section>';
+    };
+    const mainSections = [notooo.bigIdea, ...notooo.sections];
+    const bodySections = (mode) => mainSections.map((section, index) => renderSection(section, index, mode)).join('') + renderSection(notooo.khizoooTake, mainSections.length, mode, 'take');
+    function documentMarkup(key) {
+      const [letter, name, cls] = settings[key];
+      const heading = '<h1 class="book-title">' + notooo.title + '</h1><p class="author">' + notooo.author + ' · ' + notooo.year + '</p>';
+      const opening = '<p class="opening">' + notooo.subtitle + '</p>';
+      let header = '';
+      let preface = '';
+      const metadata = 'NOTOOO ' + notooo.number + ' · ' + notooo.category.toUpperCase();
+      if (key === 'a') { header = '<div class="masthead">' + brand + '<p class="meta">' + metadata + '</p></div><div class="title-area">' + heading + '</div>'; preface = opening; }
+      if (key === 'b') { header = '<div class="top"><div>' + brand + heading + '</div><div class="stamp"><p class="meta">NOTOOO ' + notooo.number + '</p><p class="meta">' + notooo.category + '</p></div></div>'; preface = opening; }
+      if (key === 'c') { header = '<div class="masthead"><div>' + brand + heading + '</div><p class="meta">' + metadata + '<br>Executive book brief</p></div>'; preface = '<div class="intro-grid">' + opening + '<p class="brief-key"><b>Core shift</b>' + notooo.bigIdea.oneLiner + '</p></div>'; }
+      if (key === 'd') { header = '<div class="docbar">' + brand + '<p class="meta">' + metadata + '</p></div>' + heading; preface = opening; }
+      if (key === 'e') { header = '<div class="journal-head">' + brand + '<p class="meta">' + metadata + '</p>' + heading + '</div>'; preface = opening; }
+      if (key === 'f') { header = '<div class="f-head">' + brand + '<p class="meta">' + metadata + '</p></div>' + heading; preface = opening; }
+      const remember = key === 'e' ? '<p class="remember"><span class="eyebrow">' + notooo.remember.title + '</span>' + notooo.remember.oneLiner + '</p>' : renderSection(notooo.remember, mainSections.length + 1, key);
+      return '<section class="concept" data-concept="' + key + '"><p class="concept-label"><span>Concept ' + letter + '</span> · ' + name + '</p><article class="sheet ' + cls + '">' + header + preface + '<div class="' + (key === 'c' ? 'brief-grid' : 'sections') + '">' + bodySections(key) + '</div>' + remember + footer + '</article></section>';
+    }
+    const target = document.getElementById('concepts');
+    target.innerHTML = Object.keys(settings).map(documentMarkup).join('');
+    const buttons = Array.from(document.querySelectorAll('[data-view]'));
+    function show(view) {
+      document.querySelectorAll('[data-concept]').forEach((concept) => { concept.hidden = view !== 'all' && concept.dataset.concept !== view; });
+      buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.view === view)));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    buttons.forEach((button) => button.addEventListener('click', () => show(button.dataset.view)));
+    const engineToggle = document.querySelector('[data-engine-toggle]');
+    const engineData = document.querySelector('[data-engine-data]');
+    if (engineToggle && engineData) {
+      engineData.textContent = JSON.stringify(notooo, null, 2);
+      engineToggle.addEventListener('click', () => {
+        const isHidden = engineData.hidden;
+        engineData.hidden = !isHidden;
+        engineToggle.setAttribute('aria-expanded', String(isHidden));
+        engineToggle.textContent = isHidden ? 'Hide Engine Data' : 'View Engine Data';
+      });
+    }
+    show('a');
+  </script>
+</body>
+</html>

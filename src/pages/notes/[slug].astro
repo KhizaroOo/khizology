@@ -1,0 +1,97 @@
+---
+import { getPublishedNotes, notePath, readingTime, relatedPublishedNotes, type NoteEntry } from '../../data/notes';
+import { render } from 'astro:content';
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import { absoluteUrl, breadcrumbSchema, pageId, websiteReference } from '../../utils/seo';
+import { url, img } from '../../utils/url';
+
+export async function getStaticPaths() {
+  const notes = await getPublishedNotes();
+  return notes.map((note) => ({ params: { slug: note.data.slug }, props: { note, notes } }));
+}
+
+const { note, notes } = Astro.props as { note: NoteEntry; notes: NoteEntry[] };
+const { Content } = await render(note);
+const related = relatedPublishedNotes(note, notes);
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const path = notePath(note.data.slug);
+const title = note.data.seoTitle || note.data.title;
+const description = note.data.seoDescription || note.data.description;
+const canonical = absoluteUrl(path, context);
+const article = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      '@id': `${pageId(path, context)}#article`,
+      mainEntityOfPage: { '@id': pageId(path, context) },
+      headline: note.data.title,
+      description,
+      datePublished: note.data.publishedAt!.toISOString(),
+      ...(note.data.updatedAt ? { dateModified: note.data.updatedAt.toISOString() } : {}),
+      ...(note.data.image ? { image: absoluteUrl(note.data.image, context) } : {}),
+      ...(note.data.author ? { author: { '@type': 'Person', name: note.data.author } } : {}),
+      isPartOf: websiteReference(context),
+      url: canonical,
+    },
+    { ...breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Notes', path: '/notes' }, { name: note.data.title, path }], context), '@id': `${canonical}#breadcrumb` },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} ogType="article" ogImage={note.data.image} ogImageAlt={note.data.imageAlt} publishedAt={note.data.publishedAt!.toISOString()} updatedAt={note.data.updatedAt?.toISOString()} articleTags={note.data.tags} jsonLd={article}>
+  <article class="notes-detail k-section">
+    <div class="k-container notes-detail-container">
+      <Breadcrumb crumbs={[{ label: 'Notes', href: url('/notes') }, { label: note.data.title }]} />
+      <header class="notes-detail-header">
+        <p class="k-section-label">{note.data.category} · {readingTime(note)} min read</p>
+        <h1>{note.data.title}</h1>
+        <p class="notes-description">{note.data.description}</p>
+        <p class="notes-date"><time datetime={note.data.publishedAt!.toISOString()}>Published {note.data.publishedAt!.toLocaleDateString('en', { month: 'long', day: 'numeric', year: 'numeric' })}</time>{note.data.updatedAt && <span> · Updated {note.data.updatedAt.toLocaleDateString('en', { month: 'long', day: 'numeric', year: 'numeric' })}</span>}</p>
+      </header>
+
+      {note.data.image && <img class="notes-cover" src={img(note.data.image)} alt={note.data.imageAlt} width={note.data.imageWidth} height={note.data.imageHeight} loading="eager" />}
+
+      <div class="notes-prose"><Content /></div>
+
+      {related.length > 0 && <aside class="related-notes" aria-labelledby="related-notes-title">
+        <h2 id="related-notes-title">Related notes</h2>
+        <ul>{related.map((entry) => <li><a href={url(notePath(entry.data.slug))}>{entry.data.title}<span>{entry.data.category} · {readingTime(entry)} min read</span></a></li>)}</ul>
+      </aside>}
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  .notes-detail-container { max-width: 820px; }
+  .notes-detail-header { margin: 1.4rem 0 2rem; }
+  .notes-detail-header h1 { margin: .35rem 0 .9rem; font: 900 clamp(2.1rem, 6vw, 4rem)/1.06 Poppins, sans-serif; color: var(--k-text); }
+  .notes-description { margin: 0; max-width: 700px; color: var(--k-text-muted); font-size: 1.1rem; line-height: 1.7; }
+  .notes-date { margin: 1rem 0 0; color: var(--k-text-muted); font-size: .82rem; }
+  .notes-cover { width: 100%; height: auto; margin: 0 0 2rem; border: 1px solid var(--k-border); border-radius: 1rem; background: var(--k-bg-card); }
+  .notes-prose { max-width: 72ch; color: var(--k-text); font-size: 1.04rem; line-height: 1.8; }
+  .notes-prose > :first-child { margin-top: 0; }
+  .notes-prose h2, .notes-prose h3, .notes-prose h4 { margin: 2.25rem 0 .7rem; font-family: Poppins, sans-serif; line-height: 1.2; color: var(--k-text); }
+  .notes-prose h2 { font-size: clamp(1.45rem, 3vw, 1.9rem); font-weight: 900; }
+  .notes-prose h3 { font-size: 1.25rem; font-weight: 800; }
+  .notes-prose p, .notes-prose ul, .notes-prose ol, .notes-prose blockquote { margin: 0 0 1.2rem; }
+  .notes-prose ul, .notes-prose ol { padding-left: 1.35rem; }
+  .notes-prose li + li { margin-top: .4rem; }
+  .notes-prose a { color: var(--k-accent-text); font-weight: 700; text-decoration: underline; text-underline-offset: .15em; }
+  .notes-prose blockquote { padding: .25rem 1rem; border-left: 3px solid var(--k-accent); color: var(--k-text-muted); font-style: italic; }
+  .notes-prose code { padding: .12em .35em; border-radius: .3rem; background: var(--k-bg-elevated); font: .88em ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; }
+  .notes-prose pre { overflow-x: auto; margin: 1.5rem 0; padding: 1rem; border: 1px solid var(--k-border); border-radius: .75rem; background: var(--k-dark); color: var(--k-bg); }
+  .notes-prose pre code { padding: 0; background: transparent; color: inherit; white-space: pre; overflow-wrap: normal; }
+  .notes-prose table { display: block; width: max-content; max-width: 100%; overflow-x: auto; margin: 1.5rem 0; border-collapse: collapse; border: 1px solid var(--k-border); }
+  .notes-prose th, .notes-prose td { min-width: 8rem; padding: .65rem .8rem; border: 1px solid var(--k-border); text-align: left; vertical-align: top; }
+  .notes-prose th { background: var(--k-bg-elevated); font-family: Poppins, sans-serif; font-size: .8rem; }
+  .notes-prose img { max-width: 100%; height: auto; margin: 1.5rem 0; border-radius: .75rem; }
+  .related-notes { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--k-border); }
+  .related-notes h2 { margin: 0 0 .8rem; font: 800 1.2rem Poppins, sans-serif; }
+  .related-notes ul { display: grid; gap: .65rem; padding: 0; margin: 0; list-style: none; }
+  .related-notes a { display: grid; gap: .15rem; padding: .9rem 1rem; border: 1px solid var(--k-border); border-radius: .75rem; background: var(--k-bg-card); color: var(--k-text); font-weight: 800; text-decoration: none; }
+  .related-notes a:hover { border-color: var(--k-accent); }
+  .related-notes span { color: var(--k-text-muted); font-size: .78rem; font-weight: 600; }
+  @media (max-width: 600px) { .notes-detail { padding-block: 3rem; } .notes-prose { font-size: 1rem; } }
+</style>

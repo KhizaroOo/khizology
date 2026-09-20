@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+import { getPublishedNotes, notePath, readingTime } from '../data/notes';
+import { pageSchema } from '../utils/schema';
+import { url } from '../utils/url';
+
+const notes = await getPublishedNotes();
+const hasPublishedNotes = notes.length > 0;
+const description = 'Original technical, creative and product notes from the Khizooology universe.';
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const jsonLd = hasPublishedNotes ? pageSchema({
+  type: 'CollectionPage',
+  path: '/notes',
+  name: 'Khizooology Notes',
+  description,
+  breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Notes', path: '/notes' }],
+}, context) : undefined;
+---
+
+<BaseLayout title="Notes" description={description} noindex={!hasPublishedNotes} jsonLd={jsonLd}>
+  <section class="k-section notes-page">
+    <div class="k-container notes-container">
+      <Breadcrumb crumbs={[{ label: 'Notes' }]} />
+      <header class="notes-header">
+        <p class="k-section-label">Khizooology Notes</p>
+        <h1>Useful things worth writing down.</h1>
+        <p>{hasPublishedNotes ? 'Technical, creative and product knowledge written to be clear, useful and easy to return to.' : 'The publishing foundation is ready. This page stays out of search until there is a real note to read.'}</p>
+      </header>
+
+      {hasPublishedNotes && <div class="notes-grid">
+        {notes.map((note) => <article class="note-card" data-note-card>
+          <p class="note-card-meta">{note.data.category} · {readingTime(note)} min read</p>
+          <h2><a href={url(notePath(note.data.slug))}>{note.data.title}</a></h2>
+          <p>{note.data.description}</p>
+          <div class="note-card-footer"><time datetime={note.data.publishedAt!.toISOString()}>{note.data.publishedAt!.toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' })}</time><a href={url(notePath(note.data.slug))}>Read note <span aria-hidden="true">→</span></a></div>
+        </article>)}
+      </div>}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notes-container { max-width: 900px; }
+  .notes-header { max-width: 720px; margin: 1.5rem 0 2.5rem; }
+  .notes-header h1 { margin: .35rem 0 .75rem; font: 900 clamp(2rem, 5vw, 3.4rem)/1.08 Poppins, sans-serif; color: var(--k-text); }
+  .notes-header > p:last-child { margin: 0; color: var(--k-text-muted); font-size: 1.02rem; line-height: 1.7; }
+  .notes-grid { display: grid; gap: 1rem; }
+  .note-card { padding: 1.35rem; border: 1px solid var(--k-border); border-radius: 1rem; background: var(--k-bg-card); }
+  .note-card-meta { margin: 0 0 .4rem; color: var(--k-accent-text); font: 800 .72rem Poppins, sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+  .note-card h2 { margin: 0; font: 800 clamp(1.15rem, 2vw, 1.4rem) Poppins, sans-serif; }
+  .note-card h2 a { color: var(--k-text); text-decoration: none; }
+  .note-card h2 a:hover { text-decoration: underline; }
+  .note-card > p:not(.note-card-meta) { margin: .55rem 0 1rem; color: var(--k-text-muted); line-height: 1.65; }
+  .note-card-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem; color: var(--k-text-muted); font-size: .82rem; }
+  .note-card-footer a { color: var(--k-accent-text); font-weight: 800; text-decoration: none; }
+  .note-card-footer a:hover { text-decoration: underline; }
+</style>

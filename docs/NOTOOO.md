@@ -41,6 +41,10 @@ Also state that Notooo is not a replacement for reading the original book. Never
 
 Notooo is transformative interpretation: use original paraphrasing, visual synthesis, plain-language explanation, and original examples where useful. Do not copy chapters, long quotations, official cheat sheets, third-party summaries, or a book’s visual layout. Established framework names may be used when they are needed for accuracy.
 
+## Production engine
+
+The typed, static content model and its validation rules are documented in [Notooo Engine v1](NOTOOO_ENGINE.md). Use it for research handoff and authoring; this guide remains the canonical product concept.
+
 ## Production workflow
 
 1. **Select** — khizooo chooses or approves a book.
