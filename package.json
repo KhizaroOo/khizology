@@ -23,7 +23,8 @@
     "test:contract-drift": "node --experimental-strip-types scripts/test-contract-drift.ts",
     "images:generate": "node scripts/generate-thumbnails.mjs",
     "prebuild": "npm run images:generate",
-    "predev": "npm run images:generate"
+    "predev": "npm run images:generate",
+    "test:rubiks-cube": "node --experimental-strip-types scripts/test-rubiks-cube.mts"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.1",

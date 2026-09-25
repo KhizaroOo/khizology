@@ -21,6 +21,8 @@ const sitemapExcludedRoutes = new Set([
   '/frop-a-vibe/',
   '/future-monsters/',
   '/you-ask-i-answer/',
+  // World 002 remains review-only until Khizar approves its public release.
+  '/infooo/rubiks-cube-motion-graph/',
 ]);
 
 function hasPublishedNotes(directory = './src/content/notes') {

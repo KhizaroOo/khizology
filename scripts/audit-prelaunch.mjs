@@ -154,7 +154,8 @@ const noteRoutes = [...htmlByRoute.keys()].filter((route) => /^\/notes\/[^/]+\/$
 const expectedSitePages = walk(path.join(root, 'src/pages')).filter(file => file.endsWith('.astro') && !file.includes('[')).length + toolRoutes.length + familyRoutes.length + notoooRoutes.length + noteRoutes.length;
 const expectedHtmlPages = expectedSitePages + 1;
 const notesIndexIsNoindex = noindexRoutes.includes('/notes/');
-const expectedSiteNoindexPages = 4 + Number(notesIndexIsNoindex);
+const rubiksReviewRoute = '/infooo/rubiks-cube-motion-graph/';
+const expectedSiteNoindexPages = 4 + Number(notesIndexIsNoindex) + Number(htmlByRoute.has(rubiksReviewRoute));
 if (!htmlByRoute.has(embeddedViewerRoute)) errors.push('Missing self-hosted Human Atlas application document');
 if (htmlFiles.length !== expectedHtmlPages) errors.push(`Expected ${expectedHtmlPages} HTML pages, found ${htmlFiles.length}`);
 if (toolRoutes.length !== 40) errors.push(`Expected 40 tool routes, found ${toolRoutes.length}`);

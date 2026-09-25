@@ -14,7 +14,7 @@ export function useInfoooReducedMotion() {
 export function InfoooWorldShell({ world, stage, toolbar, controls, panel, footer }: { world: InfoooWorld; stage: ReactNode; toolbar?: ReactNode; controls?: ReactNode; panel?: ReactNode; footer?: ReactNode }) {
   return <section className="infooo-world-shell" aria-label={`${world.title} interactive knowledge world`} style={{ '--infooo-accent': world.accent || '#5CCFAF' } as CSSProperties}>
     <header className="infooo-world-header"><div><p>INFOOO · WORLD {String(world.worldNumber).padStart(3, '0')}</p><h1>{world.title}</h1>{world.tagline && <span>{world.tagline}</span>}</div>{controls}</header>
-    {toolbar}<div className="infooo-world-layout"><main>{stage}</main>{panel && <aside className="infooo-world-panel">{panel}</aside>}</div>{footer}
+    {toolbar}<div className="infooo-world-layout"><div>{stage}</div>{panel && <aside className="infooo-world-panel">{panel}</aside>}</div>{footer}
   </section>;
 }
 

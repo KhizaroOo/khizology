@@ -58,6 +58,18 @@ export const contentManifest: ContentManifestItem[] = [
   ...publishedNotoooBooks.map(book => ({ id: book.id, contentType: 'notooo' as const, monster: 'notooo' as const, slug: book.slug, title: book.title, hook: book.subtitle, shortDescription: book.shortDescription, url: `/notooo/${book.slug}`, heroAsset: '/images/Monsters/ff-04.png', tags: book.tags, socialStatus: 'draft' as const })),
 ];
 
+// Review-only material is deliberately separate from the public manifest so a
+// draft can have a complete value plan without becoming discoverable or indexable.
+export const reviewContentManifest: ContentManifestItem[] = infoooWorlds
+  .filter(world => world.status === 'ready' && world.visibility === 'private')
+  .map(world => createInfoooManifestItem(world, {
+    hook: world.description,
+    shortDescription: world.description,
+    heroAsset: '/images/Monsters/infooo.png',
+    tags: world.category ? [world.category] : [],
+    socialStatus: 'draft',
+  }));
+
 export function createInfoooManifestItem(world: InfoooWorld, details: Pick<ContentManifestItem, 'hook' | 'shortDescription' | 'heroAsset' | 'tags' | 'socialStatus'>): ContentManifestItem {
   return { id: world.id, contentType: 'infooo_world', monster: 'infooo', slug: world.slug, title: world.title, url: `/infooo/${world.slug}`, worldNumber: world.worldNumber, ...details };
 }
@@ -122,6 +134,31 @@ export const compoundValuePacks: CompoundValuePack[] = [
       takeaway: 'See it. Touch it. Understand it.',
     },
     notoooCandidate: { status: 'idea', title: 'Connected systems make anatomy easier to learn' },
+  },
+];
+
+export const reviewCompoundValuePacks: CompoundValuePack[] = [
+  {
+    id: 'compound-infooo-rubiks-cube-motion-graph',
+    source: { contentType: 'infooo_world', sourceId: 'world-002' },
+    canonicalUrl: '/infooo/rubiks-cube-motion-graph',
+    status: 'draft',
+    takeaway: 'A face turn moves a structured set of physical pieces, not just colored squares.',
+    discoveryAngle: 'What actually moves when you turn a Rubik’s Cube?',
+    socialDraft: {
+      status: 'draft',
+      humanApproved: false,
+      hook: 'Turn one face. Watch one physical corner travel through the system.',
+      copy: 'Rubik’s Cube Motion Graph shows one face turn on a familiar cube and in an orbital view of its twenty moving pieces.',
+    },
+    visualIdea: 'A recognizable three-face cube and a quiet twenty-piece orbital graph move together on one stage.',
+    demo: {
+      hook: 'What moves when you turn a face?',
+      action: 'Apply R, isolate one corner, then trace it through a sequence.',
+      reveal: 'The same physical corner changes position while remaining a corner.',
+      takeaway: 'Cube state is a structured permutation, not a set of independent colored squares.',
+    },
+    notoooCandidate: { status: 'idea', title: 'What actually moves when you turn a Rubik’s Cube?' },
   },
 ];
 

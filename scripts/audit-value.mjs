@@ -93,6 +93,7 @@ const manifestSource = manifest
   .replace("import { publishedNotoooBooks } from './notooo';", `const publishedNotoooBooks = ${JSON.stringify(notoooModule.publishedNotoooBooks)};`);
 const manifestModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(manifestSource))}`);
 assert.deepEqual(manifestModule.validateCompoundValuePacks(manifestModule.compoundValuePacks, manifestModule.contentManifest), [], 'Compound Value Packs must use canonical IDs, canonical URLs, safe data, and approved publishing');
+assert.deepEqual(manifestModule.validateCompoundValuePacks(manifestModule.reviewCompoundValuePacks, manifestModule.reviewContentManifest), [], 'Review-only Compound Value packs must use canonical IDs, safe data, and review sources');
 assert.equal(new Set(manifestModule.contentManifest.map((item) => manifestModule.compoundValueReferenceKey({ contentType: item.contentType, sourceId: item.id }))).size, manifestModule.contentManifest.length, 'Content manifest sources must have unique canonical references');
 assert.equal(manifestModule.contentManifest.filter((item) => item.contentType === 'notooo').length, notoooModule.publishedNotoooBooks.length, 'Every published Notooo book must have one canonical manifest record');
 assert.deepEqual(new Set(manifestModule.compoundValuePacks.map((pack) => pack.source.contentType)), new Set(['tool', 'artwork', 'infooo_world']), 'Compound Value needs one representative pack for Toolooo, Artooo, and Infooo');
@@ -175,9 +176,10 @@ const infooo = fs.readFileSync(path.join(root, 'src/data/infooo.ts'), 'utf8');
 assert.ok(infooo.includes("status: 'active' as const"), 'Infooo must be active with a published world');
 assert.ok(infooo.includes("tagline: 'See it. Touch it. Understand it.'"), 'Infooo identity missing');
 assert.ok(infooo.includes("title: 'Human Atlas'"), 'Human Atlas world is missing');
-assert.equal((infooo.match(/status: 'published'/g) || []).length, 1, 'Infooo must have exactly one published world');
-assert.equal((infooo.match(/status: 'private'/g) || []).length, 0, 'No unfinished private Infooo world should be presented as public content');
-assert.ok(!/internet-request-journey|What Happens When You Press Enter|world-002/.test(infooo), 'Discarded World 002 must not remain in the Infooo registry');
+assert.ok(infooo.includes("id: 'world-002'"), 'Rubik’s Cube Motion Graph review world is missing');
+assert.equal((infooo.match(/status: 'published'/g) || []).length, 1, 'Only Human Atlas is publicly published until World 002 receives approval');
+assert.ok(infooo.includes("status: 'ready', visibility: 'private'"), 'World 002 must remain review-only until public-release approval');
+assert.ok(!/internet-request-journey|What Happens When You Press Enter/.test(infooo), 'Discarded World 002 content remains in the Infooo registry');
 assert.ok(infooo.includes('InfoooCandidateChecks') && infooo.includes('factualSources') && infooo.includes('requiredPassed'), 'Infooo candidate gate missing');
 assert.ok(infooo.includes('fact?:') && infooo.includes('model?:') && infooo.includes('simulation?:') && infooo.includes('sources?:'), 'Infooo truth fields missing');
 assert.ok(fs.existsSync(path.join(root, 'src/pages/infooo/index.astro')) && fs.existsSync(path.join(root, 'src/pages/infooo/human-atlas.astro')), 'Infooo routes missing');
@@ -279,6 +281,10 @@ for (const slug of launchBooks.keys()) {
 }
 assert.ok(html.includes('Human Atlas') && html.includes('See it. Touch it. Understand it.'), 'Published Infooo identity is missing');
 assert.ok(!/What Happens When You Press Enter|internet-request-journey|Cache hit vs cache miss/.test(html), 'Discarded World 002 content remains in the build');
+assert.ok(fs.existsSync(path.join(dist, 'infooo', 'rubiks-cube-motion-graph', 'index.html')), 'World 002 review route is missing');
+const rubikHtml = fs.readFileSync(path.join(dist, 'infooo', 'rubiks-cube-motion-graph', 'index.html'), 'utf8');
+assert.match(rubikHtml, /name="robots" content="noindex,\s*follow"/, 'World 002 must remain noindex until release approval');
+assert.ok(!fs.readFileSync(path.join(dist, 'sitemap-index.xml'), 'utf8').includes('rubiks-cube-motion-graph'), 'World 002 must stay out of the sitemap until release approval');
 assert.ok(!/compound-tool-retry-storm-simulator|compound-artwork-skull-rose-fusion|compound-infooo-human-atlas/.test(html), 'Internal Compound Value drafts must not ship to public HTML');
 assert.ok(!/synthetic-retry-storm-promotion|synthetic-human-atlas-experience-gap/.test(html), 'Internal Build Smarter examples must not ship to public HTML');
 for (const monster of activeMonsters) {

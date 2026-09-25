@@ -17,6 +17,7 @@ const quality = {
   missingImageAlt: 0,
   invalidImageAlt: 0,
   invalidJsonLd: 0,
+  profilePagesMissingMainEntity: 0,
   brokenInternalLinks: 0,
   nonCanonicalInternalLinks: 0,
   internalLinksToRedirects: 0,
@@ -125,6 +126,48 @@ function parseJsonLd(html, route) {
   return values;
 }
 
+function hasSchemaType(node, expected) {
+  const types = Array.isArray(node?.['@type']) ? node['@type'] : [node?.['@type']];
+  return types.includes(expected);
+}
+
+function topLevelSchemaNodes(schemas) {
+  return schemas.flatMap((schema) => {
+    if (Array.isArray(schema)) return topLevelSchemaNodes(schema);
+    return Array.isArray(schema?.['@graph']) ? schema['@graph'] : [schema];
+  });
+}
+
+function auditProfilePageSchema(schemas, route) {
+  const nodes = topLevelSchemaNodes(schemas).filter((node) => node && typeof node === 'object');
+  const byId = new Map(nodes.filter((node) => typeof node['@id'] === 'string').map((node) => [node['@id'], node]));
+  const profilePages = nodes.filter((node) => hasSchemaType(node, 'ProfilePage'));
+  for (const profilePage of profilePages) {
+    const mainEntity = profilePage.mainEntity;
+    if (!mainEntity || typeof mainEntity !== 'object') {
+      quality.profilePagesMissingMainEntity += 1;
+      fail(`${route}: ProfilePage is missing mainEntity`);
+      continue;
+    }
+    const entity = typeof mainEntity['@id'] === 'string' ? byId.get(mainEntity['@id']) : mainEntity;
+    if (!entity || (!hasSchemaType(entity, 'Person') && !hasSchemaType(entity, 'Organization'))) {
+      quality.profilePagesMissingMainEntity += 1;
+      fail(`${route}: ProfilePage.mainEntity must resolve to Person or Organization`);
+    }
+  }
+  const personIds = nodes.filter((node) => hasSchemaType(node, 'Person') && typeof node['@id'] === 'string').map((node) => node['@id']);
+  if (new Set(personIds).size !== personIds.length) fail(`${route}: duplicate canonical Person entity IDs in JSON-LD`);
+  if (route === '/my-portfolio/') {
+    const canonicalPersonId = `${expectedSite}${basePath}/my-portfolio/#person`;
+    const profile = profilePages[0];
+    const person = byId.get(canonicalPersonId);
+    if (profilePages.length !== 1) fail('/my-portfolio/: expected exactly one ProfilePage');
+    if (profile?.mainEntity?.['@id'] !== canonicalPersonId) fail('/my-portfolio/: ProfilePage.mainEntity must reference the canonical Person');
+    if (!hasSchemaType(person, 'Person') || !person.name || !person.alternateName) fail('/my-portfolio/: canonical Person requires name and alternateName');
+    if (personIds.filter((id) => id === canonicalPersonId).length !== 1) fail('/my-portfolio/: expected one canonical Person entity');
+  }
+}
+
 if (!existsSync(dist)) {
   console.error('SEO audit requires a built dist directory. Run npm run build first.');
   process.exit(1);
@@ -142,7 +185,7 @@ const pages = htmlFiles.map((file) => {
 
 const indexable = pages.filter((page) => !page.noindex && !page.redirect);
 const pagesByFile = new Map(pages.map((page) => [page.file, page]));
-const noindexContentRoutes = new Set(['/404.html', '/future-monsters/', '/you-ask-i-answer/', '/infooo/human-atlas-viewer/']);
+const noindexContentRoutes = new Set(['/404.html', '/future-monsters/', '/you-ask-i-answer/', '/infooo/human-atlas-viewer/', '/infooo/rubiks-cube-motion-graph/']);
 const notesIndex = pages.find((page) => page.route === '/notes/');
 if (notesIndex?.noindex) noindexContentRoutes.add('/notes/');
 const redirectRoutes = new Set(['/frop-a-vibe/']);
@@ -216,6 +259,7 @@ for (const page of pages) {
 
     const schemas = parseJsonLd(html, route);
     if (!schemas.length) fail(`${route}: no JSON-LD`);
+    auditProfilePageSchema(schemas, route);
     const schemaTypes = collectSchemaTypes(schemas);
     if (route !== '/' && !schemaTypes.has('BreadcrumbList')) fail(`${route}: missing BreadcrumbList schema`);
     if (route.startsWith('/toolbox/') && !route.startsWith('/toolbox/family/') && schemaTypes.has('WebApplication')) fail(`${route}: misleading WebApplication schema found`);
@@ -439,6 +483,7 @@ const summary = {
   imagesMissingAlt: quality.missingImageAlt,
   imagesWithInvalidAlt: quality.invalidImageAlt,
   invalidJsonLd: quality.invalidJsonLd,
+  profilePagesMissingMainEntity: quality.profilePagesMissingMainEntity,
   brokenInternalLinks: quality.brokenInternalLinks,
   nonCanonicalInternalLinks: quality.nonCanonicalInternalLinks,
   internalLinksToRedirects: quality.internalLinksToRedirects,

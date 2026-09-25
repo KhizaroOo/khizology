@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import RubiksCubeMotionGraph from '../../components/infooo/rubiks/RubiksCubeMotionGraph';
+import { infoooWorlds } from '../../data/infooo';
+import { url } from '../../utils/url';
+
+const world = infoooWorlds.find(item => item.id === 'world-002')!;
+const canonical = 'https://khizooology.com/infooo/rubiks-cube-motion-graph/';
+---
+<BaseLayout
+  title="Rubik’s Cube Motion Graph | Infooo · Khizooology"
+  description="Turn a Rubik’s Cube face and follow the same colored corner or edge as it moves through a simple motion graph."
+  canonical={canonical}
+  noindex={true}
+  accentColor="#5CCFAF"
+  accentColorLight="#A7F3D0"
+  ogType="website"
+  socialTitle="Rubik’s Cube Motion Graph | Infooo"
+  socialDescription="Turn it. Trace it. Understand what moves in a Rubik’s Cube."
+  ogImageAlt="Infooo Rubik’s Cube Motion Graph showing a Rubik’s Cube and its matching colored-piece motion graph"
+  jsonLd={[
+    { '@context': 'https://schema.org', '@type': 'WebApplication', name: world.title, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', url: canonical, description: world.description, isAccessibleForFree: true },
+    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://khizooology.com/' }, { '@type': 'ListItem', position: 2, name: 'Infooo', item: 'https://khizooology.com/infooo/' }, { '@type': 'ListItem', position: 3, name: world.title, item: canonical }] },
+  ]}
+>
+  <div class="rubik-page" data-infooo-world={world.slug}>
+    <div class="rubik-breadcrumb k-container"><Breadcrumb crumbs={[{ label: 'Infooo', href: url('/infooo') }, { label: world.title }]} accentColor="#5CCFAF" /></div>
+    <RubiksCubeMotionGraph client:load world={world} />
+  </div>
+</BaseLayout>
+<style>.rubik-page{background:#f7fffc;min-height:100vh}.rubik-breadcrumb{padding-top:.85rem}.rubik-breadcrumb :global(.k-breadcrumb){margin:0}</style>

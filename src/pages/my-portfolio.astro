@@ -3,6 +3,7 @@ import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import { url, img } from '../utils/url';
 import { pageSchema, personSchema } from '../utils/schema';
+import { personReference } from '../utils/seo';
 import { artworks } from '../data/artworks';
 import { tools } from '../data/tools';
 
@@ -255,6 +256,7 @@ const profilePage = pageSchema({
   name: portfolioTitle,
   description: portfolioDescription,
   aboutCreator: true,
+  extra: { mainEntity: personReference(seoContext) },
   breadcrumbs: [
     { name: 'Home', path: '/' },
     { name: 'My Portfolio', path: '/my-portfolio' },
