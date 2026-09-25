@@ -185,7 +185,7 @@ const pages = htmlFiles.map((file) => {
 
 const indexable = pages.filter((page) => !page.noindex && !page.redirect);
 const pagesByFile = new Map(pages.map((page) => [page.file, page]));
-const noindexContentRoutes = new Set(['/404.html', '/future-monsters/', '/you-ask-i-answer/', '/infooo/human-atlas-viewer/', '/infooo/rubiks-cube-motion-graph/']);
+const noindexContentRoutes = new Set(['/404.html', '/future-monsters/', '/you-ask-i-answer/', '/infooo/human-atlas-viewer/']);
 const notesIndex = pages.find((page) => page.route === '/notes/');
 if (notesIndex?.noindex) noindexContentRoutes.add('/notes/');
 const redirectRoutes = new Set(['/frop-a-vibe/']);

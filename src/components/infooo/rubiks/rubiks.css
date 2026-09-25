@@ -14,7 +14,7 @@ html.dark .rubik-world .watch-one-turn { background: #82dcb8; color: #173a30; }
 html.dark .rubik-world .watch-one-turn:hover { background: #a8e8cb; color: #173a30; }
 html.dark .rubik-world .watch-one-turn span { color: #173a30; }
 
-.rubik-world .infooo-world-shell { max-width: 1380px; margin: auto; padding: .3rem clamp(1rem, 3vw, 2.5rem) 0; }
+.rubik-world .infooo-world-shell { max-width: 1680px; margin: auto; padding: .3rem clamp(1rem, 3vw, 2.5rem) 0; }
 .rubik-world .infooo-world-header { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin: .5rem 0 1.15rem; }
 .rubik-world .infooo-world-header p, .rubik-world .eyebrow { margin: 0; color: var(--rubik-green); font: 800 .68rem Poppins, sans-serif; letter-spacing: .13em; }
 .rubik-world .infooo-world-header h1 { margin: .1rem 0 .2rem; color: var(--rubik-ink); font: 850 clamp(1.75rem, 3.2vw, 2.9rem)/1.1 Poppins, sans-serif; letter-spacing: -.045em; }
@@ -30,66 +30,97 @@ html.dark .rubik-world .watch-one-turn span { color: #173a30; }
 .rubik-world .watch-one-turn:hover { background: #31564d; color: #fff; }
 .rubik-world .watch-one-turn span { margin-left: .35rem; color: #abecd4; font-size: 1.1rem; }
 
+/* Top row inside the white card: size selector left, Randomize right (moved out of the page
+   header so both size and the primary action live in one place). */
+.rubik-top-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin: 0 .3rem .9rem; }
+.rubik-size-select { display: flex; align-items: center; gap: .6rem; }
+.size-buttons { display: flex; gap: .35rem; }
+.size-buttons button { min-width: 54px; padding: .4rem .5rem; font-size: .78rem; }
+.randomize-btn { padding: .55rem 1.05rem; font-size: .76rem; }
+
 .rubik-mobile-tabs { display: none; }
-.rubik-visuals { position: relative; display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 465px; border-radius: 1rem; background: #f5f7f3; overflow: hidden; }
+/* The middle column is a fixed pixel track (not `auto`) on purpose: during a solve, the bridge's
+   move label/code/breakdown text changes on every step, and an `auto` track resizes to fit that
+   text, which shoves the two flanking cube/graph columns sideways every single move -- a visible
+   horizontal "shake" synchronized with the turn animation. Pinning the width, and making the
+   bridge's own text wrap inside that fixed width instead of driving it, removes the shake. */
+.rubik-visuals { position: relative; display: grid; grid-template-columns: 1fr 176px 1fr; align-items: center; min-height: 500px; border-radius: 1rem; background: #f5f7f3; overflow: hidden; }
 .cube-view, .motion-graph { position: relative; min-width: 0; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem 1.25rem; }
 .cube-view h2, .motion-graph h2 { align-self: flex-start; margin: 0; color: #4f6863; font: 750 .68rem Poppins, sans-serif; letter-spacing: .09em; text-transform: uppercase; }
-.cube-view svg { display: block; width: min(100%, 445px); height: auto; max-height: 420px; overflow: visible; }
-.motion-graph svg { display: block; width: min(100%, 450px); height: auto; max-height: 420px; overflow: visible; }
+.cube-view svg, .motion-graph svg { display: block; width: min(100%, 460px); height: auto; max-height: 470px; overflow: visible; }
+/* touch-action: none stops the browser's own pan/scroll gesture from fighting the drag-to-orbit
+   handlers on touch devices; the grab/grabbing cursors are the drag affordance on desktop. */
+.cube-orbit-svg { cursor: grab; touch-action: none; }
+.cube-orbit-svg:active { cursor: grabbing; }
 .motion-graph > p { margin: -.3rem 0 0; color: var(--rubik-muted); font-size: .7rem; }
-.rubik-bridge { position: absolute; z-index: 2; top: 50%; left: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); display: grid; place-items: center; border: 1px solid #d9e6dd; border-radius: 50%; background: #fff; color: var(--rubik-green); font-size: 1.5rem; box-shadow: 0 7px 20px #244d3615; pointer-events: none; }
 
-.cube-plane { fill: #273e3b; stroke: #1c3330; stroke-width: 5; stroke-linejoin: round; }
-.cube-plane.top { fill: #445956; }
-.cube-plane.side { fill: #1f3431; }
+/* The bridge is the connection layer between Cube and Motion Graph: same-cube label always
+   shown, plus the current move / movement count / hint -- never a third boxed panel, just
+   floating typography between the two views. */
+.rubik-bridge { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .3rem; padding: .5rem .65rem; width: 176px; min-width: 0; box-sizing: border-box; text-align: center; }
+.bridge-label { color: var(--rubik-muted); font: 800 .58rem Poppins, sans-serif; letter-spacing: .12em; }
+.bridge-arrow { color: var(--rubik-green); font-size: 1.3rem; line-height: 1; }
+.bridge-move { display: flex; flex-direction: column; align-items: center; gap: .15rem; width: 100%; }
+.bridge-move strong { display: block; max-width: 15ch; font: 750 .78rem Poppins, sans-serif; color: var(--rubik-ink); }
+.bridge-move code { font: 700 .8rem 'Consolas', monospace; color: var(--rubik-green); }
+.bridge-move small { display: block; color: var(--rubik-muted); font-size: .62rem; max-width: 15ch; }
+.bridge-hint { color: var(--rubik-muted); font-size: .66rem; max-width: 13ch; }
+
+.cube-plastic { fill: #263c39; stroke: #263c39; stroke-width: .55; stroke-linejoin: round; }
 .cube-sticker { stroke: #213331; stroke-width: .8; stroke-linejoin: round; }
 .cube-sticker.movable { cursor: pointer; }
 .cube-sticker.selected { stroke: #229978; stroke-width: 4.4; filter: drop-shadow(0 0 5px #4fd7ae); }
 .cube-sticker.affected:not(.selected) { stroke: #55b99b; stroke-width: 2.7; }
-.cube-turn-layer { pointer-events: none; animation: rubik-face-turn 1.08s cubic-bezier(.18,.74,.21,1) both; }
-@keyframes rubik-face-turn { 0% { transform: rotate(0deg); opacity: 1; } 75% { opacity: .9; } 100% { transform: rotate(var(--turn-angle)); opacity: 0; } }
+.cube-identity-dot { pointer-events: none; }
+.cube-view h2 span { margin-left: .5rem; font-weight: 500; letter-spacing: 0; text-transform: none; }
 
 .orbit { fill: none; stroke: #dae4db; stroke-width: 1.6; }
 .orbit.inner { stroke-dasharray: 2 7; }
 .orbit.core { fill: #edf3eb; stroke: none; }
 .graph-center-label { fill: #758a80; font: 800 11px Poppins, sans-serif; letter-spacing: 1.4px; }
 .piece-token { cursor: pointer; }
-.token-segment { stroke: #263c39; stroke-width: 1.25; }
+.token-segment { stroke: #263c39; stroke-width: 1; }
+.piece-token-center .token-segment { stroke-width: .6; }
 .token-outline { fill: none; stroke: #223936; stroke-width: 2; }
-.piece-token.selected .token-outline { stroke: var(--rubik-green); stroke-width: 4; }
-.selected-halo { fill: #ddf6e8; stroke: #6ccba9; stroke-width: 2.2; filter: drop-shadow(0 0 5px #6ccba977); }
-.identity-dot { fill: var(--rubik-green); stroke: #fff; stroke-width: 2; }
-.movement-path { fill: none; stroke: #2da786; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 5 6; animation: rubik-path 1.08s ease-out both; }
+.piece-token-center .token-outline, .piece-token-edge .token-outline { stroke-width: 1.4; }
+.piece-token.selected .token-outline { stroke: var(--rubik-green); stroke-width: 3.4; }
+.selected-halo { fill: #ddf6e8; stroke: #6ccba9; stroke-width: 2; filter: drop-shadow(0 0 4px #6ccba977); }
+.identity-dot { fill: var(--rubik-green); stroke: #fff; stroke-width: 1.4; }
+.movement-path { fill: none; stroke: #2da786; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 5 6; }
+.affected-halo { fill: #e3f2e8; stroke: #55a78a; stroke-width: 1.6; stroke-dasharray: 3 3; }
+.piece-token.affected:not(.selected) .token-outline { stroke: #39937a; stroke-width: 2.3; }
 .selected-trail { fill: none; stroke: #8fc8b0; stroke-width: 2; stroke-dasharray: 3 7; }
-@keyframes rubik-path { from { opacity: 0; stroke-dashoffset: 30; } 35% { opacity: .8; } to { opacity: 0; stroke-dashoffset: 0; } }
 
-.rubik-insight { display: grid; grid-template-columns: 1.15fr 1fr; gap: 1.5rem; align-items: center; margin: 0 .3rem; padding: 1.15rem .3rem .9rem; border-bottom: 1px solid #e0e9e3; }
-.rubik-insight h2 { margin: .18rem 0 .3rem; color: var(--rubik-ink); font: 800 clamp(1.05rem, 1.8vw, 1.45rem)/1.18 Poppins, sans-serif; letter-spacing: -.02em; }
-.rubik-insight p { margin: 0; color: var(--rubik-muted); font-size: .81rem; line-height: 1.45; }
-.rubik-piece-fact { border-left: 1px solid #e0e9e3; padding-left: 1.5rem; }
-.rubik-piece-fact > span { color: var(--rubik-green); font: 800 .62rem Poppins, sans-serif; letter-spacing: .11em; }
-.rubik-piece-fact strong { display: block; margin: .16rem 0; font-size: .83rem; }
-.rubik-piece-fact p { font-weight: 750; color: var(--rubik-ink); }
-.rubik-piece-fact i { color: var(--rubik-green); font-style: normal; margin: 0 .25rem; }
-.rubik-piece-fact small { display: block; margin-top: .2rem; color: var(--rubik-muted); font-size: .7rem; }
-.rubik-next { display: flex; align-items: center; gap: 1rem; padding: .95rem .3rem 0; }
-.rubik-next button { border-color: #9bcdb7; color: #1e6959; }
-.rubik-next span { color: var(--rubik-muted); font-size: .75rem; }
-.rubik-next button span { color: inherit; margin-left: .3rem; }
+/* Camera controls (location + drag hint + side presets) and the playback card sit as two equal
+   columns in one row. When playback/scramble hasn't started yet there is only one child, and
+   `:only-child` lets it span the full row instead of leaving a dead second column. */
+.rubik-controls-row { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 1rem; margin: .9rem .3rem .2rem; }
+.rubik-controls-row > *:only-child { grid-column: 1 / -1; }
+.rubik-camera-controls { padding: .75rem 1rem .9rem; border-radius: .8rem; background: #f4f7f1; }
 
-.rubik-turn-area { display: grid; grid-template-columns: 145px minmax(0,1fr); gap: .75rem 1rem; align-items: center; margin: 1.2rem .3rem .2rem; padding: 1rem 0; border-top: 1px solid #e0e9e3; }
-.turn-area-heading h2 { margin: .12rem 0 0; font: 800 1rem Poppins, sans-serif; }
-.face-controls, .modifier-controls, .small-controls, .playback-controls { display: flex; flex-wrap: wrap; gap: .4rem; }
-.face-controls button { flex: 1; min-width: 75px; }
-.face-controls small { margin-left: .3rem; color: var(--rubik-green); }
-.modifier-controls { grid-column: 2; }
-.modifier-controls button { font-size: .68rem; min-height: 32px; padding: .38rem .6rem; }
-.small-controls { grid-column: 2; }
-.small-controls button { min-height: 30px; padding: .3rem .6rem; font-size: .68rem; }
-.rubik-progress { margin: 1rem .3rem; padding: .8rem 1rem; border-left: 3px solid #7fcbb0; background: #f5faf5; }
-.rubik-progress p { margin: .3rem 0 .15rem; font-size: .83rem; }
-.rubik-progress small { display: block; color: var(--rubik-muted); font-size: .7rem; overflow-wrap: anywhere; }
-.playback-controls { margin-top: .65rem; }
+.rubik-location-assist { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; padding: 0 0 .4rem; }
+.rubik-location-assist > p { display: flex; align-items: center; flex-wrap: wrap; gap: .35rem .6rem; flex: 1; min-width: 200px; margin: 0; font-size: .75rem; }
+.rubik-location-assist > p > span:last-child { color: var(--rubik-muted); }
+.location-marker { color: #27876c; font-size: 1.25rem; }
+.rubik-location-assist[data-hidden] { background: #e5f2ea; border-radius: .65rem; padding: .4rem .5rem; }
+.viewpoint-hint { margin: 0; padding: 0; color: var(--rubik-muted); font-size: .72rem; }
+.viewpoint-row { display: flex; flex-wrap: wrap; gap: .35rem; padding: .35rem 0 0; }
+.viewpoint-row button { padding: .35rem .7rem; font-size: .72rem; }
+
+.rubik-playback { margin: 0; padding: .9rem 1rem; border-radius: .8rem; background: #f4f7f1; }
+.rubik-playback.is-solved { background: #eaf7ed; }
+.playback-caption { display: flex; align-items: center; justify-content: space-between; gap: .7rem; }
+.playback-caption h2 { margin: 0; font: 800 1rem Poppins, sans-serif; }
+.move-caption { color: var(--rubik-muted); font-size: .73rem; white-space: nowrap; }
+.rubik-playback progress { display: block; width: 100%; height: 5px; margin: .7rem 0 .8rem; border: 0; border-radius: 99px; background: #dce8df; accent-color: #27876c; }
+.rubik-playback progress::-webkit-progress-bar { background: #dce8df; border-radius: 99px; }
+.rubik-playback progress::-webkit-progress-value { background: #27876c; border-radius: 99px; }
+.rubik-playback > p { margin: .65rem 0 0; color: var(--rubik-muted); font-size: .73rem; }
+.rubik-world .play-pause { background: #24493e; border-color: #24493e; color: #fff; min-width: 80px; }
+.speed-controls { display: flex; gap: .3rem; margin-top: .55rem; }
+.speed-controls button { min-height: 30px; padding: .25rem .55rem; font-size: .68rem; }
+
+.playback-controls { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .65rem; }
 .rubik-model-note { margin: 1.1rem .3rem .5rem; color: var(--rubik-muted); font-size: .72rem; }
 .advanced-sticker-view, .rubik-truth { margin: .55rem .3rem; color: var(--rubik-muted); font-size: .75rem; }
 .advanced-sticker-view summary, .rubik-truth summary { cursor: pointer; font-weight: 750; }
@@ -106,24 +137,25 @@ html.dark .rubik-world .watch-one-turn span { color: #173a30; }
   .rubik-world .infooo-world-header { align-items: flex-start; flex-direction: column; gap: .65rem; margin: .2rem .2rem .9rem; }
   .rubik-world .infooo-world-header h1 { font-size: clamp(1.6rem, 6vw, 2.25rem); }
   .rubik-world .infooo-world-header span { font-size: .78rem; }
-  .rubik-world .watch-one-turn { min-height: 43px; padding: .55rem 1rem; }
   .rubik-world .infooo-stage { padding: .55rem; }
+  .rubik-top-row { margin: 0 .2rem .8rem; }
   .rubik-mobile-tabs { display: flex; gap: .35rem; margin: .1rem .1rem .5rem; }
   .rubik-mobile-tabs button { flex: 1; border-radius: 999px; }
-  .rubik-mobile-tabs button[aria-selected="true"] { border-color: var(--rubik-green); background: #e3f6ed; }
+  .rubik-mobile-tabs button[aria-pressed="true"] { border-color: var(--rubik-green); background: #e3f6ed; }
   .rubik-visuals { display: block; min-height: 0; }
-  .rubik-visuals > section { display: none; }
+  .rubik-visuals > section, .rubik-visuals > .rubik-bridge { display: none; }
   .rubik-visuals.show-cube > .cube-view, .rubik-visuals.show-motion > .motion-graph { display: flex; }
-  .rubik-bridge { display: none; }
   .cube-view, .motion-graph { min-height: 330px; padding: .65rem .5rem; }
   .cube-view svg { width: min(100%, 345px); max-height: 330px; }
   .motion-graph svg { width: min(100%, 345px); max-height: 330px; }
-  .rubik-insight { grid-template-columns: 1fr; gap: .65rem; margin: 0 .2rem; padding: .85rem .2rem; }
-  .rubik-insight h2 { font-size: 1.08rem; }
-  .rubik-piece-fact { border-left: 0; border-top: 1px solid #e0e9e3; padding: .55rem 0 0; }
-  .rubik-turn-area { grid-template-columns: 1fr; margin-inline: .2rem; }
-  .modifier-controls, .small-controls { grid-column: 1; }
-  .rubik-next { flex-wrap: wrap; }
+  .viewpoint-row button { min-height: 42px; }
+  .rubik-controls-row { grid-template-columns: 1fr; margin-inline: .2rem; gap: .75rem; }
+  .rubik-playback { padding: .75rem; }
+  .playback-caption { align-items: flex-start; }
+  .playback-caption h2 { font-size: .9rem; }
+  .playback-controls { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .3rem; }
+  .rubik-world .playback-controls button { min-width: 0; min-height: 44px; padding: .5rem .25rem; font-size: .7rem; }
+  .size-buttons button { min-height: 44px; }
 }
 
 @media (max-width: 390px) {
@@ -131,8 +163,4 @@ html.dark .rubik-world .watch-one-turn span { color: #173a30; }
   .cube-view svg, .motion-graph svg { max-height: 290px; }
   .rubik-world .infooo-world-header h1 { font-size: 1.62rem; }
   .rubik-world .infooo-world-header span { font-size: .74rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rubik-world *, .rubik-world *::before, .rubik-world *::after { animation: none !important; transition: none !important; }
 }

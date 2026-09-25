@@ -135,9 +135,6 @@ export const compoundValuePacks: CompoundValuePack[] = [
     },
     notoooCandidate: { status: 'idea', title: 'Connected systems make anatomy easier to learn' },
   },
-];
-
-export const reviewCompoundValuePacks: CompoundValuePack[] = [
   {
     id: 'compound-infooo-rubiks-cube-motion-graph',
     source: { contentType: 'infooo_world', sourceId: 'world-002' },
@@ -161,6 +158,8 @@ export const reviewCompoundValuePacks: CompoundValuePack[] = [
     notoooCandidate: { status: 'idea', title: 'What actually moves when you turn a Rubik’s Cube?' },
   },
 ];
+
+export const reviewCompoundValuePacks: CompoundValuePack[] = [];
 
 export function validateCompoundValuePacks(
   packs: readonly CompoundValuePack[],

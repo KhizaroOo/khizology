@@ -176,9 +176,9 @@ const infooo = fs.readFileSync(path.join(root, 'src/data/infooo.ts'), 'utf8');
 assert.ok(infooo.includes("status: 'active' as const"), 'Infooo must be active with a published world');
 assert.ok(infooo.includes("tagline: 'See it. Touch it. Understand it.'"), 'Infooo identity missing');
 assert.ok(infooo.includes("title: 'Human Atlas'"), 'Human Atlas world is missing');
-assert.ok(infooo.includes("id: 'world-002'"), 'Rubik’s Cube Motion Graph review world is missing');
-assert.equal((infooo.match(/status: 'published'/g) || []).length, 1, 'Only Human Atlas is publicly published until World 002 receives approval');
-assert.ok(infooo.includes("status: 'ready', visibility: 'private'"), 'World 002 must remain review-only until public-release approval');
+assert.ok(infooo.includes("id: 'world-002'"), 'Rubik’s Cube Motion Graph world is missing');
+assert.equal((infooo.match(/status: 'published'/g) || []).length, 2, 'Human Atlas and Rubik’s Cube Motion Graph must both be publicly published after release approval');
+assert.ok(infooo.includes("status: 'published', visibility: 'public'"), 'World 002 must be public after Khizar’s release approval');
 assert.ok(!/internet-request-journey|What Happens When You Press Enter/.test(infooo), 'Discarded World 002 content remains in the Infooo registry');
 assert.ok(infooo.includes('InfoooCandidateChecks') && infooo.includes('factualSources') && infooo.includes('requiredPassed'), 'Infooo candidate gate missing');
 assert.ok(infooo.includes('fact?:') && infooo.includes('model?:') && infooo.includes('simulation?:') && infooo.includes('sources?:'), 'Infooo truth fields missing');
@@ -281,10 +281,12 @@ for (const slug of launchBooks.keys()) {
 }
 assert.ok(html.includes('Human Atlas') && html.includes('See it. Touch it. Understand it.'), 'Published Infooo identity is missing');
 assert.ok(!/What Happens When You Press Enter|internet-request-journey|Cache hit vs cache miss/.test(html), 'Discarded World 002 content remains in the build');
-assert.ok(fs.existsSync(path.join(dist, 'infooo', 'rubiks-cube-motion-graph', 'index.html')), 'World 002 review route is missing');
+assert.ok(fs.existsSync(path.join(dist, 'infooo', 'rubiks-cube-motion-graph', 'index.html')), 'World 002 public route is missing');
 const rubikHtml = fs.readFileSync(path.join(dist, 'infooo', 'rubiks-cube-motion-graph', 'index.html'), 'utf8');
-assert.match(rubikHtml, /name="robots" content="noindex,\s*follow"/, 'World 002 must remain noindex until release approval');
-assert.ok(!fs.readFileSync(path.join(dist, 'sitemap-index.xml'), 'utf8').includes('rubiks-cube-motion-graph'), 'World 002 must stay out of the sitemap until release approval');
+assert.match(rubikHtml, /name="robots" content="index, follow/, 'World 002 must be indexable after release approval');
+assert.ok(fs.readFileSync(path.join(dist, 'sitemap-0.xml'), 'utf8').includes('rubiks-cube-motion-graph'), 'World 002 must be listed in the sitemap after release approval');
+const infoooHubHtml = fs.readFileSync(path.join(dist, 'infooo', 'index.html'), 'utf8');
+assert.ok(/href="[^"]*\/infooo\/rubiks-cube-motion-graph\/?"/.test(infoooHubHtml), 'Infooo hub must link to the published World 002');
 assert.ok(!/compound-tool-retry-storm-simulator|compound-artwork-skull-rose-fusion|compound-infooo-human-atlas/.test(html), 'Internal Compound Value drafts must not ship to public HTML');
 assert.ok(!/synthetic-retry-storm-promotion|synthetic-human-atlas-experience-gap/.test(html), 'Internal Build Smarter examples must not ship to public HTML');
 for (const monster of activeMonsters) {
