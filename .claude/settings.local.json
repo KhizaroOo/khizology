@@ -45,7 +45,10 @@
       "Bash(curl -s -X POST -H 'Authorization: token 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' -H 'Accept: application/vnd.github.v3+json' -H 'Content-Type: application/json' https://api.github.com/repos/KhizarImtiaz/khizology/pulls -d '{ *)",
       "Bash(\"C:\\\\Program Files\\\\nodejs\\\\node.exe\" -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{const j=JSON.parse\\(d\\);console.log\\(j.html_url||JSON.stringify\\(j\\).slice\\(0,300\\)\\);}\\)\")",
       "Bash(\"C:\\\\Program Files\\\\nodejs\\\\node.exe\" -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{const j=JSON.parse\\(d\\);console.log\\(j.html_url||JSON.stringify\\(j\\).slice\\(0,400\\)\\);}\\)\")",
-      "Bash(sed -i \"s/var\\(--ic\\)/#5CCFAF/g; s/var\\(--rc\\)/#5CCFAF/g\" \"D:/khizooo/khizology/claude-web/khizology/src/pages/infographics/[slug].astro\")"
+      "Bash(sed -i \"s/var\\(--ic\\)/#5CCFAF/g; s/var\\(--rc\\)/#5CCFAF/g\" \"D:/khizooo/khizology/claude-web/khizology/src/pages/infographics/[slug].astro\")",
+      "Bash(curl -s https://khizooology.com/sitemap-0.xml)",
+      "Bash(sed 's/<loc>//;s#</loc>##')",
+      "Read(//tmp/**)"
     ]
   }
 }
