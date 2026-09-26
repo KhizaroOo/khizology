@@ -1,21 +1,33 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
-import { notoooIdentity, publishedNotoooBooks } from '../data/notooo';
+import { notoooBooks, notoooCategories, notoooIdentity, publishedNotoooBooks } from '../data/notooo';
 import { getMonsterById } from '../data/monsters';
 import { img, url } from '../utils/url';
-import { breadcrumbSchema, pageId } from '../utils/seo';
+import { absoluteUrl, breadcrumbSchema, pageId } from '../utils/seo';
+import { normalizeNotoooSearch } from '../utils/notoooCatalog';
 
 const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
 const notoooMonster = getMonsterById('notooo')!;
-const categories = [...new Set(publishedNotoooBooks.map((book) => book.category))];
+const books = [...notoooBooks].sort((a, b) => Number(b.status === 'published') - Number(a.status === 'published') || a.number - b.number);
+const comingCount = books.length - publishedNotoooBooks.length;
+const description = 'Discover one-page book notes across Mind, Money, Nature, Life, People and Society. Read published syntheses and explore the upcoming Notooo catalog.';
 const jsonLd = [
-  { '@context': 'https://schema.org', '@type': 'CollectionPage', '@id': pageId('/notooo', context), name: 'Notooo', description: 'One-page visual book syntheses curated by khizooo.' },
-  breadcrumbSchema([{ name: 'Notooo', path: '/notooo' }], context),
+  {
+    '@context': 'https://schema.org', '@type': 'CollectionPage', '@id': pageId('/notooo', context),
+    url: absoluteUrl('/notooo', context), name: 'Notooo — One Book, One Page', description,
+    mainEntity: {
+      '@type': 'ItemList', numberOfItems: publishedNotoooBooks.length,
+      itemListElement: publishedNotoooBooks.map((book, index) => ({
+        '@type': 'ListItem', position: index + 1, name: book.title, url: absoluteUrl(`/notooo/${book.slug}`, context),
+      })),
+    },
+  },
+  breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Notooo', path: '/notooo' }], context),
 ];
 ---
 
-<BaseLayout title="Notooo — One Book, One Page" description="One-page visual book syntheses curated by khizooo." accentColor={notoooMonster.color} accentColorLight={notoooMonster.colorLight} jsonLd={jsonLd}>
+<BaseLayout title="Notooo — One Book, One Page" description={description} accentColor={notoooMonster.color} accentColorLight={notoooMonster.colorLight} jsonLd={jsonLd}>
   <section class="k-section notooo-index" style={`--notooo-color:${notoooMonster.color};--notooo-light:${notoooMonster.colorLight};--notooo-text:${notoooMonster.textColor};`}>
     <div class="k-container index-content">
       <div class="breadcrumb-shell"><Breadcrumb crumbs={[{ label: 'Notooo' }]} accentColor={notoooMonster.color} /></div>
@@ -26,6 +38,7 @@ const jsonLd = [
           <h1>Notooo</h1>
           <p class="tagline">{notoooMonster.tagline}</p>
           <p class="lead">{notoooIdentity.supportingLine}</p>
+          <p class="inventory"><strong>{publishedNotoooBooks.length} published</strong><span aria-hidden="true"> · </span>{comingCount} coming<span aria-hidden="true"> · </span>{books.length} books in the catalog</p>
         </div>
         <figure class="monster-portrait" aria-hidden="true"><div class="portrait-orbit"><img src={img(notoooMonster.image)} alt="" width="512" height="512" decoding="async" /></div></figure>
       </header>
@@ -35,27 +48,73 @@ const jsonLd = [
           <p class="section-label">DISCOVER</p>
           <h2 id="discover-notes">Book notes by territory</h2>
         </div>
-        <ul class="category-list" aria-label="Notooo categories">
-          {categories.map((category) => <li>{category}</li>)}
-        </ul>
-        <p>Every entry is a <strong>Book Note</strong> with topic tags, made for a short useful read and a clear next thought.</p>
+        <p>Published <strong>Book Notes</strong> are ready to read. Coming titles are part of the catalog; their notes are still under review.</p>
       </section>
 
-      <ul class="book-index" aria-label="Notooo books">
-        {publishedNotoooBooks.map((book) => (
-          <li>
-            <a href={url(`/notooo/${book.slug}`)}>
-              <div class="book-meta"><span>BOOK NOTE</span><span>{book.category}</span></div>
-              <h2>{book.title}</h2>
-              <p>{book.author} · {book.subtitle}</p>
-              <ul class="tag-list" aria-label={`${book.title} topics`}>{book.tags.slice(0, 3).map((tag) => <li>{tag}</li>)}</ul>
-            </a>
-          </li>
-        ))}
+      <div class="catalog-controls" data-notooo-controls hidden>
+        <div class="search-row">
+          <div class="search-field"><label for="notooo-search">Find a book</label><input id="notooo-search" type="search" placeholder="Title, author or topic" autocomplete="off" aria-controls="notooo-books" /></div>
+          <div class="status-field"><label for="notooo-status">Show</label><select id="notooo-status" aria-controls="notooo-books"><option value="all">All notes</option><option value="published">Published</option><option value="coming">Coming</option></select></div>
+        </div>
+        <div class="category-list" role="group" aria-label="Filter by category">
+          {['All', ...notoooCategories].map((category) => <button type="button" data-notooo-category={category} aria-pressed={category === 'All' ? 'true' : 'false'} aria-controls="notooo-books">{category}<span>{category === 'All' ? books.length : books.filter(book => book.category === category).length}</span></button>)}
+        </div>
+      </div>
+      <p class="result-count" data-notooo-results role="status" aria-live="polite" aria-atomic="true">Showing {books.length} books</p>
+      <noscript><p class="result-count">Search and filters need JavaScript. All catalog items and published links are available below.</p></noscript>
+      <p class="empty-state" data-notooo-empty hidden>No notes match this filter.</p>
+      <ul id="notooo-books" class="book-index" aria-label="Notooo books">
+        {books.map((book) => {
+          const published = book.status === 'published';
+          const Content = published ? 'a' : 'div';
+          return <li data-notooo-book data-category={book.category} data-status={published ? 'published' : 'coming'} data-search={normalizeNotoooSearch([book.title, book.author, book.category, ...book.tags].join(' '))}>
+            <article>
+              <Content class="book-content" {...published ? { href: url(`/notooo/${book.slug}`) } : {}}>
+                <div class="book-meta"><span>BOOK NOTE</span><span>{book.category}</span><span class:list={['book-status', { published }]}>{published ? 'Published' : 'Coming'}</span></div>
+                <h3>{book.title}</h3>
+                <p class="book-author">{book.author}</p>
+                {published && <p class="book-excerpt">{book.subtitle}</p>}
+                <ul class="tag-list" aria-label={`${book.title} topics`}>{book.tags.slice(0, 3).map((tag) => <li>{tag}</li>)}</ul>
+              </Content>
+            </article>
+          </li>;
+        })}
       </ul>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  import { matchesNotoooCatalogItem } from '../utils/notoooCatalog';
+
+  const controls = document.querySelector<HTMLElement>('[data-notooo-controls]')!;
+  const search = document.querySelector<HTMLInputElement>('#notooo-search')!;
+  const status = document.querySelector<HTMLSelectElement>('#notooo-status')!;
+  const categories = [...document.querySelectorAll<HTMLButtonElement>('[data-notooo-category]')];
+  const books = [...document.querySelectorAll<HTMLElement>('[data-notooo-book]')];
+  const results = document.querySelector<HTMLElement>('[data-notooo-results]')!;
+  const empty = document.querySelector<HTMLElement>('[data-notooo-empty]')!;
+  let category = 'All';
+
+  function filterBooks() {
+    let count = 0;
+    for (const book of books) {
+      book.hidden = !matchesNotoooCatalogItem({ search: book.dataset.search!, category: book.dataset.category!, status: book.dataset.status! }, search.value, category, status.value);
+      if (!book.hidden) count++;
+    }
+    results.textContent = `Showing ${count} of ${books.length} books`;
+    empty.hidden = count !== 0;
+  }
+  categories.forEach(button => button.addEventListener('click', () => {
+    category = button.dataset.notoooCategory!;
+    categories.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    filterBooks();
+  }));
+  search.addEventListener('input', filterBooks);
+  status.addEventListener('change', filterBooks);
+  controls.hidden = false;
+  filterBooks();
+</script>
 
 <style>
   .notooo-index { background: #fff; color: var(--notooo-text); }
@@ -70,25 +129,40 @@ const jsonLd = [
   h1 { margin: 0; color: var(--notooo-text); font: 900 clamp(2.4rem, 5vw, 4rem)/.98 Poppins, sans-serif; letter-spacing: -.045em; }
   .tagline { margin: .7rem 0 0; color: var(--notooo-text); font: 800 clamp(1.05rem, 2vw, 1.2rem)/1.35 Poppins, sans-serif; }
   .lead { max-width: 25rem; margin: .22rem 0 0; color: #5f5f5f; font-size: 1rem; line-height: 1.55; }
+  .inventory { margin: 1rem 0 0; color: #5f5f5f; font-size: .85rem; line-height: 1.6; }
   .monster-portrait { position: relative; display: grid; place-items: center; align-self: center; width: clamp(7.75rem, 17vw, 11rem); margin: 0; flex: 0 0 auto; }
   .monster-portrait::before { position: absolute; inset: 9%; border: 1px solid color-mix(in srgb, var(--notooo-color) 52%, #fff); border-radius: 40% 60% 55% 45%; content: ''; transform: rotate(12deg); }
   .portrait-orbit { display: grid; place-items: center; width: 100%; aspect-ratio: 1; border: 1px solid color-mix(in srgb, var(--notooo-color) 38%, #fff); border-radius: 1.3rem; background: radial-gradient(circle at 50% 34%, #fff 0 21%, color-mix(in srgb, var(--notooo-light) 39%, #fff) 22% 100%); box-shadow: 0 .8rem 1.7rem color-mix(in srgb, var(--notooo-color) 14%, transparent); transform: rotate(4deg); }
   .portrait-orbit img { position: relative; z-index: 1; width: 84%; height: 84%; object-fit: contain; transform: rotate(-4deg); }
-  .discovery { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem 2rem; margin: 2.5rem 0 1.25rem; padding: 1.1rem 0; border-block: 1px solid #cfcfcf; }
+  .discovery { display: grid; gap: .7rem; margin: 2rem 0 1.25rem; padding: 1.1rem 0; border-block: 1px solid #cfcfcf; }
   .section-label, .book-meta { margin: 0 0 .28rem; color: #6a625f; font: 800 .65rem Poppins, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
   .discovery h2 { margin: 0; color: var(--notooo-text); font: 800 clamp(1.12rem, 2vw, 1.38rem)/1.2 Poppins, sans-serif; letter-spacing: -.025em; }
   .discovery > p { grid-column: 1 / -1; max-width: 43rem; margin: 0; color: #5f5f5f; font-size: .92rem; line-height: 1.55; }
   .category-list, .tag-list { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0; padding: 0; list-style: none; }
-  .category-list { justify-content: end; align-content: start; }
-  .category-list li, .tag-list li { border: 1px solid color-mix(in srgb, var(--notooo-color) 38%, #fff); border-radius: 99px; padding: .2rem .48rem; color: #5f5f5f; font: 700 .67rem Poppins, sans-serif; }
-  .book-index { margin: 0; padding: 0; border-top: 1px solid #cfcfcf; list-style: none; }
-  .book-index li { border-bottom: 1px solid #cfcfcf; }
-  .book-index a { display: block; padding: 1.15rem 0 1.2rem; color: inherit; text-decoration: none; transition: color .2s ease, padding-inline .2s ease; }
-  .book-index h2 { margin: 0; font: 800 clamp(1.25rem, 2.2vw, 1.6rem)/1.2 Poppins, sans-serif; letter-spacing: -.025em; }
-  .book-index p { margin: .3rem 0 .6rem; color: #5f5f5f; font-size: .98rem; line-height: 1.5; }
-  .book-meta { display: flex; gap: .55rem; margin-bottom: .42rem; } .book-meta span + span { border-left: 1px solid #cfcfcf; padding-left: .55rem; }
-  .book-index a:hover { color: color-mix(in srgb, var(--notooo-color) 68%, var(--notooo-text)); padding-inline: .35rem; }
-  .book-index a:focus-visible { outline: 3px solid var(--notooo-light); outline-offset: -3px; color: color-mix(in srgb, var(--notooo-color) 68%, var(--notooo-text)); }
-  @media (max-width: 720px) { .notooo-index { padding-block: 2rem; } .index-header { align-items: end; padding: 1.35rem 1.2rem 1.45rem; border-radius: .8rem; } .monster-portrait { width: 6.9rem; } .portrait-orbit { border-radius: 1rem; } .discovery { grid-template-columns: 1fr; gap: .7rem; margin-top: 1.7rem; } .category-list { justify-content: start; } .book-index a { padding-block: 1rem; } }
-  @media (max-width: 420px) { .index-header { gap: .75rem; } .monster-portrait { width: 5.2rem; } }
+  .catalog-controls[hidden], .book-index > li[hidden], .empty-state[hidden] { display: none; }
+  .search-row { display: grid; grid-template-columns: minmax(0, 1fr) 10rem; gap: 1rem; margin-bottom: .85rem; }
+  .search-row label { display: block; margin-bottom: .3rem; color: #505050; font: 700 .75rem Poppins, sans-serif; }
+  .search-row input, .search-row select { box-sizing: border-box; width: 100%; min-height: 44px; border: 1px solid #b6b6b6; border-radius: .45rem; background: #fff; padding: .55rem .7rem; color: var(--notooo-text); font: inherit; }
+  .search-row input::placeholder { color: #6a625f; }
+  .category-list button { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; border: 1px solid #b6b6b6; border-radius: 99px; padding: .45rem .8rem; background: #fff; color: #505050; font: 700 .78rem Poppins, sans-serif; cursor: pointer; }
+  .category-list button span { color: #6a625f; font-weight: 400; }
+  .category-list button[aria-pressed="true"] { border-color: #a75e50; background: #fff0e8; color: #713c32; }
+  .category-list button:hover { border-color: #a75e50; }
+  .category-list button:focus-visible, .search-row input:focus-visible, .search-row select:focus-visible, .book-index a:focus-visible { outline: 3px solid #a75e50; outline-offset: 3px; }
+  .result-count, .empty-state { margin: 1rem 0; color: #5f5f5f; font-size: .85rem; }
+  .tag-list li { border: 1px solid color-mix(in srgb, var(--notooo-color) 38%, #fff); border-radius: 99px; padding: .2rem .48rem; color: #5f5f5f; font: 700 .67rem Poppins, sans-serif; }
+  .book-index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2.5rem; margin: 0; padding: 0; list-style: none; }
+  .book-index > li { min-width: 0; border-top: 1px solid #cfcfcf; }
+  .book-content { display: block; padding: 1.15rem 0 1.2rem; color: inherit; text-decoration: none; overflow-wrap: anywhere; }
+  .book-index h3 { margin: 0; font: 800 clamp(1.15rem, 2vw, 1.35rem)/1.3 Poppins, sans-serif; letter-spacing: -.025em; }
+  .book-index p { color: #5f5f5f; font-size: .92rem; line-height: 1.5; }
+  .book-author { margin: .3rem 0 .6rem; }
+  .book-excerpt { margin: -.15rem 0 .65rem; }
+  .book-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; margin-bottom: .42rem; }
+  .book-meta span + span { border-left: 1px solid #cfcfcf; padding-left: .55rem; }
+  .book-meta .book-status { margin-left: auto; border: 0; padding: .15rem .45rem; border-radius: .25rem; background: #f3f3f3; font-size: .6rem; letter-spacing: .03em; text-transform: none; }
+  .book-meta .published { background: #fce9e1; color: #713c32; }
+  .book-index a:hover h3 { color: #9e5346; text-decoration: underline; text-underline-offset: .15em; }
+  @media (max-width: 720px) { .notooo-index { padding-block: 2rem; } .index-header { align-items: start; padding: 1.35rem 1.2rem 1.45rem; border-radius: .8rem; } .monster-portrait { width: 6.9rem; } .portrait-orbit { border-radius: 1rem; } .discovery { margin-top: 1.7rem; } .book-index { grid-template-columns: 1fr; } .book-content { padding-block: 1rem; } }
+  @media (max-width: 420px) { .index-header { gap: .75rem; } .monster-portrait { width: 5.2rem; } .search-row { grid-template-columns: 1fr; gap: .65rem; } }
 </style>

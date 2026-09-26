@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { stripTypeScriptTypes } from 'node:module';
+import assert from 'node:assert/strict';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -8,6 +10,21 @@ const expectedBase = (process.env.BASE_URL || '/').replace(/\/$/, '') || '';
 const expectedHost = process.env.SITE_URL || 'https://khizooology.com';
 const errors = [];
 const warnings = [];
+const notoooSource = fs.readFileSync(path.join(root, 'src/data/notooo.ts'), 'utf8');
+const { notoooBooks } = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(notoooSource))}`);
+const catalogTitles = new Set(notoooBooks.map(book => book.title));
+
+// Canonical book headings can legitimately contain a numeric-sentinel word.
+function withoutCatalogTitles(html, route) {
+  if (route !== '/notooo/') return html;
+  return html.replace(/<h([1-6])\b[^>]*>([^<]+)<\/h\1>/gi, (heading, _level, title) => catalogTitles.has(decodeEntities(title)) ? '' : heading);
+}
+const sentinelTitle = [...catalogTitles].find(title => title.includes('Infinity'));
+if (sentinelTitle) {
+  const fixture = `<h3>${sentinelTitle}</h3><p>Infinity</p>`;
+  assert.equal(withoutCatalogTitles(fixture, '/notooo/'), '<p>Infinity</p>', 'Catalog title exception must preserve a broken result elsewhere');
+  assert.equal(withoutCatalogTitles(fixture, '/other/'), fixture, 'Catalog title exception must stay scoped to the hub');
+}
 
 function walk(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -107,7 +124,7 @@ for (const [route, html] of htmlByRoute) {
     } catch { errors.push(`${location}: invalid JSON-LD`); }
   }
 
-  const visible = html
+  const visible = withoutCatalogTitles(html, route)
     .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')

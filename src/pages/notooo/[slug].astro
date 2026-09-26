@@ -4,6 +4,7 @@ import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import NotoooSheet from '../../components/notooo/NotoooSheet.astro';
 import { notoooIdentity, publishedNotoooBooks, relatedNotoooBooks, type NotoooBook } from '../../data/notooo';
 import { url } from '../../utils/url';
+import { SITE } from '../../data/site';
 import { breadcrumbSchema, pageId, personReference } from '../../utils/seo';
 
 export function getStaticPaths() {
@@ -20,6 +21,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
     '@id': pageId(`/notooo/${book.slug}`, context),
+    description: book.shortDescription,
     name: `${book.title} in One Page`,
     author: personReference(context),
     about: {
@@ -30,18 +32,20 @@ const jsonLd = [
       ...(book.publisher && { publisher: { '@type': 'Organization', name: book.publisher } }),
     },
     datePublished: book.publishedAt,
+    ...(book.updatedAt && { dateModified: book.updatedAt }),
   },
-  breadcrumbSchema([{ name: 'Notooo', path: '/notooo' }, { name: book.title, path: `/notooo/${book.slug}` }], context),
+  breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Notooo', path: '/notooo' }, { name: book.title, path: `/notooo/${book.slug}` }], context),
 ];
 ---
 
 <BaseLayout
-  title={`${book.title} in One Page | Notooo`}
+  title={book.seoTitle || `${book.title} in One Page | Notooo`}
   description={book.shortDescription}
   ogImage="/images/site/khizooology-social.png"
-  ogImageAlt={book.alt}
+  ogImageAlt={SITE.ogImageAlt}
   ogType="article"
   publishedAt={book.publishedAt}
+  updatedAt={book.updatedAt}
   articleTags={book.tags}
   accentColor={notoooIdentity.color}
   accentColorLight={notoooIdentity.colorLight}

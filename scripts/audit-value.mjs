@@ -190,7 +190,7 @@ assert.equal(notoooModule.notoooIdentity.role, 'REMEMBER', 'Notooo must own the 
 assert.equal(notoooModule.notoooIdentity.tagline, 'One Book. One Page.', 'Notooo must keep its approved primary format');
 assert.equal(notoooModule.notoooIdentity.type, 'Book in One Page', 'Notooo must not expand into unapproved public formats');
 assert.deepEqual(notoooModule.validateNotoooBooks(notoooModule.notoooBooks), [], 'Notooo entries must use valid categories, metadata, sources, and book-only format');
-assert.deepEqual(notoooModule.getNotoooQualityWarnings(notoooModule.notoooBooks), [], 'Published Notooo entries must fit the one-page quality budget');
+assert.deepEqual(notoooModule.getNotoooQualityWarnings(notoooModule.notoooBooks), [], 'All Notooo entries must fit the one-page quality budget');
 assert.ok(notoooModule.publishedNotoooBooks.every((book) => book.format === 'book'), 'Published Notooo entries must remain books');
 assert.ok(notoooModule.publishedNotoooBooks.every((book) => book.status === 'published'), 'Only published Notooo entries may reach public routes');
 const launchBooks = new Map([
@@ -238,6 +238,83 @@ for (const concept of ['Pipeline', 'Source priority and truth rules', 'Knowledge
 const dist = path.join(root, 'dist');
 const pages = fs.readdirSync(dist, { recursive: true }).filter(file => String(file).endsWith('.html'));
 const html = pages.map(file => fs.readFileSync(path.join(dist, file), 'utf8')).join('\n');
+const notoooSitemap = fs.readFileSync(path.join(dist, 'sitemap-0.xml'), 'utf8');
+const catalogSource = fs.readFileSync(path.join(root, 'src/utils/notoooCatalog.ts'), 'utf8');
+const { normalizeNotoooSearch, matchesNotoooCatalogItem } = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(catalogSource))}`);
+const catalogMetadata = notoooModule.notoooBooks.map(book => ({
+  search: normalizeNotoooSearch([book.title, book.author, book.category, ...book.tags].join(' ')),
+  category: book.category, status: book.status === 'published' ? 'published' : 'coming',
+}));
+const matching = (query = '', category = 'All', status = 'all') => catalogMetadata.filter(item => matchesNotoooCatalogItem(item, query, category, status));
+assert.equal(matching().length, notoooModule.notoooBooks.length, 'Default catalog must include every record');
+for (const category of notoooModule.notoooCategories) assert.equal(matching('', category).length, notoooModule.notoooBooks.filter(book => book.category === category).length, `${category}: category filter count`);
+assert.equal(matching('', 'All', 'published').length, notoooModule.publishedNotoooBooks.length, 'Published filter must use the lifecycle');
+assert.equal(matching('', 'All', 'coming').length, notoooModule.notoooBooks.length - notoooModule.publishedNotoooBooks.length, 'Coming filter must include non-public records');
+assert.equal(matching('  ATOMIC   Habits  ', 'Mind', 'published').length, 1, 'Title search must handle case, spaces, category and status together');
+assert.equal(matching('James Clear').length, 1, 'Author search must work');
+assert.equal(matching('atomic', 'Money').length, 0, 'Search must respect category');
+assert.equal(matching('atomic', 'Mind', 'coming').length, 0, 'Search must respect status');
+assert.equal(matching('notooo-no-matching-book').length, 0, 'Search must support an empty result');
+assert.equal(normalizeNotoooSearch('Rönnlund'), 'ronnlund', 'Search must support accented names');
+const hubHtml = fs.readFileSync(path.join(dist, 'notooo/index.html'), 'utf8');
+const catalogItems = [...hubHtml.matchAll(/<li\b[^>]*\bdata-notooo-book\b[\s\S]*?<\/article>\s*<\/li>/g)].map(match => match[0]);
+assert.equal(catalogItems.length, notoooModule.notoooBooks.length, 'Build must statically render the full catalog');
+const escapeCatalogHtml = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+const readSchema = output => [...output.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap(match => JSON.parse(match[1]));
+const hubCollection = readSchema(hubHtml).find(schema => schema['@type'] === 'CollectionPage');
+assert.equal(readSchema(hubHtml).find(schema => schema['@type'] === 'BreadcrumbList')?.itemListElement.length, 2, 'Hub schema must match Home → Notooo breadcrumbs');
+assert.equal(hubCollection?.mainEntity?.['@type'], 'ItemList', 'Notooo hub needs a published-note ItemList');
+assert.equal(hubCollection.mainEntity.numberOfItems, notoooModule.publishedNotoooBooks.length, 'Schema count must mean published, not inventory');
+const sitemapUrls = [...notoooSitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
+const hubCanonical = hubHtml.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+assert.equal(sitemapUrls.filter(value => value === hubCanonical).length, 1, 'Notooo hub must appear exactly once in the sitemap');
+assert.deepEqual(hubCollection.mainEntity.itemListElement.map(item => item.url), notoooModule.publishedNotoooBooks.map(book => `${hubCanonical}${book.slug}/`), 'ItemList must contain only real published canonical URLs');
+assert.equal(sitemapUrls.filter(value => value.startsWith(hubCanonical)).length, notoooModule.publishedNotoooBooks.length + 1, 'No category, filter, search or draft routes may enter the Notooo sitemap');
+const publicJs = fs.readdirSync(dist, { recursive: true }).filter(file => String(file).endsWith('.js')).map(file => fs.readFileSync(path.join(dist, file), 'utf8')).join('\n');
+const bodyFields = book => [book.bigIdea, ...book.sections, book.khizoooTake, book.remember].flatMap(section => [section.oneLiner, ...section.points]);
+const publishedBody = new Set(notoooModule.publishedNotoooBooks.flatMap(bodyFields));
+const notoooTitles = new Set();
+for (const book of notoooModule.notoooBooks) {
+  const search = escapeCatalogHtml(normalizeNotoooSearch([book.title, book.author, book.category, ...book.tags].join(' ')));
+  const items = catalogItems.filter(item => item.includes(`data-search="${search}"`));
+  assert.equal(items.length, 1, `${book.slug}: one catalog item with metadata-only search`);
+  assert.ok(items[0].includes(`data-category="${book.category}"`), `${book.slug}: canonical category must be rendered`);
+  const title = book.seoTitle || `${book.title} in One Page | Notooo`;
+  const fullTitle = title.includes('Khizooology') ? title : `${title} — Khizooology`;
+  assert.ok(title.trim() && fullTitle.length < 70, `${book.slug}: prepare a unique title under 70 characters before release`);
+  assert.ok(!notoooTitles.has(fullTitle), `${book.slug}: duplicate Notooo SEO title`);
+  notoooTitles.add(fullTitle);
+  if (book.status === 'published') continue;
+  assert.equal(notoooModule.getNotoooBook(book.slug), undefined, `${book.slug}: non-public note must not resolve through the public lookup`);
+  assert.ok(!manifestModule.contentManifest.some(item => item.contentType === 'notooo' && item.slug === book.slug), `${book.slug}: non-public note leaked into the content manifest`);
+  assert.ok(!fs.existsSync(path.join(dist, 'notooo', book.slug, 'index.html')), `${book.slug}: non-public note route was generated`);
+  assert.ok(!html.includes(`/notooo/${book.slug}/`) && !html.includes(`/notooo/${book.slug}\"`), `${book.slug}: non-public note leaked into public discovery`);
+  assert.ok(!notoooSitemap.includes(`/notooo/${book.slug}/`), `${book.slug}: non-public note leaked into the sitemap`);
+  assert.ok(!/<a\b/.test(items[0]) && items[0].includes('Coming'), `${book.slug}: Coming item must not look like a broken link`);
+  for (const text of [...bodyFields(book), book.whyItMatters, book.aboutThisNotooo, book.subtitle, book.shortDescription]) {
+    if (publishedBody.has(text)) continue; // A shared phrase already approved for a published note is not a draft leak.
+    assert.ok(!html.includes(text) && !html.includes(escapeCatalogHtml(text)) && !publicJs.includes(JSON.stringify(text).slice(1, -1)), `${book.slug}: private draft content shipped publicly`);
+  }
+}
+for (const book of notoooModule.publishedNotoooBooks) {
+  assert.ok(notoooModule.relatedNotoooBooks(book).length, `${book.slug}: provide a useful published continuation`);
+  assert.ok(notoooModule.relatedNotoooBooks(book).every(related => related.status === 'published'), `${book.slug}: related notes must respect public status`);
+  const noteHtml = fs.readFileSync(path.join(dist, 'notooo', book.slug, 'index.html'), 'utf8');
+  for (const related of notoooModule.relatedNotoooBooks(book)) assert.ok(noteHtml.includes(`/notooo/${related.slug}/"`), `${book.slug}: canonical related note link missing`);
+  const canonical = noteHtml.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+  assert.equal(sitemapUrls.filter(value => value === canonical).length, 1, `${book.slug}: published sitemap entry must appear once`);
+  assert.ok(hubHtml.includes(`href="${new URL(canonical).pathname}"`), `${book.slug}: published note must have a normal discovery link`);
+  const work = readSchema(noteHtml).find(schema => schema['@type'] === 'CreativeWork');
+  assert.equal(readSchema(noteHtml).find(schema => schema['@type'] === 'BreadcrumbList')?.itemListElement.length, 3, `${book.slug}: schema must match Home → Notooo → Book breadcrumbs`);
+  assert.equal(work?.about?.['@type'], 'Book', `${book.slug}: synthesis must identify its source book`);
+  assert.equal(work.about.author.name, book.author, `${book.slug}: book author must remain separate from editorial author`);
+  assert.equal(work.author['@id'], `${new URL(canonical).origin}${new URL(canonical).pathname.split('/notooo/')[0]}/my-portfolio/#person`, `${book.slug}: editorial author must use the canonical site person`);
+  assert.equal(work.datePublished, book.publishedAt, `${book.slug}: truthful page publication date`);
+  assert.equal(work.dateModified, book.updatedAt, `${book.slug}: no invented modification date`);
+  const levels = [...noteHtml.matchAll(/<h([1-6])\b/g)].map(match => Number(match[1]));
+  levels.forEach((level, index) => assert.ok(!index || level <= levels[index - 1] + 1, `${book.slug}: heading hierarchy must not skip levels`));
+}
+console.log(`Notooo catalog audit passed: ${catalogItems.length} metadata items, ${notoooModule.publishedNotoooBooks.length} published routes, working combined filters, and 0 private draft bodies/routes/sitemap entries.`);
 const toolPages = pages.filter(file => /toolbox[\\/]([^\\/]+)[\\/]index\.html$/.test(String(file)));
 assert.equal(toolPages.length, toolRegistry.tools.length, 'Expected one generated page per registered tool');
 for (const file of toolPages) {
