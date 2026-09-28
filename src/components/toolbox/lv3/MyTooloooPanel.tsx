@@ -1,9 +1,20 @@
 import { useEffect, useMemo, useState } from 'react';
-import { clearWorkspace, readWorkspace, type WorkspaceTool } from './workspace';
+import { clearWorkspace, readWorkspace, type WorkspaceState, type WorkspaceTool } from './workspace';
+
+// Static build has no localStorage, so the server-rendered markup is always the empty state.
+// Starting client state at the same empty value (instead of reading localStorage in the useState
+// initializer) keeps the client's first render identical to the server's, avoiding a hydration
+// mismatch; the real, per-visitor workspace is read right after mount instead.
+const emptyWorkspaceState: WorkspaceState = { favorites: [], recent: [], chainProgress: {} };
 
 export default function MyTooloooPanel({ tools, base }: { tools: WorkspaceTool[]; base: string }) {
-  const [state, setState] = useState(() => readWorkspace());
-  useEffect(() => { const sync = () => setState(readWorkspace()); window.addEventListener('khizology:toolooo:workspace', sync); return () => window.removeEventListener('khizology:toolooo:workspace', sync); }, []);
+  const [state, setState] = useState<WorkspaceState>(emptyWorkspaceState);
+  useEffect(() => {
+    const sync = () => setState(readWorkspace());
+    sync();
+    window.addEventListener('khizology:toolooo:workspace', sync);
+    return () => window.removeEventListener('khizology:toolooo:workspace', sync);
+  }, []);
   const byId = useMemo(() => new Map(tools.map((tool) => [tool.id, tool])), [tools]);
   const favorites = state.favorites.map((id) => byId.get(id)).filter((tool): tool is WorkspaceTool => Boolean(tool));
   const recent = state.recent.map(({ toolId }) => byId.get(toolId)).filter((tool): tool is WorkspaceTool => Boolean(tool));

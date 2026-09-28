@@ -21,8 +21,7 @@ const sectorPath = (index: number, total: number, radius: number) => {
   const end = -Math.PI / 2 + (index + 1) * 2 * Math.PI / total;
   return `M0 0 L${(Math.cos(start) * radius).toFixed(3)} ${(Math.sin(start) * radius).toFixed(3)} A${radius} ${radius} 0 0 1 ${(Math.cos(end) * radius).toFixed(3)} ${(Math.sin(end) * radius).toFixed(3)} Z`;
 };
-type Transition = { before: CubeState; after: CubeState; move: Move };
-type VisualTurn = Transition & { key: number };
+type Transition = { before: CubeState; move: Move };
 type Playback = { moves: readonly Move[]; baseHistory: Move[] };
 type Speed = 0.5 | 1 | 2;
 const speeds: Speed[] = [0.5, 1, 2];
@@ -48,7 +47,7 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
   const [selectedId, setSelectedId] = useState(workingExamplePieceId);
   const [cameraAngle, setCameraAngle] = useState<CameraAngle>(() => presetAngle('Front'));
   const [transition, setTransition] = useState<Transition | null>(null);
-  const [visualTurn, setVisualTurn] = useState<VisualTurn | null>(null);
+  const [visualTurn, setVisualTurn] = useState<Transition | null>(null);
   const [motionProgress, setMotionProgress] = useState(1);
   const [view, setView] = useState<'cube' | 'motion'>('cube');
   const [playback, setPlayback] = useState<Playback | null>(null);
@@ -60,7 +59,6 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
   const [scramble, setScramble] = useState<Move[] | null>(null);
   const [scrambleNote, setScrambleNote] = useState('');
   const elapsed = useRef(0);
-  const turnKey = useRef(0);
   const selected = cubieById(state, selectedId)!;
   const previousPiece = transition && cubieById(transition.before, selectedId);
   const hidden = !pieceVisible(selected, cameraAngle);
@@ -102,11 +100,11 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
   }, [visualTurn, motionPaused, speed]);
 
   const moveTo = (before: CubeState, after: CubeState, move: Move) => {
-    const next = { before, after, move };
+    const next = { before, move };
     setTransition(next); setState(after);
     elapsed.current = 0;
     setMotionProgress(0); setMotionPaused(false);
-    setVisualTurn({ ...next, key: ++turnKey.current });
+    setVisualTurn(next);
   };
   const stepTo = (index: number) => {
     if (!playback) return;
@@ -175,7 +173,7 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
     // camera angle is intentionally left as-is -- a viewing preference, not part of cube state
   };
 
-  const affectedNow = useMemo(() => affectedBreakdown(transition?.before || state, transition ? affectedCubieIds(transition.before, transition.move) : []), [transition, state]);
+  const affectedNow = useMemo(() => affectedBreakdown(transition?.before || state, [...affected]), [transition, state, affected]);
   const activeMove = visualTurn?.move || transition?.move;
   const moveVerb = activeMove?.endsWith("'") ? 'counter-clockwise' : activeMove?.endsWith('2') ? 'double turn' : 'clockwise';
   const location = naturalPosition(selected.position);
@@ -242,7 +240,7 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
 
 type DragState = { active: boolean; moved: boolean; startX: number; startY: number; startYaw: number; startPitch: number };
 
-function CubeView({ state, selectedId, cameraAngle, onCameraChange, turn, progress, affected, onSelect }: { state: CubeState; selectedId: string; cameraAngle: CameraAngle; onCameraChange: (angle: CameraAngle) => void; turn: VisualTurn | null; progress: number; affected: Set<string>; onSelect: (id: string) => void }) {
+function CubeView({ state, selectedId, cameraAngle, onCameraChange, turn, progress, affected, onSelect }: { state: CubeState; selectedId: string; cameraAngle: CameraAngle; onCameraChange: (angle: CameraAngle) => void; turn: Transition | null; progress: number; affected: Set<string>; onSelect: (id: string) => void }) {
   const surfaces = cubeSurfaces(turn?.before || state, cameraAngle, turn?.move, progress);
   const moving = new Set(turn ? affectedCubieIds(turn.before, turn.move) : []);
   const nearest = nearestViewpoint(cameraAngle);
@@ -301,7 +299,7 @@ function CubeView({ state, selectedId, cameraAngle, onCameraChange, turn, progre
   </section>;
 }
 
-function MotionGraph({ state, trace, selectedId, turn, progress, affected, showTrail, onSelect }: { state: CubeState; trace: Vec[]; selectedId: string; turn: VisualTurn | null; progress: number; affected: Set<string>; showTrail: boolean; onSelect: (id: string) => void }) {
+function MotionGraph({ state, trace, selectedId, turn, progress, affected, showTrail, onSelect }: { state: CubeState; trace: Vec[]; selectedId: string; turn: Transition | null; progress: number; affected: Set<string>; showTrail: boolean; onSelect: (id: string) => void }) {
   const tokens = pieceMapTokens(state);
   const moving = new Set(turn ? affectedCubieIds(turn.before, turn.move) : []);
   const from = turn && cubieById(turn.before, selectedId);
