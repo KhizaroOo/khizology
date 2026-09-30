@@ -192,7 +192,7 @@ const redirectRoutes = new Set(['/frop-a-vibe/']);
 const titleOwners = new Map();
 const descriptionOwners = new Map();
 const canonicalOwners = new Map();
-const requiredImageAltRoutes = new Set(['/', '/my-portfolio/']);
+const requiredImageAltRoutes = new Set(['/', '/my-portfolio/', '/behind-the-vibes/', '/notooo/']);
 const requiredImageAltResults = new Map();
 
 for (const page of pages) {
