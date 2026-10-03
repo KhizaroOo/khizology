@@ -34,11 +34,29 @@ function fontFaceCss() {
   return rules.join('\n');
 }
 
-function rasterize(element: HTMLElement, scale: number) {
+async function rasterize(element: HTMLElement, scale: number) {
   const bounds = element.getBoundingClientRect();
   const clone = element.cloneNode(true) as HTMLElement;
   copyComputedStyles(element, clone);
   clone.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
+
+  // SVG image documents cannot load external images, even a same-origin logo.
+  // Embed only this page's local assets, on the requested download.
+  await Promise.all(Array.from(clone.querySelectorAll('img')).map(async (image) => {
+    const source = new URL(image.src, document.baseURI);
+    if (source.origin !== location.origin) throw new Error('Export images must be local.');
+    const response = await fetch(source, { signal: AbortSignal.timeout(15_000) });
+    if (!response.ok) throw new Error('An export image could not be loaded.');
+    const blob = await response.blob();
+    image.src = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result));
+      reader.onerror = () => reject(new Error('An export image could not be embedded.'));
+      reader.readAsDataURL(blob);
+    });
+    image.removeAttribute('srcset');
+    image.removeAttribute('sizes');
+  }));
 
   const markup = new XMLSerializer().serializeToString(clone);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${bounds.width * scale}" height="${bounds.height * scale}" viewBox="0 0 ${bounds.width} ${bounds.height}"><style>${fontFaceCss()}</style><foreignObject width="100%" height="100%">${markup}</foreignObject></svg>`;

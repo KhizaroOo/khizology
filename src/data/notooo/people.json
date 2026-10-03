@@ -1,0 +1,1117 @@
+[
+  {
+    "number": 88,
+    "slug": "american-prometheus",
+    "title": "American Prometheus",
+    "author": "Kai Bird and Martin J. Sherwin",
+    "year": 2005,
+    "description": "A concise look at Bird and Sherwin’s Oppenheimer biography: scientific leadership, nuclear responsibility, and political persecution.",
+    "subtitle": "Brilliance does not settle responsibility.",
+    "bigIdea": "Bird and Sherwin follow a physicist whose scientific achievement left him confronting consequences that expertise alone could not resolve.",
+    "sections": [
+      [
+        "Building Los Alamos",
+        "Oppenheimer helped bring different scientific talents together under wartime pressure."
+      ],
+      [
+        "The Trinity moment",
+        "The test’s success brought relief and awe, while revealing the frightening scale of the new weapon."
+      ],
+      [
+        "After the bomb",
+        "His later concern about nuclear policy complicates any simple story of triumphant invention."
+      ],
+      [
+        "Politics around science",
+        "Old associations became weapons in a struggle over his loyalty and public influence."
+      ],
+      [
+        "The security hearing",
+        "The 1954 proceedings show how institutional power can narrow the space for dissent."
+      ]
+    ],
+    "take": "Evaluate an invention twice: whether it works, and who will bear its consequences.",
+    "remember": "Technical success leaves ethical questions open.",
+    "tags": [
+      "Science",
+      "Biography",
+      "Responsibility"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Knopf: American Prometheus",
+        "https://www.penguinrandomhouse.com/books/13787/american-prometheus-pulitzer-prize-winner-by-kai-bird-and-martin-sherwin/"
+      ],
+      [
+        "publisher",
+        "Authorized American Prometheus excerpt: Trinity",
+        "https://www.livescience.com/human-behavior/warfare/how-manhattan-project-scientists-reacted-to-the-worlds-first-atomic-bomb-test"
+      ]
+    ],
+    "relatedBooks": [
+      "the-code-breaker",
+      "king-a-life"
+    ]
+  },
+  {
+    "number": 89,
+    "slug": "the-code-breaker",
+    "title": "The Code Breaker",
+    "author": "Walter Isaacson",
+    "year": 2021,
+    "description": "Walter Isaacson’s account of Jennifer Doudna, CRISPR, scientific collaboration, and the ethical questions raised by gene editing.",
+    "subtitle": "Discovery needs an ethical conversation.",
+    "bigIdea": "Isaacson presents gene editing as a scientific breakthrough whose possibilities require public judgment as well as laboratory skill.",
+    "sections": [
+      [
+        "Curiosity before applications",
+        "Doudna’s path begins with wanting to understand how life works, not with a finished commercial plan."
+      ],
+      [
+        "Learning from bacteria",
+        "CRISPR grew from research into a natural defense system, which researchers adapted into a tool."
+      ],
+      [
+        "Teams and rivals",
+        "Collaboration and competition both shaped the race; the discovery was not one person’s isolated achievement."
+      ],
+      [
+        "Editing and inheritance",
+        "Changes that could pass to future generations raise different questions from treating one patient."
+      ],
+      [
+        "Who should decide?",
+        "Isaacson follows debate over acceptable uses; possible treatments are not promises of cures."
+      ]
+    ],
+    "take": "When a powerful tool becomes easier to use, ask who should set its limits and whose voice is missing.",
+    "remember": "Being able to change something is not sufficient reason to change it.",
+    "tags": [
+      "Science",
+      "Ethics",
+      "Collaboration"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Simon & Schuster: The Code Breaker",
+        "https://www.simonandschuster.com/books/The-Code-Breaker/Walter-Isaacson/9781982115876"
+      ],
+      [
+        "publisher",
+        "Licensed book preview and contents",
+        "https://books.google.com/books/about/The_Code_Breaker.html?id=98skEAAAQBAJ"
+      ]
+    ],
+    "relatedBooks": [
+      "american-prometheus",
+      "the-innovators"
+    ]
+  },
+  {
+    "number": 90,
+    "slug": "elon-musk",
+    "title": "Elon Musk",
+    "author": "Walter Isaacson",
+    "year": 2023,
+    "description": "A balanced note on Isaacson’s 2023 Musk biography: technical ambition, demanding leadership, concentrated power, and human costs.",
+    "subtitle": "Study the ambition and its costs.",
+    "bigIdea": "Isaacson portrays Musk’s drive as a source of ambitious projects and disruptive behavior, rather than a reliable formula for good leadership.",
+    "sections": [
+      [
+        "An engineering mission",
+        "Space, electric vehicles, and other projects give the biography its scale and urgency."
+      ],
+      [
+        "Inside the factories",
+        "Isaacson follows a leader who questions requirements and pushes teams through difficult production problems."
+      ],
+      [
+        "The cost of intensity",
+        "Pressure may produce output while also damaging people; results do not automatically justify the methods."
+      ],
+      [
+        "Power beyond a company",
+        "Private control of major infrastructure raises questions that cannot be settled by a founder’s preference alone."
+      ],
+      [
+        "A dated portrait",
+        "This is Isaacson’s 2023 account, with a viewpoint and later corrections, not a current verdict on every event."
+      ]
+    ],
+    "take": "Separate a useful engineering practice from the behavior of the person associated with it.",
+    "remember": "Ambition needs accountability, especially when others carry the risk.",
+    "tags": [
+      "Biography",
+      "Leadership",
+      "Technology"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Simon & Schuster: Elon Musk",
+        "https://www.simonandschuster.biz/books/Elon-Musk/Walter-Isaacson/9781982181284"
+      ],
+      [
+        "interview",
+        "Isaacson discusses the biography and its criticism",
+        "https://time.com/6458925/walter-isaacson-elon-musks-legacy-biography/"
+      ]
+    ],
+    "relatedBooks": [
+      "becoming-steve-jobs",
+      "the-everything-store"
+    ]
+  },
+  {
+    "number": 91,
+    "slug": "becoming-steve-jobs",
+    "title": "Becoming Steve Jobs",
+    "author": "Brent Schlender and Rick Tetzeli",
+    "year": 2015,
+    "description": "Schlender and Tetzeli’s account of Steve Jobs changing through setbacks, NeXT, Pixar, relationships, and his return to Apple.",
+    "subtitle": "A career can change its shape.",
+    "bigIdea": "The authors argue that Jobs developed over time through failure and relationships, challenging a portrait of unchanging lone genius.",
+    "sections": [
+      [
+        "After Apple",
+        "The 1985 departure opens a period of experimentation rather than a neat instant comeback."
+      ],
+      [
+        "NeXT’s mixed outcome",
+        "Technical ambition and commercial difficulty coexist; later usefulness does not erase earlier mistakes."
+      ],
+      [
+        "Learning around Pixar",
+        "Colleagues and a different creative business help the authors explain changes in his approach."
+      ],
+      [
+        "The return",
+        "Apple’s revival depended on judgment, partnerships, and teams as well as Jobs’s product focus."
+      ],
+      [
+        "Read the portrait critically",
+        "The authors knew their subject; their sympathetic interpretation deserves examination, not automatic acceptance."
+      ]
+    ],
+    "take": "Look for what someone learned between two successes, while keeping the effects on colleagues in view.",
+    "remember": "Growth is worth studying; cruelty is not a leadership requirement.",
+    "tags": [
+      "Biography",
+      "Leadership",
+      "Creativity"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Crown: Becoming Steve Jobs",
+        "https://www.penguinrandomhouse.com/books/223401/becoming-steve-jobs-by-brent-schlender-and-rick-tetzeli-with-a-new-foreword-by-marc-andreessen/9780385347419/"
+      ],
+      [
+        "review",
+        "TIME: assessing the biography’s portrait of change",
+        "https://time.com/3757765/steve-jobs-biography/"
+      ]
+    ],
+    "relatedBooks": [
+      "steve-jobs",
+      "the-innovators"
+    ]
+  },
+  {
+    "number": 92,
+    "slug": "alexander-hamilton",
+    "title": "Alexander Hamilton",
+    "author": "Ron Chernow",
+    "year": 2004,
+    "description": "Ron Chernow’s Hamilton biography in one page: financial institutions, constitutional argument, ambition, rivalries, and judgment.",
+    "subtitle": "Building institutions requires more than brilliance.",
+    "bigIdea": "Chernow connects Hamilton’s enormous contribution to the early United States with ambition and political conflicts that could undermine him.",
+    "sections": [
+      [
+        "From outsider to organizer",
+        "Hamilton’s early circumstances make his rise striking without making it inevitable."
+      ],
+      [
+        "Financing a new nation",
+        "His financial program aimed to turn fragile public credit into a foundation for national government."
+      ],
+      [
+        "Arguing for a constitution",
+        "Writing and political persuasion were tools for shaping institutions, not merely expressing opinions."
+      ],
+      [
+        "Rivalry and restraint",
+        "Chernow’s portrait distinguishes Hamilton’s intellectual ability from his often combustible political judgment."
+      ],
+      [
+        "The final duel",
+        "The fatal conflict with Burr exposes the destructive demands of personal honor and political antagonism."
+      ]
+    ],
+    "take": "When judging a bold proposal, examine both its institutional design and the temperament needed to sustain cooperation.",
+    "remember": "A strong argument still needs sound judgment.",
+    "tags": [
+      "History",
+      "Politics",
+      "Biography"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Penguin: Alexander Hamilton",
+        "https://www.penguinrandomhouse.com/books/292945/alexander-hamilton-by-ron-chernow/"
+      ],
+      [
+        "interview",
+        "Chernow on Hamilton and his political judgment",
+        "https://time.com/4149352/ron-chernow-alexander-hamilton-interview/"
+      ]
+    ],
+    "relatedBooks": [
+      "grant",
+      "the-autobiography-of-benjamin-franklin"
+    ]
+  },
+  {
+    "number": 93,
+    "slug": "grant",
+    "title": "Grant",
+    "author": "Ron Chernow",
+    "year": 2017,
+    "description": "Chernow’s biography of Ulysses S. Grant: wartime command, Reconstruction, civil rights, personal setbacks, and the writing of his memoirs.",
+    "subtitle": "Public reputations can hide a complicated record.",
+    "bigIdea": "Chernow revisits Grant as a capable Union commander and defender of Reconstruction whose life also included serious personal and political setbacks.",
+    "sections": [
+      [
+        "An uneven beginning",
+        "Earlier failures complicate the idea that a major career always announces itself immediately."
+      ],
+      [
+        "Command in war",
+        "The biography emphasizes persistence and strategic coordination alongside the devastating human cost of the Civil War."
+      ],
+      [
+        "After emancipation",
+        "Reconstruction brought a struggle to protect the rights of formerly enslaved people against violent opposition."
+      ],
+      [
+        "Vulnerability and betrayal",
+        "Personal trust could leave Grant exposed to exploitation; military ability did not solve every other problem."
+      ],
+      [
+        "Writing at the end",
+        "His memoirs became a final act of work under severe illness, rather than proof that setbacks never mattered."
+      ]
+    ],
+    "take": "Before accepting a famous reputation, ask which actions it includes and which it leaves out.",
+    "remember": "Reassess the record without turning reassessment into sainthood.",
+    "tags": [
+      "History",
+      "Civil Rights",
+      "Biography"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Penguin: Grant",
+        "https://www.penguinrandomhouse.com/books/311248/grant-by-ron-chernow/9780143110637/"
+      ],
+      [
+        "interview",
+        "Chernow on Grant, Reconstruction, and memoirs",
+        "https://time.com/4970292/ron-chernow-ulysses-s-grant-biography/"
+      ]
+    ],
+    "relatedBooks": [
+      "alexander-hamilton",
+      "king-a-life"
+    ]
+  },
+  {
+    "number": 94,
+    "slug": "churchill-walking-with-destiny",
+    "title": "Churchill: Walking with Destiny",
+    "author": "Andrew Roberts",
+    "year": 2018,
+    "description": "Andrew Roberts’s Churchill biography: wartime resolve, earlier failures, information, luck, and the limits of an admiring historical portrait.",
+    "subtitle": "Resolve and judgment are different strengths.",
+    "bigIdea": "Roberts interprets Churchill’s long career as preparation for wartime leadership, while the record also reveals prejudice, error, and contingency.",
+    "sections": [
+      [
+        "A long apprenticeship",
+        "Soldiering, reporting, and government supplied experience well before Churchill became prime minister."
+      ],
+      [
+        "The wilderness years",
+        "Political exclusion gave him room to warn about Nazi Germany, though it did not make every warning correct."
+      ],
+      [
+        "Resolve in 1940",
+        "Refusing defeat was a crucial wartime choice, supported by a wider national and Allied effort."
+      ],
+      [
+        "Information is incomplete",
+        "Intelligence could aid decisions while still giving a misleading sense of certainty."
+      ],
+      [
+        "The limits of admiration",
+        "Imperial prejudice and costly errors belong in the portrait alongside leadership; success does not erase them."
+      ]
+    ],
+    "take": "Study a leader’s strongest decision together with their blind spots and the people who corrected them.",
+    "remember": "Resolve becomes safer when it can listen.",
+    "tags": [
+      "History",
+      "Leadership",
+      "Biography"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Viking: Churchill",
+        "https://www.penguinrandomhouse.com/books/533764/churchill-by-andrew-roberts/"
+      ],
+      [
+        "review",
+        "Intelligence in Public Literature: Churchill",
+        "https://www.cia.gov/resources/csi/static/Churchill-Walking-with-Destiny.pdf"
+      ]
+    ],
+    "relatedBooks": [
+      "grant",
+      "american-prometheus"
+    ]
+  },
+  {
+    "number": 95,
+    "slug": "personal-history",
+    "title": "Personal History",
+    "author": "Katharine Graham",
+    "year": 1997,
+    "description": "Katharine Graham’s memoir of family, confidence, the Washington Post, press freedom, and learning to lead under pressure.",
+    "subtitle": "Finding a voice inside inherited power.",
+    "bigIdea": "Graham describes growing into leadership in a world that had encouraged her to doubt her own judgment.",
+    "sections": [
+      [
+        "Privilege and uncertainty",
+        "Family resources opened doors without giving her a ready sense of authority."
+      ],
+      [
+        "A role she did not expect",
+        "Taking charge of the Washington Post required learning rather than pretending to know everything."
+      ],
+      [
+        "Gendered expectations",
+        "The memoir shows how ideas about women’s roles shaped both private life and work."
+      ],
+      [
+        "Publishing under pressure",
+        "The Pentagon Papers and Watergate tested a newspaper’s willingness to face powerful opposition."
+      ],
+      [
+        "A selective personal account",
+        "Her perspective illuminates leadership but is not every employee’s account of the paper’s history."
+      ]
+    ],
+    "take": "Treat uncertainty as a reason to seek informed advice, not as proof that you have no right to decide.",
+    "remember": "Confidence can grow through responsible decisions.",
+    "tags": [
+      "Memoir",
+      "Journalism",
+      "Leadership"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Vintage: Personal History",
+        "https://www.penguinrandomhouse.com/books/70346/personal-history-pulitzer-prize-winner-by-katharine-graham/9780375701047/"
+      ],
+      [
+        "publisher",
+        "Personal History reading guide",
+        "https://www.penguinrandomhouse.com/books/70346/personal-history-by-katharine-graham/9780375701047/readers-guide"
+      ],
+      [
+        "publisher",
+        "First edition bibliography",
+        "https://books.google.com/books/about/Personal_History.html?id=jkxz77hC_48C"
+      ]
+    ],
+    "relatedBooks": [
+      "becoming",
+      "the-glass-castle"
+    ]
+  },
+  {
+    "number": 96,
+    "slug": "the-autobiography-of-malcolm-x",
+    "title": "The Autobiography of Malcolm X",
+    "author": "Malcolm X as told to Alex Haley",
+    "year": 1965,
+    "description": "Malcolm X and Alex Haley’s autobiography: reading, racial injustice, changing beliefs, religious journeys, and the making of a life narrative.",
+    "subtitle": "Follow the changes, not just the symbol.",
+    "bigIdea": "The autobiography presents Malcolm X’s evolving understanding of identity and justice through a life shaped by racism, study, and religious experience.",
+    "sections": [
+      [
+        "Racism in a life story",
+        "Early experiences connect personal hardship to a wider history of racial violence and exclusion."
+      ],
+      [
+        "Reading in prison",
+        "Study became a means of rebuilding language and understanding, rather than merely passing time."
+      ],
+      [
+        "Nation of Islam",
+        "Religious commitment offered an explanation and community that he later came to question."
+      ],
+      [
+        "The journey to Mecca",
+        "Encounters during pilgrimage helped change his views about race and human solidarity."
+      ],
+      [
+        "A life shaped into a book",
+        "Haley’s collaboration matters: this is a narrated, edited autobiography, not an unfiltered transcript of a fixed ideology."
+      ]
+    ],
+    "take": "Track when an author revises a belief; those changes may teach more than an isolated quotation.",
+    "remember": "A person’s thinking can change while their concern for justice endures.",
+    "tags": [
+      "Memoir",
+      "Civil Rights",
+      "Identity"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Ballantine: The Autobiography of Malcolm X",
+        "https://www.penguinrandomhouse.com/books/106490/the-autobiography-of-malcolm-x-by-malcolm-x-as-told-to-alex-haley/"
+      ],
+      [
+        "official",
+        "PBS: the making of the autobiography",
+        "https://www.pbs.org/wgbh/americanexperience/features/malcolmx-autobiography-malcolm-x/"
+      ],
+      [
+        "publisher",
+        "Grove 1965 edition bibliography",
+        "https://books.google.com/books/about/The_Autobiography_of_Malcolm_X.html?id=9rdOAAAAMAAJ"
+      ]
+    ],
+    "relatedBooks": [
+      "king-a-life",
+      "becoming"
+    ]
+  },
+  {
+    "number": 97,
+    "slug": "becoming",
+    "title": "Becoming",
+    "author": "Michelle Obama",
+    "year": 2018,
+    "description": "Michelle Obama’s memoir of family, education, work, public life, and the continuing task of forming an identity.",
+    "subtitle": "An identity is still being made.",
+    "bigIdea": "Obama describes becoming as an ongoing process shaped by roots, choices, relationships, and public expectations rather than one final achievement.",
+    "sections": [
+      [
+        "South Side roots",
+        "Family and neighborhood provide the grounding for her account of later transitions."
+      ],
+      [
+        "Entering unfamiliar spaces",
+        "Education and professional life bring questions about belonging, race, and whose expectations matter."
+      ],
+      [
+        "Choosing meaningful work",
+        "The memoir follows career decisions that complicate success measured only by prestige."
+      ],
+      [
+        "Private life in public",
+        "Marriage, parenting, and the White House required navigating visibility without surrendering every private priority."
+      ],
+      [
+        "No finished version",
+        "Looking back creates a narrative, but Obama resists treating a life as permanently complete."
+      ]
+    ],
+    "take": "Name one expectation you inherited, then decide whether it still fits the life you want to build.",
+    "remember": "Becoming is a process, not a prize awarded once.",
+    "tags": [
+      "Memoir",
+      "Identity",
+      "Family"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Crown: Becoming",
+        "https://www.penguinrandomhouse.com/books/562881/becoming-by-michelle-obama/"
+      ],
+      [
+        "publisher",
+        "Becoming reading guide and author interview",
+        "https://images.penguinrandomhouse.com/promo_image/9781524763138_5472.pdf"
+      ]
+    ],
+    "relatedBooks": [
+      "personal-history",
+      "the-gifts-of-imperfection"
+    ]
+  },
+  {
+    "number": 98,
+    "slug": "the-diary-of-a-young-girl",
+    "title": "The Diary of a Young Girl",
+    "author": "Anne Frank",
+    "year": 1947,
+    "description": "Anne Frank’s diary as a Jewish teenager and aspiring writer in Nazi-occupied Amsterdam, with its Holocaust and publication context intact.",
+    "subtitle": "A young writer must remain a person, not only a symbol.",
+    "bigIdea": "Anne’s diary preserves an individual voice and developing literary ambition inside the persecution and confinement of the Holocaust.",
+    "sections": [
+      [
+        "Life in hiding",
+        "The Secret Annex constrained ordinary activities, relationships, and safety under Nazi occupation."
+      ],
+      [
+        "An adolescent voice",
+        "Anne records inner change and tensions with others, not just a sequence of historical events."
+      ],
+      [
+        "Writing for a future reader",
+        "In 1944 she began revising entries with publication in mind; the diary was also deliberate writing."
+      ],
+      [
+        "A book after her death",
+        "Otto Frank assembled the 1947 Dutch edition from her writings after she was murdered in the Holocaust."
+      ],
+      [
+        "Remember the context",
+        "Universal responses to the diary must not erase Anne’s Jewish identity or the genocide that ended her life."
+      ]
+    ],
+    "take": "Read a personal testimony with attention to its author, historical circumstances, and editorial history.",
+    "remember": "Remember Anne’s words without reducing her life to an uplifting slogan.",
+    "tags": [
+      "Diary",
+      "History",
+      "Remembrance"
+    ],
+    "sources": [
+      [
+        "official",
+        "Anne Frank House: Anne, from Diarist to Icon",
+        "https://www.annefrank.org/en/anne-frank/go-in-depth/anne-diarist-icon/"
+      ],
+      [
+        "official",
+        "Anne Frank House: publication and reception",
+        "https://www.annefrank.org/en/anne-frank/diary/how-did-annes-diary-become-so-famous/"
+      ]
+    ],
+    "relatedBooks": [
+      "the-happiest-man-on-earth",
+      "mans-search-for-meaning"
+    ],
+    "editionNote": "First published in Dutch in 1947; the first English edition followed in 1952."
+  },
+  {
+    "number": 99,
+    "slug": "total-recall",
+    "title": "Total Recall",
+    "author": "Arnold Schwarzenegger",
+    "year": 2012,
+    "description": "Schwarzenegger’s memoir across bodybuilding, business, film, and politics, with ambition read alongside accountability and personal consequences.",
+    "subtitle": "Reinvention is not an exemption from responsibility.",
+    "bigIdea": "Schwarzenegger narrates repeated career changes, but his own success story remains a selective account of both achievement and controversy.",
+    "sections": [
+      [
+        "An early direction",
+        "Bodybuilding provided a concrete ambition before his move from Austria to the United States."
+      ],
+      [
+        "Learning a new setting",
+        "Language, business, and relationships mattered alongside physical training."
+      ],
+      [
+        "Crossing into film",
+        "A new career required different skills and adaptation rather than simply reusing a championship title."
+      ],
+      [
+        "Entering politics",
+        "Governing introduced public obligations unlike those of a performer or entrepreneur."
+      ],
+      [
+        "The memoir’s viewpoint",
+        "His account includes private fallout; confidence in telling a story does not settle responsibility for harm."
+      ]
+    ],
+    "take": "Before copying a successful person’s rules, examine their circumstances, collaborators, and costs to others.",
+    "remember": "A compelling success story still needs critical reading.",
+    "tags": [
+      "Memoir",
+      "Career",
+      "Accountability"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Simon & Schuster: Total Recall",
+        "https://www.simonandschuster.com/books/Total-Recall/Arnold-Schwarzenegger/9781451662450"
+      ],
+      [
+        "publisher",
+        "Licensed memoir preview and contents",
+        "https://books.google.com/books/about/Total_Recall.html?id=qYijfgz4acgC"
+      ]
+    ],
+    "relatedBooks": [
+      "becoming-steve-jobs",
+      "personal-history"
+    ]
+  },
+  {
+    "number": 100,
+    "slug": "the-glass-castle",
+    "title": "The Glass Castle",
+    "author": "Jeannette Walls",
+    "year": 2005,
+    "description": "Jeannette Walls’s memoir of neglect, family attachment, siblings, and building independence without disguising the harm of childhood poverty.",
+    "subtitle": "Love and harm can exist in the same family.",
+    "bigIdea": "Walls tells a childhood marked by imaginative parents, serious neglect, and sibling solidarity without making affection an excuse for harm.",
+    "sections": [
+      [
+        "The promised castle",
+        "Her father’s imagined house represents a future promise that repeatedly fails to become dependable care."
+      ],
+      [
+        "Charm is not safety",
+        "Intellectual excitement and affection coexist with destructive behavior and unmet basic needs."
+      ],
+      [
+        "Siblings as support",
+        "The children increasingly help feed, protect, and eventually move one another toward independence."
+      ],
+      [
+        "Leaving for New York",
+        "Distance offers a different future, while family ties and difficult emotions continue."
+      ],
+      [
+        "Telling the truth",
+        "The adult memoir can acknowledge love without requiring readers to excuse neglect or romanticize poverty."
+      ]
+    ],
+    "take": "When a family story praises resilience, also ask what support should have been present from the beginning.",
+    "remember": "Surviving harm does not make that harm necessary.",
+    "tags": [
+      "Memoir",
+      "Family",
+      "Resilience"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Scribner: The Glass Castle, excerpt and reading guide",
+        "https://www.simonandschuster.com/books/The-Glass-Castle/Jeannette-Walls/9781439156964"
+      ],
+      [
+        "publisher",
+        "First edition bibliography and preview",
+        "https://books.google.com/books/about/The_Glass_Castle.html?id=42_7-SSHBEcC"
+      ]
+    ],
+    "relatedBooks": [
+      "personal-history",
+      "set-boundaries-find-peace"
+    ]
+  },
+  {
+    "number": 101,
+    "slug": "kitchen-confidential",
+    "title": "Kitchen Confidential",
+    "author": "Anthony Bourdain",
+    "year": 2000,
+    "description": "Bourdain’s kitchen memoir: craft, preparation, restaurant labor, chaotic workplace culture, and an expanding curiosity about food.",
+    "subtitle": "Look behind the dining-room performance.",
+    "bigIdea": "Bourdain takes readers into restaurant work as demanding craft and rough workplace culture, including behavior that should not be romanticized.",
+    "sections": [
+      [
+        "Preparation before service",
+        "The visible meal depends on work completed before the rush begins."
+      ],
+      [
+        "The brigade",
+        "Different kitchen roles must coordinate under time pressure; skill alone does not replace teamwork."
+      ],
+      [
+        "A hidden working world",
+        "The memoir foregrounds cooks and labor that diners rarely see."
+      ],
+      [
+        "Costly kitchen culture",
+        "Addiction and abusive behavior are part of the account, not practices to copy."
+      ],
+      [
+        "Curiosity beyond the kitchen",
+        "Encountering different food cultures expands the story beyond the familiar restaurant routine."
+      ]
+    ],
+    "take": "Notice the people and preparation behind a polished experience; value their work without accepting mistreatment.",
+    "remember": "Craft deserves respect, and workers deserve care.",
+    "tags": [
+      "Memoir",
+      "Food",
+      "Craft"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Bloomsbury: Kitchen Confidential",
+        "https://www.bloomsbury.com/uk/kitchen-confidential-9781408845042/"
+      ],
+      [
+        "publisher",
+        "Licensed original edition and contents",
+        "https://books.google.com/books/about/Kitchen_Confidential.html?id=eTGgAwAAQBAJ"
+      ]
+    ],
+    "relatedBooks": [
+      "what-i-talk-about-when-i-talk-about-running",
+      "the-innovators"
+    ]
+  },
+  {
+    "number": 102,
+    "slug": "what-i-talk-about-when-i-talk-about-running",
+    "title": "What I Talk About When I Talk About Running",
+    "author": "Haruki Murakami",
+    "year": 2008,
+    "description": "Murakami’s memoir connecting running and writing through routine, endurance, solitude, and personal limits rather than a universal training plan.",
+    "subtitle": "A long project needs a sustainable rhythm.",
+    "bigIdea": "Murakami connects the repeated work of running with the stamina and focus required to write novels.",
+    "sections": [
+      [
+        "Starting a different life",
+        "Leaving a bar business for writing changed how he organized his days and cared for his body."
+      ],
+      [
+        "The repeated session",
+        "Routine allows work to continue when enthusiasm is unreliable."
+      ],
+      [
+        "Endurance and craft",
+        "Long efforts require returning to the task, not only having talent at the start."
+      ],
+      [
+        "A private measure",
+        "His account values the challenge he sets himself rather than making every run a contest with others."
+      ],
+      [
+        "Personal limits",
+        "This is one writer’s experience, not medical advice or a training prescription for every body."
+      ]
+    ],
+    "take": "Choose a repeatable work interval suited to your circumstances, and protect recovery as well as effort.",
+    "remember": "A rhythm you can sustain is more useful than a heroic burst.",
+    "tags": [
+      "Memoir",
+      "Writing",
+      "Practice"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Vintage: What I Talk About When I Talk About Running",
+        "https://www.penguinrandomhouse.com/books/118730/what-i-talk-about-when-i-talk-about-running-by-haruki-murakami/"
+      ],
+      [
+        "author",
+        "Murakami: The Running Novelist",
+        "https://www.newyorker.com/magazine/2008/06/09/haruki-murakami-the-running-novelist"
+      ]
+    ],
+    "relatedBooks": [
+      "atomic-habits",
+      "kitchen-confidential"
+    ],
+    "editionNote": "Uses the 2008 English edition, translated by Philip Gabriel.",
+    "seoTitle": "What I Talk About When I Talk About Running | Notooo"
+  },
+  {
+    "number": 103,
+    "slug": "the-happiest-man-on-earth",
+    "title": "The Happiest Man on Earth",
+    "author": "Eddie Jaku",
+    "year": 2020,
+    "description": "Eddie Jaku’s Holocaust memoir of friendship, loss, rebuilding life, and remembrance, without turning survival into a test of positive thinking.",
+    "subtitle": "Hear hope without erasing the horror.",
+    "bigIdea": "Jaku recounts persecution and survival, then describes the importance he gave to friendship, kindness, and remembrance in his later life.",
+    "sections": [
+      [
+        "A world turned hostile",
+        "Nazi persecution destroyed security and subjected him and his family to extreme violence."
+      ],
+      [
+        "Friendship under terror",
+        "His bond with Kurt Hirschfeld offered human support amid conditions no one should have endured."
+      ],
+      [
+        "Survival was not deserved more",
+        "Contingency and help mattered; those who were murdered did not fail a test of hope or character."
+      ],
+      [
+        "Rebuilding after the war",
+        "Liberation did not end loss or displacement; family and a new home became part of a longer recovery."
+      ],
+      [
+        "Bearing witness",
+        "Sharing his account honors the murdered and warns against antisemitism rather than supplying a simple happiness formula."
+      ]
+    ],
+    "take": "Listen to survivor testimony without demanding that every survivor draw the same emotional lesson.",
+    "remember": "Kindness can matter deeply without explaining away atrocity.",
+    "tags": [
+      "Memoir",
+      "Remembrance",
+      "Friendship"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Pan Macmillan Australia: The Happiest Man on Earth",
+        "https://www.panmacmillan.com.au/9781760980085/?v=0b3b97fa6688"
+      ],
+      [
+        "publisher",
+        "Publisher’s teachers’ notes",
+        "https://www.panmacmillan.com.au/wp-content/uploads/2023/11/HAPPIEST-MAN-ON-EARTH-9781760980085_tn-1.pdf"
+      ]
+    ],
+    "relatedBooks": [
+      "the-diary-of-a-young-girl",
+      "mans-search-for-meaning"
+    ]
+  },
+  {
+    "number": 104,
+    "seoTitle": "Benjamin Franklin’s Autobiography | Notooo",
+    "slug": "the-autobiography-of-benjamin-franklin",
+    "title": "The Autobiography of Benjamin Franklin",
+    "author": "Benjamin Franklin",
+    "year": 1791,
+    "description": "Franklin’s unfinished autobiography: learning a trade, practicing virtues, building civic institutions, and presenting a selective account of a life.",
+    "subtitle": "Make improvement observable, without pretending to be perfect.",
+    "bigIdea": "Franklin presents self-education and deliberate practice as tools for personal and civic improvement in an unfinished account of his earlier life.",
+    "sections": [
+      [
+        "Learning through print",
+        "Apprenticeship and reading link practical work to a widening intellectual life."
+      ],
+      [
+        "Practicing the virtues",
+        "His tracking system makes conduct something to review regularly rather than praise in vague terms."
+      ],
+      [
+        "Pride resists the plan",
+        "Attempts at moral improvement also reveal the difficulty of overcoming vanity."
+      ],
+      [
+        "Improvement through association",
+        "Shared libraries and civic projects let individual effort become a resource for others."
+      ],
+      [
+        "An unfinished self-portrait",
+        "The narrative stops well before the end of his life, and its publication history involves several later versions."
+      ]
+    ],
+    "take": "Track one behavior you want to improve, then ask whether the practice also benefits someone else.",
+    "remember": "Review your conduct; do not mistake the record for moral perfection.",
+    "tags": [
+      "Autobiography",
+      "Learning",
+      "Civic Life"
+    ],
+    "sources": [
+      [
+        "author",
+        "Franklin’s autobiography, public-domain text",
+        "https://www.gutenberg.org/cache/epub/20203/pg20203-images.html"
+      ],
+      [
+        "official",
+        "Library of Congress: Franklin, printer and writer",
+        "https://www.loc.gov/exhibits/franklin/franklin-printer.html"
+      ]
+    ],
+    "relatedBooks": [
+      "alexander-hamilton",
+      "atomic-habits"
+    ],
+    "editionNote": "First book-length publication: French, 1791; first English edition: 1793. Later editions differ in completeness."
+  },
+  {
+    "number": 105,
+    "slug": "the-everything-store",
+    "title": "The Everything Store",
+    "author": "Brad Stone",
+    "year": 2013,
+    "description": "Brad Stone’s 2013 account of Amazon and Jeff Bezos: customer focus, reinvestment, expansion, internal pressure, and the limits of a corporate origin story.",
+    "subtitle": "Read the growth and the pressure together.",
+    "bigIdea": "Stone examines how Bezos built Amazon through long-term ambition and customer focus, while describing a demanding and secretive organization.",
+    "sections": [
+      [
+        "Beyond the bookstore",
+        "The original retail idea becomes a platform for selling much more than books."
+      ],
+      [
+        "The customer argument",
+        "Price, selection, and convenience serve as recurring reasons for business decisions."
+      ],
+      [
+        "Reinvesting for scale",
+        "A long horizon supports expansion but requires accepting uncertainty and present costs."
+      ],
+      [
+        "A demanding organization",
+        "Internal pressure and relationships belong in the story alongside products and strategy."
+      ],
+      [
+        "A 2013 account",
+        "The book captures a particular stage of Amazon’s history, not the company’s complete present-day record."
+      ]
+    ],
+    "take": "When studying a growth strategy, ask who benefits, who does the work, and which costs the headline omits.",
+    "remember": "Customer value and employee treatment both belong in the assessment.",
+    "tags": [
+      "Business",
+      "Biography",
+      "Technology"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Hachette: The Everything Store",
+        "https://www.hbglibrary.com/titles/brad-stone/the-everything-store/9780316219259/"
+      ],
+      [
+        "publisher",
+        "Licensed book preview and contents",
+        "https://books.google.com/books/about/The_Everything_Store.html?id=t95iRvivDHIC"
+      ]
+    ],
+    "relatedBooks": [
+      "elon-musk",
+      "the-innovators"
+    ]
+  },
+  {
+    "number": 106,
+    "slug": "king-a-life",
+    "title": "King: A Life",
+    "author": "Jonathan Eig",
+    "year": 2023,
+    "description": "Jonathan Eig’s Martin Luther King Jr. biography: faith, nonviolent organizing, broader justice, collective effort, and the pressure behind an icon.",
+    "subtitle": "A public icon was also a person in a movement.",
+    "bigIdea": "Eig restores human complexity to King’s life while placing his leadership inside a wider movement and a demanding vision of justice.",
+    "sections": [
+      [
+        "Faith and public action",
+        "Religious conviction helped shape King’s language and moral commitments."
+      ],
+      [
+        "Nonviolence as strategy",
+        "Organized nonviolent action was active pressure for change, not passive acceptance of injustice."
+      ],
+      [
+        "A collective movement",
+        "Local organizers, other leaders, and ordinary participants made the work possible."
+      ],
+      [
+        "Beyond a familiar speech",
+        "Eig emphasizes economic justice and opposition to war alongside the better-known civil-rights image."
+      ],
+      [
+        "Pressure behind the symbol",
+        "Threats, surveillance, family demands, and personal flaws complicate an idealized public portrait."
+      ]
+    ],
+    "take": "When a movement is reduced to one famous person, look for the other workers and the demands edited out of memory.",
+    "remember": "Honor a leader by understanding the work, not merely repeating the image.",
+    "tags": [
+      "Biography",
+      "Civil Rights",
+      "Justice"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Farrar, Straus and Giroux: King: A Life",
+        "https://us.macmillan.com/books/9780374279295"
+      ],
+      [
+        "interview",
+        "Jonathan Eig on King and nonviolence",
+        "https://wagingnonviolence.org/metta/podcast/martin-luther-king-a-life-biography-jonathan-eig/"
+      ]
+    ],
+    "relatedBooks": [
+      "the-autobiography-of-malcolm-x",
+      "grant"
+    ]
+  },
+  {
+    "number": 107,
+    "slug": "the-innovators",
+    "title": "The Innovators",
+    "author": "Walter Isaacson",
+    "year": 2014,
+    "description": "Isaacson’s history of digital innovation across computers and networks: collaboration, practical engineering, institutions, and creative imagination.",
+    "subtitle": "Innovation has more than one author.",
+    "bigIdea": "Isaacson argues that digital breakthroughs emerged through collaboration between imaginative ideas and the people able to turn them into working systems.",
+    "sections": [
+      [
+        "Lovelace’s wider possibility",
+        "Thinking beyond numerical calculation helps open a broader vision of what computing could do."
+      ],
+      [
+        "From concept to machine",
+        "Mathematical ideas require engineering, programming, and sustained practical work."
+      ],
+      [
+        "The overlooked programmers",
+        "The history makes room for contributors obscured by stories focused only on prominent hardware inventors."
+      ],
+      [
+        "Networks need institutions",
+        "Universities, government projects, and companies all contribute to the development of connected computing."
+      ],
+      [
+        "Combining different strengths",
+        "Creative vision and technical skill become more effective when people can work across their differences."
+      ]
+    ],
+    "take": "For a project you admire, identify the collaborators and institutions behind the most recognizable name.",
+    "remember": "A breakthrough can belong to a team without becoming less remarkable.",
+    "tags": [
+      "Technology",
+      "History",
+      "Collaboration"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Simon & Schuster: The Innovators",
+        "https://www.simonandschuster.com/books/The-Innovators/Walter-Isaacson/9781476708706"
+      ],
+      [
+        "publisher",
+        "Licensed original edition and contents",
+        "https://books.google.com/books?id=trxEAwAAQBAJ"
+      ]
+    ],
+    "relatedBooks": [
+      "the-code-breaker",
+      "becoming-steve-jobs"
+    ]
+  }
+]

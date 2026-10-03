@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { stripTypeScriptTypes } from 'node:module';
+import { createHash } from 'node:crypto';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const source = fs.readFileSync(path.join(root, 'src/data/valueLaws.ts'), 'utf8');
@@ -84,8 +85,19 @@ const infoooSource = fs.readFileSync(path.join(root, 'src/data/infooo.ts'), 'utf
   .replace("import { createIdeaEvaluation } from './valueLaws';", 'const createIdeaEvaluation = (input) => input;')
   .replace("import { followTheBloodGuide, humanAtlasEntities, humanAtlasRelationships } from './humanAtlasLearning';", 'const followTheBloodGuide = {}; const humanAtlasEntities = []; const humanAtlasRelationships = [];');
 const infoooRegistry = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(infoooSource))}`);
-const notoooSource = fs.readFileSync(path.join(root, 'src/data/notooo.ts'), 'utf8');
-const notoooModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(notoooSource))}`);
+const { loadNotooo } = await import('./load-notooo.mjs');
+const notoooModule = await loadNotooo(root);
+const llmsText = fs.readFileSync(path.join(root, 'dist/llms.txt'), 'utf8');
+const llmsMetadata = value => value.replace(/\s+/g, ' ').trim().replace(/[\\`*_[\]<>]/g, '\\$&');
+for (const book of notoooModule.notoooBooks) {
+  assert.equal(llmsText.includes(`[${llmsMetadata(`${book.title} — ${book.author}`)}]`), book.status === 'published', `${book.slug}: llms.txt must include only published notes with correct author attribution`);
+  if (book.status !== 'published') {
+    assert.ok(!llmsText.includes(`/notooo/${book.slug}/`) && !llmsText.includes(llmsMetadata(book.shortDescription)), `${book.slug}: draft route or description leaked into llms.txt`);
+  }
+}
+for (const world of infoooRegistry.infoooWorlds) {
+  assert.equal(llmsText.includes(`[${llmsMetadata(world.title)}]`), world.status === 'published' && world.visibility === 'public', `${world.slug}: llms.txt must include only public, published Infooo worlds`);
+}
 const manifestSource = manifest
   .replace("import { tools } from './tools';", `const tools = ${JSON.stringify(toolRegistry.tools)};`)
   .replace("import { artworks } from './artworks';", `const artworks = ${JSON.stringify(artworkRegistry.artworks)};`)
@@ -193,6 +205,40 @@ assert.deepEqual(notoooModule.validateNotoooBooks(notoooModule.notoooBooks), [],
 assert.deepEqual(notoooModule.getNotoooQualityWarnings(notoooModule.notoooBooks), [], 'All Notooo entries must fit the one-page quality budget');
 assert.ok(notoooModule.publishedNotoooBooks.every((book) => book.format === 'book'), 'Published Notooo entries must remain books');
 assert.ok(notoooModule.publishedNotoooBooks.every((book) => book.status === 'published'), 'Only published Notooo entries may reach public routes');
+const preservedNotes = notoooModule.publishedNotoooBooks.filter(book => book.number <= 7);
+assert.equal(preservedNotes.length, 7, 'Published 001–007 must remain present');
+assert.equal(createHash('sha256').update(JSON.stringify(preservedNotes)).digest('hex'), 'f15f57153017dc6dbcffb500bab76fea701cd53a33398c30767d36dec61da9bd', 'Published 001–007 must remain exactly unchanged');
+const newNotes = notoooModule.publishedNotoooBooks.filter(book => book.number >= 8);
+const priorBatch = newNotes.filter(book => book.number <= 127);
+const completedCatalog = newNotes.filter(book => book.number >= 128);
+assert.equal(priorBatch.length, 120, 'Preserve the approved 008–127 batch');
+assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.publishedNotoooBooks.filter(book => book.number <= 127))).digest('hex'), 'bdaf2fe6201b2463e778aff8d4ccffcec39cd75ef412181925ee3efa5dc02a12', 'Published 001–127 must remain exactly unchanged during catalog completion');
+assert.equal(completedCatalog.length, 113, 'Complete the remaining 128–240 catalog notes');
+assert.equal(notoooModule.publishedNotoooBooks.length, 240, 'Expected all 240 notes to be release-ready');
+assert.deepEqual(notoooModule.publishedNotoooBooks.map(book => book.number), Array.from({ length: 240 }, (_, i) => i + 1), 'Published numbers and schema order must cover 001–240 without gaps or duplicates');
+assert.equal(notoooModule.notoooBooks.length, 240, 'Preserve the 120-item original catalog alongside the 120 new notes');
+assert.equal(notoooModule.notoooBooks.filter(book => book.status !== 'published').length, 0, 'Khizar approved completing the catalog: no remaining drafts');
+for (const category of notoooModule.notoooCategories) {
+  assert.equal(priorBatch.filter(book => book.category === category).length, 20, `${category}: preserve 20 notes in the prior batch`);
+  assert.equal(notoooModule.publishedNotoooBooks.filter(book => book.category === category).length, 40, `${category}: expected 40 published notes`);
+  assert.equal(notoooModule.notoooBooks.filter(book => book.category === category).length, 40, `${category}: original catalog must remain intact`);
+}
+for (const book of newNotes) {
+  assert.ok(book.sources.length >= 2 && book.sources.some(source => ['publisher', 'author', 'official'].includes(source.type)), `${book.slug}: batch research needs two recorded sources including a primary source`);
+  assert.equal(book.researchConfidence, 'medium', `${book.slug}: source-grounded synthesis must not imply full-book research`);
+  assert.ok(book.sections.length >= 5 && book.sections.length <= 8, `${book.slug}: use five to eight meaningful sections`);
+  assert.equal(book.summaryImage, '', `${book.slug}: do not generate a static preview asset for each book`);
+  assert.equal(book.originalDownload, '', `${book.slug}: reuse the browser-only lazy PNG export`);
+}
+for (const book of completedCatalog) {
+  assert.equal(book.publishedAt, '2026-10-04', `${book.slug}: use the actual local publication date`);
+  assert.equal(book.bookPublicationDate, String(book.publicationYear), `${book.slug}: book edition year must differ from the note publication date`);
+  assert.equal(new Set(book.sources.map(source => source.url)).size, book.sources.length, `${book.slug}: cross-checks must be distinct source URLs`);
+  assert.ok(book.sources.some(source => source.accessedAt === '2026-10-04'), `${book.slug}: record the completed edition cross-check`);
+  assert.ok(!/research draft|pending Khizar review|awaits Khizar/i.test(JSON.stringify(book)), `${book.slug}: unfinished editorial copy must not be published`);
+  if (book.category === 'Money') assert.ok(book.khizoooTake.points.some(point => point.includes('not personalized financial advice')), `${book.slug}: retain the financial-information boundary`);
+  if (book.category === 'Life') assert.ok(book.khizoooTake.points.some(point => point.includes('not individualized medical')), `${book.slug}: retain the health-information boundary`);
+}
 const launchBooks = new Map([
   ['the-psychology-of-money', 'Money'], ['braiding-sweetgrass', 'Nature'], ['mans-search-for-meaning', 'Life'], ['steve-jobs', 'People'], ['sapiens', 'Society'],
 ]);
@@ -217,10 +263,26 @@ const brokenSource = structuredClone(engineFixture); brokenSource.sections[0].so
 engineError([brokenSource], 'broken source ID missing-source');
 const missingOneLiner = structuredClone(engineFixture); missingOneLiner.sections[0].oneLiner = '';
 engineError([missingOneLiner], 'every Engine section needs a title and one-liner');
+delete missingOneLiner.sections[0].oneLiner;
+engineError([missingOneLiner], 'every Engine section needs a title and one-liner');
 const tooManyPoints = structuredClone(engineFixture); tooManyPoints.sections[0].points.push('One point too many.');
 engineError([tooManyPoints], 'at most three supporting points');
 const lowConfidencePublished = structuredClone(engineFixture); lowConfidencePublished.researchConfidence = 'low';
 engineError([lowConfidencePublished], 'published entries cannot use low research confidence');
+for (const [field, value, message] of [
+  ['category', 'Unknown', 'invalid category'],
+  ['author', undefined, 'missing author'],
+  ['publicationYear', NaN, 'invalid publicationYear'],
+  ['bigIdea', undefined, 'missing Big Idea'],
+  ['sections', undefined, 'add at least one dynamic Engine section'],
+  ['khizoooTake', undefined, 'missing Khizooo Take'],
+  ['remember', undefined, 'missing Remember'],
+  ['researchConfidence', 'invented', 'invalid research confidence'],
+  ['status', 'invented', 'invalid content status'],
+]) {
+  const invalid = structuredClone(engineFixture); invalid[field] = value;
+  engineError([invalid], message);
+}
 const draftFixture = structuredClone(engineFixture); draftFixture.status = 'draft';
 assert.equal(notoooModule.getPublishedNotoooBooks([draftFixture]).length, 0, 'Draft Notooo entries must stay out of public routes');
 
@@ -254,11 +316,21 @@ assert.equal(matching('  ATOMIC   Habits  ', 'Mind', 'published').length, 1, 'Ti
 assert.equal(matching('James Clear').length, 1, 'Author search must work');
 assert.equal(matching('atomic', 'Money').length, 0, 'Search must respect category');
 assert.equal(matching('atomic', 'Mind', 'coming').length, 0, 'Search must respect status');
+assert.equal(matching('The Power of Habit', 'Mind', 'coming').length, 0, 'A completed note must no longer appear as Coming');
+assert.equal(matching('The Power of Habit', 'Mind', 'published').length, 1, 'A completed note must be searchable as Published');
 assert.equal(matching('notooo-no-matching-book').length, 0, 'Search must support an empty result');
 assert.equal(normalizeNotoooSearch('Rönnlund'), 'ronnlund', 'Search must support accented names');
 const hubHtml = fs.readFileSync(path.join(dist, 'notooo/index.html'), 'utf8');
 const catalogItems = [...hubHtml.matchAll(/<li\b[^>]*\bdata-notooo-book\b[\s\S]*?<\/article>\s*<\/li>/g)].map(match => match[0]);
 assert.equal(catalogItems.length, notoooModule.notoooBooks.length, 'Build must statically render the full catalog');
+for (const item of catalogItems) {
+  const row = item.match(/<(?:a|div)\b[^>]*class="book-content"[^>]*>([\s\S]*?)<\/(?:a|div)>/)?.[1];
+  const coming = item.includes('data-status="coming"');
+  const statusLabel = coming ? '<span\\b[^>]*class="book-coming"[^>]*>Coming<\\/span>\\s*' : '';
+  assert.match(row || '', new RegExp(`^\\s*<h3\\b[^>]*>[\\s\\S]*?<\\/h3>\\s*<p\\b[^>]*class="book-author"[^>]*>[\\s\\S]*?<\\/p>\\s*${statusLabel}$`), 'Listing rows must show title, writer and a visible Coming label only for non-public notes');
+  if (coming) assert.ok(!/<(?:a|button)\b|\b(?:href|tabindex|role|on\w+)\s*=/i.test(item), 'Coming rows must not expose links, focus stops or fake interactive semantics');
+}
+assert.equal(pages.filter(file => /^notooo[\\/]([^\\/]+)[\\/]index\.html$/.test(String(file))).length, 240, 'Generate exactly the 240 published Notooo detail routes');
 const escapeCatalogHtml = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 const readSchema = output => [...output.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap(match => JSON.parse(match[1]));
 const hubCollection = readSchema(hubHtml).find(schema => schema['@type'] === 'CollectionPage');
@@ -270,6 +342,7 @@ const hubCanonical = hubHtml.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
 assert.equal(sitemapUrls.filter(value => value === hubCanonical).length, 1, 'Notooo hub must appear exactly once in the sitemap');
 assert.deepEqual(hubCollection.mainEntity.itemListElement.map(item => item.url), notoooModule.publishedNotoooBooks.map(book => `${hubCanonical}${book.slug}/`), 'ItemList must contain only real published canonical URLs');
 assert.equal(sitemapUrls.filter(value => value.startsWith(hubCanonical)).length, notoooModule.publishedNotoooBooks.length + 1, 'No category, filter, search or draft routes may enter the Notooo sitemap');
+assert.equal(sitemapUrls.filter(value => value.startsWith(hubCanonical)).length, 241, 'Expected the Notooo hub and all 240 published notes in the sitemap');
 const publicJs = fs.readdirSync(dist, { recursive: true }).filter(file => String(file).endsWith('.js')).map(file => fs.readFileSync(path.join(dist, file), 'utf8')).join('\n');
 const bodyFields = book => [book.bigIdea, ...book.sections, book.khizoooTake, book.remember].flatMap(section => [section.oneLiner, ...section.points]);
 const publishedBody = new Set(notoooModule.publishedNotoooBooks.flatMap(bodyFields));
@@ -284,7 +357,11 @@ for (const book of notoooModule.notoooBooks) {
   assert.ok(title.trim() && fullTitle.length < 70, `${book.slug}: prepare a unique title under 70 characters before release`);
   assert.ok(!notoooTitles.has(fullTitle), `${book.slug}: duplicate Notooo SEO title`);
   notoooTitles.add(fullTitle);
-  if (book.status === 'published') continue;
+  if (book.status === 'published') {
+    assert.ok(items[0].includes('data-status="published"') && items[0].includes(`href="${new URL(hubCanonical).pathname}${book.slug}/"`), `${book.slug}: published row must be a normal full-row link to its canonical route`);
+    assert.ok(fs.existsSync(path.join(dist, 'notooo', book.slug, 'index.html')), `${book.slug}: published listing href must resolve to generated HTML`);
+    continue;
+  }
   assert.equal(notoooModule.getNotoooBook(book.slug), undefined, `${book.slug}: non-public note must not resolve through the public lookup`);
   assert.ok(!manifestModule.contentManifest.some(item => item.contentType === 'notooo' && item.slug === book.slug), `${book.slug}: non-public note leaked into the content manifest`);
   assert.ok(!fs.existsSync(path.join(dist, 'notooo', book.slug, 'index.html')), `${book.slug}: non-public note route was generated`);

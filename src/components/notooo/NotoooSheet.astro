@@ -64,7 +64,7 @@ const sections = [book.bigIdea, ...book.sections];
   .brand i { color: #f82d48; font-style: normal; }
   .metadata { margin: 0; color: var(--ink); text-align: right; font: 800 .69rem Poppins, sans-serif; letter-spacing: .13em; text-transform: uppercase; }
   .title-area { padding: 2.6rem 0 1.8rem; border-bottom: 1px solid #dedede; }
-  .title-area h1, .title-area h2 { margin: 0; color: var(--ink); font: 900 clamp(2.8rem, 6.5vw, 5.2rem)/.94 Poppins, sans-serif; letter-spacing: -.055em; }
+  .title-area h1, .title-area h2 { margin: 0; color: var(--ink); font: 900 clamp(2.8rem, 6.5vw, 5.2rem)/.94 Poppins, sans-serif; letter-spacing: -.055em; overflow-wrap: anywhere; }
   .author { margin: .42rem 0 0; color: #606060; font-weight: 700; }
   .subtitle { max-width: 51rem; margin: 1rem 0 0; font-size: clamp(1.08rem, 1.8vw, 1.25rem); line-height: 1.48; }
   .document-section { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 1rem; padding: 1.1rem 0; border-top: 1px solid #e5e5e5; }
@@ -79,5 +79,5 @@ const sections = [book.bigIdea, ...book.sections];
   .take { margin-top: .25rem; border-top: 2px solid var(--ink); }
   .remember { border-top-color: var(--ink); }
   .sheet-footer { display: flex; justify-content: space-between; gap: .75rem; margin-top: .3rem; padding-top: 1rem; border-top: 1px solid var(--ink); color: #575757; font: 800 .64rem Poppins, sans-serif; letter-spacing: .075em; }
-  @media (max-width: 720px) { .sheet { width: 100%; padding: 0 1.25rem 1.5rem; font-size: 1rem; line-height: 1.55; } .sheet-header { gap: .75rem; padding: 1rem 0 1.25rem; } .metadata { font-size: .62rem; } .title-area { padding: 1.8rem 0 1.35rem; } .title-area h1, .title-area h2 { font-size: clamp(2.35rem, 13vw, 3.7rem); } .document-section { grid-template-columns: 1.75rem minmax(0, 1fr); gap: .65rem; padding: 1rem 0; } .section-number { font-size: 1rem; } .section-title { font-size: .75rem; } .sheet-footer { align-items: flex-start; flex-direction: column; gap: .25rem; } }
+  @media (max-width: 720px) { .sheet { width: 100%; padding: 0 1.25rem 1.5rem; font-size: 1rem; line-height: 1.55; } .sheet-header { gap: .75rem; padding: 1rem 0 1.25rem; } .metadata { font-size: .62rem; } .title-area { padding: 1.8rem 0 1.35rem; } .title-area h1, .title-area h2 { font-size: clamp(2.35rem, 11vw, 3.7rem); } .document-section { grid-template-columns: 1.75rem minmax(0, 1fr); gap: .65rem; padding: 1rem 0; } .section-number { font-size: 1rem; } .section-title { font-size: .75rem; } .sheet-footer { align-items: flex-start; flex-direction: column; gap: .25rem; } }
 </style>

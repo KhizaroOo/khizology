@@ -57,6 +57,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <meta name="author" content={SITE.author} />
 <meta name="robots" content={robotsContent} />
 <link rel="canonical" href={canonicalURL} />
+<link rel="describedby" href={absoluteUrl('/llms.txt', context)} />
 
 <!-- Open Graph -->
 <meta property="og:type" content={ogType} />

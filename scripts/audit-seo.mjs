@@ -346,6 +346,36 @@ if (sitemapUrls.length !== canonicalUrls.length || sitemapUrls.slice().sort().so
   fail(`sitemap: URL set differs from ${canonicalUrls.length} indexable canonicals`);
 }
 
+// Audit the generated agent guide against the same public HTML/canonicals as SEO.
+const llmsFile = join(dist, 'llms.txt');
+const llmsText = existsSync(llmsFile) ? readFileSync(llmsFile, 'utf8') : '';
+if (!/^# Khizooology\n\n> [^\n]+\n/.test(llmsText)) fail('llms.txt: missing site name or summary');
+for (const heading of ['Start Here', 'Toolooo — Visual Browser Tools', 'Infooo — Interactive Knowledge Worlds', 'Notooo — Book in One Page', 'Artooo — Original Art', 'Optional']) {
+  if (!llmsText.includes(`\n## ${heading}\n`)) fail(`llms.txt: missing ${heading} section`);
+}
+const llmsLinks = [...llmsText.matchAll(/^- \[((?:\\.|[^\]\\])+)\]\(([^)\s]+)\): (.+)$/gm)];
+const llmsUrls = new Set(llmsLinks.map((match) => match[2]));
+if (!llmsLinks.length) fail('llms.txt: missing Markdown resource links');
+for (const line of llmsText.split('\n').filter((line) => line.startsWith('- '))) {
+  if (!llmsLinks.some((match) => match[0] === line)) fail('llms.txt: malformed resource link');
+}
+for (const target of llmsUrls) {
+  if (!canonicalOwners.has(target)) fail(`llms.txt: noncanonical, excluded or missing public page ${target}`);
+}
+const llmsRequiredRoutes = new Set(['/', '/behind-the-vibes/', '/my-portfolio/', '/artworks/', '/privacy/', '/drop-a-vibe/']);
+for (const page of indexable) {
+  if (/^\/(?:toolbox|infooo|notooo|notes)(?:\/|$)/.test(page.route)) llmsRequiredRoutes.add(page.route);
+}
+for (const route of llmsRequiredRoutes) {
+  if (!llmsUrls.has(`${expectedSite}${basePath}${route}`)) fail(`llms.txt: missing public content ${route}`);
+}
+if (/future-\d|\?\?\?ooo/i.test(llmsText)) fail('llms.txt: mystery content exposed');
+if (existsSync(join(root, 'public', 'llms.txt'))) fail('llms.txt: must be generated, not maintained in public/');
+for (const page of pages.filter((page) => !page.redirect && page.route !== '/infooo/human-atlas-viewer/')) {
+  const discovery = tags(page.html, 'link').filter((item) => item.rel === 'describedby');
+  if (discovery.length !== 1 || discovery[0].href !== `${expectedSite}${basePath}/llms.txt`) fail(`${page.route}: missing or incorrect llms.txt discovery link`);
+}
+
 const robotsFile = join(dist, 'robots.txt');
 const robotsText = existsSync(robotsFile) ? readFileSync(robotsFile, 'utf8') : '';
 if (!/^User-agent: \*$/m.test(robotsText) || !/^Allow: \/$/m.test(robotsText)) fail('robots.txt: crawl policy is missing');
@@ -362,6 +392,7 @@ const artworkPage = pages.find((page) => page.route === '/artworks/');
 
 const artworkButtonTags = [...(artworkPage?.html || '').matchAll(/<button\b[^>]*class=["'][^"']*\baw-card\b[^>]*>/gi)].map((match) => attrs(match[0]));
 const artworkCards = artworkButtonTags.length;
+if (!llmsText.includes(`Explore ${artworkCards} original artworks`)) fail('llms.txt: gallery count differs from public Artooo content');
 const artworkSources = new Set(artworkButtonTags.map(button => button['data-artwork-original']));
 for (const source of artworkSources) {
   if (!source || !imageLocs.includes(new URL(source, expectedSite).href)) fail(`Artooo: original missing from sitemap: ${source}`);
@@ -491,6 +522,7 @@ const summary = {
   placeholderFindings: quality.placeholderFindings,
   uniqueCanonicals: canonicalOwners.size,
   sitemapUrls: sitemapUrls.length,
+  llmsPublicUrls: llmsUrls.size,
   imageSitemapEntries: imageLocs.length,
   serverRenderedArtworkCards: artworkCards,
   reviewedArtworkTitles: artworkTitleOwners.size,

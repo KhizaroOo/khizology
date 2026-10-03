@@ -1,0 +1,1107 @@
+[
+  {
+    "number": 8,
+    "slug": "the-righteous-mind",
+    "title": "The Righteous Mind",
+    "author": "Jonathan Haidt",
+    "year": 2012,
+    "description": "Moral intuition, group loyalty, and disagreement explained through Haidt’s model of the righteous mind.",
+    "subtitle": "Understand the moral concern behind the argument.",
+    "bigIdea": "Haidt argues that moral judgments often begin with intuitions, while group loyalties shape the reasons we give afterward.",
+    "sections": [
+      [
+        "Intuition First",
+        "A moral reaction can arrive before a carefully reasoned explanation.",
+        "The rider-and-elephant metaphor describes this imbalance; it is not a literal brain diagram."
+      ],
+      [
+        "More Than Harm",
+        "Haidt’s moral-foundations model includes concerns such as fairness, loyalty, authority, liberty, and sanctity.",
+        "The model describes proposed patterns, not fixed labels for every person."
+      ],
+      [
+        "Strategic Reasoning",
+        "Reasoning can defend an existing position instead of testing whether it is right."
+      ],
+      [
+        "Binding and Blinding",
+        "Shared moral commitments can support cooperation while hiding another group’s concerns."
+      ],
+      [
+        "Civil Disagreement",
+        "Understanding a rival’s moral priorities can make conversation more productive without requiring agreement."
+      ]
+    ],
+    "take": "Before arguing against a view, describe the value its holder thinks is being protected.",
+    "remember": "A different moral priority is worth understanding before judging.",
+    "sources": [
+      [
+        "author",
+        "The Righteous Mind — introductory chapter",
+        "https://righteousmind.com/about-the-book/introductory-chapter/"
+      ],
+      [
+        "publisher",
+        "The Righteous Mind — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/73535/the-righteous-mind-by-jonathan-haidt/"
+      ]
+    ],
+    "tags": [
+      "Moral Psychology",
+      "Disagreement",
+      "Groups"
+    ],
+    "relatedBooks": [
+      "how-minds-change"
+    ]
+  },
+  {
+    "number": 9,
+    "slug": "behave",
+    "title": "Behave",
+    "author": "Robert M. Sapolsky",
+    "year": 2017,
+    "description": "Sapolsky connects behavior with brains, hormones, development, culture, and evolution without reducing people to one cause.",
+    "subtitle": "Look beyond the moment of the action.",
+    "bigIdea": "Sapolsky explains behavior through interacting causes operating over seconds, lifetimes, and evolutionary history.",
+    "sections": [
+      [
+        "Seconds Before",
+        "Brain activity immediately before an action is one layer of its explanation."
+      ],
+      [
+        "Hormones in Context",
+        "Hormones influence behavior within a situation rather than supplying one universal instruction."
+      ],
+      [
+        "Growing a Brain",
+        "Childhood and adolescence shape how biological systems respond later.",
+        "Development matters without making one early experience a complete explanation."
+      ],
+      [
+        "Us and Them",
+        "Group boundaries can influence empathy, hostility, and judgments about fairness."
+      ],
+      [
+        "Many Timescales",
+        "Culture, ancestry, and immediate circumstances belong in the same investigation.",
+        "An explanation of behavior does not automatically settle questions of responsibility."
+      ]
+    ],
+    "take": "When an action surprises you, ask about the person’s situation and history before choosing a single cause.",
+    "remember": "One behavior can have many interacting explanations.",
+    "sources": [
+      [
+        "publisher",
+        "Behave — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/311787/behave-by-robert-m-sapolsky/"
+      ],
+      [
+        "official",
+        "Behave — licensed Google Books preview and contents",
+        "https://books.google.com/books/about/Behave.html?id=sJKoDAAAQBAJ"
+      ]
+    ],
+    "tags": [
+      "Behavior",
+      "Neuroscience",
+      "Context"
+    ],
+    "relatedBooks": [
+      "incognito"
+    ]
+  },
+  {
+    "number": 10,
+    "slug": "the-undoing-project",
+    "title": "The Undoing Project",
+    "author": "Michael Lewis",
+    "year": 2016,
+    "description": "Michael Lewis follows Kahneman and Tversky’s partnership and its insights into judgment, uncertainty, and imagined alternatives.",
+    "subtitle": "A partnership that changed the study of judgment.",
+    "bigIdea": "Lewis shows how Kahneman and Tversky’s collaboration challenged simple assumptions about rational human decisions.",
+    "sections": [
+      [
+        "Two Different Minds",
+        "Their contrasting temperaments helped them question assumptions neither would have challenged alone."
+      ],
+      [
+        "Mental Shortcuts",
+        "Quick judgments can depend on resemblance or memorable examples rather than reliable probabilities."
+      ],
+      [
+        "Gains and Losses",
+        "Their prospect theory describes choices relative to reference points, not just final amounts."
+      ],
+      [
+        "Imagined Alternatives",
+        "People mentally rewrite tragedies by changing particular events in the story."
+      ],
+      [
+        "A Fragile Partnership",
+        "Lewis also follows the personal tensions behind the public intellectual achievement.",
+        "The biography is Lewis’s interpretation, not a formula for every collaboration."
+      ]
+    ],
+    "take": "Treat a strong collaborator as someone who can improve your questions, not merely agree with your answers.",
+    "remember": "Better questions can grow between two different minds.",
+    "sources": [
+      [
+        "publisher",
+        "The Undoing Project — W. W. Norton",
+        "https://wwnorton.co.uk/books/9780393254594-the-undoing-project"
+      ],
+      [
+        "interview",
+        "The Men Who Started a Thinking Revolution — Michael Lewis interview",
+        "https://freakonomics.com/podcast/the-men-who-started-a-thinking-revolution-update/"
+      ]
+    ],
+    "tags": [
+      "Judgment",
+      "Collaboration",
+      "Uncertainty"
+    ],
+    "relatedBooks": [
+      "thinking-fast-and-slow"
+    ]
+  },
+  {
+    "number": 11,
+    "slug": "nudge",
+    "title": "Nudge",
+    "author": "Richard H. Thaler & Cass R. Sunstein",
+    "year": 2008,
+    "description": "Choice architecture, defaults, feedback, and freedom of choice in Thaler and Sunstein’s Nudge, including the revised edition’s concerns.",
+    "subtitle": "The arrangement of a choice matters.",
+    "bigIdea": "Thaler and Sunstein argue that changing how choices are presented can influence decisions while leaving alternatives available.",
+    "sections": [
+      [
+        "Choice Architecture",
+        "Menus, forms, and environments already shape choices, even when nobody calls them an intervention."
+      ],
+      [
+        "Defaults",
+        "People often keep the preselected option, so its design deserves particular scrutiny."
+      ],
+      [
+        "Feedback and Errors",
+        "Timely feedback and forgiving designs can help people notice mistakes and act on their intentions."
+      ],
+      [
+        "Freedom to Choose",
+        "A nudge should preserve a real ability to choose differently.",
+        "Transparency, easy opting out, and who benefits all matter."
+      ],
+      [
+        "Sludge",
+        "The revised edition examines needless obstacles that make useful actions harder.",
+        "A policy’s effects need testing; good intentions do not establish success."
+      ]
+    ],
+    "take": "When evaluating a design, ask whose goal it serves and whether declining its default is genuinely easy.",
+    "remember": "A helpful default still needs an honest exit.",
+    "sources": [
+      [
+        "publisher",
+        "Nudge — original Yale University Press edition",
+        "https://yalebooks.co.uk/book/9780300146813/nudge/"
+      ],
+      [
+        "publisher",
+        "Nudge: The Final Edition — Penguin Random House Higher Education",
+        "https://penguinrandomhousehighereducation.com/book/?isbn=9780143137009"
+      ]
+    ],
+    "tags": [
+      "Choice Architecture",
+      "Defaults",
+      "Decision Making"
+    ],
+    "relatedBooks": [
+      "scarcity"
+    ],
+    "editionNote": "First published in 2008; this synthesis also reflects Nudge: The Final Edition (2021)."
+  },
+  {
+    "number": 12,
+    "slug": "how-minds-change",
+    "title": "How Minds Change",
+    "author": "David McRaney",
+    "year": 2022,
+    "description": "McRaney investigates belief change, group identity, deep canvassing, and conversations that invite people to examine their own reasons.",
+    "subtitle": "Make room for someone to reconsider.",
+    "bigIdea": "McRaney argues that beliefs can change when people feel safe enough to examine how they formed them.",
+    "sections": [
+      [
+        "Different Perceptions",
+        "People interpret the same experience through different prior expectations.",
+        "The Dress example illustrates this gap without making every interpretation equally accurate."
+      ],
+      [
+        "Belonging and Belief",
+        "Changing a belief can threaten relationships and social identity, not just an argument."
+      ],
+      [
+        "Deep Canvassing",
+        "The book explores respectful conversations that invite reflection through personal experience."
+      ],
+      [
+        "Examining Reasons",
+        "Questions about how someone knows can reveal uncertainty better than a contest of assertions."
+      ],
+      [
+        "Change Without Victory",
+        "A conversation can create room for later reconsideration without producing an immediate conversion.",
+        "These methods are possibilities, not guaranteed persuasion techniques."
+      ]
+    ],
+    "take": "Ask what would change your own mind before demanding that another person change theirs.",
+    "remember": "Curiosity works best when it includes your own beliefs.",
+    "sources": [
+      [
+        "author",
+        "How Minds Change — David McRaney",
+        "https://www.davidmcraney.com/howmindschangehome"
+      ],
+      [
+        "publisher",
+        "How Minds Change — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/639563/how-minds-change-by-david-mcraney/"
+      ]
+    ],
+    "tags": [
+      "Belief",
+      "Persuasion",
+      "Conversation"
+    ],
+    "relatedBooks": [
+      "the-righteous-mind"
+    ]
+  },
+  {
+    "number": 13,
+    "slug": "superforecasting",
+    "title": "Superforecasting",
+    "author": "Philip E. Tetlock & Dan Gardner",
+    "year": 2015,
+    "description": "Probability, updating, teamwork, and scored predictions in Tetlock and Gardner’s research-based account of better forecasting.",
+    "subtitle": "Replace certainty with estimates you can test.",
+    "bigIdea": "The authors argue that forecasting improves through clear questions, probabilistic thinking, revision, and honest feedback.",
+    "sections": [
+      [
+        "Answerable Questions",
+        "A forecast needs a defined event and deadline so its accuracy can eventually be checked."
+      ],
+      [
+        "Probabilities",
+        "Assigning a probability expresses uncertainty more precisely than simply saying an event will happen."
+      ],
+      [
+        "Updating",
+        "Revise estimates when evidence changes instead of protecting a prediction made earlier."
+      ],
+      [
+        "Different Perspectives",
+        "Teams can improve judgment by comparing information and challenging each other’s assumptions."
+      ],
+      [
+        "Keeping Score",
+        "Recorded predictions reveal whether confidence has matched results over time.",
+        "Success on studied questions does not make every distant or unprecedented event predictable."
+      ]
+    ],
+    "take": "Write down one forecast with a deadline and probability, then review it without rewriting what you originally believed.",
+    "remember": "A forecast becomes useful when it can be corrected.",
+    "sources": [
+      [
+        "publisher",
+        "Superforecasting — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/227815/superforecasting-by-philip-e-tetlock-and-dan-gardner/"
+      ],
+      [
+        "official",
+        "About Superforecasting — Good Judgment research background",
+        "https://goodjudgment.com/about/"
+      ]
+    ],
+    "tags": [
+      "Forecasting",
+      "Probability",
+      "Learning"
+    ],
+    "relatedBooks": [
+      "the-undoing-project"
+    ]
+  },
+  {
+    "number": 14,
+    "slug": "range",
+    "title": "Range",
+    "author": "David Epstein",
+    "year": 2019,
+    "description": "David Epstein’s case for sampling, broad experience, analogies, and finding a good fit in complex learning environments.",
+    "subtitle": "Breadth can help when familiar patterns stop working.",
+    "bigIdea": "Epstein argues that broad experience can improve learning and problem-solving, especially in complex and unpredictable fields.",
+    "sections": [
+      [
+        "Sampling",
+        "Trying different activities can reveal interests and abilities before committing to a specialty."
+      ],
+      [
+        "Learning Environments",
+        "Stable rules and clear feedback favor different learning strategies from ambiguous, changing situations."
+      ],
+      [
+        "Connecting Domains",
+        "An idea from another field can expose a structure that local experts overlook."
+      ],
+      [
+        "Productive Difficulty",
+        "Some learning feels slower while helping knowledge become more transferable."
+      ],
+      [
+        "Finding a Fit",
+        "Changing direction can reflect better knowledge of your strengths rather than simple failure.",
+        "The case for breadth does not remove the value of deep expertise."
+      ]
+    ],
+    "take": "Before narrowing your path, try a small project in an unfamiliar field and notice what carries across.",
+    "remember": "Explore enough to choose your depth deliberately.",
+    "sources": [
+      [
+        "author",
+        "Range — David Epstein",
+        "https://davidepstein.com/range/"
+      ],
+      [
+        "publisher",
+        "Range — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/550188/range-by-david-epstein/"
+      ]
+    ],
+    "tags": [
+      "Learning",
+      "Expertise",
+      "Career"
+    ],
+    "relatedBooks": [
+      "peak"
+    ]
+  },
+  {
+    "number": 15,
+    "slug": "peak",
+    "title": "Peak",
+    "author": "Anders Ericsson & Robert Pool",
+    "year": 2016,
+    "description": "Deliberate practice, feedback, mental representations, and the limits of counting hours in Ericsson and Pool’s account of expertise.",
+    "subtitle": "Practice the weak point, not just the familiar routine.",
+    "bigIdea": "Ericsson and Pool argue that improvement depends on targeted practice that changes skills rather than merely repeating them.",
+    "sections": [
+      [
+        "Purposeful Practice",
+        "A specific goal makes it possible to notice whether a practice session improved anything."
+      ],
+      [
+        "Feedback",
+        "Timely correction helps prevent an error from becoming a comfortable habit."
+      ],
+      [
+        "Mental Representations",
+        "Experts build detailed internal models that help them recognize patterns and guide performance."
+      ],
+      [
+        "Deliberate Practice",
+        "In developed fields, informed coaching can target skills just beyond a learner’s current ability."
+      ],
+      [
+        "Beyond Hour Counts",
+        "The quality and structure of training matter more than reaching a magical number of hours.",
+        "Practice contributes to expertise without explaining every difference in performance."
+      ]
+    ],
+    "take": "Choose one narrow skill, arrange feedback, and adjust the exercise when it becomes easy.",
+    "remember": "Repetition becomes learning when it changes what you can do.",
+    "sources": [
+      [
+        "publisher",
+        "Peak — Penguin UK",
+        "https://www.penguin.co.uk/books/421170/peak-by-anders-ericsson/9781473513143"
+      ],
+      [
+        "interview",
+        "Peak — interview with Anders Ericsson and Robert Pool",
+        "https://www.edweek.org/teaching-learning/opinion-peak-an-interview-with-anders-ericsson-robert-pool/2016/04"
+      ]
+    ],
+    "tags": [
+      "Practice",
+      "Expertise",
+      "Feedback"
+    ],
+    "relatedBooks": [
+      "range"
+    ]
+  },
+  {
+    "number": 16,
+    "slug": "scarcity",
+    "title": "Scarcity",
+    "author": "Sendhil Mullainathan & Eldar Shafir",
+    "year": 2013,
+    "description": "How shortages capture attention, tax mental bandwidth, and create traps, with attention to context rather than blame.",
+    "subtitle": "Shortage changes what gets your attention.",
+    "bigIdea": "The authors argue that having too little money, time, or other resources can narrow attention and reduce room for future decisions.",
+    "sections": [
+      [
+        "Attention Captured",
+        "A pressing shortage can become difficult to put out of mind."
+      ],
+      [
+        "Tunneling",
+        "Focusing intensely on an urgent need can hide important problems outside that focus."
+      ],
+      [
+        "Bandwidth",
+        "Managing scarcity can consume mental capacity otherwise available for planning and self-control."
+      ],
+      [
+        "Borrowing From Tomorrow",
+        "Meeting today’s pressure by borrowing resources can make the next shortage harder to escape."
+      ],
+      [
+        "Slack",
+        "A buffer can absorb mistakes that would otherwise create a crisis.",
+        "These ideas describe situational pressure, not a judgment about poor people’s intelligence."
+      ]
+    ],
+    "take": "When a process repeatedly overwhelms people, examine its timing, complexity, and buffers before blaming their motivation.",
+    "remember": "A shortage can narrow choices as well as resources.",
+    "sources": [
+      [
+        "publisher",
+        "Scarcity — Macmillan book and excerpt",
+        "https://us.macmillan.com/books/9781429943451/scarcity/"
+      ],
+      [
+        "official",
+        "Scarcity research — Princeton University",
+        "https://www.princeton.edu/news/2013/08/29/poor-concentration-poverty-reduces-brainpower-needed-navigating-other-areas-life"
+      ]
+    ],
+    "tags": [
+      "Attention",
+      "Scarcity",
+      "Decision Making"
+    ],
+    "relatedBooks": [
+      "nudge"
+    ]
+  },
+  {
+    "number": 17,
+    "slug": "how-emotions-are-made",
+    "title": "How Emotions Are Made",
+    "author": "Lisa Feldman Barrett",
+    "year": 2017,
+    "description": "Barrett’s constructed-emotion theory connects prediction, bodily signals, learned concepts, and context; its claims remain an attributed scientific model.",
+    "subtitle": "An emotion is more than a fixed reflex.",
+    "bigIdea": "Barrett proposes that the brain constructs emotional experiences by interpreting bodily signals and situations through learned concepts.",
+    "sections": [
+      [
+        "Prediction",
+        "The brain uses past experience to anticipate incoming information rather than waiting passively for it."
+      ],
+      [
+        "Bodily Signals",
+        "Changes inside the body help shape feelings, but they do not identify one emotion by themselves."
+      ],
+      [
+        "Learned Concepts",
+        "Culture and experience provide concepts used to make sense of what a feeling means."
+      ],
+      [
+        "Context",
+        "A similar bodily sensation can be interpreted differently in different situations."
+      ],
+      [
+        "A Scientific Theory",
+        "Barrett challenges fixed emotion-circuit explanations with a constructed-emotion account.",
+        "This is a debated model, not proof that every competing account is false."
+      ]
+    ],
+    "take": "Name a feeling carefully and consider its context without assuming that one bodily signal gives the whole explanation.",
+    "remember": "The meaning of a feeling depends partly on its context.",
+    "sources": [
+      [
+        "author",
+        "How Emotions Are Made — Lisa Feldman Barrett",
+        "https://lisafeldmanbarrett.com/books/how-emotions-are-made/"
+      ],
+      [
+        "author",
+        "Core systems — Lisa Feldman Barrett",
+        "https://lisafeldmanbarrett.com/2017/02/05/core-systems/"
+      ]
+    ],
+    "tags": [
+      "Emotion",
+      "Prediction",
+      "Neuroscience"
+    ],
+    "relatedBooks": [
+      "incognito"
+    ]
+  },
+  {
+    "number": 18,
+    "slug": "the-extended-mind",
+    "title": "The Extended Mind",
+    "author": "Annie Murphy Paul",
+    "year": 2021,
+    "description": "Thinking with the body, physical spaces, tools, and other people in Annie Murphy Paul’s account of cognition beyond solitary mental effort.",
+    "subtitle": "Your surroundings can be part of the thinking.",
+    "bigIdea": "Paul argues that bodies, environments, and relationships can help people think more effectively than relying on internal effort alone.",
+    "sections": [
+      [
+        "Bodily Movement",
+        "Movement and bodily signals can support attention and problem-solving in suitable contexts."
+      ],
+      [
+        "Gestures",
+        "Using the hands can help make a difficult idea concrete while explaining or learning it."
+      ],
+      [
+        "Thinking Spaces",
+        "The design of a place can influence distraction, engagement, and the ease of working with information."
+      ],
+      [
+        "External Tools",
+        "Diagrams and arranged objects can make relationships easier to inspect than holding everything in memory."
+      ],
+      [
+        "Other Minds",
+        "Discussion, teaching, and shared knowledge can extend what an individual can understand.",
+        "The best support depends on the task; no environment works equally well for everyone."
+      ]
+    ],
+    "take": "For a difficult problem, change the thinking setup: draw its parts, move briefly, or explain it to someone.",
+    "remember": "Improve the thinking environment as well as the effort.",
+    "sources": [
+      [
+        "author",
+        "The Extended Mind — Annie Murphy Paul",
+        "https://anniemurphypaul.com/books/the-extended-mind/"
+      ],
+      [
+        "official",
+        "The Extended Mind — licensed Google Books preview",
+        "https://books.google.com/books/about/The_Extended_Mind.html?id=Dk-_DwAAQBAJ"
+      ]
+    ],
+    "tags": [
+      "Learning",
+      "Environment",
+      "Collaboration"
+    ],
+    "relatedBooks": [
+      "range"
+    ]
+  },
+  {
+    "number": 19,
+    "slug": "the-invisible-gorilla",
+    "title": "The Invisible Gorilla",
+    "author": "Christopher Chabris & Daniel Simons",
+    "year": 2010,
+    "description": "Chabris and Simons examine gaps in attention, memory, confidence, knowledge, and causal judgment—and why those gaps can be hard to notice.",
+    "subtitle": "Looking is not the same as noticing.",
+    "bigIdea": "The authors argue that people often overestimate what they notice, remember, and understand.",
+    "sections": [
+      [
+        "Attention",
+        "Concentrating on one task can make an unexpected event go unnoticed, even in plain sight."
+      ],
+      [
+        "Memory",
+        "A vivid recollection is not a recording that remains unchanged over time."
+      ],
+      [
+        "Confidence",
+        "Someone’s confident delivery does not by itself establish that their account is accurate."
+      ],
+      [
+        "Knowledge",
+        "Feeling familiar with a topic can hide gaps in understanding how it actually works."
+      ],
+      [
+        "Cause and Potential",
+        "The book challenges easy causal stories and promises of effortless mental improvement.",
+        "Its examples vary in evidential strength; a bad outcome alone does not prove irrationality."
+      ]
+    ],
+    "take": "In an important disagreement, check records and circumstances instead of relying solely on how certain a memory feels.",
+    "remember": "Confidence in seeing is not proof that nothing was missed.",
+    "sources": [
+      [
+        "publisher",
+        "The Invisible Gorilla — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/25716/the-invisible-gorilla-by-christopher-chabris-and-daniel-simons/"
+      ],
+      [
+        "review",
+        "The Invisible Gorilla — Ernest Davis critical review",
+        "https://cs.nyu.edu/~davise/papers/chabris.pdf"
+      ]
+    ],
+    "tags": [
+      "Attention",
+      "Memory",
+      "Judgment"
+    ],
+    "relatedBooks": [
+      "how-we-know-what-isnt-so"
+    ]
+  },
+  {
+    "number": 20,
+    "slug": "mistakes-were-made-but-not-by-me",
+    "title": "Mistakes Were Made (But Not by Me)",
+    "author": "Carol Tavris & Elliot Aronson",
+    "year": 2007,
+    "description": "Self-justification, cognitive dissonance, and the difficulty of admitting mistakes in Tavris and Aronson’s account of everyday reasoning.",
+    "subtitle": "Protecting your self-image can protect a mistake.",
+    "bigIdea": "Tavris and Aronson argue that people can defend harmful decisions to reduce the discomfort of seeing themselves as mistaken.",
+    "sections": [
+      [
+        "Cognitive Dissonance",
+        "Conflicting beliefs or actions can feel uncomfortable enough to invite a reassuring explanation."
+      ],
+      [
+        "Self-Justification",
+        "Preserving an image of being sensible can become more important than correcting an error."
+      ],
+      [
+        "Escalating Commitment",
+        "A small defended decision can make the next, larger commitment easier to justify."
+      ],
+      [
+        "Relationships",
+        "Treating your own actions generously and another person’s harshly can deepen an existing conflict."
+      ],
+      [
+        "Owning the Error",
+        "Admitting a mistake creates a chance to repair it without declaring your entire self worthless.",
+        "A psychological explanation does not remove responsibility for harm."
+      ]
+    ],
+    "take": "Separate the statement that an action was wrong from the claim that a person can never improve.",
+    "remember": "Repair becomes possible when defending the mistake stops.",
+    "sources": [
+      [
+        "official",
+        "Mistakes Were Made — UC Santa Cruz author interview",
+        "https://news.ucsc.edu/2007/05/new-book-mistakes-were-made-but-not-by-me-explains-how-self-deception-dooms-marriages-starts-wars-and-promotes-a-culture-of-unaccountability/"
+      ],
+      [
+        "official",
+        "Mistakes Were Made — authorized NPR excerpt",
+        "https://www.vpm.org/npr-news/2007-07-20/excerpt-mistakes-were-made-but-not-by-me/"
+      ]
+    ],
+    "tags": [
+      "Self-Justification",
+      "Responsibility",
+      "Belief"
+    ],
+    "relatedBooks": [
+      "how-minds-change"
+    ]
+  },
+  {
+    "number": 21,
+    "slug": "how-we-know-what-isnt-so",
+    "title": "How We Know What Isn't So",
+    "author": "Thomas Gilovich",
+    "year": 1991,
+    "description": "Gilovich examines misleading patterns, selective evidence, wishful thinking, and social reinforcement in the formation of questionable beliefs.",
+    "subtitle": "Ask what your evidence leaves out.",
+    "bigIdea": "Gilovich explains how ordinary reasoning can turn incomplete, ambiguous, or socially reinforced evidence into confident but mistaken beliefs.",
+    "sections": [
+      [
+        "Patterns in Noise",
+        "Random variation can look meaningful when we notice a striking cluster."
+      ],
+      [
+        "Incomplete Samples",
+        "A few memorable cases may not represent the larger group or all the times nothing happened."
+      ],
+      [
+        "Expected Answers",
+        "Ambiguous evidence can be interpreted in ways that support an existing belief."
+      ],
+      [
+        "Wanted Answers",
+        "Hope and personal interest can affect which explanation feels convincing."
+      ],
+      [
+        "Social Agreement",
+        "Repeated or widely shared claims are not automatically supported by independent evidence.",
+        "Assess particular findings with current evidence rather than treating every historical example as settled."
+      ]
+    ],
+    "take": "Alongside evidence for a claim, look for missing comparisons and cases that would have counted against it.",
+    "remember": "Count the misses as well as the memorable hits.",
+    "sources": [
+      [
+        "publisher",
+        "How We Know What Isn't So — Simon & Schuster",
+        "https://www.simonandschuster.com/books/How-We-Know-What-Isnt-So/Thomas-Gilovich/A-Psychological-Study-on-Logic/9780029117064"
+      ],
+      [
+        "official",
+        "How We Know What Isn't So — licensed contents and original edition",
+        "https://books.google.com/books/about/How_we_know_what_isn_t_so.html?hl=en&id=5499AAAAMAAJ"
+      ]
+    ],
+    "tags": [
+      "Evidence",
+      "Belief",
+      "Critical Thinking"
+    ],
+    "relatedBooks": [
+      "the-invisible-gorilla"
+    ]
+  },
+  {
+    "number": 22,
+    "slug": "algorithms-to-live-by",
+    "title": "Algorithms to Live By",
+    "author": "Brian Christian & Tom Griffiths",
+    "year": 2016,
+    "description": "Computer-science ideas about stopping, exploring, sorting, caching, and scheduling become tools for understanding everyday decisions and their limits.",
+    "subtitle": "A useful rule begins with the shape of the problem.",
+    "bigIdea": "Christian and Griffiths use computer-science problems to explain trade-offs in decisions made with limited time, information, and memory.",
+    "sections": [
+      [
+        "Optimal Stopping",
+        "Searching longer improves comparisons but can also lose opportunities.",
+        "The famous stopping rule depends on strict assumptions; it is not a universal dating or shopping instruction."
+      ],
+      [
+        "Explore and Exploit",
+        "Trying unfamiliar options teaches you something; using a favorite draws on what you already know."
+      ],
+      [
+        "Sorting",
+        "Organizing everything has a cost, so the right amount of order depends on how information will be used."
+      ],
+      [
+        "Caching",
+        "Keeping frequently needed things easy to reach can reduce repeated retrieval effort."
+      ],
+      [
+        "Scheduling",
+        "Choosing which task comes first requires deciding what cost, deadline, or waiting time matters most."
+      ]
+    ],
+    "take": "Name the trade-off before borrowing an algorithm, and check whether the real situation satisfies the model’s assumptions.",
+    "remember": "A model helps when its assumptions fit the decision.",
+    "sources": [
+      [
+        "publisher",
+        "Algorithms to Live By — Macmillan and authorized introduction",
+        "https://us.macmillan.com/books/9781627790376/algorithmstoliveby/"
+      ],
+      [
+        "official",
+        "Algorithms to Live By — licensed Google Books preview",
+        "https://books.google.com/books/about/Algorithms_to_Live_By.html?id=yvaLCgAAQBAJ"
+      ]
+    ],
+    "tags": [
+      "Algorithms",
+      "Decisions",
+      "Trade-offs"
+    ],
+    "relatedBooks": [
+      "superforecasting"
+    ]
+  },
+  {
+    "number": 23,
+    "slug": "the-confidence-game",
+    "title": "The Confidence Game",
+    "author": "Maria Konnikova",
+    "year": 2016,
+    "description": "Konnikova explores how fraud exploits trust, persuasive stories, hope, and the reluctance to acknowledge being deceived.",
+    "subtitle": "The story you want can hide the evidence you need.",
+    "bigIdea": "Konnikova argues that cons exploit ordinary human trust and desire, rather than only a victim’s lack of intelligence.",
+    "sections": [
+      [
+        "Trust",
+        "A convincing relationship can lower the scrutiny normally applied to a stranger’s claim."
+      ],
+      [
+        "Hope",
+        "Promises can become especially persuasive when they match what someone badly wants to be true."
+      ],
+      [
+        "A Compelling Story",
+        "An emotionally satisfying explanation can substitute for independent confirmation."
+      ],
+      [
+        "The Con’s Progression",
+        "The book follows how a swindle develops from selecting a target to managing the aftermath."
+      ],
+      [
+        "Claimed Immunity",
+        "Believing you could never be fooled can itself make a suspicious story harder to question.",
+        "Responsibility remains with the fraudster; vulnerability is not consent."
+      ]
+    ],
+    "take": "Pause a persuasive offer long enough to check it through a source outside the person making the promise.",
+    "remember": "Wanting a claim to be true is a reason to check it.",
+    "sources": [
+      [
+        "publisher",
+        "The Confidence Game — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/316878/the-confidence-game-by-maria-konnikova/9780698170995/"
+      ],
+      [
+        "author",
+        "The Confidence Game — official author book material",
+        "https://www.mariakonnikova.com/wp-content/uploads/2012/02/UK-TheConfidenceGame.pdf"
+      ]
+    ],
+    "tags": [
+      "Trust",
+      "Deception",
+      "Evidence"
+    ],
+    "relatedBooks": [
+      "mistakes-were-made-but-not-by-me"
+    ]
+  },
+  {
+    "number": 24,
+    "slug": "the-molecule-of-more",
+    "title": "The Molecule of More",
+    "author": "Daniel Z. Lieberman & Michael E. Long",
+    "year": 2018,
+    "description": "Lieberman and Long use dopamine as a lens on anticipation, novelty, ambition, and the tension between wanting something and enjoying it.",
+    "subtitle": "Wanting and having are different experiences.",
+    "bigIdea": "The authors use dopamine to explain the pull of anticipated possibilities and distinguish pursuit from present enjoyment.",
+    "sections": [
+      [
+        "Anticipation",
+        "The prospect of getting something can feel different from the experience of already having it."
+      ],
+      [
+        "Novelty",
+        "A new possibility can renew desire after a familiar reward loses its appeal."
+      ],
+      [
+        "Love and Pursuit",
+        "The book distinguishes the excitement of pursuit from the work of sustaining an established relationship."
+      ],
+      [
+        "Ambition and Creativity",
+        "Looking beyond the present can support invention while making satisfaction harder to maintain."
+      ],
+      [
+        "Limits of the Lens",
+        "The book’s wide-ranging dopamine explanations are a framing, not a complete account of behavior.",
+        "A neurotransmitter cannot diagnose a person’s politics, addiction, or mental health."
+      ]
+    ],
+    "take": "When chasing the next achievement, distinguish the enjoyment you expect from the life you are actually building.",
+    "remember": "Notice both the chase and what is already here.",
+    "sources": [
+      [
+        "publisher",
+        "The Molecule of More — BenBella Books",
+        "https://benbellabooks.com/shop/the-molecule-of-more/"
+      ],
+      [
+        "publisher",
+        "The Molecule of More — BenBella 2018 catalog",
+        "https://www.benbellabooks.com/wp-content/uploads/Catalog_BenBella2018_Marketing-2.pdf"
+      ]
+    ],
+    "tags": [
+      "Desire",
+      "Dopamine",
+      "Motivation"
+    ],
+    "relatedBooks": [
+      "incognito"
+    ]
+  },
+  {
+    "number": 25,
+    "slug": "incognito",
+    "title": "Incognito",
+    "author": "David Eagleman",
+    "year": 2011,
+    "description": "Eagleman explores unconscious brain processes, constructed perception, competing impulses, and the questions neuroscience raises about responsibility.",
+    "subtitle": "Conscious awareness sees only part of the work.",
+    "bigIdea": "Eagleman argues that much of the brain’s work happens outside awareness, shaping perception and decisions before we can explain them.",
+    "sections": [
+      [
+        "Hidden Work",
+        "Skilled actions and rapid responses can occur without a conscious account of each step."
+      ],
+      [
+        "Constructed Perception",
+        "What we experience depends on the brain’s interpretation, not simply a direct copy of outside information."
+      ],
+      [
+        "Competing Systems",
+        "Different drives can support incompatible choices within the same person."
+      ],
+      [
+        "Biological Differences",
+        "Brain conditions and individual histories can affect behavior in ways an observer cannot readily see."
+      ],
+      [
+        "Responsibility",
+        "Eagleman asks how biological explanations should inform responses to harmful behavior.",
+        "His proposed legal implications are arguments, not an automatic exemption from accountability."
+      ]
+    ],
+    "take": "Treat your own explanation of a decision as useful but incomplete, then check the conditions that shaped it.",
+    "remember": "Awareness is part of the mind, not all of it.",
+    "sources": [
+      [
+        "publisher",
+        "Incognito — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/44457/incognito-by-david-eagleman/9780307389923/"
+      ],
+      [
+        "author",
+        "Incognito — author’s first-chapter excerpts",
+        "https://eagleman.com/excerpt-2/"
+      ]
+    ],
+    "tags": [
+      "Consciousness",
+      "Neuroscience",
+      "Responsibility"
+    ],
+    "relatedBooks": [
+      "behave"
+    ]
+  },
+  {
+    "number": 26,
+    "slug": "the-power-of-regret",
+    "title": "The Power of Regret",
+    "author": "Daniel H. Pink",
+    "year": 2022,
+    "description": "Pink’s four regret categories and approach to reflection turn attention toward foundations, courage, moral choices, and connection.",
+    "subtitle": "Use the past to clarify the next decision.",
+    "bigIdea": "Pink argues that reflecting on regret can reveal values and improve future decisions without denying or endlessly reliving the past.",
+    "sections": [
+      [
+        "Foundation Regrets",
+        "Neglected preparation or habits can show why basic stability matters."
+      ],
+      [
+        "Boldness Regrets",
+        "An untried opportunity can leave a lasting question about what might have been."
+      ],
+      [
+        "Moral Regrets",
+        "Actions that violate personal values can reveal the importance of integrity and repair."
+      ],
+      [
+        "Connection Regrets",
+        "Lost or neglected relationships can expose the value of reaching out."
+      ],
+      [
+        "Remaking Regret",
+        "Pink proposes disclosure, self-compassion, and distance as ways to extract a lesson.",
+        "These are general reflection ideas, not treatment for persistent distress."
+      ]
+    ],
+    "take": "Identify one lesson a regret contains and one proportionate action it makes possible now.",
+    "remember": "Carry the lesson without carrying a permanent verdict on yourself.",
+    "sources": [
+      [
+        "publisher",
+        "The Power of Regret — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/539547/the-power-of-regret-by-daniel-h-pink/9780735210653/"
+      ],
+      [
+        "author",
+        "The Power of Regret — official annotated contents",
+        "https://danpink.com/wp-content/uploads/2022/01/Power_Of_Regret_Table_of_Contents.pdf"
+      ]
+    ],
+    "tags": [
+      "Regret",
+      "Reflection",
+      "Values"
+    ],
+    "relatedBooks": [
+      "how-minds-change"
+    ]
+  },
+  {
+    "number": 27,
+    "slug": "the-upside-of-irrationality",
+    "title": "The Upside of Irrationality",
+    "author": "Dan Ariely",
+    "year": 2010,
+    "description": "Ariely’s book explores meaning at work, incentives, effort, attachment to our own ideas, and adaptation, with claims kept context-dependent.",
+    "subtitle": "A decision can serve more than a financial reward.",
+    "bigIdea": "Ariely argues that emotion, meaning, and attachment influence work and relationships in ways simple reward calculations miss.",
+    "sections": [
+      [
+        "Bonuses and Pressure",
+        "The book describes settings where larger rewards increase pressure without improving performance."
+      ],
+      [
+        "Meaningful Work",
+        "Acknowledgment and a sense that effort matters can influence willingness to continue working."
+      ],
+      [
+        "The IKEA Effect",
+        "People may value something more because they helped make it."
+      ],
+      [
+        "Not Invented Here",
+        "Attachment to our own ideas can make another person’s useful proposal harder to accept."
+      ],
+      [
+        "Adaptation",
+        "People can get used to changed circumstances, but not to everything or always in the same way.",
+        "Treat experimental claims as context-dependent and open to replication and criticism."
+      ]
+    ],
+    "take": "Evaluate an idea separately from who made it, including when the maker is you.",
+    "remember": "Your effort explains attachment; it does not prove quality.",
+    "sources": [
+      [
+        "official",
+        "The Upside of Irrationality — licensed Google Books preview and contents",
+        "https://books.google.com/books?id=If-ARt-a2kkC"
+      ],
+      [
+        "author",
+        "The Upside of Irrationality — author’s chapter discussions",
+        "https://danariely.com/category/blog/page/40/"
+      ]
+    ],
+    "tags": [
+      "Motivation",
+      "Meaning",
+      "Decision Making"
+    ],
+    "relatedBooks": [
+      "peak"
+    ]
+  }
+]

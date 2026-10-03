@@ -1,0 +1,1136 @@
+[
+  {
+    "number": 28,
+    "slug": "against-the-gods",
+    "title": "Against the Gods",
+    "author": "Peter L. Bernstein",
+    "year": 1996,
+    "description": "Bernstein traces how probability, statistics, and uncertainty changed risk-taking, from games of chance to modern finance.",
+    "subtitle": "Risk became something people could examine.",
+    "bigIdea": "Bernstein traces how measuring chance changed decisions without making an uncertain future fully predictable.",
+    "sections": [
+      [
+        "From Fate to Odds",
+        "Probability gave people a way to compare uncertain outcomes rather than treating them only as fate."
+      ],
+      [
+        "Learning from Samples",
+        "Statistics uses observations to estimate patterns, but a sample can misrepresent the larger world."
+      ],
+      [
+        "Value Depends on the Person",
+        "A possible gain matters differently to someone who can afford a loss and someone who cannot."
+      ],
+      [
+        "Spreading Exposure",
+        "Diversification distributes risk across different holdings instead of relying on one outcome."
+      ],
+      [
+        "Beyond Known Odds",
+        "Uncertainty remains when past patterns cannot supply dependable probabilities for what comes next."
+      ]
+    ],
+    "take": "When considering a risk estimate, ask what observations support it and what important possibilities it leaves out.",
+    "remember": "A measured risk is still a risk.",
+    "sources": [
+      [
+        "publisher",
+        "Against the Gods — Wiley first edition and overview",
+        "https://uat.store.wiley.com/en-us/against-the-gods-the-remarkable-story-of-risk-p-9780471121046"
+      ],
+      [
+        "publisher",
+        "Against the Gods — Wiley-VCH overview and contents",
+        "https://www.wiley-vch.de/en/areas-interest/finance-economics-law/finance-investments-13fi/general-finance-investments-13fi0/against-the-gods-978-0-471-12104-6"
+      ]
+    ],
+    "tags": [
+      "Risk",
+      "Probability",
+      "Financial History"
+    ],
+    "relatedBooks": [
+      "fooled-by-randomness"
+    ]
+  },
+  {
+    "number": 29,
+    "slug": "fooled-by-randomness",
+    "title": "Fooled by Randomness",
+    "author": "Nassim Nicholas Taleb",
+    "year": 2001,
+    "description": "Taleb examines luck, hidden failures, and uncertain payoffs in trading, challenging the habit of judging skill from results alone.",
+    "subtitle": "Look for the luck behind the success.",
+    "bigIdea": "Taleb argues that successful outcomes can disguise luck, especially when we see winners but miss the people who failed.",
+    "sections": [
+      [
+        "Outcome Is Not Method",
+        "One profitable result cannot establish that the decision behind it was sound."
+      ],
+      [
+        "Invisible Failures",
+        "A story about surviving winners hides other people who used similar methods and lost."
+      ],
+      [
+        "Alternative Histories",
+        "A decision should be considered alongside the other outcomes that could reasonably have happened."
+      ],
+      [
+        "Probability and Payoff",
+        "A likely small gain can be outweighed by an unlikely loss large enough to cause ruin."
+      ],
+      [
+        "Emotional Noise",
+        "Watching every price movement can pull attention away from the longer-term risk of a position."
+      ]
+    ],
+    "take": "Separate the quality of a decision from its immediate result, then look for the missing unsuccessful examples.",
+    "remember": "Luck can wear the costume of skill.",
+    "sources": [
+      [
+        "publisher",
+        "Fooled by Randomness — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/176225/fooled-by-randomness-by-nassim-nicholas-taleb/9781400067930/"
+      ],
+      [
+        "author",
+        "Probability and Risk in the Real World — Taleb",
+        "https://www.fooledbyrandomness.com/probability.pdf"
+      ],
+      [
+        "author",
+        "Taleb — bibliography and original publication year",
+        "https://www.fooledbyrandomness.com/CV.htm"
+      ]
+    ],
+    "tags": [
+      "Luck",
+      "Risk",
+      "Decision Making"
+    ],
+    "relatedBooks": [
+      "the-black-swan"
+    ]
+  },
+  {
+    "number": 30,
+    "slug": "the-black-swan",
+    "title": "The Black Swan",
+    "author": "Nassim Nicholas Taleb",
+    "year": 2007,
+    "description": "Taleb explores unexpected events with large consequences, hindsight stories, and the limits of models built from familiar observations.",
+    "subtitle": "Prepare for the limits of what you know.",
+    "bigIdea": "Taleb argues that events outside our expectations can have enormous effects that ordinary forecasts fail to capture.",
+    "sections": [
+      [
+        "Unexpected to Whom?",
+        "A Black Swan is surprising relative to an observer’s knowledge, not necessarily to everyone."
+      ],
+      [
+        "Large Consequences",
+        "A small number of extreme events can dominate the results of many ordinary ones."
+      ],
+      [
+        "Hindsight Stories",
+        "After a surprise, a tidy explanation can make it seem more predictable than it actually was."
+      ],
+      [
+        "Confirmation Is Limited",
+        "More examples that fit a rule do not prove that a damaging exception cannot occur."
+      ],
+      [
+        "Fragility Matters",
+        "A plan that depends on precise predictions can break when an unfamiliar shock arrives.",
+        "The book challenges model assumptions; it does not mean every forecast is useless."
+      ]
+    ],
+    "take": "Ask what would happen if a key assumption failed, rather than trying to name the next dramatic surprise.",
+    "remember": "Not seeing a possibility does not remove its consequences.",
+    "sources": [
+      [
+        "publisher",
+        "The Black Swan — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/176226/the-black-swan-second-edition-by-nassim-nicholas-taleb/hardcover/"
+      ],
+      [
+        "author",
+        "The Black Swan — author-hosted prologue",
+        "https://www.fooledbyrandomness.com/TheBlackSwan.pdf"
+      ]
+    ],
+    "tags": [
+      "Uncertainty",
+      "Extreme Events",
+      "Forecasting"
+    ],
+    "relatedBooks": [
+      "against-the-gods"
+    ]
+  },
+  {
+    "number": 31,
+    "slug": "mastering-the-market-cycle",
+    "title": "Mastering the Market Cycle",
+    "author": "Howard Marks",
+    "year": 2018,
+    "description": "Howard Marks connects market cycles with credit, business conditions, investor psychology, and cautious positioning without promising precise timing.",
+    "subtitle": "Cycles are patterns, not clocks.",
+    "bigIdea": "Marks argues that understanding economic and emotional cycles can inform risk-taking even when their turning points remain uncertain.",
+    "sections": [
+      [
+        "Economies and Profits",
+        "Changes in economic activity and company earnings can reinforce each other without following a fixed schedule."
+      ],
+      [
+        "The Credit Cycle",
+        "Easy lending can encourage expansion, while tighter lending can deepen a slowdown."
+      ],
+      [
+        "The Psychological Pendulum",
+        "Investor confidence can swing between accepting too much risk and refusing reasonable risk."
+      ],
+      [
+        "Risk Attitudes",
+        "Optimistic prices may leave less room for disappointment than fearful prices do."
+      ],
+      [
+        "Position, Not Prediction",
+        "Marks emphasizes adjusting caution to conditions rather than claiming to know the exact next market move."
+      ]
+    ],
+    "take": "Describe the evidence for enthusiasm or caution, and identify what could make that assessment wrong.",
+    "remember": "Recognizing a cycle does not reveal its turning date.",
+    "sources": [
+      [
+        "official",
+        "Mastering the Market Cycle — licensed book preview",
+        "https://books.google.com/books?id=8hhDDwAAQBAJ"
+      ],
+      [
+        "interview",
+        "Howard Marks — Conversation at Panmure House",
+        "https://www.oaktreecapital.com/insights/memo/conversation-at-panmure-house"
+      ]
+    ],
+    "tags": [
+      "Market Cycles",
+      "Credit",
+      "Investor Psychology"
+    ],
+    "relatedBooks": [
+      "capital-returns"
+    ]
+  },
+  {
+    "number": 32,
+    "slug": "the-dhandho-investor",
+    "title": "The Dhandho Investor",
+    "author": "Mohnish Pabrai",
+    "year": 2007,
+    "description": "Pabrai presents a concentrated value-investing approach using simple businesses, depressed prices, and attention to downside risk and uncertainty.",
+    "subtitle": "Study what could be lost before what could be won.",
+    "bigIdea": "Pabrai proposes buying understandable businesses when their prices seem to offer much more upside than downside.",
+    "sections": [
+      [
+        "Existing Businesses",
+        "The book uses established operations, including motel businesses, to examine cash flows that already exist."
+      ],
+      [
+        "Distress and Price",
+        "A troubled industry can create low prices, but a low price alone does not make a business sound."
+      ],
+      [
+        "Limited Downside",
+        "Pabrai looks for a gap between price and estimated value, while those estimates can still be wrong."
+      ],
+      [
+        "Few, Concentrated Bets",
+        "The approach favors select opportunities over frequent activity.",
+        "Concentration also increases the harm from a mistaken judgment."
+      ],
+      [
+        "Sizing Needs Assumptions",
+        "Bet-sizing formulas depend on estimates of odds and losses that real markets cannot provide with certainty."
+      ]
+    ],
+    "take": "Use the book to question a business’s price and downside assumptions, rather than treating its bold bets as safe instructions.",
+    "remember": "An attractive story is not proof of a protected downside.",
+    "sources": [
+      [
+        "publisher",
+        "The Dhandho Investor — Wiley",
+        "https://uat.store.wiley.com/en-us/the-dhandho-investor-the-low-risk-value-method-to-high-returns-p-9780470043899"
+      ],
+      [
+        "publisher",
+        "The Dhandho Investor — authorized opening excerpt",
+        "https://catalogimages.wiley.com/images/db/pdf/9780470043899.excerpt.pdf"
+      ]
+    ],
+    "tags": [
+      "Value Investing",
+      "Downside",
+      "Business Analysis"
+    ],
+    "relatedBooks": [
+      "the-warren-buffett-way"
+    ]
+  },
+  {
+    "number": 33,
+    "slug": "the-little-book-that-still-beats-the-market",
+    "title": "The Little Book That Still Beats the Market",
+    "author": "Joel Greenblatt",
+    "year": 2010,
+    "description": "Greenblatt explains a stock-ranking method combining business quality and price, with careful limits on backtests, patience, and future returns.",
+    "subtitle": "A formula still needs judgment about its limits.",
+    "bigIdea": "Greenblatt proposes combining a measure of business quality with a measure of price to identify potential stock investments.",
+    "sections": [
+      [
+        "Think Like an Owner",
+        "A stock represents part of a business whose future profits and uncertainties matter."
+      ],
+      [
+        "Quality of the Business",
+        "Return on capital compares operating earnings with the capital needed to produce them."
+      ],
+      [
+        "Price of the Business",
+        "Earnings yield compares operating earnings with the price paid for the business."
+      ],
+      [
+        "Combined Ranking",
+        "The formula ranks companies on both measures instead of choosing only the cheapest or only the strongest."
+      ],
+      [
+        "Patience and Evidence",
+        "Historical tests can show long weak periods as well as success, and cannot promise future results."
+      ]
+    ],
+    "take": "Understand what each ranking measures and misses before confusing a simple formula with an assured outcome.",
+    "remember": "A backtest describes the past, not a contract with the future.",
+    "sources": [
+      [
+        "official",
+        "The Little Book That Still Beats the Market — licensed 2010 preview",
+        "https://books.google.com/books/about/The_Little_Book_That_Still_Beats_the_Mar.html?id=M5HxYZaNQEQC"
+      ],
+      [
+        "publisher",
+        "The Little Book That Still Beats the Market — Wiley excerpt",
+        "https://catalogimages.wiley.com/images/db/pdf/9780470624159.excerpt.pdf"
+      ]
+    ],
+    "tags": [
+      "Value Investing",
+      "Business Quality",
+      "Investment Models"
+    ],
+    "relatedBooks": [
+      "the-dhandho-investor"
+    ],
+    "seoTitle": "Greenblatt’s Market Formula | Notooo"
+  },
+  {
+    "number": 34,
+    "slug": "the-warren-buffett-way",
+    "title": "The Warren Buffett Way",
+    "author": "Robert G. Hagstrom",
+    "year": 1994,
+    "description": "Hagstrom interprets Buffett’s investing through business quality, management, cash generation, value, price, and the limits of one investor’s example.",
+    "subtitle": "Study the business behind the share.",
+    "bigIdea": "Hagstrom describes Buffett’s approach as buying understandable businesses at prices that leave room for value and uncertainty.",
+    "sections": [
+      [
+        "Understandable Economics",
+        "Knowing how a business makes money helps define the limits of an investor’s competence."
+      ],
+      [
+        "Management Choices",
+        "Honest reporting and sensible use of retained profits matter alongside the product being sold."
+      ],
+      [
+        "Owner Earnings",
+        "The cash left after maintaining a business can be more informative than a headline profit figure."
+      ],
+      [
+        "Value and Price",
+        "An estimate of business value must be distinguished from the price currently offered by the market."
+      ],
+      [
+        "Business Ownership",
+        "The book emphasizes a lasting business relationship rather than constant trading.",
+        "Buffett’s circumstances and selected successes do not make imitation a guaranteed strategy."
+      ]
+    ],
+    "take": "Try explaining a company’s earnings engine and major risks in plain words before evaluating an investment argument.",
+    "remember": "A share price cannot explain a business by itself.",
+    "sources": [
+      [
+        "publisher",
+        "The Warren Buffett Way — Wiley-VCH anniversary contents",
+        "https://www.wiley-vch.de/de?isbn=978-1-394-23984-9&option=com_eshop&view=product"
+      ],
+      [
+        "publisher",
+        "The Warren Buffett Way — authorized Wiley excerpt",
+        "https://catalogimages.wiley.com/images/db/pdf/0471648116.excerpt.pdf"
+      ],
+      [
+        "publisher",
+        "The Warren Buffett Portfolio — author’s summary of the earlier book’s tenets",
+        "https://catalogimages.wiley.com/images/db/pdf/0471247669.pdf"
+      ],
+      [
+        "publisher",
+        "Wiley bibliography — original 1994 edition",
+        "https://onlinelibrary.wiley.com/doi/10.1002/9781119197164.refs"
+      ]
+    ],
+    "tags": [
+      "Business Analysis",
+      "Management",
+      "Value Investing"
+    ],
+    "relatedBooks": [
+      "the-outsiders"
+    ],
+    "editionNote": "First published in 1994; later editions and the author’s companion material also informed this synthesis."
+  },
+  {
+    "number": 35,
+    "slug": "the-outsiders",
+    "title": "The Outsiders",
+    "author": "William N. Thorndike",
+    "year": 2012,
+    "description": "Thorndike studies eight unconventional CEOs, focusing on capital allocation, cash flow, decentralization, and value per share rather than company size.",
+    "subtitle": "Growth is not the same as value.",
+    "bigIdea": "Thorndike argues that a CEO’s decisions about where money goes can matter more than public charisma or rapid expansion.",
+    "sections": [
+      [
+        "Value per Share",
+        "A company can grow larger without making each owner’s share more valuable."
+      ],
+      [
+        "Capital Allocation",
+        "A CEO decides how company money is used."
+      ],
+      [
+        "Cash over Appearances",
+        "Cash generation can reveal choices that reported accounting earnings obscure."
+      ],
+      [
+        "Decentralized Operations",
+        "The selected leaders often gave operating teams freedom while keeping major money decisions at the center."
+      ],
+      [
+        "Unconventional Choices",
+        "The cases include acquisitions, repurchases, and restraint when fashionable strategies looked unattractive.",
+        "A study of exceptional winners is not proof that every similar choice will succeed."
+      ]
+    ],
+    "take": "Judge a business decision by what it does for enduring value, not by whether it makes a company look bigger.",
+    "remember": "Bigger can be different from better.",
+    "sources": [
+      [
+        "official",
+        "The Outsiders — licensed book preview and contents",
+        "https://books.google.com/books/about/The_Outsiders.html?id=yA30dFOXUIQC"
+      ],
+      [
+        "interview",
+        "William Thorndike — How Unusual CEOs Drive Value",
+        "https://hbr.org/podcast/2014/04/how-unusual-ceos-drive-value"
+      ]
+    ],
+    "tags": [
+      "Capital Allocation",
+      "Leadership",
+      "Cash Flow"
+    ],
+    "relatedBooks": [
+      "capital-returns"
+    ]
+  },
+  {
+    "number": 36,
+    "slug": "the-price-of-time",
+    "title": "The Price of Time",
+    "author": "Edward Chancellor",
+    "year": 2022,
+    "description": "Chancellor follows the history of interest and argues that very low rates can distort capital allocation, debt, asset prices, and economic incentives.",
+    "subtitle": "Time has a price in financial choices.",
+    "bigIdea": "Chancellor argues that interest connects money with time, and that suppressing its price can create damaging economic incentives.",
+    "sections": [
+      [
+        "Payment for Waiting",
+        "Interest links borrowing now with repayment later and compensation for waiting and risk."
+      ],
+      [
+        "A Long Debate",
+        "The history of lending includes moral disputes over usury as well as practical needs for credit."
+      ],
+      [
+        "Allocation of Capital",
+        "The cost of borrowing influences which projects receive money and which remain unaffordable."
+      ],
+      [
+        "Cheap Credit’s Effects",
+        "Chancellor connects prolonged cheap money with speculation, debt, and businesses kept alive by refinancing."
+      ],
+      [
+        "An Argument, Not a Forecast",
+        "The book’s criticism of low rates is an interpretation of economic history, not a universal explanation of every crisis."
+      ]
+    ],
+    "take": "Consider how a borrowing cost changes incentives, while keeping other causes and policy trade-offs in view.",
+    "remember": "Cheap money can still carry expensive consequences.",
+    "sources": [
+      [
+        "author",
+        "The Price of Time — Edward Chancellor",
+        "https://www.edwardchancellor.com/books/the-price-of-time"
+      ],
+      [
+        "publisher",
+        "The Price of Time — Grove Atlantic",
+        "https://groveatlantic.com/book/the-price-of-time/"
+      ]
+    ],
+    "tags": [
+      "Interest",
+      "Economic History",
+      "Incentives"
+    ],
+    "relatedBooks": [
+      "the-ascent-of-money"
+    ]
+  },
+  {
+    "number": 37,
+    "slug": "the-ascent-of-money",
+    "title": "The Ascent of Money",
+    "author": "Niall Ferguson",
+    "year": 2008,
+    "description": "Ferguson traces credit, bonds, shares, insurance, property, and global finance, arguing that financial institutions help explain historical change.",
+    "subtitle": "Follow the institutions behind the money.",
+    "bigIdea": "Ferguson argues that the development of financial institutions helps explain major changes in power, prosperity, and vulnerability.",
+    "sections": [
+      [
+        "Credit and Trust",
+        "Banking depends on promises to repay, making trust central to the movement of money."
+      ],
+      [
+        "Bonds and Power",
+        "Borrowing through bond markets can support governments while exposing them to creditors’ confidence."
+      ],
+      [
+        "Shares and Bubbles",
+        "Company ownership spreads opportunity, but rising prices can become detached from business prospects."
+      ],
+      [
+        "Insurance and Protection",
+        "Pooling risks helps manage some losses while leaving difficult questions about catastrophic events."
+      ],
+      [
+        "Property and Connections",
+        "Housing debt and international finance link household decisions with much wider economic shocks.",
+        "Finance is one lens on history, not a complete explanation of every event."
+      ]
+    ],
+    "take": "Trace who owes whom and where losses would land before treating a financial institution as an abstract machine.",
+    "remember": "Every financial promise connects people.",
+    "sources": [
+      [
+        "author",
+        "The Ascent of Money — Niall Ferguson",
+        "https://www.niallferguson.com/the-ascent-of-money"
+      ],
+      [
+        "official",
+        "The Ascent of Money — licensed original-edition preview",
+        "https://books.google.com/books/about/The_Ascent_of_Money.html?id=JA_IYJ0P4ZkC"
+      ],
+      [
+        "publisher",
+        "The Ascent of Money — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/302900/the-ascent-of-money-by-niall-ferguson/"
+      ]
+    ],
+    "tags": [
+      "Financial History",
+      "Credit",
+      "Institutions"
+    ],
+    "relatedBooks": [
+      "against-the-gods"
+    ]
+  },
+  {
+    "number": 38,
+    "slug": "the-man-who-solved-the-market",
+    "title": "The Man Who Solved the Market",
+    "author": "Gregory Zuckerman",
+    "year": 2019,
+    "description": "Zuckerman investigates Jim Simons and Renaissance Technologies, connecting scientific teams, data-driven trading, secrecy, and the consequences of financial power.",
+    "subtitle": "A remarkable result hides a demanding system.",
+    "bigIdea": "Zuckerman portrays Renaissance’s trading success as the work of scientific collaboration, large datasets, and persistent testing rather than one simple market trick.",
+    "sections": [
+      [
+        "A Scientist’s Approach",
+        "Simons brought mathematical training and codebreaking experience to the problem of finding market patterns."
+      ],
+      [
+        "Patterns in Data",
+        "Researchers searched for statistical relationships rather than relying only on economic stories."
+      ],
+      [
+        "The Team behind the Model",
+        "Scientists with different skills helped build and improve the firm’s trading system."
+      ],
+      [
+        "A Private Process",
+        "Access, infrastructure, and secrecy make the firm’s historical results difficult for outsiders to reproduce."
+      ],
+      [
+        "Wealth and Influence",
+        "The story follows how financial success gave prominent participants power far beyond trading."
+      ]
+    ],
+    "take": "Look for the team, testing, and infrastructure behind a famous result before mistaking it for an easy formula.",
+    "remember": "An extraordinary outcome is not a reproducible shortcut.",
+    "sources": [
+      [
+        "author",
+        "The Man Who Solved the Market — Gregory Zuckerman",
+        "https://www.gregoryzuckerman.com/the-books/the-man-who-solved-the-market/"
+      ],
+      [
+        "publisher",
+        "The Man Who Solved the Market — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/557104/the-man-who-solved-the-market-by-gregory-zuckerman/"
+      ]
+    ],
+    "tags": [
+      "Quantitative Finance",
+      "Biography",
+      "Teams"
+    ],
+    "relatedBooks": [
+      "when-genius-failed"
+    ]
+  },
+  {
+    "number": 39,
+    "slug": "misbehaving",
+    "title": "Misbehaving",
+    "author": "Richard H. Thaler",
+    "year": 2015,
+    "description": "Thaler recounts behavioral economics through mental accounting, ownership, fairness, and self-control, showing why realistic models need actual human behavior.",
+    "subtitle": "People do not behave like perfect calculators.",
+    "bigIdea": "Thaler argues that economic models become more useful when they account for how people actually decide, including predictable departures from ideal rationality.",
+    "sections": [
+      [
+        "Humans and Models",
+        "A model of flawless calculation can miss important details of real choices."
+      ],
+      [
+        "Mental Accounts",
+        "People divide money into imagined buckets even when the money could serve the same practical purpose."
+      ],
+      [
+        "Ownership Changes Value",
+        "People may demand more to give something up than they would pay to acquire it."
+      ],
+      [
+        "Planner and Doer",
+        "Longer-term intentions can conflict with what feels attractive in the present."
+      ],
+      [
+        "Fairness Matters",
+        "People can reject financially attractive offers when they see the terms as unfair.",
+        "These patterns vary with circumstances; they do not label every choice irrational."
+      ]
+    ],
+    "take": "When a choice seems puzzling, examine how it is framed and what the person values before blaming poor calculation.",
+    "remember": "A useful model leaves room for real people.",
+    "sources": [
+      [
+        "official",
+        "Misbehaving — licensed book preview and contents",
+        "https://books.google.com/books/about/Misbehaving.html?id=xQedBAAAQBAJ"
+      ],
+      [
+        "official",
+        "Misbehaving — original 2015 publication record and overview",
+        "https://books.google.com/books/about/Misbehaving.html?id=9EJzAwAAQBAJ"
+      ]
+    ],
+    "tags": [
+      "Behavioral Economics",
+      "Mental Accounting",
+      "Self-Control"
+    ],
+    "relatedBooks": [
+      "nudge"
+    ]
+  },
+  {
+    "number": 40,
+    "slug": "irrational-exuberance",
+    "title": "Irrational Exuberance",
+    "author": "Robert J. Shiller",
+    "year": 2000,
+    "description": "Shiller examines speculative bubbles through stories, social feedback, and economic conditions, distinguishing explanations of enthusiasm from precise market forecasts.",
+    "subtitle": "Excitement can become its own evidence.",
+    "bigIdea": "Shiller argues that asset booms can grow through reinforcing stories and social behavior, rather than changes in fundamental value alone.",
+    "sections": [
+      [
+        "Feedback Loops",
+        "Rising prices can attract buyers whose purchases help push prices higher."
+      ],
+      [
+        "New-Era Stories",
+        "Claims that familiar limits no longer apply can make high prices feel permanently justified."
+      ],
+      [
+        "Attention and News",
+        "Public attention can spread a market story faster than careful analysis spreads."
+      ],
+      [
+        "Social Confidence",
+        "Seeing other people buy can appear to confirm a belief without adding independent evidence."
+      ],
+      [
+        "Conditions and Limits",
+        "Economic conditions and investor behavior interact, so explaining a bubble does not reliably reveal when it will end."
+      ]
+    ],
+    "take": "Ask what evidence a popular market story would need beyond its own recent price rise.",
+    "remember": "A crowd’s confidence is not a valuation.",
+    "sources": [
+      [
+        "publisher",
+        "Irrational Exuberance — Princeton original publication retrospective",
+        "https://assets.press.princeton.edu/about_pup/PUP100/book/8gShiller.pdf"
+      ],
+      [
+        "publisher",
+        "Irrational Exuberance — authorized Princeton chapter",
+        "https://assets.press.princeton.edu/chapters/s10421.pdf"
+      ],
+      [
+        "official",
+        "Irrational Exuberance — licensed third-edition preview",
+        "https://books.google.com/books/about/Irrational_Exuberance.html?id=_2-YDwAAQBAJ"
+      ]
+    ],
+    "tags": [
+      "Bubbles",
+      "Market Psychology",
+      "Social Feedback"
+    ],
+    "relatedBooks": [
+      "the-price-of-time"
+    ],
+    "editionNote": "First published in 2000; later-edition material broadens the discussion beyond the original stock-market focus."
+  },
+  {
+    "number": 41,
+    "slug": "the-misbehavior-of-markets",
+    "title": "The Misbehavior of Markets",
+    "author": "Benoit B. Mandelbrot & Richard L. Hudson",
+    "year": 2004,
+    "description": "Mandelbrot and Hudson challenge smooth models of financial risk using extreme moves, clustered volatility, fractal patterns, and changing market time.",
+    "subtitle": "Rough markets can defeat smooth assumptions.",
+    "bigIdea": "The authors argue that financial markets are rougher and more prone to extreme moves than many conventional risk models assume.",
+    "sections": [
+      [
+        "Large Moves Matter",
+        "Extreme changes can occur more often than a bell-shaped model leads users to expect."
+      ],
+      [
+        "Volatility Clusters",
+        "Turbulent periods can arrive together instead of being evenly scattered across time."
+      ],
+      [
+        "Fractal Roughness",
+        "The book explores patterns that look irregular at several scales of observation."
+      ],
+      [
+        "Market Time",
+        "Trading activity changes pace, so equal amounts of clock time need not contain equal amounts of market action."
+      ],
+      [
+        "Models Have Boundaries",
+        "Fractal models offer another approach to risk, not an exact way to forecast the next price."
+      ]
+    ],
+    "take": "Check how a model treats extreme events and quiet versus turbulent periods before relying on its risk estimate.",
+    "remember": "A neat model can underestimate a rough world.",
+    "sources": [
+      [
+        "official",
+        "The Misbehavior of Markets — licensed original preview and contents",
+        "https://books.google.com/books/about/The_Misbehavior_of_Markets.html?id=0nO30AEACAAJ"
+      ],
+      [
+        "publisher",
+        "The Misbehavior of Markets — Basic Books",
+        "https://www.hachettebookgroup.com/titles/benoit-mandelbrot/the-misbehavior-of-markets/9780465043576/?lens=basic-books"
+      ]
+    ],
+    "tags": [
+      "Fractals",
+      "Volatility",
+      "Risk Models"
+    ],
+    "relatedBooks": [
+      "the-black-swan"
+    ]
+  },
+  {
+    "number": 42,
+    "slug": "the-big-short",
+    "title": "The Big Short",
+    "author": "Michael Lewis",
+    "year": 2010,
+    "description": "Lewis follows investors who questioned the mortgage boom, exposing complex securities, distorted incentives, and the human costs of the financial crisis.",
+    "subtitle": "Complex packaging can hide a simple weakness.",
+    "bigIdea": "Lewis shows how questionable mortgage lending became a wider financial danger when incentives rewarded selling risk rather than understanding it.",
+    "sections": [
+      [
+        "The Loans underneath",
+        "A complicated security still depends on whether the people behind its mortgages can repay."
+      ],
+      [
+        "Packaging the Risk",
+        "Combining and reselling debt can make its weakest foundations harder to see."
+      ],
+      [
+        "Incentives to Ignore",
+        "Participants could earn fees from transactions without carrying all of their eventual losses."
+      ],
+      [
+        "Betting against the Boom",
+        "The investors used contracts that could pay if mortgage-related credit failed.",
+        "Being right eventually still involved timing, costs, and counterparties."
+      ],
+      [
+        "Consequences beyond Trading",
+        "Profitable bets took place inside a crisis that harmed households and the wider economy."
+      ]
+    ],
+    "take": "When a product looks impressively complex, trace its basic cash flows and who benefits from keeping it difficult to question.",
+    "remember": "A sophisticated wrapper cannot repair a bad foundation.",
+    "sources": [
+      [
+        "publisher",
+        "The Big Short — W. W. Norton",
+        "https://wwnorton.co.uk/books/9780393072235-the-big-short"
+      ],
+      [
+        "author",
+        "The Big Short — Michael Lewis official book description",
+        "https://www.michaellewiswrites.com/"
+      ],
+      [
+        "official",
+        "The Big Short — licensed book preview",
+        "https://books.google.com/books/about/The_Big_Short.html?id=oZ82maJZjUYC"
+      ]
+    ],
+    "tags": [
+      "Financial Crisis",
+      "Mortgages",
+      "Incentives"
+    ],
+    "relatedBooks": [
+      "liars-poker"
+    ]
+  },
+  {
+    "number": 43,
+    "slug": "flash-boys",
+    "title": "Flash Boys",
+    "author": "Michael Lewis",
+    "year": 2014,
+    "description": "Lewis investigates speed advantages, fragmented stock markets, and efforts to change trading rules, while keeping his contested market critique clearly attributed.",
+    "subtitle": "Market rules shape who gets an advantage.",
+    "bigIdea": "Lewis argues that the structure of modern stock trading can give faster participants advantages that ordinary investors struggle to see.",
+    "sections": [
+      [
+        "Speed as an Advantage",
+        "Tiny differences in arrival time can affect which trade gets a price first."
+      ],
+      [
+        "A Fragmented Market",
+        "Trading across multiple venues can complicate how an order reaches buyers and sellers."
+      ],
+      [
+        "Hidden Information",
+        "Order handling can reveal information that other participants use before an investor understands the process."
+      ],
+      [
+        "Incentives in the Plumbing",
+        "Fees and routing choices can influence how intermediaries behave."
+      ],
+      [
+        "Changing the Rules",
+        "The story follows an effort to build IEX as an alternative trading venue.",
+        "Lewis’s broad characterization is disputed; not every fast trade has the same effects."
+      ]
+    ],
+    "take": "Understand the rules and incentives of a transaction before assuming that everyone experiences the same market.",
+    "remember": "The plumbing can matter as much as the price.",
+    "sources": [
+      [
+        "publisher",
+        "Flash Boys — W. W. Norton",
+        "https://wwnorton.co.uk/books/9780393244663-flash-boys"
+      ],
+      [
+        "publisher",
+        "Flash Boys — Penguin UK",
+        "https://www.penguin.co.uk/books/254001/flash-boys-by-lewis-michael/9780141981031"
+      ],
+      [
+        "author",
+        "Flash Boys — Michael Lewis official book description",
+        "https://www.michaellewiswrites.com/"
+      ]
+    ],
+    "tags": [
+      "Market Structure",
+      "Trading",
+      "Incentives"
+    ],
+    "relatedBooks": [
+      "the-big-short"
+    ]
+  },
+  {
+    "number": 44,
+    "slug": "liars-poker",
+    "title": "Liar's Poker",
+    "author": "Michael Lewis",
+    "year": 1989,
+    "description": "Lewis’s account of Salomon Brothers examines bond sales, trading-floor status, customer information gaps, and the incentives of 1980s Wall Street.",
+    "subtitle": "Watch what a workplace rewards.",
+    "bigIdea": "Lewis portrays a financial workplace where status, salesmanship, and money could outrank the interests of the people buying its products.",
+    "sections": [
+      [
+        "Status on the Floor",
+        "Aggression and confidence helped define rank inside the trading-room culture."
+      ],
+      [
+        "Selling Debt",
+        "The narrative makes bond trading visible through the people buying, selling, and describing debt."
+      ],
+      [
+        "Information Gaps",
+        "A salesperson and a customer can understand the same transaction very differently."
+      ],
+      [
+        "Rewards Shape Behavior",
+        "Pay and recognition can encourage profitable sales without equally rewarding customer understanding."
+      ],
+      [
+        "An Insider’s Account",
+        "Lewis tells a particular experience at Salomon Brothers, not a complete description of every financial workplace."
+      ]
+    ],
+    "take": "Ask whether a professional’s reward depends on your outcome or simply on completing a sale.",
+    "remember": "A convincing seller may have a different goal from the buyer.",
+    "sources": [
+      [
+        "publisher",
+        "Liar’s Poker — W. W. Norton",
+        "https://wwnorton.co.uk/books/9780393338690-liar-s-poker-3dde4b4a-62a0-40a7-bec3-19ee7caf41b5"
+      ],
+      [
+        "official",
+        "Liar’s Poker — licensed 1989 publication and preview",
+        "https://books.google.com/books/about/Liar_s_Poker.html?id=ufBpM6CKpG8C"
+      ]
+    ],
+    "tags": [
+      "Wall Street",
+      "Workplace Culture",
+      "Incentives"
+    ],
+    "relatedBooks": [
+      "the-big-short"
+    ]
+  },
+  {
+    "number": 45,
+    "slug": "when-genius-failed",
+    "title": "When Genius Failed",
+    "author": "Roger Lowenstein",
+    "year": 2000,
+    "description": "Lowenstein traces Long-Term Capital Management’s collapse through leverage, model assumptions, crowded trades, and the danger of being forced to sell.",
+    "subtitle": "Being brilliant does not make borrowing harmless.",
+    "bigIdea": "Lowenstein shows how an expert trading operation became fragile when heavy borrowing met market conditions its models could not handle.",
+    "sections": [
+      [
+        "The Convergence Bet",
+        "LTCM sought gains from related prices moving closer together, but the gap could widen first."
+      ],
+      [
+        "Borrowed Exposure",
+        "Leverage enlarged small gains while also making adverse moves harder to survive."
+      ],
+      [
+        "The Model’s Past",
+        "Historical relationships could fail when panic changed how market participants behaved."
+      ],
+      [
+        "The Crowded Exit",
+        "Selling became difficult when many investors wanted to leave similar positions at once."
+      ],
+      [
+        "A Wider Threat",
+        "The fund’s connections with financial institutions helped turn its losses into a concern beyond its own investors."
+      ]
+    ],
+    "take": "A strategy’s eventual logic matters less if borrowing or forced selling prevents it from surviving long enough.",
+    "remember": "A correct-looking model still needs room to be wrong.",
+    "sources": [
+      [
+        "publisher",
+        "When Genius Failed — Penguin Random House and author interview",
+        "https://www.penguinrandomhouse.com/books/103996/when-genius-failed-by-roger-lowenstein/"
+      ],
+      [
+        "official",
+        "When Genius Failed — licensed original 2000 edition",
+        "https://books.google.com/books/about/When_Genius_Failed.html?id=2urtAAAAMAAJ"
+      ]
+    ],
+    "tags": [
+      "Leverage",
+      "Financial Crisis",
+      "Risk Models"
+    ],
+    "relatedBooks": [
+      "the-man-who-solved-the-market"
+    ]
+  },
+  {
+    "number": 46,
+    "slug": "more-money-than-god",
+    "title": "More Money Than God",
+    "author": "Sebastian Mallaby",
+    "year": 2010,
+    "description": "Mallaby traces hedge-fund history, contrasting investment methods, incentives, and failures while making a contested case about their role in financial stability.",
+    "subtitle": "Different funds take different kinds of risk.",
+    "bigIdea": "Mallaby uses hedge-fund history to examine how investment methods and institutional incentives can challenge markets and create new risks.",
+    "sections": [
+      [
+        "Hedging an Exposure",
+        "Some early funds combined purchases with bets against other assets to reduce certain market risks."
+      ],
+      [
+        "Many Ways to Trade",
+        "The history includes company analysis, economic bets, and statistical trading rather than one universal method."
+      ],
+      [
+        "Rewards and Independence",
+        "Performance-linked rewards and organizational freedom can influence a manager’s choices."
+      ],
+      [
+        "Limits to a Good Bet",
+        "Borrowing, forced selling, or crowded positions can defeat a trade before its logic works."
+      ],
+      [
+        "The Stability Debate",
+        "Mallaby argues that smaller funds can offer an alternative to institutions too large to fail.",
+        "That case is contested and does not make hedge funds harmless or suitable for everyone."
+      ]
+    ],
+    "take": "Compare the mechanism and failure conditions of a strategy instead of treating every hedge fund as the same product.",
+    "remember": "An institution’s incentives belong in its risk story.",
+    "sources": [
+      [
+        "publisher",
+        "More Money Than God — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/301223/more-money-than-god-by-sebastian-mallaby/9781101457214/"
+      ],
+      [
+        "author",
+        "More Money Than God — CFR author book page",
+        "https://www.cfr.org/books/more-money-god"
+      ],
+      [
+        "official",
+        "More Money Than God — CFR teaching questions",
+        "https://www.cfr.org/education/teach/book-guides/more-money-god"
+      ]
+    ],
+    "tags": [
+      "Hedge Funds",
+      "Financial History",
+      "Institutional Risk"
+    ],
+    "relatedBooks": [
+      "when-genius-failed"
+    ]
+  },
+  {
+    "number": 47,
+    "slug": "capital-returns",
+    "title": "Capital Returns",
+    "author": "Edward Chancellor (editor)",
+    "year": 2015,
+    "description": "This collection of Marathon investment reports explains capital cycles, competition, entry barriers, and management incentives instead of relying only on demand forecasts.",
+    "subtitle": "Follow the capital entering the industry.",
+    "bigIdea": "The collection argues that investment flows change an industry’s future supply and competition, which can change the returns its businesses earn.",
+    "sections": [
+      [
+        "The Capital Cycle",
+        "High profits attract investment that can eventually expand supply and reduce those profits."
+      ],
+      [
+        "Supply before Stories",
+        "New factories and capacity can reveal risks that an optimistic demand forecast misses."
+      ],
+      [
+        "Barriers to Entry",
+        "A business may preserve returns when competitors cannot easily reproduce its advantages."
+      ],
+      [
+        "Management Matters",
+        "Leaders’ reinvestment decisions and incentives affect whether good conditions create lasting value."
+      ],
+      [
+        "Timing Is Uncertain",
+        "Low investment can improve future conditions, but industry change can take longer than expected.",
+        "The collection presents an investing framework, not an automatic signal to buy."
+      ]
+    ],
+    "take": "Include competitors’ investment plans when evaluating an industry, rather than studying the target company in isolation.",
+    "remember": "Today’s attractive profits can finance tomorrow’s competition.",
+    "sources": [
+      [
+        "author",
+        "Capital Returns — Edward Chancellor",
+        "https://www.edwardchancellor.com/books/capital-returns"
+      ],
+      [
+        "publisher",
+        "Capital Returns — Springer publication record and contents",
+        "https://link.springer.com/book/10.1007/978-1-137-57165-6"
+      ]
+    ],
+    "tags": [
+      "Capital Cycles",
+      "Competition",
+      "Capital Allocation"
+    ],
+    "relatedBooks": [
+      "mastering-the-market-cycle"
+    ],
+    "editionNote": "Edited by Edward Chancellor from Marathon reports written in 2002–2014. Hardcover first published in 2015; the ebook carries a 2016 copyright."
+  }
+]
