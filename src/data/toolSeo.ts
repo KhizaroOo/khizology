@@ -29,6 +29,11 @@ const familyLimitations: Record<FamilyId, string> = {
 };
 
 const toolLimitations: Partial<Record<string, string>> = {
+  'api-chaos-payload-builder': 'Generated JSON is syntactically valid and the API contract is unknown. Cases probe types, cardinality and encoding without predicting HTTP status or proving rejection. Input, nesting, case count and output size are capped; generation is not exhaustive.',
+  'zero-downtime-schema-change-planner': 'Zero downtime is a goal, not a guarantee. Plans require exact engine/version checks, concurrent-write reconciliation, backups and rehearsal. No migration, backfill, lock or downtime duration is estimated; no SQL is executed.',
+  'async-messaging-decision-lab': 'Fit percentages are weighted editorial scores, not measured performance or probabilities. Patterns overlap and delivery, ordering, replay and durability guarantees depend on implementation and configuration.',
+  'replica-lag-simulator': 'A single client updates one record. Primary writes commit instantly and replicas apply ordered writes after fixed delays. Routing is seeded; age gaps are not latency or database benchmarks. Sticky routing does not guarantee freshness.',
+  'date-time-contract-doctor': 'Epoch units and the 2000–2100 plausibility range are heuristics. Local times have no safe UTC conversion without an offset; DST cannot be resolved without timezone rules. Millisecond conversions lose finer precision. No server contract is executed.',
   'api-payload-doctor': 'The diagnosis uses structural and consistency checks on the pasted JSON. It does not call the API, execute a schema, test authorization, or prove how a server will process the payload.',
   'jwt-time-machine': 'JWT Time Machine decodes time-related claims for inspection. It does not verify the token signature, issuer authenticity, revocation state, permissions, or server-side acceptance.',
   'cors-doctor': 'The result follows the request and response details you enter. It does not send a network request, inspect the live server, change headers, or bypass the browser’s CORS enforcement.',
@@ -41,6 +46,14 @@ const toolLimitations: Partial<Record<string, string>> = {
   'retry-storm-simulator': 'The traffic model simplifies failure and retry behavior. It is designed to compare immediate retry, backoff, and jitter patterns; it is not a production load test.',
   'ai-project-pricing-lab': 'The range depends on your effort, rate, review, revision, support, and uncertainty inputs. It does not know the client relationship, market, contract, taxes, or final commercial risk.',
   'multi-format-campaign-planner': 'The layout plan uses the selected formats, safe areas, and focal-zone assumptions. Platform templates and publishing interfaces can change, so verify the final creative in each destination.',
+};
+
+const toolInterpretation: Partial<Record<string, string>> = {
+  'date-time-contract-doctor': 'Read FAIL as unsupported or impossible input and WARN as ambiguity or a contract review signal. Only offset-bearing or assumed epoch instants receive UTC conversions.',
+  'replica-lag-simulator': 'Compare stale-read exposure and primary read load under the same seed. Observed version age gaps describe freshness, not query latency.',
+  'async-messaging-decision-lab': 'Inspect earned weighted points and conflicting requirements. Fit percentages describe this editorial model, not probabilities or implementation guarantees.',
+  'zero-downtime-schema-change-planner': 'Follow compatibility and validation gates before switching behavior. Destructive cleanup changes rollback from an application action into a data-recovery problem.',
+  'api-chaos-payload-builder': 'Inspect each case path, mutation and concern, then compare observed behavior against your own API contract in a test environment. No HTTP result is predicted.',
 };
 
 function sentenceList(values: string[]): string {
@@ -62,7 +75,7 @@ export function getToolSeo(tool: Tool, family: Family): ToolSeoContent {
     relatedPhrases,
     whatYouLearn: tool.longDescription,
     whenToUse: `Use ${tool.name} when ${sentenceList(contexts)} work raises questions about ${sentenceList(searchLanguage)} and you need a concrete view before making the next move.`,
-    interpretation: familyInterpretation[family.id],
+    interpretation: toolInterpretation[tool.slug] || familyInterpretation[family.id],
     limitations: toolLimitations[tool.slug] || familyLimitations[family.id],
   };
 }

@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {inspectTimestamp,diagnoseTime} from '../src/components/toolbox/tools/dateTimeModel.ts';
+assert.equal(inspectTimestamp('2026-02-30T10:00:00Z').findings[0].level,'FAIL');
+assert.equal(inspectTimestamp('2024-02-29T10:00:00Z').findings.length,0);
+assert.equal(inspectTimestamp('2026-10-10T10:30:00').ms,undefined);
+assert.equal(inspectTimestamp('2026-10-10').ms,undefined);
+assert.equal(inspectTimestamp('2026-10-10T10:30:00+05:00').ms,Date.parse('2026-10-10T05:30:00Z'));
+assert.equal(inspectTimestamp(1791628200).ms,inspectTimestamp(1791628200000).ms);
+assert.ok(inspectTimestamp(0).findings.some(f=>f.issue.includes('negative')));
+assert.equal(inspectTimestamp('2026-10-10T10:00:00+25:00').findings[0].level,'FAIL');
+assert.equal(inspectTimestamp('0001-01-01T00:00:00Z').ms,Date.parse('0001-01-01T00:00:00Z'));
+assert.ok(diagnoseTime('{"createdAt":"2026-10-10T00:00:00Z","expiresAt":"2026-10-09T00:00:00Z"}','json').fields[1].findings.some(f=>f.issue.includes('Earlier')));
+assert.equal(diagnoseTime('{"count":42}','json').fields.length,0);
+assert.throws(()=>diagnoseTime('{bad','json'));
+assert.throws(()=>diagnoseTime('x'.repeat(100001),'timestamp'));
+console.log('Date/time tests passed: strict dates, offsets, local ambiguity, epochs, lifecycle order, unrelated values and limits.');

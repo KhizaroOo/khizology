@@ -12,6 +12,11 @@ export interface ToolKnowledge {
  * result or recommendation system.
  */
 export const toolKnowledgeWhyBySlug: Record<string, string> = {
+  'api-chaos-payload-builder': 'Missing, null, coercible and unexpected values expose different validation assumptions; isolated mutations make those assumptions easier to test against the real API contract.',
+  'zero-downtime-schema-change-planner': 'Schema and application changes can break coexisting releases; phased compatibility and explicit rollback gates make the dangerous cleanup point visible.',
+  'async-messaging-decision-lab': 'Work distribution, independent subscribers and retained replay are different needs; exposing their trade-offs avoids selecting a broker before deciding the pattern.',
+  'replica-lag-simulator': 'A successful primary write may not yet be visible on a replica, and sticky routing alone does not guarantee read-your-write consistency.',
+  'date-time-contract-doctor': 'Missing offsets and inconsistent epoch units can change an instant silently, while impossible dates and lifecycle ordering deserve separate contract checks.',
   'api-payload-doctor': 'It exposes structural issues such as inconsistent keys, ambiguous fields, unsafe dates, oversized bodies, and deep nesting before they become integration failures.',
   'jwt-time-machine': 'A token can look valid while its time claims make it expired, not yet valid, or valid only during a narrow window.',
   'cors-doctor': 'Browser CORS failures depend on the exact request, response, credentials, and preflight rules, so a precise walkthrough is more useful than a generic error message.',

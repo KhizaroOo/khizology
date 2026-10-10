@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {simulateReplicas,replicaDefaults} from '../src/components/toolbox/tools/replicaLagModel.ts';
+const base=simulateReplicas(replicaDefaults);
+assert.deepEqual(base,simulateReplicas(replicaDefaults));
+assert.equal(base.totalReads,160);assert.ok(base.staleReads>0);
+assert.equal(base.freshReads+base.staleReads,base.totalReads);
+assert.equal(base.utilization.reduce((a,b)=>a+b),base.totalReads);
+assert.equal(simulateReplicas({...replicaDefaults,lagMs:0}).staleReads,0);
+assert.equal(simulateReplicas({...replicaDefaults,strategy:'primary'}).staleReads,0);
+assert.equal(simulateReplicas({...replicaDefaults,strategy:'window',windowMs:10000}).staleReads,0);
+assert.ok(simulateReplicas({...replicaDefaults,strategy:'sticky',replicaPercent:100}).staleReads>0);
+assert.ok(simulateReplicas({...replicaDefaults,lagMs:750}).staleReads<=base.staleReads);
+assert.throws(()=>simulateReplicas({...replicaDefaults,seed:NaN}));
+assert.throws(()=>simulateReplicas({...replicaDefaults,duration:1000}));
+console.log('Replica tests passed: deterministic routing, fresh/stale metrics, strategy trade-offs, zero lag and bounds.');

@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {decideMessaging,messagingDefaults} from '../src/components/toolbox/tools/messagingDecisionModel.ts';
+assert.equal(decideMessaging(messagingDefaults).ranked[0].name,'Queue');
+assert.equal(decideMessaging({...messagingDefaults,delivery:'fanout',independence:'yes'}).ranked[0].name,'Pub/Sub');
+assert.equal(decideMessaging({...messagingDefaults,replay:'yes',history:'long',delivery:'fanout',offline:'yes',complexity:'flexible'}).ranked[0].name,'Event Stream');
+for(const r of decideMessaging(messagingDefaults).ranked)assert.equal(r.percent,Math.round(r.breakdown.reduce((s,b)=>s+b.earned,0)/r.max*100));
+assert.ok(decideMessaging({...messagingDefaults,ordering:'global'}).globalOrder);
+assert.ok(decideMessaging({...messagingDefaults,replay:'yes'}).tension);
+assert.throws(()=>decideMessaging({...messagingDefaults,replay:'invalid'}));
+console.log('Messaging tests passed: queue, fan-out, retained replay, transparent scoring and requirement conflicts.');

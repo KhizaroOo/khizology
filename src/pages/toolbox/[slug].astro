@@ -20,6 +20,11 @@ import { monsters } from '../../data/monsters';
 import { url } from '../../utils/url';
 import { pageSchema } from '../../utils/schema';
 
+import DateTimeContractDoctor from '../../components/toolbox/tools/DateTimeContractDoctor';
+import ReplicaLagSimulator from '../../components/toolbox/tools/ReplicaLagSimulator';
+import AsyncMessagingDecisionLab from '../../components/toolbox/tools/AsyncMessagingDecisionLab';
+import ZeroDowntimeSchemaChangePlanner from '../../components/toolbox/tools/ZeroDowntimeSchemaChangePlanner';
+import ApiChaosPayloadBuilder from '../../components/toolbox/tools/ApiChaosPayloadBuilder';
 import ApiPayloadDoctor from '../../components/toolbox/tools/ApiPayloadDoctor';
 import RetryStormSimulator from '../../components/toolbox/tools/RetryStormSimulator';
 import DatabaseDecisionLab from '../../components/toolbox/tools/DatabaseDecisionLab';
@@ -75,7 +80,7 @@ const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
 const seo = getToolSeo(tool, family);
 
 const related = getRelatedTools(tool, 3);
-const tryNext = getTryNextTools(tool, 2).filter(candidate => !related.some(item => item.slug === candidate.slug));
+const tryNext = getTryNextTools(tool, 2 + related.length).filter(candidate => !related.some(item => item.slug === candidate.slug)).slice(0, 2);
 const knowledge = getToolKnowledge(tool);
 const truth = getToolTruth(tool, seo);
 const lv3Chains = (tool.lv3?.chainIds || []).map(getToolChain).filter((chain): chain is NonNullable<typeof chain> => Boolean(chain));
@@ -127,6 +132,11 @@ const jsonLd = pageSchema({
           {tool.status === 'active' ? (
             <>
               <ToolKnowledge knowledge={knowledge} accent={family.color} variant="intro" />
+              {tool.slug === 'date-time-contract-doctor' && <DateTimeContractDoctor client:load />}
+              {tool.slug === 'replica-lag-simulator' && <ReplicaLagSimulator client:load />}
+              {tool.slug === 'async-messaging-decision-lab' && <AsyncMessagingDecisionLab client:load />}
+              {tool.slug === 'zero-downtime-schema-change-planner' && <ZeroDowntimeSchemaChangePlanner client:load />}
+              {tool.slug === 'api-chaos-payload-builder' && <ApiChaosPayloadBuilder client:load />}
               {tool.slug === 'api-payload-doctor' && <ApiPayloadDoctor client:load />}
               {tool.slug === 'retry-storm-simulator' && <RetryStormSimulator client:load />}
               {tool.slug === 'database-decision-lab' && <DatabaseDecisionLab client:load />}

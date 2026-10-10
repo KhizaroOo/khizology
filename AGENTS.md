@@ -1,61 +1,418 @@
-# Khizoooology content-growth rule
+# AGENTS.md — KHIZOOOLOGY
 
-Whenever adding or publishing a new public Khizoooology content page, tool, artwork, Infooo world, collection, or other indexable content, include its complete growth foundation in the same change:
+## Goal
 
-- a unique, accurate title, meta description, canonical URL, and Open Graph/social metadata;
-- the appropriate structured data and internal links;
-- sitemap and image-sitemap coverage where applicable;
-- robots/indexability decisions that match the content's intended public status;
-- accessible, performant assets with meaningful alt text where images are used; and
-- the relevant existing SEO, domain, and pre-launch validation before release.
+Build Khizooology with maximum user value and minimum complexity, tokens, context reads, and tool calls.
 
-Do not add pages to the public sitemap or make them indexable before Khizar has approved their public release.
+Core philosophy:
 
-# Development team operating model
+**Useful. Browser-only. Fast. Beautiful. No signup. No bullshit.**
 
-## Roles and authority
+For every task:
 
-- **Khizar — product owner / final approval:** owns vision, taste, final product decisions and release approval.
-- **ChatGPT — brain / product and architecture partner:** works with Khizar on brainstorming, product direction, features, UX, architecture, priorities, scope, acceptance criteria, developer missions and review.
-- **Claude Code and Codex — equal developers and verifiers:** inspect → understand → implement → test → fix → verify → report. Decide how to implement the approved mission inside the existing repository.
+**Inspect relevant code → implement smallest complete solution → targeted verify → report briefly.**
 
-Khizar + ChatGPT decide what should exist, why, the intended experience and the quality bar. Claude Code + Codex build, verify and fix. Khizar has final taste and release approval.
+---
 
-## Mission execution
+## Working Style
 
-Treat a mission's product direction and acceptance criteria as approved. Inspect the smallest relevant repo surface, find the existing source of truth, inspect consumers before changing shared APIs, reuse the architecture and implement the smallest complete solution. Verify actual behavior, fix mission-related regressions automatically and stop before unrelated improvements.
+Work autonomously.
 
-Autonomously choose implementation details, component structure, types, CSS/layout, directly required refactors, bug fixes, meaningful tests, accessibility fixes and performance-safe equivalent technical approaches. Do not ask questions answered by source, docs, tests, types, config or existing patterns.
+Do not ask questions when the answer can reasonably be inferred from:
 
-Do not independently redefine monster purposes, invent product directions, add speculative features, change the public UX philosophy, create top-level systems, introduce monsters/worlds/tools, expand scope or replace an approved interaction model. If implementation exposes a genuine product conflict, preserve the approved direction and report the conflict and trade-off clearly; do not silently redesign it. Material changes to behavior, UX, scope, architecture direction, privacy, routes, SEO strategy, monetization or monster identity require explicit direction.
+- existing code
+- nearby implementations
+- project docs
+- types
+- configuration
+- established patterns
 
-## Product and architecture boundaries
+Do not narrate exploration or produce long plans.
 
-Khizooology is static and browser-first: useful, fast, beautiful, no signup, no bullshit. Every public creation should help people USE, UNDERSTAND, FEEL or SHARE. Prefer deeper value over more features: don't build more; build something worth existing.
+Use targeted search and read only files relevant to the mission.
 
-Do not add a backend, database, auth, accounts, CMS, cloud processing, unnecessary API calls or unnecessary dependencies without explicit approval. Protect privacy, accessibility, SEO, performance, responsive behavior, analytics and public routes.
+Do not scan the entire repository unless genuinely required.
 
-Reuse canonical monster/tool registries, artwork metadata, Infooo world metadata, route helpers, shared components, voice system, Value Laws, Publishing Quality, Compound Value, Build Smarter and SEO infrastructure. Do not create parallel sources of truth.
+Prefer extending existing systems over creating parallel ones.
 
-- **Infooo:** share presentation; keep world intelligence local. The generic framework remains reusable, world-independent and renderer-independent where intended.
-- **Toolooo:** protect Input → Visualize → Result → Understand → Act → Continue. Keep it browser-only, privacy-safe, useful, truthful and visual.
-- **Artooo:** never invent artwork stories, dates, meanings, techniques or creator intent. Use real metadata and creator-authored context only.
-- **Notooo:** keep it useful, concise, original, human-first and copyright-safe. No generic SEO content factory.
+---
 
-## Git safety and developer coexistence
+## Scope
 
-Inspect status/diff before risky Git actions. Never discard unrelated work, remove stashes, expose secrets or expose PAT-bearing remotes. Do not commit, push or deploy unless explicitly authorized. The default stopping point is implementation plus verification complete.
+Make the smallest high-quality change that completely solves the mission.
 
-Preserve compatible work from either developer, including uncommitted work. Inspect relevant existing changes before editing; never overwrite work merely because the other developer produced it. Focus only on the assigned mission. Do not coordinate parallel agents unless explicitly requested.
+Avoid:
 
-## Context efficiency and verification
+- unrelated refactors
+- speculative architecture
+- duplicate systems
+- unnecessary dependencies
+- unnecessary documentation
+- one-off hacks
+- phantom features/pages
+- touching unrelated files
 
-Use targeted search, the closest implementation, shared dependencies, affected consumers and diff-focused validation. Avoid repeated whole-repo reads, huge scans, long narration, speculative research, repeated instructions and unnecessary docs. Use the smallest context necessary for correctness.
+Preserve working behavior unless the mission explicitly changes it.
 
-Run relevant checks and never skip meaningful verification: targeted tests, Astro/type checks, build, publishing/SEO/Value audits, accessibility, performance, responsive/browser review and `git diff --check` as applicable. Browser review is mandatory for visual changes. Inspect likely consumers for shared infrastructure changes.
+---
 
-If implementation causes build/test/type/import failures, broken routes or regressions, investigate and fix automatically. Do not stop at a reasonably fixable in-repo failure.
+## Architecture
 
-## Final report
+Respect existing sources of truth, registries, helpers, components, metadata, and conventions.
 
-Keep reports short, with CHANGED (meaningful changes), VERIFIED (checks actually performed and results), BLOCKERS (none unless genuinely blocked), and FINAL: `🟢 READY FOR KHIZAR REVIEW` or `🔴 BLOCKED`.
+Prefer:
+
+**shared fix → all consumers**
+
+over:
+
+**manual edits → many consumers**
+
+Do not duplicate routes, monster identities, tool metadata, artwork metadata, paths, or other canonical project data.
+
+### Toolooo
+
+Keep tools:
+
+- browser-only
+- fast
+- privacy-safe
+- understandable
+- truthful
+
+Prefer improvements to shared Toolooo infrastructure over editing many tools separately.
+
+Never send raw/private tool input to analytics.
+
+### Infooo
+
+Infooo is a reusable interactive knowledge-world framework.
+
+Keep shared framework code:
+
+- world-independent
+- renderer-independent where intended
+- reusable
+- lightweight
+- accessible
+- responsive
+
+Do not leak Human Atlas-specific or Three.js-specific assumptions into generic framework layers.
+
+New worlds should plug into the framework instead of duplicating it.
+
+### Artooo
+
+Prefer metadata/data-driven improvements.
+
+Protect existing:
+
+- artwork routes
+- images
+- tags
+- related-art logic
+- structured data
+- SEO metadata
+
+---
+
+## Browser-Only / Privacy
+
+Khizooology is static/browser-first.
+
+Do not introduce unnecessary:
+
+- backend services
+- databases
+- authentication
+- accounts
+- CMS systems
+- cloud processing
+
+Never expose secrets or private/raw user content through:
+
+- URLs
+- analytics
+- logs
+- generated metadata
+- persistent storage
+
+unless explicitly and safely required.
+
+---
+
+## UX
+
+Protect:
+
+- responsive behavior
+- mobile usability
+- hierarchy
+- readability
+- keyboard usability
+- touch targets
+- loading states
+- empty states
+- error states
+
+Avoid unnecessary:
+
+- modals
+- popups
+- animations
+- controls
+- UI noise
+- explanatory text
+
+Every visible element should provide value.
+
+---
+
+## Performance
+
+Performance regressions are bugs.
+
+Avoid unnecessary:
+
+- JavaScript
+- dependencies
+- asset weight
+- network requests
+- runtime computation
+- re-renders
+- layout shifts
+- render blocking
+
+Prefer existing libraries and lightweight browser-native solutions.
+
+Do not sacrifice existing Lighthouse/PageSpeed quality for minor features.
+
+---
+
+## Accessibility
+
+Preserve or improve:
+
+- semantic HTML
+- keyboard navigation
+- focus states
+- labels
+- contrast
+- screen-reader usability
+- reduced-motion behavior
+
+Prefer semantic HTML over unnecessary ARIA.
+
+---
+
+## SEO — Mandatory for New Public Content
+
+SEO is a **completion requirement**, not an optional enhancement.
+
+Whenever creating or materially changing public Toolooo tools, Artooo artworks/pages,
+Infooo worlds/pages, Notooo notes/content, landing pages, category/listing pages,
+or other indexable content, automatically inspect and implement all relevant SEO
+requirements without waiting for a separate request.
+
+For every new indexable page/content item, verify as applicable:
+
+- unique `<title>` and useful meta description
+- canonical URL and correct index/noindex behavior
+- Open Graph and Twitter/social metadata
+- meaningful social image and alt text
+- semantic H1 and heading hierarchy
+- crawlable descriptive page copy
+- truthful structured data / JSON-LD using existing project infrastructure
+- breadcrumbs where appropriate
+- internal links and related-content / discovery links
+- sitemap inclusion and image sitemap inclusion where applicable
+- descriptive image alt text
+- clean, stable URL and slug
+- no duplicate, empty, thin, or phantom indexable pages
+- no broken canonical or BASE_URL paths
+- no accidental orphan pages
+
+Use existing centralized SEO helpers, metadata registries, route helpers, schemas,
+sitemap generators, and canonical content sources. Do not duplicate SEO metadata
+across components when a canonical source already exists. Protect existing SEO.
+
+### Search + AI Discovery
+
+Preserve and verify, where applicable:
+
+- robots.txt crawlability
+- AI crawler accessibility according to project policy
+- llms.txt / generated AI-discovery files
+- sitemap discovery
+- meaningful static text understandable without executing interactive JavaScript
+- clear entity/topic terminology and useful contextual internal linking
+
+Generated SEO/AI-discovery files must update automatically from canonical project
+data wherever the existing architecture supports it.
+
+### SEO Truthfulness
+
+Never keyword-stuff, create fake FAQ/schema content, generate misleading structured
+data, expose private/tool input in metadata, URLs, analytics, or schemas, or create
+SEO-only pages without genuine user value.
+
+SEO must support the Value Laws rather than bypass them.
+
+### Verification Gate
+
+For every new public content implementation:
+
+1. Inspect how existing strong pages implement SEO.
+2. Add/update canonical metadata through the existing source of truth.
+3. Verify the generated route and canonical.
+4. Verify sitemap inclusion/exclusion and structured data.
+5. Verify social metadata and internal discovery links.
+6. Verify robots/indexing behavior where relevant.
+7. Run existing SEO/prelaunch/domain/content audits.
+8. Run `npm run build`.
+9. Fix all mission-related SEO failures before completion.
+
+A new public page/content item is **NOT DONE** if its relevant SEO surface is
+incomplete. Final reports must mention SEO verification under `VERIFIED`.
+
+---
+
+## Analytics
+
+Reuse existing analytics infrastructure.
+
+Track meaningful interactions only.
+
+Never send:
+
+- JWTs
+- API payloads
+- uploads
+- private text
+- sensitive tool input
+
+to analytics.
+
+---
+
+## Dependencies
+
+Before adding a dependency, determine whether the current stack can solve the problem cleanly.
+
+If yes, do not add one.
+
+Only introduce dependencies when their value clearly exceeds:
+
+- bundle cost
+- maintenance cost
+- complexity
+- security surface
+
+---
+
+## Verification
+
+Verification must match risk.
+
+### Tiny/local change
+- inspect diff
+- targeted check if useful
+
+### Normal feature
+- relevant type/lint/test/runtime checks
+
+### Shared/build/SEO/routing change
+- broader regression checks
+- production build when justified
+- relevant audits
+
+Do not repeatedly run the full build/test suite while developing.
+
+Use targeted checks first.
+
+Run broader validation once near completion when the risk justifies it.
+
+Fix failures caused by your changes automatically.
+
+Never claim checks were run when they were not.
+
+---
+
+## Git Safety
+
+Do not:
+
+- expose secrets
+- discard unrelated changes
+- modify unrelated user work
+- commit
+- push
+- deploy
+
+unless explicitly requested.
+
+Inspect Git state before risky operations.
+
+---
+
+## Token / Tool Efficiency
+
+Minimize context and tool use without reducing correctness.
+
+Do not:
+
+- restate the mission
+- repeat stable project rules
+- reread unchanged files unnecessarily
+- explain obvious code
+- dump code into the final response
+- investigate unrelated warnings
+- generate long summaries
+
+Batch related reads, edits, and checks when safe.
+
+---
+
+## Decision Priority
+
+When multiple solutions are valid, prefer:
+
+1. Correctness
+2. User value
+3. Existing architecture
+4. Simplicity
+5. Privacy
+6. Accessibility
+7. Performance
+8. Maintainability
+9. Minimal dependencies
+10. Minimal code
+
+---
+
+## Final Response
+
+Return only:
+
+### CHANGED
+- short meaningful summary
+
+### VERIFIED
+- checks actually performed
+
+### BLOCKERS
+- `None` or genuine blocker
+
+### FINAL
+- `READY`
+- or `BLOCKED`
+
+Keep the response extremely short.
+
+Do not paste code unless explicitly requested.
+
+---
+
+## Golden Rule
+
+**Think deeply. Read selectively. Change precisely. Verify proportionally. Report briefly.**

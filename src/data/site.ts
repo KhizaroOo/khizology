@@ -2,7 +2,7 @@ export const SITE = {
   name: 'Khizooology',
   title: 'Khizooology — Art meets Code | Visual Tools & Original Art',
   description:
-    'Explore original artworks by khizooo and 40 free visual browser tools built by Khizar Imtiaz inside the monster-powered Khizooology universe.',
+    'Explore original artworks by khizooo and free visual browser tools built by Khizar Imtiaz inside the monster-powered Khizooology universe.',
   domain: 'khizooology.com',
   author: 'Khizar Imtiaz',
   artistName: 'khizooo',
