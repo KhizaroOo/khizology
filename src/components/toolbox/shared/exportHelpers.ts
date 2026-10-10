@@ -1,6 +1,6 @@
 import { trackToolExport } from '../../../utils/analytics';
 /** Trigger a local file download from a Blob — never leaves the browser. */
-function downloadBlob(blob: Blob, filename: string, exportType: 'svg' | 'png' | 'json') {
+function downloadBlob(blob: Blob, filename: string, exportType: 'svg' | 'png' | 'json' | 'csv') {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
@@ -27,6 +27,15 @@ export function downloadCanvasPNG(canvas: HTMLCanvasElement, filename: string) {
 export function downloadJSON(data: unknown, filename: string) {
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   downloadBlob(blob, filename.endsWith('.json') ? filename : `${filename}.json`, 'json');
+}
+
+/** Quote every cell and neutralize spreadsheet formula prefixes in user-authored text. */
+export function downloadCSV(rows: readonly (readonly string[])[], filename: string) {
+  const csv = rows.map(row => row.map(value => {
+    const safe = /^[\s]*[=+@-]|^[\t\r\n]/.test(value) ? `'${value}` : value;
+    return `"${safe.replace(/"/g, '""')}"`;
+  }).join(',')).join('\r\n');
+  downloadBlob(new Blob(['\uFEFF', csv], { type: 'text/csv;charset=utf-8' }), filename.endsWith('.csv') ? filename : `${filename}.csv`, 'csv');
 }
 
 export async function copyText(text: string): Promise<boolean> {

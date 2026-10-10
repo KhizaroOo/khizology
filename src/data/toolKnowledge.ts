@@ -12,6 +12,21 @@ export interface ToolKnowledge {
  * result or recommendation system.
  */
 export const toolKnowledgeWhyBySlug: Record<string, string> = {
+  "cloud-cost-guardrail-builder": "A budget becomes useful when thresholds have owners, response actions and availability boundaries. Review spending context before applying resource controls.",
+  "ux-research-study-planner": "A useful study starts with a decision and neutral evidence needs. Method choice alone cannot overcome biased recruitment or leading tasks.",
+  "llm-output-assurance-decision-lab": "Valid-looking model output can still be wrong or unsafe to act on. Match assurance layers to the feature’s consequences before trusting its output.",
+  "slo-incident-burn-simulator": "Error rate alone hides how traffic and response delays consume an error budget. A phase model shows which response improvements reduce bad events.",
+  "data-contract-drift-doctor": "A payload can remain valid JSON while breaking consumer parsing, branching or field access. Compare release evidence before changing a contract.",
+  "ui-edge-state-matrix-builder": "A usable feature needs truthful waiting, error, permission and recovery behavior as well as success. Explicit state coverage gives product and QA teams observable checks before those gaps reach users.",
+  "accessibility-remediation-planner": "Fix order should unblock real tasks and shared barriers first. Dependencies and supplied reach make the plan actionable without pretending a checklist proves compliance.",
+  "web-rendering-strategy-decision-lab": "Initial HTML, private data and freshness impose delivery constraints that framework popularity cannot resolve. Choose the smallest rendering pattern that meets those requirements.",
+  "network-failure-ux-simulator": "Retry policy changes both recovery pressure and user waiting. A request can time out after a write succeeds, so retrying needs a replay-safety contract.",
+  'frontend-data-exposure-doctor': 'A value can be legitimate but misplaced: shareable links, bundled configuration and persistent browser data expose different audiences and lifetimes.',
+  'llm-eval-case-builder': 'Evaluation is useful only when representative inputs and reviewed expectations expose real failure modes; a generated template is not evidence that a model passed.',
+  'web-performance-budget-planner': 'Explicit resource budgets make performance trade-offs reviewable before release; supplied measurements reveal overruns while unmeasured outcomes remain unknown.',
+  'client-state-storage-decision-lab': 'Shareable navigation, transient state and durable private data have different lifetimes and exposure risks; a high fit score cannot override an unmet capability or privacy constraint.',
+  'browser-event-loop-simulator': 'Microtasks wait for the running stack to unwind, while zero-delay timers only become eligible for a later task; seeing those queues explains surprising output order.',
+  'browser-security-policy-doctor': 'Header protections interact: report-only CSP does not enforce, multiple policies intersect, and HSTS scope can affect every subdomain long after a rollout.',
   'api-chaos-payload-builder': 'Missing, null, coercible and unexpected values expose different validation assumptions; isolated mutations make those assumptions easier to test against the real API contract.',
   'zero-downtime-schema-change-planner': 'Schema and application changes can break coexisting releases; phased compatibility and explicit rollback gates make the dangerous cleanup point visible.',
   'async-messaging-decision-lab': 'Work distribution, independent subscribers and retained replay are different needs; exposing their trade-offs avoids selecting a broker before deciding the pattern.',

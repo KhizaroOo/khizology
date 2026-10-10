@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {tools,getRelatedTools,getTryNextTools} from '../src/data/tools.ts';
 const additions=[['date-time-contract-doctor','check','DateTimeContractDoctor','dateTimeModel'],['replica-lag-simulator','simulate','ReplicaLagSimulator','replicaLagModel'],['async-messaging-decision-lab','decide','AsyncMessagingDecisionLab','messagingDecisionModel'],['zero-downtime-schema-change-planner','plan','ZeroDowntimeSchemaChangePlanner','schemaChangeModel'],['api-chaos-payload-builder','create','ApiChaosPayloadBuilder','chaosPayloadModel']];
-assert.equal(tools.length,45);assert.equal(new Set(tools.map(t=>t.slug)).size,45);assert.equal(new Set(tools.map(t=>t.id)).size,45);
+assert.ok(tools.length>=45);assert.equal(new Set(tools.map(t=>t.slug)).size,tools.length);assert.equal(new Set(tools.map(t=>t.id)).size,tools.length);
 const sitemap=fs.readFileSync('dist/sitemap-0.xml','utf8'),llms=fs.readFileSync('dist/llms.txt','utf8');
 for(const [slug,family,component,model] of additions){
  const tool=tools.find(t=>t.slug===slug)!;assert.equal(tool.family,family);assert.equal(tool.status,'active');

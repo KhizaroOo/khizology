@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {simulateEventLoop,eventLoopExample,asyncLoopExample} from '../src/components/toolbox/tools/eventLoopModel.ts';
+assert.deepEqual(simulateEventLoop(eventLoopExample).at(-1)!.output,['A','D','C','B']);
+assert.deepEqual(simulateEventLoop(asyncLoopExample).at(-1)!.output,['before await','script end','after await','microtask','frame callback']);
+assert.deepEqual(simulateEventLoop('queueMicrotask(() => { console.log("M1"); queueMicrotask(() => console.log("M2")); }); setTimeout(() => console.log("T"),0);').at(-1)!.output,['M1','M2','T']);
+assert.deepEqual(simulateEventLoop('requestAnimationFrame(() => console.log("frame")); setTimeout(() => console.log("timer"),20);').at(-1)!.output,['frame','timer']);
+for(const source of ['while(true) {}','eval("alert(1)");','setInterval(() => console.log("X"),0);','console.log(document.cookie);','await Promise.resolve();'])assert.throws(()=>simulateEventLoop(source));
+assert.throws(()=>simulateEventLoop('x'.repeat(12001)));assert.throws(()=>simulateEventLoop('console.log("bad\\x20");'));
+assert.deepEqual(simulateEventLoop('console.log("line\\nnext");').at(-1)!.output,['line\nnext']);
+console.log('Event-loop tests passed: A-D-C-B, resolved await, nested microtasks, frame assumptions and unsupported-code rejection.');

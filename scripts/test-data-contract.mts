@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {analyzeDataContract as run} from '../src/components/toolbox/tools/dataContractModel.ts';
+assert.throws(()=>run('','{}'));assert.throws(()=>run('{secret invalid','{}'),e=>!(e as Error).message.includes('secret'));
+const result=run('{"id":1,"active":true,"date":"2026-01-01T00:00:00Z","old":1,"user":{"name":"A"},"items":[{"a":1,"b":2}]}','{"id":"1","active":"true","date":"2026-01-01","new":2,"profile":{"name":"A"},"items":[{"a":null},{}]}');
+for(const label of ['Type changed','Removed','Date / timestamp representation changed','Possible path movement','Sometimes missing'])assert.ok(result.findings.some(f=>f.change.includes(label)),label);
+assert.ok(run('{"x":[]}','{"x":[1]}').counts.UNKNOWN);assert.ok(run('{}','{"x":1}').counts.COMPATIBLE);assert.equal(run('{"x":1}','{"x":1}').findings.length,0);
+assert.ok(run('{"timestamp":1700000000}','{"timestamp":1700000000000}').findings.some(f=>f.change.includes('timestamp representation')));
+assert.equal(run('{"id":1700000000}','{"id":1700000000000}').findings.length,0);
+assert.throws(()=>run('['.repeat(32)+'0'+']'.repeat(32),'{}'));assert.throws(()=>run(JSON.stringify('x'.repeat(500001)),'{}'));
+console.log('Data contract checks passed: reuse, shape, presence, date, movement, limits, safe errors.');

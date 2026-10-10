@@ -89,9 +89,9 @@ export function trackArtworkView(slug: string) {
   // Match a public SSR artwork record, never search text or an uploaded filename.
   if ([...document.querySelectorAll<HTMLElement>('[data-artwork-slug]')].some(node => node.dataset.artworkSlug === slug)) emit('artwork_view', { artwork_slug: slug });
 }
-export function trackToolExport(exportType: 'svg' | 'png' | 'json') {
+export function trackToolExport(exportType: 'svg' | 'png' | 'json' | 'csv') {
   const metadata = toolMetadata();
-  if (metadata && ['svg', 'png', 'json'].includes(exportType)) emit('tool_export', { tool_slug: metadata.tool_slug, export_type: exportType });
+  if (metadata && ['svg', 'png', 'json', 'csv'].includes(exportType)) emit('tool_export', { tool_slug: metadata.tool_slug, export_type: exportType });
 }
 type SharedFeatureMetadata = { monster: 'toolooo' | 'artooo' | 'infooo'; content_type: 'tool' | 'artwork' | 'infooo_world'; slug: string; action: string };
 function validSharedMetadata(metadata: SharedFeatureMetadata) {

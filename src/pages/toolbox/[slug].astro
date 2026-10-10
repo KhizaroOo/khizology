@@ -25,6 +25,21 @@ import ReplicaLagSimulator from '../../components/toolbox/tools/ReplicaLagSimula
 import AsyncMessagingDecisionLab from '../../components/toolbox/tools/AsyncMessagingDecisionLab';
 import ZeroDowntimeSchemaChangePlanner from '../../components/toolbox/tools/ZeroDowntimeSchemaChangePlanner';
 import ApiChaosPayloadBuilder from '../../components/toolbox/tools/ApiChaosPayloadBuilder';
+import BrowserSecurityPolicyDoctor from '../../components/toolbox/tools/BrowserSecurityPolicyDoctor';
+import BrowserEventLoopSimulator from '../../components/toolbox/tools/BrowserEventLoopSimulator';
+import ClientStateStorageDecisionLab from '../../components/toolbox/tools/ClientStateStorageDecisionLab';
+import WebPerformanceBudgetPlanner from '../../components/toolbox/tools/WebPerformanceBudgetPlanner';
+import LlmEvalCaseBuilder from '../../components/toolbox/tools/LlmEvalCaseBuilder';
+import FrontendDataExposureDoctor from '../../components/toolbox/tools/FrontendDataExposureDoctor';
+import NetworkFailureUxSimulator from '../../components/toolbox/tools/NetworkFailureUxSimulator';
+import WebRenderingStrategyDecisionLab from '../../components/toolbox/tools/WebRenderingStrategyDecisionLab';
+import AccessibilityRemediationPlanner from '../../components/toolbox/tools/AccessibilityRemediationPlanner';
+import UiEdgeStateMatrixBuilder from '../../components/toolbox/tools/UiEdgeStateMatrixBuilder';
+import DataContractDriftDoctor from '../../components/toolbox/tools/DataContractDriftDoctor';
+import SloIncidentBurnSimulator from '../../components/toolbox/tools/SloIncidentBurnSimulator';
+import LlmOutputAssuranceDecisionLab from '../../components/toolbox/tools/LlmOutputAssuranceDecisionLab';
+import UxResearchStudyPlanner from '../../components/toolbox/tools/UxResearchStudyPlanner';
+import CloudCostGuardrailBuilder from '../../components/toolbox/tools/CloudCostGuardrailBuilder';
 import ApiPayloadDoctor from '../../components/toolbox/tools/ApiPayloadDoctor';
 import RetryStormSimulator from '../../components/toolbox/tools/RetryStormSimulator';
 import DatabaseDecisionLab from '../../components/toolbox/tools/DatabaseDecisionLab';
@@ -137,6 +152,21 @@ const jsonLd = pageSchema({
               {tool.slug === 'async-messaging-decision-lab' && <AsyncMessagingDecisionLab client:load />}
               {tool.slug === 'zero-downtime-schema-change-planner' && <ZeroDowntimeSchemaChangePlanner client:load />}
               {tool.slug === 'api-chaos-payload-builder' && <ApiChaosPayloadBuilder client:load />}
+              {tool.slug === 'browser-security-policy-doctor' && <BrowserSecurityPolicyDoctor client:load />}
+              {tool.slug === 'browser-event-loop-simulator' && <BrowserEventLoopSimulator client:load />}
+              {tool.slug === 'client-state-storage-decision-lab' && <ClientStateStorageDecisionLab client:load />}
+              {tool.slug === 'web-performance-budget-planner' && <WebPerformanceBudgetPlanner client:load />}
+              {tool.slug === 'llm-eval-case-builder' && <LlmEvalCaseBuilder client:load />}
+              {tool.slug === 'frontend-data-exposure-doctor' && <FrontendDataExposureDoctor client:load />}
+              {tool.slug === 'network-failure-ux-simulator' && <NetworkFailureUxSimulator client:load />}
+              {tool.slug === 'web-rendering-strategy-decision-lab' && <WebRenderingStrategyDecisionLab client:load />}
+              {tool.slug === 'accessibility-remediation-planner' && <AccessibilityRemediationPlanner client:load />}
+              {tool.slug === 'ui-edge-state-matrix-builder' && <UiEdgeStateMatrixBuilder client:load />}
+              {tool.slug === 'data-contract-drift-doctor' && <DataContractDriftDoctor client:load />}
+              {tool.slug === 'slo-incident-burn-simulator' && <SloIncidentBurnSimulator client:load />}
+              {tool.slug === 'llm-output-assurance-decision-lab' && <LlmOutputAssuranceDecisionLab client:load />}
+              {tool.slug === 'ux-research-study-planner' && <UxResearchStudyPlanner client:load />}
+              {tool.slug === 'cloud-cost-guardrail-builder' && <CloudCostGuardrailBuilder client:load />}
               {tool.slug === 'api-payload-doctor' && <ApiPayloadDoctor client:load />}
               {tool.slug === 'retry-storm-simulator' && <RetryStormSimulator client:load />}
               {tool.slug === 'database-decision-lab' && <DatabaseDecisionLab client:load />}

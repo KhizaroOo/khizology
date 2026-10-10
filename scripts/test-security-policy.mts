@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {analyzeSecurityPolicy} from '../src/components/toolbox/tools/securityPolicyModel.ts';
+const folded=analyzeSecurityPolicy("HTTP/2 200\ncOnTeNt-SeCuRiTy-PoLiCy: default-src 'self';\n  object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'\nSTRICT-TRANSPORT-SECURITY: max-age=3600\nX-Content-Type-Options: nosniff");assert.ok(folded.findings.some(f=>f.header==='CSP'&&f.issue==='object-src explicitly covered'));
+assert.ok(analyzeSecurityPolicy("Content-Security-Policy-Report-Only: default-src 'none'").findings.some(f=>f.issue==='No enforcing CSP found'));
+const duplicate=analyzeSecurityPolicy("Content-Security-Policy: default-src 'none'\nContent-Security-Policy: script-src * 'unsafe-eval'");assert.ok(duplicate.findings.some(f=>f.issue==='Multiple enforcing policies'));assert.ok(duplicate.findings.some(f=>f.issue.includes('unsafe-eval')));
+assert.ok(analyzeSecurityPolicy("Strict-Transport-Security: max-age=nope").findings.some(f=>f.header==='HSTS'&&f.level==='FAIL'));
+assert.ok(analyzeSecurityPolicy("Strict-Transport-Security: max-age=0; preload").findings.some(f=>f.issue==='Preload intent declared'));
+assert.ok(analyzeSecurityPolicy("Referrer-Policy: no-referrer, unsafe-url").findings.some(f=>f.header==='Referrer-Policy'&&f.level==='WARN'));
+assert.ok(analyzeSecurityPolicy('Permissions-Policy: camera=(*)').findings.some(f=>f.issue.includes('camera')));
+assert.ok(analyzeSecurityPolicy("Content-Security-Policy: script-src 'nonce-YWJj' 'unsafe-inline'").findings.some(f=>f.issue.includes('unsafe-inline')&&f.level==='INFO'));
+assert.throws(()=>analyzeSecurityPolicy('not headers'));assert.throws(()=>analyzeSecurityPolicy('x'.repeat(50001)));
+console.log('Security policy tests passed: folding, casing, multiple policies, report-only, invalid HSTS, nonce context and feature delegation.');

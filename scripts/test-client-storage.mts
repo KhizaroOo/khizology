@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {decideClientStorage,storageDefaults} from '../src/components/toolbox/tools/clientStorageModel.ts';
+assert.equal(decideClientStorage(storageDefaults).winner?.name,'Memory');
+assert.equal(decideClientStorage({...storageDefaults,share:true,history:true}).winner?.name,'URL/query/hash');
+assert.equal(decideClientStorage({...storageDefaults,lifetime:'restart',data:'records',size:'large',offline:true}).winner?.name,'IndexedDB');
+assert.equal(decideClientStorage({...storageDefaults,lifetime:'restart',data:'responses',size:'large',offline:true,frequent:false}).winner?.name,'Cache API');
+assert.equal(decideClientStorage({...storageDefaults,lifetime:'tab',frequent:false}).winner?.name,'sessionStorage');
+const privateShare=decideClientStorage({...storageDefaults,sensitivity:'private',share:true});assert.equal(privateShare.winner,undefined);assert.ok(privateShare.mixed);
+assert.equal(decideClientStorage({...storageDefaults,sensitivity:'token',lifetime:'restart'}).winner,undefined);
+for(const r of decideClientStorage(storageDefaults).ranked)assert.equal(r.fit,Math.round(r.breakdown.reduce((n,b)=>n+b.earned,0)/r.max*100));
+assert.throws(()=>decideClientStorage({...storageDefaults,size:'invalid' as 'tiny'}));
+console.log('Storage tests passed: memory, navigation, tab refresh, records, response cache, privacy conflicts and transparent fit.');

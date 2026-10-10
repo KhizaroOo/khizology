@@ -20,7 +20,7 @@ function fixture(id = 'G-TESTONLY00', saved = null, brokenStorage = false) {
   return { run, scripts, win, docListeners, toolListeners, Element, events, reloads: () => reloads };
 }
 for (const saved of [null, 'declined']) {
-  const f = fixture('G-TESTONLY00', saved); f.run('initializeAnalytics(); trackToolStart(); trackArtworkView("public-art"); trackToolExport("json")');
+  const f = fixture('G-TESTONLY00', saved); f.run('initializeAnalytics(); trackToolStart(); trackArtworkView("public-art"); trackToolExport("json"); trackToolExport("csv")');
   assert.equal(f.scripts.length, 0); assert.equal(f.events().length, 0);
 }
 const missing = fixture('', 'accepted'); missing.run('initializeAnalytics(); trackToolStart()'); assert.equal(missing.scripts.length, 0);
@@ -48,6 +48,11 @@ for (const event of f.events()) {
   assert.equal(event[2].page_location, 'https://khizooology.com/toolbox/schema-drift-doctor');
   assert.ok(Object.keys(event[2]).every(key => ['page_location', 'page_referrer', 'page_title', 'tool_slug', 'tool_family', 'feature_level', 'artwork_slug', 'export_type', 'contact_type'].includes(key)));
 }
+f.run('trackToolExport("csv")');
+const csvEvent = f.events().at(-1);
+assert.equal(csvEvent[1], 'tool_export');
+assert.equal(csvEvent[2].export_type, 'csv');
+assert.ok(Object.keys(csvEvent[2]).every(key => ['page_location','page_referrer','page_title','tool_slug','export_type'].includes(key)));
 f.run('trackToolFavorite("capacity-cliff-simulator", true); trackToolScenarioSelect("capacity-cliff-simulator", "safer-plan"); trackToolNextMove("capacity-cliff-simulator", "queue-capacity-planner"); trackToolChainAction("tool_chain_next", "capacity-cliff-simulator", "capacity-planning", "queue-capacity-planner"); trackContractDriftRun(4, { likelyBreaking: 1, needsReview: 2, additive: 1 })');
 const lv3Events = f.events().slice(-5);
 assert.deepEqual(Array.from(lv3Events, event => event[1]), ['tool_favorite', 'tool_scenario_select', 'tool_next_move', 'tool_chain_next', 'contract_drift_run']);

@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {planPerformanceBudget,budgetDefaults} from '../src/components/toolbox/tools/performanceBudgetModel.ts';
+const base=planPerformanceBudget(budgetDefaults);assert.equal(base.overall,'UNMEASURED');assert.ok(base.reservedOther>=0);assert.ok(base.targets.hero<=base.targets.images);
+assert.ok(planPerformanceBudget({...budgetDefaults,network:'slow'}).targets.total<base.targets.total);
+assert.ok(planPerformanceBudget({...budgetDefaults,device:'low'}).targets.initialJs<base.targets.initialJs);
+assert.equal(planPerformanceBudget(budgetDefaults,{initialJs:base.targets.initialJs+1}).gates[0].status,'FAIL');
+assert.equal(planPerformanceBudget(budgetDefaults,{initialJs:base.targets.initialJs*.9}).gates[0].status,'WARN');
+assert.equal(planPerformanceBudget(budgetDefaults,{initialJs:0}).gates[0].status,'PASS');
+assert.equal(planPerformanceBudget({...budgetDefaults,fonts:0,thirdParties:0}).targets.fonts,0);
+assert.throws(()=>planPerformanceBudget({...budgetDefaults,lcp:0}));assert.throws(()=>planPerformanceBudget(budgetDefaults,{requests:1.2}));assert.throws(()=>planPerformanceBudget(budgetDefaults,{initialJs:NaN}));
+console.log('Performance budget tests passed: project/network/device derivation, bounded allocations, unmeasured/partial gates and invalid inputs.');

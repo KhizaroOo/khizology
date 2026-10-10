@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {buildEvalPack,evalSample,evalDefaults,evalCategories,availableEvalCategories} from '../src/components/toolbox/tools/llmEvalModel.ts';
+const pack=buildEvalPack(evalSample,[...evalCategories],40);
+assert.equal(pack.cases.length,15);assert.equal(new Set(pack.cases.map(c=>c.id)).size,15);
+assert.ok(!pack.cases.some(c=>c.category==='Multilingual'||c.category==='Safety-sensitive'));
+assert.equal(pack.cases.find(c=>c.category==='Short / empty')!.input,'');
+assert.ok(pack.cases.every(c=>c.notes.includes('not ground truth')));
+assert.ok(!pack.cases.some(c=>/must classify as Billing/i.test(c.expectedBehavior)));
+assert.equal(buildEvalPack(evalSample,[...evalCategories],2).cases.length,2);
+assert.ok(availableEvalCategories({...evalSample,languages:'Urdu',safety:true}).includes('Safety-sensitive'));
+assert.ok(buildEvalPack({...evalSample,languages:'Urdu'},['Multilingual'],1).cases[0].input.includes('[REPLACE'));
+assert.throws(()=>buildEvalPack(evalDefaults,[...evalCategories],20));
+assert.throws(()=>buildEvalPack(evalSample,[],20));assert.throws(()=>buildEvalPack(evalSample,['Happy path'],41));
+assert.throws(()=>buildEvalPack({...evalSample,task:'a'.repeat(1001)},['Happy path'],1));
+assert.equal(buildEvalPack({...evalSample,example:'<script>alert(1)</script>'},['Happy path'],1).cases[0].input,'<script>alert(1)</script>');
+console.log('LLM eval tests passed: bounded applicable cases, editable templates, no invented labels, opt-ins, placeholders and validation.');

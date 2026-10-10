@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import {stripTypeScriptTypes} from 'node:module';
+const blobs=[],events=[];
+const source=fs.readFileSync(new URL('../src/components/toolbox/shared/exportHelpers.ts',import.meta.url),'utf8').replace(/^import .*analytics.*\r?\n/m,'');
+const context=vm.createContext({Blob,URL:{createObjectURL:blob=>{blobs.push(blob);return 'blob:local-test';},revokeObjectURL(){}},document:{body:{appendChild(){}},createElement:()=>({click(){},remove(){}})},trackToolExport:type=>events.push(type)});
+vm.runInContext(stripTypeScriptTypes(source).replace(/export /g,''),context);
+context.rows=[['state','notes'],['=SUM(1,2)','quoted "text"\nsecond line'],['  +1','বাংলা'],['\t@formula','-1'],['normal','unchanged']];
+vm.runInContext('downloadCSV(rows,"local-matrix")',context);
+const csv=await blobs[0].text();
+assert.ok(csv.includes('"\'=SUM(1,2)"'));assert.ok(csv.includes('"\'  +1"'));assert.ok(csv.includes('"\'\t@formula"'));assert.ok(csv.includes('"\'-1"'));
+assert.ok(csv.includes('"quoted ""text""\nsecond line"'));assert.ok(csv.includes('বাংলা'));assert.ok(csv.includes('"normal","unchanged"'));
+assert.deepEqual(events,['csv']);assert.equal(blobs[0].type,'text/csv;charset=utf-8');
+console.log('CSV tests passed: formula neutralization, whitespace/control prefixes, quotes, newlines, Unicode and format-only analytics.');

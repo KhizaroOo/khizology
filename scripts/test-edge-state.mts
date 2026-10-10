@@ -1,0 +1,7 @@
+import assert from 'node:assert/strict';
+import {buildEdgeMatrix,edgeDefaults,edgeSample,edgeCategories} from '../src/components/toolbox/tools/edgeStateModel.ts';
+const pack=buildEdgeMatrix(edgeSample,[...edgeCategories],50);assert.ok(pack.rows.length>30&&pack.rows.length<=50);assert.equal(new Set(pack.rows.map(r=>r.id)).size,pack.rows.length);assert.ok(pack.rows.some(r=>r.state==='Rollback'));assert.ok(pack.rows.some(r=>r.state==='Expired session'));assert.ok(pack.rows.some(r=>r.state==='Conflicting edits'));
+const staticPack=buildEdgeMatrix({...edgeDefaults,feature:'Article library',action:'Read an article',source:'static',network:false},[...edgeCategories],50);assert.ok(staticPack.rows.every(r=>!['Network','Authentication','Concurrency','Recovery'].includes(r.category)));assert.ok(!staticPack.rows.some(r=>r.state==='Double click'||r.state==='Optimistic update'));
+assert.equal(buildEdgeMatrix(edgeSample,['Data'],3).rows.length,3);assert.ok(pack.rows.every(r=>r.qa&&r.notes.includes('Supplied rules')));
+assert.throws(()=>buildEdgeMatrix(edgeDefaults,[...edgeCategories],40));assert.throws(()=>buildEdgeMatrix({...edgeSample,source:'remote',network:false},[...edgeCategories],40));assert.throws(()=>buildEdgeMatrix(edgeSample,[],40));assert.throws(()=>buildEdgeMatrix(edgeSample,['Data'],51));
+console.log('Edge-state tests passed: relevant data/network/auth/write/concurrency coverage, truthful recovery, unique IDs and bounds.');
