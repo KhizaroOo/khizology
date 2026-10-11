@@ -49,7 +49,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" style={accentColor ? { '--k-button-accent': accentColor, '--k-button-ink': 'var(--k-button-dark-ink)' } : undefined}>
   <head>
     <link rel="preload" href={mulishFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={poppinsHeading} as="font" type="font/woff2" crossorigin />

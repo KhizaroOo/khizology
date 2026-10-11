@@ -6,8 +6,8 @@ import { url } from '../../utils/url';
   <p>Optional analytics measures visits and public tool interactions. Your tool inputs, files, JWTs, JSON and image uploads are never sent to analytics. <a href={url('/privacy')}>Privacy</a></p>
   <p id="analytics-unconfigured" hidden>Analytics is not configured yet. You can still save your preference.</p>
   <div class="consent-actions">
-    <button type="button" id="analytics-accept">Accept analytics</button>
-    <button type="button" id="analytics-decline">Decline</button>
+    <button type="button" id="analytics-accept" class="k-button k-button--secondary">Accept analytics</button>
+    <button type="button" id="analytics-decline" class="k-button k-button--secondary">Decline</button>
   </div>
 </section>
 <script>
@@ -42,6 +42,6 @@ import { url } from '../../utils/url';
   p { font-size:.875rem; line-height:1.5; margin:.5rem 0; }
   a { color:inherit; text-decoration:underline; }
   .consent-actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:.75rem; }
-  button { flex:1 1 10rem; min-height:44px; padding:.6rem; border:1px solid var(--k-text-muted); background:var(--k-bg); color:var(--k-text); border-radius:.5rem; cursor:pointer; font:inherit; font-weight:700; }
+  button { flex: 1 1 10rem; }
   button:focus-visible, a:focus-visible { outline:3px solid var(--k-accent); outline-offset:3px; }
 </style>

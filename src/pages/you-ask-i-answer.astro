@@ -51,7 +51,7 @@ const comingSoonFeatures = [
             An interactive ask-anything experience is being built. Until then, browse the
             sample questions below or Drop a Vibe to ask directly.
           </p>
-          <a href={url('/drop-a-vibe')} class="yaia-btn">Ask Right Now →</a>
+          <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Ask Right Now →</a>
         </div>
       </div>
       <div class="yaia-hero-visual">
@@ -99,7 +99,7 @@ const comingSoonFeatures = [
             </li>
           ))}
         </ul>
-        <a href={url('/drop-a-vibe')} class="yaia-btn-dark">Submit a Question Early →</a>
+        <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Submit a Question Early →</a>
       </div>
       <div class="cf-card">
         <ComingSoonCard
@@ -133,8 +133,8 @@ const comingSoonFeatures = [
         <h2>Don't wait for the feature.</h2>
         <p>Drop your question directly. I read every message.</p>
         <div class="yaia-cta-btns">
-          <a href={url('/drop-a-vibe')} class="yaia-btn-dark">Drop a Vibe</a>
-          <a href={url('/behind-the-vibes')} class="yaia-btn-ghost">Behind the Vibes →</a>
+          <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Drop a Vibe</a>
+          <a href={url('/behind-the-vibes')} class="k-button k-button--secondary">Behind the Vibes →</a>
         </div>
       </div>
     </div>
@@ -157,9 +157,9 @@ const comingSoonFeatures = [
 
   .yaia-preview-box {
     background: var(--k-bg); border: 1px solid var(--k-border); border-radius: 1rem;
-    padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;
+    padding: 1.25rem; display: flex; flex-direction: column; gap: var(--k-action-gap);
   }
-  .ypb-label { display: flex; align-items: center; gap: 0.75rem; }
+  .ypb-label { display: flex; align-items: center; gap: var(--k-action-gap); }
   .ypb-badge {
     display: inline-flex; padding: 0.25rem 0.75rem;
     background: var(--k-accent); color: #fff;
@@ -174,15 +174,8 @@ const comingSoonFeatures = [
   }
   .ypb-desc { font-size: 0.85rem; color: var(--k-text-muted); margin: 0; }
 
-  .yaia-btn {
-    display: inline-flex; align-items: center; padding: 0.55rem 1.25rem;
-    background: var(--k-accent); color: #fff;
-    border-radius: 0.5rem; font-family: 'Poppins', sans-serif;
-    font-weight: 700; font-size: 0.8rem; text-decoration: none;
-    align-self: flex-start;
-    transition: opacity 0.2s;
-  }
-  .yaia-btn:hover { opacity: 0.85; }
+
+
 
   .yaia-hero-visual {
     position: relative; display: flex; align-items: center; justify-content: center;
@@ -207,7 +200,7 @@ const comingSoonFeatures = [
   .sample-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
   .sample-card {
     background: var(--k-bg-card); border: 1px solid var(--k-border); border-radius: 1rem;
-    padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;
+    padding: 1.25rem; display: flex; flex-direction: column; gap: var(--k-action-gap);
   }
   .sc-header { display: flex; align-items: center; gap: 0.5rem; }
   .sc-category {
@@ -236,14 +229,8 @@ const comingSoonFeatures = [
   .cf-features li { display: flex; align-items: center; gap: 0.625rem; font-size: 0.9rem; color: var(--k-text-muted); }
   .cf-check { color: var(--k-accent); font-weight: 700; }
 
-  .yaia-btn-dark {
-    display: inline-flex; align-items: center; padding: 0.65rem 1.5rem;
-    background: var(--k-dark); color: var(--k-bg);
-    border-radius: 0.625rem; font-family: 'Poppins', sans-serif;
-    font-weight: 700; font-size: 0.875rem; text-decoration: none;
-    transition: opacity 0.2s, transform 0.2s;
-  }
-  .yaia-btn-dark:hover { opacity: 0.85; transform: translateY(-2px); }
+
+
 
   /* CATEGORIES */
   .k-section-cats { background: var(--k-bg); }
@@ -273,15 +260,9 @@ const comingSoonFeatures = [
     color: var(--k-text); margin: 0 0 0.75rem;
   }
   .yaia-cta-inner p { font-size: 0.95rem; color: var(--k-text-muted); margin: 0 0 1.5rem; }
-  .yaia-cta-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
-  .yaia-btn-ghost {
-    display: inline-flex; align-items: center; padding: 0.65rem 1.5rem;
-    background: transparent; color: var(--k-text-muted);
-    border: 1px solid var(--k-border); border-radius: 0.625rem;
-    font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.875rem;
-    text-decoration: none; transition: border-color 0.2s, color 0.2s;
-  }
-  .yaia-btn-ghost:hover { border-color: var(--k-accent); color: var(--k-accent); }
+  .yaia-cta-btns { display: flex; gap: var(--k-action-gap); justify-content: center; flex-wrap: wrap; }
+
+
 
   @media (max-width: 900px) {
     .yaia-hero-inner { grid-template-columns: 1fr; }

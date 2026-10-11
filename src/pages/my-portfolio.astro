@@ -301,9 +301,9 @@ const jsonLd = {
             </p>
           </div>
           <div class="pf-hero-ctas">
-            <a href={url('/drop-a-vibe')} class="pf-btn-primary">Get in Touch →</a>
-            <a href="https://www.linkedin.com/in/khizar-imtiaz" target="_blank" rel="noopener" class="pf-btn-ghost">LinkedIn</a>
-            <a href="https://github.com/KhizaroOo" target="_blank" rel="noopener" class="pf-btn-ghost">GitHub</a>
+            <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Get in Touch →</a>
+            <a href="https://www.linkedin.com/in/khizar-imtiaz" target="_blank" rel="noopener" class="k-button k-button--secondary">LinkedIn</a>
+            <a href="https://github.com/KhizaroOo" target="_blank" rel="noopener" class="k-button k-button--secondary">GitHub</a>
           </div>
         </div>
         <div class="pf-hero-visual">
@@ -494,8 +494,8 @@ const jsonLd = {
         <h2>Want to work together or just say hi?</h2>
         <p>Open to creative collaborations, tech discussions, and good conversations about art and code.</p>
         <div class="pf-cta-btns">
-          <a href={url('/drop-a-vibe')} class="pf-btn-primary">Drop a Vibe →</a>
-          <a href={url('/behind-the-vibes')} class="pf-btn-ghost">Behind the Vibes</a>
+          <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Drop a Vibe →</a>
+          <a href={url('/behind-the-vibes')} class="k-button k-button--secondary">Behind the Vibes</a>
         </div>
       </div>
     </div>
@@ -522,23 +522,11 @@ const jsonLd = {
   .pf-bio p { font-size: 0.95rem; color: var(--k-text-muted); line-height: 1.7; margin: 0; }
   .pf-hero-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
-  .pf-btn-primary {
-    display: inline-flex; align-items: center; padding: 0.65rem 1.5rem;
-    background: var(--k-dark); color: var(--k-bg);
-    border-radius: 0.625rem; font-family: 'Poppins', sans-serif;
-    font-weight: 700; font-size: 0.875rem; text-decoration: none;
-    transition: opacity 0.2s, transform 0.2s;
-  }
-  .pf-btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
 
-  .pf-btn-ghost {
-    display: inline-flex; align-items: center; padding: 0.65rem 1.25rem;
-    background: transparent; color: var(--k-text-muted);
-    border: 1px solid var(--k-border); border-radius: 0.625rem;
-    font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.875rem;
-    text-decoration: none; transition: border-color 0.2s, color 0.2s;
-  }
-  .pf-btn-ghost:hover { border-color: var(--k-accent); color: var(--k-accent); }
+
+
+
+
 
   .pf-img-wrap {
     position: relative; width: 300px; max-width: 100%;

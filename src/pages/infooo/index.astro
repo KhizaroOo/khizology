@@ -4,10 +4,117 @@ import { absoluteUrl } from '../../utils/seo';
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
 import { url, img } from '../../utils/url';
 import { voiceForMonsterId } from '../../data/monsterVoices';
+import { infoooCategories, infoooWorlds } from '../../data/infooo';
+
+const worlds = infoooWorlds.filter(world => world.status === 'published' && world.visibility === 'public');
 
 const infoooVoice = voiceForMonsterId('infooo');
 ---
 <BaseLayout title="Infooo — Interactive Knowledge Worlds | Khizooology" description="See it. Touch it. Understand it. Explore interactive knowledge worlds by Khizooology." accentColor="#5CCFAF" accentColorLight="#A7F3D0" jsonLd={[{'@context':'https://schema.org','@type':'CollectionPage',name:'Infooo',url:absoluteUrl('/infooo', seoContext)},{'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:absoluteUrl('/', seoContext)},{'@type':'ListItem',position:2,name:'Infooo',item:absoluteUrl('/infooo', seoContext)}]}]}>
-  <div class="infooo"><section class="k-container"><img src={img('/images/Monsters/infooo.png')} alt="infooo" width="92" height="92" /><p>INFOOO · INTERACTIVE KNOWLEDGE WORLDS</p><h1>See it. Touch it. Understand it.</h1><p class="lead">{infoooVoice.microcopy.intro}</p><p class="infooo-voice">{infoooVoice.microcopy.discovery}</p><div class="world-links"><a href={url('/infooo/human-atlas')}>001 · Explore Human Atlas →</a><a href={url('/infooo/rubiks-cube-motion-graph')}>002 · Explore Rubik's Cube Motion Graph →</a></div></section></div>
+  <div class="infooo k-container">
+    <section class="infooo-hero" aria-labelledby="infooo-title">
+      <div class="hero-copy">
+        <img class="mascot" src={img('/images/Monsters/infooo.png')} alt="Infooo" width="80" height="80" />
+        <p class="eyebrow">INFOOO · INTERACTIVE KNOWLEDGE WORLDS</p>
+        <h1 id="infooo-title">See it. Touch it.<br />Understand it.</h1>
+        <p class="lead">{infoooVoice.microcopy.intro}</p>
+        <p class="infooo-voice">{infoooVoice.microcopy.discovery}</p>
+      </div>
+      <div class="universe" aria-label="Connected knowledge worlds">
+        <div class="universe-label"><span class="signal" aria-hidden="true"></span> Knowledge you can explore</div>
+        <div class="universe-nodes">
+          {worlds.map(world => <a class="universe-node" href={url(`/infooo/${world.slug}`)}>
+            {world.preview && <img src={img(world.preview.asset)} alt="" width="600" height="360" />}
+            <span><small>WORLD {String(world.worldNumber).padStart(3, '0')}</small>{world.title}<span aria-hidden="true"> ↗</span></span>
+          </a>)}
+        </div>
+        <p class="universe-caption">Explore a structure. Follow a connection. See what changes.</p>
+      </div>
+    </section>
+    <section class="worlds-section" aria-labelledby="worlds-title">
+      <div class="worlds-heading"><h2 id="worlds-title">Explore Worlds</h2><p>{worlds.length} interactive {worlds.length === 1 ? 'world' : 'worlds'}</p></div>
+      <div class="category-filters" role="group" aria-label="Filter worlds by category" hidden>
+        <button type="button" class="k-button k-button--secondary" data-category="all" aria-pressed="true">All</button>
+        {infoooCategories.map(category => <button type="button" class="k-button k-button--secondary" data-category={category.id} aria-pressed="false">{category.label}</button>)}
+      </div>
+      <div class="world-links">
+        {worlds.map(world => <a class="world-card" href={url(`/infooo/${world.slug}`)} data-world-category={world.category}>
+          <div class="world-preview">
+            <span class="world-number">WORLD {String(world.worldNumber).padStart(3, '0')}</span>
+            {world.preview ? <img src={img(world.preview.asset)} alt={world.preview.alt} width="600" height="360" loading="lazy" /> : <span class="preview-fallback" aria-hidden="true">{String(world.worldNumber).padStart(3, '0')}</span>}
+          </div>
+          <div class="world-content">
+            <span class="world-category">{infoooCategories.find(category => category.id === world.category)!.label}</span>
+            <h3>{world.title}</h3>
+            <p class="world-description">{world.description}</p>
+            <span class="world-cta k-button k-button--primary">Explore World <span aria-hidden="true">→</span></span>
+          </div>
+        </a>)}
+      </div>
+      <p class="filter-status" role="status" aria-live="polite" aria-atomic="true"></p>
+    </section>
+  </div>
 </BaseLayout>
-<style>.infooo{padding:6rem 0;min-height:65vh;background:var(--k-bg)}.infooo section{max-width:760px}.infooo img{margin-bottom:1rem}.infooo p:first-of-type{color:#278a73;font:800 .75rem Poppins,sans-serif;letter-spacing:.1em}.infooo h1{font:900 clamp(2.4rem,7vw,5rem)/1.05 Poppins,sans-serif;margin:.5rem 0}.lead{color:var(--k-text-muted);font-size:1.2rem}.infooo-voice{margin:-.45rem 0 1.25rem;color:var(--k-text-muted);font-size:.85rem;font-style:italic}.world-links{display:grid;gap:.75rem;justify-items:start}.infooo a{display:inline-block;margin-top:1rem;background:#5CCFAF;color:#173c35;padding:.8rem 1.1rem;border-radius:.7rem;font:800 .9rem Poppins,sans-serif}</style>
+<script>
+  const filters = document.querySelector<HTMLElement>('.category-filters');
+  const cards = [...document.querySelectorAll<HTMLAnchorElement>('[data-world-category]')];
+  const status = document.querySelector<HTMLElement>('.filter-status');
+  if (filters && status) {
+    filters.hidden = false;
+    filters.addEventListener('click', event => {
+      const button = (event.target as Element).closest<HTMLButtonElement>('button[data-category]');
+      if (!button) return;
+      const category = button.dataset.category;
+      filters.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      cards.forEach(card => { card.hidden = category !== 'all' && card.dataset.worldCategory !== category; });
+      const count = cards.filter(card => !card.hidden).length;
+      status.textContent = count ? `${count} ${count === 1 ? 'world' : 'worlds'} shown.` : 'More worlds are coming to this category.';
+    });
+  }
+</script>
+<style>
+  .infooo { max-width:var(--k-container-wide); padding-top:4.5rem; padding-bottom:4rem; }
+  .infooo-hero { display:grid; grid-template-columns:1.05fr 1fr; align-items:center; gap:3rem; padding-bottom:4.5rem; }
+  .mascot { margin-bottom:1.25rem; }
+  .eyebrow { color:var(--k-text); font:800 .72rem Poppins,sans-serif; letter-spacing:.1em; margin-bottom:1rem; }
+  h1 { font:900 clamp(2.3rem,4.5vw,4.25rem)/1.12 Poppins,sans-serif; letter-spacing:-.04em; margin:0 0 1.5rem; }
+  .lead { color:var(--k-text-muted); font-size:1.18rem; }
+  .infooo-voice { color:var(--k-text-muted); font-size:.88rem; margin-top:.65rem; }
+  .universe { border:1px solid var(--k-border); border-radius:1.25rem; padding:1.5rem; background:radial-gradient(ellipse at center,color-mix(in srgb,#5CCFAF 12%,transparent),transparent 75%),var(--k-bg-card); }
+  .universe-label { display:flex; align-items:center; gap:.6rem; color:var(--k-text-muted); font:600 .75rem Poppins,sans-serif; }
+  .signal { width:8px; height:8px; border-radius:50%; background:#397c70; }
+  .universe-nodes { position:relative; display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; padding:2.5rem 0; align-items:center; }
+  .universe-nodes::before { content:''; position:absolute; top:50%; left:10%; right:10%; border-top:2px dashed #5b9f8e; }
+  .universe-node { position:relative; display:block; min-width:0; border:1px solid var(--k-border); border-radius:.8rem; background:var(--k-bg-card); overflow:hidden; color:var(--k-text); text-decoration:none; }
+  .universe-node img { display:block; width:100%; height:auto; background:#eef5f2; }
+  .universe-node > span { display:block; padding:.75rem; font:600 .8rem Poppins,sans-serif; }
+  .universe-node small { display:block; font-size:.6rem; letter-spacing:.08em; color:var(--k-text-muted); margin-bottom:.3rem; }
+  .universe-caption { color:var(--k-text-muted); font-size:.8rem; margin:0; }
+  .worlds-section { border-top:1px solid var(--k-border); padding-top:2rem; }
+  .worlds-heading { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
+  h2 { font:800 1.8rem Poppins,sans-serif; margin:0; }
+  .worlds-heading p { color:var(--k-text-muted); font-size:.85rem; margin:0; }
+  .category-filters { display:flex; flex-wrap:wrap; gap:var(--k-filter-gap); padding:.6rem .15rem .9rem; margin:1.25rem 0 1.5rem; }
+  .category-filters[hidden], .world-card[hidden] { display:none; }
+  .category-filters button { flex-shrink:0; }
+  .category-filters button:focus-visible, .infooo a:focus-visible { outline:3px solid var(--k-text); outline-offset:4px; }
+  .world-links { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; }
+  .world-card { display:flex; flex-direction:column; border:1px solid var(--k-border); border-radius:1rem; overflow:hidden; background:var(--k-bg-card); color:var(--k-text); text-decoration:none; transition:border-color .18s,box-shadow .18s; }
+  .world-preview { position:relative; background:#edf4f1; }
+  .world-card:nth-child(even) .world-preview { background:#eef0f7; }
+  .world-preview img { display:block; width:100%; height:auto; aspect-ratio:5/3; object-fit:contain; padding:1.25rem; transition:transform .2s; }
+  .world-number { position:absolute; top:1rem; left:1.25rem; color:#334d64; font:700 .65rem Poppins,sans-serif; letter-spacing:.1em; }
+  .world-content { display:flex; flex-direction:column; align-items:start; flex:1; padding:1.75rem; }
+  .world-category { color:var(--k-text-muted); font:600 .72rem Poppins,sans-serif; margin-bottom:.65rem; }
+  h3 { font:800 clamp(1.2rem,2vw,1.65rem)/1.3 Poppins,sans-serif; margin:0; }
+  .world-description { color:var(--k-text-muted); font-size:.95rem; line-height:1.65; margin:.8rem 0 1.5rem; }
+  .world-cta { margin-top:auto; }
+  .world-card:hover, .world-card:focus-visible, .universe-node:hover { border-color:#5b9f8e; box-shadow:0 4px 16px var(--k-shadow); }
+  .world-card:hover .world-preview img, .world-card:focus-visible .world-preview img { transform:translateY(-3px); }
+  .preview-fallback { display:grid; place-items:center; aspect-ratio:5/3; color:#397c70; font:800 5rem Poppins,sans-serif; }
+  .filter-status { color:var(--k-text-muted); font-size:.9rem; min-height:1.5em; margin-top:1rem; }
+  @media(max-width:1000px) { .infooo-hero { gap:1.5rem; } .universe { padding:1rem; } }
+  @media(max-width:800px) { .infooo-hero { grid-template-columns:1fr; padding-bottom:3rem; } .infooo { padding-top:2.5rem; } .world-links { grid-template-columns:1fr; } .universe-nodes { padding:1.5rem 0; } }
+  @media(max-width:600px) { .category-filters { gap:var(--k-filter-gap); flex-wrap:nowrap; overflow-x:auto; } .category-filters button { flex-shrink:0; } .worlds-heading { align-items:start; flex-direction:column; gap:.3rem; } .world-content { padding:1.25rem; } }
+  @media(prefers-reduced-motion:reduce) { .world-card,.world-preview img { transition:none; } .world-card:hover .world-preview img,.world-card:focus-visible .world-preview img { transform:none; } }
+</style>

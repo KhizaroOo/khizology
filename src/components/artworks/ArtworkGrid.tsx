@@ -146,13 +146,13 @@ export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
         </div>
         <div className="aw-tags-scroll">
           <button
-            className={`aw-tag-btn${!activeTag ? ' active' : ''}`}
+            aria-pressed={!activeTag} className={`aw-tag-btn k-button k-button--secondary${!activeTag ? ' active' : ''}`}
             onClick={() => setActiveTag('')}
           >All</button>
           {allTags.map(t => (
             <button
               key={t}
-              className={`aw-tag-btn${activeTag === t ? ' active' : ''}`}
+              aria-pressed={activeTag === t} className={`aw-tag-btn k-button k-button--secondary${activeTag === t ? ' active' : ''}`}
               onClick={() => setActiveTag(activeTag === t ? '' : t)}
             >{t}</button>
           ))}
@@ -166,7 +166,7 @@ export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
           <span className="aw-empty-icon">🎨</span>
           <h3>No artworks found</h3>
           <p>{emptyStateText}</p>
-          <button className="aw-empty-reset" onClick={() => { setQuery(''); setActiveTag(''); }}>
+          <button className="aw-empty-reset k-button k-button--secondary" onClick={() => { setQuery(''); setActiveTag(''); }}>
             Reset filters
           </button>
         </div>
@@ -230,17 +230,9 @@ export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
           font-size: .8rem; padding: .25rem; opacity: .6;
         }
         .aw-tags-scroll {
-          display: flex; gap: .375rem; flex-wrap: wrap;
+          display: flex; gap: .6rem; flex-wrap: wrap; padding-bottom:6px;
         }
-        .aw-tag-btn {
-          padding: .3rem .75rem; border-radius: 999px; border: 1px solid var(--k-border);
-          background: transparent; color: var(--k-text-muted); font-size: .72rem;
-          font-weight: 600; cursor: pointer; font-family: inherit;
-          transition: all .15s; white-space: nowrap;
-        }
-        .aw-tag-btn:hover, .aw-tag-btn.active {
-          background: #F5CF5C; color: #2A3439; border-color: #F5CF5C;
-        }
+        .aw-tag-btn { white-space:nowrap; }
         .aw-count {
           font-size: .78rem; color: var(--k-text-muted); margin-bottom: 1.25rem;
         }

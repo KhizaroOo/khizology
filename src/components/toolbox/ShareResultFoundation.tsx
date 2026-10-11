@@ -14,7 +14,7 @@ export default function ShareResultFoundation({ monster, contentType, slug, titl
     try { await navigator.share({ title, text: result?.summary, url: publicUrl }); trackShareAction({ monster, content_type: contentType, slug, action: result ? 'share_result' : 'web_share' }); } catch { /* A dismissed system dialog is not an error state. */ }
   };
   return <div className="share-foundation" aria-label={`Share ${title}`}>
-    <span>{result ? 'Share result' : 'Share this page'}</span><button type="button" onClick={share}>Share</button><button type="button" onClick={copy}>{result ? 'Copy result' : 'Copy link'}</button>
-    <style>{`.share-foundation{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin:1rem 0;color:var(--k-text-muted);font:600 .78rem Poppins,sans-serif}.share-foundation button{min-height:36px;padding:.4rem .7rem;border:1px solid var(--k-border);border-radius:.5rem;background:var(--k-bg-card);color:var(--k-text);font:inherit;cursor:pointer}.share-foundation button:focus-visible{outline:3px solid var(--k-accent);outline-offset:2px}@media (prefers-reduced-motion:reduce){.share-foundation *{transition:none!important}}`}</style>
+    <span>{result ? 'Share result' : 'Share this page'}</span><button className="k-button k-button--secondary" type="button" onClick={share}>Share</button><button className="k-button k-button--secondary" type="button" onClick={copy}>{result ? 'Copy result' : 'Copy link'}</button>
+    <style>{`.share-foundation{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin:1rem 0;color:var(--k-text-muted);font:600 .78rem Poppins,sans-serif}.share-foundation button:focus-visible{outline:3px solid var(--k-accent);outline-offset:2px}@media (prefers-reduced-motion:reduce){.share-foundation *{transition:none!important}}`}</style>
   </div>;
 }

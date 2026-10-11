@@ -131,12 +131,12 @@ const jsonLd = pageSchema({
             Showing <span id="tb-visible-count">{tools.length}</span> of {tools.length}
           </h2>
         </div>
-        <button type="button" id="tb-clear-filters" class="tb-clear-btn" hidden>Clear filters ✕</button>
+        <button type="button" id="tb-clear-filters" class="tb-clear-btn k-button k-button--ghost" hidden>Clear filters ✕</button>
       </div>
 
       <div class="tb-tag-row">
         {allTags.map((tag) => (
-          <button type="button" class="tb-tag-btn" data-tag-filter={tag} aria-pressed="false">{tag}</button>
+          <button type="button" class="tb-tag-btn k-button k-button--secondary" data-tag-filter={tag} aria-pressed="false">{tag}</button>
         ))}
       </div>
 
@@ -299,12 +299,6 @@ const jsonLd = pageSchema({
     display: flex; align-items: flex-end; justify-content: space-between;
     flex-wrap: wrap; gap: .75rem; margin-bottom: 1.25rem;
   }
-  .tb-clear-btn {
-    background: transparent; border: 1px solid var(--k-border);
-    color: var(--k-text-muted); padding: .4rem .875rem; border-radius: .5rem;
-    font-size: .78rem; font-weight: 700; cursor: pointer; font-family: 'Poppins', sans-serif;
-  }
-  .tb-clear-btn:hover { border-color: #F7933C; color: #F7933C; }
   .tb-no-results {
     margin-top: 1.25rem; padding: 2rem; text-align: center;
     border: 1px dashed var(--k-border); border-radius: 1rem;
@@ -313,15 +307,7 @@ const jsonLd = pageSchema({
   .tb-no-results p { margin: .2rem 0; }
   .tb-no-results strong { color: var(--k-text); }
 
-  .tb-tag-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.75rem; }
-  .tb-tag-btn {
-    background: var(--k-bg-card); border: 1px solid var(--k-border);
-    color: var(--k-text-muted); padding: .3rem .75rem; border-radius: 999px;
-    font-size: .72rem; font-weight: 700; cursor: pointer; font-family: 'Poppins', sans-serif;
-    transition: border-color .2s, color .2s, background .2s;
-  }
-  .tb-tag-btn:hover { border-color: #F7933C; color: #F7933C; }
-  .tb-tag-btn.is-active { background: #F7933C; border-color: #F7933C; color: #fff; }
+  .tb-tag-row { display: flex; flex-wrap: wrap; gap: var(--k-filter-gap); padding-bottom: 7px; margin-bottom: 1.75rem; }
 
   .tb-tools-grid {
     display: grid;

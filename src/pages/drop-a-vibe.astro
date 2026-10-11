@@ -95,7 +95,7 @@ const socialLinks = [
           </div>
           <div class="form-footer">
             <span class="form-note">No backend yet — form integration coming soon. For now, social links work too.</span>
-            <button type="submit" class="dav-submit" disabled>
+            <button type="submit" class="dav-submit k-button k-button--primary" disabled>
               Drop it →
               <span class="submit-badge">Coming Soon</span>
             </button>
@@ -208,18 +208,10 @@ const socialLinks = [
   }
   .form-note { font-size: 0.75rem; color: var(--k-text-muted); max-width: 320px; }
 
-  .dav-submit {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.65rem 1.5rem;
-    background: var(--k-dark); color: var(--k-bg);
-    border: none; border-radius: 0.625rem;
-    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.875rem;
-    cursor: not-allowed; opacity: 0.7;
-    white-space: nowrap;
-  }
+  .dav-submit { white-space:nowrap; }
   .submit-badge {
     display: inline-flex; padding: 0.15rem 0.5rem;
-    background: var(--k-accent); color: #fff;
+    background: var(--k-bg-card); color: var(--k-text-muted);
     border-radius: 999px; font-size: 0.65rem; font-weight: 700;
     font-family: 'Poppins', sans-serif; text-transform: uppercase;
   }

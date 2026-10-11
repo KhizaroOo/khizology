@@ -1,0 +1,100 @@
+:root {
+  --k-button-height: 44px;
+  --k-button-padding-x: 18px;
+  --k-button-border: 2px;
+  --k-button-gap: 8px;
+  --k-action-gap: 12px;
+  --k-filter-gap: 10px;
+  --k-container-wide: 1440px;
+  --k-container-visual: 1500px;
+  --k-container-readable: 800px;
+  --k-gutter: 36px;
+  --k-button-radius: 16px;
+  --k-button-depth: 6px;
+  --k-button-edge: #626976;
+  --k-button-accent: var(--k-accent);
+  --k-button-ink: var(--k-button-dark-ink);
+  --k-button-dark-ink: #111827;
+  --k-danger: #dc2626;
+}
+html.dark { --k-button-edge: #8390a6; --k-button-ink: var(--k-button-dark-ink); }
+/* Shared action surfaces. Scoped adapters cover legacy tool controls without styling text links. */
+:is(.k-button, .tp-main button, .rubik-world button, .infooo-control-group button, .infooo-guide button, .infooo-relationship button, .infooo-mobile-sheet button, .infooo-error button, .infooo-search button, .top-actions button, .layer-presets button, .view-controls button, .panel-foot button, .error button, button.icon-button, .dock-reset, .dock-layers) {
+  --button-fill: var(--k-bg-card, #fff);
+  --button-edge: var(--k-button-edge);
+  --button-ink: var(--k-text, #2A3439);
+  --button-depth: var(--k-button-depth);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--k-button-gap);
+  min-height: var(--k-button-height) !important;
+  padding: .6rem var(--k-button-padding-x) !important;
+  border-width: var(--k-button-border) !important;
+  border-style: solid !important;
+  border-color: var(--button-edge);
+  border-radius: var(--k-button-radius) !important;
+  background: var(--button-fill);
+  color: var(--button-ink);
+  box-shadow: 0 var(--button-depth) 0 var(--button-edge) !important;
+  font: 700 .8rem/1.4 'Poppins', sans-serif !important;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .12s, box-shadow .12s;
+  transform: translateY(0);
+}
+/* Site actions keep the logo accent even inside a module-themed page. */
+.k-button--brand { --k-button-accent: var(--k-accent); --k-button-ink: var(--k-button-dark-ink); }
+.k-button.k-button--primary,
+:is(.k-button, .tp-main button, .rubik-world button, .infooo-control-group button, .infooo-guide button, .infooo-relationship button, .infooo-mobile-sheet button, .infooo-error button, .infooo-search button, .top-actions button, .layer-presets button, .view-controls button, .panel-foot button, .error button, button.icon-button, .dock-reset, .dock-layers):is([aria-pressed="true"], [aria-selected="true"]) {
+  --button-fill: var(--k-button-accent);
+  --button-edge: color-mix(in srgb, var(--k-button-accent) 70%, #000);
+  --button-ink: var(--k-button-ink);
+  background: var(--button-fill) !important;
+  color: var(--button-ink) !important;
+  border-color: var(--button-edge) !important;
+}
+
+.k-button.k-button--danger { --button-fill: var(--k-danger); --button-edge: color-mix(in srgb, var(--k-danger) 60%, #172b27); --button-ink: #fff; background: var(--button-fill) !important; color: var(--button-ink) !important; border-color: var(--button-edge) !important; }
+.k-button.k-button--ghost { --button-fill: transparent; --button-depth: 2px; }
+.k-button.k-button--icon { width: var(--k-button-height); height: var(--k-button-height); padding: 0 !important; flex-shrink: 0; }
+.k-button.k-button--compact { --button-depth: 3px; }
+:is(.k-button, .tp-main button, .rubik-world button, .infooo-control-group button, .infooo-guide button, .infooo-relationship button, .infooo-mobile-sheet button, .infooo-error button, .infooo-search button, .top-actions button, .layer-presets button, .view-controls button, .panel-foot button, .error button, button.icon-button, .dock-reset, .dock-layers):is([aria-pressed], [aria-selected])::before {
+  content: ''; width: 8px; height: 5px; border-left: 2px solid; border-bottom: 2px solid;
+  transform: rotate(-45deg); visibility: hidden; flex-shrink: 0;
+}
+:is(.k-button, .tp-main button, .rubik-world button, .infooo-control-group button, .infooo-guide button, .infooo-relationship button, .infooo-mobile-sheet button, .infooo-error button, .infooo-search button, .top-actions button, .layer-presets button, .view-controls button, .panel-foot button, .error button, button.icon-button, .dock-reset, .dock-layers):is([aria-pressed="true"], [aria-selected="true"])::before { visibility: visible; }
+:is(.k-button, .tp-main button, .rubik-world button, .infooo-control-group button, .infooo-guide button, .infooo-relationship button, .infooo-mobile-sheet button, .infooo-error button, .infooo-search button, .top-actions button, .layer-presets button, .view-controls button, .panel-foot button, .error button, button.icon-button, .dock-reset, .dock-layers):not(:disabled):not([aria-disabled="true"]):hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 calc(var(--button-depth) + 1px) 0 var(--button-edge) !important;
+}
+:is(.k-button, .tp-main button, .rubik-world button, .infooo-control-group button, .infooo-guide button, .infooo-relationship button, .infooo-mobile-sheet button, .infooo-error button, .infooo-search button, .top-actions button, .layer-presets button, .view-controls button, .panel-foot button, .error button, button.icon-button, .dock-reset, .dock-layers):not(:disabled):not([aria-disabled="true"]):active {
+  transform: translateY(4px) !important;
+  box-shadow: 0 2px 0 var(--button-edge) !important;
+}
+:is(.k-button, .tp-main button, .rubik-world button, .infooo-control-group button, .infooo-guide button, .infooo-relationship button, .infooo-mobile-sheet button, .infooo-error button, .infooo-search button, .top-actions button, .layer-presets button, .view-controls button, .panel-foot button, .error button, button.icon-button, .dock-reset, .dock-layers):focus-visible { outline: 3px solid var(--k-text, #2A3439) !important; outline-offset: 5px; }
+:is(.k-button, .tp-main button, .rubik-world button, .infooo-control-group button, .infooo-guide button, .infooo-relationship button, .infooo-mobile-sheet button, .infooo-error button, .infooo-search button, .top-actions button, .layer-presets button, .view-controls button, .panel-foot button, .error button, button.icon-button, .dock-reset, .dock-layers):is(:disabled, [aria-disabled="true"]) {
+  background: var(--k-bg, #F5F5F8) !important; color: var(--k-text-muted, #626976) !important;
+  border-color: var(--k-button-edge) !important;
+  box-shadow: none !important; transform: none !important; opacity: 1 !important; cursor: not-allowed;
+}
+.k-button[hidden] { display: none; }
+:where(.tool-actions, .infooo-control-group, .infooo-guide > div, .viewpoint-row, .size-buttons, .speed-controls) {
+  gap: var(--k-action-gap) !important; flex-wrap: wrap; padding-bottom: 7px;
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(.k-button, .tp-main button, .rubik-world button, .infooo-control-group button, .infooo-guide button, .infooo-relationship button, .infooo-mobile-sheet button, .infooo-error button, .infooo-search button, .top-actions button, .layer-presets button, .view-controls button, .panel-foot button, .error button, button.icon-button, .dock-reset, .dock-layers) { transition: none !important; }
+  :is(.k-button, .tp-main button, .rubik-world button, .infooo-control-group button, .infooo-guide button, .infooo-relationship button, .infooo-mobile-sheet button, .infooo-error button, .infooo-search button, .top-actions button, .layer-presets button, .view-controls button, .panel-foot button, .error button, button.icon-button, .dock-reset, .dock-layers):not(:disabled):is(:hover, :active) { transform: none !important; }
+}
+
+/* The embedded atlas consumes the same asset; switches and anatomy rows keep their semantics. */
+.top-actions, .layer-presets { gap: var(--k-action-gap); flex-wrap: wrap; }
+.layer-presets { padding-bottom: 7px; height: auto; }
+.layer-presets button { flex: 0 1 auto; }
+.top-actions .icon-button, .view-controls button { width: var(--k-button-height); height: var(--k-button-height); padding: 0 !important; flex-shrink: 0; }
+.view-controls { gap: var(--k-filter-gap); }
+
+.dock-reset, .dock-layers { min-width: 60px; padding: .35rem .5rem !important; }
+button.icon-button { padding: 0 !important; min-width: var(--k-button-height); }
+
+.k-button > svg { flex-shrink: 0; }

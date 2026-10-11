@@ -41,8 +41,8 @@ const currentPath = Astro.url.pathname;
 
       <!-- Right controls -->
       <div class="k-nav-controls">
-        <a href={url('/drop-a-vibe')} class="k-cta-btn">Drop a Vibe</a>
-        <button id="theme-toggle" class="k-theme-btn" aria-label="Toggle dark/light theme">
+        <a href={url('/drop-a-vibe')} class="k-cta-btn k-button k-button--primary k-button--brand">Drop a Vibe</a>
+        <button id="theme-toggle" class="k-theme-btn k-button k-button--icon" aria-label="Toggle dark/light theme">
           <span class="theme-icon-sun">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
           </span>
@@ -51,7 +51,7 @@ const currentPath = Astro.url.pathname;
           </span>
         </button>
         <!-- Mobile hamburger -->
-        <button id="mobile-menu-btn" class="k-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <button id="mobile-menu-btn" class="k-hamburger k-button k-button--icon" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -168,40 +168,13 @@ const currentPath = Astro.url.pathname;
   .k-nav-controls {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--k-action-gap);
     flex-shrink: 0;
   }
 
-  .k-cta-btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.4rem 1rem;
-    background: var(--k-dark);
-    color: var(--k-bg);
-    border-radius: 0.5rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-    font-family: 'Poppins', sans-serif;
-    text-decoration: none;
-    transition: opacity 0.2s, transform 0.2s;
-    white-space: nowrap;
-  }
-  .k-cta-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+  .k-cta-btn { white-space:nowrap; }
 
-  .k-theme-btn {
-    width: 2.25rem;
-    height: 2.25rem;
-    border: 1px solid var(--k-border);
-    border-radius: 0.5rem;
-    background: transparent;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
-    color: var(--k-text);
-  }
-  .k-theme-btn:hover { background: var(--k-bg); }
+
 
   /* Sun/moon icons controlled by dark class */
   .theme-icon-moon { display: none; }
@@ -213,10 +186,7 @@ const currentPath = Astro.url.pathname;
     display: none;
     flex-direction: column;
     gap: 5px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0.25rem;
+
   }
   .k-hamburger span {
     display: block;

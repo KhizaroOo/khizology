@@ -85,6 +85,11 @@ const infoooSource = fs.readFileSync(path.join(root, 'src/data/infooo.ts'), 'utf
   .replace("import { createIdeaEvaluation } from './valueLaws';", 'const createIdeaEvaluation = (input) => input;')
   .replace("import { followTheBloodGuide, humanAtlasEntities, humanAtlasRelationships } from './humanAtlasLearning';", 'const followTheBloodGuide = {}; const humanAtlasEntities = []; const humanAtlasRelationships = [];');
 const infoooRegistry = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(infoooSource))}`);
+assert.equal(infoooRegistry.infoooCategories.length, 6, 'Infooo must have six canonical categories');
+assert.equal(new Set(infoooRegistry.infoooCategories.map(category => category.id)).size, 6, 'Infooo category IDs must be unique');
+for (const world of infoooRegistry.infoooWorlds) {
+  assert.ok(infoooRegistry.infoooCategories.some(category => category.id === world.category), `${world.slug}: invalid Infooo category`);
+}
 const { loadNotooo } = await import('./load-notooo.mjs');
 const notoooModule = await loadNotooo(root);
 const llmsText = fs.readFileSync(path.join(root, 'dist/llms.txt'), 'utf8');

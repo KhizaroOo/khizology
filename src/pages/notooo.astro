@@ -57,7 +57,7 @@ const jsonLd = [
           <div class="status-field"><label for="notooo-status">Show</label><select id="notooo-status" aria-controls="notooo-books"><option value="all">All notes</option><option value="published">Published</option><option value="coming">Coming</option></select></div>
         </div>
         <div class="category-list" role="group" aria-label="Filter by category">
-          {['All', ...notoooCategories].map((category) => <button type="button" data-notooo-category={category} aria-pressed={category === 'All' ? 'true' : 'false'} aria-controls="notooo-books">{category}<span>{category === 'All' ? books.length : books.filter(book => book.category === category).length}</span></button>)}
+          {['All', ...notoooCategories].map((category) => <button type="button" class="k-button k-button--secondary" data-notooo-category={category} aria-pressed={category === 'All' ? 'true' : 'false'} aria-controls="notooo-books">{category}<span>{category === 'All' ? books.length : books.filter(book => book.category === category).length}</span></button>)}
         </div>
       </div>
       <p class="result-count" data-notooo-results role="status" aria-live="polite" aria-atomic="true">Showing {books.length} books</p>
@@ -116,7 +116,7 @@ const jsonLd = [
 
 <style>
   .notooo-index { background: #fff; color: var(--notooo-text); }
-  .index-content { max-width: 1280px; }
+  .index-content { max-width: var(--k-container-wide); }
   .breadcrumb-shell :global(.k-breadcrumb) { padding: .3rem 0 .55rem; font-size: .75rem; }
   .breadcrumb-shell :global([aria-current="page"]) { font-weight: 700; }
   .index-header { position: relative; display: flex; justify-content: space-between; gap: 2rem; overflow: hidden; margin-bottom: 1rem; padding: clamp(1.4rem, 3.6vw, 2.5rem) clamp(1.35rem, 4vw, 3rem); border: 1px solid color-mix(in srgb, var(--notooo-color) 42%, #fff); border-radius: 1rem; background: linear-gradient(135deg, color-mix(in srgb, var(--notooo-light) 32%, #fff), color-mix(in srgb, var(--notooo-color) 8%, #fff)); }
@@ -136,16 +136,13 @@ const jsonLd = [
   .section-label { margin: 0 0 .28rem; color: #6a625f; font: 800 .65rem Poppins, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
   .discovery h2 { margin: 0; color: var(--notooo-text); font: 800 clamp(1.12rem, 2vw, 1.38rem)/1.2 Poppins, sans-serif; letter-spacing: -.025em; }
   .discovery > p { grid-column: 1 / -1; max-width: 43rem; margin: 0; color: #5f5f5f; font-size: .92rem; line-height: 1.55; }
-  .category-list { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0; padding: 0; list-style: none; }
+  .category-list { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0; padding: 0; list-style: none; }
   .catalog-controls[hidden], .book-index > li[hidden], .empty-state[hidden] { display: none; }
   .search-row { display: grid; grid-template-columns: minmax(0, 1fr) 10rem; gap: 1rem; margin-bottom: .85rem; }
   .search-row label { display: block; margin-bottom: .3rem; color: #505050; font: 700 .75rem Poppins, sans-serif; }
   .search-row input, .search-row select { box-sizing: border-box; width: 100%; min-height: 44px; border: 1px solid #b6b6b6; border-radius: .45rem; background: #fff; padding: .55rem .7rem; color: var(--notooo-text); font: inherit; }
   .search-row input::placeholder { color: #6a625f; }
-  .category-list button { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; border: 1px solid #b6b6b6; border-radius: 99px; padding: .45rem .8rem; background: #fff; color: #505050; font: 700 .78rem Poppins, sans-serif; cursor: pointer; }
-  .category-list button span { color: #6a625f; font-weight: 400; }
-  .category-list button[aria-pressed="true"] { border-color: #a75e50; background: #fff0e8; color: #713c32; }
-  .category-list button:hover { border-color: #a75e50; }
+  .category-list button span { color: inherit; font-weight: 400; }
   .category-list button:focus-visible, .search-row input:focus-visible, .search-row select:focus-visible, .book-index a:focus-visible { outline: 3px solid #a75e50; outline-offset: 3px; }
   .result-count, .empty-state { margin: 1rem 0; color: #5f5f5f; font-size: .85rem; }
   .book-index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2.5rem; margin: 0; padding: 0; list-style: none; }

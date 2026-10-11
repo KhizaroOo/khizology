@@ -189,7 +189,7 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
         <span className="eyebrow">CUBE SIZE</span>
         <div className="size-buttons">{cubeSizes.map(candidate => <button type="button" key={candidate} aria-pressed={candidate === size} onClick={() => changeSize(candidate)} disabled={Boolean(visualTurn) || playing}>{candidate}×{candidate}</button>)}</div>
       </div>
-      <button className="watch-one-turn randomize-btn" type="button" onClick={randomizeCube} disabled={Boolean(visualTurn) || playing}>Randomize cube <span aria-hidden="true">⟲</span></button>
+      <button className="watch-one-turn randomize-btn k-button k-button--primary" type="button" onClick={randomizeCube} disabled={Boolean(visualTurn) || playing}>Randomize cube <span aria-hidden="true">⟲</span></button>
     </div>
     <div className="rubik-mobile-tabs" role="group" aria-label="Visualization view">
       <button type="button" aria-pressed={view === 'cube'} onClick={() => setView('cube')}>Cube</button>

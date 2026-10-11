@@ -10,9 +10,6 @@
 html.dark .rubik-page, html.dark .rubik-world { background: #172222; }
 html.dark .rubik-world { --rubik-ink: #edf7f2; --rubik-muted: #afc6bc; --rubik-green: #86dfbb; }
 html.dark .rubik-world .infooo-stage { --rubik-ink: #213735; --rubik-muted: #637674; --rubik-green: #27987b; }
-html.dark .rubik-world .watch-one-turn { background: #82dcb8; color: #173a30; }
-html.dark .rubik-world .watch-one-turn:hover { background: #a8e8cb; color: #173a30; }
-html.dark .rubik-world .watch-one-turn span { color: #173a30; }
 
 .rubik-world .infooo-world-shell { max-width: 1680px; margin: auto; padding: .3rem clamp(1rem, 3vw, 2.5rem) 0; }
 .rubik-world .infooo-world-header { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin: .5rem 0 1.15rem; }
@@ -22,13 +19,12 @@ html.dark .rubik-world .watch-one-turn span { color: #173a30; }
 .rubik-world .infooo-world-layout { display: block; }
 .rubik-world .infooo-stage { padding: clamp(.7rem, 1.6vw, 1.4rem); border: 0; border-radius: 1.35rem; background: #fff; color: var(--rubik-ink); box-shadow: 0 16px 44px #203f3310; }
 
-.rubik-world button { min-height: 38px; border: 1px solid #ccdcd5; border-radius: .65rem; background: #fff; color: var(--rubik-ink); padding: .52rem .8rem; font: 750 .76rem Poppins, sans-serif; cursor: pointer; }
-.rubik-world button:hover, .rubik-world button[aria-pressed="true"] { border-color: var(--rubik-green); background: #e8f7ef; }
-.rubik-world button:disabled { opacity: .45; cursor: not-allowed; }
+.rubik-world button:not(.k-button) { min-height: 38px; border: 1px solid #ccdcd5; border-radius: .65rem; background: #fff; color: var(--rubik-ink); padding: .52rem .8rem; font: 750 .76rem Poppins, sans-serif; cursor: pointer; }
+.rubik-world button:not(.k-button):hover, .rubik-world button:not(.k-button)[aria-pressed="true"] { border-color: var(--rubik-green); background: #e8f7ef; }
+.rubik-world button:not(.k-button):disabled { opacity: .45; cursor: not-allowed; }
 .rubik-world button:focus-visible, .rubik-world [role="button"]:focus-visible, .rubik-world summary:focus-visible { outline: 3px solid var(--rubik-green); outline-offset: 3px; }
-.rubik-world .watch-one-turn { flex: none; min-height: 48px; border: 0; border-radius: 999px; background: var(--rubik-ink); color: #fff; padding: .7rem 1.25rem; font-size: .8rem; box-shadow: 0 10px 24px #1a393228; }
-.rubik-world .watch-one-turn:hover { background: #31564d; color: #fff; }
-.rubik-world .watch-one-turn span { margin-left: .35rem; color: #abecd4; font-size: 1.1rem; }
+.rubik-world .watch-one-turn { flex:none; }
+.rubik-world .watch-one-turn span { margin-left: .35rem; color: inherit; font-size: 1.1rem; }
 
 /* Top row inside the white card: size selector left, Randomize right (moved out of the page
    header so both size and the primary action live in one place). */

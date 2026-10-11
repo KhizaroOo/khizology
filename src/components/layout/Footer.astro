@@ -1,7 +1,6 @@
 ---
 import { preview } from "../../utils/imagePreview";
 import { monsters } from '../../data/monsters';
-import { families } from '../../data/families';
 import { SITE } from '../../data/site';
 import { url } from '../../utils/url';
 const activeMonsters = monsters.filter(m => m.status === 'active');
@@ -24,73 +23,75 @@ const currentYear = new Date().getFullYear();
         </p>
         <a href={url('/my-portfolio')} class="k-footer-profile">Meet Khizar <span>→</span><small>Portfolio & story</small></a>
         <div class="k-footer-socials">
-          <a href="https://www.instagram.com/khizooo_art" aria-label="Instagram" class="social-link" target="_blank" rel="noopener">
+          <a href="https://www.instagram.com/khizooo_art" aria-label="Instagram" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
           </a>
-          <a href="https://www.facebook.com/khizooo" aria-label="Facebook" class="social-link" target="_blank" rel="noopener">
+          <a href="https://www.facebook.com/khizooo" aria-label="Facebook" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
           </a>
-          <a href="https://www.pinterest.com/khizooo" aria-label="Pinterest" class="social-link" target="_blank" rel="noopener">
+          <a href="https://www.pinterest.com/khizooo" aria-label="Pinterest" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
           </a>
-          <a href="https://www.tiktok.com/@khizooo_butt" aria-label="TikTok" class="social-link" target="_blank" rel="noopener">
+          <a href="https://www.tiktok.com/@khizooo_butt" aria-label="TikTok" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
           </a>
-          <a href="https://www.snapchat.com/add/khizooo" aria-label="Snapchat" class="social-link" target="_blank" rel="noopener">
+          <a href="https://www.snapchat.com/add/khizooo" aria-label="Snapchat" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.045.659-.182.915-.322l.001-.001c.12-.056.24-.085.36-.085.195 0 .42.09.6.21.39.24.45.54.45.705 0 .57-.45.975-1.245 1.245-.12.045-.27.075-.405.12-.135.045-.27.075-.36.12-.09.045-.18.12-.18.225 0 .135.15.285.375.495.21.195.48.45.719.825.225.33.405.765.405 1.26 0 .45-.12.975-.39 1.515l-.003.005c-.21.45-.51.855-.855 1.17-.375.345-.825.63-1.35.855-.585.255-1.245.405-1.98.48-.12.015-.24.075-.33.195-.135.165-.195.39-.225.63-.03.18-.09.525-.39.795l-.006.006c-.33.285-.69.36-1.005.36-.225 0-.435-.045-.63-.075-.3-.045-.525-.09-.78-.09-.21 0-.39.03-.585.075-.21.045-.45.135-.705.285-.42.24-.87.54-1.56.54-.042 0-.084-.003-.126-.006l-.034-.002c-.69 0-1.14-.3-1.56-.54-.255-.15-.495-.24-.705-.285-.195-.045-.375-.075-.585-.075-.255 0-.48.045-.78.09-.195.03-.405.075-.63.075-.315 0-.675-.075-1.005-.36l-.006-.006c-.3-.27-.36-.615-.39-.795-.03-.24-.09-.465-.225-.63-.09-.12-.21-.18-.33-.195-.735-.075-1.395-.225-1.98-.48-.525-.225-.975-.51-1.35-.855-.345-.315-.645-.72-.855-1.17l-.003-.005c-.27-.54-.39-1.065-.39-1.515 0-.495.18-.93.405-1.26.239-.375.509-.63.719-.825.225-.21.375-.36.375-.495 0-.105-.09-.18-.18-.225-.09-.045-.225-.075-.36-.12-.135-.045-.285-.075-.405-.12C.45 8.474 0 8.069 0 7.499c0-.165.06-.465.45-.705.18-.12.405-.21.6-.21.12 0 .24.029.36.085l.001.001c.256.14.615.277.915.322.198 0 .326-.045.401-.09l-.03-.51c-.104-1.628-.23-3.654.299-4.847C4.659 1.069 8.016.793 9.006.793h.09c.39 0 .765.015 1.11.045zM12.14 1.5c-.045 0-.09-.003-.134-.003h-.044c-.03 0-.057.003-.087.003-.344-.03-.72-.045-1.11-.045H10.676c-.99 0-4.077.276-5.48 3.361-.42.953-.3 2.729-.21 4.199l.06 1.005c-.09.21-.315.39-.63.39-.255 0-.525-.09-.87-.225l-.001-.001c-.105-.045-.21-.075-.315-.075-.075 0-.12.015-.15.045-.12.075-.15.135-.15.165 0 .285.375.555.915.735.255.075.42.12.555.165.135.045.225.075.3.12.27.135.435.315.435.585 0 .225-.135.435-.42.69-.225.21-.465.42-.66.69-.165.24-.285.525-.285.84 0 .36.09.765.315 1.2.165.345.405.69.69.96.3.27.675.51 1.11.705.51.225 1.11.36 1.815.435.285.03.525.165.72.405.195.24.285.51.33.78.03.195.075.42.195.54.12.105.315.18.585.18.15 0 .315-.03.51-.06.33-.045.6-.105.885-.105.3 0 .555.045.81.105.27.06.51.15.735.285.39.225.75.435 1.14.435h.024c.39 0 .75-.21 1.14-.435.225-.135.465-.225.735-.285.255-.06.51-.105.81-.105.285 0 .555.06.885.105.195.03.36.06.51.06.27 0 .465-.075.585-.18.12-.12.165-.345.195-.54.045-.27.135-.54.33-.78.195-.24.435-.375.72-.405.705-.075 1.305-.21 1.815-.435.435-.195.81-.435 1.11-.705.285-.27.525-.615.69-.96.225-.435.315-.84.315-1.2 0-.315-.12-.6-.285-.84-.195-.27-.435-.48-.66-.69-.285-.255-.42-.465-.42-.69 0-.27.165-.45.435-.585.075-.045.165-.075.3-.12.135-.045.3-.09.555-.165.54-.18.915-.45.915-.735 0-.03-.03-.09-.15-.165-.03-.03-.075-.045-.15-.045-.105 0-.21.03-.315.075l-.001.001c-.345.135-.615.225-.87.225-.315 0-.54-.18-.63-.39l.06-1.005c.09-1.47.21-3.246-.21-4.199C16.217 1.776 13.13 1.5 12.14 1.5z"/></svg>
           </a>
-          <a href="https://twitter.com/khizaroo" aria-label="X / Twitter" class="social-link" target="_blank" rel="noopener">
+          <a href="https://twitter.com/khizaroo" aria-label="X / Twitter" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           </a>
-          <a href="https://www.linkedin.com/in/khizar-imtiaz" aria-label="LinkedIn" class="social-link" target="_blank" rel="noopener">
+          <a href="https://www.linkedin.com/in/khizar-imtiaz" aria-label="LinkedIn" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           </a>
-          <a href="https://www.threads.net/@khizooo_art" aria-label="Threads" class="social-link" target="_blank" rel="noopener">
+          <a href="https://www.threads.net/@khizooo_art" aria-label="Threads" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.01c.028-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 013.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.583-1.318-.879-2.394-.883h-.03c-.855 0-1.955.234-2.685 1.312L7.07 9.458c.862-1.354 2.243-2.109 3.898-2.109h.04c2.862.01 4.524 1.682 4.913 4.73.5.198.98.44 1.43.724 1.498.938 2.497 2.277 2.832 3.77.456 2.017-.086 4.657-2.36 6.868C16.126 24.988 14.11 24 12.186 24zm-.056-8.564c-.988 0-1.862.395-2.152.99-.285.584-.2 1.29.253 1.784.363.397.873.578 1.48.578.134 0 .27-.01.404-.028.919-.13 1.65-.65 2.069-1.457.243-.473.39-1.055.44-1.747a11.65 11.65 0 00-2.494-.12z"/></svg>
           </a>
-          <a href="https://wa.me/923007683396" aria-label="WhatsApp" class="social-link" target="_blank" rel="noopener">
+          <a href="https://wa.me/923007683396" aria-label="WhatsApp" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           </a>
-          <a href="https://t.me/KhizarImtiaz" aria-label="Telegram" class="social-link" target="_blank" rel="noopener">
+          <a href="https://t.me/KhizarImtiaz" aria-label="Telegram" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
           </a>
-          <a href="https://github.com/KhizaroOo" aria-label="GitHub" class="social-link" target="_blank" rel="noopener">
+          <a href="https://github.com/KhizaroOo" aria-label="GitHub" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
           </a>
-          <a href="https://discordapp.com/users/567964089989726231" aria-label="Discord" class="social-link" target="_blank" rel="noopener">
+          <a href="https://discordapp.com/users/567964089989726231" aria-label="Discord" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.03.052a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
           </a>
-          <a href="https://medium.com/@khizooo" aria-label="Medium" class="social-link" target="_blank" rel="noopener">
+          <a href="https://medium.com/@khizooo" aria-label="Medium" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
           </a>
-          <a href="https://codepen.io/khizooo" aria-label="CodePen" class="social-link" target="_blank" rel="noopener">
+          <a href="https://codepen.io/khizooo" aria-label="CodePen" class="social-link k-button k-button--icon k-button--compact" target="_blank" rel="noopener">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.144 13.067v-2.134L16.55 12zm1.276 1.194a.628.628 0 01-.006.083l-.005.028-.011.053-.01.031c-.005.016-.01.031-.017.047l-.014.03a.78.78 0 01-.021.043l-.019.03a.57.57 0 01-.08.1l-.026.025a.602.602 0 01-.036.03l-.029.022-.01.007-6.782 4.522a.637.637 0 01-.708 0L4.864 14.367l-.01-.007c-.01-.008-.022-.014-.031-.022a.78.78 0 01-.036-.03l-.026-.025a.57.57 0 01-.08-.1l-.019-.03a.78.78 0 01-.021-.043l-.014-.03a.617.617 0 01-.017-.047l-.01-.031-.011-.053-.005-.028a.628.628 0 01-.006-.083V10.933a.628.628 0 01.006-.083l.005-.028.011-.053.01-.031c.005-.016.01-.031.017-.047l.014-.03a.78.78 0 01.021-.043l.019-.03a.57.57 0 01.08-.1l.026-.025a.602.602 0 01.036-.03l.029-.022.01-.007 6.782-4.522a.637.637 0 01.708 0l6.782 4.522.01.007c.01.008.022.014.031.022a.78.78 0 01.036.03l.026.025a.57.57 0 01.08.1l.019.03a.78.78 0 01.021.043l.014.03c.007.016.012.031.017.047l.01.031.011.053.005.028a.628.628 0 01.006.083zM12 1.648L1.986 7.932v8.136L12 22.352l10.014-6.284V7.932zm-1.272 13.801l-4.976-3.308 1.42-1.678 3.556 2.368zM12 15.963l-3.889-2.59L12 10.782l3.889 2.59zm-7.888-3.862l1.42 1.678-4.977 3.308V10.101zm1.937-4.636L12 10.782l5.95-3.317-5.95-3.317zm9.014 3.955l-4.976 3.308 1.42 1.678 3.556-2.368z"/></svg>
           </a>
         </div>
       </div>
 
       <!-- Monsters column -->
-      <div class="k-footer-col">
-        <h3 class="k-footer-heading">Monsters</h3>
+      <nav class="k-footer-col" aria-labelledby="footer-monsters-title">
+        <h3 id="footer-monsters-title" class="k-footer-heading">Monsters</h3>
         <ul>
           {activeMonsters.map(m => (
             <li>
               <a href={url(m.route)} class="k-footer-link" style={`--hover: ${m.color}`}>
-                {m.name} → {m.module}
+                <span class="k-footer-avatar" aria-hidden="true"><img src={preview(m.image)} alt="" width="28" height="28" loading="lazy" decoding="async" /></span>
+                <span>{m.name} → {m.module}</span>
               </a>
             </li>
           ))}
           <li>
             <a href={url('/future-monsters')} class="k-footer-link" style="--hover: var(--k-accent)">
-              Future Monsters
+              <span class="k-footer-avatar k-footer-mystery" aria-hidden="true">?</span>
+              <span>Future Monsters</span>
             </a>
           </li>
         </ul>
-      </div>
+      </nav>
 
       <!-- Pages column -->
-      <div class="k-footer-col">
-        <h3 class="k-footer-heading">Explore</h3>
+      <nav class="k-footer-col" aria-labelledby="footer-explore-title">
+        <h3 id="footer-explore-title" class="k-footer-heading">Explore</h3>
         <ul>
           <li><a href={url('/privacy')} class="k-footer-link">Privacy</a></li>
           <li><button type="button" data-analytics-preferences hidden class="k-footer-link">Analytics preferences</button></li>
@@ -98,18 +99,7 @@ const currentYear = new Date().getFullYear();
           <li><a href={url('/you-ask-i-answer')} class="k-footer-link">You Ask, I Answer</a></li>
           <li><a href={url('/drop-a-vibe')} class="k-footer-link">Drop a Vibe</a></li>
         </ul>
-      </div>
-
-      <!-- Toolbox quick column -->
-      <div class="k-footer-col">
-        <h3 class="k-footer-heading">Toolbox</h3>
-        <ul>
-          <li><a href={url('/toolbox')} class="k-footer-link">All Tools</a></li>
-          {families.map(f => (
-            <li><a href={url(`/toolbox/family/${f.id}`)} class="k-footer-link">{f.icon} {f.name}</a></li>
-          ))}
-        </ul>
-      </div>
+      </nav>
 
     </div>
 
@@ -121,20 +111,22 @@ const currentYear = new Date().getFullYear();
 </footer>
 
 <style>
-  button.k-footer-link { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; text-align: left; }
+  button.k-footer-link { background: none; border: 0; font-family: inherit; cursor: pointer; text-align: left; }
+  button.k-footer-link[hidden] { display: none; }
   .k-footer {
     background: var(--k-bg-card);
     border-top: 1px solid var(--k-border);
-    padding-top: 4rem;
-    padding-bottom: 2rem;
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
     margin-top: auto;
   }
 
   .k-footer-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 3rem;
+    grid-template-columns: minmax(260px, .9fr) repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 2rem;
+    margin-bottom: 2rem;
   }
 
   .k-footer-logo {
@@ -164,56 +156,68 @@ const currentYear = new Date().getFullYear();
   .k-footer-socials {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
-    max-width: 220px;
-  }
-  .social-link {
-    width: 2rem;
-    height: 2rem;
-    border: 1px solid var(--k-border);
-    border-radius: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--k-text-muted);
-    transition: color 0.2s, border-color 0.2s, background 0.2s;
-  }
-  .social-link:hover {
-    color: var(--k-accent);
-    border-color: var(--k-accent);
-    background: var(--k-bg);
+    gap: var(--k-filter-gap);
+    max-width: 320px;
+    padding-bottom: 4px;
   }
 
+
+  .k-footer-col {
+    min-width: 0;
+    align-self: stretch;
+    padding: 1.25rem;
+    border: 2px solid var(--k-border);
+    border-radius: var(--k-button-radius);
+    background: var(--k-bg);
+    box-shadow: 0 4px 0 var(--k-border);
+  }
   .k-footer-heading {
     font-family: 'Poppins', sans-serif;
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--k-text-muted);
-    margin-bottom: 1rem;
+    color: var(--k-text);
+    margin: 0 0 .75rem;
+    display: flex; align-items: center; gap: .6rem;
   }
 
+  .k-footer-heading::before {
+    content: ''; width: .55rem; height: .55rem;
+    background: var(--k-accent); border-radius: 3px; transform: rotate(-12deg);
+  }
   .k-footer-col ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: .25rem;
   }
 
   .k-footer-link {
-    color: var(--k-text-muted);
-    font-size: 0.875rem;
+    display: flex; align-items: center; gap: .65rem;
+    min-height: 52px; width: 100%; padding: .5rem .6rem;
+    border-radius: .6rem;
+    color: var(--k-text);
+    font-size: .875rem; line-height: 1.5;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: background-color .15s;
   }
-  .k-footer-link:hover { color: var(--hover, var(--k-accent)); }
+  .k-footer-link:hover, .k-footer-link:focus-visible { background: var(--k-bg-card); }
+  .k-footer-link:focus-visible { outline: 3px solid var(--k-text); outline-offset: 2px; }
+  .k-footer-avatar {
+    display: grid; place-items: center; flex-shrink: 0; width: 36px; height: 36px;
+    border: 1px solid var(--hover, var(--k-border)); border-radius: .65rem;
+    background: color-mix(in srgb, var(--hover, var(--k-accent)) 12%, var(--k-bg-card));
+  }
+  .k-footer-avatar img { width: 28px; height: 28px; object-fit: contain; }
+  .k-footer-mystery { color: var(--k-text); font: 800 1rem Poppins, sans-serif; border-style: dashed; }
 
   .k-footer-bottom {
     border-top: 1px solid var(--k-border);
     padding-top: 1.5rem;
+    padding-right: calc(var(--k-button-height) + var(--k-filter-gap));
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -222,14 +226,18 @@ const currentYear = new Date().getFullYear();
     font-size: 0.8rem;
     color: var(--k-text-muted);
   }
+  .k-footer-bottom p { margin: 0; }
   .k-footer-note { font-style: italic; }
 
-  @media (max-width: 900px) {
-    .k-footer-grid { grid-template-columns: 1fr 1fr; }
-    .k-footer-brand { grid-column: 1 / -1; }
+  @media (max-width: 1000px) {
+    .k-footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .k-footer-brand { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem; }
+    .k-footer-socials { grid-column: 2; grid-row: 1 / 4; align-self: center; justify-self: end; }
   }
-  @media (max-width: 600px) {
-    .k-footer-grid { grid-template-columns: 1fr; }
-    .k-footer-bottom { flex-direction: column; text-align: center; }
+  @media (max-width: 650px) {
+    .k-footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .k-footer-brand { display: block; }
+    .k-footer-col { padding: 1rem; }
+    .k-footer-bottom { flex-direction: column; text-align: center; padding-right: 0; padding-bottom: calc(var(--k-button-height) + var(--k-filter-gap)); }
   }
 </style>

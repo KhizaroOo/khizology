@@ -57,12 +57,12 @@ const jsonLd = [
 
       <div class="artifact-frame" data-notooo-artifact-frame>
         <NotoooSheet book={book} headingLevel={1} />
-        <button class="fullscreen-close" type="button" data-exit-fullscreen aria-label="Exit fullscreen knowledge page">Exit fullscreen</button>
+        <button class="fullscreen-close k-button k-button--secondary" type="button" data-exit-fullscreen aria-label="Exit fullscreen knowledge page">Exit fullscreen</button>
       </div>
 
       <div class="actions" aria-label="Knowledge page actions">
-        <button type="button" data-fullscreen>View Fullscreen</button>
-        <button type="button" data-download data-filename={downloadFilename}>Download Page</button>
+        <button type="button" class="k-button k-button--secondary" data-fullscreen>View Fullscreen</button>
+        <button type="button" class="k-button k-button--secondary" data-download data-filename={downloadFilename}>Download Page</button>
         <p class="export-status" data-export-status role="status" aria-live="polite"></p>
       </div>
 
@@ -121,7 +121,7 @@ const jsonLd = [
   .artifact-frame { position: relative; margin: auto; }
   .fullscreen-close { display: none; }
   .actions { display: flex; justify-content: center; align-items: center; gap: .5rem; flex-wrap: wrap; margin: 1rem auto .35rem; }
-  .actions button { min-height: 42px; border: 1px solid #cfcfcf; border-radius: .35rem; background: #fff; color: #171717; padding: .5rem .8rem; font: 800 .75rem Poppins, sans-serif; cursor: pointer; transition: border-color .2s ease, color .2s ease; }
+
   .actions button:hover:not(:disabled) { border-color: var(--notooo-color); color: #9e5346; }
   .actions button:focus-visible, .fullscreen-close:focus-visible { outline: 3px solid var(--notooo-color-light); outline-offset: 3px; }
   .actions button:disabled { cursor: wait; opacity: .65; }
@@ -139,5 +139,5 @@ const jsonLd = [
   .related-notes span { display: block; margin-top: .18rem; color: #5f5f5f; font: 400 .8rem/1.4 system-ui, sans-serif; }
   .artifact-frame:fullscreen { box-sizing: border-box; display: grid; min-height: 100vh; place-items: center; overflow: auto; padding: 2rem 4.5rem; background: #fff; }
   .artifact-frame:fullscreen .fullscreen-close { position: fixed; top: 1rem; right: 1rem; display: inline-flex; min-height: 40px; align-items: center; border: 1px solid #bdbdbd; border-radius: .35rem; background: #fff; color: #171717; padding: .45rem .7rem; font: 800 .72rem Poppins, sans-serif; cursor: pointer; }
-  @media (max-width: 720px) { .notooo-detail { padding-block: 2rem; } .actions { justify-content: stretch; gap: .5rem; } .actions button { flex: 1 1 145px; } .artifact-frame:fullscreen { padding: 3.8rem .5rem 1rem; align-items: start; } }
+  @media (max-width: 720px) { .notooo-detail { padding-block: 2rem; } .actions { justify-content: stretch; gap: var(--k-action-gap); } .actions button { flex: 1 1 145px; } .artifact-frame:fullscreen { padding: 3.8rem .5rem 1rem; align-items: start; } }
 </style>

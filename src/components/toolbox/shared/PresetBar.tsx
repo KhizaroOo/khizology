@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react';
+
 interface Preset<T> {
   label: string;
   values: T;
@@ -18,22 +20,12 @@ export default function PresetBar<T>({ presets, activeLabel, onSelect, accent = 
         const active = p.label === activeLabel;
         return (
           <button
+            className="k-button k-button--secondary"
             key={p.label}
             type="button"
             aria-pressed={active}
             onClick={() => onSelect(p.values, p.label)}
-            style={{
-              padding: '.4rem .875rem',
-              borderRadius: '999px',
-              border: `1.5px solid ${active ? accent : 'var(--k-border)'}`,
-              background: active ? `color-mix(in srgb, ${accent} 14%, transparent)` : 'var(--k-bg)',
-              color: active ? accent : 'var(--k-text-muted)',
-              fontSize: '.78rem',
-              fontWeight: 700,
-              fontFamily: "'Poppins', sans-serif",
-              cursor: 'pointer',
-              transition: 'border-color .15s, color .15s, background .15s',
-            }}
+            style={{ '--k-button-accent': accent, '--k-button-ink': 'var(--k-button-dark-ink)' } as CSSProperties}
           >
             {p.label}
           </button>
