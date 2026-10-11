@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import AppDeploymentJourney from '../../components/infooo/deployment/AppDeploymentJourney';
+import { infoooWorlds, infoooIdentity } from '../../data/infooo';
+import { absoluteUrl, breadcrumbSchema } from '../../utils/seo';
+import { url } from '../../utils/url';
+const world = infoooWorlds.find(item => item.id === 'world-003')!;
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const canonical = absoluteUrl(`/infooo/${world.slug}`, context);
+const related = infoooWorlds.filter(item => world.relatedWorlds?.includes(item.id) && item.status === 'published' && item.visibility === 'public');
+---
+<BaseLayout title={`${world.title} — Code to Production | Khizooology`} description={world.description} canonical={canonical} accentColor={infoooIdentity.color} accentColorLight={infoooIdentity.colorLight} ogImage={world.hero!.asset} ogImageAlt={world.preview!.alt} socialTitle={world.title} socialDescription={world.description} jsonLd={[
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: world.title, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', url: canonical, description: world.description, isAccessibleForFree: true },
+  { '@context': 'https://schema.org', ...breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Infooo', path: '/infooo' }, { name: world.title, path: `/infooo/${world.slug}` }], context) },
+]}>
+  <div class="k-container deployment-breadcrumb"><Breadcrumb crumbs={[{ label: 'Infooo', href: url('/infooo') }, { label: world.title }]} accentColor={infoooIdentity.color} /></div>
+  <AppDeploymentJourney client:load world={world} />
+  <section class="deployment-context k-container" aria-labelledby="deployment-context-title"><h2 id="deployment-context-title">What actually happens when software goes live?</h2><p>A typical container-based deployment takes a Git commit through CI, dependencies, tests and a production build. The resulting artifact moves to a server, receives runtime configuration and starts as a candidate. A proxy, DNS and HTTPS make it reachable; readiness checks decide whether this model switches traffic.</p><p>Level 2 explores recreate, rolling, blue/green and canary releases; environment configuration and artifact provenance; observability through logs, metrics, traces and health; load balancing and autoscaling; compatible database migrations, CDN cache hits and misses, and queue workers. Deterministic challenges and a canary rollout during a traffic spike connect these ideas.</p><p>Deployments vary: static hosting may serve files with no application process, a managed platform may hide the server, and a VM can run an app without containers. This is a browser-only educational model, not a deployment service or capacity prediction.</p><nav aria-label="Related knowledge worlds">{related.map(item => <a href={url(`/infooo/${item.slug}`)}>{item.title} →</a>)}<a href={url('/infooo')}>Explore all Infooo worlds →</a></nav></section>
+</BaseLayout>
+<style>.deployment-breadcrumb{padding-top:1.5rem;max-width:var(--k-container-visual)}.deployment-context{max-width:var(--k-container-wide);padding-bottom:3rem}.deployment-context h2{font:800 1.4rem Poppins,sans-serif}.deployment-context p{max-width:850px;line-height:1.75;color:var(--k-text-muted)}.deployment-context nav{display:flex;flex-wrap:wrap;gap:1.5rem;margin-top:1.5rem}.deployment-context a{color:var(--k-text);text-decoration:underline;text-underline-offset:4px}</style>

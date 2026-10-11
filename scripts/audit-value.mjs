@@ -80,7 +80,10 @@ assert.ok(publishingChecklist.includes('USE, UNDERSTAND, FEEL, or SHARE'), 'Publ
 const artworksSource = fs.readFileSync(path.join(root, 'src/data/artworks.ts'), 'utf8')
   .replace("import { artworkDimensions } from './artworkDimensions';", "const artworkDimensions = new Proxy({}, { get: () => ({ width: 1, height: 1 }) });");
 const artworkRegistry = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(artworksSource))}`);
+const deploymentSource = fs.readFileSync(path.join(root, 'src/components/infooo/deployment/deploymentJourney.ts'), 'utf8').replace(/import type[^;]+;/, '');
+const deploymentModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(deploymentSource))}`);
 const infoooSource = fs.readFileSync(path.join(root, 'src/data/infooo.ts'), 'utf8')
+  .replace("import { deploymentStages, deploymentGuide, deploymentFailures } from '../components/infooo/deployment/deploymentJourney';", `const deploymentStages = ${JSON.stringify(deploymentModule.deploymentStages)}; const deploymentGuide = ${JSON.stringify(deploymentModule.deploymentGuide)}; const deploymentFailures = ${JSON.stringify(deploymentModule.deploymentFailures)};`)
   .replace("import type { ValueLawScores } from './valueLaws';", '')
   .replace("import { createIdeaEvaluation } from './valueLaws';", 'const createIdeaEvaluation = (input) => input;')
   .replace("import { followTheBloodGuide, humanAtlasEntities, humanAtlasRelationships } from './humanAtlasLearning';", 'const followTheBloodGuide = {}; const humanAtlasEntities = []; const humanAtlasRelationships = [];');
@@ -194,7 +197,8 @@ assert.ok(infooo.includes("status: 'active' as const"), 'Infooo must be active w
 assert.ok(infooo.includes("tagline: 'See it. Touch it. Understand it.'"), 'Infooo identity missing');
 assert.ok(infooo.includes("title: 'Human Atlas'"), 'Human Atlas world is missing');
 assert.ok(infooo.includes("id: 'world-002'"), 'Rubik’s Cube Motion Graph world is missing');
-assert.equal((infooo.match(/status: 'published'/g) || []).length, 2, 'Human Atlas and Rubik’s Cube Motion Graph must both be publicly published after release approval');
+assert.equal((infooo.match(/status: 'published'/g) || []).length, 3, 'All three implemented Infooo worlds must remain public');
+assert.ok(infooo.includes("id: 'world-003'"), 'App Deployment Journey is missing');
 assert.ok(infooo.includes("status: 'published', visibility: 'public'"), 'World 002 must be public after Khizar’s release approval');
 assert.ok(!/internet-request-journey|What Happens When You Press Enter/.test(infooo), 'Discarded World 002 content remains in the Infooo registry');
 assert.ok(infooo.includes('InfoooCandidateChecks') && infooo.includes('factualSources') && infooo.includes('requiredPassed'), 'Infooo candidate gate missing');

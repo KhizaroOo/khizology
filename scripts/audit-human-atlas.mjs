@@ -22,7 +22,7 @@ const attr = (tag, name) => tag.match(new RegExp(`\\b${name}=["']([^"']+)["']`, 
 function asset(raw, from = viewerUrl) {
   const url = new URL(raw, from);
   assert.equal(url.origin, auditOrigin, `Viewer asset must be self-hosted: ${raw}`);
-  assert.ok(url.pathname.startsWith(`${prefix}/infooo/`), `Viewer asset escapes Infooo: ${raw}`);
+  assert.ok(url.pathname.startsWith(`${prefix}/infooo/`) || url.pathname === `${prefix}/styles/buttons.css`, `Viewer asset escapes Infooo or its shared button stylesheet: ${raw}`);
   assert.ok(!url.search && !url.hash, `Unexpected viewer asset state: ${raw}`);
   const file = path.join(dist, decodeURIComponent(url.pathname.slice(prefix.length)));
   assert.ok(fs.existsSync(file) && fs.statSync(file).isFile(), `Missing viewer asset: ${url.pathname}`);

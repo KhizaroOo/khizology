@@ -1,0 +1,30 @@
+.deployment-world{max-width:var(--k-container-visual);margin:auto;padding:1.5rem var(--k-gutter) 4rem;color:var(--k-text)}
+.deployment-world .infooo-world-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.8rem}
+.request-cache{display:grid;gap:.5rem;max-width:440px;margin-top:1rem;font-weight:700;font-size:.85rem}.request-cache select{min-height:48px;max-width:100%;padding:.7rem;border:2px solid var(--k-border);border-radius:12px;background:var(--k-bg-card);color:var(--k-text);font:inherit}.request-cache select:focus-visible{outline:3px solid var(--k-text);outline-offset:4px}
+.deployment-world .infooo-world-header p,.deployment-eyebrow{font:800 .7rem Poppins,sans-serif;letter-spacing:.12em;margin:0 0 .6rem;color:var(--k-text-muted)}
+.deployment-world h1{font:900 clamp(2rem,4vw,3.8rem)/1.1 Poppins,sans-serif;letter-spacing:-.045em;margin:0 0 .7rem}
+.deployment-world h2{font:800 1.2rem/1.3 Poppins,sans-serif;margin:0 0 .6rem}
+.deployment-world p{line-height:1.65}.deployment-toolbar,.deployment-actions,.deployment-world .infooo-control-group{display:flex;flex-wrap:wrap;gap:var(--k-action-gap)}
+.deployment-toolbar{justify-content:space-between;align-items:center;margin-bottom:1.8rem}
+.deployment-world .infooo-world-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:1.5rem;align-items:start}
+.deployment-status{display:flex;align-items:center;gap:1rem;padding:1rem 0;border-top:1px solid var(--k-border);border-bottom:1px solid var(--k-border);min-height:100px}
+.deployment-status p{flex:1;margin:0}.deployment-signal{font-size:1.8rem;color:var(--k-text)}.serving-version{font:800 .75rem Poppins,sans-serif;white-space:nowrap}
+.deployment-pipeline{list-style:none;padding:2rem 0 1rem;margin:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.deployment-lane{position:relative;border-top:3px solid var(--k-border);padding:1rem 0 2.4rem;min-width:0}
+.deployment-lane.is-current{border-color:var(--infooo-accent)}.deployment-lane.is-failed{border-color:var(--k-danger)}
+.lane-heading{display:flex;align-items:center;gap:.4rem;margin-bottom:1rem}.lane-heading>span:first-child{font-size:.65rem;color:var(--k-text-muted)}.lane-heading h2{font-size:1rem;margin:0}.pipeline-direction{margin-left:auto;color:var(--k-text-muted)}
+.deployment-lane:last-child .pipeline-direction{visibility:hidden}.lane-stages{display:grid;gap:12px}
+.deployment-node.k-button{width:100%;flex-direction:column;gap:.4rem;text-align:center;overflow-wrap:anywhere;min-height:112px!important;font-size:.72rem!important}
+.deployment-node>span:first-child{font:800 1.25rem monospace}.deployment-node small{font:600 .62rem Mulish,sans-serif;color:inherit}
+.deployment-node[data-state=failed]{outline:2px dashed var(--k-danger);outline-offset:3px}
+.payload{position:absolute;bottom:0;left:0;right:0;padding:.3rem .15rem;text-align:center;font-size:.65rem;font-weight:800;background:var(--infooo-accent);color:var(--k-button-dark-ink);border-radius:6px;animation:deployment-pulse .55s ease-out}
+@keyframes deployment-pulse{from{transform:translateY(-10px);opacity:.4}to{transform:translateY(0);opacity:1}}
+.pipeline-caption,.connection-copy{font-size:.83rem;color:var(--k-text-muted)}
+.deployment-inspector{padding:1.3rem;background:var(--k-bg-card);border:1px solid var(--k-border);border-radius:16px}.deployment-inspector dl{margin:1rem 0}.deployment-inspector dl>div{margin-bottom:1rem}.deployment-inspector dt{font-size:.75rem;font-weight:800}.deployment-inspector dd{margin:.25rem 0 0;font-size:.88rem;line-height:1.6}
+.deployment-guidance{margin-top:1.5rem;padding:1rem;border-left:4px solid var(--infooo-accent);background:var(--k-bg-card)}.deployment-world .infooo-guide>div{display:flex;flex-wrap:wrap;gap:12px;margin-top:1rem}
+.deployment-break,.deployment-request,.deployment-versions{padding:2rem 0;border-top:1px solid var(--k-border);margin-top:2rem}.deployment-break,.deployment-versions{display:grid;grid-template-columns:1fr 1fr;gap:2rem}.deployment-break label{display:grid;gap:.6rem;align-content:start;font-weight:700}.deployment-break select{min-height:48px;padding:.8rem;border:2px solid var(--k-border);border-radius:12px;color:var(--k-text);background:var(--k-bg-card);font:inherit;max-width:100%}.deployment-break select:focus-visible{outline:3px solid var(--k-text);outline-offset:4px}.failure-lesson{grid-column:1/-1;padding:1rem;border-left:4px solid var(--k-danger);background:var(--k-bg-card)}
+.request-heading{display:flex;justify-content:space-between;align-items:center;gap:1rem}.deployment-request ol{display:flex;flex-wrap:wrap;list-style:none;padding:0;gap:.6rem;margin:1.5rem 0}.deployment-request li{padding:.7rem;border:1px solid var(--k-border);border-radius:10px;font-size:.8rem}.deployment-request li>span{font-weight:800;margin-right:.5rem}.deployment-request li[aria-current]{border:2px solid var(--k-text);background:var(--k-bg-card)}
+.version-track{display:grid;justify-items:start;gap:1rem;align-content:center}.version-track>span:first-child,.version-track>span:nth-child(3){font-weight:800}.deployment-world .infooo-sources{border-top:1px solid var(--k-border);padding-top:1rem}.deployment-world .infooo-sources summary{cursor:pointer;font-weight:700}.deployment-world .infooo-sources a{color:var(--k-text);text-decoration:underline}
+@media(max-width:1150px){.deployment-world .infooo-world-layout{grid-template-columns:1fr}.deployment-inspector dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}}
+@media(max-width:650px){.deployment-world{padding:1rem 1rem 3rem}.deployment-pipeline{grid-template-columns:1fr;gap:1rem}.deployment-lane{padding:.8rem 0 2rem}.lane-stages{grid-template-columns:repeat(2,minmax(0,1fr))}.lane-heading .pipeline-direction{transform:rotate(90deg)}.deployment-inspector dl{grid-template-columns:1fr}.deployment-break,.deployment-versions{grid-template-columns:1fr;gap:1rem}.request-heading{align-items:start;flex-direction:column}.deployment-status{flex-wrap:wrap}.serving-version{width:100%}.deployment-toolbar{gap:1.5rem}}
+@media(prefers-reduced-motion:reduce){.payload{animation:none}}

@@ -13,14 +13,14 @@ const status = { textContent: '' };
 vm.runInNewContext(stripTypeScriptTypes(source.match(/<script>([\s\S]*?)<\/script>/)[1]), { document: { querySelector: selector => selector === '.category-filters' ? filters : status, querySelectorAll: () => cards } });
 assert.equal(filters.hidden, false);
 assert.equal(buttons.length, 7);
-assert.equal(cards.length, 2);
+assert.equal(cards.length, 3);
 for (const button of [...buttons, buttons[0]]) {
   click({ target: { closest: () => button } });
   const category = button.dataset.category;
-  const expected = category === 'all' ? 2 : ['life-human', 'logic-computation'].includes(category) ? 1 : 0;
+  const expected = category === 'all' ? 3 : ['life-human', 'logic-computation', 'software-systems'].includes(category) ? 1 : 0;
   assert.equal(cards.filter(card => !card.hidden).length, expected, category);
   assert.equal(button['aria-pressed'], 'true');
   assert.equal(buttons.filter(item => item['aria-pressed'] === 'true').length, 1);
   if (!expected) assert.equal(status.textContent, 'More worlds are coming to this category.');
 }
-console.log('Infooo categories passed: six categories, two live worlds, all filters, empty states and restoration.');
+console.log('Infooo categories passed: six categories, three live worlds, all filters, empty states and restoration.');

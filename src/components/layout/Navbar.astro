@@ -94,7 +94,7 @@ const currentPath = Astro.url.pathname;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 4rem;
+    min-height: calc(var(--k-button-height) + var(--k-button-depth) + 24px);
     gap: 1.5rem;
   }
 
@@ -170,6 +170,8 @@ const currentPath = Astro.url.pathname;
     align-items: center;
     gap: var(--k-action-gap);
     flex-shrink: 0;
+    /* Center the complete tactile surface, including its bottom depth. */
+    padding-bottom: var(--k-button-depth);
   }
 
   .k-cta-btn { white-space:nowrap; }
