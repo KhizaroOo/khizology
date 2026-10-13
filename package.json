@@ -22,9 +22,10 @@
     "audit:publish": "npm run audit:domain && npx astro check && node scripts/audit-value.mjs",
     "test:contract-drift": "node --experimental-strip-types scripts/test-contract-drift.ts",
     "images:generate": "node scripts/generate-thumbnails.mjs",
-    "prebuild": "npm run images:generate",
-    "predev": "npm run images:generate",
-    "test:rubiks-cube": "node --experimental-strip-types scripts/test-rubiks-cube.mts"
+    "prebuild": "npm run images:generate && npm run human-atlas:build",
+    "predev": "npm run images:generate && npm run human-atlas:build",
+    "test:rubiks-cube": "node --experimental-strip-types scripts/test-rubiks-cube.mts",
+    "human-atlas:build": "node scripts/build-human-atlas.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.1",
@@ -38,9 +39,16 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@base-ui/react": "1.7.0",
     "@fontsource-variable/mulish": "^5.3.0",
     "@fontsource/poppins": "^5.3.0",
+    "@types/three": "0.159.0",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "lucide-react": "1.31.0",
     "sharp": "^0.35.4",
+    "tailwind-merge": "3.6.0",
+    "three": "0.159.0",
     "typescript": "^6.0.3"
   }
 }

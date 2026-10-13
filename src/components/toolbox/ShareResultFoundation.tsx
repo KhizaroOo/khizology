@@ -4,7 +4,8 @@ interface Props { monster: 'toolooo' | 'artooo' | 'infooo'; contentType: 'tool' 
 export interface ResultShareAdapter { summary: string; }
 
 export default function ShareResultFoundation({ monster, contentType, slug, title, result }: Props & { result?: ResultShareAdapter }) {
-  const publicUrl = typeof window === 'undefined' ? '' : window.location.href.split(/[?#]/)[0];
+  const canonical = typeof document === 'undefined' ? '' : document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href || '';
+  const publicUrl = canonical + (contentType === 'artwork' && /^[a-z0-9-]+$/.test(slug) ? `#art-${slug}` : '');
   const shareText = result ? `${title}\n${result.summary}\n${publicUrl}` : publicUrl;
   const copy = async () => {
     try { await navigator.clipboard.writeText(shareText); trackShareAction({ monster, content_type: contentType, slug, action: result ? 'copy_result' : 'copy_link' }); } catch { /* Clipboard can be unavailable; the visible URL remains shareable. */ }

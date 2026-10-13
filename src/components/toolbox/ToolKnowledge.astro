@@ -28,7 +28,7 @@ const { knowledge, accent, variant = 'intro', nextTools = [] } = Astro.props;
     <p class="tool-knowledge-next-intro">Use the result to choose a connected next move.</p>
     <div class="tool-knowledge-next-grid">
       {nextTools.map((tool) => (
-        <a href={url(`/toolbox/${tool.slug}`)} data-related-content data-related-monster="toolooo" data-related-content-type="tool" data-related-slug={tool.slug}>
+        <a href={url(`/toolbox/${tool.slug}`)} data-related-content data-related-monster="toolooo" data-related-content-type="tool" data-related-slug={tool.slug} data-discovery-action="next">
           <span aria-hidden="true">{tool.icon}</span>
           <span><strong>{tool.name}</strong><small>{tool.shortDescription}</small></span>
         </a>

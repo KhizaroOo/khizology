@@ -7,6 +7,12 @@ let choice: Consent | null = null;
 let initialized = false;
 let loaded = false;
 let started = false;
+let listenersAttached = false;
+
+function localPreview() {
+  if (typeof window === 'undefined') return true;
+  return ['localhost', '127.0.0.1', '[::1]', '0.0.0.0'].includes(new URL(window.location.href).hostname);
+}
 
 export function configured() { return /^G-[A-Z0-9]{6,20}$/.test(measurementId); }
 export function consent(): Consent | null {
@@ -28,7 +34,7 @@ function pageMetadata() {
 }
 function command(...args: unknown[]) { (window as unknown as AnalyticsWindow).gtag?.(...args); }
 export function loadAnalytics() {
-  if (!configured() || consent() !== 'accepted' || loaded) return;
+  if (!configured() || localPreview() || consent() !== 'accepted' || loaded) return;
   loaded = true;
   const w = window as unknown as AnalyticsWindow;
   w[`ga-disable-${measurementId}`] = false;
@@ -79,6 +85,11 @@ function toolMetadata() {
   if (!['check', 'simulate', 'decide', 'plan', 'create'].includes(family)) return null;
   return { tool_slug: node.dataset.toolSlug!, tool_family: family, feature_level: Number(node.dataset.featureLevel) || 2 };
 }
+function sourceMetadata() {
+  const path = new URL(pageMetadata().page_location).pathname.split('/').filter(Boolean);
+  const module = ({ toolbox: 'toolooo', artworks: 'artooo', infooo: 'infooo', notooo: 'notooo' } as Record<string, string>)[path[0]] || 'site';
+  return { source_slug: path.at(-1) || 'home', source_module: module };
+}
 export function trackToolStart() {
   const metadata = toolMetadata();
   if (started || !metadata || consent() !== 'accepted' || !configured()) return;
@@ -91,17 +102,26 @@ export function trackArtworkView(slug: string) {
 }
 export function trackToolExport(exportType: 'svg' | 'png' | 'json' | 'csv') {
   const metadata = toolMetadata();
-  if (metadata && ['svg', 'png', 'json', 'csv'].includes(exportType)) emit('tool_export', { tool_slug: metadata.tool_slug, export_type: exportType });
+  if (metadata && ['svg', 'png', 'json', 'csv'].includes(exportType)) emit('tool_export', { ...metadata, export_type: exportType });
+}
+export function trackToolResult() {
+  const metadata = toolMetadata();
+  if (metadata) emit('result_generated', metadata);
 }
 type SharedFeatureMetadata = { monster: 'toolooo' | 'artooo' | 'infooo'; content_type: 'tool' | 'artwork' | 'infooo_world'; slug: string; action: string };
 function validSharedMetadata(metadata: SharedFeatureMetadata) {
-  return /^[a-z0-9-]+$/.test(metadata.slug) && /^[a-z_]+$/.test(metadata.action);
+  return ['toolooo', 'artooo', 'infooo'].includes(metadata.monster) && ['tool', 'artwork', 'infooo_world'].includes(metadata.content_type) && /^[a-z0-9-]+$/.test(metadata.slug) && ['copy_result', 'share_result', 'copy_link', 'web_share', 'open'].includes(metadata.action);
 }
 export function trackShareAction(metadata: SharedFeatureMetadata) {
-  if (validSharedMetadata(metadata)) emit('share_action', metadata);
+  if (!validSharedMetadata(metadata)) return;
+  const name = metadata.action === 'share_result' ? 'result_shared' : metadata.action === 'copy_result' ? 'result_copied' : 'share_action';
+  emit(name, { monster: metadata.monster, content_type: metadata.content_type, slug: metadata.slug, action: metadata.action, ...sourceMetadata() });
 }
-export function trackRelatedContentClick(metadata: Omit<SharedFeatureMetadata, 'action'>) {
-  if (validSharedMetadata({ ...metadata, action: 'open' })) emit('related_content_click', metadata);
+export function trackRelatedContentClick(metadata: Omit<SharedFeatureMetadata, 'action'>, artworkSource?: string, next = false) {
+  if (!validSharedMetadata({ ...metadata, action: 'open' })) return;
+  const source = sourceMetadata();
+  if (artworkSource && [...document.querySelectorAll<HTMLElement>('[data-artwork-slug]')].some(node => node.dataset.artworkSlug === artworkSource)) source.source_slug = artworkSource;
+  emit(next ? 'try_next_click' : metadata.monster === 'artooo' ? 'related_art_click' : 'related_tool_click', { ...source, destination_slug: metadata.slug, destination_module: metadata.monster, content_type: metadata.content_type, ...(toolMetadata() || {}) });
 }
 function validToolId(value: string) { return /^[a-z0-9-]+$/.test(value); }
 function trackToolLv3(event: 'tool_favorite' | 'tool_unfavorite' | 'tool_scenario_select' | 'tool_next_move' | 'tool_chain_next', toolId: string, extra: Record<string, string> = {}) {
@@ -109,11 +129,14 @@ function trackToolLv3(event: 'tool_favorite' | 'tool_unfavorite' | 'tool_scenari
 }
 export function trackToolFavorite(toolId: string, favorite: boolean) { trackToolLv3(favorite ? 'tool_favorite' : 'tool_unfavorite', toolId); }
 export function trackToolScenarioSelect(toolId: string, scenarioId: string) { trackToolLv3('tool_scenario_select', toolId, { scenario_id: scenarioId }); }
-export function trackToolNextMove(toolId: string, targetToolId: string) { trackToolLv3('tool_next_move', toolId, { target_tool_id: targetToolId }); }
+export function trackToolNextMove(toolId: string, targetToolId: string) {
+  if (validToolId(toolId) && validToolId(targetToolId)) emit('try_next_click', { ...sourceMetadata(), source_slug: toolId, destination_slug: targetToolId, destination_module: 'toolooo', ...(toolMetadata() || {}) });
+}
 export function trackToolChainAction(event: 'tool_chain_next', toolId: string, chainId: string, targetToolId?: string) { trackToolLv3(event, toolId, { chain_id: chainId, ...(targetToolId ? { target_tool_id: targetToolId } : {}) }); }
 export function trackContractDriftRun(changeCount: number, summary: { likelyBreaking: number; needsReview: number; additive: number }) {
   const bucket = changeCount === 0 ? 'none' : changeCount <= 3 ? 'few' : changeCount <= 10 ? 'several' : 'many';
   emit('contract_drift_run', { tool_id: 'api-payload-doctor', change_count_bucket: bucket, likely_breaking_count: summary.likelyBreaking, needs_review_count: summary.needsReview, additive_count: summary.additive });
+  emit('tool_complete', { tool_slug: 'api-payload-doctor', tool_family: 'check', completion_type: 'contract_review' });
 }
 
 type InfoooAnalyticsMetadata = { world_slug: string; entity_id?: string; guide_id?: string };
@@ -129,9 +152,11 @@ export function trackInfoooShare(world_slug: string) { if (validInfoooMetadata({
 
 export function initializeAnalytics() {
   loadAnalytics();
+  if (listenersAttached) return;
+  listenersAttached = true;
   const tool = document.querySelector('[data-tool-slug]');
   const interaction = (event: Event) => {
-    if (event.isTrusted && event.target instanceof Element && event.target.closest('input,textarea,select,button,summary')) trackToolStart();
+    if (event.isTrusted && event.target instanceof Element && event.target.closest('input,textarea,select,button') && !event.target.closest('.share-foundation, [aria-label="Toolooo connections"]')) trackToolStart();
   };
   tool?.addEventListener('input', interaction);
   tool?.addEventListener('change', interaction);
@@ -140,10 +165,12 @@ export function initializeAnalytics() {
   document.addEventListener('click', (event) => {
     if (!event.isTrusted || !(event.target instanceof Element)) return;
     const link = event.target.closest<HTMLAnchorElement>('a[href]');
-    if (!link || !link.closest('footer, .dav-connect')) return;
+    if (!link) return;
     const target = new URL(link.href);
     const channel = target.protocol === 'mailto:' ? 'email' : channels[target.hostname.replace(/^www\./, '')];
-    if (channel) emit('contact_click', { contact_type: channel });
+    if (['email', 'whatsapp'].includes(channel) || (channel === 'linkedin' && (link.closest('.dav-connect') || sourceMetadata().source_slug === 'my-portfolio')) || (target.origin === new URL(window.location.href).origin && target.pathname.replace(/\/$/, '') === '/drop-a-vibe')) {
+      emit('contact_click', { ...sourceMetadata(), contact_type: channel || 'contact_page' });
+    }
   });
   document.addEventListener('click', (event) => {
     if (!event.isTrusted || !(event.target instanceof Element)) return;
@@ -152,8 +179,18 @@ export function initializeAnalytics() {
     const contentType = link?.dataset.relatedContentType;
     const slug = link?.dataset.relatedSlug;
     if ((monster === 'toolooo' || monster === 'artooo') && (contentType === 'tool' || contentType === 'artwork') && slug && /^[a-z0-9-]+$/.test(slug)) {
-      trackRelatedContentClick({ monster, content_type: contentType, slug });
+      trackRelatedContentClick({ monster, content_type: contentType, slug }, link?.dataset.relatedSource, link?.dataset.discoveryAction === 'next');
+      return;
     }
+    const tag = event.target.closest<HTMLElement>('[data-artwork-tag]')?.dataset.artworkTag;
+    if (tag && /^[a-z0-9-]+$/.test(tag)) { emit('artwork_tag_click', { ...sourceMetadata(), tag }); return; }
+    const anchor = event.target.closest<HTMLAnchorElement>('a[href]');
+    if (!anchor) return;
+    const target = new URL(anchor.href);
+    if (target.origin !== new URL(window.location.href).origin) return;
+    const destination = ({ toolbox: 'toolooo', artworks: 'artooo', infooo: 'infooo', notooo: 'notooo' } as Record<string, string>)[target.pathname.split('/').filter(Boolean)[0]];
+    const source = sourceMetadata();
+    if (destination && destination !== source.source_module) emit('module_discovery', { ...source, destination_module: destination });
   });
   window.addEventListener('storage', event => {
     if (event.key === consentKey) {

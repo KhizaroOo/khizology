@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 
 const root = process.cwd();
@@ -209,6 +209,7 @@ for (const page of pages) {
   if (!page.noindex && !page.redirect && titleMatches[0]?.length >= 70) fail(`${route}: title must be under 70 characters (${titleMatches[0].length})`);
   if (descriptionTags.length !== 1 || !descriptionTags[0]?.content) { quality.missingDescriptions += 1; fail(`${route}: expected exactly one meta description`); }
   if (robotsTags.length !== 1 || !page.robots) fail(`${route}: expected exactly one robots directive`);
+  if (!page.noindex && !page.redirect && tags(head, 'meta').some(item => ['googlebot', 'bingbot'].includes((item.name || '').toLowerCase()) && /\b(?:noindex|none)\b/i.test(item.content || ''))) fail(`${route}: bot-specific directive conflicts with intended indexability`);
   if (canonicalTags.length !== 1 || !canonicalTags[0]?.href) { quality.missingCanonicals += 1; fail(`${route}: expected exactly one canonical`); }
   if (tags(head, 'meta').some((item) => item.name === 'keywords')) fail(`${route}: obsolete meta keywords found`);
 
@@ -262,7 +263,18 @@ for (const page of pages) {
     auditProfilePageSchema(schemas, route);
     const schemaTypes = collectSchemaTypes(schemas);
     if (route !== '/' && !schemaTypes.has('BreadcrumbList')) fail(`${route}: missing BreadcrumbList schema`);
-    if (route.startsWith('/toolbox/') && !route.startsWith('/toolbox/family/') && schemaTypes.has('WebApplication')) fail(`${route}: misleading WebApplication schema found`);
+    if (route !== '/toolbox/' && route.startsWith('/toolbox/') && !route.startsWith('/toolbox/family/') && (html.includes('data-tool-example') || schemaTypes.has('WebApplication'))) {
+      const page = topLevelSchemaNodes(schemas).find(node => hasSchemaType(node, 'WebPage'));
+      const app = page?.mainEntity;
+      // These active browser tools are applications. Validate the visible contract
+      // rather than banning the type; planned tools must never claim a working app.
+      if (!html.includes('data-tool-example') || !hasSchemaType(app, 'WebApplication') ||
+          app.url !== canonical || app['@id'] !== `${canonical}#application` ||
+          !app.name || !html.includes(app.name.replaceAll('&', '&amp;')) ||
+          app.description !== description || app.operatingSystem !== 'Any' ||
+          app.applicationCategory !== 'UtilitiesApplication' || app.isAccessibleForFree !== true ||
+          app.aggregateRating || app.offers) fail(`${route}: application schema must match a working visible free browser tool`);
+    }
   }
 
   const visible = decode(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' '));
@@ -379,6 +391,8 @@ for (const page of pages.filter((page) => !page.redirect && page.route !== '/inf
 const robotsFile = join(dist, 'robots.txt');
 const robotsText = existsSync(robotsFile) ? readFileSync(robotsFile, 'utf8') : '';
 if (!/^User-agent: \*$/m.test(robotsText) || !/^Allow: \/$/m.test(robotsText)) fail('robots.txt: crawl policy is missing');
+// The canonical policy permits all public assets and crawlers. Changes require review.
+if (/^Disallow:\s*\S+/mi.test(robotsText) || (robotsText.match(/^User-agent:/gmi) || []).length !== 1) fail('robots.txt: unexpected crawler restrictions or conflicting groups');
 if (!/sitemap-index\.xml$/m.test(robotsText) || !/image-sitemap\.xml$/m.test(robotsText)) fail('robots.txt: sitemap declarations are missing');
 if (!robotsText.includes(`Sitemap: ${expectedSite}${basePath}/sitemap-index.xml`)
   || !robotsText.includes(`Sitemap: ${expectedSite}${basePath}/image-sitemap.xml`)) {
@@ -530,6 +544,36 @@ const summary = {
 };
 
 console.log(JSON.stringify(summary, null, 2));
+const inventoryArgument = process.argv.indexOf('--inventory');
+if (inventoryArgument >= 0) {
+  const inventoryFile = process.argv[inventoryArgument + 1];
+  if (!inventoryFile) throw new Error('--inventory requires an output file');
+  const graph = new Map(pages.map(page => [page.route, [...new Set(tags(page.html, 'a').map(link => localPagePath(link.href, page.route)).filter(route => pages.some(candidate => candidate.route === route)))]]));
+  const depths = new Map([['/', 0]]), queue = ['/'];
+  for (let index = 0; index < queue.length; index++) for (const route of graph.get(queue[index]) || []) if (!depths.has(route)) { depths.set(route, depths.get(queue[index]) + 1); queue.push(route); }
+  const text = html => decode(html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '').replace(/<[^>]*>/g, ' ')).replace(/\s+/g, ' ').trim();
+  const inventory = pages.map(page => {
+    const images = tags(page.html, 'img');
+    const main = page.html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] || page.html;
+    const canonical = tags(page.html, 'link').find(link => link.rel === 'canonical')?.href;
+    const family = page.route.split('/').filter(Boolean)[0] || 'home';
+    return {
+      url: `${expectedSite}${basePath}${page.route}`, route: page.route, routeType: page.redirect ? 'compatibility redirect' : page.route === '/404.html' ? 'error page' : page.route === '/infooo/human-atlas-viewer/' ? 'embedded application' : page.route.split('/').filter(Boolean).length > 1 ? 'detail/category' : 'hub/site',
+      expectedHttpStatus: 200, statusContext: page.route === '/404.html' ? 'Direct static error document is 200; unknown routes must return 404' : page.redirect ? 'Static host uses an immediate meta-refresh fallback' : 'Static document',
+      classification: page.redirect ? 'REDIRECT' : page.noindex ? 'INTENTIONAL NOINDEX' : 'INDEXABLE',
+      indexable: !page.noindex && !page.redirect, robots: page.robots, canonical, sitemap: sitemapUrls.includes(`${expectedSite}${basePath}${page.route}`),
+      title: text(page.html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || ''), description: meta(page.html, 'name', 'description')[0]?.content,
+      h1: [...page.html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)].map(match => text(match[1])),
+      mainTextWords: text(main).split(/\s+/).filter(Boolean).length, contentMeasurement: 'Descriptive only; not a quality threshold',
+      schemaTypes: [...collectSchemaTypes(parseJsonLd(page.html, page.route))], imageCount: images.length, imagesMissingAlt: images.filter(image => !Object.hasOwn(image, 'alt')).length,
+      internalInboundPages: [...graph.values()].filter(links => links.includes(page.route)).length, internalOutbound: graph.get(page.route), linkDepthFromHome: depths.get(page.route) ?? null,
+      redirectTarget: meta(page.html, 'http-equiv', 'refresh')[0]?.content?.match(/url=(.*)$/i)?.[1] || null,
+      contentFamily: family, rendering: /<astro-island\b[^>]*client="only"/i.test(main) ? 'static context with client-only interactive renderer' : /<astro-island\b/i.test(main) ? 'static HTML with hydrated islands' : 'static HTML',
+    };
+  });
+  writeFileSync(inventoryFile, JSON.stringify({ summary, maximumIndexableLinkDepth: Math.max(...inventory.filter(page => page.indexable).map(page => page.linkDepthFromHome ?? -1)), pages: inventory }, null, 2) + '\n');
+  console.log(`URL inventory written: ${inventory.length} HTML documents`);
+}
 if (errors.length) {
   console.error('\nSEO audit failed:');
   errors.forEach((error) => console.error(`- ${error}`));

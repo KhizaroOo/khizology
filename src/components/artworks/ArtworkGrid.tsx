@@ -1,4 +1,5 @@
 import { preview, previewSrcset } from "../../utils/imagePreview";
+import { rankRelatedArtworks } from '../../utils/artworkRelations';
 import { trackArtworkView } from '../../utils/analytics';
 import ShareResultFoundation from '../toolbox/ShareResultFoundation';
 import { useState, useEffect, useCallback, useRef } from 'react';
@@ -102,7 +103,7 @@ function ArtworkModal({
           {artwork.whatIWasThinking && <p className="aw-modal-desc"><strong>What I was thinking:</strong> {artwork.whatIWasThinking}</p>}
           {artwork.behindTheSketch && <p className="aw-modal-desc"><strong>Behind the sketch:</strong> {artwork.behindTheSketch}</p>}
           <ShareResultFoundation monster="artooo" contentType="artwork" slug={artwork.slug} title={artwork.title} />
-          {related.length > 0 && <section className="aw-related"><h3>Related artworks</h3><div>{related.map(item => <button key={item.id} type="button" onClick={() => onSelect(item)} data-related-content data-related-monster="artooo" data-related-content-type="artwork" data-related-slug={item.slug}>{item.title}</button>)}</div></section>}
+          {related.length > 0 && <section className="aw-related"><h3>Related artworks</h3><div>{related.map(item => <button key={item.id} type="button" onClick={() => onSelect(item)} data-related-content data-related-monster="artooo" data-related-content-type="artwork" data-related-slug={item.slug} data-related-source={artwork.slug}>{item.title}</button>)}</div></section>}
         </div>
       </div>
     </div>
@@ -125,7 +126,7 @@ export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
 
   const handleClose = useCallback(() => setSelected(null), []);
   const selectArtwork = useCallback((artwork: Artwork) => { setSelected(artwork); trackArtworkView(artwork.slug); }, []);
-  const related = selected ? artworks.filter(candidate => candidate.id !== selected.id && candidate.tags.some(tag => selected.tags.includes(tag))).slice(0, 3) : [];
+  const related = selected ? rankRelatedArtworks(selected, artworks) : [];
 
   return (
     <>
@@ -152,6 +153,7 @@ export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
           {allTags.map(t => (
             <button
               key={t}
+              data-artwork-tag={t}
               aria-pressed={activeTag === t} className={`aw-tag-btn k-button k-button--secondary${activeTag === t ? ' active' : ''}`}
               onClick={() => setActiveTag(activeTag === t ? '' : t)}
             >{t}</button>
@@ -176,6 +178,7 @@ export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
             <button
               key={a.id}
               className="aw-card"
+              id={`art-${a.slug}`}
               data-artwork-id={a.id}
               data-artwork-slug={a.slug}
               data-artwork-original={`${base}/images/artworks/${a.filename}`}
@@ -197,7 +200,7 @@ export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
               <div className="aw-card-overlay">
                 <span className="aw-card-title">{a.title}</span>
                 <div className="aw-card-tags">
-                  {a.tags.slice(0, 2).map(t => (
+                  {a.tags.map(t => (
                     <span key={t} className="aw-tag sm">{t}</span>
                   ))}
                 </div>

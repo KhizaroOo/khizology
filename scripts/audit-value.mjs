@@ -30,6 +30,12 @@ assert.ok(!/raw_input|result_value|payload_text/i.test(analytics), 'LV3 analytic
 
 const toolsSource = fs.readFileSync(path.join(root, 'src/data/tools.ts'), 'utf8');
 const toolRegistry = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(toolsSource))}`);
+assert.equal(toolRegistry.growthPriorityTools.length, 10, 'Growth shortlist must contain ten canonical active tools');
+assert.equal(new Set(toolRegistry.growthPriorityTools.map(tool => tool.slug)).size, 10);
+for (const tool of toolRegistry.growthPriorityTools) {
+  assert.equal(tool.status, 'active');
+  assert.ok(toolRegistry.getRelatedTools(tool).length, `${tool.slug}: priority tool needs a relevant pathway`);
+}
 const monstersSource = fs.readFileSync(path.join(root, 'src/data/monsters.ts'), 'utf8');
 const monsterRegistry = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(monstersSource))}`);
 const activeMonsterRoles = new Map(monsterRegistry.monsters.filter((monster) => monster.status === 'active').map((monster) => [monster.id, monster.role]));
@@ -77,7 +83,10 @@ for (const guide of ['KHIZOOOLOGY-VALUE-LAWS.md', 'PUBLISHING-QUALITY-CHECKLIST.
 assert.ok(!fs.existsSync(path.join(root, 'src/pages/creative-rd-lab.astro')), 'Creative R&D Lab governance must not create a public route');
 const publishingChecklist = fs.readFileSync(path.join(root, 'docs/PUBLISHING-QUALITY-CHECKLIST.md'), 'utf8');
 assert.ok(publishingChecklist.includes('USE, UNDERSTAND, FEEL, or SHARE'), 'Publishing checklist must ask for a real visitor value mode');
+const artworkRelationsSource = fs.readFileSync(path.join(root, 'src/utils/artworkRelations.ts'), 'utf8').replace(/import type[^;]+;/, '');
+const artworkRelationsModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(artworkRelationsSource))}`);
 const artworksSource = fs.readFileSync(path.join(root, 'src/data/artworks.ts'), 'utf8')
+  .replace("import { rankRelatedArtworks } from '../utils/artworkRelations';", `const rankRelatedArtworks = ${artworkRelationsModule.rankRelatedArtworks.toString()};`)
   .replace("import { artworkDimensions } from './artworkDimensions';", "const artworkDimensions = new Proxy({}, { get: () => ({ width: 1, height: 1 }) });");
 const artworkRegistry = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(artworksSource))}`);
 const deploymentSource = fs.readFileSync(path.join(root, 'src/components/infooo/deployment/deploymentJourney.ts'), 'utf8').replace(/import type[^;]+;/, '');
@@ -166,6 +175,18 @@ for (const concept of ['PUBLISH → MEASURE → INTERPRET → CHOOSE → IMPROVE
 }
 const knowledgeModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(knowledge))}`);
 const knowledgeSlugs = Object.keys(knowledgeModule.toolKnowledgeWhyBySlug);
+const urlSource = fs.readFileSync(path.join(root, 'src/utils/url.ts'), 'utf8').replaceAll('import.meta.env.BASE_URL', "'/'");
+const urlModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(urlSource))}`);
+assert.equal(urlModule.url('/toolbox/api-payload-doctor', ''), '/toolbox/api-payload-doctor/');
+assert.equal(urlModule.url('/toolbox/api-payload-doctor?demo=1#result', '/preview/'), '/preview/toolbox/api-payload-doctor/?demo=1#result');
+assert.equal(urlModule.url('/robots.txt', '/preview'), '/preview/robots.txt');
+for (const component of ['MyTooloooPanel.tsx', 'ToolLv3Panel.tsx']) {
+  const source = fs.readFileSync(path.join(root, 'src/components/toolbox/lv3', component), 'utf8');
+  assert.ok(source.includes("import { url } from '../../../utils/url';") && !source.includes('${base}/toolbox/'), `${component}: runtime discovery must use the canonical route helper`);
+}
+assert.deepEqual(new Set(Object.keys(knowledgeModule.toolUseCases)), new Set(toolRegistry.tools.map(tool => tool.slug)), 'Every tool needs one curated use case');
+assert.equal(new Set(Object.values(knowledgeModule.toolUseCases).map(([when]) => when)).size, toolRegistry.tools.length, 'Use cases must be tool-specific');
+assert.equal(new Set(Object.values(knowledgeModule.toolUseCases).map(([, example]) => example)).size, toolRegistry.tools.length, 'Examples must not repeat boilerplate');
 assert.deepEqual(new Set(knowledgeSlugs), new Set(toolRegistry.tools.map((tool) => tool.slug)), 'Every registered tool needs one specific Why explanation');
 for (const [slug, why] of Object.entries(knowledgeModule.toolKnowledgeWhyBySlug)) {
   assert.ok(why.trim().length > 0, `${slug} needs a Why explanation`);
@@ -175,7 +196,19 @@ for (const [slug, why] of Object.entries(knowledgeModule.toolKnowledgeWhyBySlug)
 for (const tool of toolRegistry.tools) {
   assert.ok(tool.shortDescription.trim().length > 0, `${tool.slug} needs a What description`);
   assert.ok(!/^(this tool|this page) /i.test(tool.shortDescription.trim()), `${tool.slug} has generic What copy`);
+  const content = knowledgeModule.getToolKnowledge(tool);
+  assert.ok(content.whenToUse && content.example, `${tool.slug}: missing search value`);
+  const generated = fs.readFileSync(path.join(root, 'dist/toolbox', tool.slug, 'index.html'), 'utf8');
+  assert.ok(generated.includes('data-tool-example') && generated.includes(content.example.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')), `${tool.slug}: scenario must exist in static HTML`);
 }
+for (const artwork of artworkRegistry.artworks) {
+  const related = artworkRegistry.getRelatedArtworks(artwork);
+  assert.ok(related.every(item => item.id !== artwork.id && artworkRegistry.artworks.some(candidate => candidate.id === item.id)), 'Related art must use canonical items');
+  assert.equal(new Set(related.map(item => item.id)).size, related.length);
+}
+const relationSample = artworkRegistry.artworks[0];
+const explicitTarget = artworkRegistry.artworks.at(-1);
+assert.equal(artworkRelationsModule.rankRelatedArtworks({ ...relationSample, relatedArtwork: [explicitTarget.slug] }, artworkRegistry.artworks)[0].id, explicitTarget.id, 'Explicit relationships take priority in the shared gallery ranking');
 const chainsSource = fs.readFileSync(path.join(root, 'src/data/toolChains.ts'), 'utf8').replace("import type { Tool } from './tools';\n", '');
 const chainsModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(chainsSource))}`);
 assert.deepEqual(chainsModule.validateToolChains(toolRegistry.tools), [], 'Tool chains must use real canonical tool IDs and unique IDs');
@@ -410,6 +443,10 @@ for (const file of toolPages) {
 }
 for (const tool of toolRegistry.tools) {
   const toolHtml = fs.readFileSync(path.join(dist, 'toolbox', tool.slug, 'index.html'), 'utf8');
+  if (tool.growthPriority) {
+    for (const surface of ['Try a scenario', 'When to use it', 'Assumptions and limits', 'Related tools', 'og:title', 'og:description', 'og:image', 'twitter:card', 'Share this page']) assert.ok(toolHtml.includes(surface), `${tool.slug}: missing growth surface ${surface}`);
+    assert.ok(tool.lv3?.capabilities.shareResults || /Download/i.test(toolHtml), `${tool.slug}: needs a shareable result or local output`);
+  }
   if (tool.lv3) {
     assert.ok(/Smart next moves/i.test(toolHtml), `${tool.slug}: LV3 next moves must remain available`);
     assert.ok(!/data-tool-knowledge-next/.test(toolHtml), `${tool.slug}: LV3 must not render duplicate canonical Next links`);

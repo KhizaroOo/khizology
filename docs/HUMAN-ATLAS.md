@@ -1,5 +1,7 @@
 # Human Atlas
 
+The viewer is now source-built and performance-recovered. See [performance recovery](HUMAN-ATLAS-PERFORMANCE.md) for the pinned source, build process, controlled measurements and verification. The precompiled-viewer notes below describe the historical implementation.
+
 Human Atlas is Infooo World 001. Its isolated viewer bundle and BodyParts3D-derived anatomy files load only on `/infooo/human-atlas`; no backend or API key is used. The viewer supports system layers, search, direct selection, isolation, reset, and exploded anatomy. Attribution and limitations are in `HUMAN-ATLAS-ATTRIBUTION.md`.
 
 ## Loading repair and validation — 2026-09-09

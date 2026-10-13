@@ -1,6 +1,6 @@
 /** Prepend BASE_URL to an internal URL, using the site's trailing-slash canonical form. */
-export function url(path: string): string {
-  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+export function url(path: string, configuredBase = import.meta.env.BASE_URL): string {
+  const base = configuredBase.replace(/\/$/, '');
   const match = path.match(/^([^?#]*)([?#].*)?$/);
   const pathname = match?.[1] || '/';
   const suffix = match?.[2] || '';

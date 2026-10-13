@@ -29,6 +29,8 @@ export interface Tool {
   status: ToolStatus;
   featureLevel: ToolFeatureLevel;
   featured?: boolean;
+  /** Editorial readiness, not measured search demand or a numeric Value score. */
+  growthPriority?: boolean;
   privacySensitive?: boolean;
   icon: string;
   keywords: string[];
@@ -62,6 +64,7 @@ export const tools: Tool[] = [
   // ── CHECK ──────────────────────────────────────────
   {
     id: 'api-payload-doctor',
+    growthPriority: true,
     name: 'API Payload Doctor',
     slug: 'api-payload-doctor',
     shortDescription: 'Paste an API request or response and get a structured diagnosis of what could go wrong with it.',
@@ -187,6 +190,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'retry-storm-simulator',
+    growthPriority: true,
     name: 'Retry Storm Simulator',
     slug: 'retry-storm-simulator',
     shortDescription: 'Compare retry policies and see how attempts, backoff, jitter, and budgets change recovery pressure.',
@@ -219,6 +223,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'rate-limit-playground',
+    growthPriority: true,
     name: 'Rate Limit Playground',
     slug: 'rate-limit-playground',
     shortDescription: 'Design and compare a rate-limit policy under steady traffic, bursts, overload, and client retries.',
@@ -237,6 +242,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'queue-capacity-planner',
+    growthPriority: true,
     name: 'Queue Capacity Planner',
     slug: 'queue-capacity-planner',
     shortDescription: 'See when queues absorb bursts, build backlog, drain, or expose downstream capacity pressure.',
@@ -281,6 +287,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'fan-out-latency-simulator',
+    growthPriority: true,
     name: 'Fan-Out Latency Simulator',
     slug: 'fan-out-latency-simulator',
     shortDescription: 'Model fan-out tail latency, critical paths, optional work, and deadline headroom.',
@@ -303,6 +310,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'circuit-breaker-playground',
+    growthPriority: true,
     name: 'Circuit Breaker Playground',
     slug: 'circuit-breaker-playground',
     shortDescription: 'See when a circuit breaker stops calls to a failing dependency and how it tests recovery.',
@@ -345,6 +353,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'connection-pool-simulator',
+    growthPriority: true,
     name: 'Connection Pool Simulator',
     slug: 'connection-pool-simulator',
     shortDescription: 'See when callers wait for a pooled connection and how pool size, hold time, scale-out, and database budget interact.',
@@ -519,6 +528,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'timeout-chain-planner',
+    growthPriority: true,
     name: 'Timeout Chain Planner',
     slug: 'timeout-chain-planner',
     shortDescription: 'Plan one end-to-end deadline across serial calls, retries, and remaining downstream budget.',
@@ -580,6 +590,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'roadmap-collision-detector',
+    nextToolIds: ['scope-creep-visualizer'],
     name: 'Roadmap Collision Detector',
     slug: 'roadmap-collision-detector',
     shortDescription: 'Lay multiple project timelines side by side and catch where they collide before it becomes a fire drill.',
@@ -609,6 +620,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'drawing-grid-maker',
+    nextToolIds: ['perspective-grid-maker'],
     name: 'Drawing Grid Maker',
     slug: 'drawing-grid-maker',
     shortDescription: 'Generate and download a proportion grid overlay for any canvas size — for tracing, scaling, or practice.',
@@ -624,6 +636,9 @@ export const tools: Tool[] = [
   },
   {
     id: 'bleed-safe-area-builder',
+    relatedToolIds: ['frame-fit-finder', 'paper-nesting-planner'],
+    nextToolIds: ['perspective-grid-maker'],
+    growthPriority: true,
     name: 'Bleed & Safe Area Builder',
     slug: 'bleed-safe-area-builder',
     shortDescription: 'Generate a downloadable bleed and safe-area guide for any print size.',
@@ -637,6 +652,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'value-study-maker',
+    nextToolIds: ['perspective-grid-maker'],
     name: 'Value Study Maker',
     slug: 'value-study-maker',
     shortDescription: 'Turn a reference photo into a simplified tonal value study to practice shading and composition from.',
@@ -651,6 +667,9 @@ export const tools: Tool[] = [
   },
   {
     id: 'perspective-grid-maker',
+    relatedToolIds: ['value-study-maker', 'crop-guardian'],
+    nextToolIds: ['bleed-safe-area-builder'],
+    growthPriority: true,
     name: 'Perspective Grid Maker',
     slug: 'perspective-grid-maker',
     shortDescription: 'Generate and download a customizable 1, 2, or 3-point perspective grid for drawing practice.',
@@ -702,6 +721,7 @@ export function getTryNextTools(tool: Tool, limit = 2): Tool[] {
   return tools
     .filter(candidate => candidate.status === 'active' && candidate.family === nextFamily[tool.family])
     .map(candidate => ({ candidate, score: candidate.tags.filter(tag => tagSet.has(tag)).length * 3 + (candidate.featured ? 1 : 0) }))
+    .filter(({ candidate }) => candidate.tags.some(tag => tagSet.has(tag)))
     .sort((a, b) => b.score - a.score || a.candidate.name.localeCompare(b.candidate.name))
     .slice(0, limit)
     .map(({ candidate }) => candidate);
@@ -712,6 +732,7 @@ export const getToolCountByFamily = (familyId: string): number =>
 
 export const activeTools: Tool[] = tools.filter((t) => t.status === 'active');
 export const featuredTools: Tool[] = tools.filter((t) => t.featured);
+export const growthPriorityTools: Tool[] = activeTools.filter((tool) => tool.growthPriority);
 
 export const getActiveToolCountByFeatureLevel = (featureLevel: ToolFeatureLevel): number =>
   activeTools.filter((tool) => tool.featureLevel === featureLevel).length;

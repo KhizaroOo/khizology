@@ -70,7 +70,12 @@ assert.ok(learning.includes('Follow the Blood'), 'The learning layer must includ
 assert.ok(learning.includes('What is it?') && learning.includes('Why does it matter?'), 'Supported structures need concise learning prompts');
 assert.ok(learning.includes('https://www.nhlbi.nih.gov/health/heart/blood-flow'), 'Learning claims need a source-backed reference');
 assert.ok(!/diagnos|treat(?:ment)?/i.test(learning), 'The learning layer must not make diagnostic or treatment claims');
-const bundle = fs.readFileSync(moduleFiles[0], 'utf8');
+const viewerModules = new Set(moduleFiles);
+for (const file of viewerModules) {
+  const source = fs.readFileSync(file, 'utf8');
+  for (const reference of source.matchAll(/["'`]((?:\.\/)?(?:human-atlas-[^"'`]+|assets\/geometry-worker-[^"'`]+)\.js)["'`]/g)) viewerModules.add(asset(reference[1], new URL(path.basename(file), viewerUrl)));
+}
+const bundle = [...viewerModules].map(file => fs.readFileSync(file, 'utf8')).join('\n');
 assert.ok(bundle.includes('DecompressionStream'), 'Compressed anatomy decoding support is missing');
 assert.ok(!/["'`]\/models\//.test(bundle), 'An upstream /models URL would bypass the self-hosted assets');
 assert.ok(!/["'`]\/ATTRIBUTION\.md/.test(bundle), 'An upstream attribution URL would return 404');

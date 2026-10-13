@@ -28,3 +28,7 @@ public/images/previews/
 src/data/imagePreviews.json
 .performance/
 .astro-check.log
+
+# Source-built isolated Human Atlas renderer
+/public/infooo/human-atlas-viewer/human-atlas*.js
+/public/infooo/human-atlas-viewer/assets/geometry-worker-*.js

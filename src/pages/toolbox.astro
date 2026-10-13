@@ -5,7 +5,7 @@ import FamilyCard from '../components/toolbox/FamilyCard.astro';
 import ToolCard from '../components/toolbox/ToolCard.astro';
 import MyTooloooPanel from '../components/toolbox/lv3/MyTooloooPanel';
 import { families } from '../data/families';
-import { tools, getToolCountByFamily, getActiveToolCountByFeatureLevel, allTags } from '../data/tools';
+import { tools, growthPriorityTools, getToolCountByFamily, getActiveToolCountByFeatureLevel, allTags } from '../data/tools';
 import { toolFeatureLevels } from '../data/featureLevels';
 import { monsters } from '../data/monsters';
 import { url } from '../utils/url';
@@ -21,6 +21,11 @@ const tooloooVoice = voiceForMonsterId('toolooo');
 const toolboxTitle = 'Toolooo — Free Visual Browser Tools | Khizooology';
 const toolboxDescription = `${activeCount} free visual tools to check, simulate, decide, plan, and create in your browser. No signup, no backend, and no uploads.`;
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const toolClusters = [
+  { tag: 'API', title: 'API contracts & integration', context: 'Inspect payloads, date contracts and consumer compatibility before a release.' },
+  { tag: 'Reliability', title: 'Failures & recovery', context: 'Explore retries, queues and service behavior under explicit failure assumptions.' },
+  { tag: 'Design', title: 'Design & delivery', context: 'Check content, accessibility and output constraints before handing work off.' },
+].map(cluster => ({ ...cluster, items: tools.filter(tool => tool.status === 'active' && tool.tags.includes(cluster.tag)).sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured))).slice(0, 3) }));
 
 const jsonLd = pageSchema({
   type: 'CollectionPage',
@@ -80,6 +85,15 @@ const jsonLd = pageSchema({
   </section>
 
   <MyTooloooPanel client:load tools={tools.map(({ id, slug, name, icon, family }) => ({ id, slug, name, icon, family }))} base={base} />
+  <section class="k-container tb-context-clusters" aria-labelledby="growth-tools-title">
+    <h2 id="growth-tools-title">Useful outputs to start with</h2>
+    <p>Review a contract, explore service pressure, or make a drawing template. Everything runs in your browser.</p>
+    <div>{growthPriorityTools.slice(0, 3).map(tool => <section><h3><a href={url(`/toolbox/${tool.slug}`)} data-related-content data-related-monster="toolooo" data-related-content-type="tool" data-related-slug={tool.slug}>{tool.name}</a></h3><p>{tool.shortDescription}</p></section>)}</div>
+  </section>
+  <section class="k-container tb-context-clusters" aria-labelledby="tool-clusters-title">
+    <h2 id="tool-clusters-title">Start with the problem you’re solving</h2>
+    <div>{toolClusters.map(cluster => <section><h3>{cluster.title}</h3><p>{cluster.context}</p><ul>{cluster.items.map(tool => <li><a href={url(`/toolbox/${tool.slug}`)} data-related-content data-related-monster="toolooo" data-related-content-type="tool" data-related-slug={tool.slug}>{tool.name}</a></li>)}</ul></section>)}</div>
+  </section>
 
   <!-- Families -->
   <section class="k-section tb-families-section" id="families">
@@ -235,6 +249,15 @@ const jsonLd = pageSchema({
 </script>
 
 <style>
+  .tb-context-clusters { padding-block:2rem; }
+  .tb-context-clusters>div { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.5rem; }
+  .tb-context-clusters h2 { font:800 1.4rem Poppins,sans-serif; margin-bottom:1.25rem; }
+  .tb-context-clusters h3 { font:700 1rem Poppins,sans-serif; }
+  .tb-context-clusters p { color:var(--k-text-muted); font-size:.85rem; line-height:1.7; }
+  .tb-context-clusters ul { padding-left:1.2rem; line-height:1.9; }
+  .tb-context-clusters a { display:inline-flex; align-items:center; min-height:44px; color:var(--k-text); font-size:.85rem; text-decoration:underline; text-underline-offset:3px; }
+  .tb-context-clusters a:focus-visible { outline:3px solid var(--k-text); outline-offset:4px; }
+  @media(max-width:700px) { .tb-context-clusters>div { grid-template-columns:1fr; } }
   /* Hero */
   .tb-hero { background: var(--k-bg); padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--k-border); }
   .tb-hero-inner { margin-top: 1rem; max-width: 640px; }

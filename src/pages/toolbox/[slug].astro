@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { absoluteUrl } from '../../utils/seo';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import ComingSoonCard from '../../components/ui/ComingSoonCard.astro';
 import ToolHeader from '../../components/toolbox/ToolHeader.astro';
@@ -10,6 +11,7 @@ import ToolTruth from '../../components/toolbox/ToolTruth.astro';
 import ShareResultFoundation from '../../components/toolbox/ShareResultFoundation';
 import ToolWorkspaceTracker from '../../components/toolbox/lv3/ToolWorkspaceTracker';
 import ToolLv3Panel from '../../components/toolbox/lv3/ToolLv3Panel';
+import ToolFavoriteButton from '../../components/toolbox/lv3/ToolFavoriteButton';
 import { tools, getRelatedTools, getTryNextTools } from '../../data/tools';
 import { getToolChain } from '../../data/toolChains';
 import { getFamilyById } from '../../data/families';
@@ -106,6 +108,16 @@ const jsonLd = pageSchema({
   name: seo.title,
   description: seo.description,
   aboutCreator: true,
+  extra: tool.status === 'active' ? { mainEntity: {
+    '@type': 'WebApplication',
+    '@id': `${absoluteUrl(`/toolbox/${tool.slug}`, seoContext)}#application`,
+    name: tool.name,
+    description: tool.shortDescription,
+    url: absoluteUrl(`/toolbox/${tool.slug}`, seoContext),
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Any',
+    isAccessibleForFree: true,
+  } } : undefined,
   breadcrumbs: [
     { name: 'Home', path: '/' },
     { name: 'Toolooo', path: '/toolbox' },
@@ -218,6 +230,7 @@ const jsonLd = pageSchema({
           )}
 
           {tool.lv3 && <ToolLv3Panel client:load tool={tool} chains={lv3Chains} base={base} />}
+          {tool.growthPriority && !tool.lv3 && <ToolFavoriteButton client:load toolId={tool.id} toolName={tool.name} />}
 
           {!tool.lv3 && <ToolKnowledge knowledge={knowledge} accent={family.color} variant="next" nextTools={tryNext} />}
           <ToolTruth truth={truth} />
@@ -231,7 +244,11 @@ const jsonLd = pageSchema({
               </section>
               <section>
                 <h3>When to use it</h3>
-                <p>{seo.whenToUse}</p>
+                <p>{knowledge.whenToUse}</p>
+              </section>
+              <section data-tool-example>
+                <h3>Try a scenario</h3>
+                <p>{knowledge.example}</p>
               </section>
               <section>
                 <h3>How to read the result</h3>

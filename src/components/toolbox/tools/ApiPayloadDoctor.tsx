@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { trackToolResult } from '../../../utils/analytics';
 import Warning from '../shared/Warning';
 import Metric from '../shared/Metric';
 import Insight from '../shared/Insight';
@@ -343,6 +344,7 @@ export default function ApiPayloadDoctor() {
   const run = () => {
     if (!raw.trim()) return;
     setDiagnosedRaw(raw);
+    trackToolResult();
   };
 
   const loadExample = () => {

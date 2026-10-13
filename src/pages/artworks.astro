@@ -7,6 +7,7 @@ import { artworks } from '../data/artworks';
 import { monsters } from '../data/monsters';
 import { url } from '../utils/url';
 import { pageSchema } from '../utils/schema';
+import { absoluteUrl, personReference } from '../utils/seo';
 import { getMonsterVoice } from '../data/monsterVoices';
 
 const ACCENT = '#F5CF5C';
@@ -16,6 +17,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const artworkTitle = `Artooo — ${artworks.length} Original Artworks | Khizooology`;
 const artworkDescription = `${artworks.length} original sticky-note artworks, illustrations, digital paintings, and visual stories by Khizar Imtiaz (khizooo).`;
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const galleryTopics = [
+  { tag: 'nature', label: 'Nature', context: 'Plants, landscapes and natural subjects.' },
+  { tag: 'animals', label: 'Animals', context: 'Animal characters and creature studies.' },
+  { tag: 'fantasy', label: 'Fantasy', context: 'Imagined characters and otherworldly scenes.' },
+  { tag: 'architecture', label: 'Architecture', context: 'Buildings, structures and places.' },
+].map(topic => ({ ...topic, items: artworks.filter(artwork => artwork.tags.includes(topic.tag)) })).filter(topic => topic.items.length);
 const jsonLd = pageSchema({
   type: 'CollectionPage',
   path: '/artworks',
@@ -31,6 +38,19 @@ const jsonLd = pageSchema({
     mainEntity: {
       '@type': 'ItemList',
       numberOfItems: artworks.length,
+      itemListElement: artworks.map((artwork, index) => ({
+        '@type': 'ListItem', position: index + 1,
+        item: {
+          '@type': 'VisualArtwork',
+          '@id': `${absoluteUrl('/artworks', seoContext)}#art-${artwork.slug}`,
+          name: artwork.title,
+          image: absoluteUrl(`/images/artworks/${artwork.filename}`, seoContext),
+          creator: personReference(seoContext),
+          keywords: artwork.tags.join(', '),
+          ...(artwork.story ? { description: artwork.story } : {}),
+          ...(artwork.medium ? { artMedium: artwork.medium } : {}),
+        },
+      })),
     },
   },
 }, seoContext);
@@ -107,6 +127,10 @@ const jsonLd = pageSchema({
         <h2 class="art-gallery-title">Browse All Artworks</h2>
         <p class="art-gallery-sub">Click any artwork to see it up close.</p>
       </div>
+      <nav class="art-topic-links" aria-label="Artwork subjects">
+        {galleryTopics.map(topic => <a href={`#art-${topic.items[0].slug}`}><strong>{topic.label} · {topic.items.length}</strong><span>{topic.context}</span></a>)}
+      </nav>
+      <p class="art-gallery-context">Browse by subject or search the titles and tags. Open an artwork to explore its related subjects. Creator stories and materials appear only when provided; subject tags are not claims about how a piece was made.</p>
       <ArtworkGrid artworks={artworks} base={base} emptyStateText={artoooVoice.microcopy.empty} client:load />
     </div>
   </section>
@@ -133,6 +157,14 @@ const jsonLd = pageSchema({
 </BaseLayout>
 
 <style>
+  .art-topic-links { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; margin-bottom:1rem; }
+  .art-topic-links a { border:1px solid var(--k-border); border-radius:12px; padding:1rem; color:var(--k-text); text-decoration:none; background:var(--k-bg-card); }
+  .art-topic-links a:hover { border-color:var(--m-accent); }
+  .art-topic-links a:focus-visible { outline:3px solid var(--k-text); outline-offset:4px; }
+  .art-topic-links strong,.art-topic-links span { display:block; }
+  .art-topic-links span,.art-gallery-context { color:var(--k-text-muted); font-size:.85rem; line-height:1.7; }
+  .art-gallery-context { max-width:850px; margin-bottom:1.5rem; }
+  @media(max-width:700px) { .art-topic-links { grid-template-columns:repeat(2,minmax(0,1fr)); } }
   /* ── Hero ── */
   .art-hero {
     background: var(--k-bg);
