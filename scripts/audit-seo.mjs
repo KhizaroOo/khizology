@@ -574,6 +574,101 @@ if (inventoryArgument >= 0) {
   writeFileSync(inventoryFile, JSON.stringify({ summary, maximumIndexableLinkDepth: Math.max(...inventory.filter(page => page.indexable).map(page => page.linkDepthFromHome ?? -1)), pages: inventory }, null, 2) + '\n');
   console.log(`URL inventory written: ${inventory.length} HTML documents`);
 }
+// Optional read-only live gate reuses the same generated route inventory and parsers.
+if (process.argv.includes('--production')) {
+  const records = [];
+  async function request(url) {
+    const hops = [];
+    for (let i = 0; i < 6; i++) {
+      const response = await fetch(url, { redirect: 'manual', headers: { 'User-Agent': 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)' }, signal: AbortSignal.timeout(20000) });
+      const location = response.headers.get('location');
+      if (response.status >= 300 && response.status < 400 && location) {
+        const next = new URL(location, url);
+        if (![new URL(expectedSite).hostname, `www.${new URL(expectedSite).hostname}`].includes(next.hostname)) throw new Error('unexpected redirect host');
+        hops.push({ url, status: response.status, target: next.href });
+        await response.body?.cancel();
+        url = next.href;
+        continue;
+      }
+      return { url, status: response.status, hops, xRobots: response.headers.get('x-robots-tag') || '', hsts: response.headers.get('strict-transport-security'), html: await response.text() };
+    }
+    throw new Error('redirect chain exceeds five hops');
+  }
+  function signals(html, route) {
+    return {
+      counts: { canonical: tags(html, 'link').filter(item => item.rel === 'canonical').length, title: [...html.matchAll(/<title\b/gi)].length, description: meta(html, 'name', 'description').length, robots: meta(html, 'name', 'robots').length, ogUrl: meta(html, 'property', 'og:url').length },
+      botRobots: tags(html, 'meta').filter(item => ['googlebot', 'bingbot'].includes((item.name || '').toLowerCase())),
+      metaRedirect: meta(html, 'http-equiv', 'refresh')[0]?.content || null,
+      canonical: tags(html, 'link').find(item => item.rel === 'canonical')?.href,
+      robots: meta(html, 'name', 'robots')[0]?.content,
+      title: decode(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '').trim(),
+      description: meta(html, 'name', 'description')[0]?.content,
+      h1: [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)].map(match => match[1]),
+      ogUrl: meta(html, 'property', 'og:url')[0]?.content,
+      schema: parseJsonLd(html, route),
+      images: tags(html, 'img'),
+      links: tags(html, 'a').map(item => item.href).filter(Boolean),
+    };
+  }
+  let cursor = 0;
+  await Promise.all(Array.from({ length: 4 }, async () => {
+    while (cursor < pages.length) {
+      const page = pages[cursor++];
+      const requested = `${expectedSite}${basePath}${page.route}`;
+      try {
+        const live = await request(requested);
+        const signal = signals(live.html, page.route);
+        const local = signals(page.html, page.route);
+        const findings = [];
+        if (live.status !== 200 || live.hops.length || live.url !== requested) findings.push('canonical document status/redirect mismatch');
+        for (const field of ['counts', 'botRobots', 'metaRedirect', 'canonical', 'robots', 'title', 'description', 'h1', 'ogUrl', 'schema']) {
+          if (JSON.stringify(signal[field]) !== JSON.stringify(local[field])) findings.push(`dist/production ${field} mismatch`);
+        }
+        if (!page.noindex && !page.redirect && /\b(?:noindex|none)\b/i.test(live.xRobots)) findings.push('indexable response has restrictive X-Robots-Tag');
+        if (signal.images.some(item => !Object.hasOwn(item, 'alt'))) findings.push('missing image alt');
+        for (const href of signal.links) {
+          const target = new URL(href, requested);
+          if (![new URL(expectedSite).hostname, `www.${new URL(expectedSite).hostname}`].includes(target.hostname)) continue;
+          if (!/\/[^/]+\.[a-z0-9]+$/i.test(target.pathname) && (target.origin !== expectedSite || !target.pathname.endsWith('/'))) findings.push(`redirect-form internal link ${href}`);
+          if (target.origin === expectedSite && !/\/[^/]+\.[a-z0-9]+$/i.test(target.pathname) && !pages.some(item => `${basePath}${item.route}` === target.pathname)) findings.push(`unknown internal page ${target.pathname}`);
+        }
+        records.push({ requested, status: live.status, finalUrl: live.url, redirects: live.hops, xRobots: live.xRobots, ...signal, indexable: !page.noindex && !page.redirect, sitemap: sitemapUrls.includes(requested), findings });
+        findings.forEach(finding => fail(`${page.route}: live ${finding}`));
+      } catch (error) { fail(`${page.route}: production request failed: ${error.message}`); records.push({ requested, error: error.message }); }
+    }
+  }));
+  const discovery = [];
+  for (const name of ['robots.txt', 'sitemap-index.xml', 'sitemap-0.xml', 'image-sitemap.xml', 'llms.txt']) {
+    try {
+      const live = await request(`${expectedSite}${basePath}/${name}`);
+      const matches = live.status === 200 && !live.hops.length && live.html.trim() === readFileSync(join(dist, name), 'utf8').trim();
+      discovery.push({ name, status: live.status, matchesDist: matches });
+      if (!matches) fail(`${name}: production discovery differs from dist`);
+    } catch (error) { fail(`${name}: live request failed ${error.message}`); }
+  }
+  const variants = [ '/my-portfolio', '/toolbox/ai-project-pricing-lab', '/privacy', '/behind-the-vibes', '/drop-a-vibe' ].map(route => `${expectedSite}${basePath}${route}`);
+  variants.push('http://www.khizooology.com/', 'http://khizooology.com/', 'https://www.khizooology.com/');
+  const redirects = [];
+  for (const requested of variants) {
+    try {
+      const live = await request(requested);
+      const target = new URL(requested); target.protocol = 'https:'; target.hostname = new URL(expectedSite).hostname;
+      if (!target.pathname.endsWith('/')) target.pathname += '/';
+      const signal = signals(live.html, target.pathname);
+      const canonical = target.href;
+      const pass = live.hops.length === 1 && [301, 308].includes(live.hops[0].status) && live.status === 200 && live.url === canonical && signal.canonical === canonical && !/\b(?:noindex|none)\b/i.test(`${signal.robots} ${live.xRobots}`) && sitemapUrls.includes(canonical) && !sitemapUrls.includes(requested);
+      redirects.push({ requested, classification: pass ? 'INTENTIONAL CANONICAL REDIRECT' : 'BROKEN / CHAINED REDIRECT', status: live.hops[0]?.status || live.status, hops: live.hops, finalStatus: live.status, finalUrl: live.url, canonical: signal.canonical, robots: signal.robots, xRobots: live.xRobots, hsts: live.hsts, destinationInSitemap: sitemapUrls.includes(canonical), sourceInSitemap: sitemapUrls.includes(requested) });
+      if (!pass) fail(`${requested}: live redirect policy failed`);
+    } catch (error) { fail(`${requested}: redirect request failed ${error.message}`); }
+  }
+  const missing = await request(`${expectedSite}/search-audit-missing-page/?private=synthetic-audit-marker`);
+  const missingSignal = signals(missing.html, '/404.html');
+  if (missing.status !== 404 || missing.hops.length || !/noindex/i.test(missingSignal.robots || '')) fail('unknown route: expected 404/noindex without redirect');
+  const report = { generatedDocuments: pages.length, indexable: indexable.length, records, discovery, redirects, missingPage: { status: missing.status, canonical: missingSignal.canonical, robots: missingSignal.robots }, errorCount: errors.length };
+  const reportIndex = process.argv.indexOf('--production-report');
+  if (reportIndex >= 0 && process.argv[reportIndex + 1]) writeFileSync(process.argv[reportIndex + 1], JSON.stringify(report, null, 2) + '\n');
+  console.log(JSON.stringify({ productionDocuments: records.length, discovery, redirects, missingPage: report.missingPage, errorCount: errors.length }, null, 2));
+}
 if (errors.length) {
   console.error('\nSEO audit failed:');
   errors.forEach((error) => console.error(`- ${error}`));

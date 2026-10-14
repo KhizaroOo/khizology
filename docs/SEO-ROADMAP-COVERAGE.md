@@ -2,6 +2,8 @@
 
 Reviewed 2026-10-13. Documentation-only review during the owner’s two-week observation window. No production content, routes, dependencies, analytics or metadata changed. No commit, push, deployment, outreach, indexing submission or paid subscription.
 
+Revalidated 2026-10-14 against the repeated mission: the live graph’s 263 IDs/types/labels and upstream HEAD remain unchanged. The existing 216-topic classifications still cover the current roadmap. SEO, search/privacy and analytics checks were rerun against the existing generated output; build and broader audit evidence below retain their original verification dates. No production change is justified by this repeat review.
+
 ## Roadmap source and scope
 
 - Live graph: [roadmap.sh/seo](https://roadmap.sh/seo), retrieved 2026-10-13 from the page’s serialized loader data: **263 graph nodes**, **51 topics + 165 subtopics = 216 SEO topic nodes**, and **47 presentation/navigation nodes**. Every graph ID is classified below, including layout nodes.

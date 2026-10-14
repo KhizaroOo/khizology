@@ -5,12 +5,12 @@ import vm from 'node:vm';
 import { stripTypeScriptTypes } from 'node:module';
 import ts from 'typescript';
 const source = fs.readFileSync(new URL('../src/utils/analytics.ts', import.meta.url), 'utf8');
-function fixture(id = 'G-TESTONLY00', saved = null, brokenStorage = false, href = 'https://khizooology.com/?private=NEVER_SEND') {
+function fixture(id = 'G-TESTONLY00', saved = null, brokenStorage = false, href = 'https://khizooology.com/?private=NEVER_SEND', canonical = 'https://khizooology.com/toolbox/schema-drift-doctor') {
   const scripts = [], docListeners = {}, toolListeners = {};
   let reloads = 0;
   class Element { dataset = {}; closest(selector) { return selector.includes('.share-foundation') ? null : this; } }
   const tool = { dataset: { toolSlug: 'schema-drift-doctor', toolFamily: 'check', featureLevel: '2' }, addEventListener: (name, fn) => toolListeners[name] = fn };
-  const doc = { title: 'Public tool title', cookie: '_ga=abc', querySelector: selector => selector.includes('canonical') ? { href: 'https://khizooology.com/toolbox/schema-drift-doctor' } : tool,
+  const doc = { title: 'Public tool title', cookie: '_ga=abc', querySelector: selector => selector.includes('canonical') ? { href: canonical } : tool,
     querySelectorAll: () => [{ dataset: { artworkSlug: 'public-art' } }], createElement: () => ({ remove() {} }), head: { appendChild: s => scripts.push(s) },
     getElementById: () => scripts[0], addEventListener: (name, fn) => { const previous = docListeners[name]; docListeners[name] = event => { previous?.(event); fn(event); }; }, dispatchEvent() {} };
   const win = { location: { href, reload: () => reloads++ }, addEventListener() {} };
@@ -25,6 +25,11 @@ for (const saved of [null, 'declined']) {
   assert.equal(f.scripts.length, 0); assert.equal(f.events().length, 0);
 }
 const missing = fixture('', 'accepted'); missing.run('initializeAnalytics(); trackToolStart()'); assert.equal(missing.scripts.length, 0);
+const errorPage = fixture('G-TESTONLY00', 'accepted', false, 'https://khizooology.com/NEVER_SEND%2Fsecret?token=NEVER_SEND#private', 'https://khizooology.com/404/');
+errorPage.run('initializeAnalytics(); initializeAnalytics(); setConsent("accepted")');
+assert.equal(errorPage.events().length, 1, '404 navigation emits only one page view');
+assert.equal(errorPage.events()[0][2].page_location, 'https://khizooology.com/404/');
+assert.ok(!JSON.stringify(errorPage.win.dataLayer).includes('NEVER_SEND'), 'malformed/private 404 paths never enter GA commands');
 const f = fixture(); f.run('initializeAnalytics(); setConsent("accepted"); loadAnalytics()'); assert.equal(f.scripts.length, 1);
 const commands = Array.from(f.win.dataLayer, args => Array.from(args));
 const config = commands.find(args => args[0] === 'config')[2];
