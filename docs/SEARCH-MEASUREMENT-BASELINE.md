@@ -172,3 +172,28 @@ Watch impressions, clicks, CTR, position and indexed pages together. Compare que
 Known, submitted, discovered, crawled, indexed and ranking are separate states. Only Search Console evidence supports Google indexing claims. An IndexNow 200/202 is a receipt, not indexing evidence. No traffic, ranking or revenue outcomes are promised.
 
 Use Search Console, Bing and GA4 as the initial sources of truth. Build → get discovered → observe → improve useful winners → build smarter. No custom dashboard is needed.
+
+
+## Phase 4 release / Phase 5 observation — 2026-10-18
+
+Product release commit: `8935f282529f58cb4c86da7cdc3e6be4ac5fa0b2`. Deployment receipt/timestamp will be appended after the intended Astro Pages workflow succeeds. The separate Bing image-alt repair is excluded and remains uncommitted.
+
+Observation: **2026-10-19 through 2026-11-01**, 14 full Asia/Karachi calendar days; review **2026-11-02**. Day 7 health check: **2026-10-25**, health only. Freeze begins with successful deployment: no Infooo/Top-10 redesign, new tools/worlds, speculative SEO changes, event/Key Event changes from small-sample noise. Exceptions: critical, security/privacy, broken route/asset or measurement-integrity repairs, logged below. Owner consenting usage remains included; no IP/owner exclusion.
+
+### Pre-observation evidence and availability
+
+GA4: latest available owner evidence remains **2026-09-18 → 2026-10-17**, documented above: 41 sessions, 29 engaged sessions, ~70.7% engagement, 40 Direct / 1 Unassigned, 146 page views. Users and source/medium detail unavailable in supplied evidence. Landing sessions: / 21; /notooo 7; /infooo 6; /artworks 2; /notooo/atomic-habits 2; /toolbox 1; /toolbox/api-pagination-planner 1 (one landing unspecified). tool_start 4; result_shared 13; infooo_world_start 8; contact_click 13. result_generated, tool_export, try_next_click and infooo_guide_complete unavailable, not assumed zero. Fresh GA4 connector access is unavailable: Windsor lists only Bing. No settings changed.
+
+GSC: latest owner evidence: ~73 impressions / 1 click, approximately 1.37% CTR (rounded impressions); average position/top queries/top pages not supplied. 97 indexed / 237 not indexed (222 discovered-not-indexed, 8 redirects, 5 noindex, 2 crawled-not-indexed). Sitemap success, 318 discovered normal / 1 image-sitemap discovery. Fresh 2026-10-18 GSC Wizard read refused: subscription_required. Preserve the evidence date/window limits; do not call these newly fetched totals.
+
+Bing: Windsor query on 2026-10-18 for **2026-10-04 → 2026-10-17** returned **no rows**, not a proven zero total. Latest owner evidence remains 0 clicks / 0 impressions (window unspecified), displayed Site Explorer 29 indexed / 1 excluded; 319 discovered URLs, 2 known sitemaps without errors/warnings. No fresh indexed inventory API available.
+
+Fresh pre-window GA4/GSC exports remain an evidence gap; collection/observation can proceed without inventing them. Retrieve matching historical windows later if access is restored. Compare equal periods with matching report timezone/filters; exclude or annotate deployment/testing on Oct 18. Do not infer causality or external audience from tiny samples.
+
+### Review metrics
+
+Users/sessions/engaged sessions/engagement and source-medium/channel/landing pages; tool_start, result_generated, tool_export, result_shared, try_next_click, infooo_world_start, infooo_guide_complete, contact_click (preserve existing per-world semantics). GSC clicks/impressions/CTR/position/queries/pages/indexing; Bing clicks/impressions/indexing/discovery/sitemap health. Day 7 checks receipt/runtime/crawl health only. Day 14 assesses friction cautiously; if external traffic is insufficient, proceed to acquisition rather than redesigning from noise.
+
+### Production intervention log
+
+None after deployment yet. Record timestamp, commit, reason and affected metrics for any allowed intervention.
