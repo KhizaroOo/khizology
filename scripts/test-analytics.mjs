@@ -5,12 +5,12 @@ import vm from 'node:vm';
 import { stripTypeScriptTypes } from 'node:module';
 import ts from 'typescript';
 const source = fs.readFileSync(new URL('../src/utils/analytics.ts', import.meta.url), 'utf8');
-function fixture(id = 'G-TESTONLY00', saved = null, brokenStorage = false, href = 'https://khizooology.com/?private=NEVER_SEND', canonical = 'https://khizooology.com/toolbox/schema-drift-doctor') {
+function fixture(id = 'G-TESTONLY00', saved = null, brokenStorage = false, href = 'https://khizooology.com/?private=NEVER_SEND', canonical = 'https://khizooology.com/toolbox/schema-drift-doctor', referrer = '') {
   const scripts = [], docListeners = {}, toolListeners = {};
   let reloads = 0;
   class Element { dataset = {}; closest(selector) { return selector.includes('.share-foundation') ? null : this; } }
   const tool = { dataset: { toolSlug: 'schema-drift-doctor', toolFamily: 'check', featureLevel: '2' }, addEventListener: (name, fn) => toolListeners[name] = fn };
-  const doc = { title: 'Public tool title', cookie: '_ga=abc', querySelector: selector => selector.includes('canonical') ? { href: canonical } : tool,
+  const doc = { title: 'Public tool title', referrer, cookie: '_ga=abc', querySelector: selector => selector.includes('canonical') ? { href: canonical } : tool,
     querySelectorAll: () => [{ dataset: { artworkSlug: 'public-art' } }], createElement: () => ({ remove() {} }), head: { appendChild: s => scripts.push(s) },
     getElementById: () => scripts[0], addEventListener: (name, fn) => { const previous = docListeners[name]; docListeners[name] = event => { previous?.(event); fn(event); }; }, dispatchEvent() {} };
   const win = { location: { href, reload: () => reloads++ }, addEventListener() {} };
@@ -25,6 +25,20 @@ for (const saved of [null, 'declined']) {
   assert.equal(f.scripts.length, 0); assert.equal(f.events().length, 0);
 }
 const missing = fixture('', 'accepted'); missing.run('initializeAnalytics(); trackToolStart()'); assert.equal(missing.scripts.length, 0);
+for (const [referrer, expected] of [
+  ['https://www.google.com/search?q=NEVER_SEND#private', 'https://www.google.com/'],
+  ['https://www.bing.com/search?q=NEVER_SEND', 'https://www.bing.com/'],
+  ['https://github.com/private-person/private-project?token=NEVER_SEND', 'https://github.com/'],
+  ['https://user:NEVER_SEND@google.com/', ''], ['https://private-person.google.com/', ''],
+  ['https://google.com:8443/NEVER_SEND', ''], ['https://google.com.private.example/NEVER_SEND', ''],
+  ['https://private.example/NEVER_SEND', ''], ['http://localhost:4321/NEVER_SEND', ''],
+  ['https://khizooology.com/toolbox/?private=NEVER_SEND', ''], ['not a URL NEVER_SEND', ''],
+]) {
+  const referred = fixture('G-TESTONLY00', 'accepted', false, undefined, undefined, referrer);
+  referred.run('initializeAnalytics()');
+  assert.equal(referred.events()[0][2].page_referrer, expected);
+  assert.ok(!/NEVER_SEND|private-person|private-project/.test(JSON.stringify(referred.win.dataLayer)));
+}
 const errorPage = fixture('G-TESTONLY00', 'accepted', false, 'https://khizooology.com/NEVER_SEND%2Fsecret?token=NEVER_SEND#private', 'https://khizooology.com/404/');
 errorPage.run('initializeAnalytics(); initializeAnalytics(); setConsent("accepted")');
 assert.equal(errorPage.events().length, 1, '404 navigation emits only one page view');
@@ -119,6 +133,8 @@ growth.run('setConsent("declined"); trackToolResult(); trackShareAction({ monste
 assert.equal(growth.events().length, 0);
 // Exercise actual share callbacks without clipboard access, network or system dialogs.
 const shareEvents = [], clipboard = [], nativeShares = [];
+const cross = fixture('G-TESTONLY00', 'accepted');
+cross.run('initializeAnalytics(); initializeAnalytics()');
 const shareExports = {};
 const navigator = { clipboard: { writeText: async text => { clipboard.push(text); } }, share: async data => { nativeShares.push(data); } };
 const jsx = (type, props) => ({ type, props });
@@ -126,7 +142,7 @@ const shareSource = fs.readFileSync(new URL('../src/components/toolbox/ShareResu
 vm.runInNewContext(ts.transpileModule(shareSource, { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText, {
   exports: shareExports, navigator,
   document: { querySelector: () => ({ href: 'https://khizooology.com/toolbox/api-payload-doctor/' }) },
-  require: name => name === 'react/jsx-runtime' ? { jsx, jsxs: jsx } : { trackShareAction: metadata => shareEvents.push(metadata) },
+  require: name => name === 'react/jsx-runtime' ? { jsx, jsxs: jsx } : { trackShareAction: metadata => { shareEvents.push(metadata); cross.run(`trackShareAction(${JSON.stringify(metadata)})`); } },
 });
 const shared = shareExports.default({ monster: 'toolooo', contentType: 'tool', slug: 'api-payload-doctor', title: 'Public title', result: { summary: 'Only aggregate counts' } });
 const buttons = shared.props.children.filter(child => child?.type === 'button');
@@ -135,6 +151,13 @@ assert.equal(shareEvents.length, 1); assert.equal(shareEvents[0].action, 'copy_r
 assert.equal(clipboard[0], 'Public title\nOnly aggregate counts\nhttps://khizooology.com/toolbox/api-payload-doctor/');
 await buttons[0].props.onClick();
 assert.equal(shareEvents.length, 2); assert.equal(shareEvents[1].action, 'share_result');
+const shareButton = new cross.Element(); shareButton.closest = () => null;
+cross.docListeners.click({ isTrusted: true, target: shareButton });
+assert.deepEqual(Array.from(cross.events(), e => e[1]), ['page_view', 'result_copied', 'result_shared'], 'share callback and bubbled button click emit one share, no contact');
+const contactLink = new cross.Element(); contactLink.href = 'https://khizooology.com/drop-a-vibe/';
+contactLink.closest = selector => selector === 'a[href]' ? contactLink : null;
+cross.docListeners.click({ isTrusted: true, target: contactLink });
+assert.deepEqual(Array.from(cross.events(), e => e[1]), ['page_view', 'result_copied', 'result_shared', 'contact_click'], 'one contact interaction emits one contact, no share');
 assert.equal(nativeShares[0].url, 'https://khizooology.com/toolbox/api-payload-doctor/');
 navigator.share = async () => { throw new Error('cancelled'); };
 navigator.clipboard.writeText = async () => { throw new Error('denied'); };

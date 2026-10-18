@@ -86,7 +86,7 @@ assert.equal(finaleFrames.at(-1)?.v2, 0);
 assert.equal(finaleFrames.at(-1)?.slow, false);
 assert.equal(finaleFrames.at(-1)?.users, 10000, 'stabilization is not achieved by silently removing demand');
 const html = fs.readFileSync(new URL('../dist/infooo/app-deployment-journey/index.html', import.meta.url), 'utf8');
-assert.match(html, /<h1[^>]*>App Deployment Journey<\/h1>/);
+assert.match(html, /<h1[^>]*>How does code become a live app\?<\/h1>/);
 assert.match(html, /https:\/\/khizooology.com\/infooo\/app-deployment-journey\//);
 assert.match(html, /deployment-social\.png/);
 assert.match(html, /Code flows into Build, then Deploy, then Serve, then User/);

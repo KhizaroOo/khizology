@@ -24,3 +24,26 @@ Infooo shares presentation and keeps world intelligence local. `InfoooWorldShell
 6. Add the approved public route and growth foundation, then run build and audits.
 
 Shared UI is intentionally lightweight. Heavy renderer code and assets stay route-specific, so Human Atlas does not load on future Infooo pages and future worlds do not load on Human Atlas.
+
+## Infooo First-Visit Clarity
+
+A published world should aim for:
+
+- 5 sec — understand what is being taught.
+- 10 sec — know the primary interaction.
+- 30 sec — experience the core relationship.
+- 2 min — intentionally explore deeper.
+
+These are heuristic quality targets, not measured usability claims unless real user testing exists.
+
+The default experience should offer one primary question, one simple mental model,
+one obvious primary action, visible cause/effect and a concise aha moment. Advanced
+depth belongs behind progressive disclosure. The design principle is:
+**QUESTION → SIMPLE MENTAL MODEL → ONE PRIMARY ACTION → WATCH CAUSE/EFFECT → AHA MOMENT → EXPLORE DEEPER.**
+
+Share presentation; keep world intelligence local. Reuse the foundation's stage,
+source disclosure and reduced-motion hook where appropriate. Extract additional
+presentation only when semantics match and its API is simpler than the duplication.
+Deployment's release progress and Coding Agent's evidence/repair loop retain distinct
+layouts, completion treatments and reset behavior. Native disclosure/status markup
+alone does not justify a wrapper. Human Atlas and Rubik's Cube keep their own interaction models.

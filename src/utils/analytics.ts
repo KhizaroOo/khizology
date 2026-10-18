@@ -26,11 +26,19 @@ export function consent(): Consent | null {
   }
   return choice;
 }
+// Only known public referral hosts; never forward private hosts, paths or URL state.
+const publicReferralHosts = new Set(['google.com', 'google.co.uk', 'google.com.pk', 'bing.com', 'duckduckgo.com', 'search.yahoo.com', 'github.com', 'linkedin.com', 'reddit.com', 'youtube.com', 'facebook.com', 'instagram.com', 'pinterest.com', 'x.com', 't.co', 'chatgpt.com', 'perplexity.ai', 'claude.ai', 'gemini.google.com', 'copilot.microsoft.com']);
+function safeReferrer() {
+  try {
+    const referrer = new URL(document.referrer);
+    return ['https:', 'http:'].includes(referrer.protocol) && !referrer.username && !referrer.password && !referrer.port && publicReferralHosts.has(referrer.hostname.replace(/^www\./, '')) ? `${referrer.protocol}//${referrer.hostname}/` : '';
+  } catch { return ''; }
+}
 function pageMetadata() {
   // The server-generated canonical is fixed, never location.href or user URL state.
   const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href;
   const page = new URL(canonical || 'https://khizooology.com/');
-  return { page_location: `https://khizooology.com${page.pathname}`, page_referrer: '', page_title: document.title };
+  return { page_location: `https://khizooology.com${page.pathname}`, page_referrer: safeReferrer(), page_title: document.title };
 }
 function command(...args: unknown[]) { (window as unknown as AnalyticsWindow).gtag?.(...args); }
 export function loadAnalytics() {

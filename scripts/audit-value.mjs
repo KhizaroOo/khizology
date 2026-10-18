@@ -23,7 +23,8 @@ for (const field of ['id', 'contentType', 'monster', 'slug', 'title', 'hook', 's
 const knowledge = fs.readFileSync(path.join(root, 'src/data/toolKnowledge.ts'), 'utf8');
 assert.ok(!/fetch\(|XMLHttpRequest|localStorage|location\.search/.test(knowledge), 'Knowledge layer must stay local and input-free');
 const analytics = fs.readFileSync(path.join(root, 'src/utils/analytics.ts'), 'utf8');
-assert.ok(analytics.includes("page_referrer: ''"), 'Analytics must suppress referrer');
+// Prove consent/input boundaries and sanitized public referrers, not blanket suppression.
+await import('./test-analytics.mjs');
 assert.ok(analytics.includes('trackShareAction') && analytics.includes('trackRelatedContentClick'), 'Shared feature events missing');
 assert.ok(analytics.includes('trackToolFavorite') && analytics.includes('trackToolScenarioSelect') && analytics.includes('trackToolChainAction') && analytics.includes('trackContractDriftRun'), 'Toolooo LV3 analytics hooks missing');
 assert.ok(!/raw_input|result_value|payload_text/i.test(analytics), 'LV3 analytics must not define raw input or result fields');

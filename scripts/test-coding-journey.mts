@@ -46,7 +46,12 @@ assert.match(permission('edit', 'assisted'), /^Ask human/);
 assert.equal(tools.length, 7); assert.equal(challenges.length, 5);
 for (const challenge of challenges) { assert.ok(challenge.answer < challenge.choices.length); assert.ok(failures.some(f => f.id === challenge.scenario)); }
 const html = fs.readFileSync(new URL('../dist/infooo/ai-coding-agent-journey/index.html', import.meta.url), 'utf8');
-assert.match(html, /<h1[^>]*>AI Coding Agent Journey<\/h1>/);
+assert.match(html, /<h1[^>]*>What happens after you ask an AI coding agent to change software\?<\/h1>/);
+assert.match(html, />Watch the agent work<\/button>/);
+assert.match(html, /aria-label="Task to checked result"/);
+for (const label of ['Task', 'Look', 'Change', 'Check', 'Report']) assert.match(html, new RegExp(`<h2>${label}</h2>`));
+assert.match(html, /<details class="coding-detail coding-explore"><summary>/, 'advanced workspace starts collapsed');
+assert.match(html, /Concise process summaries, not private reasoning transcripts/);
 assert.match(html, /WebApplication/); assert.match(html, /BreadcrumbList/); assert.match(html, /coding-social.png/);
 assert.match(html, /https:\/\/khizooology.com\/infooo\/ai-coding-agent-journey\//);
 for (const filename of ['sitemap-0.xml', 'llms.txt']) assert.ok(fs.readFileSync(new URL(`../dist/${filename}`, import.meta.url), 'utf8').includes('/infooo/ai-coding-agent-journey/'));
