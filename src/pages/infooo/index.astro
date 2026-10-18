@@ -24,7 +24,7 @@ const infoooVoice = voiceForMonsterId('infooo');
         <div class="universe-label"><span class="signal" aria-hidden="true"></span> Knowledge you can explore</div>
         <div class="universe-nodes">
           {worlds.map(world => <a class="universe-node" href={url(`/infooo/${world.slug}`)}>
-            {world.preview && <img src={img(world.preview.asset)} alt="" width="600" height="360" />}
+            {world.preview && <img src={img(world.preview.asset)} alt={world.preview.alt} width="600" height="360" />}
             <span><small>WORLD {String(world.worldNumber).padStart(3, '0')}</small>{world.title}<span aria-hidden="true"> ↗</span></span>
           </a>)}
         </div>

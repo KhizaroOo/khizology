@@ -1,4 +1,5 @@
 ---
+import DecorativeImage from '../ui/DecorativeImage.astro';
 import { preview } from "../../utils/imagePreview";
 import { url } from '../../utils/url';
 import { SITE } from '../../data/site';
@@ -19,7 +20,7 @@ const currentPath = Astro.url.pathname;
     <nav class="k-nav-inner" aria-label="Main navigation">
       <!-- Logo -->
       <a href={url('/')} class="k-logo" aria-label={`${SITE.name} home`}>
-        <img src={preview('/images/Monsters/khizooo.png')} alt="" width="32" height="32" class="k-logo-img" />
+        <DecorativeImage src={preview('/images/Monsters/khizooo.png')} width="32" height="32" class="k-logo-img" />
         <span class="k-logo-text">{SITE.name.slice(0, 4)}<span class="k-logo-accent">{SITE.name.slice(4)}</span></span>
       </a>
 

@@ -1,4 +1,6 @@
 ---
+import DecorativeImage from '../components/ui/DecorativeImage.astro';
+import { preview } from '../utils/imagePreview';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import { activeMonsters } from '../data/monsters';
@@ -78,7 +80,7 @@ const faqs = [
       <div class="btv-monster-grid">
         {activeMonsters.map((monster) => (
           <a href={url(monster.route)} class="btv-monster-card" style={`--monster-color:${monster.color}; --monster-light:${monster.colorLight}`}>
-            <div class="btv-monster-image-wrap"><img src={img(monster.image)} alt="" width="88" height="88" loading="lazy" /></div>
+            <div class="btv-monster-image-wrap"><DecorativeImage src={preview(monster.image)} width="88" height="88" /></div>
             <div class="btv-monster-copy">
               <p class="btv-monster-role">{monster.role}</p><h3>{monster.name}</h3><p>{monster.description}</p><span>{monster.tagline} <b aria-hidden="true">→</b></span>
             </div>
@@ -163,7 +165,7 @@ const faqs = [
   .btv-monster-card:hover { border-color: var(--monster-color); transform: translateY(-3px); }
   .btv-monster-card:focus-visible, .btv-explore-card:focus-visible, .btv-text-link:focus-visible, .btv-mystery-note a:focus-visible { outline: 3px solid var(--k-accent); outline-offset: 3px; }
   .btv-monster-image-wrap { width: 88px; height: 88px; display: grid; place-items: center; flex: 0 0 auto; border-radius: .9rem; background: var(--monster-light); }
-  .btv-monster-image-wrap img { width: 74px; height: 74px; object-fit: contain; }
+  .btv-monster-image-wrap [data-decorative-image] { width: 74px; height: 74px; object-fit: contain; }
   .btv-monster-copy { min-width: 0; }
   .btv-monster-role { color: var(--monster-color); }
   .btv-monster-copy h3 { color: var(--k-text); font-family: 'Poppins', sans-serif; font-size: 1.1rem; margin: 0 0 .35rem; }
@@ -212,6 +214,6 @@ const faqs = [
   .btv-portfolio-card { --monster-color: var(--k-accent); }
 
   @media (max-width: 960px) { .btv-hero-grid, .btv-reading-grid, .btv-loop-grid, .btv-values-grid, .btv-faq-grid { grid-template-columns: 1fr; } .btv-monster-grid { grid-template-columns: 1fr; } .btv-explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .btv-creator-card { max-width: 620px; } }
-  @media (max-width: 560px) { .btv-breadcrumb { padding-top: 1rem; } .btv-hero { padding: 1.25rem 0 3rem; } .btv-creator-card { grid-template-columns: 94px 1fr; padding: 1rem; gap: .9rem; } .btv-monster-card { grid-template-columns: 72px 1fr; padding: 1rem; } .btv-monster-image-wrap { width: 72px; height: 72px; } .btv-monster-image-wrap img { width: 60px; height: 60px; } .btv-art-code { grid-template-columns: 1fr; } .btv-plus { justify-self: center; transform: rotate(90deg); } .btv-discipline { min-height: auto; } .btv-values-list, .btv-explore-grid { grid-template-columns: 1fr; } .btv-loop li { font-size: .72rem; } }
+  @media (max-width: 560px) { .btv-breadcrumb { padding-top: 1rem; } .btv-hero { padding: 1.25rem 0 3rem; } .btv-creator-card { grid-template-columns: 94px 1fr; padding: 1rem; gap: .9rem; } .btv-monster-card { grid-template-columns: 72px 1fr; padding: 1rem; } .btv-monster-image-wrap { width: 72px; height: 72px; } .btv-monster-image-wrap [data-decorative-image] { width: 60px; height: 60px; } .btv-art-code { grid-template-columns: 1fr; } .btv-plus { justify-self: center; transform: rotate(90deg); } .btv-discipline { min-height: auto; } .btv-values-list, .btv-explore-grid { grid-template-columns: 1fr; } .btv-loop li { font-size: .72rem; } }
   @media (prefers-reduced-motion: reduce) { .btv-monster-card, .btv-explore-card { transition: none; } }
 </style>

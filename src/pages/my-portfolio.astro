@@ -1,4 +1,6 @@
 ---
+import DecorativeImage from '../components/ui/DecorativeImage.astro';
+import { preview } from '../utils/imagePreview';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import { url, img } from '../utils/url';
@@ -490,7 +492,7 @@ const jsonLd = {
   <section class="k-section pf-cta-section">
     <div class="k-container">
       <div class="pf-cta-inner">
-        <img src={img('/images/Monsters/khizooo.png')} alt="" width="96" height="96" class="pf-cta-monster" />
+        <DecorativeImage src={preview('/images/Monsters/khizooo.png')} width="96" height="96" class="pf-cta-monster" />
         <h2>Want to work together or just say hi?</h2>
         <p>Open to creative collaborations, tech discussions, and good conversations about art and code.</p>
         <div class="pf-cta-btns">

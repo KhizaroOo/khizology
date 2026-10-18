@@ -1,4 +1,5 @@
 ---
+import DecorativeImage from '../ui/DecorativeImage.astro';
 import { preview } from "../../utils/imagePreview";
 import { monsters } from '../../data/monsters';
 import { SITE } from '../../data/site';
@@ -14,7 +15,7 @@ const currentYear = new Date().getFullYear();
       <!-- Brand column -->
       <div class="k-footer-brand">
         <a href={url('/')} class="k-footer-logo" aria-label={`${SITE.name} home`}>
-          <img src={preview('/images/Monsters/khizooo.png')} alt="" width="36" height="36" style="background: var(--k-accent);padding: 4px;border-radius: 50%;"/>
+          <DecorativeImage src={preview('/images/Monsters/khizooo.png')} width="36" height="36" style="background: var(--k-accent);padding: 4px;border-radius: 50%;"/>
           <span>{SITE.name.slice(0, 4)}<span class="accent">{SITE.name.slice(4)}</span></span>
         </a>
         <p class="k-footer-tagline">
@@ -75,7 +76,7 @@ const currentYear = new Date().getFullYear();
           {activeMonsters.map(m => (
             <li>
               <a href={url(m.route)} class="k-footer-link" style={`--hover: ${m.color}`}>
-                <span class="k-footer-avatar" aria-hidden="true"><img src={preview(m.image)} alt="" width="28" height="28" loading="lazy" decoding="async" /></span>
+                <span class="k-footer-avatar" aria-hidden="true"><DecorativeImage src={preview(m.image)} width="28" height="28" /></span>
                 <span>{m.name} → {m.module}</span>
               </a>
             </li>
@@ -211,7 +212,7 @@ const currentYear = new Date().getFullYear();
     border: 1px solid var(--hover, var(--k-border)); border-radius: .65rem;
     background: color-mix(in srgb, var(--hover, var(--k-accent)) 12%, var(--k-bg-card));
   }
-  .k-footer-avatar img { width: 28px; height: 28px; object-fit: contain; }
+  .k-footer-avatar [data-decorative-image] { width: 28px; height: 28px; object-fit: contain; }
   .k-footer-mystery { color: var(--k-text); font: 800 1rem Poppins, sans-serif; border-style: dashed; }
 
   .k-footer-bottom {

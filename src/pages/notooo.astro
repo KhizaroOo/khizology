@@ -1,4 +1,5 @@
 ---
+import DecorativeImage from '../components/ui/DecorativeImage.astro';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import { notoooBooks, notoooCategories, notoooIdentity, publishedNotoooBooks } from '../data/notooo';
@@ -40,7 +41,7 @@ const jsonLd = [
           <p class="lead">{notoooIdentity.supportingLine}</p>
           <p class="inventory"><strong>{publishedNotoooBooks.length} published</strong><span aria-hidden="true"> · </span>{comingCount} coming<span aria-hidden="true"> · </span>{books.length} books in the catalog</p>
         </div>
-        <figure class="monster-portrait" aria-hidden="true"><div class="portrait-orbit"><img src={img(notoooMonster.image)} alt="" width="512" height="512" decoding="async" /></div></figure>
+        <figure class="monster-portrait" aria-hidden="true"><div class="portrait-orbit"><DecorativeImage src={img(notoooMonster.image)} width="512" height="512" /></div></figure>
       </header>
 
       <section class="discovery" aria-labelledby="discover-notes">
@@ -131,7 +132,7 @@ const jsonLd = [
   .monster-portrait { position: relative; display: grid; place-items: center; align-self: center; width: clamp(7.75rem, 17vw, 11rem); margin: 0; flex: 0 0 auto; }
   .monster-portrait::before { position: absolute; inset: 9%; border: 1px solid color-mix(in srgb, var(--notooo-color) 52%, #fff); border-radius: 40% 60% 55% 45%; content: ''; transform: rotate(12deg); }
   .portrait-orbit { display: grid; place-items: center; width: 100%; aspect-ratio: 1; border: 1px solid color-mix(in srgb, var(--notooo-color) 38%, #fff); border-radius: 1.3rem; background: radial-gradient(circle at 50% 34%, #fff 0 21%, color-mix(in srgb, var(--notooo-light) 39%, #fff) 22% 100%); box-shadow: 0 .8rem 1.7rem color-mix(in srgb, var(--notooo-color) 14%, transparent); transform: rotate(4deg); }
-  .portrait-orbit img { position: relative; z-index: 1; width: 84%; height: 84%; object-fit: contain; transform: rotate(-4deg); }
+  .portrait-orbit [data-decorative-image] { position: relative; z-index: 1; width: 84%; height: 84%; object-fit: contain; transform: rotate(-4deg); }
   .discovery { display: grid; gap: .7rem; margin: 2rem 0 1.25rem; padding: 1.1rem 0; border-block: 1px solid #cfcfcf; }
   .section-label { margin: 0 0 .28rem; color: #6a625f; font: 800 .65rem Poppins, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
   .discovery h2 { margin: 0; color: var(--notooo-text); font: 800 clamp(1.12rem, 2vw, 1.38rem)/1.2 Poppins, sans-serif; letter-spacing: -.025em; }

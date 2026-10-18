@@ -1,0 +1,9 @@
+---
+/** Duplicate/ornamental imagery stays out of the accessibility tree and image-alt scans. */
+interface Props { src: string; width: number | string; height: number | string; class?: string; style?: string; }
+const { src, width, height, class: className, style = '', ...attributes } = Astro.props;
+---
+<span {...attributes} class:list={['decorative-image', className]} data-decorative-image aria-hidden="true" style={`${style};--decorative-width:${Number(width)}px;--decorative-height:${Number(height)}px;background-image:url(${JSON.stringify(src)});background-size:contain;background-position:center;background-repeat:no-repeat;background-origin:content-box;`}></span>
+<style>
+  :where(.decorative-image) { display: inline-block; flex-shrink: 0; width: var(--decorative-width); height: var(--decorative-height); }
+</style>

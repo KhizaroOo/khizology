@@ -1,4 +1,5 @@
 ---
+import DecorativeImage from './DecorativeImage.astro';
 import { preview } from "../../utils/imagePreview";
 import type { Monster } from '../../data/monsters';
 import { url } from '../../utils/url';
@@ -22,13 +23,11 @@ const isActive = monster.status === 'active';
 
   <!-- Monster image -->
   <div class="mc-image-wrap">
-    <img
+    <DecorativeImage
       src={preview(monster.image)}
-      alt=""
       width="72"
       height="72"
       class="mc-image"
-      loading="lazy"
     />
   </div>
 
