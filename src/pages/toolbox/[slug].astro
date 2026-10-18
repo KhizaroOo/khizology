@@ -158,7 +158,7 @@ const jsonLd = pageSchema({
 
           {tool.status === 'active' ? (
             <>
-              <ToolKnowledge knowledge={knowledge} accent={family.color} variant="intro" />
+
               {tool.slug === 'date-time-contract-doctor' && <DateTimeContractDoctor client:load />}
               {tool.slug === 'replica-lag-simulator' && <ReplicaLagSimulator client:load />}
               {tool.slug === 'async-messaging-decision-lab' && <AsyncMessagingDecisionLab client:load />}
@@ -229,7 +229,18 @@ const jsonLd = pageSchema({
             />
           )}
 
-          {tool.lv3 && <ToolLv3Panel client:load tool={tool} chains={lv3Chains} base={base} />}
+          {tool.status === 'active' && (
+            <details class="tp-depth">
+              <summary>What this tool does and why</summary>
+              <ToolKnowledge knowledge={knowledge} accent={family.color} variant="intro" />
+            </details>
+          )}
+          {tool.lv3 && (
+            <details class="tp-depth">
+              <summary>Save this tool and explore next steps</summary>
+              <ToolLv3Panel client:load tool={tool} chains={lv3Chains} base={base} />
+            </details>
+          )}
           {tool.growthPriority && !tool.lv3 && <ToolFavoriteButton client:load toolId={tool.id} toolName={tool.name} />}
 
           {!tool.lv3 && <ToolKnowledge knowledge={knowledge} accent={family.color} variant="next" nextTools={tryNext} />}
@@ -319,10 +330,12 @@ const jsonLd = pageSchema({
 </BaseLayout>
 
 <style>
-  .tp-hero { background: var(--k-bg); padding: 2.5rem 0 2rem; border-bottom: 1px solid var(--k-border); }
+  .tp-hero { background: var(--k-bg); padding: 1.25rem 0; border-bottom: 1px solid var(--k-border); }
   .tp-hero-inner { margin-top: 1rem; }
 
-  .tp-main-section { background: var(--k-bg); }
+  .tp-main-section { background: var(--k-bg); padding-top: 1.25rem; }
+  .tp-depth { margin-top: 1.25rem; border: 1px solid var(--k-border); border-radius: .875rem; padding: .875rem 1rem; }
+  .tp-depth > summary { cursor: pointer; font-weight: 700; color: var(--k-text); min-height: 28px; }
   .tp-layout { display: grid; grid-template-columns: 1fr; gap: 2rem; }
   .tp-main { min-width: 0; }
   @media (min-width: 900px) { .tp-layout { grid-template-columns: 1fr 280px; } }

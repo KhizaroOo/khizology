@@ -93,7 +93,7 @@ const artworkRegistry = await import(`data:text/javascript,${encodeURIComponent(
 const deploymentSource = fs.readFileSync(path.join(root, 'src/components/infooo/deployment/deploymentJourney.ts'), 'utf8').replace(/import type[^;]+;/, '');
 const deploymentModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(deploymentSource))}`);
 const infoooSource = fs.readFileSync(path.join(root, 'src/data/infooo.ts'), 'utf8')
-  .replace("import { deploymentStages, deploymentGuide, deploymentFailures } from '../components/infooo/deployment/deploymentJourney';", `const deploymentStages = ${JSON.stringify(deploymentModule.deploymentStages)}; const deploymentGuide = ${JSON.stringify(deploymentModule.deploymentGuide)}; const deploymentFailures = ${JSON.stringify(deploymentModule.deploymentFailures)};`)
+  .replace(/import \{ deploymentStages, deploymentGuide(?:, deploymentFailures)? \} from '\.\.\/components\/infooo\/deployment\/deploymentJourney';/, `const deploymentStages = ${JSON.stringify(deploymentModule.deploymentStages)}; const deploymentGuide = ${JSON.stringify(deploymentModule.deploymentGuide)}; const deploymentFailures = ${JSON.stringify(deploymentModule.deploymentFailures)};`)
   .replace("import type { ValueLawScores } from './valueLaws';", '')
   .replace("import { createIdeaEvaluation } from './valueLaws';", 'const createIdeaEvaluation = (input) => input;')
   .replace("import { followTheBloodGuide, humanAtlasEntities, humanAtlasRelationships } from './humanAtlasLearning';", 'const followTheBloodGuide = {}; const humanAtlasEntities = []; const humanAtlasRelationships = [];');
@@ -465,7 +465,9 @@ for (const component of toolComponents) {
   assert.ok(/<Insight|<Warning|DecisionLab|recommend|suggest|Action|tip=/.test(source), `${component}: missing a local result-driven action surface`);
 }
 const toolPageSource = fs.readFileSync(path.join(root, 'src/pages/toolbox/[slug].astro'), 'utf8');
-assert.ok(toolPageSource.indexOf('variant="intro"') < toolPageSource.indexOf("tool.slug === 'api-payload-doctor'"), 'What and Why must appear before a tool runs');
+assert.ok(toolPageSource.indexOf('variant="intro"') > toolPageSource.indexOf("tool.slug === 'api-payload-doctor'"), 'Full What and Why depth must follow the workspace');
+const privacyPosition = toolPageSource.indexOf('<PrivacyNotice');
+assert.ok(privacyPosition >= 0 && privacyPosition < toolPageSource.indexOf("tool.slug === 'api-payload-doctor'"), 'Sensitive input privacy notice must precede the workspace');
 assert.ok(toolPageSource.includes('variant="next" nextTools={tryNext}') && !toolPageSource.includes('<h3 class="tp-sidebar-h3">Try next</h3>'), 'Next must reuse the canonical next-tool system after the tool result');
 const insightSource = fs.readFileSync(path.join(root, 'src/components/toolbox/shared/Insight.tsx'), 'utf8');
 for (const label of ['Result', 'Why it matters', 'Action']) assert.ok(insightSource.includes(label), `Insight is missing ${label} labeling`);

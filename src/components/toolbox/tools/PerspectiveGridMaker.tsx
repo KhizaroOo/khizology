@@ -3,6 +3,9 @@ import type { PointerEvent as ReactPointerEvent } from 'react';
 import InputField from '../shared/InputField';
 import RangeControl from '../shared/RangeControl';
 import Metric from '../shared/Metric';
+import Insight from '../shared/Insight';
+import AdvancedDisclosure from '../shared/AdvancedDisclosure';
+import './phase4b.css';
 import Warning from '../shared/Warning';
 import VisualizationContainer from '../shared/VisualizationContainer';
 import { loadImageFromFile, type LoadedImage } from '../shared/loadImage';
@@ -123,7 +126,7 @@ const labelStyle: React.CSSProperties = {
 
 const primaryButtonStyle: React.CSSProperties = {
   background: ACCENT,
-  color: '#fff',
+  color: '#172b19',
   border: 'none',
   padding: '.6rem 1.5rem',
   borderRadius: '.5rem',
@@ -138,7 +141,7 @@ export default function PerspectiveGridMaker() {
   const [height, setHeight] = useState('900');
   const [mode, setMode] = useState<Mode>('2-point');
   const [horizonPct, setHorizonPct] = useState(50);
-  const [lineCount, setLineCount] = useState(16);
+  const [lineCount, setLineCount] = useState(32);
   const [vps, setVps] = useState<VpEntry[]>([]);
   const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const [img, setImg] = useState<LoadedImage | null>(null);
@@ -274,16 +277,115 @@ export default function PerspectiveGridMaker() {
 
   const hasManualVp = vps.some((vp) => vp.moved);
 
+  function positionVp(index: number, axis: 'x' | 'y', percent: number) {
+    const size = axis === 'x' ? w : h;
+    setVps(current => current.map((vp, i) => i === index ? { ...vp, [axis]: clamp(percent / 100 * size, -size, size * 2), moved: true } : vp));
+  }
+  const modeLesson = mode === '1-point' ? 'One point: edges recede toward one place, like looking down a hallway.' : mode === '2-point' ? 'Two points: each side of a corner recedes toward its own point.' : 'Three points: vertical edges also converge, as when looking up or down a tall building.';
   return (
-    <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
+    <div className="perspective-grid" style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: 'clamp(.875rem, 3vw, 1.5rem)' }}>
+      <p className="tool-purpose">Choose a perspective, then use the grid to guide the edges in your drawing.</p>
       <div style={{ marginBottom: '1.25rem' }}>
-        <label style={labelStyle}>Reference image (optional)</label>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '.5rem', marginBottom: '.375rem' }}>
+          <span id="perspective-mode-label" style={{ ...labelStyle, marginBottom: 0 }}>Perspective mode</span>
+          {hasManualVp && <button
+            onClick={resetVps}
+            disabled={!hasManualVp}
+            title={hasManualVp ? 'Recompute all vanishing points from the mode + horizon' : 'Move a point by dragging or using its position controls to enable'}
+            style={{
+              background: 'transparent',
+              color: hasManualVp ? 'var(--k-text)' : 'var(--k-text-muted)',
+              border: '1px solid var(--k-border)',
+              padding: '.35rem .75rem',
+              borderRadius: '.5rem',
+              fontSize: '.7rem',
+              fontWeight: 700,
+              cursor: hasManualVp ? 'pointer' : 'default',
+              opacity: hasManualVp ? 1 : 0.5,
+              fontFamily: "'Poppins', sans-serif",
+              textTransform: 'uppercase',
+              letterSpacing: '.06em',
+            }}
+          >
+            Reset vanishing points
+          </button>}
+        </div>
+        <div className="perspective-modes" role="group" aria-labelledby="perspective-mode-label">
+          {(['1-point', '2-point', '3-point'] as Mode[]).map((m) => (
+            <button
+              key={m}
+              aria-pressed={mode === m}
+              onClick={() => {
+                setMode(m);
+                setDraggingIndex(null);
+              }}
+              style={{
+                background: mode === m ? ACCENT : 'transparent',
+                color: mode === m ? '#172b19' : 'var(--k-text-muted)',
+                border: '1px solid ' + (mode === m ? ACCENT : 'var(--k-border)'),
+                padding: '.5rem 1rem',
+                borderRadius: '.5rem',
+                fontSize: '.8rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                fontFamily: "'Poppins', sans-serif",
+              }}
+            >
+              {MODE_LABELS[m]}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <p className="tool-note">{modeLesson} A vanishing point is where parallel edges appear to meet.</p>
+      <RangeControl label="Horizon position (eye level)" value={horizonPct} onChange={setHorizonPct} min={10} max={90} formatValue={v => `${v}%`} accent={ACCENT}/>
+
+      <VisualizationContainer minHeight={180}>
+        <div
+          style={{
+            width: '100%',
+            background: img ? 'var(--k-bg)' : '#fff',
+            borderRadius: '.5rem',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <canvas
+            ref={canvasRef}
+            role="img"
+            aria-label={`${MODE_LABELS[mode]} perspective grid with the horizon at ${horizonPct}% of canvas height${img ? ', drawn over your uploaded image' : ''}. Move points by dragging their dots or using the labeled position controls below.`}
+            aria-describedby="perspective-coordinates"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
+            style={{
+              width: '100%',
+              maxWidth: '480px',
+              height: 'auto',
+              display: 'block',
+              touchAction: 'none',
+              cursor: draggingIndex !== null ? 'grabbing' : 'grab',
+            }}
+          />
+        </div>
+      </VisualizationContainer>
+
+      <p id="perspective-coordinates" className="tool-note">{vps.map((vp, i) => `Point ${i + 1}: horizontal ${Math.round(vp.x / w * 1000) / 10}%, vertical ${Math.round(vp.y / h * 1000) / 10}%`).join(' · ')}. Positions are measured from the top-left; values outside 0–100% are off the canvas.</p>
+      <Insight what={`${MODE_LABELS[mode]} grid · ${MODE_VP_COUNT[mode]} vanishing point${mode === '1-point' ? '' : 's'}`} why={modeLesson} tip="Align your drawing edges with the rays from the matching point. Drag a dot or open Move vanishing points to reposition it; download the PNG as a drawing guide."/>
+      <AdvancedDisclosure summary="Move vanishing points (keyboard or pointer)">
+        {vps.map((vp, index) => <fieldset key={index} className="vp-position"><legend>Point {index + 1}</legend>{(['x', 'y'] as const).map(axis => <RangeControl key={axis} label={`Point ${index + 1} ${axis === 'x' ? 'horizontal' : 'vertical'}`} value={Math.round(vp[axis] / (axis === 'x' ? w : h) * 1000) / 10} onChange={value => positionVp(index, axis, value)} min={-100} max={200} step={.1} formatValue={value => `${value}%`} accent={ACCENT}/>)}</fieldset>)}
+      </AdvancedDisclosure>
+      <AdvancedDisclosure summary="Advanced: image, canvas size and line density">
+      <div style={{ marginBottom: '1.25rem' }}>
+        <label htmlFor="perspective-reference" style={labelStyle}>Reference image (optional)</label>
         <div style={{ display: 'flex', alignItems: 'center', gap: '.75rem', flexWrap: 'wrap' }}>
           <input
+            id="perspective-reference"
             type="file"
             accept="image/*"
             onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
-            style={{ fontSize: '.85rem', color: 'var(--k-text)', fontFamily: "'Mulish', sans-serif" }}
+            style={{ width: '100%', minWidth: 0, fontSize: '.85rem', color: 'var(--k-text)', fontFamily: "'Mulish', sans-serif" }}
           />
           {img && (
             <button
@@ -323,95 +425,8 @@ export default function PerspectiveGridMaker() {
         </div>
       )}
 
-      <div style={{ marginBottom: '1.25rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '.5rem', marginBottom: '.375rem' }}>
-          <label style={{ ...labelStyle, marginBottom: 0 }}>Perspective mode</label>
-          <button
-            onClick={resetVps}
-            disabled={!hasManualVp}
-            title={hasManualVp ? 'Recompute all vanishing points from the mode + horizon' : 'Drag a vanishing point to enable'}
-            style={{
-              background: 'transparent',
-              color: hasManualVp ? 'var(--k-text)' : 'var(--k-text-muted)',
-              border: '1px solid var(--k-border)',
-              padding: '.35rem .75rem',
-              borderRadius: '.5rem',
-              fontSize: '.7rem',
-              fontWeight: 700,
-              cursor: hasManualVp ? 'pointer' : 'default',
-              opacity: hasManualVp ? 1 : 0.5,
-              fontFamily: "'Poppins', sans-serif",
-              textTransform: 'uppercase',
-              letterSpacing: '.06em',
-            }}
-          >
-            Reset vanishing points
-          </button>
-        </div>
-        <div style={{ display: 'flex', gap: '.5rem', flexWrap: 'wrap' }}>
-          {(['1-point', '2-point', '3-point'] as Mode[]).map((m) => (
-            <button
-              key={m}
-              onClick={() => {
-                setMode(m);
-                setDraggingIndex(null);
-              }}
-              style={{
-                background: mode === m ? ACCENT : 'transparent',
-                color: mode === m ? '#fff' : 'var(--k-text-muted)',
-                border: '1px solid ' + (mode === m ? ACCENT : 'var(--k-border)'),
-                padding: '.5rem 1rem',
-                borderRadius: '.5rem',
-                fontSize: '.8rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-                fontFamily: "'Poppins', sans-serif",
-              }}
-            >
-              {MODE_LABELS[m]}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
-        <RangeControl label="Horizon position" value={horizonPct} onChange={setHorizonPct} min={10} max={90} formatValue={(v) => `${v}%`} accent={ACCENT} />
-        <RangeControl label="Lines per vanishing point" value={lineCount} onChange={setLineCount} min={8} max={40} accent={ACCENT} />
-      </div>
-
-      <VisualizationContainer minHeight={280}>
-        <div
-          style={{
-            width: '100%',
-            backgroundImage:
-              'linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%)',
-            backgroundSize: '16px 16px',
-            backgroundPosition: '0 0, 0 8px, 8px -8px, -8px 0px',
-            borderRadius: '.5rem',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <canvas
-            ref={canvasRef}
-            role="img"
-            aria-label={`${MODE_LABELS[mode]} perspective grid with the horizon at ${horizonPct}% of canvas height${img ? ', drawn over your uploaded image' : ''}. Drag any accent-colored dot to move that vanishing point.`}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={endDrag}
-            onPointerCancel={endDrag}
-            style={{
-              width: '100%',
-              maxWidth: '480px',
-              height: 'auto',
-              display: 'block',
-              touchAction: 'none',
-              cursor: draggingIndex !== null ? 'grabbing' : 'grab',
-            }}
-          />
-        </div>
-      </VisualizationContainer>
-
+        <RangeControl label="Line density" value={lineCount} onChange={setLineCount} min={8} max={40} accent={ACCENT}/>
+      </AdvancedDisclosure>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '.75rem', marginTop: '1.5rem' }}>
         <Metric label="Mode" value={MODE_LABELS[mode]} />
         <Metric label="Vanishing points" value={String(MODE_VP_COUNT[mode])} />
@@ -419,11 +434,10 @@ export default function PerspectiveGridMaker() {
       </div>
 
       <div style={{ marginTop: '1.25rem' }}>
-        {mode === '3-point' ? (
+        {mode === '3-point' && vps[2]?.y > h ? (
           <Warning level="info" title="The third VP sits below the frame on purpose">
-            That's the worm's-eye setup: verticals converge downward toward a point beneath the canvas, so its dot
-            won't be visible in the image itself — only the lines heading toward it are. Trace subjects so their
-            vertical edges point down at that off-canvas spot.
+            The third point is outside the canvas, so you see the lines heading toward it rather than its dot.
+            Use Point 3's vertical position control to move it, including back inside the frame.
           </Warning>
         ) : (
           <Warning level="info" title="Trace, don't calculate">

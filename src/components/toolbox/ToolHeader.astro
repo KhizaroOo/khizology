@@ -94,4 +94,12 @@ const family = getFamilyById(tool.family);
     margin: 0 0 0.875rem;
   }
   .th-tags { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+  @media (max-width: 600px) {
+    .tool-header { gap: .75rem; flex-wrap: nowrap; }
+    .th-icon-wrap { width: 40px; height: 44px; font-size: 1.4rem; border-radius: .75rem; }
+    .th-text { min-width: 0; }
+    .th-title { line-height: 1.2; margin-bottom: .5rem; }
+    .th-desc { font-size: .9rem; line-height: 1.5; margin-bottom: .625rem; }
+    .th-badges { margin-bottom: .375rem; }
+  }
 </style>

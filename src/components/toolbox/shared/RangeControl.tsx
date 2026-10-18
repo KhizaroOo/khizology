@@ -41,7 +41,7 @@ export default function RangeControl({ label, value, onChange, min, max, step = 
         step={step}
         value={value}
         onChange={(e) => onChange(parseFloat(e.target.value))}
-        style={{ width: '100%', accentColor: accent, cursor: 'pointer' }}
+        style={{ width: '100%', minHeight: 44, accentColor: accent, cursor: 'pointer' }}
       />
     </div>
   );

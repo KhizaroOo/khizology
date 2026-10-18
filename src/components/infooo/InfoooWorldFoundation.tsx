@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type CSSProperties, type KeyboardEvent, type ReactNode, type RefObject } from 'react';
 import type { InfoooEntity, InfoooGuide, InfoooGuideStep, InfoooKnowledge, InfoooLayer, InfoooMode, InfoooRelationship, InfoooScenario, InfoooWorld } from '../../data/infooo';
 
 const accent = 'var(--infooo-accent, #5CCFAF)';
@@ -9,6 +9,57 @@ export function useInfoooReducedMotion() {
   const [reducedMotion, setReducedMotion] = useState(false);
   useEffect(() => { const media = window.matchMedia('(prefers-reduced-motion: reduce)'); const update = () => setReducedMotion(media.matches); update(); media.addEventListener('change', update); return () => media.removeEventListener('change', update); }, []);
   return reducedMotion;
+}
+
+/** Shared playback only; each world owns its scenes and teaching sequence. */
+export function useInfoooPlayback(last: number, duration = 4500, holdAt?: number) {
+  const reducedMotion = useInfoooReducedMotion();
+  const [step, setStep] = useState(-1);
+  const [playing, setPlaying] = useState(false);
+  const done = step >= last;
+  const held = step === holdAt;
+  const running = playing && !reducedMotion && !done && !held;
+  useEffect(() => {
+    if (!running) return;
+    const timer = window.setTimeout(() => setStep(step + 1), duration);
+    return () => window.clearTimeout(timer);
+  }, [running, step, duration]);
+  useEffect(() => {
+    const pause = () => { if (document.hidden) setPlaying(false); };
+    document.addEventListener('visibilitychange', pause);
+    return () => document.removeEventListener('visibilitychange', pause);
+  }, []);
+  const advance = () => { if (held) return; setPlaying(false); setStep(step < 0 || done ? 0 : step + 1); };
+  function toggle() {
+    if (held) return;
+    if (step < 0 || done) { setStep(0); setPlaying(!reducedMotion); }
+    else if (reducedMotion) advance();
+    else setPlaying(!running);
+  }
+  return { step, done, running, held, toggle, advance, replayFrom: (index: number) => { setPlaying(!reducedMotion); setStep(Math.max(0, Math.min(last, index))); }, pause: () => setPlaying(false), reset: () => { setPlaying(false); setStep(-1); }, label: held ? 'Awaiting approval' : done ? 'Replay' : step < 0 ? 'Play' : reducedMotion ? 'Step' : running ? 'Pause' : 'Play' };
+}
+
+export function useInfoooSceneFollow(step: number, root: RefObject<HTMLElement | null>, layoutKey = 0) {
+  useEffect(() => {
+    if (step < 0 || !window.matchMedia('(max-width: 650px)').matches) return;
+    const object = root.current?.querySelector('[data-current-object="true"]');
+    if (!object) return;
+    const learning = root.current?.parentElement?.querySelector<HTMLElement>('.scene-learning');
+    const inset = learning ? (parseFloat(getComputedStyle(learning).top) || 0) + learning.offsetHeight + 12 : 12;
+    const rect = object.getBoundingClientRect();
+    const target = inset + 12;
+    window.scrollBy({ top: rect.top - target, behavior: 'instant' });
+  }, [step, layoutKey]);
+}
+
+export function InfoooTermNotes({ terms }: { terms: readonly (readonly [string, string])[] }) {
+  if (!terms.length) return null;
+  return <dl className="scene-terms" aria-label="Current stage terms">{terms.slice(0, 3).map(([term, meaning]) => <div key={term}><dt>{term}</dt><dd>{meaning}</dd></div>)}</dl>;
+}
+
+export const infoooDepths = ['Beginner', 'Intermediate', 'Advanced'] as const;
+export function InfoooDepthControl({ depth, onChange }: { depth: number; onChange: (depth: number) => void }) {
+  return <div className="learning-depth" role="radiogroup" aria-label="Knowledge depth">{infoooDepths.map((label, index) => <label key={label}><input type="radio" name="knowledge-depth" value={index} checked={depth === index} onChange={() => onChange(index)}/><span>{label}</span></label>)}</div>;
 }
 
 export function InfoooWorldShell({ world, stage, toolbar, controls, panel, footer }: { world: InfoooWorld; stage: ReactNode; toolbar?: ReactNode; controls?: ReactNode; panel?: ReactNode; footer?: ReactNode }) {
@@ -49,4 +100,4 @@ export function InfoooCompareLayout({ left, right, leftLabel = 'A', rightLabel =
 export function InfoooMobileSheet({ open, title, onClose, children }: { open: boolean; title: string; onClose: () => void; children: ReactNode }) { if (!open) return null; return <section className="infooo-mobile-sheet" role="dialog" aria-modal="true" aria-label={title}><header><h2>{title}</h2><button type="button" onClick={onClose} aria-label="Close details">×</button></header>{children}</section>; }
 export function InfoooLoadingState({ message = 'Preparing the world…', operation }: { message?: string; operation?: string }) { return <div role="status" aria-live="polite" className="infooo-loading"><strong>{message}</strong>{operation && <span>{operation}</span>}</div>; }
 export function InfoooErrorState({ message = 'This world needs a moment.', onRetry }: { message?: ReactNode; onRetry?: () => void }) { return <div role="alert" className="infooo-error"><strong>{message}</strong>{onRetry && <button type="button" onClick={onRetry}>Try again</button>}</div>; }
-export function InfoooSourceDisclosure({ knowledge }: { knowledge?: InfoooKnowledge }) { const sources = knowledge?.sources?.filter(source => source.label && source.url) || []; const rows = [['Fact', knowledge?.fact], ['Model', knowledge?.model], ['Simulation', knowledge?.simulation], ['Limitations', knowledge?.limitations], ['Educational context', knowledge?.educationalContext], ['Last reviewed', knowledge?.lastReviewed]].filter((row): row is [string, string] => Boolean(row[1])); if (!rows.length && !sources.length) return null; return <details className="infooo-sources"><summary>How this world stays honest</summary>{rows.map(([label, value]) => <p key={label}><strong>{label}:</strong> {value}</p>)}{sources.length > 0 && <ul>{sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.label}</a></li>)}</ul>}</details>; }
+export function InfoooSourceDisclosure({ knowledge, plain = false }: { knowledge?: InfoooKnowledge; plain?: boolean }) { const sources = knowledge?.sources?.filter(source => source.label && source.url) || []; const rows = (plain ? [['Real', knowledge?.fact], ['Simplified', knowledge?.simulation], ['Can vary', knowledge?.limitations]] : [['Fact', knowledge?.fact], ['Model', knowledge?.model], ['Simulation', knowledge?.simulation], ['Limitations', knowledge?.limitations], ['Educational context', knowledge?.educationalContext], ['Last reviewed', knowledge?.lastReviewed]]).filter((row): row is [string, string] => Boolean(row[1])); if (!rows.length && !sources.length) return null; return <details className="infooo-sources"><summary>{plain ? 'What’s real, what’s simplified' : 'How this world stays honest'}</summary>{rows.map(([label, value]) => <p key={label}><strong>{label}:</strong> {value}</p>)}{plain && sources.length > 0 && <h2>Sources</h2>}{sources.length > 0 && <ul>{sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.label}</a></li>)}</ul>}</details>; }

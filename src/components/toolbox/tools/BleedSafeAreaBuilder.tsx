@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import './bleed-safe-area.css';
 import InputField from '../shared/InputField';
 import Metric from '../shared/Metric';
 import Insight from '../shared/Insight';
@@ -102,7 +103,7 @@ export default function BleedSafeAreaBuilder() {
   };
 
   return (
-    <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
+    <div className="bleed-workspace" style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: 'clamp(.875rem, 3vw, 1.5rem)' }}>
       <PresetBar<SizePreset>
         presets={SIZE_PRESETS}
         activeLabel={activePreset}
@@ -135,10 +136,11 @@ export default function BleedSafeAreaBuilder() {
             <button
               key={l}
               type="button"
+              aria-pressed={isPortrait === v}
               onClick={() => setOrientation(v)}
               style={{
                 background: isPortrait === v ? '#93B96A' : 'transparent',
-                color: isPortrait === v ? '#fff' : 'var(--k-text-muted)',
+                color: isPortrait === v ? '#17212b' : 'var(--k-text-muted)',
                 border: '1px solid ' + (isPortrait === v ? '#93B96A' : 'var(--k-border)'),
                 padding: '.5rem 1rem',
                 borderRadius: '.5rem',
@@ -175,7 +177,7 @@ export default function BleedSafeAreaBuilder() {
             justifyContent: 'center',
           }}
         >
-          <canvas ref={canvasRef} style={{ width: '100%', maxWidth: '420px', height: 'auto', display: 'block' }} />
+          <canvas ref={canvasRef} role="img" aria-label={`Print guide: ${tw} by ${th} inch trim, ${b} inch bleed outside trim, ${safe} inch safe margin inside trim.`} style={{ background: '#fff', width: '100%', maxWidth: '420px', height: 'auto', display: 'block' }} />
         </div>
       </VisualizationContainer>
 
@@ -237,7 +239,7 @@ export default function BleedSafeAreaBuilder() {
       <div style={{ display: 'flex', gap: '.75rem', flexWrap: 'wrap', marginTop: '1.25rem' }}>
         <button
           onClick={downloadSvgGuide}
-          style={{ background: '#93B96A', color: '#fff', border: 'none', padding: '.6rem 1.5rem', borderRadius: '.5rem', fontWeight: 700, fontSize: '.875rem', fontFamily: "'Poppins', sans-serif", cursor: 'pointer' }}
+          style={{ background: '#93B96A', color: '#17212b', border: 'none', padding: '.6rem 1.5rem', borderRadius: '.5rem', fontWeight: 700, fontSize: '.875rem', fontFamily: "'Poppins', sans-serif", cursor: 'pointer' }}
         >
           Download SVG guide
         </button>

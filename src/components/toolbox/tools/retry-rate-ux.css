@@ -1,0 +1,14 @@
+/* Local presentation only; Phase 3 shared controls and result announcements are reused. */
+.retry-rate-workspace{min-width:0;padding:clamp(.875rem,3vw,1.5rem);background:var(--k-bg-card);border:1px solid var(--k-border);border-radius:1rem;overflow-wrap:anywhere}
+.retry-rate-purpose{margin:0 0 1rem;font-weight:750;line-height:1.6;color:var(--k-text)}
+.retry-rate-note{margin:.75rem 0 1rem;font-size:.8rem;line-height:1.6;color:var(--k-text-muted)}
+.retry-rate-result{margin:1rem 0}
+.retry-rate-core{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:1rem}
+.retry-rate-legend{display:flex;flex-wrap:wrap;gap:.5rem 1rem;margin:.75rem 0;color:var(--k-text-muted);font-size:.8rem}
+.retry-rate-workspace :focus-visible{outline:3px solid var(--k-text);outline-offset:3px}
+.retry-rate-workspace input[type=range],.retry-rate-workspace select{min-height:44px}
+.retry-rate-workspace select{max-width:100%;padding:.4rem;background:var(--k-bg);color:var(--k-text);border:1px solid var(--k-border);border-radius:.5rem}
+.traffic-choice{display:grid;gap:.4rem;margin:0 0 1rem;font-weight:750;color:var(--k-text);font-size:.85rem;max-width:24rem}
+.retry-rate-workspace label:has(input[type=checkbox]){min-height:44px;display:flex;align-items:center;gap:.5rem;line-height:1.5}
+
+.retry-rate-workspace .supporting-metrics,.retry-rate-workspace details>div>div:has(select){grid-column:1/-1}

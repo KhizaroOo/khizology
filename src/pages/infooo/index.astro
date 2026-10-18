@@ -83,11 +83,10 @@ const infoooVoice = voiceForMonsterId('infooo');
   .universe { border:1px solid var(--k-border); border-radius:1.25rem; padding:1.5rem; background:radial-gradient(ellipse at center,color-mix(in srgb,#5CCFAF 12%,transparent),transparent 75%),var(--k-bg-card); }
   .universe-label { display:flex; align-items:center; gap:.6rem; color:var(--k-text-muted); font:600 .75rem Poppins,sans-serif; }
   .signal { width:8px; height:8px; border-radius:50%; background:#397c70; }
-  .universe-nodes { position:relative; display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; padding:2.5rem 0; align-items:center; }
-  .universe-nodes::before { content:''; position:absolute; top:50%; left:10%; right:10%; border-top:2px dashed #5b9f8e; }
-  .universe-node { position:relative; display:block; min-width:0; border:1px solid var(--k-border); border-radius:.8rem; background:var(--k-bg-card); overflow:hidden; color:var(--k-text); text-decoration:none; }
-  .universe-node img { display:block; width:100%; height:auto; background:#eef5f2; }
-  .universe-node > span { display:block; padding:.75rem; font:600 .8rem Poppins,sans-serif; }
+  .universe-nodes { position:relative; display:grid; grid-template-columns:1fr 1fr; column-gap:1.25rem; row-gap:1.5rem; padding:2.5rem 0; align-items:stretch; }
+  .universe-node { position:relative; display:flex; flex-direction:column; min-width:0; border:1px solid var(--k-border); border-radius:.8rem; background:var(--k-bg-card); overflow:hidden; color:var(--k-text); text-decoration:none; }
+  .universe-node img { display:block; width:100%; height:auto; aspect-ratio:5/3; object-fit:contain; background:#eef5f2; }
+  .universe-node > span { display:block; flex:1; padding:.75rem; font:600 .8rem Poppins,sans-serif; }
   .universe-node small { display:block; font-size:.6rem; letter-spacing:.08em; color:var(--k-text-muted); margin-bottom:.3rem; }
   .universe-caption { color:var(--k-text-muted); font-size:.8rem; margin:0; }
   .worlds-section { border-top:1px solid var(--k-border); padding-top:2rem; }
@@ -98,7 +97,7 @@ const infoooVoice = voiceForMonsterId('infooo');
   .category-filters[hidden], .world-card[hidden] { display:none; }
   .category-filters button { flex-shrink:0; }
   .category-filters button:focus-visible, .infooo a:focus-visible { outline:3px solid var(--k-text); outline-offset:4px; }
-  .world-links { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; }
+  .world-links { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:1.5rem; row-gap:1.75rem; }
   .world-card { display:flex; flex-direction:column; border:1px solid var(--k-border); border-radius:1rem; overflow:hidden; background:var(--k-bg-card); color:var(--k-text); text-decoration:none; transition:border-color .18s,box-shadow .18s; }
   .world-preview { position:relative; background:#edf4f1; }
   .world-card:nth-child(even) .world-preview { background:#eef0f7; }
@@ -115,6 +114,6 @@ const infoooVoice = voiceForMonsterId('infooo');
   .filter-status { color:var(--k-text-muted); font-size:.9rem; min-height:1.5em; margin-top:1rem; }
   @media(max-width:1000px) { .infooo-hero { gap:1.5rem; } .universe { padding:1rem; } }
   @media(max-width:800px) { .infooo-hero { grid-template-columns:1fr; padding-bottom:3rem; } .infooo { padding-top:2.5rem; } .world-links { grid-template-columns:1fr; } .universe-nodes { padding:1.5rem 0; } }
-  @media(max-width:600px) { .category-filters { gap:var(--k-filter-gap); flex-wrap:nowrap; overflow-x:auto; } .category-filters button { flex-shrink:0; } .worlds-heading { align-items:start; flex-direction:column; gap:.3rem; } .world-content { padding:1.25rem; } }
+  @media(max-width:600px) { .world-links { row-gap:1.5rem; } .category-filters { gap:var(--k-filter-gap); flex-wrap:nowrap; overflow-x:auto; } .category-filters button { flex-shrink:0; } .worlds-heading { align-items:start; flex-direction:column; gap:.3rem; } .world-content { padding:1.25rem; } }
   @media(prefers-reduced-motion:reduce) { .world-card,.world-preview img { transition:none; } .world-card:hover .world-preview img,.world-card:focus-visible .world-preview img { transform:none; } }
 </style>

@@ -47,3 +47,17 @@ presentation only when semantics match and its API is simpler than the duplicati
 Deployment's release progress and Coding Agent's evidence/repair loop retain distinct
 layouts, completion treatments and reset behavior. Native disclosure/status markup
 alone does not justify a wrapper. Human Atlas and Rubik's Cube keep their own interaction models.
+
+### Visual learning stories (worlds 003 and 004)
+
+The owner's visual review supersedes the rejected text stepper. One idea, one coherent visual scene, one playback action. Start with a title, a one-line promise, the scene and Play. Use comprehension holds, Pause, Step and Replay; reduced motion stays manual with no motion. Keep the current stage and one concise textual equivalent, sources and related-world navigation. No advanced lab, tab system or tutorial stepper. Share playback/presentation only; release and agent intelligence stays local. These are product heuristics, not measured usability claims.
+
+
+### Knowledge depth on one visual world
+
+Worlds 003/004 use Beginner, Intermediate and Advanced as annotation depth, not separate layouts. Switching depth pauses and preserves position. Explicit scenario selection resets the same scene. Playback holds 4.5/5.5/6.5 seconds per state; Step pauses, reduced motion stays manual, and sources explain what is real, simplified or variable. Advanced scenarios are capped at three. Failed release candidates never receive traffic; simulated verification never grants production approval.
+
+
+### Visual clarity and contextual terms
+
+Each visual object owns a fixed region. Connectors use the gaps and outer lanes; no detached completion marks. Current-stage term notes are plain term/meaning pairs, capped at three and replaced as the story advances. Mobile uses a vertical sequence with instant current-object following after playback begins; the existing explanation and controls remain available. Human approval is explicitly simulated, gates progression, and never publishes anything. The Advanced release walkthrough includes a labelled application rollback demonstration; database recovery remains separate.

@@ -12,6 +12,9 @@ export default function AdvancedDisclosure({ children, summary = 'Advanced optio
       <summary
         style={{
           cursor: 'pointer',
+          minHeight: 44,
+          boxSizing: 'border-box',
+          padding: '.65rem 0',
           fontSize: '.8rem',
           fontWeight: 700,
           color: 'var(--k-text-muted)',

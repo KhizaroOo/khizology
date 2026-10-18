@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
+import './capacity-ux.css';
 import RangeControl from '../shared/RangeControl';
 import InputField from '../shared/InputField';
 import Metric from '../shared/Metric';
-import Warning from '../shared/Warning';
 import VisualizationContainer from '../shared/VisualizationContainer';
 import PresetBar from '../shared/PresetBar';
 import AdvancedDisclosure from '../shared/AdvancedDisclosure';
@@ -183,7 +183,7 @@ export default function QueueCapacityPlanner() {
   const showPeakMarker = seriesPeakVal > 0 && peakIndex < TICKS - 1;
 
   return (
-    <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
+    <div className="capacity-workspace">
       <div style={{ font: '800 .76rem Poppins, sans-serif', letterSpacing: '.06em', color: 'var(--k-text-muted)', marginBottom: '.45rem' }}>BACKLOG &amp; DRAIN LAB</div>
       <div
         style={{
@@ -198,9 +198,10 @@ export default function QueueCapacityPlanner() {
       >
         Try a scenario
       </div>
+      <p className="capacity-purpose">Work arriving faster than workers can process it makes the queue grow. Change a rate or worker count to see why.</p>
       <PresetBar presets={PRESETS} activeLabel={activePreset} onSelect={applyPreset} accent="#F7933C" />
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 190px), 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
         <RangeControl
           label="Arrival rate"
           value={arrivalRate}
@@ -210,8 +211,6 @@ export default function QueueCapacityPlanner() {
           formatValue={(v) => `${v}/s`}
           accent="#F7933C"
         />
-        <RangeControl label="Alternative consumers" value={alternativeWorkers} onChange={setAlternativeWorkers} min={1} max={20} accent="#6CA6FF" />
-        <RangeControl label="Downstream safe rate" value={downstreamSafeRate} onChange={setDownstreamSafeRate} min={1} max={200} formatValue={(v) => `${v}/s`} accent="#DF78A0" />
         <RangeControl
           label="Processing rate / worker"
           value={processingRate}
@@ -224,7 +223,131 @@ export default function QueueCapacityPlanner() {
         <RangeControl label="Number of workers" value={workers} onChange={(v) => { setWorkers(v); clearPreset(); }} min={1} max={20} accent="#F7933C" />
       </div>
 
-      <AdvancedDisclosure summary="Spike mode, message size & reverse-solve">
+
+
+      <div className="capacity-result"><Insight what={`${!sim.stable ? 'Queue growing — unsustainable' : spareCapacity === 0 ? 'At capacity — no drain headroom' : sim.utilization >= 80 ? 'Near saturation' : sim.peak > 0 ? 'Capacity healthy — backlog draining' : 'Capacity healthy'}: ${arrivalRate}/s arriving vs ${sim.totalCapacity}/s processing.`} why={`${workers} workers × ${processingRate}/s = ${sim.totalCapacity}/s capacity. ${sim.peak} peak waiters; ${spareCapacity > 0 ? `${spareCapacity}/s steady drain headroom` : 'no spare capacity to drain backlog'}. Queue depth is a buffer, not failure by itself. Waiting depends on throughput, concurrency, ordering, retries, and message mix; this is a FIFO-like simplified model.`} tip={downstreamExceeded ? 'More consumers improve queue capacity here but exceed the selected downstream ceiling. Check the connection pool or reduce intake before scaling blindly.' : !sim.stable ? 'Increase sustainable processing, reduce intake, or both. A larger queue delays capacity limits; it does not create processing capacity.' : spareCapacity === 0 ? 'Add sustainable capacity or reduce arrivals to create drain headroom. Equal average rates cannot drain a backlog.' : sim.peak > 0 ? 'Check the drain timeline; a burst may outlast this 30-second window. Test downstream limits before adding workers.' : 'Keep testing bursts and downstream limits before changing consumer counts.'} /></div>
+      <p className="capacity-flow">Incoming {arrivalRate}/s → {workers} workers ({sim.totalCapacity}/s) → {sim.series.at(-1)} waiting at 30s</p>
+      <div
+        style={{
+          fontSize: '.8rem',
+          fontWeight: 700,
+          color: 'var(--k-text-muted)',
+          textTransform: 'uppercase',
+          letterSpacing: '.06em',
+          fontFamily: "'Poppins', sans-serif",
+          marginBottom: '.5rem',
+        }}
+      >
+        Queue depth over 30 seconds
+      </div>
+
+      <VisualizationContainer minHeight={210} minContentWidth={480}>
+        <svg
+          viewBox={`0 0 ${chartW} ${chartH}`}
+          style={{ width: '100%', maxWidth: `${chartW}px`, height: 'auto' }}
+          role="img"
+          aria-label={`Queue depth across 30 seconds, peaking at ${sim.peak} requests waiting${sim.stable ? `; ${sim.series.at(-1)} remain at 30 seconds` : ' and still climbing'}`}
+        >
+          <defs>
+            <linearGradient id="queueFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={accent} stopOpacity="0.35" />
+              <stop offset="100%" stopColor={accent} stopOpacity="0.02" />
+            </linearGradient>
+          </defs>
+
+          {gridSteps.map((g) => {
+            const y = bottomY - g * plotH;
+            const val = Math.round(g * maxVal);
+            return (
+              <g key={g}>
+                <line x1={padL} x2={chartW - padR} y1={y} y2={y} stroke="var(--k-border)" strokeWidth={1} />
+                <text x={padL - 8} y={y + 3} textAnchor="end" fontSize="16" fill="var(--k-text-muted)" fontFamily="'Mulish', sans-serif">
+                  {val}
+                </text>
+              </g>
+            );
+          })}
+
+          {/* zero-depth baseline, dashed to mark "queue empty" */}
+          <line x1={padL} x2={chartW - padR} y1={bottomY} y2={bottomY} stroke="var(--k-text-muted)" strokeDasharray="4 4" strokeWidth={1.25} />
+
+          {spikeBoundaryX !== null && (
+            <g>
+              <rect x={padL} y={padT} width={Math.max(0, spikeBoundaryX - padL)} height={plotH} fill="#6CA6FF" opacity={0.12} />
+              <text x={padL + 4} y={padT + 12} fontSize="16" fontWeight={700} fill="#6CA6FF" fontFamily="'Poppins', sans-serif">
+                SPIKE WINDOW
+              </text>
+            </g>
+          )}
+
+          <path d={areaPath} fill="url(#queueFill)" />
+          <path d={linePath} fill="none" stroke={accent} strokeWidth={2.5} strokeLinejoin="round" strokeLinecap="round" />
+
+          {points.map((p, i) => (
+            <circle key={i} cx={p.x} cy={p.y} r={i === points.length - 1 ? 4 : 2} fill={accent} />
+          ))}
+
+          {showPeakMarker && (
+            <g>
+              <circle cx={points[peakIndex].x} cy={points[peakIndex].y} r={5} fill="none" stroke={accent} strokeWidth={2} />
+              <text x={points[peakIndex].x} y={points[peakIndex].y - 10} textAnchor="middle" fontSize="16" fontWeight={700} fill={accent} fontFamily="'Poppins', sans-serif">
+                peak {seriesPeakVal}
+              </text>
+            </g>
+          )}
+
+          {tickLabels.map((i) => (
+            <text key={i} x={points[i].x} y={chartH - 10} textAnchor="middle" fontSize="16" fill="var(--k-text-muted)" fontFamily="'Mulish', sans-serif">
+              {i + 1}s
+            </text>
+          ))}
+
+          {!sim.stable && (
+            <text x={points[points.length - 1].x - 6} y={points[points.length - 1].y - 10} textAnchor="end" fontSize="16" fontWeight={700} fill={accent} fontFamily="'Poppins', sans-serif">
+              still climbing ↑
+            </text>
+          )}
+        </svg>
+      </VisualizationContainer>
+
+      <AdvancedDisclosure summary="Supporting metrics & scale-out comparison"><div className="capacity-wide">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '.75rem', marginTop: '1.5rem' }}>
+        <Metric label="Peak queue depth" value={`${sim.peak}`} color={accent} sublabel="requests waiting, worst tick" />
+        <Metric
+          label="Stable?"
+          value={sim.stable ? 'Yes' : 'No — growing'}
+          color={sim.stable ? '#22c55e' : '#ef4444'}
+          sublabel={`${sim.totalCapacity}/s capacity vs ${arrivalRate}/s arrivals`}
+        />
+        <Metric label="Utilization" value={`${sim.utilization.toFixed(0)}%`} color={accent} sublabel="of total processing capacity" />
+        <Metric
+          label="Time to saturation"
+          value={sim.stable ? 'Never' : `Unstable from tick ${(sim.saturationTick ?? 0) + 1}`}
+          color={sim.stable ? '#22c55e' : '#ef4444'}
+          sublabel={sim.stable ? 'capacity keeps up long-term' : 'grows without bound past this point'}
+        />
+        <Metric
+          label="Queue drain time"
+          value={sim.peak <= 0 ? 'No backlog' : sim.drainTicks !== null ? `${sim.drainTicks}s` : 'Does not drain within 30s'}
+          color={sim.peak <= 0 || sim.drainTicks !== null ? '#22c55e' : '#ef4444'}
+          sublabel="ticks from peak back down to zero"
+        />
+        <Metric label="Peak storage estimate" value={storageLabel} color="#6CA6FF" sublabel={`${formatNumber(sim.peak)} msgs × ${formatNumber(messageSizeNum, 1)} KB, rough estimate`} />
+        <Metric label="Spare processing capacity" value={spareCapacity > 0 ? `${spareCapacity}/s` : `${spareCapacity}/s`} color={spareCapacity > 0 ? '#22c55e' : '#ef4444'} sublabel="capacity minus normal arrival rate" />
+        <Metric label="Estimated drain time" value={sim.peak === 0 ? 'No backlog' : estimatedDrainSeconds === null ? 'Will not drain' : `≈ ${estimatedDrainSeconds}s`} sublabel="after peak, under current steady assumptions" />
+      </div>
+
+      <div style={{ marginTop: '1rem', padding: '1rem', border: `1.5px solid ${downstreamExceeded ? '#ef4444' : 'var(--k-border)'}`, borderRadius: '.75rem', background: 'var(--k-bg-elevated)' }}>
+        <div style={{ font: '800 .7rem Poppins, sans-serif', letterSpacing: '.06em', color: 'var(--k-text-muted)' }}>CURRENT VS SCALE-OUT · DOWNSTREAM CEILING</div>
+        <p style={{ margin: '.45rem 0', fontSize: '.85rem' }}><strong>{workers} consumers:</strong> {sim.totalCapacity}/s capacity, peak backlog {sim.peak}. <strong>{alternativeWorkers} consumers:</strong> {alternativeSim.totalCapacity}/s capacity, peak backlog {alternativeSim.peak}.</p>
+        <p style={{ margin: 0, fontSize: '.78rem', color: downstreamExceeded ? '#ef4444' : 'var(--k-text-muted)' }}>Current modeled consumer capacity {sim.totalCapacity}/s {downstreamExceeded ? `exceeds` : `stays within`} your selected downstream safe rate of {downstreamSafeRate}/s. This is an assumption, not a prediction that a downstream system will fail.</p>
+      </div>
+
+</div></AdvancedDisclosure>
+      <AdvancedDisclosure summary="Burst, downstream limits & capacity planning">
+        <RangeControl label="Alternative consumers" value={alternativeWorkers} onChange={setAlternativeWorkers} min={1} max={20} accent="#6CA6FF" />
+        <RangeControl label="Downstream safe rate" value={downstreamSafeRate} onChange={setDownstreamSafeRate} min={1} max={200} formatValue={(v) => `${v}/s`} accent="#DF78A0" />
+
         <RangeControl
           label="Starting queue depth"
           value={startingQueueDepth}
@@ -297,140 +420,6 @@ export default function QueueCapacityPlanner() {
           </div>
         )}
       </AdvancedDisclosure>
-
-      <div
-        style={{
-          fontSize: '.8rem',
-          fontWeight: 700,
-          color: 'var(--k-text-muted)',
-          textTransform: 'uppercase',
-          letterSpacing: '.06em',
-          fontFamily: "'Poppins', sans-serif",
-          marginBottom: '.5rem',
-        }}
-      >
-        Queue depth over 30 seconds
-      </div>
-
-      <VisualizationContainer minHeight={240}>
-        <svg
-          viewBox={`0 0 ${chartW} ${chartH}`}
-          style={{ width: '100%', maxWidth: `${chartW}px`, height: 'auto' }}
-          role="img"
-          aria-label={`Queue depth across 30 seconds, peaking at ${sim.peak} requests waiting${sim.stable ? ' before draining back down' : ' and still climbing'}`}
-        >
-          <defs>
-            <linearGradient id="queueFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={accent} stopOpacity="0.35" />
-              <stop offset="100%" stopColor={accent} stopOpacity="0.02" />
-            </linearGradient>
-          </defs>
-
-          {gridSteps.map((g) => {
-            const y = bottomY - g * plotH;
-            const val = Math.round(g * maxVal);
-            return (
-              <g key={g}>
-                <line x1={padL} x2={chartW - padR} y1={y} y2={y} stroke="var(--k-border)" strokeWidth={1} />
-                <text x={padL - 8} y={y + 3} textAnchor="end" fontSize="10" fill="var(--k-text-muted)" fontFamily="'Mulish', sans-serif">
-                  {val}
-                </text>
-              </g>
-            );
-          })}
-
-          {/* zero-depth baseline, dashed to mark "queue empty" */}
-          <line x1={padL} x2={chartW - padR} y1={bottomY} y2={bottomY} stroke="var(--k-text-muted)" strokeDasharray="4 4" strokeWidth={1.25} />
-
-          {spikeBoundaryX !== null && (
-            <g>
-              <rect x={padL} y={padT} width={Math.max(0, spikeBoundaryX - padL)} height={plotH} fill="#6CA6FF" opacity={0.12} />
-              <text x={padL + 4} y={padT + 12} fontSize="9" fontWeight={700} fill="#6CA6FF" fontFamily="'Poppins', sans-serif">
-                SPIKE WINDOW
-              </text>
-            </g>
-          )}
-
-          <path d={areaPath} fill="url(#queueFill)" />
-          <path d={linePath} fill="none" stroke={accent} strokeWidth={2.5} strokeLinejoin="round" strokeLinecap="round" />
-
-          {points.map((p, i) => (
-            <circle key={i} cx={p.x} cy={p.y} r={i === points.length - 1 ? 4 : 2} fill={accent} />
-          ))}
-
-          {showPeakMarker && (
-            <g>
-              <circle cx={points[peakIndex].x} cy={points[peakIndex].y} r={5} fill="none" stroke={accent} strokeWidth={2} />
-              <text x={points[peakIndex].x} y={points[peakIndex].y - 10} textAnchor="middle" fontSize="10" fontWeight={700} fill={accent} fontFamily="'Poppins', sans-serif">
-                peak {seriesPeakVal}
-              </text>
-            </g>
-          )}
-
-          {tickLabels.map((i) => (
-            <text key={i} x={points[i].x} y={chartH - 10} textAnchor="middle" fontSize="10" fill="var(--k-text-muted)" fontFamily="'Mulish', sans-serif">
-              {i + 1}s
-            </text>
-          ))}
-
-          {!sim.stable && (
-            <text x={points[points.length - 1].x - 6} y={points[points.length - 1].y - 10} textAnchor="end" fontSize="11" fontWeight={700} fill={accent} fontFamily="'Poppins', sans-serif">
-              still climbing ↑
-            </text>
-          )}
-        </svg>
-      </VisualizationContainer>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '.75rem', marginTop: '1.5rem' }}>
-        <Metric label="Peak queue depth" value={`${sim.peak}`} color={accent} sublabel="requests waiting, worst tick" />
-        <Metric
-          label="Stable?"
-          value={sim.stable ? 'Yes' : 'No — growing'}
-          color={sim.stable ? '#22c55e' : '#ef4444'}
-          sublabel={`${sim.totalCapacity}/s capacity vs ${arrivalRate}/s arrivals`}
-        />
-        <Metric label="Utilization" value={`${sim.utilization.toFixed(0)}%`} color={accent} sublabel="of total processing capacity" />
-        <Metric
-          label="Time to saturation"
-          value={sim.stable ? 'Never' : `Unstable from tick ${(sim.saturationTick ?? 0) + 1}`}
-          color={sim.stable ? '#22c55e' : '#ef4444'}
-          sublabel={sim.stable ? 'capacity keeps up long-term' : 'grows without bound past this point'}
-        />
-        <Metric
-          label="Queue drain time"
-          value={sim.peak <= 0 ? 'No backlog' : sim.drainTicks !== null ? `${sim.drainTicks}s` : 'Does not drain within 30s'}
-          color={sim.peak <= 0 || sim.drainTicks !== null ? '#22c55e' : '#ef4444'}
-          sublabel="ticks from peak back down to zero"
-        />
-        <Metric label="Peak storage estimate" value={storageLabel} color="#6CA6FF" sublabel={`${formatNumber(sim.peak)} msgs × ${formatNumber(messageSizeNum, 1)} KB, rough estimate`} />
-        <Metric label="Spare processing capacity" value={spareCapacity > 0 ? `${spareCapacity}/s` : `${spareCapacity}/s`} color={spareCapacity > 0 ? '#22c55e' : '#ef4444'} sublabel="capacity minus normal arrival rate" />
-        <Metric label="Estimated drain time" value={sim.peak === 0 ? 'No backlog' : estimatedDrainSeconds === null ? 'Will not drain' : `≈ ${estimatedDrainSeconds}s`} sublabel="after peak, under current steady assumptions" />
-      </div>
-
-      <div style={{ marginTop: '1rem', padding: '1rem', border: `1.5px solid ${downstreamExceeded ? '#ef4444' : 'var(--k-border)'}`, borderRadius: '.75rem', background: 'var(--k-bg-elevated)' }}>
-        <div style={{ font: '800 .7rem Poppins, sans-serif', letterSpacing: '.06em', color: 'var(--k-text-muted)' }}>CURRENT VS SCALE-OUT · DOWNSTREAM CEILING</div>
-        <p style={{ margin: '.45rem 0', fontSize: '.85rem' }}><strong>{workers} consumers:</strong> {sim.totalCapacity}/s capacity, peak backlog {sim.peak}. <strong>{alternativeWorkers} consumers:</strong> {alternativeSim.totalCapacity}/s capacity, peak backlog {alternativeSim.peak}.</p>
-        <p style={{ margin: 0, fontSize: '.78rem', color: downstreamExceeded ? '#ef4444' : 'var(--k-text-muted)' }}>Current modeled consumer capacity {sim.totalCapacity}/s {downstreamExceeded ? `exceeds` : `stays within`} your selected downstream safe rate of {downstreamSafeRate}/s. This is an assumption, not a prediction that a downstream system will fail.</p>
-      </div>
-
-      <div style={{ marginTop: '1.25rem' }}>
-        {!sim.stable ? (
-          <Warning level="danger" title="Your queue will grow forever at this rate — you need more capacity, not more queue">
-            Workers can only clear {sim.totalCapacity} requests/sec, but {arrivalRate}/sec keep arriving. Every second the backlog grows by{' '}
-            {arrivalRate - sim.totalCapacity}, forever — a bigger queue just delays the crash, it doesn't prevent it.
-          </Warning>
-        ) : sim.utilization >= 80 ? (
-          <Warning level="warn" title="Close to saturation — a spike will start piling up fast">
-            You're running at {sim.utilization.toFixed(0)}% of capacity. The queue drains at this steady rate, but there's little headroom left for
-            a burst before depth starts climbing.
-          </Warning>
-        ) : (
-          <Warning level="good" title="Comfortably stable — capacity clears the queue with room to spare">
-            Workers process {sim.totalCapacity} requests/sec against {arrivalRate}/sec arriving, so the queue never builds up under steady load.
-          </Warning>
-        )}
-      </div>
-      <div style={{ marginTop: '1rem' }}><Insight what={!sim.stable ? `Arrivals exceed modeled capacity by ${arrivalRate - sim.totalCapacity}/s, so backlog keeps growing.` : sim.peak > 0 ? `A temporary backlog peaks at ${sim.peak} and has ${spareCapacity}/s of steady drain capacity.` : 'The modeled queue remains empty under steady load.'} why={`Queue depth is a buffer, not failure by itself. Waiting depends on throughput, concurrency, ordering, retries, and message mix; this is a FIFO-like simplified model.`} tip={downstreamExceeded ? 'More consumers improve queue capacity here but exceed the selected downstream ceiling. Check the connection pool or reduce intake before scaling blindly.' : !sim.stable ? 'Increase sustainable processing, reduce intake, or both. A larger queue delays capacity limits; it does not create processing capacity.' : sim.peak > 0 ? 'The burst drains under current assumptions. Test whether permanent scale-out is necessary before adding consumers.' : 'Keep testing bursts and downstream limits before changing consumer counts.'} /></div>
       <ShareResultFoundation monster="toolooo" contentType="tool" slug="queue-capacity-planner" title="Queue Capacity Planner" result={{ summary: `Educational queue model: ${arrivalRate}/s arriving, ${sim.totalCapacity}/s processing capacity, peak backlog ${sim.peak}, ${workers} consumers, and ${downstreamExceeded ? 'capacity above' : 'capacity within'} a ${downstreamSafeRate}/s downstream assumption.` }} />
     </div>
   );

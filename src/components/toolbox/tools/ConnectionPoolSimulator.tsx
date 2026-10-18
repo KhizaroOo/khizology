@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
+import './capacity-ux.css';
 import RangeControl from '../shared/RangeControl';
 import InputField from '../shared/InputField';
 import Metric from '../shared/Metric';
-import Warning from '../shared/Warning';
 import VisualizationContainer from '../shared/VisualizationContainer';
 import AdvancedDisclosure from '../shared/AdvancedDisclosure';
 import PresetBar from '../shared/PresetBar';
@@ -236,61 +236,21 @@ export default function ConnectionPoolSimulator() {
   const likelyCause = instances > 1 && budget.exceedsBudget ? 'Scale-out pressure' : holdTimeMs >= 500 ? 'Long hold time' : burstDuration > 0 ? 'Traffic pressure' : isAtRisk ? 'Pool limit for this simplified workload' : 'No simulated pressure';
 
   return (
-    <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
+    <div className="capacity-workspace">
       <div style={{ font: '800 .76rem Poppins, sans-serif', letterSpacing: '.06em', color: 'var(--k-text-muted)', marginBottom: '.45rem' }}>POOL PRESSURE LAB</div>
+      <p className="capacity-purpose">Requests need a free connection before database work can start. Compare demand with pool capacity, then check the database budget before scaling.</p>
       <PresetBar presets={SCENARIOS} activeLabel={activeScenario} onSelect={applyScenario} accent="#F7933C" />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
-        <RangeControl label="Pool size (max connections)" value={poolSize} onChange={setPoolSize} min={2} max={50} accent="#F7933C" />
-        <RangeControl label="Incoming request rate" value={requestRate} onChange={setRequestRate} min={1} max={100} formatValue={(v) => `${v}/s`} accent="#F7933C" />
-        <RangeControl label="Avg. connection hold time" value={holdTimeMs} onChange={setHoldTimeMs} min={10} max={1000} step={10} formatValue={(v) => `${v}ms`} accent="#F7933C" />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 190px), 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
+        <RangeControl label="Pool size (max connections)" value={poolSize} onChange={(value) => { setPoolSize(value); setActiveScenario(null); }} min={2} max={50} accent="#F7933C" />
+        <RangeControl label="Incoming request rate" value={requestRate} onChange={(value) => { setRequestRate(value); setActiveScenario(null); }} min={1} max={100} formatValue={(v) => `${v}/s`} accent="#F7933C" />
+        <RangeControl label="Avg. connection hold time" value={holdTimeMs} onChange={(value) => { setHoldTimeMs(value); setActiveScenario(null); }} min={10} max={1000} step={10} formatValue={(v) => `${v}ms`} accent="#F7933C" />
       </div>
 
-      <AdvancedDisclosure summary="Timeouts, connection warm-up & burst traffic">
-        <RangeControl
-          label="Connection timeout"
-          value={timeoutMs}
-          onChange={setTimeoutMs}
-          min={100}
-          max={5000}
-          step={100}
-          formatValue={(v) => `${v}ms`}
-          accent={TIMEOUT_COLOR}
-        />
-        <InputField
-          label="Connection creation time"
-          type="number"
-          step="10"
-          min="0"
-          suffix="ms"
-          value={creationTimeMs}
-          onChange={setCreationTimeMs}
-          placeholder="0 = instant"
-        />
-        <RangeControl
-          label="Burst duration"
-          value={burstDuration}
-          onChange={setBurstDuration}
-          min={0}
-          max={TICKS}
-          formatValue={(v) => (v === 0 ? 'off' : `${v} ticks`)}
-          accent="#6CA6FF"
-        />
-        <RangeControl
-          label="Burst request rate"
-          value={burstRequestRate}
-          onChange={setBurstRequestRate}
-          min={1}
-          max={300}
-          formatValue={(v) => `${v}/s`}
-          accent="#6CA6FF"
-        />
-        <RangeControl label="App instances" value={instances} onChange={setInstances} min={1} max={20} formatValue={(v) => `${v} instance${v === 1 ? '' : 's'}`} accent="#DF78A0" />
-        <RangeControl label="Database max connections" value={databaseMaxConnections} onChange={setDatabaseMaxConnections} min={20} max={500} step={10} accent="#DF78A0" />
-        <RangeControl label="Database headroom" value={databaseHeadroom} onChange={setDatabaseHeadroom} min={0} max={Math.max(0, databaseMaxConnections - 1)} step={5} accent="#DF78A0" />
-        <RangeControl label="Alternative pool size" value={alternativePoolSize} onChange={setAlternativePoolSize} min={2} max={50} accent="#6CA6FF" />
-      </AdvancedDisclosure>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(160px, .65fr)', gap: '1rem', alignItems: 'center', margin: '1.1rem 0', padding: '1rem', background: 'var(--k-bg-elevated)', borderRadius: '.75rem', border: '1px solid var(--k-border)' }}>
+
+      <div className="capacity-result"><Insight what={`${budget.exceedsBudget ? 'Database budget at risk' : hasTimeouts ? 'Pool saturated — acquisition timeouts' : isQueuing ? 'Requests waiting' : sim.exhaustionEvents > 0 ? 'Pool at capacity' : 'Pool healthy'}: ${Math.ceil(sim.maxWaiting)} peak waiters; ${Math.ceil(sim.totalTimedOut)} acquisition timeouts.`} why={`${requestRate}/s arriving; ${poolSize} connections held for ${holdTimeMs}ms provide ${sim.totalThroughput.toFixed(1)}/s warmed-up capacity. ${budget.potentialAppConnections} potential app connections vs ${budget.availableBudget} available database budget. ${likelyCause} is the simulated pressure lens. A waiting caller has not started database work, and a pool acquisition timeout is distinct from a query timeout.`} tip={budget.exceedsBudget ? `Scaling ${budget.instances} instances with ${poolSize} slots creates ${budget.potentialAppConnections} potential application connections, above the ${budget.availableBudget} selected database budget. Review the budget before increasing the pool.` : holdTimeMs >= 500 ? 'Reduce query or transaction hold time and check disposal before increasing pool size. A long-held connection does not itself prove a leak.' : isAtRisk ? 'Test whether a modest pool increase removes burst waiting without consuming database headroom; do not treat a larger pool as a universal fix.' : 'Keep headroom for operations and other workloads. Test bursts and scale-out before changing a pool setting.'} /></div>
+      <p className="capacity-flow">Requests → free connection → database work; waiting requests have not started work.</p>
+      <div className="capacity-occupancy">
         <div>
           <div style={{ font: '800 .7rem Poppins, sans-serif', letterSpacing: '.06em', color: 'var(--k-text-muted)', marginBottom: '.55rem' }}>PEAK POOL STATE · BUSY EXECUTES; WAITING DOES NOT</div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.35rem' }} aria-label={`${peakTick.busy} busy and ${peakTick.free} idle connections at the busiest modeled moment`}>
@@ -304,7 +264,7 @@ export default function ConnectionPoolSimulator() {
         </div>
       </div>
 
-      <VisualizationContainer minHeight={300}>
+      <VisualizationContainer minHeight={240} minContentWidth={480}>
         <svg
           viewBox={`0 0 ${chartW} ${topPad + chartH + bottomPad}`}
           style={{ width: '100%', maxWidth: `${chartW}px`, height: 'auto' }}
@@ -343,9 +303,9 @@ export default function ConnectionPoolSimulator() {
 
           {sim.maxWaiting > 0.01 && (
             <text
-              x={peakIndex * (barW + gap) + barW / 2}
+              x={clamp(peakIndex * (barW + gap) + barW / 2, 80, chartW - 80)}
               y={Math.max(timeoutLaneBaseY + 12, poolTopY - Math.min(sim.ticks[peakIndex].waiting * waitingScale, WAIT_LANE_CAP) - 6)}
-              fontSize={9}
+              fontSize={16}
               fontWeight={700}
               fill={WAIT_COLOR}
               textAnchor="middle"
@@ -357,9 +317,9 @@ export default function ConnectionPoolSimulator() {
 
           {sim.maxTimedOut > 0.01 && (
             <text
-              x={peakTimedOutIndex * (barW + gap) + barW / 2}
+              x={clamp(peakTimedOutIndex * (barW + gap) + barW / 2, 80, chartW - 80)}
               y={Math.max(12, timeoutLaneBaseY - Math.min(sim.ticks[peakTimedOutIndex].timedOut * timedOutScale, TIMEOUT_LANE_CAP) - 6)}
-              fontSize={9}
+              fontSize={16}
               fontWeight={700}
               fill={TIMEOUT_COLOR}
               textAnchor="middle"
@@ -376,7 +336,7 @@ export default function ConnectionPoolSimulator() {
               key={i}
               x={i * (barW + gap) + barW / 2}
               y={baselineY + 14}
-              fontSize={9}
+              fontSize={16}
               fill="var(--k-text-muted)"
               textAnchor="middle"
             >
@@ -393,7 +353,51 @@ export default function ConnectionPoolSimulator() {
         <span><span style={{ display: 'inline-block', width: '10px', height: '10px', background: TIMEOUT_COLOR, backgroundImage: 'repeating-linear-gradient(45deg, rgba(255,255,255,.35) 0 2px, transparent 2px 4px)', borderRadius: '2px', marginRight: '.375rem' }} />Requests timed out (waited too long, dropped)</span>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '.75rem', marginTop: '1.5rem' }}>
+      <AdvancedDisclosure summary="Timeouts, connection warm-up & burst traffic">
+        <RangeControl
+          label="Connection timeout"
+          value={timeoutMs}
+          onChange={(value) => { setTimeoutMs(value); setActiveScenario(null); }}
+          min={100}
+          max={5000}
+          step={100}
+          formatValue={(v) => `${v}ms`}
+          accent={TIMEOUT_COLOR}
+        />
+        <InputField
+          label="Connection creation time"
+          type="number"
+          step="10"
+          min="0"
+          suffix="ms"
+          value={creationTimeMs}
+          onChange={(value) => { setCreationTimeMs(value); setActiveScenario(null); }}
+          placeholder="0 = instant"
+        />
+        <RangeControl
+          label="Burst duration"
+          value={burstDuration}
+          onChange={(value) => { setBurstDuration(value); setActiveScenario(null); }}
+          min={0}
+          max={TICKS}
+          formatValue={(v) => (v === 0 ? 'off' : `${v} ticks`)}
+          accent="#6CA6FF"
+        />
+        <RangeControl
+          label="Burst request rate"
+          value={burstRequestRate}
+          onChange={(value) => { setBurstRequestRate(value); setActiveScenario(null); }}
+          min={1}
+          max={300}
+          formatValue={(v) => `${v}/s`}
+          accent="#6CA6FF"
+        />
+        <RangeControl label="App instances" value={instances} onChange={(value) => { setInstances(value); setActiveScenario(null); }} min={1} max={20} formatValue={(v) => `${v} instance${v === 1 ? '' : 's'}`} accent="#DF78A0" />
+        <RangeControl label="Database max connections" value={databaseMaxConnections} onChange={(value) => { setDatabaseMaxConnections(value); setActiveScenario(null); }} min={20} max={500} step={10} accent="#DF78A0" />
+        <RangeControl label="Database headroom" value={databaseHeadroom} onChange={(value) => { setDatabaseHeadroom(value); setActiveScenario(null); }} min={0} max={Math.max(0, databaseMaxConnections - 1)} step={5} accent="#DF78A0" />
+        <RangeControl label="Alternative pool size" value={alternativePoolSize} onChange={setAlternativePoolSize} min={2} max={50} accent="#6CA6FF" />
+      </AdvancedDisclosure>
+      <AdvancedDisclosure summary="Supporting metrics, database budget & comparison"><div className="capacity-wide">      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '.75rem', marginTop: '1.5rem' }}>
         <Metric
           label="Max connections waiting"
           value={sim.maxWaiting > 0.01 ? String(Math.ceil(sim.maxWaiting)) : '0'}
@@ -450,22 +454,7 @@ export default function ConnectionPoolSimulator() {
         Simplified capacity model: connections are treated as one interchangeable, shared pool rather than scheduled individually, so treat these numbers as directional, not exact.
       </p>
 
-      <div style={{ marginTop: '1.25rem' }}>
-        {isAtRisk ? (
-          <Warning level="danger" title="Requests are queuing for a pooled connection">
-            At peak, {Math.ceil(sim.maxWaiting)} request{Math.ceil(sim.maxWaiting) === 1 ? '' : 's'} sat waiting because all {poolSize} connections were checked out. Every incoming request holds a connection for ~{holdTimeMs}ms, so this pool can only push {sim.totalThroughput.toFixed(1)} req/s through — less than the {requestRate}/s arriving
-            {burstDuration > 0 ? ` (${burstRequestRate}/s during the burst)` : ''}.
-            {hasTimeouts && (
-              <> {formatNumber(Math.ceil(sim.totalTimedOut))} of those requests waited past the {timeoutMs}ms timeout and were dropped rather than served.</>
-            )}
-          </Warning>
-        ) : (
-          <Warning level="good" title="No queuing — this pool comfortably keeps up with the load">
-            {poolSize} connections at ~{holdTimeMs}ms each can push {sim.totalThroughput.toFixed(1)} req/s, which covers the {requestRate}/s arriving with room to spare.
-          </Warning>
-        )}
-      </div>
-      <div style={{ marginTop: '1rem' }}><Insight what={isAtRisk ? `The pool saturated for ${sim.exhaustionEvents} of ${TICKS} ticks. ${Math.ceil(sim.maxWaiting)} callers waited for a connection and ${Math.ceil(sim.totalTimedOut)} reached the pool acquisition timeout.` : 'The selected pool stayed below saturation for this bounded workload, so callers did not queue for a connection.'} why={`${likelyCause} is the simulated pressure lens. A waiting caller has not started database work, and a pool acquisition timeout is distinct from a query timeout.`} tip={budget.exceedsBudget ? `Scaling ${budget.instances} instances with ${poolSize} slots creates ${budget.potentialAppConnections} potential application connections, above the ${budget.availableBudget} selected database budget. Review the budget before increasing the pool.` : holdTimeMs >= 500 ? 'Reduce query or transaction hold time and check disposal before increasing pool size. A long-held connection does not itself prove a leak.' : isAtRisk ? 'Test whether a modest pool increase removes burst waiting without consuming database headroom; do not treat a larger pool as a universal fix.' : 'Keep headroom for operations and other workloads. Test bursts and scale-out before changing a pool setting.'} /></div>
+</div></AdvancedDisclosure>
       <ShareResultFoundation monster="toolooo" contentType="tool" slug="connection-pool-simulator" title="Connection Pool Simulator" result={{ summary: `Educational pool model: ${poolSize} slots, ${sim.utilizationPct.toFixed(0)}% utilization, ${Math.ceil(sim.maxWaiting)} peak waiters, ${Math.ceil(sim.totalTimedOut)} pool acquisition timeouts, ${budget.instances} instance(s), and ${budget.potentialAppConnections} potential database connections.` }} />
     </div>
   );

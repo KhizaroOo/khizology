@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useId, useMemo, useState, type KeyboardEvent } from 'react';
 import { trackToolResult } from '../../../utils/analytics';
 import Warning from '../shared/Warning';
 import Metric from '../shared/Metric';
@@ -10,6 +10,7 @@ import InputField from '../shared/InputField';
 import { useLocalPref } from '../shared/useLocalPref';
 import { clamp, formatNumber, safeDiv, safeNumber } from '../shared/mathHelpers';
 import ApiPayloadContractDrift from './ApiPayloadContractDrift';
+import './phase4b.css';
 
 type Level = 'info' | 'warn' | 'danger' | 'good';
 type FindingKind = 'validity' | 'size' | 'depth' | 'casing' | 'nulls' | 'dates' | 'shapes';
@@ -30,11 +31,9 @@ interface KeyShare {
 
 const EXAMPLE = `{
   "user_id": 42,
-  "userName": "khizooo",
-  "email": null,
-  "createdAt": "2024-01-15T10:00:00Z",
+  "displayName": "Example user",
+  "avatar": null,
   "signupDate": "03/04/2024",
-  "bio": "Long-time backend engineer, loves distributed systems and terrible puns about latency.",
   "items": [
     { "id": 1, "title": "First" },
     { "id": 2, "name": "Second" }
@@ -325,8 +324,9 @@ const labelStyle = {
 
 export default function ApiPayloadDoctor() {
   const [mode, setMode] = useState<'diagnose' | 'contract-drift'>('diagnose');
-  const [raw, setRaw] = useState('');
-  const [diagnosedRaw, setDiagnosedRaw] = useState('');
+  const id = useId();
+  const [raw, setRaw] = useState(EXAMPLE);
+  const [diagnosedRaw, setDiagnosedRaw] = useState(EXAMPLE);
   const [fileError, setFileError] = useState<string | null>(null);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
 
@@ -373,29 +373,43 @@ export default function ApiPayloadDoctor() {
   const gzipRange = result ? estimateGzipRange(result.bytes) : { low: 0, high: 0 };
   const requestsPerDayNum = clamp(safeNumber(requestsPerDayStr, 0), 0, 1_000_000_000);
 
+  const inputInvalid = raw === diagnosedRaw && topIssue?.kind === 'validity';
+  function navigateTabs(event: KeyboardEvent<HTMLButtonElement>) {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 'diagnose' : event.key === 'End' ? 'contract-drift' : mode === 'diagnose' ? 'contract-drift' : 'diagnose';
+    setMode(next);
+    event.currentTarget.parentElement?.querySelector<HTMLButtonElement>(`[data-mode="${next}"]`)?.focus();
+  }
   return (
-    <div>
+    <div className="api-doctor">
+      <p className="tool-purpose">Paste an API response and find structural problems. Start with the small example below, or replace it with your own JSON.</p>
       <div role="tablist" aria-label="API Payload Doctor mode" style={{ display: 'flex', gap: '.5rem', marginBottom: '.85rem', flexWrap: 'wrap' }}>
-        {(['diagnose', 'contract-drift'] as const).map((nextMode) => <button key={nextMode} type="button" role="tab" aria-selected={mode === nextMode} onClick={() => setMode(nextMode)} style={{ minHeight: 38, border: `1px solid ${mode === nextMode ? '#DF78A0' : 'var(--k-border)'}`, borderRadius: '.5rem', padding: '.45rem .75rem', background: mode === nextMode ? 'color-mix(in srgb, #DF78A0 12%, var(--k-bg-card))' : 'var(--k-bg-card)', color: mode === nextMode ? '#C3355E' : 'var(--k-text)', cursor: 'pointer', font: '800 .73rem Poppins, sans-serif' }}>{nextMode === 'diagnose' ? 'Diagnose' : 'Contract Drift'}</button>)}
+        {(['diagnose', 'contract-drift'] as const).map(nextMode => <button key={nextMode} id={`${id}-tab-${nextMode}`} data-mode={nextMode} type="button" role="tab" tabIndex={mode === nextMode ? 0 : -1} aria-selected={mode === nextMode} aria-controls={`${id}-panel-${nextMode}`} onKeyDown={navigateTabs} onClick={() => setMode(nextMode)} style={{ minHeight: 44, border: `1px solid ${mode === nextMode ? '#DF78A0' : 'var(--k-border)'}`, borderRadius: '.5rem', padding: '.45rem .75rem', background: mode === nextMode ? 'color-mix(in srgb, #DF78A0 12%, var(--k-bg-card))' : 'var(--k-bg-card)', color: 'var(--k-text)', cursor: 'pointer', font: '800 .73rem Poppins, sans-serif' }}>{nextMode === 'diagnose' ? 'Diagnose' : 'Contract Drift'}</button>)}
       </div>
-      {mode === 'contract-drift' ? <ApiPayloadContractDrift /> : <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
+      <div role="tabpanel" id={`${id}-panel-diagnose`} aria-labelledby={`${id}-tab-diagnose`} hidden={mode !== 'diagnose'}>
+      {mode === 'diagnose' && <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: 'clamp(.875rem, 3vw, 1.5rem)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '.75rem', flexWrap: 'wrap', gap: '.5rem' }}>
-        <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1.15rem', color: 'var(--k-text)', margin: 0 }}>
-          Paste your payload
-        </h2>
+        <label htmlFor={`${id}-payload`} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1.15rem', color: 'var(--k-text)', margin: 0 }}>
+          JSON payload
+        </label>
         <button
           onClick={loadExample}
           style={{ background: 'transparent', border: '1px solid var(--k-border)', color: 'var(--k-text-muted)', padding: '.4rem .875rem', borderRadius: '.5rem', fontSize: '.78rem', fontWeight: 700, cursor: 'pointer', fontFamily: "'Poppins', sans-serif" }}
         >
-          Load example
+          Try an example
         </button>
       </div>
 
+      <p id={`${id}-help`} className="tool-note">Example data is fictional. Payloads stay in browser memory; they are not saved or sent.</p>
       <textarea
+        id={`${id}-payload`}
+        aria-describedby={`${id}-help${inputInvalid ? ` ${id}-error` : ''}`}
+        aria-invalid={inputInvalid || undefined}
         value={raw}
         onChange={(e) => setRaw(e.target.value)}
         placeholder="Paste a JSON request or response body here…"
-        rows={12}
+        rows={8}
         style={{
           width: '100%',
           padding: '.875rem',
@@ -405,19 +419,20 @@ export default function ApiPayloadDoctor() {
           color: 'var(--k-text)',
           fontSize: '.82rem',
           fontFamily: "'Courier New', monospace",
-          outline: 'none',
           boxSizing: 'border-box',
           resize: 'vertical',
         }}
       />
 
+      {inputInvalid && <p id={`${id}-error`} className="tool-note">Invalid JSON — fix the syntax, then diagnose again.</p>}
+      {raw !== diagnosedRaw && <p role="status" className="tool-note">Input edited. Diagnose again to update the result below.</p>}
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginTop: '1rem' }}>
         <button
+          className="payload-action"
           onClick={run}
           disabled={!raw.trim()}
           style={{
             background: raw.trim() ? '#DF78A0' : 'var(--k-border)',
-            color: '#fff',
             border: 'none',
             padding: '.6rem 1.5rem',
             borderRadius: '.5rem',
@@ -434,59 +449,6 @@ export default function ApiPayloadDoctor() {
         </span>
       </div>
 
-      <AdvancedDisclosure summary="Advanced: upload a file, target context, traffic estimate">
-        <div>
-          <label style={labelStyle}>Load from a .json file</label>
-          <input
-            type="file"
-            accept="application/json,.json"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) handleFile(file);
-              e.target.value = '';
-            }}
-            style={{ fontSize: '.8rem', color: 'var(--k-text)', width: '100%' }}
-          />
-          {uploadedFileName && !fileError && (
-            <div style={{ fontSize: '.72rem', color: 'var(--k-text-muted)', marginTop: '.35rem' }}>Loaded: {uploadedFileName}</div>
-          )}
-          {fileError && (
-            <div style={{ fontSize: '.72rem', color: '#ef4444', marginTop: '.35rem' }}>{fileError}</div>
-          )}
-        </div>
-
-        <div>
-          <label style={labelStyle}>Target context</label>
-          <PresetBar
-            presets={CONTEXT_PRESETS}
-            activeLabel={meta.label}
-            onSelect={(values: TargetContext) => setTargetContext(values)}
-          />
-        </div>
-
-        <InputField
-          label="Expected requests / day"
-          type="number"
-          min="0"
-          value={requestsPerDayStr}
-          onChange={setRequestsPerDayStr}
-          placeholder="e.g. 50000"
-        />
-
-        <div>
-          <label style={labelStyle}>Compression</label>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '.5rem', fontSize: '.85rem', fontWeight: 700, color: 'var(--k-text)', cursor: 'pointer', fontFamily: "'Poppins', sans-serif" }}>
-            <input
-              type="checkbox"
-              checked={estimateGzip}
-              onChange={(e) => setEstimateGzip(e.target.checked)}
-              style={{ accentColor: '#DF78A0', width: '16px', height: '16px' }}
-            />
-            Estimate gzip size
-          </label>
-        </div>
-      </AdvancedDisclosure>
-
       {result && (
         <div style={{ marginTop: '1.5rem' }}>
           <div style={{ marginBottom: '1.25rem' }}>
@@ -498,12 +460,14 @@ export default function ApiPayloadDoctor() {
               />
             ) : (
               <Insight
-                what="No major issues found"
+                what="No major structural concerns found"
                 why={`This payload parses cleanly, keeps consistent key casing, isn't unusually deep, and stays under the ~${formatBytes(meta.thresholdBytes)} guideline for a ${meta.label} target.`}
+                tip="Check this response against the consumer’s expected contract; these heuristics do not prove business correctness."
               />
             )}
           </div>
 
+          <AdvancedDisclosure summary="Details: all checks and size breakdown">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '.75rem', marginBottom: '1.25rem' }}>
             <Metric label="Payload size" value={formatBytes(result.bytes)} />
             {estimateGzip && (
@@ -605,9 +569,66 @@ export default function ApiPayloadDoctor() {
               </Warning>
             ))}
           </div>
+          </AdvancedDisclosure>
         </div>
       )}
+      <AdvancedDisclosure summary="Advanced: upload a file, target context, traffic estimate">
+        <div>
+          <label htmlFor={`${id}-file`} style={labelStyle}>Load from a .json file</label>
+          <input
+            id={`${id}-file`}
+            type="file"
+            accept="application/json,.json"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) handleFile(file);
+              e.target.value = '';
+            }}
+            style={{ fontSize: '.8rem', color: 'var(--k-text)', width: '100%' }}
+          />
+          {uploadedFileName && !fileError && (
+            <div style={{ fontSize: '.72rem', color: 'var(--k-text-muted)', marginTop: '.35rem' }}>Loaded: {uploadedFileName}</div>
+          )}
+          {fileError && (
+            <div role="alert" style={{ fontSize: '.72rem', color: 'var(--k-text)', marginTop: '.35rem' }}>{fileError}</div>
+          )}
+        </div>
+
+        <div>
+          <label style={labelStyle}>Target context</label>
+          <PresetBar
+            presets={CONTEXT_PRESETS}
+            activeLabel={meta.label}
+            onSelect={(values: TargetContext) => setTargetContext(values)}
+          />
+        </div>
+
+        <InputField
+          label="Expected requests / day"
+          type="number"
+          min="0"
+          value={requestsPerDayStr}
+          onChange={setRequestsPerDayStr}
+          placeholder="e.g. 50000"
+        />
+
+        <div>
+          <label style={labelStyle}>Compression</label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '.5rem', fontSize: '.85rem', fontWeight: 700, color: 'var(--k-text)', cursor: 'pointer', fontFamily: "'Poppins', sans-serif" }}>
+            <input
+              type="checkbox"
+              checked={estimateGzip}
+              onChange={(e) => setEstimateGzip(e.target.checked)}
+              style={{ accentColor: '#DF78A0', width: '16px', height: '16px' }}
+            />
+            Estimate gzip size
+          </label>
+        </div>
+      </AdvancedDisclosure>
+
       </div>}
+      </div>
+      <div role="tabpanel" id={`${id}-panel-contract-drift`} aria-labelledby={`${id}-tab-contract-drift`} hidden={mode !== 'contract-drift'}>{mode === 'contract-drift' && <ApiPayloadContractDrift/>}</div>
     </div>
   );
 }

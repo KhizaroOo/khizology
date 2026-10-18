@@ -1,0 +1,16 @@
+/* Local polish only; shared Toolooo presentation stays unchanged. */
+.api-doctor,.perspective-grid{min-width:0;overflow-wrap:anywhere}
+.api-doctor :focus-visible,.perspective-grid :focus-visible{outline:3px solid var(--k-text);outline-offset:3px}
+.api-doctor .tool-purpose,.perspective-grid .tool-purpose{margin:0 0 1rem;color:var(--k-text);font-weight:700;line-height:1.6}
+.api-doctor .tool-note,.perspective-grid .tool-note{font-size:.8rem;line-height:1.6;color:var(--k-text-muted);margin:.65rem 0 1rem}
+.perspective-grid input[type=range]{min-height:44px}
+.perspective-grid .vp-position{min-width:0;margin:0;padding:.75rem;border:1px solid var(--k-border);border-radius:.6rem;display:grid;gap:1rem}
+.perspective-grid .vp-position legend{color:var(--k-text);font-weight:750;padding:0 .3rem}
+
+.perspective-modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem}.perspective-modes button{min-width:0;padding-inline:.25rem!important}
+
+.api-doctor .payload-action{color:#2c1824}.api-doctor .payload-action:disabled{color:var(--k-text-muted)}
+
+/* Native upload and checkbox actions keep the same touch target as other controls. */
+.api-doctor input[type=file],.perspective-grid input[type=file],.api-doctor input[type=file]::file-selector-button,.perspective-grid input[type=file]::file-selector-button{min-height:44px}
+.api-doctor label:has(>input[type=checkbox]){min-height:44px}

@@ -89,7 +89,10 @@ const html = fs.readFileSync(new URL('../dist/infooo/app-deployment-journey/inde
 assert.match(html, /<h1[^>]*>How does code become a live app\?<\/h1>/);
 assert.match(html, /https:\/\/khizooology.com\/infooo\/app-deployment-journey\//);
 assert.match(html, /deployment-social\.png/);
-assert.match(html, /Code flows into Build, then Deploy, then Serve, then User/);
+assert.match(html, /class="release-scene" role="img"/);
+for (const label of ['Code', 'Build', 'Deploy', 'Serve', 'User']) assert.match(html, new RegExp(`<strong>${label}</strong>`));
+assert.match(html, />Play<\/button>/);
+assert.ok(!html.includes('id="deployment-depth"'), 'depth remains unavailable before completion');
 assert.match(html, /WebApplication/);
 assert.match(html, /BreadcrumbList/);
 assert.ok(fs.readFileSync(new URL('../dist/sitemap-0.xml', import.meta.url), 'utf8').includes('/infooo/app-deployment-journey/'));
