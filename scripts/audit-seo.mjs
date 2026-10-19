@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
+import { isSiteVerificationFile } from './site-verification.mjs';
 
 const root = process.cwd();
 const dist = join(root, 'dist');
@@ -174,7 +175,7 @@ if (!existsSync(dist)) {
   process.exit(1);
 }
 
-const htmlFiles = walkFiles(dist, '.html');
+const htmlFiles = walkFiles(dist, '.html').filter(file => !isSiteVerificationFile(file));
 const pages = htmlFiles.map((file) => {
   const html = readFileSync(file, 'utf8');
   const route = routeFor(file);

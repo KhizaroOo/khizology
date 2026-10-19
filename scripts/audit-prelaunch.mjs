@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import { stripTypeScriptTypes } from 'node:module';
 import { loadNotooo } from './load-notooo.mjs';
+import { isSiteVerificationFile } from './site-verification.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -75,7 +76,7 @@ function outputForPathname(pathname) {
 if (!fs.existsSync(dist)) throw new Error('dist/ is missing. Run npm run build first.');
 
 const files = walk(dist);
-const htmlFiles = files.filter((file) => file.endsWith('.html'));
+const htmlFiles = files.filter((file) => file.endsWith('.html') && !isSiteVerificationFile(file));
 const htmlByRoute = new Map(htmlFiles.map((file) => [routeFor(file), fs.readFileSync(file, 'utf8')]));
 // This isolated, client-rendered application is shipped alongside Astro pages.
 // It still needs complete metadata, valid assets and a no-script alternative.

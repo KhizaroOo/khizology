@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { isSiteVerificationFile } from './site-verification.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -37,7 +38,7 @@ function assertProductionUrl(value, label) {
 const files = walk(dist);
 const textFiles = files.filter((file) => /\.(?:html|css|js|json|txt|xml)$/i.test(file));
 const text = textFiles.map((file) => fs.readFileSync(file, 'utf8'));
-const htmlFiles = files.filter((file) => file.endsWith('.html'));
+const htmlFiles = files.filter((file) => file.endsWith('.html') && !isSiteVerificationFile(file));
 
 let canonicalUrls = 0;
 let openGraphUrls = 0;
