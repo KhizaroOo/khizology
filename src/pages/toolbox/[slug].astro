@@ -28,6 +28,16 @@ import AsyncMessagingDecisionLab from '../../components/toolbox/tools/AsyncMessa
 import ZeroDowntimeSchemaChangePlanner from '../../components/toolbox/tools/ZeroDowntimeSchemaChangePlanner';
 import ApiChaosPayloadBuilder from '../../components/toolbox/tools/ApiChaosPayloadBuilder';
 import BrowserSecurityPolicyDoctor from '../../components/toolbox/tools/BrowserSecurityPolicyDoctor';
+import ApiErrorContractBuilder from '../../components/toolbox/tools/ApiErrorContractBuilder';
+import PasskeyMigrationPlanner from '../../components/toolbox/tools/PasskeyMigrationPlanner';
+import WorkflowAgentDecisionLab from '../../components/toolbox/tools/WorkflowAgentDecisionLab';
+import CacheStampedeSimulator from '../../components/toolbox/tools/CacheStampedeSimulator';
+import OpenTelemetryTraceDoctor from '../../components/toolbox/tools/OpenTelemetryTraceDoctor';
+import McpToolContractBuilder from '../../components/toolbox/tools/McpToolContractBuilder';
+import AgentPermissionPlanner from '../../components/toolbox/tools/AgentPermissionPlanner';
+import RealTimeTransportDecisionLab from '../../components/toolbox/tools/RealTimeTransportDecisionLab';
+import AgentCostLoopSimulator from '../../components/toolbox/tools/AgentCostLoopSimulator';
+import McpSecurityDoctor from '../../components/toolbox/tools/McpSecurityDoctor';
 import BrowserEventLoopSimulator from '../../components/toolbox/tools/BrowserEventLoopSimulator';
 import ClientStateStorageDecisionLab from '../../components/toolbox/tools/ClientStateStorageDecisionLab';
 import WebPerformanceBudgetPlanner from '../../components/toolbox/tools/WebPerformanceBudgetPlanner';
@@ -165,6 +175,16 @@ const jsonLd = pageSchema({
               {tool.slug === 'zero-downtime-schema-change-planner' && <ZeroDowntimeSchemaChangePlanner client:load />}
               {tool.slug === 'api-chaos-payload-builder' && <ApiChaosPayloadBuilder client:load />}
               {tool.slug === 'browser-security-policy-doctor' && <BrowserSecurityPolicyDoctor client:load />}
+              {tool.slug === 'api-error-contract-builder' && <ApiErrorContractBuilder client:load />}
+              {tool.slug === 'passkey-migration-planner' && <PasskeyMigrationPlanner client:load />}
+              {tool.slug === 'workflow-agent-decision-lab' && <WorkflowAgentDecisionLab client:load />}
+              {tool.slug === 'cache-stampede-simulator' && <CacheStampedeSimulator client:load />}
+              {tool.slug === 'opentelemetry-trace-doctor' && <OpenTelemetryTraceDoctor client:load />}
+              {tool.slug === 'mcp-tool-contract-builder' && <McpToolContractBuilder client:load />}
+              {tool.slug === 'ai-agent-permission-planner' && <AgentPermissionPlanner client:load />}
+              {tool.slug === 'real-time-transport-decision-lab' && <RealTimeTransportDecisionLab client:load />}
+              {tool.slug === 'ai-agent-cost-loop-simulator' && <AgentCostLoopSimulator client:load />}
+              {tool.slug === 'mcp-security-doctor' && <McpSecurityDoctor client:load />}
               {tool.slug === 'browser-event-loop-simulator' && <BrowserEventLoopSimulator client:load />}
               {tool.slug === 'client-state-storage-decision-lab' && <ClientStateStorageDecisionLab client:load />}
               {tool.slug === 'web-performance-budget-planner' && <WebPerformanceBudgetPlanner client:load />}
@@ -338,7 +358,8 @@ const jsonLd = pageSchema({
   .tp-depth > summary { cursor: pointer; font-weight: 700; color: var(--k-text); min-height: 28px; }
   .tp-layout { display: grid; grid-template-columns: 1fr; gap: 2rem; }
   .tp-main { min-width: 0; }
-  @media (min-width: 900px) { .tp-layout { grid-template-columns: 1fr 280px; } }
+  .tp-main :global(.tool-workbench > p) { max-width: 75ch; }
+  @media (min-width: 900px) { .tp-layout { grid-template-columns: minmax(0, 1fr) 280px; } }
 
   .tp-about { background: var(--k-bg-card); border: 1px solid var(--k-border); border-radius: 1rem; padding: 1.5rem; margin-top: 1.5rem; }
   .tp-section-h2 { font-family: 'Poppins', sans-serif; font-size: 1.0625rem; font-weight: 800; color: var(--k-text); margin: 0 0 .875rem; }

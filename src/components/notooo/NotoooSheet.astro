@@ -78,6 +78,7 @@ const sections = [book.bigIdea, ...book.sections];
   .points li::marker { color: var(--notooo-color); }
   .take { margin-top: .25rem; border-top: 2px solid var(--ink); }
   .remember { border-top-color: var(--ink); }
-  .sheet-footer { display: flex; justify-content: space-between; gap: .75rem; margin-top: .3rem; padding-top: 1rem; border-top: 1px solid var(--ink); color: #575757; font: 800 .64rem Poppins, sans-serif; letter-spacing: .075em; }
+  .sheet-footer { display: flex; justify-content: space-between; gap: .75rem; margin-top: .3rem; padding-top: 1rem; border-top: 1px solid var(--ink); color: #575757; font: 800 .64rem/1.5 Poppins, sans-serif; letter-spacing: .075em; }
+  .sheet-footer > span { white-space: nowrap; }
   @media (max-width: 720px) { .sheet { width: 100%; padding: 0 1.25rem 1.5rem; font-size: 1rem; line-height: 1.55; } .sheet-header { gap: .75rem; padding: 1rem 0 1.25rem; } .metadata { font-size: .62rem; } .title-area { padding: 1.8rem 0 1.35rem; } .title-area h1, .title-area h2 { font-size: clamp(2.35rem, 11vw, 3.7rem); } .document-section { grid-template-columns: 1.75rem minmax(0, 1fr); gap: .65rem; padding: 1rem 0; } .section-number { font-size: 1rem; } .section-title { font-size: .75rem; } .sheet-footer { align-items: flex-start; flex-direction: column; gap: .25rem; } }
 </style>

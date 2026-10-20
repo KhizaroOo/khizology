@@ -1118,5 +1118,578 @@
       "the-innovators",
       "braiding-sweetgrass"
     ]
+  },
+  {
+    "number": 291,
+    "slug": "why-nations-fail",
+    "title": "Why Nations Fail",
+    "author": "Daron Acemoglu & James A. Robinson",
+    "year": 2012,
+    "researchedAt": "2026-10-20",
+    "description": "Examine Acemoglu and Robinson’s institutional explanation of prosperity, political power, innovation, and persistent poverty, with limits on broad historical claims.",
+    "subtitle": "Ask who can participate and who can block change.",
+    "bigIdea": "Acemoglu and Robinson argue that political and economic institutions shape whether opportunity spreads widely or benefits remain concentrated.",
+    "sections": [
+      [
+        "Institutions Are Rules",
+        "Laws and political arrangements shape the opportunities people can use."
+      ],
+      [
+        "Inclusive and Extractive",
+        "The authors contrast broad participation with systems organized to benefit a narrow group."
+      ],
+      [
+        "Power Shapes Economics",
+        "People who control political decisions can protect economic arrangements that favor them."
+      ],
+      [
+        "Innovation Can Threaten Elites",
+        "New activities may be resisted when they threaten existing power or income."
+      ],
+      [
+        "History Creates Paths",
+        "Earlier conflicts and institutional choices influence what later changes become possible."
+      ],
+      [
+        "A Broad, Debated Account",
+        "The thesis emphasizes institutions without settling every dispute about geography, culture, policy, or historical causation."
+      ]
+    ],
+    "take": "When examining a development proposal, ask who can benefit, who can participate, and who has the power to block it.",
+    "remember": "Prosperity depends partly on the rules behind opportunity.",
+    "tags": [
+      "Institutions",
+      "Development",
+      "Power"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Why Nations Fail — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/205014/why-nations-fail-by-daron-acemoglu-and-james-a-robinson/"
+      ],
+      [
+        "official",
+        "All the difference in the world — MIT author interview",
+        "https://news.mit.edu/2012/why-nations-fail-0323"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 292,
+    "slug": "the-narrow-corridor",
+    "title": "The Narrow Corridor",
+    "author": "Daron Acemoglu & James A. Robinson",
+    "year": 2019,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Acemoglu and Robinson’s argument that liberty needs both state capacity and an organized society able to constrain it.",
+    "subtitle": "Protection and constraint must grow together.",
+    "bigIdea": "The authors argue that liberty is sustained through an ongoing balance between a capable state and a society strong enough to hold it accountable.",
+    "sections": [
+      [
+        "Too Little State",
+        "Without effective public authority, people can remain vulnerable to private domination and violence."
+      ],
+      [
+        "Too Much State",
+        "A powerful state without social checks can become oppressive."
+      ],
+      [
+        "An Active Society",
+        "Citizens and organizations help constrain how power is used."
+      ],
+      [
+        "A Moving Balance",
+        "Liberty requires continuing effort rather than one perfect constitutional design."
+      ],
+      [
+        "Norms Can Constrain Too",
+        "Social customs can restrict individuals even where official state power is weak."
+      ],
+      [
+        "No Guaranteed Route",
+        "The corridor is the authors’ historical framework, not a universal sequence or a policy recipe."
+      ]
+    ],
+    "take": "Ask whether a reform strengthens useful public capacity and meaningful ways for people to challenge its misuse.",
+    "remember": "Liberty needs power that can act and people who can constrain it.",
+    "tags": [
+      "Liberty",
+      "Institutions",
+      "Accountability"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Narrow Corridor — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/555400/the-narrow-corridor-by-daron-acemoglu-and-james-a-robinson/"
+      ],
+      [
+        "official",
+        "The permanent struggle for liberty — MIT",
+        "https://news.mit.edu/2019/narrow-corridor-acemoglu-liberty-0924"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 293,
+    "slug": "seeing-like-a-state",
+    "title": "Seeing Like a State",
+    "author": "James C. Scott",
+    "year": 1998,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Scott’s critique of imposed social planning, simplified administrative views, authoritarian power, and the practical knowledge plans can overlook.",
+    "subtitle": "A readable map is not the whole world.",
+    "bigIdea": "Scott argues that large plans can fail catastrophically when simplified official models override local knowledge and people cannot resist or correct them.",
+    "sections": [
+      [
+        "Making Society Legible",
+        "Authorities simplify complex lives and environments into categories they can administer."
+      ],
+      [
+        "Confidence in the Blueprint",
+        "Scott criticizes the belief that a complete design can reliably improve every part of society."
+      ],
+      [
+        "Power Makes Errors Larger",
+        "Authoritarian implementation can impose a mistaken plan across many lives."
+      ],
+      [
+        "Silenced Feedback",
+        "A society unable to object has fewer ways to expose failure or demand correction."
+      ],
+      [
+        "Practical Knowledge",
+        "Experience tied to a particular place can reveal things a formal model misses."
+      ],
+      [
+        "A Critique With Boundaries",
+        "The book challenges coercive simplification rather than proving that all planning or scientific knowledge is harmful."
+      ]
+    ],
+    "take": "Before scaling a plan, identify the local knowledge it excludes and how affected people can report failure or refuse harm.",
+    "remember": "Keep the model open to the people living inside it.",
+    "tags": [
+      "Planning",
+      "Local Knowledge",
+      "Power"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Seeing Like a State — Yale University Press",
+        "https://yalebooks.yale.edu/book/9780300078152/seeing-like-a-state/"
+      ],
+      [
+        "official",
+        "Seeing Like a State — Yale Political Science",
+        "https://politicalscience.yale.edu/publications/seeing-state-how-certain-schemes-improve-human-condition-have-failed"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 294,
+    "slug": "imagined-communities",
+    "title": "Imagined Communities",
+    "author": "Benedict Anderson",
+    "year": 1983,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Anderson’s explanation of nationalism through shared imagination, print markets, language, and belonging among people who never meet.",
+    "subtitle": "Imagined does not mean unreal.",
+    "bigIdea": "Anderson argues that nations become possible through shared ways of imagining connection among people who will never know most of their fellow members.",
+    "sections": [
+      [
+        "Beyond Face-to-Face Groups",
+        "National belonging can connect strangers who never meet."
+      ],
+      [
+        "Shared Imagination",
+        "Calling a community imagined describes how belonging is formed, not whether its effects are real."
+      ],
+      [
+        "Print and Markets",
+        "Anderson links publishing businesses and print technology with new shared reading publics."
+      ],
+      [
+        "Common Languages",
+        "Widely circulated written languages help people recognize a common public world."
+      ],
+      [
+        "History and Belonging",
+        "Changing ideas of time, authority, and community help explain nationalism’s spread."
+      ],
+      [
+        "A Theory, Not Every Nation’s Story",
+        "The argument is influential but should not flatten different colonial and regional experiences into one route."
+      ]
+    ],
+    "take": "Notice the media, language, and repeated stories through which a large group comes to feel like a shared community.",
+    "remember": "People can share belonging without sharing personal acquaintance.",
+    "tags": [
+      "Nationalism",
+      "Identity",
+      "Media"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Imagined Communities — Verso",
+        "https://www.versobooks.com/products/1126-imagined-communities"
+      ],
+      [
+        "author",
+        "The Origins of National Consciousness — authorized Anderson excerpt",
+        "https://www.versobooks.com/blogs/news/4812-the-origins-of-national-consciousness"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 295,
+    "slug": "capital-in-the-twenty-first-century",
+    "title": "Capital in the Twenty-First Century",
+    "author": "Thomas Piketty",
+    "year": 2013,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Piketty’s historical study of income and wealth, inheritance, capital returns, growth, and the limits of treating r > g as a universal prediction.",
+    "subtitle": "Wealth and income tell different stories.",
+    "bigIdea": "Piketty uses historical data to argue that wealth concentration depends on economic forces together with political shocks, institutions, and policy choices.",
+    "sections": [
+      [
+        "Wealth Versus Income",
+        "Owned assets are different from the money received over a period."
+      ],
+      [
+        "A Long Historical View",
+        "The book compares distributions across countries and centuries rather than only recent averages."
+      ],
+      [
+        "Inheritance Matters",
+        "Accumulated assets can shape opportunities beyond the person who first earned or acquired them."
+      ],
+      [
+        "What r Greater Than g Means",
+        "Returns on capital exceeding economic growth can help accumulated wealth become more important."
+      ],
+      [
+        "Not a Mechanical Law",
+        "Piketty says this relationship is neither the sole explanation nor a complete forecast of inequality."
+      ],
+      [
+        "Policy Is Part of the Argument",
+        "His tax proposals and interpretations are debated responses, not conclusions dictated by one equation."
+      ]
+    ],
+    "take": "When comparing economic outcomes, distinguish wages, total income, inherited assets, and the institutions shaping each.",
+    "remember": "An inequality measure needs history and context.",
+    "tags": [
+      "Inequality",
+      "Wealth",
+      "Economic History"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Capital in the Twenty-First Century — Harvard University Press on JSTOR",
+        "https://www.jstor.org/stable/j.ctvjnrvx9"
+      ],
+      [
+        "author",
+        "About Capital in the Twenty-First Century — Thomas Piketty, AER",
+        "https://piketty.pse.ens.fr/files/PikettyAER2015.pdf"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in French in 2013; the English translation by Arthur Goldhammer appeared in 2014.",
+    "seoTitle": "Capital in the Twenty-First Century | Notooo"
+  },
+  {
+    "number": 296,
+    "slug": "the-great-leveler",
+    "title": "The Great Leveler",
+    "author": "Walter Scheidel",
+    "year": 2017,
+    "researchedAt": "2026-10-20",
+    "description": "Examine Scheidel’s argument about violence, catastrophe, and major historical reductions in inequality, without treating destruction as a policy recommendation.",
+    "subtitle": "Greater equality can emerge from terrible events.",
+    "bigIdea": "Scheidel argues that the largest and most lasting historical reductions in inequality have often followed severe violence or catastrophe.",
+    "sections": [
+      [
+        "A Long Comparison",
+        "The book assembles evidence across societies and historical periods."
+      ],
+      [
+        "Four Major Shocks",
+        "Its categories include mass warfare, transformative revolution, state collapse, and catastrophic epidemics."
+      ],
+      [
+        "Different Mechanisms",
+        "Destroyed assets, changed labor conditions, and political upheaval can alter who holds wealth."
+      ],
+      [
+        "Leveling Is Not Prosperity",
+        "A smaller gap can result from enormous losses rather than a better life for everyone."
+      ],
+      [
+        "Gains Can Reverse",
+        "Scheidel argues that inequality often returns as peace and stability resume."
+      ],
+      [
+        "Description Is Not Prescription",
+        "The historical thesis is debated and does not justify violence or prove peaceful reform is pointless."
+      ]
+    ],
+    "take": "When an inequality gap shrinks, ask whether living standards improved or whether destruction simply reduced what people had.",
+    "remember": "Equality through catastrophe is not a desirable victory.",
+    "tags": [
+      "Inequality",
+      "History",
+      "Conflict"
+    ],
+    "sources": [
+      [
+        "official",
+        "The Great Leveler — Stanford book overview",
+        "https://tec.fsi.stanford.edu/publication/great-leveler-violence-and-history-inequality-stone-age-twenty-first-century"
+      ],
+      [
+        "interview",
+        "How pandemics catalyze social and economic change — Walter Scheidel, Stanford",
+        "https://news.stanford.edu/stories/2020/04/pandemics-catalyze-social-economic-change"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 297,
+    "slug": "the-dictators-handbook",
+    "title": "The Dictator's Handbook",
+    "author": "Bruce Bueno de Mesquita & Alastair Smith",
+    "year": 2011,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Bueno de Mesquita and Smith’s model of political survival, essential supporters, public goods, and incentives, without endorsing cynical rule.",
+    "subtitle": "Follow the incentives behind the promise.",
+    "bigIdea": "The authors argue that leaders’ dependence on essential supporters helps explain how they distribute resources and preserve power.",
+    "sections": [
+      [
+        "Survival as the Starting Point",
+        "The model asks what keeps a leader in office before assuming a commitment to the public good."
+      ],
+      [
+        "Essential Supporters",
+        "A leader needs a coalition whose continued support is necessary for remaining in power."
+      ],
+      [
+        "Small Coalitions",
+        "The authors argue that a narrow support base can make targeted private rewards attractive."
+      ],
+      [
+        "Broad Coalitions",
+        "A larger required support base can create stronger incentives to supply widely shared benefits."
+      ],
+      [
+        "Institutions Change Incentives",
+        "Rules about leadership selection influence who must be satisfied."
+      ],
+      [
+        "A Model With Limits",
+        "This simplifying theory does not prove every leader has identical motives or make corrupt behavior acceptable."
+      ]
+    ],
+    "take": "When assessing a policy, ask whose support the decision-maker needs and how that may shape the benefits being offered.",
+    "remember": "The audience a leader answers to matters.",
+    "tags": [
+      "Political Incentives",
+      "Power",
+      "Accountability"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Dictator’s Handbook — PublicAffairs",
+        "https://www.hachettebookgroup.com/titles/bruce-bueno-de-mesquita/the-dictators-handbook/9781541701366/"
+      ],
+      [
+        "interview",
+        "The Dictator’s Handbook — authors at Carnegie Council",
+        "https://www.carnegiecouncil.org/media/series/39/20111208-the-dictators-handbook-why-bad-behavior-is-almost-always-good-politics"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 298,
+    "slug": "the-square-and-the-tower",
+    "title": "The Square and the Tower",
+    "author": "Niall Ferguson",
+    "year": 2017,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Ferguson’s network-based reading of history, informal connections, hierarchy, idea transmission, and the limits of broad historical analogies.",
+    "subtitle": "Power has connections as well as ranks.",
+    "bigIdea": "Ferguson argues that informal networks deserve attention alongside formal hierarchies when explaining historical power and change.",
+    "sections": [
+      [
+        "The Tower",
+        "States, armies, and corporations make formal lines of authority visible."
+      ],
+      [
+        "The Square",
+        "Informal relationships can move ideas and resources beyond official chains of command."
+      ],
+      [
+        "An Archive Bias",
+        "Ferguson suggests that institutions leave records that can make historians overlook less documented connections."
+      ],
+      [
+        "Ideas Travel Through Links",
+        "Connections between groups can help information and beliefs spread."
+      ],
+      [
+        "Networks Are Not Automatically Good",
+        "The same connectedness can support innovation, manipulation, or conflict."
+      ],
+      [
+        "Use the Lens Carefully",
+        "A network explanation requires evidence of actual relationships, not speculation about secret control."
+      ]
+    ],
+    "take": "Map both formal decision-makers and the actual relationships through which information moves, while avoiding unsupported conspiracy claims.",
+    "remember": "A hierarchy chart does not show every source of influence.",
+    "tags": [
+      "Networks",
+      "Power",
+      "History"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Square and the Tower — Niall Ferguson",
+        "https://www.niallferguson.com/the-square-and-the-tower"
+      ],
+      [
+        "publisher",
+        "The Square and the Tower — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/549846/the-square-and-the-tower-by-niall-ferguson/"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in the UK in 2017; the US edition followed in 2018."
+  },
+  {
+    "number": 299,
+    "slug": "the-tyranny-of-merit",
+    "title": "The Tyranny of Merit",
+    "author": "Michael J. Sandel",
+    "year": 2020,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Sandel’s critique of meritocracy, deserved success, credential-based status, luck, and the dignity of work in democratic life.",
+    "subtitle": "Achievement does not measure a person’s worth.",
+    "bigIdea": "Sandel argues that treating success as entirely deserved can produce arrogance among winners and humiliation among those left behind.",
+    "sections": [
+      [
+        "More Than Fair Competition",
+        "Sandel asks whether even a perfectly fair contest would justify every inequality of status."
+      ],
+      [
+        "Luck Enters Achievement",
+        "Family, opportunity, talent, and social demand complicate the idea of being entirely self-made."
+      ],
+      [
+        "Credentials and Recognition",
+        "Educational prestige can become a way of ranking people’s social worth."
+      ],
+      [
+        "The Dignity of Work",
+        "The book asks how contributions can be valued beyond income or a university degree."
+      ],
+      [
+        "Common Life",
+        "Shared public experiences matter to Sandel’s account of democratic solidarity."
+      ],
+      [
+        "A Moral Argument",
+        "His critique and proposals are political philosophy, not proof that effort and expertise have no value."
+      ]
+    ],
+    "take": "Recognize achievement without assuming it proves greater human worth or that everyone else had the same opportunities.",
+    "remember": "Respect should not depend on winning.",
+    "tags": [
+      "Meritocracy",
+      "Dignity",
+      "Political Philosophy"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Tyranny of Merit — Macmillan",
+        "https://us.macmillan.com/books/9781250800060/thetyrannyofmerit/"
+      ],
+      [
+        "official",
+        "The Tyranny of Merit in Education — Harvard author forum",
+        "https://www.gse.harvard.edu/ideas/askwith-education-forum/26/02/askwith-education-forum-explores-tyranny-merit-education"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 300,
+    "slug": "the-sum-of-us",
+    "title": "The Sum of Us",
+    "author": "Heather McGhee",
+    "year": 2021,
+    "researchedAt": "2026-10-20",
+    "description": "Explore McGhee’s argument about racism’s shared economic costs, damaged public goods, zero-sum thinking, and the benefits of cross-racial cooperation.",
+    "subtitle": "Shared gains need not come at someone else’s expense.",
+    "bigIdea": "McGhee argues that racism can undermine public goods for many people, while cross-racial cooperation can create benefits unavailable through division.",
+    "sections": [
+      [
+        "The Zero-Sum Story",
+        "The book challenges the belief that progress for one racial group must harm another."
+      ],
+      [
+        "Public Goods Withdrawn",
+        "McGhee uses examples such as pools and infrastructure to examine the costs of exclusion."
+      ],
+      [
+        "Different Harms",
+        "Shared costs do not mean that racial groups experience identical burdens or histories."
+      ],
+      [
+        "Economic Consequences",
+        "Her account connects racial division with work, housing, education, and other material conditions."
+      ],
+      [
+        "The Solidarity Dividend",
+        "McGhee names the gains people can achieve through cooperation across racial lines."
+      ],
+      [
+        "An Argument to Evaluate",
+        "Her synthesis combines reporting and research; its broad causal and policy conclusions remain arguments to examine."
+      ]
+    ],
+    "take": "When a proposal is framed as one group’s gain against another’s, ask whether cooperation could improve the shared conditions instead.",
+    "remember": "Division can destroy benefits people could have shared.",
+    "tags": [
+      "Racism",
+      "Public Goods",
+      "Solidarity"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Sum of Us — Heather McGhee",
+        "https://heathermcghee.com/"
+      ],
+      [
+        "publisher",
+        "The Sum of Us — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/564989/the-sum-of-us-by-heather-mcghee/9780525509585/"
+      ]
+    ],
+    "relatedBooks": []
   }
 ]

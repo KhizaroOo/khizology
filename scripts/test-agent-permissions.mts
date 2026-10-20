@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {planPermissions as plan,permissionDefaults as d,permissionPresets as presets,permissionCapabilities as capabilities,permissionStates} from '../src/components/toolbox/tools/agentPermissionModel.ts';
+const state=(p:ReturnType<typeof plan>,id:string)=>p.rows.find(r=>r.id===id)!.state;
+const coding=plan(d);assert.equal(state(coding,'repo'),'ALLOW');assert.equal(state(coding,'tests'),'ALLOW WITH LIMITS');assert.equal(state(coding,'push'),'APPROVAL REQUIRED');assert.equal(state(coding,'envFile'),'DENY');
+assert.deepEqual(plan(d),plan(d));assert.equal(new Set(capabilities.map(c=>c.id)).size,capabilities.length);
+for(const preset of Object.values(presets)){const r=plan({...d,...preset});assert.equal(r.rows.length,capabilities.length);assert.equal(r.first.length,3);assert.ok(r.rows.every(row=>permissionStates.includes(row.state)));assert.ok(r.rows.filter(r=>!r.selected).every(r=>r.state==='DENY'));}
+const devops=plan({...d,...presets['DevOps Agent']});for(const id of ['deploy','cloud','dbDelete','prodDb'])assert.equal(state(devops,id),'APPROVAL REQUIRED');
+const support=plan({...d,...presets['Support Agent']});assert.equal(state(support,'private'),'ALLOW WITH LIMITS');assert.equal(state(support,'message'),'APPROVAL REQUIRED');assert.equal(state(support,'accounts'),'APPROVAL REQUIRED');
+const research=plan({...d,...presets['Research Agent']});assert.equal(state(research,'domains'),'ALLOW WITH LIMITS');assert.equal(state(research,'publish'),'DENY');
+const over=plan({...d,environment:'production',selected:['arbitraryShell','secrets','prodDb','internet'],dataScope:'Named prod views',dataAuthorized:true,domains:'api.example.org'});assert.equal(over.risk,'Critical');for(const id of ['arbitraryShell','secrets'])assert.equal(state(over,id),'DENY');assert.ok(over.warnings.some(w=>w.includes('exfiltration')));
+assert.equal(state(plan({...d,selected:['money']}),'money'),'DENY');
+assert.equal(state(plan({...d,selected:['dbWrite'],dataScope:'Reviewed read-only dataset',dataAuthorized:true,dataWrites:false}),'dbWrite'),'CONTEXT REQUIRED');
+assert.equal(state(plan({...d,...presets['Data Agent']}),'dbWrite'),'ALLOW WITH LIMITS');
+assert.equal(plan({...d,selected:['repo']}).risk,'Low');
+assert.equal(state(plan({...d,selected:['edit'],rollback:false}),'edit'),'APPROVAL REQUIRED');
+assert.equal(state(plan({...d,reviewer:false}),'push'),'CONTEXT REQUIRED');
+assert.equal(state(plan({...d,environment:'mixed',segregated:false}),'repo'),'CONTEXT REQUIRED');
+assert.equal(state(plan({...d,selected:['tests'],sandbox:false}),'tests'),'CONTEXT REQUIRED');
+assert.equal(state(plan({...d,selected:['delegate'],childScope:false}),'delegate'),'CONTEXT REQUIRED');
+assert.equal(state(plan({...d,selected:['prodDb'],dataScope:'prod',dataAuthorized:true}),'prodDb'),'CONTEXT REQUIRED');
+assert.equal(state(plan({...d,selected:['selfApprove','shareCredentials'],reviewer:true}),'selfApprove'),'DENY');
+for(const paths of ['', '*','**','./, src/**','*/**, src/**','./**','/','/etc/**','../private/**','src/../../etc','C:\\Windows','~/**'])assert.equal(state(plan({...d,paths}),'repo'),'CONTEXT REQUIRED');
+for(const domains of ['','*','https://example.org','user:secret@example.org','127.0.0.1','api.localhost'])assert.equal(state(plan({...d,selected:['internet'],domains}),'internet'),'CONTEXT REQUIRED');
+assert.equal(state(plan({...d,selected:['publish'],actionScope:'*'}),'publish'),'CONTEXT REQUIRED');
+assert.equal(state(plan({...d,selected:['private'],dataScope:'*',dataAuthorized:true}),'private'),'CONTEXT REQUIRED');
+assert.throws(()=>plan({...d,purpose:''}));assert.throws(()=>plan({...d,purpose:'x'.repeat(501)}));assert.throws(()=>plan({...d,selected:['not-real']}));assert.throws(()=>plan({...d,selected:['repo','repo']}));assert.throws(()=>plan({...d,maxActions:NaN}));assert.throws(()=>plan({...d,maxCalls:1.5}));assert.throws(()=>plan({...d,depth:4}));
+const all=plan({...d,environment:'production',selected:capabilities.map(c=>c.id),dataWrites:true,domains:'api.example.org',dataScope:'Named tenant views',dataAuthorized:true});assert.equal(all.rows.length,capabilities.length);assert.equal(all.risk,'Critical');assert.equal(state(all,'repo'),'ALLOW');for(const id of ['edit','tests','deploy','dbDelete'])assert.equal(state(all,id),'APPROVAL REQUIRED');
+for(const filename of ['AgentPermissionPlanner.tsx','agentPermissionModel.ts']){const src=fs.readFileSync(`src/components/toolbox/tools/${filename}`,'utf8');assert.ok(!/\bfetch\s*\(|localStorage|sessionStorage|URLSearchParams|sendBeacon|\beval\s*\(|new Function/.test(src));}
+const component=fs.readFileSync('src/components/toolbox/tools/AgentPermissionPlanner.tsx','utf8');assert.equal((component.match(/trackToolResult\(\)/g)||[]).length,1);assert.ok(component.includes("setInput(permissionDefaults);setPreset('Coding Agent')"));
+console.log('Permission planner PASS: six presets, all states, high-risk gates, least privilege, conflicts, broad scopes, invalid input, bounds, reset and local-only analytics.');

@@ -3,13 +3,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { prepareSubmission } from './indexnow.mjs';
+import { isSiteVerificationFile } from './site-verification.mjs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)]);
 const files = walk(path.join(root, 'dist')).filter(f => f.endsWith('.html'));
 for (const file of files) {
   const html = fs.readFileSync(file, 'utf8');
   assert.ok(!/<script\b[^>]*src=["'][^"']*(?:googletagmanager|google-analytics)/i.test(html), 'Google must never load from server HTML');
-  if (html.includes('http-equiv="refresh"')) continue;
+  if (isSiteVerificationFile(file) || html.includes('http-equiv="refresh"')) continue;
   if (path.relative(path.join(root, 'dist'), file).split(path.sep).join('/') === 'infooo/human-atlas-viewer/index.html') {
     assert.ok(/<meta\b[^>]*noindex/i.test(html), 'Embedded viewer must stay noindex; preferences belong to the parent world');
     continue;

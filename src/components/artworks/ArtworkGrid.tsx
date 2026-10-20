@@ -218,10 +218,10 @@ export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
         .aw-controls { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
         .aw-search-wrap {
           position: relative; display: flex; align-items: center;
-          background: var(--k-bg-card); border: 1.5px solid var(--k-border);
+          background: var(--k-field-bg); border: 1.5px solid var(--k-field-border);
           border-radius: 0.75rem; padding: 0 1rem; transition: border-color .2s;
         }
-        .aw-search-wrap:focus-within { border-color: #F5CF5C; }
+        .aw-search-wrap:hover, .aw-search-wrap:focus-within { border-color: var(--k-field-hover); }
         .aw-search-icon { font-size: 1rem; opacity: .5; flex-shrink: 0; }
         .aw-search {
           flex: 1; background: transparent; border: none; outline: none;

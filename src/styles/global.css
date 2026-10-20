@@ -27,6 +27,12 @@
   --k-text:           #2A3439;
   --k-text-muted:     #626976;
   --k-border:         #E5E7EB;
+  --k-field-bg:       #FFFFFF;
+  --k-field-border:   #7E8999;
+  --k-field-hover:    #46566D;
+  --k-field-disabled: #EEF0F4;
+  --k-field-invalid:  var(--k-danger);
+  --k-field-scheme:   light;
   --k-shadow:         rgba(42, 52, 57, 0.08);
   --k-accent:         #f82d48;
   --k-accent-dark:    color-mix(in srgb, var(--k-accent) 70%, #000);
@@ -63,6 +69,12 @@ html.dark {
   --k-text:           #E8EAF0;
   --k-text-muted:     #9CA3AF;
   --k-border:         #2D3348;
+  --k-field-bg:       #242C3B;
+  --k-field-border:   #78879E;
+  --k-field-hover:    #A5B4CB;
+  --k-field-disabled: #1A1F2E;
+  --k-field-invalid:  color-mix(in srgb, var(--k-danger) 65%, white);
+  --k-field-scheme:   dark;
   --k-shadow:         rgba(0, 0, 0, 0.4);
 }
 
@@ -87,6 +99,8 @@ html {
 }
 
 body {
+  width: 100%;
+  margin: 0;
   background-color: var(--k-bg);
   color: var(--k-text);
   font-family: 'Mulish', sans-serif;
@@ -99,10 +113,35 @@ a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 input[type='file'] { width: 100%; max-width: 100%; }
 
+/* Color-only adapter for existing component CSS and inline field styles.
+   Important declarations keep these shared colors consistent without overriding layout. */
+:where(input, select, textarea):not(:where([type='checkbox'], [type='radio'], [type='range'], [type='color'], [type='file'], [type='button'], [type='submit'], [type='reset'], [type='image'], [type='hidden'])) {
+  border: 1px solid var(--k-field-border);
+  background-color: var(--k-field-bg) !important;
+  border-color: var(--k-field-border) !important;
+  color: var(--k-text) !important;
+  color-scheme: var(--k-field-scheme);
+
+  &::placeholder { color: var(--k-text-muted) !important; opacity: 1; }
+  &:hover:not(:disabled):not([readonly]) { border-color: var(--k-field-hover) !important; }
+  &:focus-visible {
+    border-color: var(--k-field-hover) !important;
+    outline: 3px solid var(--k-text) !important;
+    outline-offset: 3px;
+  }
+  &:is([aria-invalid='true'], :user-invalid) { border-color: var(--k-field-invalid) !important; }
+  &:disabled {
+    background-color: var(--k-field-disabled) !important;
+    color: var(--k-text-muted) !important;
+    cursor: not-allowed;
+  }
+}
+
 /* ──────────────────────────────────────────────
    UTILITY CLASSES
 ────────────────────────────────────────────── */
 .k-container {
+  width: 100%;
   max-width: var(--k-container-wide);
   margin-inline: auto;
   padding-inline: var(--k-gutter);

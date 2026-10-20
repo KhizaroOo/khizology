@@ -32,3 +32,6 @@ src/data/imagePreviews.json
 # Source-built isolated Human Atlas renderer
 /public/infooo/human-atlas-viewer/human-atlas*.js
 /public/infooo/human-atlas-viewer/assets/geometry-worker-*.js
+
+# Machine-local agent settings may contain credentials
+.claude/settings.local.json

@@ -16,6 +16,6 @@ export default function ShareResultFoundation({ monster, contentType, slug, titl
   };
   return <div className="share-foundation" aria-label={`Share ${title}`}>
     <span>{result ? 'Share result' : 'Share this page'}</span><button className="k-button k-button--secondary" type="button" onClick={share}>Share</button><button className="k-button k-button--secondary" type="button" onClick={copy}>{result ? 'Copy result' : 'Copy link'}</button>
-    <style>{`.share-foundation{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin:1rem 0;color:var(--k-text-muted);font:600 .78rem Poppins,sans-serif}.share-foundation button:focus-visible{outline:3px solid var(--k-accent);outline-offset:2px}@media (prefers-reduced-motion:reduce){.share-foundation *{transition:none!important}}`}</style>
+    <style>{`.share-foundation{display:flex;align-items:center;flex-wrap:wrap;gap:var(--k-action-gap);padding-bottom:var(--k-button-depth);margin:1rem 0;color:var(--k-text-muted);font:600 .78rem Poppins,sans-serif}.share-foundation>span{flex-basis:100%}.share-foundation button:focus-visible{outline:3px solid var(--k-accent);outline-offset:2px}@media (prefers-reduced-motion:reduce){.share-foundation *{transition:none!important}}`}</style>
   </div>;
 }

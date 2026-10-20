@@ -5,12 +5,12 @@
   --k-button-gap: 8px;
   --k-action-gap: 12px;
   --k-filter-gap: 10px;
-  --k-container-wide: 1440px;
+  --k-container-wide: 1700px;
   --k-container-visual: 1500px;
   --k-container-readable: 800px;
   --k-gutter: 36px;
   --k-button-radius: 16px;
-  --k-button-depth: 6px;
+  --k-button-depth: 4px;
   --k-button-edge: #626976;
   --k-button-accent: var(--k-accent);
   --k-button-ink: var(--k-button-dark-ink);
@@ -32,10 +32,10 @@ html.dark { --k-button-edge: #8390a6; --k-button-ink: var(--k-button-dark-ink); 
   padding: .6rem var(--k-button-padding-x) !important;
   border-width: var(--k-button-border) !important;
   border-style: solid !important;
-  border-color: var(--button-edge);
+  border-color: var(--button-edge) !important;
   border-radius: var(--k-button-radius) !important;
-  background: var(--button-fill);
-  color: var(--button-ink);
+  background: var(--button-fill) !important;
+  color: var(--button-ink) !important;
   box-shadow: 0 var(--button-depth) 0 var(--button-edge) !important;
   font: 700 .8rem/1.4 'Poppins', sans-serif !important;
   text-decoration: none;
@@ -69,8 +69,8 @@ html.dark { --k-button-edge: #8390a6; --k-button-ink: var(--k-button-dark-ink); 
   box-shadow: 0 calc(var(--button-depth) + 1px) 0 var(--button-edge) !important;
 }
 :is(.k-button, .tp-main button, .rubik-world button, .infooo-control-group button, .infooo-guide button, .infooo-relationship button, .infooo-mobile-sheet button, .infooo-error button, .infooo-search button, .top-actions button, .layer-presets button, .view-controls button, .panel-foot button, .error button, button.icon-button, .dock-reset, .dock-layers):not(:disabled):not([aria-disabled="true"]):active {
-  transform: translateY(4px) !important;
-  box-shadow: 0 2px 0 var(--button-edge) !important;
+  transform: translateY(min(2px, var(--button-depth))) !important;
+  box-shadow: 0 1px 0 var(--button-edge) !important;
 }
 :is(.k-button, .tp-main button, .rubik-world button, .infooo-control-group button, .infooo-guide button, .infooo-relationship button, .infooo-mobile-sheet button, .infooo-error button, .infooo-search button, .top-actions button, .layer-presets button, .view-controls button, .panel-foot button, .error button, button.icon-button, .dock-reset, .dock-layers):focus-visible { outline: 3px solid var(--k-text, #2A3439) !important; outline-offset: 5px; }
 :is(.k-button, .tp-main button, .rubik-world button, .infooo-control-group button, .infooo-guide button, .infooo-relationship button, .infooo-mobile-sheet button, .infooo-error button, .infooo-search button, .top-actions button, .layer-presets button, .view-controls button, .panel-foot button, .error button, button.icon-button, .dock-reset, .dock-layers):is(:disabled, [aria-disabled="true"]) {

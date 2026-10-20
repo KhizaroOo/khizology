@@ -4130,6 +4130,7 @@ const existingNotoooBooks: NotoooBook[] = [{
 ];
 
 interface NotoooBatchEntry {
+  researchedAt?: string;
   number: number;
   slug: string;
   title: string;
@@ -4151,7 +4152,7 @@ interface NotoooBatchEntry {
 function createNotoooBatch(category: NotoooCategory, entries: NotoooBatchEntry[]): NotoooBook[] {
   return entries.map((entry) => {
     const sources: NotoooSource[] = entry.sources.map(([type, title, url], index) => ({
-      id: `source-${index + 1}`, type: type as NotoooSourceType, title, url, accessedAt: '2026-10-03',
+      id: `source-${index + 1}`, type: type as NotoooSourceType, title, url, accessedAt: entry.researchedAt ?? '2026-10-03',
     }));
     const section = (id: string, title: string, oneLiner: string, points: string[] = []): NotoooEngineSection => ({
       id, title, oneLiner, points, sourceIds: sources.map(source => source.id),
@@ -4167,13 +4168,13 @@ function createNotoooBatch(category: NotoooCategory, entries: NotoooBatchEntry[]
       sections: entry.sections.map(([title, oneLiner, ...points], index) => section(`idea-${index + 1}`, title, oneLiner, points)),
       khizoooTake: { ...section('khizooo-take', 'Khizooo Take', entry.take, category === 'Money' ? ['Educational book ideas, not personalized financial advice or promised returns.'] : category === 'Life' ? ['Book ideas for reflection, not individualized medical or mental-health treatment.'] : []), note: 'Original AI-assisted editorial interpretation; no personal reading experience is claimed.' },
       remember: section('remember', 'Remember', entry.remember), sources,
-      researchConfidence: 'medium', status: 'published', publishedAt: '2026-10-03', relatedBooks: entry.relatedBooks,
+      researchConfidence: 'medium', status: 'published', publishedAt: entry.researchedAt ?? '2026-10-03', relatedBooks: entry.relatedBooks,
     };
   });
 }
 
 export const notoooBooks: NotoooBook[] = [
-  // Existing published 001–127 remain unchanged; completed catalog notes occupy 128–240.
+  // Existing 001–240 remain unchanged; category batches also include the 241–300 expansion.
   ...existingNotoooBooks,
   ...createNotoooBatch('Mind', mindBatch),
   ...createNotoooBatch('Money', moneyBatch),
@@ -4196,7 +4197,14 @@ export function getNotoooBook(slug: string) {
 
 export function relatedNotoooBooks(book: NotoooBook) {
   const ids = new Set(book.relatedBooks || []);
-  return publishedNotoooBooks.filter((candidate) => candidate.id !== book.id && ids.has(candidate.id));
+  if (ids.size) return publishedNotoooBooks.filter((candidate) => candidate.id !== book.id && ids.has(candidate.id));
+  const tags = new Set(book.tags.map(tag => tag.toLowerCase()));
+  return publishedNotoooBooks
+    .filter(candidate => candidate.id !== book.id && candidate.category === book.category)
+    .map(candidate => ({ candidate, overlap: candidate.tags.filter(tag => tags.has(tag.toLowerCase())).length }))
+    .sort((a, b) => b.overlap - a.overlap || a.candidate.number - b.candidate.number)
+    .slice(0, 3)
+    .map(({ candidate }) => candidate);
 }
 
 const datePattern = /^\d{4}-\d{2}-\d{2}$/;

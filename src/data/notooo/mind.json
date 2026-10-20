@@ -1103,5 +1103,584 @@
     "relatedBooks": [
       "peak"
     ]
+  },
+  {
+    "number": 241,
+    "slug": "the-man-who-mistook-his-wife-for-a-hat",
+    "title": "The Man Who Mistook His Wife for a Hat",
+    "author": "Oliver Sacks",
+    "year": 1985,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Sacks’s clinical narratives about recognition, memory, identity, and the person beyond a neurological diagnosis.",
+    "subtitle": "A diagnosis never contains the whole person.",
+    "bigIdea": "Sacks uses unusual neurological experiences to explore how perception, memory, and bodily awareness shape a person’s world.",
+    "sections": [
+      [
+        "Seeing Without Recognizing",
+        "Recognizing a familiar object requires more than receiving an image through the eyes."
+      ],
+      [
+        "A Broken Sense of Time",
+        "Severe memory loss can disrupt continuity even when other abilities remain."
+      ],
+      [
+        "Knowing Your Body",
+        "The feeling of where your limbs are can be disturbed independently of ordinary sight."
+      ],
+      [
+        "Abilities That Remain",
+        "Music, routine, and personal strengths can matter alongside a person’s difficulties."
+      ],
+      [
+        "Stories and Evidence",
+        "These clinical narratives offer interpretation and human context, rather than controlled experiments."
+      ],
+      [
+        "Dignity Before Labels",
+        "Understanding a condition also means noticing how someone adapts to daily life."
+      ]
+    ],
+    "take": "Ask what a person can still do and what helps them participate, rather than stopping at the diagnostic label.",
+    "remember": "A changed mind still belongs to a whole person.",
+    "tags": [
+      "Neurology",
+      "Identity",
+      "Perception"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Man Who Mistook His Wife for a Hat — Oliver Sacks",
+        "https://www.oliversacks.com/oliver-sacks-books/the-man-who-mistook-his-wife-for-a-hat/"
+      ],
+      [
+        "publisher",
+        "The Man Who Mistook His Wife for a Hat — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/691748/the-man-who-mistook-his-wife-for-a-hat-by-oliver-sacks/"
+      ]
+    ],
+    "relatedBooks": [],
+    "seoTitle": "The Man Who Mistook His Wife for a Hat | Notooo"
+  },
+  {
+    "number": 242,
+    "slug": "the-brain-that-changes-itself",
+    "title": "The Brain That Changes Itself",
+    "author": "Norman Doidge",
+    "year": 2007,
+    "researchedAt": "2026-10-20",
+    "description": "Understand Doidge’s accounts of neuroplasticity, learning, adaptation, and the limits of drawing general conclusions from recovery stories.",
+    "subtitle": "Change is possible; outcomes are not promised.",
+    "bigIdea": "Doidge describes how experience and practice can change brain function, challenging the idea of an entirely fixed adult brain.",
+    "sections": [
+      [
+        "A Changing Brain",
+        "Neuroplasticity means that experience can alter connections and patterns of brain activity."
+      ],
+      [
+        "Practice Has Effects",
+        "Repeated activity can strengthen a skill, while unused abilities may become harder to access."
+      ],
+      [
+        "Recovery Stories",
+        "The book follows people and researchers exploring adaptation after injury or difficulty."
+      ],
+      [
+        "Change Has Two Sides",
+        "Patterns can become persistent problems as well as useful skills."
+      ],
+      [
+        "Not Unlimited Repair",
+        "A striking recovery does not show that every condition can be reversed."
+      ],
+      [
+        "Evidence and Context",
+        "Case histories need to be read alongside the limits of the particular methods and people involved."
+      ]
+    ],
+    "take": "Treat a recovery story as a reason to investigate evidence, not a promise that the same method will work for everyone.",
+    "remember": "Plastic does not mean limitless.",
+    "tags": [
+      "Neuroplasticity",
+      "Learning",
+      "Adaptation"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Brain That Changes Itself — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/291041/the-brain-that-changes-itself-by-norman-doidge-md/"
+      ],
+      [
+        "author",
+        "The Brain Can Change Itself — Norman Doidge",
+        "https://normandoidge.com/?page_id=1259"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 243,
+    "slug": "the-blank-slate",
+    "title": "The Blank Slate",
+    "author": "Steven Pinker",
+    "year": 2002,
+    "researchedAt": "2026-10-20",
+    "description": "Examine Pinker’s argument about human nature, inherited capacities, environment, and the distinction between scientific explanation and moral equality.",
+    "subtitle": "Human nature is not a moral instruction.",
+    "bigIdea": "Pinker argues that understanding people requires considering evolved capacities alongside culture and experience.",
+    "sections": [
+      [
+        "Not an Empty Mind",
+        "Pinker challenges the view that experience writes on a mind with no inherited structure."
+      ],
+      [
+        "Nature Meets Experience",
+        "Biological capacities develop through environments rather than operating outside them."
+      ],
+      [
+        "Explanation Is Not Approval",
+        "Explaining a tendency does not make it morally acceptable or impossible to change."
+      ],
+      [
+        "Equal Worth",
+        "Equal rights need not depend on everyone having identical abilities or preferences."
+      ],
+      [
+        "Political Fears",
+        "The book examines why claims about human nature can provoke moral and political concern."
+      ],
+      [
+        "An Argument to Examine",
+        "Pinker’s broad interpretation should not be mistaken for agreement on every scientific or social claim."
+      ]
+    ],
+    "take": "Separate three questions: what evidence suggests, what remains changeable, and what people deserve as a matter of rights.",
+    "remember": "A description of nature does not decide what is right.",
+    "tags": [
+      "Human Nature",
+      "Nature and Nurture",
+      "Equality"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Blank Slate — Steven Pinker",
+        "https://stevenpinker.com/publications/blank-slate-20022016"
+      ],
+      [
+        "publisher",
+        "The Blank Slate — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/290730/the-blank-slate-by-steven-pinker/"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 2002; later editions include a new afterword."
+  },
+  {
+    "number": 244,
+    "slug": "the-tell-tale-brain",
+    "title": "The Tell-Tale Brain",
+    "author": "V. S. Ramachandran",
+    "year": 2011,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Ramachandran’s neurological cases and hypotheses about body image, perception, synesthesia, and the limits of explaining consciousness.",
+    "subtitle": "Unusual cases reveal ordinary hidden work.",
+    "bigIdea": "Ramachandran uses unusual neurological cases to investigate how the brain constructs bodily experience, perception, and a sense of self.",
+    "sections": [
+      [
+        "A Limb Still Felt",
+        "Phantom limbs show that bodily experience depends on brain representations, not only current signals from a limb."
+      ],
+      [
+        "Constructed Vision",
+        "Seeing involves interpreting information rather than simply displaying a picture."
+      ],
+      [
+        "Crossed Experiences",
+        "Synesthesia connects experiences such as symbols and colors in unusual ways."
+      ],
+      [
+        "Learning From Others",
+        "The book explores mirror neurons as one possible clue to social understanding.",
+        "Broad claims about empathy and culture remain hypotheses, not complete explanations."
+      ],
+      [
+        "Art and Meaning",
+        "Ramachandran proposes connections between visual processing and aesthetic responses."
+      ],
+      [
+        "Open Questions",
+        "Clinical observations can inspire theories without settling consciousness or every question about the self."
+      ]
+    ],
+    "take": "Distinguish an observed neurological effect from the larger explanation proposed around it.",
+    "remember": "A revealing case is a clue, not a complete theory.",
+    "tags": [
+      "Neurology",
+      "Perception",
+      "Consciousness"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Tell-Tale Brain: An Exchange — V. S. Ramachandran",
+        "https://www.nybooks.com/articles/2011/06/23/tell-tale-brain-exchange/"
+      ],
+      [
+        "interview",
+        "Brain Tells Tales for Ramachandran — KPBS",
+        "https://www.kpbs.org/news/science-technology/2011/04/07/brain-tells-tales-ramachandran"
+      ],
+      [
+        "review",
+        "The Tell-Tale Brain — Journal of Clinical Investigation review",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3148743/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 245,
+    "slug": "subliminal",
+    "title": "Subliminal",
+    "author": "Leonard Mlodinow",
+    "year": 2012,
+    "researchedAt": "2026-10-20",
+    "description": "Understand Mlodinow’s account of unconscious influences on perception, memory, social impressions, and the stories people tell about their choices.",
+    "subtitle": "Your explanation may arrive after the influence.",
+    "bigIdea": "Mlodinow argues that unconscious processing helps shape judgments that feel fully deliberate.",
+    "sections": [
+      [
+        "Work Outside Awareness",
+        "Much processing happens without a person being able to describe each step."
+      ],
+      [
+        "Perception Fills Gaps",
+        "The mind combines limited signals with expectations to make a usable picture."
+      ],
+      [
+        "Memory Reconstructs",
+        "Remembering involves reconstruction rather than playing an untouched recording."
+      ],
+      [
+        "Quick Social Judgments",
+        "Appearance and context can influence impressions before careful consideration."
+      ],
+      [
+        "Reasons Can Follow",
+        "A convincing explanation for a choice may miss influences the person did not notice."
+      ],
+      [
+        "Influence Is Not Destiny",
+        "These research examples do not prove that every choice is secretly controlled.",
+        "Individual studies and broad unconscious-influence claims deserve separate scrutiny."
+      ]
+    ],
+    "take": "When a judgment matters, check the evidence separately from how immediately right the judgment feels.",
+    "remember": "A clear reason is not always the whole cause.",
+    "tags": [
+      "Unconscious Processing",
+      "Judgment",
+      "Memory"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Subliminal — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/115698/subliminal-by-leonard-mlodinow/"
+      ],
+      [
+        "author",
+        "Articles and interviews — Leonard Mlodinow",
+        "https://leonardmlodinow.com/author/leonardmlodinow/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 246,
+    "slug": "the-memory-illusion",
+    "title": "The Memory Illusion",
+    "author": "Julia Shaw",
+    "year": 2016,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Shaw’s explanation of reconstructive memory, suggestion, false recollections, and why confidence alone cannot establish accuracy.",
+    "subtitle": "Vivid is not the same as verified.",
+    "bigIdea": "Shaw explains how memories can feel convincing while being reshaped by suggestion, other people, and later information.",
+    "sections": [
+      [
+        "Reconstruction",
+        "Remembering rebuilds an event from available details rather than retrieving a perfect recording."
+      ],
+      [
+        "Borrowed Details",
+        "Information from another person can become difficult to distinguish from personal experience."
+      ],
+      [
+        "The Power of Suggestion",
+        "Questions and repeated imagining can influence what someone later recalls."
+      ],
+      [
+        "Confidence and Accuracy",
+        "Feeling certain is not independent confirmation that an event happened as remembered."
+      ],
+      [
+        "High-Stakes Memories",
+        "Confessions and eyewitness accounts need careful questioning and supporting evidence."
+      ],
+      [
+        "Fallible, Not Worthless",
+        "Memory errors do not mean every memory is false or every witness should be dismissed."
+      ]
+    ],
+    "take": "For an important recollection, distinguish remembered details from later additions and seek independent corroboration.",
+    "remember": "Certainty is a feeling; accuracy needs evidence.",
+    "tags": [
+      "Memory",
+      "False Memories",
+      "Evidence"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Memory Illusion — Julia Shaw",
+        "https://www.drjuliashaw.com/thememoryillusion/"
+      ],
+      [
+        "publisher",
+        "The Memory Illusion — Random House book record",
+        "https://books.google.com/books/about/The_Memory_Illusion.html?id=S6l1DAAAQBAJ"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 247,
+    "slug": "why-we-remember",
+    "title": "Why We Remember",
+    "author": "Charan Ranganath",
+    "year": 2024,
+    "researchedAt": "2026-10-20",
+    "description": "Understand Ranganath’s account of selective memory, future planning, meaningful connections, and learning through retrieval and correction.",
+    "subtitle": "Remembering helps you act next.",
+    "bigIdea": "Ranganath explains memory as a selective, changing system that helps people use the past in the present and future.",
+    "sections": [
+      [
+        "Selection Over Storage",
+        "Forgetting some details can keep useful information from being overwhelmed by everything else."
+      ],
+      [
+        "Meaning Creates Connections",
+        "New information becomes easier to access when it connects with knowledge you already have."
+      ],
+      [
+        "Context Supplies Cues",
+        "Places and situations can help bring particular memories to mind."
+      ],
+      [
+        "Retrieval Changes Memory",
+        "Recalling a story can strengthen access while also changing details and perspective."
+      ],
+      [
+        "Learning Through Correction",
+        "Trying to recall, noticing gaps, and correcting them can support learning better than passive repetition."
+      ],
+      [
+        "No Universal Trick",
+        "A method for learning vocabulary may not suit remembering a person’s name."
+      ]
+    ],
+    "take": "After learning something, try recalling it without looking, then correct the gaps and connect it to something meaningful.",
+    "remember": "Memory is useful selection, not perfect storage.",
+    "tags": [
+      "Memory",
+      "Learning",
+      "Attention"
+    ],
+    "sources": [
+      [
+        "author",
+        "Why We Remember — Charan Ranganath",
+        "https://charanranganath.com/book/"
+      ],
+      [
+        "interview",
+        "The science of memory with Charan Ranganath — TED transcript",
+        "https://www.ted.com/podcasts/rethinking-with-adam-grant/the-science-of-memory-with-charan-ranganath-transcript"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 248,
+    "slug": "determined",
+    "title": "Determined",
+    "author": "Robert M. Sapolsky",
+    "year": 2023,
+    "researchedAt": "2026-10-20",
+    "description": "Examine Sapolsky’s case against free will, the layered causes of behavior, and the distinction between causal explanation and practical responsibility.",
+    "subtitle": "Look for causes before assigning desert.",
+    "bigIdea": "Sapolsky argues that behavior arises from prior biological and environmental causes rather than an independent, uncaused will.",
+    "sections": [
+      [
+        "Causes Behind Choices",
+        "Brain activity, development, circumstances, and inherited history all enter the book’s explanation of behavior."
+      ],
+      [
+        "No Isolated Decider",
+        "Sapolsky rejects the idea of a self choosing outside the chain of causes."
+      ],
+      [
+        "A Contested Conclusion",
+        "The meaning and existence of free will remain disputed philosophical questions."
+      ],
+      [
+        "Changing Conditions",
+        "A caused world can still change because learning, support, and institutions are themselves causes."
+      ],
+      [
+        "Punishment and Protection",
+        "The book questions deserved blame while distinguishing it from preventing harm."
+      ],
+      [
+        "Compassion With Boundaries",
+        "Understanding causes need not mean ignoring victims or allowing dangerous conduct."
+      ]
+    ],
+    "take": "Before reducing an action to character, ask which conditions helped produce it and which changes could reduce future harm.",
+    "remember": "Explaining behavior is different from excusing harm.",
+    "tags": [
+      "Free Will",
+      "Behavior",
+      "Responsibility"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Determined — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/592344/determined-by-robert-m-sapolsky/"
+      ],
+      [
+        "interview",
+        "Do we really have free will? — University of Chicago",
+        "https://news.uchicago.edu/do-we-really-have-free-will"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 249,
+    "slug": "the-believing-brain",
+    "title": "The Believing Brain",
+    "author": "Michael Shermer",
+    "year": 2011,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Shermer’s account of pattern-seeking, assumed intention, confirmation bias, and the role of testing beliefs against evidence.",
+    "subtitle": "Test the explanation you want to believe.",
+    "bigIdea": "Shermer argues that people often form beliefs first and then use reasoning to defend them.",
+    "sections": [
+      [
+        "Finding Patterns",
+        "The mind can detect meaningful connections but can also see patterns in coincidence."
+      ],
+      [
+        "Assuming Intention",
+        "Shermer calls the tendency to assign agency to events agenticity."
+      ],
+      [
+        "Protecting a Belief",
+        "Confirming examples can seem more important than evidence that challenges a preferred explanation."
+      ],
+      [
+        "Beliefs Across Domains",
+        "The book applies its argument to politics, religion, and conspiracy thinking."
+      ],
+      [
+        "Checking Claims",
+        "Scientific testing offers ways to expose errors rather than relying only on personal conviction."
+      ],
+      [
+        "Apply the Test Fairly",
+        "The account does not establish that every religious or political belief has the same cause."
+      ]
+    ],
+    "take": "Name an observation that would count against your belief before searching for more examples that support it.",
+    "remember": "A satisfying pattern still needs a test.",
+    "tags": [
+      "Belief",
+      "Evidence",
+      "Bias"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Believing Brain — Michael Shermer",
+        "https://michaelshermer.com/the-believing-brain/"
+      ],
+      [
+        "publisher",
+        "The Believing Brain — Macmillan",
+        "https://us.macmillan.com/books/9781429972611/thebelievingbrain/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 250,
+    "slug": "the-intelligence-trap",
+    "title": "The Intelligence Trap",
+    "author": "David Robson",
+    "year": 2019,
+    "researchedAt": "2026-10-20",
+    "description": "Understand Robson’s distinction between intelligence and wise judgment, including motivated reasoning, intellectual humility, and checking expertise.",
+    "subtitle": "Being clever does not make you bias-proof.",
+    "bigIdea": "Robson argues that intelligence and expertise need habits of good judgment to avoid becoming tools for defending mistakes.",
+    "sections": [
+      [
+        "Ability Is Not Judgment",
+        "A strong memory or quick calculation does not guarantee sound decisions."
+      ],
+      [
+        "Clever Defenses",
+        "Reasoning ability can help someone justify a preferred answer instead of testing it."
+      ],
+      [
+        "Expertise Has Boundaries",
+        "Success in one field does not automatically transfer to a different problem."
+      ],
+      [
+        "Intellectual Humility",
+        "Recognizing uncertainty can make it easier to notice missing evidence."
+      ],
+      [
+        "Curiosity Before Closure",
+        "Looking for alternative explanations can interrupt an attractive but weak conclusion."
+      ],
+      [
+        "Wiser Practice",
+        "The book presents reflective habits rather than a test that makes anyone immune to error."
+      ]
+    ],
+    "take": "For an important conclusion, ask where your expertise ends and what evidence would make you change your mind.",
+    "remember": "Use intelligence to test your answer, not only defend it.",
+    "tags": [
+      "Judgment",
+      "Intellectual Humility",
+      "Bias"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Intelligence Trap — Hodder",
+        "https://www.hodder.co.uk/titles/david-robson/the-intelligence-trap/9781473669857/"
+      ],
+      [
+        "author",
+        "What is the intelligence trap? A taxonomy of stupidity — David Robson",
+        "https://davidrobson.me/what-is-the-intelligence-trap-a-taxonomy-of-stupidity/"
+      ]
+    ],
+    "relatedBooks": []
   }
 ]

@@ -1126,5 +1126,585 @@
     "relatedBooks": [
       "blue-machine"
     ]
+  },
+  {
+    "number": 261,
+    "slug": "the-sea-around-us",
+    "title": "The Sea Around Us",
+    "author": "Rachel Carson",
+    "year": 1951,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Carson’s ocean portrait through deep time, currents, marine life, and the limits of a mid-century scientific account.",
+    "subtitle": "The sea belongs to Earth’s whole story.",
+    "bigIdea": "Carson presents the ocean as a changing physical and living system connected to the history of the planet.",
+    "sections": [
+      [
+        "Deep Time",
+        "The ocean’s story reaches far beyond the timescale of a human life."
+      ],
+      [
+        "An Uneven Seafloor",
+        "Mountains and deep basins make the seabed a landscape rather than a flat floor."
+      ],
+      [
+        "Water in Motion",
+        "Currents and tides connect distant places through moving seawater."
+      ],
+      [
+        "Life Beneath the Surface",
+        "Ocean life occupies conditions very different from the familiar world above the waves."
+      ],
+      [
+        "Science Through Language",
+        "Carson combines scientific explanation with evocative prose to make an unfamiliar environment imaginable."
+      ],
+      [
+        "Read in Historical Context",
+        "The book reflects mid-century ocean science; some explanations have been revised by later research."
+      ]
+    ],
+    "take": "Use the book to connect the visible shoreline with the larger physical systems beneath and beyond it.",
+    "remember": "The ocean is a system, not a backdrop.",
+    "tags": [
+      "Ocean",
+      "Natural History",
+      "Ecology"
+    ],
+    "sources": [
+      [
+        "official",
+        "Books — Rachel Carson official legacy site",
+        "https://www.rachelcarson.org/books-1"
+      ],
+      [
+        "publisher",
+        "The Sea Around Us — Canongate",
+        "https://canongate.co.uk/books/3082-the-sea-around-us/"
+      ],
+      [
+        "official",
+        "The Sea Around Us — National Book Foundation",
+        "https://www.nationalbook.org/books/the-sea-around-us/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 262,
+    "slug": "the-lives-of-a-cell",
+    "title": "The Lives of a Cell",
+    "author": "Lewis Thomas",
+    "year": 1974,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Thomas’s biology essays on interdependence, human social life, communication, and the boundary between scientific observation and metaphor.",
+    "subtitle": "Life becomes clearer through its connections.",
+    "bigIdea": "Thomas uses biology and personal reflection to question the image of humans as separate from the living systems around them.",
+    "sections": [
+      [
+        "No Isolated Living World",
+        "The essays emphasize relationships that make independent-looking organisms part of larger systems."
+      ],
+      [
+        "From Cells to Societies",
+        "Thomas moves between small biological structures and large patterns of collective life."
+      ],
+      [
+        "Signals and Language",
+        "Communication becomes a way to compare humans with other forms of life."
+      ],
+      [
+        "Humans Within Nature",
+        "The book challenges the idea that people can stand outside biology and merely observe it."
+      ],
+      [
+        "Wonder and Uncertainty",
+        "Curiosity matters alongside awareness of what science has not yet explained."
+      ],
+      [
+        "Metaphor Is Not Mechanism",
+        "These poetic essays use comparisons that should not all be read as literal scientific models."
+      ]
+    ],
+    "take": "When something appears self-contained, look for the biological and social relationships that make it possible.",
+    "remember": "Look for the relationships, not only the object.",
+    "tags": [
+      "Biology",
+      "Interdependence",
+      "Science Writing"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Lives of a Cell — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/535043/the-lives-of-a-cell-by-lewis-thomas/"
+      ],
+      [
+        "author",
+        "The Lives of a Cell — Lewis Thomas, NEJM essay",
+        "https://www.nejm.org/doi/abs/10.1056/NEJM197105132841908"
+      ],
+      [
+        "official",
+        "The Lives of a Cell — 1974 Viking edition record",
+        "https://books.google.com/books?id=x8dqAAAAMAAJ"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 263,
+    "slug": "pilgrim-at-tinker-creek",
+    "title": "Pilgrim at Tinker Creek",
+    "author": "Annie Dillard",
+    "year": 1974,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Dillard’s literary investigation of attention, natural abundance, suffering, and spiritual questions in a Virginia landscape.",
+    "subtitle": "Close attention reveals beauty and difficulty together.",
+    "bigIdea": "Dillard studies a familiar landscape to explore the wonder and disturbing violence of the living world.",
+    "sections": [
+      [
+        "A Nearby World",
+        "Fields, woods, and water near Roanoke provide the setting for sustained attention."
+      ],
+      [
+        "Learning to Notice",
+        "The narrator treats looking closely as an active practice rather than a passive glance."
+      ],
+      [
+        "Abundance",
+        "Natural detail becomes a source of astonishment and unanswered questions."
+      ],
+      [
+        "Beauty and Suffering",
+        "The narrative refuses to make nature only comforting or harmless."
+      ],
+      [
+        "A Spiritual Inquiry",
+        "Dillard asks what creation might suggest about a creator, without turning observation into proof."
+      ],
+      [
+        "A Crafted Narrative",
+        "This is literary nonfiction, not a field manual or an unedited diary of ordinary life."
+      ]
+    ],
+    "take": "Observe one familiar place long enough to notice details that complicate your first impression of it.",
+    "remember": "Attention need not turn away from what is unsettling.",
+    "tags": [
+      "Attention",
+      "Nature Writing",
+      "Wonder"
+    ],
+    "sources": [
+      [
+        "author",
+        "Books by Annie Dillard — official site",
+        "https://www.anniedillard.com/books-annie-dillard.html"
+      ],
+      [
+        "analysis",
+        "The Enduring Mystery of Annie Dillard — The Atlantic",
+        "https://www.theatlantic.com/books/2026/09/annie-dillard-pilgrim-at-tinker-creek/688741/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 264,
+    "slug": "the-feather-thief",
+    "title": "The Feather Thief",
+    "author": "Kirk Wallace Johnson",
+    "year": 2018,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Johnson’s investigation of stolen museum bird specimens, obsessive collecting, and the scientific knowledge lost through the feather trade.",
+    "subtitle": "A feather can hold more than beauty.",
+    "bigIdea": "Johnson uses a museum theft to show how private collecting can destroy shared scientific evidence.",
+    "sections": [
+      [
+        "The Museum Theft",
+        "Edwin Rist stole historic bird skins from the Natural History Museum collection at Tring."
+      ],
+      [
+        "A Market for Rarity",
+        "Rare feathers carried status within a specialized salmon fly-tying community."
+      ],
+      [
+        "More Than Dead Birds",
+        "Historic specimens preserve evidence that future researchers may need."
+      ],
+      [
+        "Collecting Has Consequences",
+        "Removing or dispersing a specimen can damage its value as part of a scientific record."
+      ],
+      [
+        "Following the Trail",
+        "Johnson combines interviews, archives, court material, and transactions to investigate the missing skins."
+      ],
+      [
+        "Appreciation Without Destruction",
+        "The book contrasts desire for authentic rare feathers with less harmful substitutes."
+      ]
+    ],
+    "take": "Before treating a natural object as a collectible, ask what knowledge and ecological relationships its removal would destroy.",
+    "remember": "Owning beauty can destroy what makes it valuable.",
+    "tags": [
+      "Conservation",
+      "Natural History",
+      "Collecting"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Feather Thief — Penguin Random House and author interview",
+        "https://www.penguinrandomhouse.com/books/534655/the-feather-thief-by-kirk-wallace-johnson/"
+      ],
+      [
+        "author",
+        "Books — Kirk Wallace Johnson",
+        "https://kirkwjohnson.com/books/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 265,
+    "slug": "h-is-for-hawk",
+    "title": "H Is for Hawk",
+    "author": "Helen Macdonald",
+    "year": 2014,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Macdonald’s memoir of grief, training the goshawk Mabel, and the limits of projecting human needs onto a wild animal.",
+    "subtitle": "The hawk remains a hawk.",
+    "bigIdea": "Macdonald intertwines bereavement and falconry while exploring the distance between a wild animal’s life and human emotional needs.",
+    "sections": [
+      [
+        "Grief Changes the World",
+        "The memoir begins with the loss of Macdonald’s father and a disrupted sense of ordinary life."
+      ],
+      [
+        "Training Mabel",
+        "Working with a goshawk demands attention to the bird’s behavior and needs."
+      ],
+      [
+        "A Wish to Escape",
+        "The hawk’s apparent freedom becomes entangled with the narrator’s experience of grief."
+      ],
+      [
+        "Another Falconer’s Story",
+        "T. H. White’s account of hawk training supplies a second, troubled literary thread."
+      ],
+      [
+        "Animal and Projection",
+        "Understanding Mabel requires noticing the difference between the bird and what the narrator hopes it represents."
+      ],
+      [
+        "A Personal Account",
+        "This memoir does not prescribe falconry or nature contact as treatment for bereavement or depression."
+      ]
+    ],
+    "take": "Notice when an animal’s actual behavior differs from the human story being placed upon it.",
+    "remember": "Connection does not require making another creature human.",
+    "tags": [
+      "Grief",
+      "Memoir",
+      "Falconry"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "H Is for Hawk — Penguin original ebook edition",
+        "https://www.penguin.co.uk/books/415331/h-is-for-hawk-by-helen-macdonald/9781448130726"
+      ],
+      [
+        "publisher",
+        "H Is for Hawk — Grove Atlantic",
+        "https://groveatlantic.com/book/h-is-for-hawk/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 266,
+    "slug": "wilding",
+    "title": "Wilding",
+    "author": "Isabella Tree",
+    "year": 2018,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Tree’s account of the Knepp rewilding experiment, free-roaming grazers, habitat change, and the limits of copying one landscape.",
+    "subtitle": "Restore processes, then watch what returns.",
+    "bigIdea": "Tree describes how changing land management at Knepp allowed natural processes and grazing animals to reshape habitats.",
+    "sections": [
+      [
+        "A Different Direction",
+        "A struggling farm becomes the setting for a major experiment in land management."
+      ],
+      [
+        "Animals Shape Habitat",
+        "Free-roaming grazers help create changing patterns of vegetation."
+      ],
+      [
+        "Room for Complexity",
+        "Scrub and untidy areas can provide habitat rather than simply signal neglect."
+      ],
+      [
+        "Observe the Response",
+        "Returning wildlife becomes evidence for assessing what the experiment is doing."
+      ],
+      [
+        "People and Expectations",
+        "Rewilding challenges ideas about what a well-managed countryside should look like."
+      ],
+      [
+        "Place Matters",
+        "Knepp’s experience does not prove that the same animals or approach suit every landscape."
+      ]
+    ],
+    "take": "Judge habitat changes by ecological responses and local conditions, rather than only by whether a landscape looks tidy.",
+    "remember": "Nature recovery can require changing the management goal.",
+    "tags": [
+      "Rewilding",
+      "Habitats",
+      "Conservation"
+    ],
+    "sources": [
+      [
+        "author",
+        "Isabella Tree — Wilding background",
+        "https://www.isabellatree.com/"
+      ],
+      [
+        "publisher",
+        "Wilding — Pan Macmillan",
+        "https://www.panmacmillan.com/authors/isabella-tree/wilding/9781509805105"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 267,
+    "slug": "the-nature-of-oaks",
+    "title": "The Nature of Oaks",
+    "author": "Douglas W. Tallamy",
+    "year": 2021,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Tallamy’s seasonal account of oak ecology, insects, birds, acorns, and choosing locally appropriate native trees.",
+    "subtitle": "One tree supports a changing community.",
+    "bigIdea": "Tallamy follows oaks through the seasons to reveal the many organisms connected with a familiar tree.",
+    "sections": [
+      [
+        "A Year of Relationships",
+        "The book follows seasonal changes rather than treating a tree as a static object."
+      ],
+      [
+        "Leaves Feed Animals",
+        "Insects using oak foliage connect the tree with a wider food web."
+      ],
+      [
+        "Birds Depend on Connections",
+        "Bird life relates to the insects, seeds, and structures available around trees."
+      ],
+      [
+        "Acorns Have Many Users",
+        "Oak seeds become resources for different animals across the landscape."
+      ],
+      [
+        "Nearby Conservation",
+        "A yard can support ecological relationships rather than serve only as decoration."
+      ],
+      [
+        "Choose for the Place",
+        "The relevant oak species and care depend on the local region and growing conditions."
+      ]
+    ],
+    "take": "Evaluate a potential tree by the life it can support locally, as well as by its appearance.",
+    "remember": "A tree’s value includes the community around it.",
+    "tags": [
+      "Trees",
+      "Biodiversity",
+      "Native Plants"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Nature of Oaks — Timber Press",
+        "https://www.hachettebookgroup.com/titles/douglas-w-tallamy/the-nature-of-oaks/9781643260440/"
+      ],
+      [
+        "official",
+        "The Nature of Oaks — Homegrown National Park",
+        "https://homegrownnationalpark.org/the-nature-of-oaks/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 268,
+    "slug": "the-underworld",
+    "title": "The Underworld",
+    "author": "Susan Casey",
+    "year": 2023,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Casey’s reporting on deep-ocean exploration, adapted life, submersible engineering, and the stakes of disturbing poorly understood habitats.",
+    "subtitle": "Darkness is not emptiness.",
+    "bigIdea": "Casey presents the deep ocean as a living, complex realm that deserves understanding before exploitation.",
+    "sections": [
+      [
+        "Beyond the Sunlit Surface",
+        "Most familiar ocean experiences reveal only a small part of its range of habitats."
+      ],
+      [
+        "Life Under Pressure",
+        "Deep-sea organisms have adaptations to conditions very different from those on land."
+      ],
+      [
+        "Other Sources of Energy",
+        "Some communities depend on chemical processes rather than direct sunlight."
+      ],
+      [
+        "Light in the Darkness",
+        "Bioluminescence serves functions such as communication, hunting, and defense."
+      ],
+      [
+        "Engineering Makes Access Possible",
+        "Deep exploration relies on vehicles designed for enormous pressure and difficult operating conditions."
+      ],
+      [
+        "Knowledge Before Extraction",
+        "Casey argues for caution about deep-sea mining where ecosystems remain poorly understood."
+      ]
+    ],
+    "take": "Distinguish what has been observed, what remains unknown, and what could be damaged before an intervention is attempted.",
+    "remember": "An unseen ecosystem is not an empty resource.",
+    "tags": [
+      "Ocean",
+      "Exploration",
+      "Conservation"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Underworld — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/612438/the-underworld-by-susan-casey/9781984898869/"
+      ],
+      [
+        "interview",
+        "Journeys to the Depths of the Ocean — Living on Earth",
+        "https://www.loe.org/shows/segments.html?programID=24-P13-00006&segmentID=5"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 269,
+    "slug": "beaverland",
+    "title": "Beaverland",
+    "author": "Leila Philip",
+    "year": 2022,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Philip’s account of beavers, the North American fur trade, water-shaped habitats, restoration, and competing human interests.",
+    "subtitle": "A small animal can reshape a large landscape.",
+    "bigIdea": "Philip connects beavers’ ecological work with the trade, conflict, and restoration efforts that have shaped their place in North America.",
+    "sections": [
+      [
+        "Landscape Engineers",
+        "Beaver activity changes water and creates conditions used by other species."
+      ],
+      [
+        "Fur and Expansion",
+        "Demand for pelts helped shape commerce and colonial expansion in North America."
+      ],
+      [
+        "Many Human Perspectives",
+        "Trappers, scientists, activists, and land managers approach the same animal with different priorities."
+      ],
+      [
+        "Indigenous Knowledge Matters",
+        "The narrative includes Indigenous people and perspectives rather than treating the continent as previously empty."
+      ],
+      [
+        "Return and Restoration",
+        "Beavers’ recovery creates opportunities to rethink damaged waterways."
+      ],
+      [
+        "Coexistence Takes Work",
+        "Ecological benefits do not remove conflicts with human land use or the need for local judgment."
+      ]
+    ],
+    "take": "When a species creates a practical conflict, consider its wider ecological effects before deciding it is only a nuisance.",
+    "remember": "The landscape records relationships between animals and people.",
+    "tags": [
+      "Beavers",
+      "Ecology",
+      "Environmental History"
+    ],
+    "sources": [
+      [
+        "author",
+        "Beaverland — Leila Philip",
+        "https://www.leilaphilip.com/beaverland"
+      ],
+      [
+        "publisher",
+        "Beaverland — Twelve",
+        "https://www.hachettebookgroup.com/titles/leila-philip/beaverland/9781538755211/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 270,
+    "slug": "the-lost-rainforests-of-britain",
+    "title": "The Lost Rainforests of Britain",
+    "author": "Guy Shrubsole",
+    "year": 2022,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Shrubsole’s account of Britain’s temperate rainforests, surviving fragments, mosses and lichens, and the case for ecological restoration.",
+    "subtitle": "Rainforests are not only tropical.",
+    "bigIdea": "Shrubsole argues that recognizing Britain’s surviving temperate rainforests is a first step toward protecting and restoring them.",
+    "sections": [
+      [
+        "A Damp Woodland World",
+        "Temperate rainforests occur in wet climates beyond the tropics."
+      ],
+      [
+        "Life on Other Plants",
+        "Mosses, lichens, and ferns help reveal the distinctive conditions of these woodlands."
+      ],
+      [
+        "Fragments of a Larger Habitat",
+        "Remaining pockets point to a landscape changed by clearance and later land use."
+      ],
+      [
+        "Mapping What Remains",
+        "The project combines environmental data, species records, and public observations."
+      ],
+      [
+        "Recovery Needs Conditions",
+        "Regeneration depends on more than planting trees; grazing and habitat pressures matter."
+      ],
+      [
+        "A Restoration Argument",
+        "Shrubsole’s proposals are a conservation case, not proof that every mapped site has the same needs."
+      ]
+    ],
+    "take": "Learn what makes a local woodland ecologically distinctive before assuming all tree cover performs the same role.",
+    "remember": "Protect the living habitat, not just the trees.",
+    "tags": [
+      "Forests",
+      "Restoration",
+      "Biodiversity"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Lost Rainforests of Britain: book and book tour — Guy Shrubsole",
+        "https://lostrainforestsofbritain.org/2022/10/17/the-lost-rainforests-of-britain-book-book-tour/"
+      ],
+      [
+        "author",
+        "Lost Rainforests of Britain campaign and ecological background",
+        "https://lostrainforestsofbritain.org/2022/05/16/lost-rainforests-of-britain-campaign-calls-on-public-to-map-britains-temperate-rainforest/"
+      ]
+    ],
+    "relatedBooks": []
   }
 ]

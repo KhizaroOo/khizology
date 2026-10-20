@@ -1132,5 +1132,590 @@
       "mastering-the-market-cycle"
     ],
     "editionNote": "Edited by Edward Chancellor from Marathon reports written in 2002–2014. Hardcover first published in 2015; the ebook carries a 2016 copyright."
+  },
+  {
+    "number": 251,
+    "slug": "the-four-pillars-of-investing",
+    "title": "The Four Pillars of Investing",
+    "author": "William J. Bernstein",
+    "year": 2002,
+    "researchedAt": "2026-10-20",
+    "description": "Understand Bernstein’s four foundations of investing: theory, history, psychology, and the business incentives behind investment services.",
+    "subtitle": "A portfolio needs more than a formula.",
+    "bigIdea": "Bernstein argues that investment competence combines knowledge of risk, market history, human behavior, and financial-industry incentives.",
+    "sections": [
+      [
+        "Theory",
+        "Potential returns come with uncertainty; a portfolio must account for losses as well as gains."
+      ],
+      [
+        "History",
+        "Past booms and crashes help put an apparently unprecedented market story in perspective."
+      ],
+      [
+        "Psychology",
+        "A plan can fail when fear or excitement changes how someone behaves under pressure."
+      ],
+      [
+        "The Investment Business",
+        "Fees and sales incentives can make a provider’s interests differ from an investor’s interests."
+      ],
+      [
+        "Putting the Parts Together",
+        "Diversification and a maintainable plan matter more than finding a supposedly perfect portfolio."
+      ],
+      [
+        "Know the Edition",
+        "The book first appeared in 2002 and was substantially revised in 2023.",
+        "The four-part foundation remains the focus here, rather than dated forecasts."
+      ]
+    ],
+    "take": "Evaluate a financial plan through four questions: its risks, historical context, behavioral demands, and costs.",
+    "remember": "Knowing markets is not enough if the plan cannot survive your behavior.",
+    "tags": [
+      "Investing",
+      "Risk",
+      "Behavior"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Four Pillars of Investing — William Bernstein introduction",
+        "https://efficientfrontier.com/t4poi/intro.htm"
+      ],
+      [
+        "publisher",
+        "The Four Pillars of Investing, Second Edition — McGraw Hill",
+        "https://www.mheducation.com/highered/mhp/product/four-pillars-investing-second-edition-lessons-building-winning-portfolio.html"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 2002. Research also checks the 2023 revision; this note focuses on the shared four-pillar framework."
+  },
+  {
+    "number": 252,
+    "slug": "a-wealth-of-common-sense",
+    "title": "A Wealth of Common Sense",
+    "author": "Ben Carlson",
+    "year": 2015,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Carlson’s case for simple investment plans, personal risk definitions, low complexity, and a long-term perspective.",
+    "subtitle": "Complex markets do not require a complex plan.",
+    "bigIdea": "Carlson argues that an understandable investment process can be more useful than copying complicated institutional strategies.",
+    "sections": [
+      [
+        "Your Own Circumstances",
+        "Different cash needs and goals make the same portfolio unsuitable for everyone."
+      ],
+      [
+        "Simple Is Deliberate",
+        "Reducing complexity can make a strategy easier to understand and maintain."
+      ],
+      [
+        "Define Risk Personally",
+        "A temporary price decline and a permanent failure to meet a goal are different concerns."
+      ],
+      [
+        "Allocation and Behavior",
+        "The mix of assets matters alongside the ability to keep following the plan."
+      ],
+      [
+        "History Supplies Perspective",
+        "Market history can challenge an emotional reaction to the latest news."
+      ],
+      [
+        "Help Must Add Value",
+        "Advisers and products should be judged by useful support and costs, not sophistication alone."
+      ]
+    ],
+    "take": "Ask whether every extra product or rule improves the plan enough to justify its cost and complexity.",
+    "remember": "A plan you understand is easier to evaluate and follow.",
+    "tags": [
+      "Investing",
+      "Simplicity",
+      "Financial Planning"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "A Wealth of Common Sense — Wiley",
+        "https://onlinelibrary.wiley.com/book/10.1002/9781119157526"
+      ],
+      [
+        "author",
+        "Reader Q&A on My New Book — Ben Carlson",
+        "https://awealthofcommonsense.com/2015/07/reader-qa-on-my-new-book/"
+      ],
+      [
+        "author",
+        "Asset Allocation — Ben Carlson, Wiley chapter abstract",
+        "https://onlinelibrary.wiley.com/doi/10.1002/9781119157526.ch7"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 253,
+    "slug": "the-missing-billionaires",
+    "title": "The Missing Billionaires",
+    "author": "Victor Haghani & James White",
+    "year": 2023,
+    "researchedAt": "2026-10-20",
+    "description": "Understand Haghani and White’s focus on investment sizing, spending decisions, uncertainty, and preserving wealth across a lifetime.",
+    "subtitle": "A good investment can be a bad-sized bet.",
+    "bigIdea": "Haghani and White argue that how much risk to take and how much to spend deserve as much attention as what to buy.",
+    "sections": [
+      [
+        "The Historical Puzzle",
+        "The authors ask why more old fortunes did not grow into enormous present-day family wealth."
+      ],
+      [
+        "Size Changes Outcomes",
+        "Even an attractive opportunity can be dangerous when too much wealth depends on it."
+      ],
+      [
+        "Spending Is Part of Risk",
+        "Withdrawals can magnify damage when wealth falls."
+      ],
+      [
+        "Value Beyond Dollars",
+        "Their framework considers how money supports a person’s life, not only the highest possible ending balance."
+      ],
+      [
+        "Decisions Belong Together",
+        "Investing, saving, earning, and spending interact across time."
+      ],
+      [
+        "Models Need Assumptions",
+        "A systematic framework still depends on uncertain returns and individual circumstances."
+      ]
+    ],
+    "take": "When evaluating an opportunity, ask what happens to the whole plan if the position loses and spending continues.",
+    "remember": "What to buy and how much to risk are different questions.",
+    "tags": [
+      "Position Sizing",
+      "Risk",
+      "Spending"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Missing Billionaires — Wiley",
+        "https://www.wiley.com/en-us/The%2BMissing%2BBillionaires%3A%2BA%2BGuide%2Bto%2BBetter%2BFinancial%2BDecisions-p-9781119747918"
+      ],
+      [
+        "author",
+        "The Missing Billionaires — Elm Wealth",
+        "https://elmwealth.com/MissingBillionaires/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 254,
+    "slug": "broken-money",
+    "title": "Broken Money",
+    "author": "Lyn Alden",
+    "year": 2023,
+    "researchedAt": "2026-10-20",
+    "description": "Examine Alden’s technology-based interpretation of monetary history, banking, settlement, currency instability, and competing digital-money systems.",
+    "subtitle": "Ask how money moves and who controls it.",
+    "bigIdea": "Alden argues that changing technology helps explain the evolution of money and the weaknesses of today’s monetary systems.",
+    "sections": [
+      [
+        "Money Has a History",
+        "The book compares commodity and credit accounts of how money works."
+      ],
+      [
+        "Messages Versus Settlement",
+        "Sending a payment instruction is different from completing the transfer of value."
+      ],
+      [
+        "Banking Adds Layers",
+        "Claims on money and the underlying settlement system are not the same thing."
+      ],
+      [
+        "Unequal Currency Experience",
+        "Currency instability can affect everyday saving very differently across countries."
+      ],
+      [
+        "Digital Alternatives",
+        "Alden examines Bitcoin, stablecoins, and central-bank digital currencies as distinct approaches."
+      ],
+      [
+        "An Interpretation, Not a Forecast",
+        "Her monetary argument and preferred possibilities are not settled economic consensus or investment recommendations."
+      ]
+    ],
+    "take": "Separate a payment system’s speed, its settlement guarantees, and the institutions or rules users must trust.",
+    "remember": "Fast payment messages do not remove questions of trust.",
+    "tags": [
+      "Money",
+      "Monetary History",
+      "Technology"
+    ],
+    "sources": [
+      [
+        "author",
+        "Now Available: Broken Money — Lyn Alden",
+        "https://www.lynalden.com/broken-money/"
+      ],
+      [
+        "author",
+        "The Speed of Transactions vs the Speed of Settlements — Lyn Alden",
+        "https://www.lynalden.com/speed-of-transactions-vs-settlements/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 255,
+    "slug": "what-i-learned-losing-a-million-dollars",
+    "title": "What I Learned Losing a Million Dollars",
+    "author": "Jim Paul & Brendan Moynihan",
+    "year": 1994,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Paul and Moynihan’s account of a trading loss, emotional attachment, rationalization, and the importance of defining loss controls.",
+    "subtitle": "Being wrong is not the same as being a failure.",
+    "bigIdea": "Paul and Moynihan use a major trading loss to examine how personal pride can prevent someone from applying a sound risk process.",
+    "sections": [
+      [
+        "Success Can Mislead",
+        "A run of gains can encourage someone to treat outcomes as proof of exceptional judgment."
+      ],
+      [
+        "Loss Becomes Personal",
+        "Defending a position can turn into defending an identity."
+      ],
+      [
+        "Analysis and Execution",
+        "A useful analytical method cannot help if psychological barriers stop someone from applying it."
+      ],
+      [
+        "Changing the Excuse",
+        "Switching explanations can rationalize a losing position instead of reassessing it."
+      ],
+      [
+        "Rules Before Pressure",
+        "The book emphasizes deciding how losses will be handled before emotions dominate."
+      ],
+      [
+        "A Cautionary Account",
+        "This is a trader’s experience and interpretation, not a guarantee that rules eliminate financial loss."
+      ]
+    ],
+    "take": "Separate the quality of the decision process from the need to prove that an earlier choice was right.",
+    "remember": "Protect the process from the ego.",
+    "tags": [
+      "Risk",
+      "Loss",
+      "Trading Psychology"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "What I Learned Losing a Million Dollars — Columbia University Press",
+        "https://cup.columbia.edu/book/what-i-learned-losing-a-million-dollars/9780231164689/"
+      ],
+      [
+        "official",
+        "Original 1994 edition — Google Books bibliographic record",
+        "https://books.google.com/books/about/What_I_Learned_Losing_a_Million_Dollars.html?id=9P34PQAACAAJ"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published by Infrared Press in 1994; the cited Columbia University Press edition appeared in 2013.",
+    "seoTitle": "What I Learned Losing a Million Dollars | Notooo"
+  },
+  {
+    "number": 256,
+    "slug": "the-behavior-gap",
+    "title": "The Behavior Gap",
+    "author": "Carl Richards",
+    "year": 2012,
+    "researchedAt": "2026-10-20",
+    "description": "Understand Richards’s account of emotional money decisions, buying high and selling low, personal goals, and simpler financial conversations.",
+    "subtitle": "The investment and the investor can earn different results.",
+    "bigIdea": "Richards argues that avoidable behavior can create a gap between an investment’s performance and the result its owner actually experiences.",
+    "sections": [
+      [
+        "Fear and Excitement",
+        "Crowd emotions can encourage buying after prices rise and selling after they fall."
+      ],
+      [
+        "Goals Before Products",
+        "A financial choice makes more sense when connected to what the money is for."
+      ],
+      [
+        "Generic Advice Has Limits",
+        "A useful decision depends on a person’s circumstances rather than a universal slogan."
+      ],
+      [
+        "More Than Savings",
+        "Time and energy are resources worth examining alongside money."
+      ],
+      [
+        "Simple Conversations",
+        "Richards uses sketches to make difficult money questions easier to discuss."
+      ],
+      [
+        "Review Without Perfection",
+        "Recognizing a mistake can support a better process without promising flawless future decisions."
+      ]
+    ],
+    "take": "Before changing a financial plan, name the goal being served and the emotion that may be driving the change.",
+    "remember": "A good product cannot cancel harmful behavior.",
+    "tags": [
+      "Behavior",
+      "Financial Goals",
+      "Decision Making"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Behavior Gap — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/310366/the-behavior-gap-by-carl-richards/"
+      ],
+      [
+        "review",
+        "The Behavior Gap — Kirkus Reviews",
+        "https://www.kirkusreviews.com/book-reviews/carl-richards/behavior-gap/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 257,
+    "slug": "the-laws-of-wealth",
+    "title": "The Laws of Wealth",
+    "author": "Daniel Crosby",
+    "year": 2016,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Crosby’s behavioral-investing principles about control, forecasting, diversification, personal goals, and rule-based decisions.",
+    "subtitle": "Manage behavior as part of the portfolio.",
+    "bigIdea": "Crosby argues that investment knowledge needs practical rules that reduce the damage caused by predictable human biases.",
+    "sections": [
+      [
+        "Control What You Can",
+        "Behavior and process deserve attention because market outcomes cannot be commanded."
+      ],
+      [
+        "Your Life as Benchmark",
+        "Success should connect with personal needs rather than only outperforming someone else."
+      ],
+      [
+        "Forecasting Has Limits",
+        "Confidence about the next market move can exceed the evidence behind it."
+      ],
+      [
+        "Diversification Feels Imperfect",
+        "Holding different assets means some parts will disappoint while others do better."
+      ],
+      [
+        "Rules Beat Impulses",
+        "A repeatable process can put distance between an emotional reaction and a financial action."
+      ],
+      [
+        "Support and Humility",
+        "The book treats guidance and awareness of personal limits as parts of behavioral discipline."
+      ]
+    ],
+    "take": "Write down how a financial decision will be evaluated before short-term excitement supplies its own rules.",
+    "remember": "The hardest risk to manage may be your reaction.",
+    "tags": [
+      "Behavioral Finance",
+      "Risk",
+      "Investing"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Laws of Wealth — Harriman House",
+        "https://www.harriman-house.com/the-laws-of-wealth"
+      ],
+      [
+        "publisher",
+        "The Laws of Wealth — Pan Macmillan",
+        "https://www.panmacmillan.com/authors/daniel-crosby/the-laws-of-wealth/9780857197832"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 258,
+    "slug": "fortunes-formula",
+    "title": "Fortune's Formula",
+    "author": "William Poundstone",
+    "year": 2005,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Poundstone’s history of Kelly betting, information, position sizing, and the difference between mathematical growth models and uncertain markets.",
+    "subtitle": "An edge still needs a sensible stake.",
+    "bigIdea": "Poundstone traces how information theory and the Kelly criterion connected gambling, investment sizing, and debates about risk.",
+    "sections": [
+      [
+        "Information Can Create an Edge",
+        "The story links knowledge about uncertain outcomes with decisions about betting."
+      ],
+      [
+        "How Much Matters",
+        "The Kelly approach concerns stake size, not simply choosing a likely winner."
+      ],
+      [
+        "Growth Over Repetition",
+        "Its objective concerns long-run compounded growth under specified assumptions."
+      ],
+      [
+        "Overbetting Can Destroy an Edge",
+        "An attractive opportunity can become damaging when the stake is too large."
+      ],
+      [
+        "Casinos Are Not Markets",
+        "Real investment probabilities and payoffs are harder to know than a controlled mathematical example."
+      ],
+      [
+        "History Is Not a Promise",
+        "The successes described do not guarantee returns or make gambling a suitable financial plan."
+      ]
+    ],
+    "take": "Treat any sizing formula as dependent on the quality of its probability estimates, not as a machine for producing certainty.",
+    "remember": "An edge without risk control can still end badly.",
+    "tags": [
+      "Probability",
+      "Position Sizing",
+      "Financial History"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Fortune's Formula — Macmillan",
+        "https://us.macmillan.com/books/9781250391124/fortunesformula/"
+      ],
+      [
+        "author",
+        "John Kelly, Jr. and His Formula — William Poundstone",
+        "https://home.williampoundstone.net/Kelly.htm"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 2005; the cited publisher page is the expanded 20th-anniversary edition. This note covers the original central sizing argument."
+  },
+  {
+    "number": 259,
+    "slug": "margin-of-safety",
+    "title": "Margin of Safety",
+    "author": "Seth A. Klarman",
+    "year": 1991,
+    "researchedAt": "2026-10-20",
+    "description": "Examine Klarman’s value-investing philosophy of price versus value, patience, discipline, and allowing room for uncertain estimates.",
+    "subtitle": "A bargain needs room for being wrong.",
+    "bigIdea": "Klarman argues for disciplined purchases below estimated underlying value, with protection against loss central to the decision.",
+    "sections": [
+      [
+        "Price Is Not Value",
+        "A market quotation and an estimate of what an investment is worth are different things."
+      ],
+      [
+        "Room for Error",
+        "A discount matters because valuations and future outcomes can be wrong."
+      ],
+      [
+        "Discipline Over Fashion",
+        "The approach can require standing apart from a popular market story."
+      ],
+      [
+        "Patience Has a Cost",
+        "Value-oriented investors can lag a rising market for long periods."
+      ],
+      [
+        "Risk Comes First",
+        "The book frames investing around avoiding serious loss rather than chasing instant wealth."
+      ],
+      [
+        "Estimates Remain Uncertain",
+        "Calling something undervalued does not prove that its price will recover or that the analysis is correct."
+      ]
+    ],
+    "take": "Ask which assumptions support an estimated bargain and what happens if those assumptions fail.",
+    "remember": "A low price is useful only relative to a sound estimate of value.",
+    "tags": [
+      "Value Investing",
+      "Risk",
+      "Valuation"
+    ],
+    "sources": [
+      [
+        "official",
+        "Margin of Safety — original HarperBusiness edition record",
+        "https://books.google.com/books/about/Margin_of_Safety.html?id=1QpjAAAACAAJ"
+      ],
+      [
+        "official",
+        "Seth A. Klarman — Baupost author profile",
+        "https://www.baupost.com/Team/Seth-A-Klarman"
+      ],
+      [
+        "official",
+        "Klarman Hall — Harvard Business School",
+        "https://www.hbs.edu/about/campus-and-culture/campus-built-on-philanthropy/klarman-hall"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 260,
+    "slug": "devil-take-the-hindmost",
+    "title": "Devil Take the Hindmost",
+    "author": "Edward Chancellor",
+    "year": 1999,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Chancellor’s history of financial speculation, recurring crowd behavior, credit, market stories, and the limits of bubble comparisons.",
+    "subtitle": "New assets can carry old temptations.",
+    "bigIdea": "Chancellor interprets financial manias across history as recurring combinations of opportunity, speculation, crowd excitement, and fragile expectations.",
+    "sections": [
+      [
+        "Speculation Has Deep Roots",
+        "The book follows speculative activity from early markets through modern financial booms."
+      ],
+      [
+        "A Story Worth Believing",
+        "A compelling new opportunity can encourage people to overlook what prices already assume."
+      ],
+      [
+        "Crowds Reinforce Confidence",
+        "Other people’s gains can make participation feel safer than standing aside."
+      ],
+      [
+        "Credit Magnifies Exposure",
+        "Borrowing can increase both apparent success and the damage when expectations reverse."
+      ],
+      [
+        "Different Times, Familiar Patterns",
+        "Tulips, railways, and later markets differ even when some speculative behaviors resemble one another."
+      ],
+      [
+        "History Cannot Time a Crash",
+        "Recognizing a resemblance does not identify the date or size of a future collapse."
+      ]
+    ],
+    "take": "When enthusiasm grows, distinguish the genuine usefulness of an innovation from the financial expectations attached to it.",
+    "remember": "A real innovation can still be surrounded by speculation.",
+    "tags": [
+      "Financial History",
+      "Speculation",
+      "Bubbles"
+    ],
+    "sources": [
+      [
+        "author",
+        "Devil Take the Hindmost — Edward Chancellor",
+        "https://www.edwardchancellor.com/books/devil-take-the-hindmost"
+      ],
+      [
+        "publisher",
+        "Devil Take the Hindmost — Macmillan",
+        "https://us.macmillan.com/books/9781250463401/deviltakethehindmost/"
+      ]
+    ],
+    "relatedBooks": []
   }
 ]
