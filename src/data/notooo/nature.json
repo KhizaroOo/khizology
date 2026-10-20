@@ -1706,5 +1706,292 @@
       ]
     ],
     "relatedBooks": []
+  },
+  {
+    "number": 311,
+    "slug": "i-contain-multitudes",
+    "title": "I Contain Multitudes",
+    "author": "Ed Yong",
+    "year": 2016,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Yong’s account of animals and their microbial partners, context-dependent relationships and the limits of simple microbiome health claims.",
+    "subtitle": "An animal’s life includes many smaller lives.",
+    "bigIdea": "Yong shows how relationships between animals and microbes help shape life, challenging the habit of treating every organism as an isolated individual.",
+    "sections": [
+      [
+        "More Than Germs",
+        "Microbes include partners in ordinary life, not only organisms that cause disease."
+      ],
+      [
+        "Shared Work",
+        "Microbial partners can help animals obtain food, develop or defend themselves."
+      ],
+      [
+        "Context Matters",
+        "The same kind of relationship can be helpful, harmful or neutral under different conditions."
+      ],
+      [
+        "Partners Across Animals",
+        "Examples beyond humans reveal many ways that hosts and microbes live together."
+      ],
+      [
+        "No Perfect Microbiome",
+        "Different environments and hosts make a single universal list of healthy microbes misleading."
+      ],
+      [
+        "Science Still Developing",
+        "Understanding a relationship does not automatically produce a proven treatment or a useful consumer product."
+      ]
+    ],
+    "take": "When hearing a microbiome claim, ask which organism, which conditions and what evidence of an actual effect it concerns.",
+    "remember": "Microbes are relationships to understand, not just germs to remove.",
+    "tags": [
+      "Microbiology",
+      "Ecology",
+      "Symbiosis"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "I Contain Multitudes — Penguin",
+        "https://www.penguin.co.uk/books/434400/i-contain-multitudes-by-ed-yong/9781784700171"
+      ],
+      [
+        "interview",
+        "Microbes Within Us: A Chat With Ed Yong — NIH",
+        "https://irp.nih.gov/blog/post/2018/06/microbes-within-us-a-chat-with-science-writer-ed-yong"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 312,
+    "slug": "the-triumph-of-seeds",
+    "title": "The Triumph of Seeds",
+    "author": "Thor Hanson",
+    "year": 2015,
+    "researchedAt": "2026-10-20",
+    "description": "Discover Hanson’s explanation of seed survival, nourishment, protection, travel and the deep human dependence on seed-bearing plants.",
+    "subtitle": "A small seed carries a large survival strategy.",
+    "bigIdea": "Hanson connects the biological strengths of seeds with their enormous influence on human food, economies and everyday life.",
+    "sections": [
+      [
+        "Food for a Beginning",
+        "Stored nutrients support a young plant before it can provide for itself."
+      ],
+      [
+        "Protection Matters",
+        "Coats and chemical defenses help seeds survive threats before they grow."
+      ],
+      [
+        "Waiting Can Work",
+        "Some seeds delay growth until conditions make establishment more likely."
+      ],
+      [
+        "Travel Without Walking",
+        "Wind, water and animals can carry seeds away from their parent plants."
+      ],
+      [
+        "Human Dependence",
+        "Grains, nuts and other seed products shape diets and economic activity."
+      ],
+      [
+        "Variation Is the Point",
+        "Seed strategies differ across plants; no single germination rule or survival timescale fits them all."
+      ]
+    ],
+    "take": "Notice how a familiar seed solves several problems at once: protection, stored food, timing and reaching a place to grow.",
+    "remember": "Small packages can carry complex survival plans.",
+    "tags": [
+      "Botany",
+      "Seeds",
+      "Agriculture"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Triumph of Seeds — Thor Hanson",
+        "https://thorhanson.net/the-triumph-of-seeds-1"
+      ],
+      [
+        "interview",
+        "A Conversation with Thor Hanson — Longwood Gardens",
+        "https://longwoodgardens.org/blog/2019-02-22/community-read-conversation-thor-hanson"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 313,
+    "slug": "the-world-without-us",
+    "title": "The World Without Us",
+    "author": "Alan Weisman",
+    "year": 2007,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Weisman’s thought experiment about human disappearance, failing infrastructure, ecological recovery and the long persistence of human-made materials.",
+    "subtitle": "Our absence would not erase our effects.",
+    "bigIdea": "Weisman imagines humanity suddenly disappearing to examine which human changes would fade, persist or continue to affect other life.",
+    "sections": [
+      [
+        "A Thought Experiment",
+        "The disappearance is a storytelling device, not a prediction or a recommendation for human extinction."
+      ],
+      [
+        "Maintenance Is Invisible",
+        "Cities and buildings rely on continual work that keeps water and other damage under control."
+      ],
+      [
+        "Nature Reclaims Space",
+        "Plants and animals can return as human pressures and structures change."
+      ],
+      [
+        "Different Clocks",
+        "A damaged building, a forest and a long-lived pollutant do not change on the same timescale."
+      ],
+      [
+        "Persistent Traces",
+        "Plastics and some manufactured substances can outlast many visible structures."
+      ],
+      [
+        "A Mirror for the Present",
+        "The imagined absence helps make current human impacts easier to notice and question."
+      ]
+    ],
+    "take": "Ask which effects of an everyday system would stop with its use and which would remain for later generations.",
+    "remember": "What lasts matters as much as what grows.",
+    "tags": [
+      "Human Impact",
+      "Ecology",
+      "Infrastructure"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The World Without Us — Macmillan",
+        "https://us.macmillan.com/books/9781429917216/theworldwithoutus/"
+      ],
+      [
+        "interview",
+        "The World Without Us — Arizona PBS",
+        "https://azpbs.org/horizon/2007/10/the-world-without-us/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 314,
+    "slug": "fathoms",
+    "title": "Fathoms",
+    "author": "Rebecca Giggs",
+    "year": 2020,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Giggs’s whale-centered account of ocean change, pollution, human perception and the limits of protecting an animal only as a symbol.",
+    "subtitle": "A whale’s world reaches far beyond the whale.",
+    "bigIdea": "Giggs uses encounters with whales to connect marine life with pollution, cultural imagination and human responsibilities toward other animals.",
+    "sections": [
+      [
+        "A Stranding Opens Questions",
+        "An encounter with a whale on a beach leads into a wider investigation of ocean life."
+      ],
+      [
+        "Lives, Not Just Symbols",
+        "Whales have their own needs and experiences beyond what people project onto them."
+      ],
+      [
+        "Invisible Pressures",
+        "Industrial noise, plastics and climate change affect waters that can look untouched from shore."
+      ],
+      [
+        "Land Reaches the Sea",
+        "Human activities far from a whale can still change the conditions of its life."
+      ],
+      [
+        "Care Beyond Survival",
+        "Giggs asks what protecting animals should mean beyond keeping a species from disappearing."
+      ],
+      [
+        "Science and Literary Inquiry",
+        "The book combines reporting and reflection; its ethical questions are not a single scientific prescription."
+      ]
+    ],
+    "take": "Follow a visible environmental concern into the less visible systems connected to it, rather than stopping at an appealing symbol.",
+    "remember": "Protect the world an animal lives in, not only its image.",
+    "tags": [
+      "Oceans",
+      "Whales",
+      "Environmental Ethics"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Fathoms — Simon & Schuster",
+        "https://www.simonandschuster.com/books/Fathoms/Rebecca-Giggs/9781982120702"
+      ],
+      [
+        "interview",
+        "Q&A with Fathoms author Rebecca Giggs — Virginia Center for the Book",
+        "https://www.vabook.org/2021/07/13/qa-with-fathoms-author-rebecca-giggs/"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 2020; the publisher link includes the 2021 paperback edition."
+  },
+  {
+    "number": 315,
+    "slug": "the-living-mountain",
+    "title": "The Living Mountain",
+    "author": "Nan Shepherd",
+    "year": 1977,
+    "researchedAt": "2026-10-20",
+    "description": "Discover Shepherd’s literary attention to Scotland’s Cairngorms through repeated walks, bodily perception and a relationship with place beyond reaching summits.",
+    "subtitle": "A place becomes richer through returning attention.",
+    "bigIdea": "Shepherd explores the Cairngorms as a living place to know through repeated, attentive presence rather than a summit to conquer.",
+    "sections": [
+      [
+        "Into the Mountain",
+        "Her journeys value being within the landscape, not only reaching its highest point."
+      ],
+      [
+        "Many Ways of Sensing",
+        "Weather, water, rock and bodily experience shape what a walker perceives."
+      ],
+      [
+        "Knowing Through Return",
+        "Familiar ground reveals new aspects as seasons and attention change."
+      ],
+      [
+        "Beauty and Harshness",
+        "The mountain can be beautiful without being comfortable or harmless."
+      ],
+      [
+        "A Relationship With Place",
+        "The writing joins close observation with an imaginative, personal understanding of the landscape."
+      ],
+      [
+        "Read It as Nature Writing",
+        "This is a literary meditation, not a scientific framework or a mountain-safety manual."
+      ]
+    ],
+    "take": "Return to a familiar place with a different question or sense of attention, instead of assuming familiarity has exhausted it.",
+    "remember": "Knowing a place is a practice, not a conquest.",
+    "tags": [
+      "Nature Writing",
+      "Attention",
+      "Landscape"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Living Mountain — Canongate",
+        "https://canongate.co.uk/books/1174-the-living-mountain-a-celebration-of-the-cairngorm-mountains-of-scotland/"
+      ],
+      [
+        "official",
+        "Nan Shepherd teaching note — University of Aberdeen",
+        "https://www.abdn.ac.uk/media/site/llmvc/documents/Teaching_Note_Shepherd_School_Prize.pdf"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 1977 after being written during the 1940s; sources also describe later reissues."
   }
 ]

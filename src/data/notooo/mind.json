@@ -1682,5 +1682,300 @@
       ]
     ],
     "relatedBooks": []
+  },
+  {
+    "number": 301,
+    "slug": "descartes-error",
+    "title": "Descartes' Error",
+    "author": "Antonio Damasio",
+    "year": 1994,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Damasio’s argument that emotions and bodily signals help reasoning, including clinical cases and the proposed somatic marker mechanism.",
+    "subtitle": "Reason works with feeling, not outside it.",
+    "bigIdea": "Damasio argues that reasoning about real choices depends partly on emotional signals from the brain and body.",
+    "sections": [
+      [
+        "A False Separation",
+        "The book challenges the idea that thinking can be understood separately from the living body."
+      ],
+      [
+        "Knowing Without Choosing",
+        "Some patients could explain options yet struggled with ordinary decisions after brain damage."
+      ],
+      [
+        "Bodily Clues",
+        "A somatic marker is a learned bodily feeling associated with a possible outcome.",
+        "Damasio proposes that such signals help narrow the choices worth considering."
+      ],
+      [
+        "Emotion Is Not Proof",
+        "A feeling can guide attention without establishing that an option is correct."
+      ],
+      [
+        "Cases and Hypotheses",
+        "Clinical observations support the investigation; the proposed mechanism is not a complete account of every decision."
+      ],
+      [
+        "Reason in Real Life",
+        "Plans involve uncertain outcomes, personal stakes and limited time, not just formal logic."
+      ]
+    ],
+    "take": "When comparing options, examine both the reasons and the feelings attached to them; neither should escape scrutiny.",
+    "remember": "Feeling can inform reasoning without replacing evidence.",
+    "tags": [
+      "Emotion",
+      "Decision-Making",
+      "Neuroscience"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Descartes’ Error — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/297609/descartes-error-by-antonio-damasio/"
+      ],
+      [
+        "official",
+        "Antonio Damasio — USC Dornsife",
+        "https://dornsife.usc.edu/profile/antonio-damasio/"
+      ],
+      [
+        "official",
+        "Descartes’ Error: 1994 edition — Library of Congress",
+        "https://www.loc.gov/item/94028473/"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 1994; sources also describe the 2005 anniversary edition."
+  },
+  {
+    "number": 302,
+    "slug": "phantoms-in-the-brain",
+    "title": "Phantoms in the Brain",
+    "author": "V. S. Ramachandran & Sandra Blakeslee",
+    "year": 1998,
+    "researchedAt": "2026-10-20",
+    "description": "Explore neurological case studies of phantom limbs, body image, neglect and self-explanation, while separating observations from broader theories.",
+    "subtitle": "The brain builds the body you experience.",
+    "bigIdea": "Ramachandran and Blakeslee use unusual neurological cases to explore how the brain constructs bodily experience and explanations of the self.",
+    "sections": [
+      [
+        "A Limb Still Present",
+        "People may feel a missing limb, showing that body experience is not a direct inventory of current body parts."
+      ],
+      [
+        "Maps Can Change",
+        "The authors investigate how changing sensory signals can affect representations of the body."
+      ],
+      [
+        "Seeing a Different Signal",
+        "Mirror experiments explore whether visual feedback can alter some phantom-limb experiences.",
+        "These cases are not a universal treatment promise."
+      ],
+      [
+        "Missing Part of the World",
+        "Neglect after brain injury can leave a person unaware of information on one side."
+      ],
+      [
+        "Explaining the Gaps",
+        "Some patients supply explanations that preserve a coherent story despite conflicting evidence."
+      ],
+      [
+        "Clues, Not Final Answers",
+        "Striking cases can reveal hidden processes without settling every theory about consciousness."
+      ]
+    ],
+    "take": "Separate what a patient experienced, what an experiment changed, and what the authors infer from it.",
+    "remember": "Your felt body is also a brain-made model.",
+    "tags": [
+      "Body Image",
+      "Perception",
+      "Neurology"
+    ],
+    "sources": [
+      [
+        "official",
+        "Phantoms in the brain — Wellcome Collection",
+        "https://wellcomecollection.org/works/mfquv22d"
+      ],
+      [
+        "review",
+        "Phantoms in the Brain — American Journal of Psychiatry review",
+        "https://psychiatryonline.org/doi/pdf/10.1176/appi.ajp.157.5.841"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 303,
+    "slug": "livewired",
+    "title": "Livewired",
+    "author": "David Eagleman",
+    "year": 2020,
+    "researchedAt": "2026-10-20",
+    "description": "Understand Eagleman’s account of an adapting brain, sensory substitution, competition and learning, with clear limits around new hypotheses.",
+    "subtitle": "The brain keeps adjusting its own wiring.",
+    "bigIdea": "Eagleman describes a brain that continually adapts to its inputs and circumstances rather than functioning as a fixed machine.",
+    "sections": [
+      [
+        "Beyond Fixed Parts",
+        "Brain regions work within changing networks rather than behaving like permanently assigned computer components."
+      ],
+      [
+        "Experience Shapes Skill",
+        "Repeated demands help shape how neural resources are used."
+      ],
+      [
+        "Different Routes In",
+        "Sensory substitution carries information through another channel, such as patterns felt on the skin."
+      ],
+      [
+        "Competition and Change",
+        "When inputs change, brain systems can compete for available resources."
+      ],
+      [
+        "Age and Constraints",
+        "Adaptation varies with age and circumstance; plasticity does not mean unlimited repair."
+      ],
+      [
+        "New Questions",
+        "Eagleman connects plasticity to dreaming and future technology, while identifying proposals that still need testing."
+      ]
+    ],
+    "take": "Think about the signals and practice an environment supplies, rather than assuming ability develops independently of them.",
+    "remember": "Adaptable does not mean without limits.",
+    "tags": [
+      "Neuroplasticity",
+      "Learning",
+      "Senses"
+    ],
+    "sources": [
+      [
+        "author",
+        "Livewired — David Eagleman",
+        "https://eagleman.com/books/livewired/"
+      ],
+      [
+        "publisher",
+        "Livewired — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/217866/livewired-by-david-eagleman/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 304,
+    "slug": "the-minds-eye",
+    "title": "The Mind's Eye",
+    "author": "Oliver Sacks",
+    "year": 2010,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Sacks’s accounts of reading, face recognition, vision loss and adaptation, including his own experience and the individuality of perception.",
+    "subtitle": "Seeing and recognizing are different achievements.",
+    "bigIdea": "Sacks explores how people experience and adapt to changes in vision, recognition and communication, revealing the hidden work behind ordinary perception.",
+    "sections": [
+      [
+        "Reading Can Disappear",
+        "A person may retain other abilities while losing the capacity to recognize written words."
+      ],
+      [
+        "Faces Without Identity",
+        "Seeing facial features does not necessarily mean recognizing the person."
+      ],
+      [
+        "More Than Eye Function",
+        "Perception depends on the brain’s interpretation as well as signals reaching the eyes."
+      ],
+      [
+        "Sacks as a Patient",
+        "His own visual illness adds a personal account alongside the clinical narratives."
+      ],
+      [
+        "Different Ways to Adapt",
+        "People find varied ways to communicate and navigate; no single compensation fits everyone."
+      ],
+      [
+        "A Person Beyond a Deficit",
+        "The stories preserve individual experience instead of reducing people to a diagnosis."
+      ]
+    ],
+    "take": "Ask what an everyday task requires and what alternative supports remain available before assuming an inability is total.",
+    "remember": "A changed way of seeing is still a human world.",
+    "tags": [
+      "Vision",
+      "Identity",
+      "Adaptation"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Mind’s Eye — Penguin Random House",
+        "https://www.penguinrandomhouse.com/books/159613/the-minds-eye-by-oliver-sacks/"
+      ],
+      [
+        "author",
+        "The Mind’s Eye is now available — Oliver Sacks",
+        "https://www.oliversacks.com/the-minds-eye-is-now-available/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 305,
+    "slug": "the-master-and-his-emissary",
+    "title": "The Master and His Emissary",
+    "author": "Iain McGilchrist",
+    "year": 2009,
+    "researchedAt": "2026-10-20",
+    "description": "Examine McGilchrist’s argument about different modes of attention and Western culture, distinguishing his broad interpretation from settled neuroscience.",
+    "subtitle": "A useful model should not replace the world.",
+    "bigIdea": "McGilchrist argues that different modes of attention shape experience, and uses brain-hemisphere differences to interpret Western cultural history.",
+    "sections": [
+      [
+        "Attention Changes Experience",
+        "The book argues that how we attend affects what becomes visible or meaningful to us."
+      ],
+      [
+        "Detail and Context",
+        "McGilchrist contrasts narrow, explicit handling of details with broader attention to living context."
+      ],
+      [
+        "The Emissary’s Work",
+        "Analytical models can help us act, but the book warns against treating them as complete reality."
+      ],
+      [
+        "Return to the Whole",
+        "His proposed relationship requires analysis to remain connected to the context it serves."
+      ],
+      [
+        "A Cultural Interpretation",
+        "The account extends from brain research into claims about art, philosophy and Western history."
+      ],
+      [
+        "Read the Boundaries",
+        "Those sweeping historical and hemisphere interpretations are contested, not universally settled neuroscience.",
+        "This is not a test that sorts people into left-brained and right-brained personalities."
+      ]
+    ],
+    "take": "Use categories and measurements, then check what their simplification leaves out.",
+    "remember": "Keep the map accountable to the world.",
+    "tags": [
+      "Attention",
+      "Context",
+      "Interpretation"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Master and His Emissary — Yale University Press",
+        "https://yalebooks.yale.edu/book/9780300245929/the-master-and-his-emissary/"
+      ],
+      [
+        "review",
+        "The Master and His Emissary — Publishers Weekly",
+        "https://www.publishersweekly.com/978-0-300-14878-7"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 2009; the publisher source describes the expanded 2019 edition."
   }
 ]

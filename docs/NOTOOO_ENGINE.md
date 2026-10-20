@@ -116,3 +116,7 @@ The requested 60 additions use the existing category JSON files and Engine v1 co
 Research uses book-specific author, publisher, interview, and institutional material. All 60 are medium-confidence original syntheses; this does not claim full-book reading. Sources and section references remain internal, and existing financial, health, historical, and interpretive boundaries remain in the public notes. Publication years refer to original editions unless an edition note explains translation history. The Last Lecture credits Jeffrey Zaslow alongside Randy Pausch.
 
 The batch converter accepts an optional research date while retaining existing defaults. A SHA-256 assertion in the Value audit protects serialized entries 001–240 exactly. The same audit checks numbering blocks, counts, research dates, source coverage, generated routes, and sitemap coverage. No renderer, exporter, dependency, or lifecycle change is required. This mission authorizes local publication readiness only; no commit, push, or deployment.
+
+### October 20, 2026 expansion: 301–330
+
+Thirty source-grounded additions reuse Engine v1: five per category, 330 published, zero drafts, 55 per category and 331 Notooo sitemap URLs. Entries 001–300 are protected by the canonical-content hash in the Value audit. Source records distinguish original publication dates from later editions; all new confidence ratings are medium. No renderer, route, export, dependency or client-analytics changes.

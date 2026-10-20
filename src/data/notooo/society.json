@@ -1691,5 +1691,303 @@
       ]
     ],
     "relatedBooks": []
+  },
+  {
+    "number": 326,
+    "slug": "the-origins-of-political-order",
+    "title": "The Origins of Political Order",
+    "author": "Francis Fukuyama",
+    "year": 2011,
+    "researchedAt": "2026-10-20",
+    "description": "Examine Fukuyama’s historical framework of state capacity, rule of law and accountability, without treating one institutional path as universal.",
+    "subtitle": "Effective power and limits on power must develop together.",
+    "bigIdea": "Fukuyama argues that political order depends on capable states, law that constrains rulers and institutions that hold power accountable.",
+    "sections": [
+      [
+        "A State That Can Act",
+        "State capacity means being able to carry out decisions, not simply making announcements."
+      ],
+      [
+        "Rules Above Rulers",
+        "Rule of law means that those in power are also constrained by a body of rules."
+      ],
+      [
+        "Accountability Matters",
+        "Mechanisms of accountability can require rulers to answer to others for their actions."
+      ],
+      [
+        "Different Historical Paths",
+        "The book compares how these institutions developed unevenly across societies before the French Revolution."
+      ],
+      [
+        "Elections Are Not Everything",
+        "Holding a vote alone does not create a functioning administration or an independent legal system."
+      ],
+      [
+        "A Framework With Limits",
+        "A sweeping historical comparison highlights patterns but cannot explain every society or prescribe a universal sequence of reforms."
+      ]
+    ],
+    "take": "When evaluating governance, distinguish the ability to act from legal limits and accountability instead of treating them as one feature.",
+    "remember": "Power needs capacity, constraints and an answer to others.",
+    "tags": [
+      "Institutions",
+      "Political History",
+      "Governance"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Origins of Political Order — Francis Fukuyama at Stanford",
+        "https://fukuyama.people.stanford.edu/originsofpoliticalorder"
+      ],
+      [
+        "interview",
+        "A Conversation with Francis Fukuyama — Carnegie Endowment",
+        "https://carnegie.ru/2011/06/06/conversation-with-francis-fukuyama-on-origins-of-political-order-event-3294"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 327,
+    "slug": "poor-economics",
+    "title": "Poor Economics",
+    "author": "Abhijit V. Banerjee & Esther Duflo",
+    "year": 2011,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Banerjee and Duflo’s evidence-led approach to poverty, daily constraints and policy experiments, including limits on applying local findings elsewhere.",
+    "subtitle": "Understand the choices before prescribing the solution.",
+    "bigIdea": "Banerjee and Duflo argue that reducing poverty requires close attention to daily constraints and evidence about specific interventions, not only sweeping claims.",
+    "sections": [
+      [
+        "Start With Daily Life",
+        "Decisions about health, schooling, work and savings happen under constraints outsiders can easily miss."
+      ],
+      [
+        "Ask Smaller Questions",
+        "A concrete question can be tested more usefully than a broad argument about whether all aid works."
+      ],
+      [
+        "Compare What Happens",
+        "Randomized evaluations compare groups to learn whether a particular intervention changes an outcome."
+      ],
+      [
+        "Design Affects Participation",
+        "Information, convenience and incentives can alter whether a useful service is actually used."
+      ],
+      [
+        "No Single Cure",
+        "Microcredit or access to schooling is not automatically a complete answer to poverty."
+      ],
+      [
+        "Evidence Has a Setting",
+        "A local result needs judgment before use elsewhere; experiments do not settle every structural or political question."
+      ]
+    ],
+    "take": "Define the specific barrier and outcome before deciding that a well-intended program must work.",
+    "remember": "A useful policy needs evidence from the lives it affects.",
+    "tags": [
+      "Poverty",
+      "Evidence",
+      "Development"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Poor Economics — Hachette/PublicAffairs",
+        "https://www.hachettebookgroup.com/titles/abhijit-v-banerjee/poor-economics/9781541706187/"
+      ],
+      [
+        "official",
+        "Life on a dollar a day — MIT News",
+        "https://news.mit.edu/2011/poor-economics-j-pal-0426"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 2011; the current publisher page also describes an updated edition."
+  },
+  {
+    "number": 328,
+    "slug": "the-great-escape",
+    "title": "The Great Escape",
+    "author": "Angus Deaton",
+    "year": 2013,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Deaton’s account of gains in health and wealth, unequal access to progress and his contested critique of development assistance.",
+    "subtitle": "Progress can save lives while widening gaps.",
+    "bigIdea": "Deaton traces improvements in health and material life while asking why their benefits reach some people much earlier than others.",
+    "sections": [
+      [
+        "Escaping Early Death",
+        "Public health and medical advances helped many people live longer than earlier generations."
+      ],
+      [
+        "More Than Income",
+        "A fuller account of wellbeing must consider health as well as money."
+      ],
+      [
+        "Uneven Arrivals",
+        "Innovations can create gaps when only some people initially benefit."
+      ],
+      [
+        "Setbacks Are Real",
+        "Disease, political failures and unequal opportunities can interrupt a story of overall progress."
+      ],
+      [
+        "Helping Without Undermining",
+        "Deaton questions whether some aid arrangements weaken the institutions they are meant to support."
+      ],
+      [
+        "An Argument to Examine",
+        "His critique of aid is debated; describing it is not a claim that every kind of assistance is harmful or that inequality has one cause."
+      ]
+    ],
+    "take": "Ask who benefits from an improvement, who remains excluded and what would help the benefits travel further.",
+    "remember": "Progress is not complete while access remains unequal.",
+    "tags": [
+      "Development",
+      "Health",
+      "Inequality"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Great Escape — Princeton University Press on JSTOR",
+        "https://www.jstor.org/stable/j.ctt3fgxbm"
+      ],
+      [
+        "author",
+        "The Great Escape — Angus Deaton at Princeton",
+        "https://deaton.scholar.princeton.edu/great-escape"
+      ],
+      [
+        "interview",
+        "Faculty Book: Angus Deaton — Princeton Alumni Weekly",
+        "https://paw.princeton.edu/article/faculty-book-angus-deaton"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 329,
+    "slug": "the-road-to-serfdom",
+    "title": "The Road to Serfdom",
+    "author": "F. A. Hayek",
+    "year": 1944,
+    "researchedAt": "2026-10-20",
+    "description": "Examine Hayek’s wartime warning about comprehensive economic planning and individual freedom, alongside the limits of applying its thesis to every public policy.",
+    "subtitle": "A plan for everyone can concentrate power over everyone.",
+    "bigIdea": "Hayek argues that comprehensive central economic planning can concentrate coercive power and threaten the freedom to pursue different individual goals.",
+    "sections": [
+      [
+        "A Wartime Argument",
+        "The book responds to debates about planning and political freedom during the Second World War."
+      ],
+      [
+        "Conflicting Goals",
+        "People value different outcomes; a single detailed economic plan must decide which take priority."
+      ],
+      [
+        "Concentrated Decisions",
+        "Hayek warns that extensive control over resources gives planners power over people’s choices."
+      ],
+      [
+        "Law and Predictability",
+        "General rules matter in his account because people need room to make their own plans."
+      ],
+      [
+        "Not Every Public Measure",
+        "The thesis should not be reduced to the claim that any regulation or public service inevitably creates totalitarian rule."
+      ],
+      [
+        "A Contested Warning",
+        "Its historical argument and policy implications remain debated; this note explains the thesis without endorsing an ideology or party."
+      ]
+    ],
+    "take": "When considering a collective plan, ask who decides, what limits their authority and what choices remain open to others.",
+    "remember": "Examine the power required by a promise.",
+    "tags": [
+      "Political Economy",
+      "Freedom",
+      "Central Planning"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Road to Serfdom: definitive edition — University of Chicago Press",
+        "https://press.uchicago.edu/ucp/books/book/chicago/R/bo4138549.html"
+      ],
+      [
+        "publisher",
+        "Publication history and contested reception — University of Chicago Press",
+        "https://press.uchicago.edu/Misc/Chicago/320553.html"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 1944; the publisher sources concern the annotated 2007 edition."
+  },
+  {
+    "number": 330,
+    "slug": "the-origins-of-totalitarianism",
+    "title": "The Origins of Totalitarianism",
+    "author": "Hannah Arendt",
+    "year": 1951,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Arendt’s analysis of antisemitism, imperialism, ideology and terror in Nazism and Stalinism, while recognizing contested historical interpretations.",
+    "subtitle": "Terror can aim to destroy the space for independent judgment.",
+    "bigIdea": "Arendt investigates how historical conditions, mass movements, ideology and terror combined in the totalitarian projects of Nazism and Stalinism.",
+    "sections": [
+      [
+        "Three Connected Inquiries",
+        "The book examines antisemitism, imperialism and totalitarianism rather than offering one simple origin story."
+      ],
+      [
+        "Loss of Protection",
+        "Its historical analysis considers the vulnerability of people excluded from political and legal belonging."
+      ],
+      [
+        "Ideology as Total Explanation",
+        "Arendt studies claims that one idea can explain history and override inconvenient facts."
+      ],
+      [
+        "Terror Beyond Opposition",
+        "Her account distinguishes total domination from merely silencing a set of political opponents."
+      ],
+      [
+        "Isolation and Judgment",
+        "The analysis asks how separation from others and shared reality can make domination possible."
+      ],
+      [
+        "History Needs Precision",
+        "Her comparisons and some historical interpretations are contested; the framework is not a shortcut for labeling every present-day opponent or government."
+      ]
+    ],
+    "take": "Examine specific institutions, actions and evidence before applying a powerful historical label to a current situation.",
+    "remember": "Protect the conditions that make independent judgment possible.",
+    "tags": [
+      "Political History",
+      "Totalitarianism",
+      "Ideology"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Origins of Totalitarianism: expanded edition — Penguin Random House/Library of America",
+        "https://www.penguinrandomhouse.com/books/770207/hannah-arendt-the-origins-of-totalitarianism-expanded-edition-loa-389-by-hannah-arendt--jerome-kohn-and-thomas-wild-editors/"
+      ],
+      [
+        "official",
+        "Totalitarianism, the Inversion of Politics — Library of Congress",
+        "https://www.loc.gov/collections/hannah-arendt-papers/articles-and-essays/totalitarianism-the-inversion-of-politics/"
+      ],
+      [
+        "publisher",
+        "The Origins of Totalitarianism — Library of America",
+        "https://www.loa.org/books/the-origins-of-totalitarianism-expanded-edition/"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 1951; sources include the expanded 2025 Library of America edition."
   }
 ]

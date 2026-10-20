@@ -1717,5 +1717,293 @@
       ]
     ],
     "relatedBooks": []
+  },
+  {
+    "number": 306,
+    "slug": "the-little-book-of-behavioral-investing",
+    "title": "The Little Book of Behavioral Investing",
+    "author": "James Montier",
+    "year": 2010,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Montier’s account of investor bias, precommitment, contrary evidence and process discipline without promises of better returns.",
+    "subtitle": "Know your biases; design around them.",
+    "bigIdea": "Montier argues that recognizing common mental mistakes is not enough; investors need a decision process that reduces their influence.",
+    "sections": [
+      [
+        "Calm Plans, Hot Moments",
+        "Fear and excitement can make a decision feel different when money is actually at stake."
+      ],
+      [
+        "Decide Before Pressure",
+        "Precommitment means setting a rule before the stressful moment arrives."
+      ],
+      [
+        "Confidence Can Mislead",
+        "Feeling certain about a forecast is different from having reliable evidence."
+      ],
+      [
+        "Look for Disagreement",
+        "Seek facts that could undermine an investment story rather than collecting only support."
+      ],
+      [
+        "Process Before Outcome",
+        "A lucky result does not establish that the method was sound, and a loss does not explain every mistake."
+      ],
+      [
+        "Knowing Is Not Immunity",
+        "Understanding a bias does not remove it; habits and constraints still matter."
+      ]
+    ],
+    "take": "Write down the decision rule and the evidence that would change your mind before emotion dominates the choice.",
+    "remember": "A process can challenge a story that confidence protects.",
+    "tags": [
+      "Behavioral Finance",
+      "Decision-Making",
+      "Bias"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Little Book of Behavioral Investing — Wiley",
+        "https://www.wiley.com/en-us/the-little-book-of-behavioral-investing-how-not-to-be-your-own-worst-enemy-p-9780470712030"
+      ],
+      [
+        "publisher",
+        "The Little Book of Behavioral Investing — licensed excerpt on Perlego",
+        "https://www.perlego.com/book/1008513/the-little-book-of-behavioral-investing-how-not-to-be-your-own-worst-enemy-pdf"
+      ]
+    ],
+    "relatedBooks": [],
+    "seoTitle": "The Little Book of Behavioral Investing | Notooo"
+  },
+  {
+    "number": 307,
+    "slug": "the-intelligent-asset-allocator",
+    "title": "The Intelligent Asset Allocator",
+    "author": "William J. Bernstein",
+    "year": 2000,
+    "researchedAt": "2026-10-20",
+    "description": "Understand Bernstein’s explanation of asset mix, relationships between investments, diversification and implementation, without a personalized portfolio prescription.",
+    "subtitle": "The mix matters, not just each ingredient.",
+    "bigIdea": "Bernstein explains how assets interact inside a portfolio and why allocation decisions deserve more attention than picking isolated winners.",
+    "sections": [
+      [
+        "Look at the Whole",
+        "An investment’s place in a portfolio matters alongside its standalone behavior."
+      ],
+      [
+        "Different Paths",
+        "Assets that move differently can change the risk of their combined portfolio."
+      ],
+      [
+        "Diversification Has Limits",
+        "Spreading investments can reduce some risks without preventing all losses."
+      ],
+      [
+        "History Is a Guide",
+        "Past market behavior helps explain uncertainty but cannot supply a guaranteed future allocation."
+      ],
+      [
+        "Make It Practical",
+        "Implementation includes costs, investment vehicles and a strategy a person can actually maintain."
+      ],
+      [
+        "Keep the Mix Intentional",
+        "Rebalancing restores a chosen mix as prices change; it is not proof of future outperformance."
+      ]
+    ],
+    "take": "Examine how holdings behave together before treating a list of individually appealing investments as a coherent plan.",
+    "remember": "A collection of investments is not automatically a strategy.",
+    "tags": [
+      "Asset Allocation",
+      "Diversification",
+      "Risk"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Intelligent Asset Allocator — McGraw Hill",
+        "https://www.mheducation.com/highered/mhp/product/intelligent-asset-allocator-hc.html"
+      ],
+      [
+        "author",
+        "The Intelligent Asset Allocator — author’s contents",
+        "https://www.efficientfrontier.com/BOOK/toc.htm"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "Published in September 2000; the publisher also records a 2001 copyright year."
+  },
+  {
+    "number": 308,
+    "slug": "the-geometry-of-wealth",
+    "title": "The Geometry of Wealth",
+    "author": "Brian Portnoy",
+    "year": 2018,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Portnoy’s distinction between riches and funded contentment, linking purpose, priorities and financial decisions without promising happiness.",
+    "subtitle": "Money is a means; define what it serves.",
+    "bigIdea": "Portnoy defines wealth as the ability to support a meaningful life, rather than the pursuit of an ever-larger number.",
+    "sections": [
+      [
+        "Rich Is Not Enough",
+        "Comparing balances can keep moving the finish line without clarifying what matters."
+      ],
+      [
+        "The Circle: Purpose",
+        "Start by considering what gives life meaning rather than beginning with a product or return target."
+      ],
+      [
+        "The Triangle: Priorities",
+        "A purpose becomes more useful when it guides the order of financial needs and trade-offs."
+      ],
+      [
+        "The Square: Decisions",
+        "Concrete choices should serve those priorities instead of becoming a separate contest for more."
+      ],
+      [
+        "Contentment and Change",
+        "Portnoy’s framework connects financial practice with adapting expectations and circumstances."
+      ],
+      [
+        "A Framework, Not a Promise",
+        "Money can support possibilities; this interpretation does not guarantee wellbeing or remove material constraints."
+      ]
+    ],
+    "take": "Describe the life a financial decision should support before judging the decision only by its potential return.",
+    "remember": "Enough needs a purpose, not just a number.",
+    "tags": [
+      "Money and Meaning",
+      "Priorities",
+      "Wellbeing"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Geometry of Wealth — Harriman House",
+        "https://www.harriman-house.com/authors/brian-portnoy/the-geometry-of-wealth/9780857196712"
+      ],
+      [
+        "interview",
+        "Brian Portnoy on The Geometry of Wealth — Living With Money",
+        "https://livingwithmoney.com/brian-portnoy/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 309,
+    "slug": "adaptive-markets",
+    "title": "Adaptive Markets",
+    "author": "Andrew W. Lo",
+    "year": 2017,
+    "researchedAt": "2026-10-20",
+    "description": "Examine Lo’s evolutionary account of changing market behavior, competition and crisis, with limits around prediction and investment applications.",
+    "subtitle": "A strategy lives inside a changing environment.",
+    "bigIdea": "Lo argues that financial behavior adapts to changing conditions, so market efficiency varies rather than remaining a permanent all-or-nothing property.",
+    "sections": [
+      [
+        "Beyond Two Camps",
+        "His framework allows deliberate calculation and instinctive reactions to coexist."
+      ],
+      [
+        "Learning and Survival",
+        "Participants try approaches, learn from outcomes and compete for resources."
+      ],
+      [
+        "Conditions Change",
+        "An approach suited to one environment may fail when competition or circumstances change."
+      ],
+      [
+        "Efficiency Can Vary",
+        "In Lo’s account, opportunities and market behavior change with the population of participants."
+      ],
+      [
+        "Crises Reveal Feedback",
+        "Fear, leverage and connected institutions can amplify reactions rather than acting independently."
+      ],
+      [
+        "An Explanatory Lens",
+        "The framework does not supply a reliable signal for timing a market or guaranteeing a strategy’s success."
+      ]
+    ],
+    "take": "Ask which conditions a financial argument assumes and what evidence would show those conditions have changed.",
+    "remember": "Yesterday’s fit is not tomorrow’s guarantee.",
+    "tags": [
+      "Markets",
+      "Adaptation",
+      "Financial Systems"
+    ],
+    "sources": [
+      [
+        "author",
+        "Adaptive Markets — Andrew W. Lo’s books",
+        "https://alo.mit.edu/books/"
+      ],
+      [
+        "official",
+        "Darwin visits Wall Street — MIT News",
+        "https://news.mit.edu/2017/andrew-lo-book-financial-markets-evolutionary-lines-0518"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 310,
+    "slug": "the-end-of-alchemy",
+    "title": "The End of Alchemy",
+    "author": "Mervyn King",
+    "year": 2016,
+    "researchedAt": "2026-10-20",
+    "description": "Understand King’s critique of fragile banking, radical uncertainty and proposed central-bank reform as an economic argument rather than political advocacy.",
+    "subtitle": "Promises of easy access can hide fragile funding.",
+    "bigIdea": "King argues that banking remains fragile when apparently safe, readily available money depends on risky or hard-to-sell assets.",
+    "sections": [
+      [
+        "The Banking Mismatch",
+        "Banks can promise depositors quick access while financing loans that cannot be recalled quickly."
+      ],
+      [
+        "Confidence Is Part of the System",
+        "If many people demand funds together, the gap between those promises and available cash becomes dangerous."
+      ],
+      [
+        "Radical Uncertainty",
+        "King distinguishes an unknowable future from a game with known probabilities."
+      ],
+      [
+        "More Than Crisis Rescue",
+        "He argues that emergency support alone leaves weaknesses that need structural attention."
+      ],
+      [
+        "A Pawnbroker for All Seasons",
+        "His proposal links central-bank liquidity insurance to collateral agreed in advance.",
+        "Collateral means assets pledged to support borrowing."
+      ],
+      [
+        "A Proposal to Debate",
+        "Its design, costs and practical limits require scrutiny; describing it does not endorse an economic or political doctrine."
+      ]
+    ],
+    "take": "When evaluating a financial system, compare what it promises with how those promises could be met under stress.",
+    "remember": "Stability needs more than confidence in normal times.",
+    "tags": [
+      "Banking",
+      "Uncertainty",
+      "Financial Stability"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The End of Alchemy — Hachette",
+        "https://www.hachette.co.uk/titles/mervyn-king/the-end-of-alchemy/9780349140674/"
+      ],
+      [
+        "interview",
+        "Mervyn King considers the future of banking — NYU Law",
+        "https://www.law.nyu.edu/news/ideas/mervyn-king-end-of-alchemy-future-banking"
+      ]
+    ],
+    "relatedBooks": []
   }
 ]

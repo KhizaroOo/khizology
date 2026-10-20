@@ -1702,5 +1702,310 @@
       ]
     ],
     "relatedBooks": []
+  },
+  {
+    "number": 321,
+    "slug": "john-adams",
+    "title": "John Adams",
+    "author": "David McCullough",
+    "year": 2001,
+    "researchedAt": "2026-10-20",
+    "description": "Explore McCullough’s portrait of Adams through independence, Abigail’s partnership, diplomacy, presidential choices and the conflict between liberty and political repression.",
+    "subtitle": "Public courage can coexist with serious failures.",
+    "bigIdea": "McCullough portrays Adams as a consequential, imperfect founder whose choices expose tensions between conviction, ambition and public responsibility.",
+    "sections": [
+      [
+        "A Colonial Lawyer",
+        "The biography begins with a Massachusetts lawyer entering a period of conflict over British rule."
+      ],
+      [
+        "Choosing Independence",
+        "Adams committed himself to separation when the outcome and personal costs were uncertain."
+      ],
+      [
+        "Abigail’s Partnership",
+        "Their letters make family life and intellectual exchange central to the portrait."
+      ],
+      [
+        "Diplomacy and Peace",
+        "Work abroad and the effort to resolve conflict with France show leadership beyond public speeches."
+      ],
+      [
+        "Liberty Under Pressure",
+        "His presidency included the Alien and Sedition Acts, a serious tension with the freedoms the revolution claimed."
+      ],
+      [
+        "A Biographer’s Portrait",
+        "McCullough’s sympathetic interpretation can be appreciated without treating Adams as an unqualified model or ignoring people excluded from political power."
+      ]
+    ],
+    "take": "Judge a public figure through specific decisions and consequences, including choices that conflict with their stated principles.",
+    "remember": "Admiration should survive scrutiny, not replace it.",
+    "tags": [
+      "Biography",
+      "Leadership",
+      "American History"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "John Adams — Simon & Schuster",
+        "https://www.simonandschuster.com/books/John-Adams/David-McCullough/9780743218290"
+      ],
+      [
+        "official",
+        "John Adams — National Park Service",
+        "https://www.nps.gov/adam/learn/historyculture/john-adams-1735-1826.htm"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 322,
+    "slug": "benjamin-franklin-an-american-life",
+    "title": "Benjamin Franklin: An American Life",
+    "author": "Walter Isaacson",
+    "year": 2003,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Isaacson’s Franklin through printing, experiments, civic institutions, diplomacy and the contradictions of his public and private life.",
+    "subtitle": "Useful curiosity grows through other people.",
+    "bigIdea": "Isaacson portrays Franklin as a practical experimenter whose achievements linked curiosity with communication, civic cooperation and political compromise.",
+    "sections": [
+      [
+        "An Apprentice Finds a Path",
+        "Printing offered Franklin a route into business, writing and public debate."
+      ],
+      [
+        "Questions Become Experiments",
+        "Scientific inquiry formed part of a life that crossed boundaries between occupations."
+      ],
+      [
+        "Building With Others",
+        "Civic projects depended on organizing people and creating institutions, not solitary talent alone."
+      ],
+      [
+        "Negotiating a Revolution",
+        "Diplomacy required adapting to other people while pursuing the colonies’ interests."
+      ],
+      [
+        "The Cost of a Public Life",
+        "Personal relationships and family divisions complicate a simple account of achievement."
+      ],
+      [
+        "A Contradictory Legacy",
+        "Franklin’s early involvement in slavery and later opposition belong in the same history.",
+        "Later change does not erase earlier participation or make him a flawless symbol of equality."
+      ]
+    ],
+    "take": "Connect curiosity to a useful experiment or shared project, while keeping a person’s achievements separate from their moral limitations.",
+    "remember": "Practical brilliance does not cancel accountability.",
+    "tags": [
+      "Biography",
+      "Curiosity",
+      "Civic Life"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Benjamin Franklin: An American Life — Simon & Schuster",
+        "https://www.simonandschuster.com/books/Benjamin-Franklin/Walter-Isaacson/9780684807614"
+      ],
+      [
+        "author",
+        "Walter Isaacson’s Jefferson Lecture — Aspen Institute",
+        "https://www.aspeninstitute.org/blog-posts/president-ceo-walter-isaacson-delivers-2014-jefferson-lecture/"
+      ],
+      [
+        "official",
+        "Benjamin Franklin’s Character Traits — National Park Service",
+        "https://www.nps.gov/inde/learn/historyculture/people-franklin-traits.htm"
+      ]
+    ],
+    "relatedBooks": [],
+    "seoTitle": "Benjamin Franklin: An American Life | Notooo"
+  },
+  {
+    "number": 323,
+    "slug": "grinding-it-out",
+    "title": "Grinding It Out",
+    "author": "Ray Kroc with Robert Anderson",
+    "year": 1977,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Kroc’s memoir of McDonald’s expansion, operational consistency, franchising and ambition while recognizing the brothers’ original work and the narrator’s perspective.",
+    "subtitle": "Scaling an idea is different from inventing it.",
+    "bigIdea": "Kroc’s memoir presents the drive and operating discipline behind expanding McDonald’s, while requiring readers to distinguish his account from the whole business history.",
+    "sections": [
+      [
+        "A Salesman’s Starting Point",
+        "Years selling products preceded Kroc’s encounter with the McDonald brothers’ restaurant."
+      ],
+      [
+        "Recognizing an Existing System",
+        "The brothers had developed the restaurant operation that attracted his attention."
+      ],
+      [
+        "Choosing Expansion",
+        "Kroc became their franchise agent and pursued a much larger network."
+      ],
+      [
+        "Consistency at Scale",
+        "Repeatable preparation and service mattered alongside opening new locations."
+      ],
+      [
+        "Ambition and Conflict",
+        "His account of drive and difficult relationships reflects the perspective of a participant with interests of his own."
+      ],
+      [
+        "Look Beyond the Narrator",
+        "A company history or entrepreneur’s memoir is not an independent verdict on every deal, worker experience or social consequence."
+      ]
+    ],
+    "take": "When studying a business success, separate the original invention, the work of expansion and whose version of events is being told.",
+    "remember": "A compelling business story still has a point of view.",
+    "tags": [
+      "Memoir",
+      "Business History",
+      "Operations"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Grinding It Out — Macmillan",
+        "https://us.macmillan.com/books/9781250127501/grindingitout/"
+      ],
+      [
+        "official",
+        "McDonald’s corporate history",
+        "https://corporate.mcdonalds.com/corpmcd/our-company/who-we-are/our-history.html"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 324,
+    "slug": "the-autobiography-of-andrew-carnegie",
+    "title": "The Autobiography of Andrew Carnegie",
+    "author": "Andrew Carnegie",
+    "year": 1920,
+    "researchedAt": "2026-10-20",
+    "description": "Read Carnegie’s account of immigration, industrial wealth and philanthropy alongside the tension between his ideals and the labor conflict surrounding his businesses.",
+    "subtitle": "A life story also argues for its narrator.",
+    "bigIdea": "Carnegie recounts his rise from immigrant worker to industrialist and philanthropist, offering an interested account of wealth and responsibility.",
+    "sections": [
+      [
+        "Work and Opportunity",
+        "He recalls a childhood migration from Scotland and early employment in the United States."
+      ],
+      [
+        "Learning Through Networks",
+        "Skills and relationships helped open opportunities beyond his first jobs."
+      ],
+      [
+        "Building Industrial Wealth",
+        "His career became closely tied to expanding steel production and business organization."
+      ],
+      [
+        "Wealth as a Responsibility",
+        "He presents giving for public benefit as an obligation of great wealth."
+      ],
+      [
+        "The Labor Contradiction",
+        "Conflict surrounding Carnegie’s businesses, particularly Homestead, complicates the image of a purely benevolent industrialist."
+      ],
+      [
+        "Read a Memoir Critically",
+        "His retrospective account explains his preferred principles; it is not an independent assessment of every action or consequence."
+      ]
+    ],
+    "take": "Read a powerful person’s explanation of their values beside the effects of the system that produced their power.",
+    "remember": "Generosity and the origins of wealth both deserve examination.",
+    "tags": [
+      "Autobiography",
+      "Philanthropy",
+      "Industrial History"
+    ],
+    "sources": [
+      [
+        "official",
+        "The Autobiography of Andrew Carnegie: reissue — Carnegie Corporation",
+        "https://carnegie.org/article/the-autobiography-of-andrew-carnegie-with-an-introduction-by-vartan-gregorian/"
+      ],
+      [
+        "official",
+        "Andrew Carnegie’s Story — Carnegie Corporation",
+        "https://carnegie.org/about/andrew-carnegie-story/"
+      ],
+      [
+        "author",
+        "Autobiography of Andrew Carnegie — public-domain front matter",
+        "https://www.gutenberg.org/files/17976/17976-h/17976-h.htm"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "Originally published posthumously in 1920; sources include a later reissue.",
+    "seoTitle": "The Autobiography of Andrew Carnegie | Notooo"
+  },
+  {
+    "number": 325,
+    "slug": "frida-a-biography-of-frida-kahlo",
+    "title": "Frida: A Biography of Frida Kahlo",
+    "author": "Hayden Herrera",
+    "year": 1983,
+    "researchedAt": "2026-10-20",
+    "description": "Explore Herrera’s portrait of Kahlo through Mexican cultural context, self-representation, artistic choices, relationships and the limits of reducing art to suffering.",
+    "subtitle": "A life can illuminate art without explaining it away.",
+    "bigIdea": "Herrera connects Kahlo’s art with her experiences and cultural world while revealing a deliberate artist whose work exceeds a story of pain or celebrity.",
+    "sections": [
+      [
+        "A Mexican Cultural World",
+        "Kahlo’s choices developed within the cultural and political life of twentieth-century Mexico."
+      ],
+      [
+        "An Altered Life",
+        "Serious illness and injury shaped circumstances without defining the whole person."
+      ],
+      [
+        "Making the Self Visible",
+        "Self-portraits became a way to explore experience, identity and representation."
+      ],
+      [
+        "Relationships and Independence",
+        "Her relationship with Diego Rivera is important but should not replace attention to her own artistic work."
+      ],
+      [
+        "Art Is More Than Evidence",
+        "A painted image is a constructed work, not simply a medical record or a literal transcription of events."
+      ],
+      [
+        "Beyond the Icon",
+        "Herrera’s biographical interpretation helped shape Kahlo’s later reception; the artist deserves more than a simplified legend of suffering."
+      ]
+    ],
+    "take": "Look at the choices inside a work before using the artist’s biography as its only explanation.",
+    "remember": "An artist is more than the pain a biography describes.",
+    "tags": [
+      "Art Biography",
+      "Identity",
+      "Mexican Art"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Frida — Bloomsbury",
+        "https://www.bloomsbury.com/uk/frida-9781526608536/"
+      ],
+      [
+        "interview",
+        "Interview with Hayden Herrera — PBS",
+        "https://www.pbs.org/weta/fridakahlo/today/herrera.html"
+      ],
+      [
+        "official",
+        "Hayden Herrera lecture and original publication — Harry Ransom Center",
+        "https://www.hrc.utexas.edu/press/releases/2009/hayden-herrera.html"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 1983; the publisher link describes a later digital edition."
   }
 ]
