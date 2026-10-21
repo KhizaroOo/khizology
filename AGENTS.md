@@ -359,6 +359,11 @@ Inspect Git state before risky operations.
 
 Minimize context and tool use without reducing correctness.
 
+Khizar's default preference: spend tokens on implementation and verification.
+Use targeted file reads, compact tool output, brief progress updates, and concise
+final reports. Reuse established components. Do not repeat audits unless a change,
+failure, or unresolved risk requires it. Token efficiency must not leave work incomplete.
+
 Do not:
 
 - restate the mission

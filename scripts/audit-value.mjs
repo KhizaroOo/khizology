@@ -231,7 +231,7 @@ assert.ok(infooo.includes("status: 'active' as const"), 'Infooo must be active w
 assert.ok(infooo.includes("tagline: 'See it. Touch it. Understand it.'"), 'Infooo identity missing');
 assert.ok(infooo.includes("title: 'Human Atlas'"), 'Human Atlas world is missing');
 assert.ok(infooo.includes("id: 'world-002'"), 'Rubik’s Cube Motion Graph world is missing');
-assert.equal((infooo.match(/status: 'published'/g) || []).length, 4, 'All four implemented Infooo worlds must remain public');
+assert.equal((infooo.match(/status: 'published'/g) || []).length, 5, 'All five implemented Infooo worlds must remain public');
 assert.ok(infooo.includes("id: 'world-003'"), 'App Deployment Journey is missing');
 assert.ok(infooo.includes("status: 'published', visibility: 'public'"), 'World 002 must be public after Khizar’s release approval');
 assert.ok(!/internet-request-journey|What Happens When You Press Enter/.test(infooo), 'Discarded World 002 content remains in the Infooo registry');

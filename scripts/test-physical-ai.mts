@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict';
+import {initialWorld,initialSensors,observe,predict,plan,evaluateSafety,advance,route,scenarios,shelf,same} from '../src/components/infooo/physical/physicalModel.ts';
+import {createSimulation,tick,recover,confirmHuman,changeWorld,reobserve} from '../src/components/infooo/physical/physicalSimulation.ts';
+const world=initialWorld(),sensors=initialSensors(),seen=observe(world,sensors,true);
+assert.equal(seen.truth,'OBSERVED');
+assert.equal(observe({...world,occluded:true},sensors,false,seen).truth,'UNKNOWN');
+const remembered=observe({...world,occluded:true},sensors,true,seen);
+assert.equal(remembered.truth,'INFERRED');assert.equal(observe({...world,occluded:true},sensors,true,remembered).confidence,'LOW');
+assert.equal(observe(world,{...sensors,camera:false},false).crate,undefined);
+assert.equal(observe(world,{...sensors,depth:false},false).confidence,'LOW');
+assert.equal(observe({...world,disagreement:true},sensors,false).confidence,'LOW');
+const paths=predict(world,[1,3],[8,3],'MEDIUM'),selected=plan(paths)!;
+assert.ok(selected?.safe);assert.ok(evaluateSafety(world,seen,sensors,selected).allowed);
+assert.ok(!evaluateSafety({...world,revision:1},seen,sensors,selected).allowed);
+assert.ok(!evaluateSafety(world,observe(world,{...sensors,depth:false},false),sensors,selected).allowed);
+assert.ok(!evaluateSafety(world,seen,{...sensors,force:false},selected,true).allowed);
+assert.ok(!evaluateSafety(world,seen,sensors,selected,true,true).allowed);
+assert.ok(advance([0,3],[1,3],{...world,slippery:true}).mismatch);
+assert.deepEqual(initialWorld(),world);
+assert.ok(!route([0,3],[9,3],[world.obstacle]).some(p=>same(p,world.obstacle)));
+const hidden=changeWorld(createSimulation('occluded'),{crate:[2,4]});assert.notDeepEqual(reobserve(hidden).estimate.crate,hidden.world.crate);
+assert.deepEqual(reobserve(changeWorld(hidden,{occluded:false})).estimate.crate,[2,4]);
+for(const scenario of scenarios){let s=createSimulation(scenario.id),stops=0;for(let i=0;i<800&&!s.done;i++){if(s.stop){stops++;s=s.world.unknown?confirmHuman(s):recover(s);}else s=tick(s);}assert.ok(s.done,`${scenario.id} must recover and deliver: ${s.stop} ${s.message}`);assert.deepEqual(s.world.crate,shelf);if(!['normal','human'].includes(scenario.id))assert.ok(stops>0,scenario.id+' must demonstrate a stop');console.log(scenario.id+': delivered; '+stops+' safety/recovery stop(s)');}
+let stale=createSimulation();for(let i=0;i<6;i++)stale=tick(stale);stale=changeWorld(stale,{human:stale.candidates[0].path[1]});const stopped=tick(stale);assert.ok(stopped.stop);assert.deepEqual(stopped.robot,stale.robot);
+console.log('PASS: observations, stale memory, route safety, all scenarios, finale, feedback and deterministic reset.');
