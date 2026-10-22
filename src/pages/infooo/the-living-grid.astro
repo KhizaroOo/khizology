@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import LivingGrid from '../../components/infooo/grid/LivingGrid';
+import {infoooWorlds,infoooIdentity} from '../../data/infooo';
+import {absoluteUrl,breadcrumbSchema} from '../../utils/seo';
+import {url} from '../../utils/url';
+const world=infoooWorlds.find(w=>w.id==='world-006')!;
+const context={site:Astro.site!,base:import.meta.env.BASE_URL};
+const canonical=absoluteUrl(`/infooo/${world.slug}`,context);
+const related=infoooWorlds.filter(w=>world.relatedWorlds?.includes(w.id)&&w.status==='published'&&w.visibility==='public');
+---
+<BaseLayout title="The Living Grid — Future of Electricity | Khizooology" description={world.description} canonical={canonical} accentColor={infoooIdentity.color} accentColorLight={infoooIdentity.colorLight} ogImage={world.hero!.asset} ogImageAlt={world.preview!.alt} socialTitle={world.title} socialDescription={world.description} jsonLd={[{'@context':'https://schema.org','@type':'WebApplication',name:world.title,description:world.description,url:canonical,applicationCategory:'EducationalApplication',operatingSystem:'Any',isAccessibleForFree:true},breadcrumbSchema([{name:'Home',path:'/'},{name:'Infooo',path:'/infooo'},{name:world.title,path:`/infooo/${world.slug}`}],context)]}>
+<div class="k-container grid-breadcrumb"><Breadcrumb crumbs={[{label:'Infooo',href:url('/infooo')},{label:world.title}]} accentColor={infoooIdentity.color}/></div>
+<LivingGrid client:load world={world}>
+<section class="grid-context"><details><summary>About this educational model & related worlds</summary><h2>Electricity must stay in balance.</h2><p>Try generation loss, a demand spike or reduced sunlight in one compact energy scene. Compare delivered supply with demand, restore generation, reduce flexible consumption, or use a finite battery to bridge a shortage.</p><p>Battery ticks integrate 30 simulated minutes at fixed conditions. Stored energy falls as the battery discharges; empty storage cannot supply power. The battery switches to standby when restored generation can meet demand without it. The optional challenge checks whether two or fewer actions meet demand at that moment, rather than proving long-term resilience.</p><p>{world.knowledge!.limitations}</p><nav aria-label="Related knowledge worlds">{related.map(w=><a href={url(`/infooo/${w.slug}`)}>{w.title} →</a>)}<a href={url('/infooo')}>Explore all Infooo worlds →</a></nav></details></section>
+</LivingGrid>
+</BaseLayout>
+<style>.grid-breadcrumb{padding-block:1.5rem .75rem}.grid-context{padding-block:.5rem 1rem}.grid-context p{max-width:80ch;line-height:1.75;color:var(--k-text-muted)}.grid-context h2{font:800 1.5rem Poppins,sans-serif}.grid-context nav{display:flex;flex-wrap:wrap;gap:1rem}.grid-context a{color:var(--k-text);text-underline-offset:4px}</style>

@@ -1,11 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" fill="none">
-  <g stroke="#91b7ad" stroke-width="1" opacity=".4"><path d="M40 90h520M40 180h520M40 270h520M150 30v300M300 30v300M450 30v300"/></g>
-  <g stroke="#397c70" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="300" cy="55" r="25" fill="#e3f5ef"/>
-    <path d="M280 79v15l-40 12-28 82-25 58 20 9 31-57 18-41-3 65 14 106h22l11-96 11 96h22l14-106-3-65 18 41 31 57 20-9-25-58-28-82-40-12V79" fill="#e3f5ef"/>
-    <path d="M299 115v93M299 145l-21 16M300 145l22 16M300 206l-21 74M300 206l21 74" stroke="#ce7265"/>
-    <path d="M292 119c-18-5-27 12-23 33 1 10 17 15 23 7zM308 119c18-5 27 12 23 33-1 10-17 15-23 7z" fill="#b5ded2" stroke="#5b9f8e"/>
-    <path d="M300 143c-11-12-22 2-12 12l12 12 12-12c10-10-1-24-12-12z" fill="#e68d7b" stroke="#a94f47"/>
-  </g>
-  <g stroke="#397c70" stroke-width="2"><path d="M305 151h98l42-42M283 125H184l-42 42M319 254h90l35 35"/><circle cx="449" cy="105" r="8" fill="#5ccfaf"/><circle cx="138" cy="171" r="8" fill="#b5ded2"/><circle cx="448" cy="293" r="8" fill="#e68d7b"/><circle cx="300" cy="151" r="32" stroke-dasharray="4 6"/></g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect width="600" height="240" fill="#eaf4ef"/><g transform="translate(190 12)"><path d="M0 45c-21 0-23 -36 0 -36s21 36 0 36zm-28 9 -18 48 -12 43 11 4 19 -44 9 -18 -4 66 -9 60 13 1 18 -64 18 64 13 -1 -9 -60 -4 -66 9 18 19 44 11 -4 -12 -43 -18 -48z" fill="#d6e7e0" stroke="#658e81" stroke-width="2"/><path d="M0 54v88m-1 -68 -19 22m19 -22 20 22M0 140l-15 53m15 -53 15 53" stroke="#6ba4ce" stroke-width="3"/><path d="M-5 69c-21 -12-21 25-12 32 8 2 11 -7 12 -32zm10 0c21 -12 21 25 12 32-8 2-11 -7-12 -32z" fill="#8fb8d0"/><path d="M2 81c9 -12 18 -1 11 7L3 99l-9 -11c-7 -8 0 -16 8 -7z" fill="#ce7568" stroke="#a34e4e" stroke-width="2"/></g><path d="M214 98h100" stroke="#a34e4e" stroke-width="2"/><circle cx="214" cy="98" r="4" fill="#a34e4e"/><rect x="315" y="64" width="215" height="95" rx="10" fill="#fff" stroke="#a8c5ba" stroke-width="2"/><g fill="#253c3c" font-family="Arial,sans-serif"><text x="335" y="93" font-size="20" font-weight="700">Isolate the heart</text><text x="335" y="120" font-size="16">See connected systems.</text><text x="335" y="143" font-size="16">Explore how parts relate.</text></g></svg>

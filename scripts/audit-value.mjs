@@ -92,7 +92,10 @@ const artworksSource = fs.readFileSync(path.join(root, 'src/data/artworks.ts'), 
 const artworkRegistry = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(artworksSource))}`);
 const deploymentSource = fs.readFileSync(path.join(root, 'src/components/infooo/deployment/deploymentJourney.ts'), 'utf8').replace(/import type[^;]+;/, '');
 const deploymentModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(deploymentSource))}`);
+const gridTrendSource = fs.readFileSync(path.join(root, 'src/components/infooo/grid/gridTrends.ts'), 'utf8');
+const gridTrendModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(gridTrendSource))}`);
 const infoooSource = fs.readFileSync(path.join(root, 'src/data/infooo.ts'), 'utf8')
+  .replace("import { gridSources } from '../components/infooo/grid/gridTrends';", `const gridSources = ${JSON.stringify(gridTrendModule.gridSources)};`)
   .replace(/import \{ deploymentStages, deploymentGuide(?:, deploymentFailures)? \} from '\.\.\/components\/infooo\/deployment\/deploymentJourney';/, `const deploymentStages = ${JSON.stringify(deploymentModule.deploymentStages)}; const deploymentGuide = ${JSON.stringify(deploymentModule.deploymentGuide)}; const deploymentFailures = ${JSON.stringify(deploymentModule.deploymentFailures)};`)
   .replace("import type { ValueLawScores } from './valueLaws';", '')
   .replace("import { createIdeaEvaluation } from './valueLaws';", 'const createIdeaEvaluation = (input) => input;')
@@ -231,7 +234,7 @@ assert.ok(infooo.includes("status: 'active' as const"), 'Infooo must be active w
 assert.ok(infooo.includes("tagline: 'See it. Touch it. Understand it.'"), 'Infooo identity missing');
 assert.ok(infooo.includes("title: 'Human Atlas'"), 'Human Atlas world is missing');
 assert.ok(infooo.includes("id: 'world-002'"), 'Rubik’s Cube Motion Graph world is missing');
-assert.equal((infooo.match(/status: 'published'/g) || []).length, 5, 'All five implemented Infooo worlds must remain public');
+assert.equal((infooo.match(/status: 'published'/g) || []).length, 6, 'All six implemented Infooo worlds must remain public');
 assert.ok(infooo.includes("id: 'world-003'"), 'App Deployment Journey is missing');
 assert.ok(infooo.includes("status: 'published', visibility: 'public'"), 'World 002 must be public after Khizar’s release approval');
 assert.ok(!/internet-request-journey|What Happens When You Press Enter/.test(infooo), 'Discarded World 002 content remains in the Infooo registry');
