@@ -2553,5 +2553,576 @@
       ]
     ],
     "relatedBooks": []
+  },
+  {
+    "number": 421,
+    "title": "The 5 Types of Wealth",
+    "author": "Sahil Bloom",
+    "slug": "the-5-types-of-wealth",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Sahil Bloom’s five-part view of wealth: time, relationships, mental wellbeing, physical capacity and money, without treating it as a universal life formula.",
+    "subtitle": "A bank balance is only one measure of a life.",
+    "bigIdea": "Bloom proposes evaluating a rich life through several kinds of wealth rather than assuming financial progress improves everything else.",
+    "sections": [
+      [
+        "Time Wealth",
+        "Control over some of your time affects whether you can act on what matters to you."
+      ],
+      [
+        "Social Wealth",
+        "Strong relationships involve presence and mutual care, not merely a large contact list."
+      ],
+      [
+        "Mental Wealth",
+        "Purpose, curiosity and room to think are parts of Bloom’s framework for a satisfying life."
+      ],
+      [
+        "Physical Wealth",
+        "Energy and capacity matter, while health and disability are not simply products of personal discipline."
+      ],
+      [
+        "Financial Wealth",
+        "Money can support security and choice, but cannot replace every other form of wellbeing."
+      ],
+      [
+        "Choose Your Trade-Offs",
+        "The five categories are a reflective tool, not a scientific ranking or a promise that everyone has the same options."
+      ]
+    ],
+    "take": "Notice whether pursuing one kind of wealth is quietly consuming another you value more.",
+    "remember": "Measure the life you want, not only what is easy to count.",
+    "tags": [
+      "Wellbeing",
+      "Priorities",
+      "Life Design"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The 5 Types of Wealth — Ballantine Books",
+        "https://www.penguinrandomhouse.com/books/731381/the-5-types-of-wealth-by-sahil-bloom/9780593723180/"
+      ],
+      [
+        "author",
+        "The 5 Types of Wealth — Sahil Bloom",
+        "https://www.sahilbloom.com/newsletter/the-5-types-of-wealth---my-first-book"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 422,
+    "title": "Slow Productivity",
+    "author": "Cal Newport",
+    "slug": "slow-productivity",
+    "year": 2024,
+    "researchedAt": "2026-10-22",
+    "description": "Understand Cal Newport’s slow-productivity approach to knowledge work: fewer commitments, a sustainable pace and quality, with limits imposed by workplace power kept visible.",
+    "subtitle": "Meaningful output does not require constant visible busyness.",
+    "bigIdea": "Newport proposes doing fewer things at once, allowing a more natural pace and giving quality priority over activity.",
+    "sections": [
+      [
+        "Busyness Is a Weak Measure",
+        "Messages and packed calendars can look productive without producing valuable work."
+      ],
+      [
+        "Fewer Active Commitments",
+        "Reducing simultaneous projects can lower coordination overhead and make completion more likely."
+      ],
+      [
+        "A Natural Pace",
+        "Work can vary across days and seasons rather than demand the same intensity indefinitely."
+      ],
+      [
+        "Quality Gives Direction",
+        "A clear standard helps decide what deserves time and what can be declined."
+      ],
+      [
+        "Change the System",
+        "Workload agreements and organizational expectations matter alongside personal habits."
+      ],
+      [
+        "Not Available Equally",
+        "Newport’s approach is aimed at knowledge work; autonomy and income constraints affect how much someone can apply."
+      ]
+    ],
+    "take": "Before adding an obligation, identify which current commitment will finish or leave the active list.",
+    "remember": "Sustainable pace can serve serious ambition.",
+    "tags": [
+      "Work",
+      "Productivity",
+      "Quality"
+    ],
+    "sources": [
+      [
+        "author",
+        "My new book: Slow Productivity — Cal Newport",
+        "https://calnewport.com/my-new-book-slow-productivity/"
+      ],
+      [
+        "publisher",
+        "Slow Productivity — Portfolio",
+        "https://www.penguinrandomhouse.com/books/722732/slow-productivity-by-cal-newport/9780593544860/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 423,
+    "title": "Feel-Good Productivity",
+    "author": "Ali Abdaal",
+    "slug": "feel-good-productivity",
+    "year": 2023,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Ali Abdaal’s approach to enjoyable productivity, including energy, procrastination and sustainable effort, without promising that positive feelings solve every work problem.",
+    "subtitle": "Make useful work easier to return to.",
+    "bigIdea": "Abdaal argues that a more enjoyable relationship with work can support consistent action better than relying only on pressure and discipline.",
+    "sections": [
+      [
+        "Start With Energy",
+        "He asks what makes work engaging instead of treating discomfort as proof of seriousness."
+      ],
+      [
+        "Make Space for Play",
+        "A more curious approach can lower the cost of beginning a difficult task."
+      ],
+      [
+        "People Affect Momentum",
+        "Support and collaboration can change how demanding work feels."
+      ],
+      [
+        "Find the Blocker",
+        "Procrastination can reflect uncertainty or emotion, not simply laziness."
+      ],
+      [
+        "Sustain the Effort",
+        "Recovery and alignment with what matters are part of continuing, not rewards reserved for the end."
+      ],
+      [
+        "A Framework, Not a Guarantee",
+        "The author’s experiments and research synthesis do not remove illness, workload pressure or unequal freedom at work."
+      ]
+    ],
+    "take": "Try one small change that makes an important task more approachable, then judge whether it actually helps.",
+    "remember": "Enjoyment can support effort without replacing judgment.",
+    "tags": [
+      "Productivity",
+      "Motivation",
+      "Work"
+    ],
+    "sources": [
+      [
+        "author",
+        "Feel-Good Productivity — Ali Abdaal",
+        "https://aliabdaal.com/feel-good-productivity/"
+      ],
+      [
+        "publisher",
+        "Feel-Good Productivity — Celadon Books",
+        "https://celadonbooks.com/book/feel-good-productivity-ali-abdaal/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 424,
+    "title": "The Creative Act",
+    "author": "Rick Rubin",
+    "slug": "the-creative-act",
+    "year": 2023,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Rick Rubin’s reflections on attention, experimentation and creative practice, reading spiritual language as an artistic philosophy rather than scientific fact.",
+    "subtitle": "Creativity begins with how you notice.",
+    "bigIdea": "Rubin presents making art as an ongoing way of attending to experience, trying possibilities and learning what a work needs.",
+    "sections": [
+      [
+        "Notice More",
+        "Creative material can begin in ordinary observation rather than waiting for a special inspiration."
+      ],
+      [
+        "Keep Possibilities Open",
+        "Early experiments benefit from room to surprise the maker before strict judgment takes over."
+      ],
+      [
+        "Practice Listening",
+        "An idea can develop through careful attention instead of forcing it to fit the first plan."
+      ],
+      [
+        "Separate Making and Judging",
+        "Different stages may need exploration, selection or finishing rather than the same mindset throughout."
+      ],
+      [
+        "Release the Audience in Your Head",
+        "Anticipated approval can narrow a work before it has found its form."
+      ],
+      [
+        "An Artist’s Philosophy",
+        "Rubin’s spiritual metaphors offer a lens on practice, not measured laws that guarantee artistic success."
+      ]
+    ],
+    "take": "Make a small experiment before deciding whether an idea deserves a finished project.",
+    "remember": "Attention is creative material.",
+    "tags": [
+      "Creativity",
+      "Art",
+      "Practice"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Creative Act — Penguin Press",
+        "https://www.penguinrandomhouse.com/books/717356/the-creative-act-by-rick-rubin/9780593652886/"
+      ],
+      [
+        "review",
+        "The Creative Act — Kirkus Reviews",
+        "https://www.kirkusreviews.com/book-reviews/rick-rubin/the-creative-act-rubin/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 425,
+    "title": "Meditations for Mortals",
+    "author": "Oliver Burkeman",
+    "slug": "meditations-for-mortals",
+    "year": 2024,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Oliver Burkeman’s imperfectionism: acting within limits, finishing meaningful work and living now rather than waiting to become completely organized.",
+    "subtitle": "Life does not start after the backlog is cleared.",
+    "bigIdea": "Burkeman argues that accepting finite time and imperfect control makes meaningful action possible in the life already happening.",
+    "sections": [
+      [
+        "Accept the Starting Point",
+        "You do not need to fix every part of life before doing something worthwhile."
+      ],
+      [
+        "Rules Should Serve Life",
+        "A flexible practice can survive interruptions better than a rule that turns one missed day into defeat."
+      ],
+      [
+        "Notice What Is Done",
+        "Completed actions deserve attention alongside the work that remains."
+      ],
+      [
+        "Finish Something Small",
+        "Completion makes a bounded contribution real instead of leaving every possibility permanently open."
+      ],
+      [
+        "Stop Borrowing From Later",
+        "A future version of yourself will also have limits; deferment does not manufacture unlimited time."
+      ],
+      [
+        "An Invitation, Not Treatment",
+        "The four-week structure offers philosophical practice, not a clinical cure for anxiety or a new perfection test."
+      ]
+    ],
+    "take": "Choose one worthwhile action small enough to finish under today’s actual conditions.",
+    "remember": "A limited life can still contain meaningful work.",
+    "tags": [
+      "Time",
+      "Imperfection",
+      "Meaning"
+    ],
+    "sources": [
+      [
+        "author",
+        "Meditations for Mortals — Oliver Burkeman",
+        "https://www.oliverburkeman.com/meditationsformortals"
+      ],
+      [
+        "publisher",
+        "Meditations for Mortals — Farrar, Straus and Giroux",
+        "https://us.macmillan.com/books/9781250353986/meditationsformortals/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 426,
+    "title": "The Good Enough Job",
+    "author": "Simone Stolzoff",
+    "slug": "the-good-enough-job",
+    "year": 2023,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Simone Stolzoff’s reporting on work and identity, asking what a good-enough job makes possible beyond employment without dismissing material needs.",
+    "subtitle": "A job can matter without becoming your whole identity.",
+    "bigIdea": "Stolzoff argues that expecting work to supply all meaning and belonging leaves people vulnerable and crowds out other parts of life.",
+    "sections": [
+      [
+        "A Familiar Question",
+        "Asking what someone does often turns employment into a shorthand for who they are."
+      ],
+      [
+        "The Dream-Job Burden",
+        "A job expected to provide purpose, community and self-worth can never be merely imperfect."
+      ],
+      [
+        "Stories Across Workplaces",
+        "The book follows different workers rather than assuming every occupation offers the same choices."
+      ],
+      [
+        "More Than One Center",
+        "Relationships, community and interests can provide meaning that survives a career change."
+      ],
+      [
+        "Good Enough Still Has Standards",
+        "Decent pay, safety and reasonable conditions matter; the argument does not excuse bad employers."
+      ],
+      [
+        "Freedom Is Unequal",
+        "People with fewer resources may have less power to set boundaries, making workplace structures part of the issue."
+      ]
+    ],
+    "take": "Name one source of identity that would remain if your job title changed tomorrow.",
+    "remember": "Work is part of a life, not its complete definition.",
+    "tags": [
+      "Work",
+      "Identity",
+      "Boundaries"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Good Enough Job — Simone Stolzoff",
+        "https://simonestolzoff.com/the-good-enough-job"
+      ],
+      [
+        "publisher",
+        "The Good Enough Job — Portfolio",
+        "https://www.penguinrandomhouse.com/books/704142/the-good-enough-job-by-simone-stolzoff/9780593538968/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 427,
+    "title": "The Book You Want Everyone You Love to Read",
+    "author": "Philippa Perry",
+    "slug": "the-book-you-want-everyone-you-love-to-read",
+    "year": 2023,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Philippa Perry’s relationship guidance on self-understanding, conflict, change and loss, without treating general advice as individualized therapy.",
+    "subtitle": "Understanding yourself can change how you meet other people.",
+    "bigIdea": "Perry offers a compassionate way to examine recurring relationship difficulties rather than reducing them to who is right or wrong.",
+    "sections": [
+      [
+        "Start With Your Part",
+        "Noticing your own reactions gives you something to understand without assuming every problem is your fault."
+      ],
+      [
+        "Connection Needs Attention",
+        "Close relationships can suffer when assumptions replace listening."
+      ],
+      [
+        "Conflict Carries Information",
+        "A disagreement can reveal different needs, while winning an argument may leave the relationship unchanged."
+      ],
+      [
+        "Change and Loss",
+        "Relationships evolve; grief and uncertainty cannot always be removed by finding a clever answer."
+      ],
+      [
+        "Compassion With Limits",
+        "Understanding another person does not require accepting harm or abandoning necessary boundaries."
+      ],
+      [
+        "General Guidance",
+        "Perry’s reflections are a starting point for thought, not a diagnosis or a substitute for support in unsafe relationships."
+      ]
+    ],
+    "take": "In a recurring disagreement, ask what each person needs before repeating the argument about who is correct.",
+    "remember": "Connection improves when curiosity replaces automatic judgment.",
+    "tags": [
+      "Relationships",
+      "Communication",
+      "Self-Understanding"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Book You Want Everyone You Love to Read — Hachette",
+        "https://www.hachettebookgroup.com/titles/philippa-perry/the-book-you-want-everyone-you-love-to-read/9780306834868/"
+      ],
+      [
+        "publisher",
+        "The Book You Want Everyone You Love to Read — Cornerstone",
+        "https://www.penguin.co.uk/books/456298/the-book-you-want-everyone-you-love-to-read-and-maybe-a-few-you-dont-by-perry-philippa/9781804947104"
+      ]
+    ],
+    "relatedBooks": [],
+    "seoTitle": "Philippa Perry’s Relationship Book | Notooo"
+  },
+  {
+    "number": 428,
+    "title": "The Pathless Path",
+    "author": "Paul Millerd",
+    "slug": "the-pathless-path",
+    "year": 2022,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Paul Millerd’s memoir of leaving a conventional achievement path, testing different work and redefining enough without recommending an identical leap for everyone.",
+    "subtitle": "A conventional route is one possibility, not the only one.",
+    "bigIdea": "Millerd’s account questions inherited definitions of success and explores a working life built through experiments rather than a complete master plan.",
+    "sections": [
+      [
+        "The Default Path",
+        "Education, prestige and promotion can become an unquestioned story about what a successful life should look like."
+      ],
+      [
+        "A Personal Departure",
+        "Millerd describes leaving consulting; his circumstances and choices are a memoir, not a universal instruction."
+      ],
+      [
+        "Experiment Before Certainty",
+        "Small experiences can reveal preferences that thinking alone cannot settle."
+      ],
+      [
+        "Enough Changes the Question",
+        "Understanding needs can make room for choices beyond maximizing income or status."
+      ],
+      [
+        "People Make Alternatives Visible",
+        "Encounters with others can reveal forms of work and life outside familiar expectations."
+      ],
+      [
+        "Uncertainty Has Costs",
+        "Money, health and responsibilities affect risk; rejecting a default does not remove the need for practical safeguards."
+      ]
+    ],
+    "take": "Test a small alternative to an inherited career assumption before making a major irreversible decision.",
+    "remember": "You can question a path without knowing every next step.",
+    "tags": [
+      "Work",
+      "Uncertainty",
+      "Life Design"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Pathless Path — Paul Millerd",
+        "https://www.pathlesspath.com/"
+      ],
+      [
+        "publisher",
+        "The Pathless Path — official publisher listing",
+        "https://www.simonandschuster.net/books/The-Pathless-Path/Paul-Millerd/9798893312997"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 429,
+    "title": "Make Time",
+    "author": "Jake Knapp & John Zeratsky",
+    "slug": "make-time",
+    "year": 2018,
+    "researchedAt": "2026-10-22",
+    "description": "Understand Knapp and Zeratsky’s Make Time framework: choose a daily highlight, reduce distractions, support energy and reflect on what actually worked.",
+    "subtitle": "Design a day around something worth remembering.",
+    "bigIdea": "Knapp and Zeratsky propose changing everyday defaults so an important activity gets real time instead of whatever remains after interruptions.",
+    "sections": [
+      [
+        "Choose a Highlight",
+        "Pick one meaningful focus for the day rather than treating every item as equally important."
+      ],
+      [
+        "Protect With Laser",
+        "Make distraction less convenient so attention can stay with the chosen activity."
+      ],
+      [
+        "Support Your Energy",
+        "Daily rhythms and physical needs affect attention; concentration is not only a scheduling problem."
+      ],
+      [
+        "Reflect Briefly",
+        "Notice which tactics helped rather than following a system without feedback."
+      ],
+      [
+        "A Menu, Not a Test",
+        "The authors offer experiments to adapt, not a demand to adopt every tactic at once."
+      ],
+      [
+        "Change Defaults",
+        "An environment that supports the desired action can help more than repeatedly arguing with temptation."
+      ]
+    ],
+    "take": "Choose tomorrow’s highlight and remove one predictable obstacle to starting it.",
+    "remember": "Make room for what matters before the day fills itself.",
+    "tags": [
+      "Time",
+      "Attention",
+      "Habits"
+    ],
+    "sources": [
+      [
+        "author",
+        "Make Time — official book site",
+        "https://maketime.blog/"
+      ],
+      [
+        "publisher",
+        "Make Time — Currency",
+        "https://www.penguinrandomhouse.com/books/564727/make-time-by-jake-knapp-and-john-zeratsky/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 430,
+    "title": "How to Do the Work",
+    "author": "Nicole LePera",
+    "slug": "how-to-do-the-work",
+    "year": 2021,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Nicole LePera’s self-reflection approach to patterns, childhood experiences and habits, keeping psychological and healing claims separate from individualized clinical care.",
+    "subtitle": "Notice a pattern without turning it into a diagnosis.",
+    "bigIdea": "LePera proposes greater awareness of learned patterns and everyday habits as a route toward change; this is her approach, not universal clinical guidance.",
+    "sections": [
+      [
+        "Name the Repetition",
+        "The book invites readers to notice reactions that recur without assuming every habit has one hidden cause."
+      ],
+      [
+        "Look at Early Experience",
+        "LePera connects adult behavior with childhood patterns; a plausible connection is not proof about an individual’s history."
+      ],
+      [
+        "Mind and Body",
+        "She advocates a broad view of wellbeing, but claims about nervous-system healing need evidence beyond a self-help narrative."
+      ],
+      [
+        "Practice New Responses",
+        "Small repeated choices are central to her framework rather than insight alone producing immediate change."
+      ],
+      [
+        "Boundaries and Relationships",
+        "The book links personal change with how people relate; boundaries must account for safety and circumstances."
+      ],
+      [
+        "Keep Care Available",
+        "Do not use this summary to diagnose trauma, replace therapy, change medication or blame someone for continued distress."
+      ]
+    ],
+    "take": "Use a noticed pattern as a question to explore, and seek qualified support for distress rather than assuming a book supplies treatment.",
+    "remember": "Self-awareness is useful; self-diagnosis is a different claim.",
+    "tags": [
+      "Self-Awareness",
+      "Patterns",
+      "Psychology"
+    ],
+    "sources": [
+      [
+        "author",
+        "How to Do the Work — The Holistic Psychologist",
+        "https://www.theholisticpsychologist.com/books/how-to-do-the-work/"
+      ],
+      [
+        "official",
+        "How to Do the Work — Richland Hills Public Library",
+        "https://librarycatalog.richlandhills.com/Record/349854"
+      ]
+    ],
+    "relatedBooks": []
   }
 ]

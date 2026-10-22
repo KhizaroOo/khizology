@@ -251,21 +251,29 @@ assert.deepEqual(notoooModule.validateNotoooBooks(notoooModule.notoooBooks), [],
 assert.deepEqual(notoooModule.getNotoooQualityWarnings(notoooModule.notoooBooks), [], 'All Notooo entries must fit the one-page quality budget');
 assert.ok(notoooModule.publishedNotoooBooks.every((book) => book.format === 'book'), 'Published Notooo entries must remain books');
 assert.ok(notoooModule.publishedNotoooBooks.every((book) => book.status === 'published'), 'Only published Notooo entries may reach public routes');
+// Khizar authorized editorial corrections across 001–450 on 2026-10-23.
+// Refresh reviewed snapshots intentionally; keep all preservation checks active.
 const preservedNotes = notoooModule.publishedNotoooBooks.filter(book => book.number <= 7);
 assert.equal(preservedNotes.length, 7, 'Published 001–007 must remain present');
-assert.equal(createHash('sha256').update(JSON.stringify(preservedNotes)).digest('hex'), 'f15f57153017dc6dbcffb500bab76fea701cd53a33398c30767d36dec61da9bd', 'Published 001–007 must remain exactly unchanged');
+assert.equal(createHash('sha256').update(JSON.stringify(preservedNotes)).digest('hex'), 'ce9442979ee138b7761f04e2cbfd5d56bde37bffeaed7e1712eaf148c0089e91', 'Reviewed 001–007 baseline must remain intact');
+assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks)).digest('hex'), '2c6bc7c22eb6c8567eb35c3fd93c12f225d3dda09162ddeaf29b46b18585822d', 'Reviewed 001–450 content baseline must remain intact');
 const newNotes = notoooModule.publishedNotoooBooks.filter(book => book.number >= 8);
 const priorBatch = newNotes.filter(book => book.number <= 127);
 const completedCatalog = newNotes.filter(book => book.number >= 128 && book.number <= 240);
 const expansionBatch = newNotes.filter(book => book.number >= 241 && book.number <= 300);
 const latestBatch = newNotes.filter(book => book.number >= 301 && book.number <= 330);
-const currentBatch = newNotes.filter(book => book.number >= 331);
+const currentBatch = newNotes.filter(book => book.number >= 331 && book.number <= 390);
+const newestBatch = newNotes.filter(book => book.number >= 391);
+assert.equal(newestBatch.length, 60, 'Add exactly 60 notes numbered 391–450');
+assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks.filter(book => book.number <= 390))).digest('hex'), '42abb4999b41044c32e8af5c59f4cfbb2e54eed27f795f691491f70e727ab37e', 'Reviewed 001–390 baseline must remain intact');
 assert.equal(currentBatch.length, 60, 'Add exactly 60 notes numbered 331–390');
-assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks.filter(book => book.number <= 330))).digest('hex'), '97e418ebacf9ee9121f38f3d1bfb34b75cde9b93db19e1be19be8cf3626a8094', 'Published 001–330 must remain exactly unchanged');
-for (const book of currentBatch) {
+assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks.filter(book => book.number <= 330))).digest('hex'), '94a4a88aa99b43b1c59334596e5a7fc964302f1abe1b45ac00678c35071c488d', 'Reviewed 001–330 baseline must remain intact');
+for (const book of [...currentBatch, ...newestBatch]) {
   const categoryIndex = notoooModule.notoooCategories.indexOf(book.category);
-  assert.ok(book.number >= 331 + categoryIndex * 10 && book.number <= 340 + categoryIndex * 10, `${book.slug}: preserve 331–390 category numbering`);
-  assert.equal(currentBatch.filter(item => item.category === book.category).length, 10, `${book.category}: add ten notes`);
+  const batchStart = book.number <= 390 ? 331 : 391;
+  const batch = book.number <= 390 ? currentBatch : newestBatch;
+  assert.ok(book.number >= batchStart + categoryIndex * 10 && book.number <= batchStart + 9 + categoryIndex * 10, `${book.slug}: preserve category numbering`);
+  assert.equal(batch.filter(item => item.category === book.category).length, 10, `${book.category}: add ten notes per batch`);
   assert.equal(book.publishedAt, '2026-10-22', `${book.slug}: record actual publication date`);
   assert.ok(book.sources.every(source => source.accessedAt === '2026-10-22'), `${book.slug}: record actual research access date`);
   assert.equal(new Set(book.sources.map(source => source.url)).size, book.sources.length, `${book.slug}: distinct research sources`);
@@ -275,20 +283,20 @@ for (const book of currentBatch) {
   if (book.category === 'Life') assert.ok(book.khizoooTake.points.some(point => point.includes('not individualized medical')), `${book.slug}: health boundary`);
 }
 assert.equal(latestBatch.length, 30, 'Add exactly 30 notes numbered 301–330');
-assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks.filter(book => book.number <= 300))).digest('hex'), '809f8bc2fd467dd0068903634ae83e02d5dd3a50945bb2e9cffdd72d42e7e1a5', 'Published 001–300 must remain exactly unchanged');
+assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks.filter(book => book.number <= 300))).digest('hex'), '953ae417e87152558232c10a2d886ad0a2b1b834f00bc179b7f0a76eda8f8758', 'Reviewed 001–300 baseline must remain intact');
 assert.equal(expansionBatch.length, 60, 'Add exactly 60 notes numbered 241–300');
-assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks.filter(book => book.number <= 240))).digest('hex'), '965482c7d219e8a15220c52b75056dae6c9b237634f6d7294a797233a403ad9b', 'Published 001–240 must remain exactly unchanged during expansion');
+assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks.filter(book => book.number <= 240))).digest('hex'), '17acda2ffddf5287986d8eb34659388aa59d81dcbdac5783d6791ecbda8f3369', 'Reviewed 001–240 baseline must remain intact');
 assert.equal(priorBatch.length, 120, 'Preserve the approved 008–127 batch');
-assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.publishedNotoooBooks.filter(book => book.number <= 127))).digest('hex'), 'bdaf2fe6201b2463e778aff8d4ccffcec39cd75ef412181925ee3efa5dc02a12', 'Published 001–127 must remain exactly unchanged during catalog completion');
+assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.publishedNotoooBooks.filter(book => book.number <= 127))).digest('hex'), '42f298e35db82f1b490cccfe0a7bbcfe5555613bd664ac34398e83c29adf7f28', 'Reviewed 001–127 baseline must remain intact');
 assert.equal(completedCatalog.length, 113, 'Complete the remaining 128–240 catalog notes');
-assert.equal(notoooModule.publishedNotoooBooks.length, 390, 'Expected all 390 notes to be release-ready');
-assert.deepEqual(notoooModule.publishedNotoooBooks.map(book => book.number), Array.from({ length: 390 }, (_, i) => i + 1), 'Published numbers and schema order must cover 001–390 without gaps or duplicates');
-assert.equal(notoooModule.notoooBooks.length, 390, 'Preserve all 330 baseline notes alongside the 60 new notes');
+assert.equal(notoooModule.publishedNotoooBooks.length, 450, 'Expected all 450 notes to be release-ready');
+assert.deepEqual(notoooModule.publishedNotoooBooks.map(book => book.number), Array.from({ length: 450 }, (_, i) => i + 1), 'Published numbers and schema order must cover 001–450 without gaps or duplicates');
+assert.equal(notoooModule.notoooBooks.length, 450, 'Preserve all 390 baseline notes alongside the 60 new notes');
 assert.equal(notoooModule.notoooBooks.filter(book => book.status !== 'published').length, 0, 'Khizar approved completing the catalog: no remaining drafts');
 for (const category of notoooModule.notoooCategories) {
   assert.equal(priorBatch.filter(book => book.category === category).length, 20, `${category}: preserve 20 notes in the prior batch`);
-  assert.equal(notoooModule.publishedNotoooBooks.filter(book => book.category === category).length, 65, `${category}: expected 65 published notes`);
-  assert.equal(notoooModule.notoooBooks.filter(book => book.category === category).length, 65, `${category}: original catalog must remain intact`);
+  assert.equal(notoooModule.publishedNotoooBooks.filter(book => book.category === category).length, 75, `${category}: expected 75 published notes`);
+  assert.equal(notoooModule.notoooBooks.filter(book => book.category === category).length, 75, `${category}: original catalog must remain intact`);
   assert.equal(expansionBatch.filter(book => book.category === category).length, 10, `${category}: add ten notes`);
 }
 for (const book of latestBatch) {
@@ -414,7 +422,7 @@ for (const item of catalogItems) {
   assert.match(row || '', new RegExp(`^\\s*<h3\\b[^>]*>[\\s\\S]*?<\\/h3>\\s*<p\\b[^>]*class="book-author"[^>]*>[\\s\\S]*?<\\/p>\\s*${statusLabel}$`), 'Listing rows must show title, writer and a visible Coming label only for non-public notes');
   if (coming) assert.ok(!/<(?:a|button)\b|\b(?:href|tabindex|role|on\w+)\s*=/i.test(item), 'Coming rows must not expose links, focus stops or fake interactive semantics');
 }
-assert.equal(pages.filter(file => /^notooo[\\/]([^\\/]+)[\\/]index\.html$/.test(String(file))).length, 390, 'Generate exactly the 390 published Notooo detail routes');
+assert.equal(pages.filter(file => /^notooo[\\/]([^\\/]+)[\\/]index\.html$/.test(String(file))).length, 450, 'Generate exactly the 450 published Notooo detail routes');
 const escapeCatalogHtml = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 const readSchema = output => [...output.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap(match => JSON.parse(match[1]));
 const hubCollection = readSchema(hubHtml).find(schema => schema['@type'] === 'CollectionPage');
@@ -426,7 +434,7 @@ const hubCanonical = hubHtml.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
 assert.equal(sitemapUrls.filter(value => value === hubCanonical).length, 1, 'Notooo hub must appear exactly once in the sitemap');
 assert.deepEqual(hubCollection.mainEntity.itemListElement.map(item => item.url), notoooModule.publishedNotoooBooks.map(book => `${hubCanonical}${book.slug}/`), 'ItemList must contain only real published canonical URLs');
 assert.equal(sitemapUrls.filter(value => value.startsWith(hubCanonical)).length, notoooModule.publishedNotoooBooks.length + 1, 'No category, filter, search or draft routes may enter the Notooo sitemap');
-assert.equal(sitemapUrls.filter(value => value.startsWith(hubCanonical)).length, 391, 'Expected the Notooo hub and all 390 published notes in the sitemap');
+assert.equal(sitemapUrls.filter(value => value.startsWith(hubCanonical)).length, 451, 'Expected the Notooo hub and all 450 published notes in the sitemap');
 const publicJs = fs.readdirSync(dist, { recursive: true }).filter(file => String(file).endsWith('.js')).map(file => fs.readFileSync(path.join(dist, file), 'utf8')).join('\n');
 const bodyFields = book => [book.bigIdea, ...book.sections, book.khizoooTake, book.remember].flatMap(section => [section.oneLiner, ...section.points]);
 const publishedBody = new Set(notoooModule.publishedNotoooBooks.flatMap(bodyFields));

@@ -2552,5 +2552,575 @@
     ],
     "relatedBooks": [],
     "editionNote": "First published in 2024; the linked paperback edition is dated 2025."
+  },
+  {
+    "number": 401,
+    "title": "Trillions",
+    "author": "Robin Wigglesworth",
+    "slug": "trillions",
+    "year": 2021,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Robin Wigglesworth’s history of index funds, lower fees and market-wide investing, including the new questions created by passive investing at scale.",
+    "subtitle": "A simple investing idea changed who captures the rewards.",
+    "bigIdea": "Wigglesworth traces how funds built to follow markets challenged an industry built around trying to beat them.",
+    "sections": [
+      [
+        "Follow a Market",
+        "An index fund aims to track a chosen basket rather than constantly select the next winning security."
+      ],
+      [
+        "Costs Compound Too",
+        "Fees reduce what investors keep; the book explains why low-cost structures became a powerful challenge to active management."
+      ],
+      [
+        "An Unfashionable Invention",
+        "Researchers and practitioners struggled to turn an initially unpopular idea into a usable product."
+      ],
+      [
+        "Many Contributors",
+        "The history extends beyond a single heroic founder to competing firms, academic work and institutional experiments."
+      ],
+      [
+        "Scale Changes Questions",
+        "Growing index ownership raises issues about market structure, company governance and concentrated influence."
+      ],
+      [
+        "History Is Not a Guarantee",
+        "Following an index still involves market risk; a cheaper fund is not a promise against loss."
+      ]
+    ],
+    "take": "Understand what an investing product tracks, what it costs and what risks remain before admiring its story.",
+    "remember": "A useful financial invention can solve one problem and create others.",
+    "tags": [
+      "Index Funds",
+      "Financial History",
+      "Markets"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Trillions — Penguin/Allen Lane",
+        "https://www.penguin.co.uk/books/315585/trillions-by-wigglesworth-robin/9780241987971"
+      ],
+      [
+        "review",
+        "Trillions — LSE Review of Books",
+        "https://blogs.lse.ac.uk/lsereviewofbooks/2022/05/11/book-review-trillions-how-a-band-of-wall-street-renegades-invented-the-index-fund-and-changed-finance-forever-by-robin-wigglesworth/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 402,
+    "title": "The Lords of Easy Money",
+    "author": "Christopher Leonard",
+    "slug": "the-lords-of-easy-money",
+    "year": 2022,
+    "researchedAt": "2026-10-22",
+    "description": "Understand Christopher Leonard’s critique of Federal Reserve easy-money policies, financial risk and unequal outcomes, with the causal argument clearly attributed.",
+    "subtitle": "Money policy reaches beyond the central bank.",
+    "bigIdea": "Leonard argues that prolonged easy-money policies inflated financial risks and favored asset owners, using dissent inside the Federal Reserve to tell the story.",
+    "sections": [
+      [
+        "A Crisis Response",
+        "Central banks can lower rates and buy assets to support borrowing and economic activity."
+      ],
+      [
+        "Who Receives the Boost",
+        "Leonard follows how financial institutions and asset owners can benefit before gains reach other households."
+      ],
+      [
+        "A Search for Returns",
+        "Lower yields can encourage investors to accept greater risk, though responses depend on the wider economy."
+      ],
+      [
+        "Dissent From Within",
+        "Thomas Hoenig’s objections provide a lens on internal disagreement rather than a complete account of every policymaker’s reasoning."
+      ],
+      [
+        "Consequences Accumulate",
+        "The book connects repeated interventions with fragile incentives and wealth inequality."
+      ],
+      [
+        "A Causal Argument",
+        "How much inequality or instability monetary policy caused remains contested; crisis prevention also has real stakes."
+      ]
+    ],
+    "take": "Ask both what a policy prevented and how its benefits and risks were distributed.",
+    "remember": "Stabilizing a system and distributing its rewards are different questions.",
+    "tags": [
+      "Monetary Policy",
+      "Inequality",
+      "Financial Risk"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Lords of Easy Money — Christopher Leonard",
+        "https://www.christopherleonard.biz/books/the-lords-of-easy-money"
+      ],
+      [
+        "publisher",
+        "The Lords of Easy Money — Simon & Schuster",
+        "https://www.simonandschuster.com/books/The-Lords-of-Easy-Money/Christopher-Leonard/9781982166649"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 403,
+    "title": "The Fund",
+    "author": "Rob Copeland",
+    "slug": "the-fund",
+    "year": 2023,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Rob Copeland’s critical reporting on Ray Dalio and Bridgewater, separating accounts of organizational culture from disputed claims and investment success.",
+    "subtitle": "A leader’s principles need testing against everyday practice.",
+    "bigIdea": "Copeland challenges the public story of Bridgewater by examining how its stated principles operated inside a powerful investment firm.",
+    "sections": [
+      [
+        "A Powerful Story",
+        "Ray Dalio’s public principles helped present the firm as unusually rational and transparent."
+      ],
+      [
+        "Culture in Practice",
+        "Copeland’s interviews describe tensions between those ideals and employees’ reported experiences."
+      ],
+      [
+        "Who Can Disagree",
+        "A system that invites criticism may still make challenging a powerful founder personally costly."
+      ],
+      [
+        "Success Proves What?",
+        "Investment achievements do not independently establish the fairness or wisdom of a workplace philosophy."
+      ],
+      [
+        "A Contested Account",
+        "Dalio and Bridgewater disputed the portrayal; reported experiences and the author’s judgments need attribution."
+      ],
+      [
+        "Beyond the Founder",
+        "The organizational question is whether rules constrain leadership as well as employees."
+      ]
+    ],
+    "take": "Judge a workplace principle by what happens when someone uses it to challenge the most powerful person.",
+    "remember": "Stated openness is not the same as shared power.",
+    "tags": [
+      "Leadership",
+      "Organizational Culture",
+      "Finance"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Fund — St. Martin’s Press",
+        "https://static.macmillan.com/static/smp/the-fund/"
+      ],
+      [
+        "review",
+        "The Fund and Dalio’s response — Axios",
+        "https://www.axios.com/2023/11/07/ray-dalio-investing-book-crying-employees-strippers-mental-health"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 404,
+    "title": "The Bond King",
+    "author": "Mary Childs",
+    "slug": "the-bond-king",
+    "year": 2022,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Mary Childs’s history of Bill Gross, Pimco and active bond investing, including institutional influence, personal ambition and the limits of a star-investor story.",
+    "subtitle": "Even a bond market has people, power and rivalries.",
+    "bigIdea": "Childs uses Bill Gross’s rise and departure from Pimco to show how active bond trading changed modern finance.",
+    "sections": [
+      [
+        "Bonds Can Be Traded",
+        "A loan-like security can become a vehicle for active judgments about rates, risk and price."
+      ],
+      [
+        "Building an Institution",
+        "Pimco’s growth depended on people, clients and market structure, not just one investor’s decisions."
+      ],
+      [
+        "Size Brings Influence",
+        "A large fund can become a significant participant in markets and financial-policy debates."
+      ],
+      [
+        "Ambition Has a Culture",
+        "Childs’s reporting examines how demanding leadership affected colleagues as well as performance."
+      ],
+      [
+        "A Difficult Departure",
+        "Gross’s eventual exit shows the fragility of an institution built around a celebrated individual."
+      ],
+      [
+        "No Star Formula",
+        "A reported career does not provide a repeatable recipe for returns or eliminate bond-market risks."
+      ]
+    ],
+    "take": "Look past a star manager to the incentives, collaborators and conditions behind an investment record.",
+    "remember": "Financial achievement does not explain an institution by itself.",
+    "tags": [
+      "Bonds",
+      "Financial History",
+      "Leadership"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Bond King — Flatiron Books",
+        "https://academic.macmillan.com/academictrade/9781250120847/thebondking/"
+      ],
+      [
+        "author",
+        "The Bond King — Mary Childs",
+        "https://www.marychilds.com/thebondking"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 405,
+    "title": "Number Go Up",
+    "author": "Zeke Faux",
+    "slug": "number-go-up",
+    "year": 2023,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Zeke Faux’s investigation of the crypto boom, stablecoins and fraud, with reported allegations separated from the author’s broader critique.",
+    "subtitle": "A rising token price is not evidence of a sound business.",
+    "bigIdea": "Faux follows the people and financial plumbing behind crypto enthusiasm to question what the boom actually produced and who bore its losses.",
+    "sections": [
+      [
+        "Follow the Money",
+        "The reporting asks how funds enter, move through and leave crypto markets rather than relying on promotional claims."
+      ],
+      [
+        "Belief Becomes Momentum",
+        "Rising prices and endorsements can attract buyers without resolving questions about underlying usefulness."
+      ],
+      [
+        "Stablecoin Questions",
+        "Tokens promising a steady value depend on claims about reserves, redemption and the institutions behind them."
+      ],
+      [
+        "Beyond the Famous Founders",
+        "Faux investigates harms affecting ordinary people, including scams tied to coercive criminal operations."
+      ],
+      [
+        "Collapse Reveals Dependencies",
+        "The boom’s failures expose connections between exchanges, lenders and confidence."
+      ],
+      [
+        "Keep Claims Specific",
+        "Faux’s skeptical interpretation is not a legal finding against every participant or proof that all technologies are identical."
+      ]
+    ],
+    "take": "Ask what independently verifies a financial claim and whether withdrawal works, rather than treating popularity as evidence.",
+    "remember": "Price excitement cannot replace verifiable trust.",
+    "tags": [
+      "Cryptocurrency",
+      "Fraud",
+      "Financial Risk"
+    ],
+    "sources": [
+      [
+        "author",
+        "Number Go Up — Zeke Faux",
+        "https://zekefaux.com/"
+      ],
+      [
+        "publisher",
+        "Number Go Up — Currency",
+        "https://www.penguinrandomhouseretail.com/book/?isbn=9780593443835"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 406,
+    "title": "Easy Money",
+    "author": "Ben McKenzie & Jacob Silverman",
+    "slug": "easy-money",
+    "year": 2023,
+    "researchedAt": "2026-10-22",
+    "description": "Understand Ben McKenzie and Jacob Silverman’s critique of crypto speculation, celebrity promotion and weak accountability, with advocacy distinguished from established findings.",
+    "subtitle": "A persuasive pitch is not a substitute for economic value.",
+    "bigIdea": "McKenzie and Silverman argue that crypto’s speculative incentives and promotional culture exposed buyers to serious harm.",
+    "sections": [
+      [
+        "Ask What Is Sold",
+        "The authors question whether a token’s promised purpose explains its price or merely supports speculation."
+      ],
+      [
+        "Promotion Has Incentives",
+        "Celebrity attention can make an investment feel trustworthy while leaving compensation and risks unclear."
+      ],
+      [
+        "Follow the Intermediaries",
+        "Exchanges and other businesses still require trust, despite claims that the system removes trusted middlemen."
+      ],
+      [
+        "A Boom Turns",
+        "The authors report through the market’s crash, examining the gap between promises and outcomes."
+      ],
+      [
+        "Rules Matter",
+        "Their critique calls attention to accountability and consumer protection, not just individual judgment."
+      ],
+      [
+        "A Skeptical Argument",
+        "This is an openly critical investigation; specific accusations require evidence and must not be generalized to every user."
+      ]
+    ],
+    "take": "Before trusting a financial endorsement, ask who is paid, what is verified and who absorbs the loss.",
+    "remember": "Incentives are part of the product.",
+    "tags": [
+      "Cryptocurrency",
+      "Speculation",
+      "Accountability"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Easy Money — Abrams Press",
+        "https://www.abramsbooks.com/product/easy-money_9781419766404/"
+      ],
+      [
+        "official",
+        "Easy Money — WorldCat bibliographic record",
+        "https://search.worldcat.org/title/1338834619"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 407,
+    "title": "The Future of Money",
+    "author": "Eswar S. Prasad",
+    "slug": "the-future-of-money",
+    "year": 2021,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Eswar Prasad’s analysis of digital money, payment systems and central-bank currencies, including inclusion, privacy and financial-stability trade-offs.",
+    "subtitle": "Changing money changes more than how we pay.",
+    "bigIdea": "Prasad examines how digital payments and new currencies can reshape financial access, central-bank power and personal privacy.",
+    "sections": [
+      [
+        "Money Has Several Jobs",
+        "Payment, pricing and saving are different functions; one technology need not perform all of them well."
+      ],
+      [
+        "Cheaper Connections",
+        "Digital systems may widen access and reduce payment friction, but devices and institutions can still exclude people."
+      ],
+      [
+        "Public Digital Money",
+        "A central-bank digital currency differs from a privately issued token in who stands behind it."
+      ],
+      [
+        "Privacy and Oversight",
+        "Traceable transactions can aid enforcement while creating serious questions about surveillance."
+      ],
+      [
+        "Banks and Borders",
+        "New payment arrangements can affect bank funding, capital flows and the reach of national currencies."
+      ],
+      [
+        "No Predetermined Future",
+        "Design choices, regulation and public trust shape outcomes; technical novelty alone does not settle them."
+      ]
+    ],
+    "take": "Compare a proposed currency by its issuer, purpose, access rules and privacy protections.",
+    "remember": "The design of money distributes power.",
+    "tags": [
+      "Digital Money",
+      "Privacy",
+      "Central Banks"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Future of Money — official book site",
+        "https://www.futureofmoneybook.com/the-book/"
+      ],
+      [
+        "official",
+        "The Future of Money — Brookings",
+        "https://www.brookings.edu/books/the-future-of-money/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 408,
+    "title": "Debt: The First 5,000 Years",
+    "author": "David Graeber",
+    "slug": "debt-the-first-5-000-years",
+    "year": 2011,
+    "researchedAt": "2026-10-22",
+    "description": "Explore David Graeber’s history of debt, credit and moral obligation, with sweeping anthropological arguments distinguished from uncontested economic history.",
+    "subtitle": "A debt is a social relationship as well as a number.",
+    "bigIdea": "Graeber argues that credit, obligation and power are central to money’s history, challenging simple stories in which barter naturally became cash.",
+    "sections": [
+      [
+        "Question the Origin Story",
+        "He challenges textbook barter narratives using historical and anthropological examples."
+      ],
+      [
+        "Credit Before Coins",
+        "Records of obligations can organize exchange without requiring cash at every transaction."
+      ],
+      [
+        "Moral Language",
+        "Calling a debt obligatory can make a political or social arrangement appear beyond question."
+      ],
+      [
+        "Power Behind Payment",
+        "Graeber connects debt enforcement with states, war and unequal bargaining power."
+      ],
+      [
+        "More Than Calculation",
+        "Mutual help and everyday obligation do not always operate like precisely priced commercial exchanges."
+      ],
+      [
+        "A Debated Synthesis",
+        "His broad historical patterns and political conclusions are interpretations that invite scrutiny, not a single settled account."
+      ]
+    ],
+    "take": "When someone says a debt must be paid, ask how it arose, who sets its terms and what enforcement costs.",
+    "remember": "Arithmetic does not settle every question of obligation.",
+    "tags": [
+      "Debt",
+      "Anthropology",
+      "Economic History"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Debt — Melville House",
+        "https://mhpbooks.com/books/debt"
+      ],
+      [
+        "author",
+        "Debt: The First 5,000 Years — David Graeber archive",
+        "https://davidgraeber.org/books/debt-the-first-5000-years/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 409,
+    "title": "The Power Law",
+    "author": "Sebastian Mallaby",
+    "slug": "the-power-law",
+    "year": 2022,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Sebastian Mallaby’s history of venture capital, extreme investment outcomes and technological influence, including failures and the limits of winner-focused stories.",
+    "subtitle": "A few unusual outcomes can dominate a portfolio.",
+    "bigIdea": "Mallaby explains venture capital through a pattern in which a small number of exceptional successes outweigh many failed bets.",
+    "sections": [
+      [
+        "An Uneven Distribution",
+        "Venture returns are highly concentrated; an average-looking bet may not explain the industry’s strategy."
+      ],
+      [
+        "Finance for Uncertainty",
+        "Young companies often lack the history and predictable cash flows required by conventional lending."
+      ],
+      [
+        "More Than a Check",
+        "Networks, recruiting and guidance can matter alongside capital, though founders and conditions remain essential."
+      ],
+      [
+        "Failure Is Built In",
+        "A strategy expecting many failures still imposes real costs on workers, founders and investors."
+      ],
+      [
+        "Capital Shapes Direction",
+        "Funding decisions influence which technologies and business models get a chance to grow."
+      ],
+      [
+        "Beware Hindsight",
+        "The winners look clearer afterward; a compelling history is not a reliable method for choosing future winners."
+      ]
+    ],
+    "take": "Ask whether a success story explains the failed bets and wider costs as carefully as the celebrated outcome.",
+    "remember": "A spectacular winner can hide a very uneven system.",
+    "tags": [
+      "Venture Capital",
+      "Innovation",
+      "Risk"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Power Law — Penguin Press",
+        "https://www.penguinrandomhouse.com/books/580120/the-power-law-by-sebastian-mallaby/"
+      ],
+      [
+        "official",
+        "The Power Law — Richland Library",
+        "https://www.richlandlibrary.com/catalog/detail/1927052?return=%2Fcatalog%3F"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 410,
+    "title": "Going Infinite",
+    "author": "Michael Lewis",
+    "slug": "going-infinite",
+    "year": 2023,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Michael Lewis’s portrait of Sam Bankman-Fried and FTX’s collapse, while keeping narrative access, disputed interpretation and legal accountability separate.",
+    "subtitle": "Access to a founder is not the same as a complete account.",
+    "bigIdea": "Lewis uses close access to Bankman-Fried to examine extraordinary ambition and financial collapse, offering a portrait whose sympathies and omissions drew criticism.",
+    "sections": [
+      [
+        "Inside the Story",
+        "Close observation gives Lewis personal detail but also makes narrative perspective important to evaluate."
+      ],
+      [
+        "Trading and Belief",
+        "The book follows the move from trading into a crypto business surrounded by influential supporters."
+      ],
+      [
+        "Numbers and Ethics",
+        "Bankman-Fried’s stated ideas about probability and doing good require scrutiny against actual conduct."
+      ],
+      [
+        "A Business Collapses",
+        "FTX’s failure raises questions about oversight, customer trust and who controlled money."
+      ],
+      [
+        "A Contested Portrait",
+        "Critics challenged Lewis’s framing; understanding someone’s reasoning does not excuse financial misconduct."
+      ],
+      [
+        "Keep the Time Boundary",
+        "The 2023 book is not a complete record of later court proceedings; narrative interpretation and legal findings are distinct."
+      ]
+    ],
+    "take": "Read an intimate financial portrait alongside independent reporting rather than confusing access with neutrality.",
+    "remember": "Explaining a person does not absolve them.",
+    "tags": [
+      "FTX",
+      "Financial Accountability",
+      "Biography"
+    ],
+    "sources": [
+      [
+        "author",
+        "Going Infinite — Michael Lewis",
+        "https://www.michaellewiswrites.com/index.html"
+      ],
+      [
+        "interview",
+        "Michael Lewis discusses Going Infinite and criticism — TIME",
+        "https://time.com/6321668/michael-lewis-sam-bankman-fried-going-infinite/"
+      ]
+    ],
+    "relatedBooks": []
   }
 ]

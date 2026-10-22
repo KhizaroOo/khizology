@@ -1520,7 +1520,7 @@
     "year": 2023,
     "researchedAt": "2026-10-20",
     "description": "Examine Sapolsky’s case against free will, the layered causes of behavior, and the distinction between causal explanation and practical responsibility.",
-    "subtitle": "Look for causes before assigning desert.",
+    "subtitle": "Look for causes before deciding someone deserves blame.",
     "bigIdea": "Sapolsky argues that behavior arises from prior biological and environmental causes rather than an independent, uncaused will.",
     "sections": [
       [
@@ -1756,7 +1756,7 @@
     "researchedAt": "2026-10-20",
     "description": "Explore neurological case studies of phantom limbs, body image, neglect and self-explanation, while separating observations from broader theories.",
     "subtitle": "The brain builds the body you experience.",
-    "bigIdea": "Ramachandran and Blakeslee use unusual neurological cases to explore how the brain constructs bodily experience and explanations of the self.",
+    "bigIdea": "Ramachandran and Blakeslee use phantom limbs and other neurological cases to show how the brain builds a body image and interprets experience.",
     "sections": [
       [
         "A Limb Still Present",
@@ -2542,6 +2542,577 @@
         "author",
         "The Art of Fighting — Priya Parker",
         "https://www.priyaparker.com/the-art-of-fighting"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 391,
+    "title": "Being You",
+    "author": "Anil Seth",
+    "slug": "being-you",
+    "year": 2021,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Anil Seth’s account of conscious experience, predictive perception and the embodied self, keeping a scientific theory distinct from a solved mystery.",
+    "subtitle": "Your experience is constructed, but constrained by the world.",
+    "bigIdea": "Seth argues that conscious experience grows from the brain’s predictions about the world and the living body.",
+    "sections": [
+      [
+        "Three Questions",
+        "Being awake, experiencing a color and feeling like yourself are related but different problems."
+      ],
+      [
+        "Perception Predicts",
+        "In Seth’s account, the brain combines incoming signals with expectations rather than simply copying the world."
+      ],
+      [
+        "Reality Pushes Back",
+        "A prediction must answer to sensory evidence; constructed perception does not make every belief equally true."
+      ],
+      [
+        "A Living Self",
+        "Signals about the body’s condition help produce the feeling that experiences belong to you."
+      ],
+      [
+        "Life and Intelligence",
+        "Seth separates being conscious from being clever; a capable machine is not thereby proven conscious."
+      ],
+      [
+        "An Open Explanation",
+        "Predictive processing offers testable ideas, but its reach and the nature of consciousness remain debated."
+      ]
+    ],
+    "take": "When an experience feels certain, distinguish the experience itself from your explanation of its cause.",
+    "remember": "A convincing experience is not a direct photograph of reality.",
+    "tags": [
+      "Consciousness",
+      "Perception",
+      "Mind"
+    ],
+    "sources": [
+      [
+        "author",
+        "Being You — Anil Seth",
+        "https://www.anilseth.com/being-you/"
+      ],
+      [
+        "review",
+        "Being You — Journal for Person-Oriented Research",
+        "https://journals.lub.lu.se/jpor/article/view/29051"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 392,
+    "title": "The Hidden Spring",
+    "author": "Mark Solms",
+    "slug": "the-hidden-spring",
+    "year": 2021,
+    "researchedAt": "2026-10-22",
+    "description": "Understand Mark Solms’s theory connecting consciousness with feeling, bodily needs and brainstem systems, without presenting contested conclusions as settled science.",
+    "subtitle": "Why should staying alive feel like anything?",
+    "bigIdea": "Solms proposes that feelings about bodily needs lie near the roots of consciousness, rather than being an optional addition to thought.",
+    "sections": [
+      [
+        "Start With Feeling",
+        "Hunger and distress matter because they register how life is going for an organism."
+      ],
+      [
+        "Look Below Thought",
+        "Solms emphasizes ancient brainstem systems when challenging cortex-centered explanations of awareness."
+      ],
+      [
+        "Needs Require Choices",
+        "An organism cannot rely on fixed routines for every uncertain situation; feeling helps frame what matters."
+      ],
+      [
+        "Several Kinds of Evidence",
+        "Clinical cases, dreaming and theoretical models play different roles in his argument."
+      ],
+      [
+        "Models Have Limits",
+        "Ideas about prediction and energy do not by themselves establish where all subjective experience comes from."
+      ],
+      [
+        "Artificial Sentience",
+        "His discussion of conscious machines raises ethical questions; it does not demonstrate that such machines already exist."
+      ]
+    ],
+    "take": "Ask which observation supports a claim, and which part depends on Solms’s broader interpretation.",
+    "remember": "A theory of consciousness must explain feeling as well as information.",
+    "tags": [
+      "Consciousness",
+      "Feeling",
+      "Neuroscience"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Hidden Spring — W. W. Norton",
+        "https://wwnorton.co.uk/books/9780393542011-the-hidden-spring"
+      ],
+      [
+        "review",
+        "The Hidden Spring — Publishers Weekly",
+        "https://www.publishersweekly.com/9780393542011"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 393,
+    "title": "Seven and a Half Lessons About the Brain",
+    "author": "Lisa Feldman Barrett",
+    "slug": "seven-and-a-half-lessons-about-the-brain",
+    "year": 2020,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Lisa Feldman Barrett’s short lessons on brain networks, prediction, development and social life, including why familiar brain myths mislead.",
+    "subtitle": "A brain manages a body in a social world.",
+    "bigIdea": "Barrett presents the brain as an adaptable network shaped by bodily needs, experience and other people.",
+    "sections": [
+      [
+        "Beyond a Thinking Machine",
+        "Barrett begins with the brain’s work of managing the body, rather than treating abstract reasoning as its only purpose."
+      ],
+      [
+        "No Inner Reptile",
+        "The familiar story of a primitive emotional brain battling a newer rational brain oversimplifies evolution."
+      ],
+      [
+        "Networks Cooperate",
+        "Brain functions arise through interacting networks; a single region is not a tiny person making decisions."
+      ],
+      [
+        "Experience Builds Connections",
+        "Development depends on both biology and surroundings, not a simple contest between nature and nurture."
+      ],
+      [
+        "Brains Predict",
+        "Past experience helps shape perception and action; new evidence can still change those expectations."
+      ],
+      [
+        "People Affect People",
+        "Relationships and shared meanings influence human experience, while individual brains retain meaningful differences."
+      ]
+    ],
+    "take": "Replace a tidy brain metaphor with a question about the body, environment and interacting networks.",
+    "remember": "A simple brain story can be memorable and still be wrong.",
+    "tags": [
+      "Neuroscience",
+      "Prediction",
+      "Learning"
+    ],
+    "sources": [
+      [
+        "author",
+        "Seven and a Half Lessons About the Brain — Lisa Feldman Barrett",
+        "https://lisafeldmanbarrett.com/books/seven-and-a-half-lessons-about-the-brain/"
+      ],
+      [
+        "review",
+        "Seven and a Half Lessons About the Brain — Kirkus Reviews",
+        "https://www.kirkusreviews.com/book-reviews/lisa-feldman-barrett/seven-and-a-half-lessons-about-the-brain/"
+      ]
+    ],
+    "relatedBooks": [],
+    "seoTitle": "Seven and a Half Lessons About the Brain | Notooo"
+  },
+  {
+    "number": 394,
+    "title": "The Experience Machine",
+    "author": "Andy Clark",
+    "slug": "the-experience-machine",
+    "year": 2023,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Andy Clark’s predictive-processing account of perception and action, with careful boundaries around pain, mental health and theoretical interpretation.",
+    "subtitle": "Experience combines expectation with incoming evidence.",
+    "bigIdea": "Clark argues that brains continually predict sensory signals and revise their expectations through feedback and action.",
+    "sections": [
+      [
+        "An Active Guess",
+        "Perception draws on previous experience rather than waiting for the senses to deliver a complete picture."
+      ],
+      [
+        "Notice the Mismatch",
+        "Differences between expectation and incoming signals can prompt the brain to update its model."
+      ],
+      [
+        "Move to Learn",
+        "Action changes what we sense, making the body and surroundings part of the explanatory picture."
+      ],
+      [
+        "Context Changes Experience",
+        "The same signal can feel different under different expectations; that does not make the experience imaginary."
+      ],
+      [
+        "Careful With Clinical Claims",
+        "Clark explores implications for pain and mental health, not a promise that changing thoughts cures illness."
+      ],
+      [
+        "A Research Framework",
+        "Predictive processing is influential, but particular explanations require evidence and remain open to challenge."
+      ]
+    ],
+    "take": "Look for the evidence that could change an expectation instead of assuming that certainty proves accuracy.",
+    "remember": "Expectations shape experience; they do not remove the need for evidence.",
+    "tags": [
+      "Perception",
+      "Prediction",
+      "Mind"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Experience Machine — Pantheon/Vintage",
+        "https://www.penguinrandomhouse.com/books/608016/the-experience-machine-by-andy-clark/"
+      ],
+      [
+        "review",
+        "The Experience Machine — Publishers Weekly",
+        "https://www.publishersweekly.com/9781524748456"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 395,
+    "title": "Attention Span",
+    "author": "Gloria Mark",
+    "slug": "attention-span",
+    "year": 2023,
+    "researchedAt": "2026-10-22",
+    "description": "Understand Gloria Mark’s research on digital attention, interruptions and recovery, without reducing human concentration to one universal attention-span number.",
+    "subtitle": "Attention needs a rhythm, not constant strain.",
+    "bigIdea": "Mark argues that managing attention means balancing demanding focus with recovery and understanding the environments that interrupt us.",
+    "sections": [
+      [
+        "Watch Real Work",
+        "Mark studies technology use in everyday settings, where messages and unfinished tasks compete for attention."
+      ],
+      [
+        "Switching Has a Cost",
+        "Moving between tasks takes effort even when each interruption seems brief."
+      ],
+      [
+        "Not Always Deep Focus",
+        "Different activities ask different things of attention; sustained effort cannot continue without recovery."
+      ],
+      [
+        "Internal Interruptions",
+        "People also check devices without being prompted, so removing notifications addresses only part of the problem."
+      ],
+      [
+        "Protect a Purpose",
+        "Knowing what you want to finish can help you resist a diversion at the moment it appears."
+      ],
+      [
+        "Read Numbers in Context",
+        "An observed screen-switching average is not a fixed biological limit on everyone’s ability to concentrate."
+      ]
+    ],
+    "take": "Notice when your attention works best, and give one important task a protected stretch followed by a real break.",
+    "remember": "Attention is a limited resource with changing demands.",
+    "tags": [
+      "Attention",
+      "Technology",
+      "Focus"
+    ],
+    "sources": [
+      [
+        "author",
+        "Attention Span — Gloria Mark",
+        "https://gloriamark.com/attention-span/?region=japan"
+      ],
+      [
+        "publisher",
+        "Attention Span — Harlequin",
+        "https://harlequin.com/en-ca/products/attention-span"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 396,
+    "title": "The Inner Clock",
+    "author": "Lynne Peeples",
+    "slug": "the-inner-clock",
+    "year": 2024,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Lynne Peeples’s reporting on circadian rhythms, environmental time cues and social schedules, without treating a popular-science book as medical advice.",
+    "subtitle": "Your body keeps time beyond the clock on the wall.",
+    "bigIdea": "Peeples explains how biological rhythms meet light, behavior and social schedules, and why their timing matters.",
+    "sections": [
+      [
+        "Many Internal Clocks",
+        "Timing systems throughout the body help coordinate daily changes in activity and physiology."
+      ],
+      [
+        "Light Sets the Scene",
+        "The light-dark cycle provides an important signal, while artificial light can complicate that pattern."
+      ],
+      [
+        "Schedules Can Clash",
+        "Shift work, time zones and social expectations may conflict with biological timing."
+      ],
+      [
+        "Timing Beyond Sleep",
+        "The book explores links with meals, learning, exercise and medicine; not every application has equal evidence."
+      ],
+      [
+        "Follow the Reporting",
+        "Peeples combines scientific interviews with personal experiments, which illustrate rather than prove general effects."
+      ],
+      [
+        "Different Bodies",
+        "People differ in their natural sleep–wake timing and circumstances; individualized health questions belong with a qualified clinician."
+      ]
+    ],
+    "take": "Notice how your daily environment signals day and night before assuming that more willpower solves fatigue.",
+    "remember": "Timing is part of biology, not merely a scheduling preference.",
+    "tags": [
+      "Circadian Rhythms",
+      "Sleep",
+      "Biology"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Inner Clock — Riverhead Books",
+        "https://www.penguinrandomhouse.com/books/703281/the-inner-clock-by-lynne-peeples/"
+      ],
+      [
+        "publisher",
+        "The Inner Clock — Bloomsbury",
+        "https://www.bloomsbury.com/uk/inner-clock-9781526649140/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 397,
+    "title": "The Neuroscience of You",
+    "author": "Chantel Prat",
+    "slug": "the-neuroscience-of-you",
+    "year": 2022,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Chantel Prat’s account of individual brain differences in attention, learning and communication, without turning a quiz into a diagnosis or fixed identity.",
+    "subtitle": "An average brain does not describe every person.",
+    "bigIdea": "Prat argues that understanding variation between brains helps explain why people think, learn and communicate differently.",
+    "sections": [
+      [
+        "Beyond the Average",
+        "A finding about a group can conceal important differences between the people inside it."
+      ],
+      [
+        "Different Strengths",
+        "A strategy that helps one person may work less well for someone processing information differently."
+      ],
+      [
+        "Focus and Priorities",
+        "People vary in how they select information and respond to competing demands."
+      ],
+      [
+        "Learning From Experience",
+        "Prior knowledge and brain differences can affect how someone approaches a new skill."
+      ],
+      [
+        "Communication Takes Translation",
+        "Misunderstanding may reflect different ways of processing, not simply a lack of effort or care."
+      ],
+      [
+        "No Permanent Label",
+        "The book’s self-exploration exercises are not clinical tests or proof that abilities cannot change."
+      ]
+    ],
+    "take": "When a learning method fails, try changing the method before labeling the learner.",
+    "remember": "Variation is information, not automatically a defect.",
+    "tags": [
+      "Neuroscience",
+      "Learning",
+      "Individual Differences"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Neuroscience of You — Dutton",
+        "https://www.penguinrandomhouse.com/books/624256/the-neuroscience-of-you-by-chantel-prat/"
+      ],
+      [
+        "interview",
+        "Chantel Prat on The Neuroscience of You — The You Project",
+        "https://podcasts.apple.com/gb/podcast/1406-the-neuroscience-of-you-prof-chantel-prat-pt-2/id1342430567?i=1000641707463"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 398,
+    "title": "Look Again",
+    "author": "Tali Sharot & Cass R. Sunstein",
+    "slug": "look-again",
+    "year": 2024,
+    "researchedAt": "2026-10-22",
+    "description": "Understand Sharot and Sunstein’s account of habituation: why familiar pleasures and harms fade from attention, and how a change of perspective can reveal them.",
+    "subtitle": "Familiar is not the same as good.",
+    "bigIdea": "Sharot and Sunstein argue that getting used to our surroundings can hide both what we value and what needs to change.",
+    "sections": [
+      [
+        "The Familiar Fades",
+        "Repeated exposure can reduce a response, helping explain why a once-exciting experience becomes ordinary."
+      ],
+      [
+        "Pleasure Needs Contrast",
+        "A pause or change of setting can make a familiar good thing noticeable again."
+      ],
+      [
+        "Harm Can Fade Too",
+        "People can become accustomed to unfairness, pollution or poor behavior without those conditions becoming acceptable."
+      ],
+      [
+        "Step Outside a Routine",
+        "Distance and a fresh comparison can help expose features that everyday repetition conceals."
+      ],
+      [
+        "Change Is Not Always Better",
+        "Novelty alone is not a reason to abandon a useful habit or a stable relationship."
+      ],
+      [
+        "From Person to Institution",
+        "The authors extend their argument to workplaces and public life; those applications involve values as well as experiments."
+      ]
+    ],
+    "take": "Ask what a newcomer would notice about one routine you have stopped questioning.",
+    "remember": "Getting used to something does not settle whether it should stay.",
+    "tags": [
+      "Habits",
+      "Perception",
+      "Change"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Look Again — Atria/One Signal",
+        "https://www.simonandschuster.net/books/Look-Again/Tali-Sharot/9781668008218"
+      ],
+      [
+        "review",
+        "Look Again — Kirkus Reviews",
+        "https://www.kirkusreviews.com/book-reviews/tali-sharot/look-again-power-noticing/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 399,
+    "title": "How to Change Your Mind",
+    "author": "Michael Pollan",
+    "slug": "how-to-change-your-mind",
+    "year": 2018,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Michael Pollan’s reporting on psychedelics, consciousness and therapeutic research, with clear limits around personal experience, evidence and medical safety.",
+    "subtitle": "A striking experience is not the same as a proven treatment.",
+    "bigIdea": "Pollan combines history, scientific reporting and personal experience to investigate renewed interest in psychedelics and the mind.",
+    "sections": [
+      [
+        "A Complicated History",
+        "Early research, popular enthusiasm and political backlash shaped which questions scientists could investigate."
+      ],
+      [
+        "Study the Setting",
+        "Experiences depend on context and support; a laboratory or clinical study is not equivalent to unsupervised use."
+      ],
+      [
+        "The Sense of Self",
+        "Pollan describes changes in self-experience, while proposed brain explanations remain research questions."
+      ],
+      [
+        "Promise With Limits",
+        "Studies discussed in the book explore distress, depression and addiction; promising findings do not establish universal benefit."
+      ],
+      [
+        "Report Versus Evidence",
+        "Pollan’s first-person experiences are part of his journalism, not proof of safety or effectiveness for another person."
+      ],
+      [
+        "Not a How-To",
+        "This is not medical advice or an invitation to self-medicate; risks, legality and clinical suitability require qualified guidance."
+      ]
+    ],
+    "take": "Separate an account of an intense experience from controlled evidence about a particular treatment and its risks.",
+    "remember": "Curiosity and caution belong together.",
+    "tags": [
+      "Consciousness",
+      "Psychedelics",
+      "Science"
+    ],
+    "sources": [
+      [
+        "author",
+        "How to Change Your Mind — Michael Pollan",
+        "https://michaelpollan.com/books/how-to-change-your-mind/"
+      ],
+      [
+        "publisher",
+        "How to Change Your Mind — Penguin Press",
+        "https://www.penguinrandomhouse.com/books/529343/how-to-change-your-mind-by-michael-pollan/9780525558941/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 400,
+    "title": "The Distracted Mind",
+    "author": "Adam Gazzaley & Larry D. Rosen",
+    "slug": "the-distracted-mind",
+    "year": 2016,
+    "researchedAt": "2026-10-22",
+    "description": "Understand Gazzaley and Rosen’s account of distraction, goal interference and task switching, with practical boundaries for living with technology rather than abandoning it.",
+    "subtitle": "Setting a goal is easier than protecting it from interference.",
+    "bigIdea": "Gazzaley and Rosen explain how limited attention collides with interruptions, competing goals and always-available information.",
+    "sections": [
+      [
+        "Goals Meet Limits",
+        "We can set ambitious goals while lacking the capacity to process every competing demand at once."
+      ],
+      [
+        "Two Interruptions",
+        "External alerts and internally chosen diversions can both pull us away from an intended task."
+      ],
+      [
+        "Switch, Not Multiply",
+        "Rapid switching can feel like simultaneous work while increasing errors and slowing completion."
+      ],
+      [
+        "Novelty Pulls",
+        "A new message offers an immediate reason to leave a harder or less rewarding activity."
+      ],
+      [
+        "Change the Conditions",
+        "Planning when to be reachable and reducing interference can help protect important work."
+      ],
+      [
+        "No Single Cure",
+        "The book discusses brain and behavior strategies; effects vary and clinical difficulties deserve professional assessment."
+      ]
+    ],
+    "take": "Before a demanding task, decide which interruptions genuinely need an immediate response.",
+    "remember": "A goal needs protection as well as intention.",
+    "tags": [
+      "Attention",
+      "Distraction",
+      "Technology"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Distracted Mind — MIT Press",
+        "https://mitpress.mit.edu/9780262034944/the-distracted-mind/"
+      ],
+      [
+        "review",
+        "The Distracted Mind — Times Higher Education",
+        "https://www.timeshighereducation.com/books/review-the-distracted-mind-adam-gazzaley-larry-rosen-mit-press"
       ]
     ],
     "relatedBooks": []

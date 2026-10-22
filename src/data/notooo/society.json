@@ -2563,5 +2563,575 @@
       ]
     ],
     "relatedBooks": []
+  },
+  {
+    "number": 441,
+    "title": "The Technological Republic",
+    "author": "Alexander C. Karp & Nicholas W. Zamiska",
+    "slug": "the-technological-republic",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Karp and Zamiska’s argument for renewed cooperation between technology and national defense, with democratic accountability and the authors’ interests kept explicit.",
+    "subtitle": "Technical ambition raises political questions about who directs it.",
+    "bigIdea": "Karp and Zamiska argue that Silicon Valley should reconnect with public purpose and Western national security; this is their political program, not an endorsed consensus.",
+    "sections": [
+      [
+        "A Diagnosis of Drift",
+        "The authors criticize consumer-focused technology and argue that engineering talent should address larger national challenges."
+      ],
+      [
+        "Public and Private Power",
+        "They draw on earlier government-industry cooperation as a model for technological strength."
+      ],
+      [
+        "Defense at the Center",
+        "AI and military capability play a major role in their proposed response to geopolitical rivalry."
+      ],
+      [
+        "Culture and Belief",
+        "Their argument links technical achievement with shared civic commitments, not engineering alone."
+      ],
+      [
+        "Whose Public Purpose?",
+        "Democratic oversight, dissent and competing definitions of security remain essential questions for evaluating the proposal."
+      ],
+      [
+        "Read With Interests Visible",
+        "The authors’ Palantir roles matter when assessing a vision that favors technology’s integration with state power."
+      ]
+    ],
+    "take": "Separate a claim about technological capability from the political decision about who should authorize and control its use.",
+    "remember": "A national mission still needs public accountability.",
+    "tags": [
+      "Technology Politics",
+      "Defense",
+      "Democracy"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Technological Republic — Crown",
+        "https://www.penguinrandomhouse.com/books/760945/the-technological-republic-by-alexander-c-karp-and-nicholas-w-zamiska/9780593798690/"
+      ],
+      [
+        "review",
+        "The Technological Republic — Kirkus Reviews",
+        "https://www.kirkusreviews.com/book-reviews/alexander-c-karp/the-technological-republic/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 442,
+    "title": "AI Snake Oil",
+    "author": "Arvind Narayanan & Sayash Kapoor",
+    "slug": "ai-snake-oil",
+    "year": 2024,
+    "researchedAt": "2026-10-22",
+    "description": "Understand Narayanan and Kapoor’s distinction between useful AI and unsupported claims, emphasizing predictive limits, institutional incentives and evidence for specific applications.",
+    "subtitle": "Ask what a system does, not whether it is called AI.",
+    "bigIdea": "Narayanan and Kapoor argue that separating different kinds of AI is necessary to distinguish real capability from products that promise what they cannot reliably deliver.",
+    "sections": [
+      [
+        "Break Up the Umbrella",
+        "Generating text and predicting a person’s future behavior are different tasks with different limits."
+      ],
+      [
+        "Predict People Carefully",
+        "The authors question high-stakes predictions in areas such as hiring and criminal justice, where social uncertainty cannot simply be engineered away."
+      ],
+      [
+        "Look Beyond a Score",
+        "A benchmark can miss how a system performs for actual users under changing conditions."
+      ],
+      [
+        "Institutions Want Shortcuts",
+        "Demand for quick decisions helps explain why weak products can still find buyers."
+      ],
+      [
+        "Useful Does Not Mean Harmless",
+        "Working applications can still raise questions about accountability, power and appropriate use."
+      ],
+      [
+        "Neither Magic Nor Nothing",
+        "The book’s criticism targets specific claims and incentives rather than declaring all AI useless."
+      ]
+    ],
+    "take": "Ask for evidence on the actual task, affected population and consequences of error before accepting a broad capability claim.",
+    "remember": "An AI label is not evidence.",
+    "tags": [
+      "Artificial Intelligence",
+      "Evidence",
+      "Accountability"
+    ],
+    "sources": [
+      [
+        "author",
+        "AI Snake Oil — authors’ book overview",
+        "https://www.aisnakeoil.com/p/ai-snake-oil-is-now-available-to"
+      ],
+      [
+        "author",
+        "AI Snake Oil — authors’ book FAQ",
+        "https://www.normaltech.ai/p/faq-about-the-book-and-our-writing"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 443,
+    "title": "Supremacy",
+    "author": "Parmy Olson",
+    "slug": "supremacy",
+    "year": 2024,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Parmy Olson’s reporting on OpenAI and DeepMind, connecting ambitious AI goals with capital, corporate incentives and the limits of founder-centered narratives.",
+    "subtitle": "The race to build AI is also a struggle over power.",
+    "bigIdea": "Olson traces how idealistic ambitions at two AI organizations became entangled with the resources and incentives of major technology companies.",
+    "sections": [
+      [
+        "Start With Ambition",
+        "The book follows founders with expansive ideas about what advanced AI might accomplish."
+      ],
+      [
+        "Resources Shape Choices",
+        "Computing and talent require money, influencing partnerships and organizational direction."
+      ],
+      [
+        "Big Companies Enter",
+        "Microsoft and Google become central to the story of scale and control."
+      ],
+      [
+        "Safety Meets Competition",
+        "Olson examines tensions between stated public benefit and pressure to release powerful products."
+      ],
+      [
+        "People Behind Institutions",
+        "Personal decisions matter, but a founder-centered narrative cannot explain every worker, technical result or social consequence."
+      ],
+      [
+        "A Reported Time Slice",
+        "The book captures a particular period; its account of motives and future risks should not be confused with settled predictions."
+      ]
+    ],
+    "take": "When assessing an AI promise, ask which organization funds it and which incentives govern its release.",
+    "remember": "A mission statement cannot substitute for institutional safeguards.",
+    "tags": [
+      "Artificial Intelligence",
+      "Big Tech",
+      "Power"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Supremacy — St. Martin’s Press",
+        "https://us.macmillan.com/books/9781250337764/supremacy/"
+      ],
+      [
+        "review",
+        "Supremacy — Publishers Weekly",
+        "https://www.publishersweekly.com/9781250337740"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 444,
+    "title": "Code Dependent",
+    "author": "Madhumita Murgia",
+    "slug": "code-dependent",
+    "year": 2024,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Madhumita Murgia’s reporting on people living with automated decisions, including labor, policing and health, with benefits and harms evaluated in context.",
+    "subtitle": "Automated systems become real in the lives they affect.",
+    "bigIdea": "Murgia follows individuals around the world to show how AI distributes opportunity, risk and power beyond the companies building it.",
+    "sections": [
+      [
+        "Begin With People",
+        "Personal stories reveal consequences that a product demonstration or benchmark can miss."
+      ],
+      [
+        "Hidden Human Work",
+        "Data and automation depend on labor that can be obscured by the language of intelligent machines."
+      ],
+      [
+        "A Decision About You",
+        "Systems used in policing or other consequential settings can shape a person’s options without meaningful understanding or recourse."
+      ],
+      [
+        "Benefits Need Context",
+        "A useful medical application and a harmful surveillance system cannot be judged by the same broad label alone."
+      ],
+      [
+        "Unequal Exposure",
+        "Who supplies data, who receives benefits and who bears mistakes may be very different groups."
+      ],
+      [
+        "Accountability Is Social",
+        "Murgia’s reporting invites questions about consent and power, not simply whether a model can be made more accurate."
+      ]
+    ],
+    "take": "Trace an automated decision from its data and workers to the person who must live with its outcome.",
+    "remember": "A system’s value includes its consequences for people.",
+    "tags": [
+      "Artificial Intelligence",
+      "Labor",
+      "Human Rights"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Code Dependent — Picador",
+        "https://www.panmacmillan.com/authors/madhumita-murgia/code-dependent/9781529097337"
+      ],
+      [
+        "official",
+        "Code Dependent — Women’s Prize reading guide",
+        "https://womensprize.com/app/uploads/2024/03/Code-Dependent_reading_guide.pdf"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 445,
+    "title": "The AI Con",
+    "author": "Emily M. Bender & Alex Hanna",
+    "slug": "the-ai-con",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Emily Bender and Alex Hanna’s critique of AI hype, anthropomorphic language and labor impacts, with their advocacy clearly distinguished from a neutral technical survey.",
+    "subtitle": "The story told about technology helps decide who gets power.",
+    "bigIdea": "Bender and Hanna argue that exaggerated AI claims obscure ordinary human labor, commercial incentives and choices about how technology should be used.",
+    "sections": [
+      [
+        "Question the Language",
+        "Calling a system humanlike can suggest understanding or agency that its output alone does not establish."
+      ],
+      [
+        "Follow the Hype",
+        "Promotional promises influence investment and policy even when evidence is limited."
+      ],
+      [
+        "Find the Human Labor",
+        "People create, label and maintain the material that automated products depend on."
+      ],
+      [
+        "Ask Who Benefits",
+        "The authors connect deployment choices with work, inequality and the concentration of corporate power."
+      ],
+      [
+        "Refusal Is a Choice",
+        "They argue that adopting every available system is not inevitable and that public debate can shape alternatives."
+      ],
+      [
+        "An Explicit Critique",
+        "This is a skeptical, advocacy-oriented argument; evaluate specific evidence rather than treating all AI uses as interchangeable."
+      ]
+    ],
+    "take": "Translate a humanlike AI claim into a concrete description of inputs, outputs, workers and accountable decision-makers.",
+    "remember": "A technology’s sales story is not its social destiny.",
+    "tags": [
+      "Artificial Intelligence",
+      "Hype",
+      "Labor"
+    ],
+    "sources": [
+      [
+        "author",
+        "The AI Con — official book site",
+        "https://thecon.ai/"
+      ],
+      [
+        "official",
+        "The AI Con — Harvard Book Store overview",
+        "https://www.harvard.com/book/9780063418561"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 446,
+    "title": "The Sirens' Call",
+    "author": "Chris Hayes",
+    "slug": "the-sirens-call",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Chris Hayes’s argument about attention as an economic resource, connecting digital incentives, politics and the difficulty of protecting shared public focus.",
+    "subtitle": "What captures attention is not always what deserves it.",
+    "bigIdea": "Hayes argues that competition to extract human attention reshapes private life and public debate, often rewarding intensity over importance.",
+    "sections": [
+      [
+        "A Scarce Capacity",
+        "Time and attention place limits on what people can meaningfully notice and act on."
+      ],
+      [
+        "Attention Becomes a Business",
+        "Platforms and media can profit from keeping people engaged regardless of the value of that engagement."
+      ],
+      [
+        "Urgency Wins Space",
+        "Outrage, novelty and spectacle can displace quieter matters that have greater consequences."
+      ],
+      [
+        "Politics Enters the Contest",
+        "Public figures and institutions must compete within an environment built around visibility."
+      ],
+      [
+        "Personal Effort Has Limits",
+        "Individual boundaries matter, but Hayes argues that business models and shared rules also require scrutiny."
+      ],
+      [
+        "A Political Interpretation",
+        "His attention-capitalism framework explains patterns through a particular lens rather than proving a single cause of every social problem."
+      ]
+    ],
+    "take": "Ask whether a source earns attention by helping you understand or simply by making it hard to look away.",
+    "remember": "Attention is a public resource as well as a private choice.",
+    "tags": [
+      "Attention",
+      "Media",
+      "Politics"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Sirens’ Call — Penguin Press",
+        "https://www.penguinrandomhouse.com/books/719661/the-sirens-call-by-chris-hayes/"
+      ],
+      [
+        "review",
+        "The Sirens’ Call — Associated Press",
+        "https://apnews.com/article/4120eac80eb3dfd5bceaf8d85566bc8a"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 447,
+    "title": "Apple in China",
+    "author": "Patrick McGee",
+    "slug": "apple-in-china",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Patrick McGee’s history of Apple’s manufacturing ties with China, including expertise transfer and geopolitical dependence, with the author’s interpretation clearly attributed.",
+    "subtitle": "Efficient production can create hard-to-reverse dependence.",
+    "bigIdea": "McGee argues that Apple’s manufacturing strategy helped build China’s electronics capabilities while deepening the company’s exposure to geopolitical pressure.",
+    "sections": [
+      [
+        "More Than Cheap Labor",
+        "Large-scale production depends on engineering knowledge, suppliers and coordination, not wages alone."
+      ],
+      [
+        "Expertise Accumulates",
+        "Working relationships can transfer practical capabilities that outlast an individual product cycle."
+      ],
+      [
+        "An Ecosystem Takes Shape",
+        "Factories, skilled workers and specialized suppliers reinforce one another."
+      ],
+      [
+        "Dependence Runs Both Ways",
+        "Commercial success can bind a company and a country together while leaving them with unequal forms of leverage."
+      ],
+      [
+        "Politics Reaches Production",
+        "State priorities and international rivalry complicate what once looked like an operational decision."
+      ],
+      [
+        "A Contested Diagnosis",
+        "McGee’s language of capture is an analytical argument; it should not collapse different Chinese people, institutions and interests into one actor."
+      ]
+    ],
+    "take": "When evaluating a supply chain, ask how quickly its knowledge and relationships could actually be replaced.",
+    "remember": "A cheaper arrangement can carry an expensive dependency.",
+    "tags": [
+      "Supply Chains",
+      "China",
+      "Technology"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Apple in China — Scribner",
+        "https://www.simonandschuster.com/books/Apple-in-China/Patrick-McGee/9781668053379"
+      ],
+      [
+        "official",
+        "Apple in China — licensed Apple Books overview",
+        "https://books.apple.com/us/book/apple-in-china/id6736617478"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 448,
+    "title": "Chip War",
+    "author": "Chris Miller",
+    "slug": "chip-war",
+    "year": 2022,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Chris Miller’s semiconductor history: specialized production, Taiwan, industrial policy and geopolitical leverage, without presenting a changing industry as a fixed forecast.",
+    "subtitle": "Tiny chips depend on a vast and fragile network.",
+    "bigIdea": "Miller shows how semiconductor development became a source of economic and military power through specialized companies, state support and global dependencies.",
+    "sections": [
+      [
+        "Small Devices, Large Stakes",
+        "Chips enable ordinary electronics and advanced military systems alike."
+      ],
+      [
+        "Specialization Connects Countries",
+        "Design, manufacturing equipment and fabrication can depend on different companies in different places."
+      ],
+      [
+        "Precision Is Hard to Copy",
+        "Advanced production requires accumulated expertise, specialized tools and sustained investment."
+      ],
+      [
+        "Taiwan Matters",
+        "Concentrated manufacturing capability creates a vulnerability that extends far beyond one island or company."
+      ],
+      [
+        "Governments Shape the Race",
+        "Funding, procurement and trade restrictions influence which capabilities grow and who can access them."
+      ],
+      [
+        "A Historical Lens",
+        "The book’s geopolitical interpretation helps explain stakes, but later events and industry changes require current evidence."
+      ]
+    ],
+    "take": "Trace a chip beyond its brand to the tools, factories and jurisdictions needed to make it.",
+    "remember": "Technological power often lives in hard-to-replace dependencies.",
+    "tags": [
+      "Semiconductors",
+      "Geopolitics",
+      "Supply Chains"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Chip War — Scribner",
+        "https://www.simonandschuster.com/books/Chip-War/Chris-Miller/9781982172008"
+      ],
+      [
+        "author",
+        "Chip War — Chris Miller",
+        "https://www.christophermiller.net/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 449,
+    "title": "Material World",
+    "author": "Ed Conway",
+    "slug": "material-world",
+    "year": 2023,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Ed Conway’s account of sand, salt, iron, copper, oil and lithium, revealing the physical systems and trade-offs beneath a supposedly weightless digital economy.",
+    "subtitle": "The digital world still rests on physical matter.",
+    "bigIdea": "Conway follows six materials to show how mining, processing and industrial knowledge make modern life possible while creating environmental and political costs.",
+    "sections": [
+      [
+        "Sand Becomes Precision",
+        "Glass and silicon illustrate how ordinary-looking raw material depends on demanding industrial processes."
+      ],
+      [
+        "Salt Has Hidden Uses",
+        "A familiar substance connects with chemical production and systems far beyond the dinner table."
+      ],
+      [
+        "Iron Builds Scale",
+        "Steel’s role in infrastructure makes heavy industry central even to economies focused on services."
+      ],
+      [
+        "Copper Carries Connections",
+        "Electrical systems rely on physical networks whose expansion needs real material and labor."
+      ],
+      [
+        "Oil and Lithium",
+        "Energy systems change their resource needs; an energy transition does not mean a transition away from matter."
+      ],
+      [
+        "Count the Whole Chain",
+        "Costs and benefits occur across extraction, processing and use, often in different communities."
+      ]
+    ],
+    "take": "Trace one everyday technology back to the materials and industrial steps that make it possible.",
+    "remember": "A clean-looking product can have a complicated physical history.",
+    "tags": [
+      "Materials",
+      "Industry",
+      "Energy"
+    ],
+    "sources": [
+      [
+        "author",
+        "Material World — Ed Conway",
+        "https://www.edmundconway.com/books/"
+      ],
+      [
+        "publisher",
+        "Material World — Knopf/Vintage",
+        "https://www.penguinrandomhouse.com/books/703268/material-world-by-ed-conway/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 450,
+    "title": "Technofeudalism",
+    "author": "Yanis Varoufakis",
+    "slug": "technofeudalism",
+    "year": 2023,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Yanis Varoufakis’s technofeudalism thesis about platform power, digital rents and cloud capital, with the disputed claim that capitalism has changed form clearly attributed.",
+    "subtitle": "A platform can shape the market it appears merely to host.",
+    "bigIdea": "Varoufakis argues that dominant digital platforms extract rents through a new form of power he calls cloud capital; whether this replaces capitalism is contested.",
+    "sections": [
+      [
+        "Control the Meeting Place",
+        "A platform can set terms for access between buyers, sellers and audiences."
+      ],
+      [
+        "Rent Versus Profit",
+        "Varoufakis distinguishes payment for access to a controlled system from competition over selling goods and services."
+      ],
+      [
+        "Users Help Build the System",
+        "Activity and data can improve the platform’s influence while participants receive little control over its rules."
+      ],
+      [
+        "Public Money, Private Power",
+        "He links platform expansion with financial conditions and concentrated ownership."
+      ],
+      [
+        "A Political Proposal",
+        "The book argues for changing ownership and governance, rather than presenting technology as an autonomous force."
+      ],
+      [
+        "A Debated Label",
+        "Critics can accept concerns about monopoly while disputing the claim that capitalism has ended; the diagnosis is the author’s thesis."
+      ]
+    ],
+    "take": "Ask who can change a platform’s rules, who pays to participate and what realistic exit options exist.",
+    "remember": "Access can become a source of power over everyone using it.",
+    "tags": [
+      "Political Economy",
+      "Platforms",
+      "Power"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Technofeudalism — Bodley Head",
+        "https://www.penguin.co.uk/books/451795/technofeudalism-by-varoufakis-yanis/9781529194500"
+      ],
+      [
+        "interview",
+        "On technofeudalism — interview with Yanis Varoufakis",
+        "https://www.econstor.eu/bitstream/10419/315850/1/188160442X.pdf"
+      ]
+    ],
+    "relatedBooks": []
   }
 ]
