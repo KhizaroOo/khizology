@@ -1993,5 +1993,577 @@
     ],
     "relatedBooks": [],
     "editionNote": "First published in 1977 after being written during the 1940s; sources also describe later reissues."
+  },
+  {
+    "number": 351,
+    "title": "Nature Is the Answer",
+    "author": "Chris Packham",
+    "slug": "nature-is-the-answer",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Chris Packham’s guide for young readers on eco-anxiety, nature connection, climate information and collective action without promising nature cures distress.",
+    "subtitle": "Care for nature without carrying the whole crisis alone.",
+    "bigIdea": "Packham connects concern for the living world with practical action and continued enjoyment of nature.",
+    "sections": [
+      [
+        "Name the Worry",
+        "Concern about environmental damage can be understandable rather than something to dismiss."
+      ],
+      [
+        "Keep Wonder Alive",
+        "Observing nearby living things can make care concrete instead of only frightening."
+      ],
+      [
+        "Check the Information",
+        "The book encourages readers to question misleading claims and navigate environmental news."
+      ],
+      [
+        "Act With Others",
+        "Advocacy and shared activities can turn concern into participation."
+      ],
+      [
+        "Small Does Not Mean Useless",
+        "A limited action can matter without solving the entire climate problem."
+      ],
+      [
+        "Support Still Matters",
+        "Nature activities and hopeful framing do not replace help for persistent distress."
+      ]
+    ],
+    "take": "Choose one local nature activity and one shared action rather than trying to solve everything alone.",
+    "remember": "Concern can become care in action.",
+    "tags": [
+      "Eco Anxiety",
+      "Nature Connection",
+      "Conservation"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Nature Is the Answer — DK",
+        "https://dk.com/products/9780241768907-nature-is-the-answer"
+      ],
+      [
+        "publisher",
+        "Nature Is the Answer — Penguin Australia",
+        "https://www.penguin.com.au/books/nature-is-the-answer-9780241768907"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 352,
+    "title": "Clearing the Air",
+    "author": "Hannah Ritchie",
+    "slug": "clearing-the-air",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Hannah Ritchie’s evidence-led climate questions on energy, transport and technology, separating practical progress from guaranteed success.",
+    "subtitle": "Compare workable options, not imagined perfect ones.",
+    "bigIdea": "Ritchie argues that clear evidence about climate solutions can replace both fatalism and wishful thinking.",
+    "sections": [
+      [
+        "Ask a Clear Question",
+        "The book organizes climate concerns into questions that can be examined with evidence."
+      ],
+      [
+        "Clean Energy Choices",
+        "Renewables and nuclear power require comparison of practical benefits, costs and constraints."
+      ],
+      [
+        "Transport Changes",
+        "Electric vehicles and difficult sectors such as aviation need different solutions."
+      ],
+      [
+        "Materials and Trade-offs",
+        "Cleaner technologies still use resources; the relevant comparison includes the fossil alternative."
+      ],
+      [
+        "Emerging Options",
+        "Carbon removal and geoengineering raise different uncertainties from established emissions cuts."
+      ],
+      [
+        "Hope Requires Work",
+        "Technical possibility is not a promise that deployment and policy will follow."
+      ]
+    ],
+    "take": "For a climate claim, ask what is being compared, which evidence supports it and what action follows.",
+    "remember": "Neither doom nor optimism substitutes for evidence.",
+    "tags": [
+      "Climate Solutions",
+      "Energy",
+      "Evidence"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Clearing the Air — MIT Press distribution record",
+        "https://www.penguinrandomhouse.com/books/811635/clearing-the-air-by-hannah-ritchie/"
+      ],
+      [
+        "author",
+        "Clearing the Air — publication and scope announcement",
+        "https://hannahritchie.substack.com/p/clearing-the-air-announcement"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in the UK in 2025; the US edition is dated 2026."
+  },
+  {
+    "number": 353,
+    "title": "Plastic Inc.",
+    "author": "Beth Gardiner",
+    "slug": "plastic-inc",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Beth Gardiner’s reporting on plastics production, recycling claims, industry influence and environmental harm while keeping evidence and advocacy distinct.",
+    "subtitle": "Look upstream from the discarded bottle.",
+    "bigIdea": "Gardiner argues that plastic pollution cannot be understood through consumer waste alone; production and corporate incentives matter.",
+    "sections": [
+      [
+        "Production Drives Waste",
+        "The story starts with how much plastic is made and why its use keeps expanding."
+      ],
+      [
+        "The Fossil Connection",
+        "Gardiner examines how oil and chemical businesses are linked to plastics growth."
+      ],
+      [
+        "Recycling Claims",
+        "The book challenges industry messages that recycling alone can handle the volume produced."
+      ],
+      [
+        "Who Gets the Blame",
+        "Campaigns focused on individual litter can divert attention from producer decisions."
+      ],
+      [
+        "Health and Evidence",
+        "Chemical exposure and microplastics require careful distinction between documented risks and developing research."
+      ],
+      [
+        "Change the Incentives",
+        "Gardiner’s policy argument concerns production and accountability, beyond personal disposal habits."
+      ]
+    ],
+    "take": "Ask whether a proposed waste solution changes production or merely asks consumers to manage more waste.",
+    "remember": "Follow the material back to the decisions that produced it.",
+    "tags": [
+      "Plastics",
+      "Pollution",
+      "Accountability"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Plastic Inc. — Avery",
+        "https://www.penguinrandomhouse.com/books/747797/plastic-inc-by-beth-gardiner/9780593717103/"
+      ],
+      [
+        "publisher",
+        "Plastic Inc. — Hachette UK",
+        "https://www.hachette.co.uk/titles/beth-gardiner/plastic-inc/9781800962521/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 354,
+    "title": "Junglekeeper",
+    "author": "Paul Rosolie",
+    "slug": "junglekeeper",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Paul Rosolie’s Amazon conservation account, the role of local knowledge and the long work behind protecting a living forest.",
+    "subtitle": "Protect a place through people who know it.",
+    "bigIdea": "Rosolie describes rainforest protection as sustained collaboration rather than a single heroic rescue.",
+    "sections": [
+      [
+        "Encounter Changes Attention",
+        "His memoir connects firsthand experience of biodiversity with commitment to protection."
+      ],
+      [
+        "Local Knowledge",
+        "Juan Julio Durand’s expertise is central to the conservation work Rosolie recounts."
+      ],
+      [
+        "More Than Adventure",
+        "Protecting habitat requires continuing organization, resources and relationships."
+      ],
+      [
+        "A Living Network",
+        "The value of a forest extends beyond one spectacular animal to an interconnected ecosystem."
+      ],
+      [
+        "Tell the Story Carefully",
+        "Public attention can support conservation without making outsiders the sole owners of its story."
+      ],
+      [
+        "A Situated Account",
+        "This is a conservationist’s perspective, not a complete account of every community or land-use conflict."
+      ]
+    ],
+    "take": "Look for the local partners and long-term responsibilities behind a conservation success story.",
+    "remember": "A forest needs lasting protection, not only admiration.",
+    "tags": [
+      "Rainforest",
+      "Conservation",
+      "Local Knowledge"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Junglekeeper — Convergent",
+        "https://www.penguinrandomhouse.com/books/783873/junglekeeper-by-paul-rosolie/"
+      ],
+      [
+        "review",
+        "Junglekeeper — Kirkus Reviews",
+        "https://www.kirkusreviews.com/book-reviews/paul-rosolie/junglekeeper/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 355,
+    "title": "Is a River Alive?",
+    "author": "Robert Macfarlane",
+    "slug": "is-a-river-alive",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Robert Macfarlane’s journeys through river protection, rights-of-nature campaigns and cultural relationships with water, preserving the book’s literary framing.",
+    "subtitle": "A river is more than a resource passing by.",
+    "bigIdea": "Macfarlane asks how treating rivers as living participants changes our responsibilities toward them.",
+    "sections": [
+      [
+        "Change the Question",
+        "The book challenges the assumption that a river matters only for human use."
+      ],
+      [
+        "Connected Waters",
+        "A river includes relationships among water, land, organisms and communities."
+      ],
+      [
+        "Different Places",
+        "Journeys through Ecuador, India and Quebec show distinct threats and forms of care."
+      ],
+      [
+        "Rights of Nature",
+        "Legal personhood is a proposed way to represent a river’s interests, not proof of human-like consciousness."
+      ],
+      [
+        "Situated Knowledge",
+        "Indigenous and local perspectives carry specific histories rather than one universal nature belief."
+      ],
+      [
+        "Literature and Law",
+        "The book combines poetic interpretation with reporting; those forms make different kinds of claims."
+      ]
+    ],
+    "take": "Ask which relationships disappear when a waterway is described only as a supply or development site.",
+    "remember": "How we describe a river can change how we treat it.",
+    "tags": [
+      "Rivers",
+      "Nature Rights",
+      "Place"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Is a River Alive? — W. W. Norton",
+        "https://wwnorton.co.uk/books/9781324130734-is-a-river-alive-2d864602-5085-4a6c-b267-466b3488571b"
+      ],
+      [
+        "publisher",
+        "Is a River Alive? — Penguin UK",
+        "https://www.penguin.co.uk/books/455147/is-a-river-alive-by-macfarlane-robert/9780241624814"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 356,
+    "title": "A Little History of the Earth",
+    "author": "Jamie Woodward",
+    "slug": "a-little-history-of-the-earth",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Jamie Woodward’s compact Earth history through deep time, changing oceans and atmosphere, evolving life and the evidence behind geological discovery.",
+    "subtitle": "Read the present against a much longer past.",
+    "bigIdea": "Woodward explains Earth as a changing planet whose history scientists reconstruct from physical evidence.",
+    "sections": [
+      [
+        "Deep Time",
+        "Earth’s history extends far beyond the timescales of individual lives or human societies."
+      ],
+      [
+        "A Planet Forms",
+        "The story begins with the Solar System and the formation of Earth."
+      ],
+      [
+        "Air and Oceans Change",
+        "Today’s atmosphere and oceans emerged through a long history of transformation."
+      ],
+      [
+        "Life Reshapes Earth",
+        "The account follows life’s emergence and major changes through to mammals and humans."
+      ],
+      [
+        "Evidence in the Landscape",
+        "Rocks, fossils and landforms help scientists test explanations of the past."
+      ],
+      [
+        "Humans in Context",
+        "Our short presence can still produce major environmental effects; past change does not make present damage harmless."
+      ]
+    ],
+    "take": "When looking at a landscape, ask which processes and timescales made it possible.",
+    "remember": "The planet has a history beneath every familiar surface.",
+    "tags": [
+      "Earth History",
+      "Geology",
+      "Deep Time"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "A Little History of the Earth — Yale University Press",
+        "https://yalebooks.yale.edu/book/9780300246148/a-little-history-of-the-earth/"
+      ],
+      [
+        "review",
+        "A Little History of the Earth — Kirkus Reviews",
+        "https://www.kirkusreviews.com/book-reviews/jamie-woodward/a-little-history-of-the-earth-little-histories/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 357,
+    "title": "Tigers Between Empires",
+    "author": "Jonathan C. Slaght",
+    "slug": "tigers-between-empires",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Jonathan Slaght’s account of Amur tiger research, habitat protection and Russian-American cooperation, including the political fragility of conservation.",
+    "subtitle": "Wildlife crosses boundaries that people create.",
+    "bigIdea": "Slaght shows how long-term field research and cooperation helped protect Amur tigers across changing political conditions.",
+    "sections": [
+      [
+        "Know the Animal",
+        "Conservation decisions improve when fieldwork reveals how tigers live and move."
+      ],
+      [
+        "Protect the Habitat",
+        "Preventing poaching is not enough without space and prey for animals to survive."
+      ],
+      [
+        "Work Across Borders",
+        "Russian and American researchers built a collaboration across often-opposed political systems."
+      ],
+      [
+        "Change Public Meaning",
+        "The book traces efforts to move from fear and hunting toward protection."
+      ],
+      [
+        "Partnerships Are Fragile",
+        "Geopolitical disruption can threaten scientific relationships built over decades."
+      ],
+      [
+        "No Permanent Victory",
+        "Recovery requires continuing protection rather than assuming a species is secure forever."
+      ]
+    ],
+    "take": "Evaluate a conservation plan by its habitat, evidence and durable partnerships, not only its headline animal.",
+    "remember": "Protect the relationships that make protection possible.",
+    "tags": [
+      "Tigers",
+      "Conservation",
+      "Scientific Cooperation"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Tigers Between Empires — Farrar, Straus and Giroux",
+        "https://us.macmillan.com/books/9780374610982/tigersbetweenempires/"
+      ],
+      [
+        "review",
+        "Tigers Between Empires — Publishers Weekly",
+        "https://www.publishersweekly.com/9780374610982"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 358,
+    "title": "Life on a Little-Known Planet",
+    "author": "Elizabeth Kolbert",
+    "slug": "life-on-a-little-known-planet",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Elizabeth Kolbert’s collected environmental reporting on climate, species, scientific uncertainty and attempts to repair a changing world.",
+    "subtitle": "Notice both the damage and what remains unknown.",
+    "bigIdea": "Kolbert’s reporting connects human-driven environmental change with the people working to understand and respond to it.",
+    "sections": [
+      [
+        "Reporting Over Time",
+        "The collection brings together essays written across years, not one new global experiment."
+      ],
+      [
+        "Follow the Researchers",
+        "People studying particular places reveal how environmental knowledge is built."
+      ],
+      [
+        "Changes Reach Outward",
+        "Melting ice and ecological losses can matter far beyond the place where they begin."
+      ],
+      [
+        "Responses Take Many Forms",
+        "The essays examine efforts ranging from cleaner energy to protection of waterways."
+      ],
+      [
+        "Wonder and Loss",
+        "Attention to the living world can coexist with an honest account of harm."
+      ],
+      [
+        "Context Matters",
+        "Read each dispatch in its setting and date rather than treating every observation as current everywhere."
+      ]
+    ],
+    "take": "Pair a large environmental claim with the place, evidence and people behind it.",
+    "remember": "Careful attention makes a changing world harder to ignore.",
+    "tags": [
+      "Environmental Reporting",
+      "Climate",
+      "Biodiversity"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Life on a Little-Known Planet — Crown",
+        "https://www.penguinrandomhouse.com/books/781145/life-on-a-little-known-planet-by-elizabeth-kolbert/"
+      ],
+      [
+        "review",
+        "Life on a Little-Known Planet — Kirkus Reviews",
+        "https://www.kirkusreviews.com/book-reviews/elizabeth-kolbert/life-on-a-little-known-planet/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 359,
+    "title": "Fierce Country",
+    "author": "Heather Hansman",
+    "slug": "fierce-country",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Heather Hansman’s account of Georgie White, Anne LaBastille and Dolores LaChapelle and their overlooked roles in outdoor life and conservation.",
+    "subtitle": "Look beyond the familiar outdoor heroes.",
+    "bigIdea": "Hansman argues that overlooked women helped shape recreation, environmental thought and protection of American landscapes.",
+    "sections": [
+      [
+        "Who Gets Remembered",
+        "The book questions which people become central to outdoor history."
+      ],
+      [
+        "Georgie White",
+        "White’s river-running work helped open the Grand Canyon to new forms of recreation."
+      ],
+      [
+        "Anne LaBastille",
+        "LaBastille linked wilderness life with conservation and concern for threatened species."
+      ],
+      [
+        "Dolores LaChapelle",
+        "LaChapelle connected skiing, place and environmental philosophy."
+      ],
+      [
+        "Place Shapes Thought",
+        "The three lives reveal different relationships with rivers, forests and mountains."
+      ],
+      [
+        "Beyond Hero Worship",
+        "Recovering neglected contributions need not erase contradictions or broader community histories."
+      ]
+    ],
+    "take": "When a movement’s history seems to have only one kind of hero, ask whose work was left outside the frame.",
+    "remember": "Who gets remembered shapes what we think is possible.",
+    "tags": [
+      "Women in Conservation",
+      "Outdoor History",
+      "Place"
+    ],
+    "sources": [
+      [
+        "author",
+        "Fierce Country — Heather Hansman books",
+        "https://heatherhansman.com/books/"
+      ],
+      [
+        "official",
+        "Fierce Country — publisher-provided NetGalley description",
+        "https://www.netgalley.com/catalog/book/725471"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 360,
+    "title": "What If We Get It Right?",
+    "author": "Ayana Elizabeth Johnson",
+    "slug": "what-if-we-get-it-right",
+    "year": 2024,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Ayana Elizabeth Johnson’s climate-futures conversations on practical solutions, collective work and imagining a desirable post-fossil-fuel world.",
+    "subtitle": "Picture the future worth working toward.",
+    "bigIdea": "Johnson argues that imagining a livable climate future can help people find practical roles in creating it.",
+    "sections": [
+      [
+        "Ask What Could Work",
+        "The book shifts attention from catastrophe alone toward possible responses."
+      ],
+      [
+        "Many Kinds of Expertise",
+        "Conversations draw on science, design, agriculture, activism and other fields."
+      ],
+      [
+        "Solutions Are Social",
+        "Technology works within institutions, communities and decisions about power."
+      ],
+      [
+        "Find a Useful Role",
+        "Different skills can contribute without requiring everyone to do the same work."
+      ],
+      [
+        "Joy Can Sustain Work",
+        "A desirable future offers reasons to participate beyond guilt or fear."
+      ],
+      [
+        "Possibility Is Conditional",
+        "The visions are invitations to action, not forecasts that success is assured."
+      ]
+    ],
+    "take": "Find where a climate need, your useful skills and work you can sustain overlap.",
+    "remember": "A better future needs people who can imagine and build it.",
+    "tags": [
+      "Climate Futures",
+      "Collective Action",
+      "Solutions"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "What If We Get It Right? — One World",
+        "https://www.penguinrandomhouse.com/books/645855/what-if-we-get-it-right-by-ayana-elizabeth-johnson/"
+      ],
+      [
+        "review",
+        "What If We Get It Right? — Publishers Weekly",
+        "https://www.publishersweekly.com/9780593229361"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 2024; the publisher link also lists the expanded 2026 edition."
   }
 ]

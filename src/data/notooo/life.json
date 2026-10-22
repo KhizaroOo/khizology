@@ -1997,5 +1997,561 @@
     ],
     "relatedBooks": [],
     "editionNote": "First published in 1980; the author’s books page describes the revised anniversary edition."
+  },
+  {
+    "number": 361,
+    "title": "How to Be Okay When Nothing Is Okay",
+    "author": "Jenny Lawson",
+    "slug": "how-to-be-okay-when-nothing-is-okay",
+    "seoTitle": "How to Be Okay When Nothing Is Okay | Notooo",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Jenny Lawson’s humorous advice on difficult days, creative work and living with an unreliable inner critic, without treating personal coping tools as treatment.",
+    "subtitle": "A difficult day does not cancel a meaningful life.",
+    "bigIdea": "Lawson shares small, personal ways to keep living and creating when feeling okay is not currently possible.",
+    "sections": [
+      [
+        "Honesty Before Polish",
+        "Her humor makes room for messy experiences instead of requiring a cheerful performance."
+      ],
+      [
+        "Tools, Not a Cure",
+        "Personal tricks can help a particular moment without resolving a mental-health condition."
+      ],
+      [
+        "Keep Creating",
+        "Creative work can continue imperfectly rather than wait for complete confidence."
+      ],
+      [
+        "Question the Narrator",
+        "An unkind internal story need not be accepted as the full truth about you."
+      ],
+      [
+        "Find What Fits",
+        "The book offers a collection to draw from, not a requirement to use every suggestion."
+      ]
+    ],
+    "take": "Choose one small, manageable act of care or creativity without demanding that it fix the whole day.",
+    "remember": "You do not have to feel perfect to keep going.",
+    "tags": [
+      "Creativity",
+      "Difficult Days",
+      "Self Compassion"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "How to Be Okay When Nothing Is Okay — Pamela Dorman Books",
+        "https://www.penguinrandomhouse.com/books/761922/how-to-be-okay-when-nothing-is-okay-by-jenny-lawson/"
+      ],
+      [
+        "review",
+        "How to Be Okay When Nothing Is Okay — Publishers Weekly",
+        "https://www.publishersweekly.com/9780593833216"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 362,
+    "title": "The Meaning of Your Life",
+    "author": "Arthur C. Brooks",
+    "slug": "the-meaning-of-your-life",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Arthur Brooks’s approach to purpose, love and transcendence while keeping his philosophical interpretation distinct from universal scientific conclusions.",
+    "subtitle": "Ask what makes a life worth living.",
+    "bigIdea": "Brooks argues that meaning requires attention to purpose and connection beyond the distractions of modern life.",
+    "sections": [
+      [
+        "More Than Pleasure",
+        "Feeling good in a moment does not answer why a life matters."
+      ],
+      [
+        "Attention Has Competition",
+        "The book argues that cultural and technological habits can crowd out deeper reflection."
+      ],
+      [
+        "Love and Connection",
+        "Relationships form one route through which Brooks explores significance."
+      ],
+      [
+        "A Calling",
+        "Work and commitments can become meaningful when connected with something worth serving."
+      ],
+      [
+        "Beyond the Self",
+        "Brooks draws on philosophy and faith traditions to discuss transcendence."
+      ],
+      [
+        "Interpretation Has Limits",
+        "His synthesis of science, philosophy and spirituality is not one settled explanation for everyone’s life."
+      ]
+    ],
+    "take": "Reserve time for a question about purpose that cannot be answered by another achievement or purchase.",
+    "remember": "Meaning needs attention as well as ambition.",
+    "tags": [
+      "Meaning",
+      "Purpose",
+      "Connection"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Meaning of Your Life — Portfolio",
+        "https://www.penguinrandomhouse.com/books/724315/the-meaning-of-your-life-by-arthur-c-brooks/"
+      ],
+      [
+        "author",
+        "The Meaning of Your Life — Arthur C. Brooks",
+        "https://www.arthurbrooks.com/books/the-meaning-of-your-life"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 363,
+    "title": "The Let Them Theory",
+    "author": "Mel Robbins with Sawyer Robbins",
+    "slug": "the-let-them-theory",
+    "year": 2024,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Mel Robbins’s Let Them and Let Me approach to control, boundaries and relationships, with limits for harm, responsibility and mental-health claims.",
+    "subtitle": "Release control; keep responsibility for your response.",
+    "bigIdea": "Robbins proposes accepting what other people choose while deliberately choosing your own response and boundaries.",
+    "sections": [
+      [
+        "Let Them",
+        "Other people’s preferences and reactions are not fully yours to control."
+      ],
+      [
+        "Let Me",
+        "Releasing control is followed by deciding what you can do next."
+      ],
+      [
+        "Stop the Approval Chase",
+        "The framework challenges spending all your energy trying to secure others’ agreement."
+      ],
+      [
+        "Keep Boundaries",
+        "Acceptance does not require tolerating abuse, neglecting duties or staying in harmful situations."
+      ],
+      [
+        "Practice, Not a Law",
+        "The approach is a self-help framework, not a universal psychological theory or clinical treatment."
+      ]
+    ],
+    "take": "Separate the other person’s decision from the boundary or action that remains yours.",
+    "remember": "You can stop controlling without stopping caring.",
+    "tags": [
+      "Boundaries",
+      "Control",
+      "Relationships"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Let Them Theory — Mel Robbins",
+        "https://www.melrobbins.com/book/the-let-them-theory/"
+      ],
+      [
+        "publisher",
+        "The Let Them Theory — Hay House",
+        "https://www.penguinrandomhouse.com/books/743134/the-let-them-theory-by-mel-robbins/"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in December 2024; the publisher credits Mel Robbins with Sawyer Robbins."
+  },
+  {
+    "number": 364,
+    "title": "How to Be Good at Life",
+    "author": "Ben Meer",
+    "slug": "how-to-be-good-at-life",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Ben Meer’s systems approach to routines, projects and attention, using purposeful structure rather than promising productivity through willpower alone.",
+    "subtitle": "Build a repeatable way to do what matters.",
+    "bigIdea": "Meer argues that practical systems can reduce repeated decisions and make useful actions easier to sustain.",
+    "sections": [
+      [
+        "Goals Need a Process",
+        "A desired outcome becomes more workable when connected to repeatable actions."
+      ],
+      [
+        "Beyond One Habit",
+        "A system can organize several steps, tools and decisions around a routine or project."
+      ],
+      [
+        "Reduce Decision Load",
+        "Pre-deciding recurring choices can free attention for less predictable work."
+      ],
+      [
+        "Across Daily Life",
+        "The book applies systems thinking to personal as well as professional activities."
+      ],
+      [
+        "Calm, Not Just Output",
+        "A useful system should reduce friction rather than create another obligation to optimize everything."
+      ],
+      [
+        "Test and Adjust",
+        "The book’s DRIVE method is a practical framework, not a guarantee that every goal becomes inevitable."
+      ]
+    ],
+    "take": "Choose one repeated friction point and design a simpler sequence you can actually maintain.",
+    "remember": "A system earns its place by making life easier.",
+    "tags": [
+      "Systems",
+      "Routines",
+      "Attention"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "How to Be Good at Life — Macmillan Business",
+        "https://www.panmacmillan.com/authors/ben-meer/how-to-be-good-at-life/9781035069989"
+      ],
+      [
+        "author",
+        "How to Be Good at Life — Ben Meer",
+        "https://benmeer.com/book/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 365,
+    "title": "The Other Side of Change",
+    "author": "Maya Shankar",
+    "slug": "the-other-side-of-change",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Maya Shankar’s stories and cognitive-science perspective on identity, disruption and adaptation without requiring people to find a silver lining in suffering.",
+    "subtitle": "Change can alter who you believe you can become.",
+    "bigIdea": "Shankar explores how unwanted changes can reshape identity, values and abilities as well as external circumstances.",
+    "sections": [
+      [
+        "The Plan Breaks",
+        "A major disruption can threaten both daily life and the story you tell about yourself."
+      ],
+      [
+        "Identity Can Move",
+        "Losing one role need not eliminate every valuable part of a person."
+      ],
+      [
+        "Widen the Perspective",
+        "Looking beyond a single interpretation can reveal possibilities hidden by the immediate shock."
+      ],
+      [
+        "Learn From Lives",
+        "The book combines individual stories with research rather than offering one identical path through change."
+      ],
+      [
+        "Potential, Not Obligation",
+        "Some people find new meaning after upheaval; suffering is not automatically beneficial or deserved."
+      ]
+    ],
+    "take": "Ask which value you can carry forward even when the old plan is no longer available.",
+    "remember": "A changed plan need not be the end of your possibilities.",
+    "tags": [
+      "Change",
+      "Identity",
+      "Adaptation"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Other Side of Change — Riverhead Books",
+        "https://www.penguinrandomhouse.com/books/729180/the-other-side-of-change-by-maya-shankar/9780593713686/"
+      ],
+      [
+        "review",
+        "The Other Side of Change — Publishers Weekly",
+        "https://www.publishersweekly.com/9780593713686"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 366,
+    "title": "Secrets of Adulthood",
+    "author": "Gretchen Rubin",
+    "slug": "secrets-of-adulthood",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Gretchen Rubin’s brief reflections on decisions, habits, self-acceptance and relationships, treating aphorisms as prompts rather than universal rules.",
+    "subtitle": "A short reminder can reopen a stuck decision.",
+    "bigIdea": "Rubin uses concise observations to make everyday choices and contradictions easier to notice.",
+    "sections": [
+      [
+        "Portable Ideas",
+        "A memorable sentence can bring a useful perspective back at the right moment."
+      ],
+      [
+        "Acceptance and Effort",
+        "Accepting current limits can coexist with expecting useful growth."
+      ],
+      [
+        "Give Actions a Place",
+        "Tasks left for an unspecified later can remain undone."
+      ],
+      [
+        "Comfort Is Complicated",
+        "A familiar situation can feel reassuring and uncomfortable at the same time."
+      ],
+      [
+        "Context Over Slogans",
+        "An aphorism is a reflection to test against the situation, not evidence that one rule fits everyone."
+      ]
+    ],
+    "take": "Keep a reminder only when it helps you see and act on a real situation more clearly.",
+    "remember": "Brief wisdom still needs context.",
+    "tags": [
+      "Reflection",
+      "Habits",
+      "Everyday Decisions"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Secrets of Adulthood — Crown",
+        "https://www.penguinrandomhouse.com/books/775814/secrets-of-adulthood-by-gretchen-rubin/"
+      ],
+      [
+        "author",
+        "Secrets of Adulthood — Gretchen Rubin",
+        "https://gretchenrubin.com/books/secrets-of-adulthood/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 367,
+    "title": "Beyond Anxiety",
+    "author": "Martha Beck",
+    "slug": "beyond-anxiety",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Martha Beck’s coaching framework of curiosity and creativity as responses to anxiety, with its metaphors and treatment limits made explicit.",
+    "subtitle": "Make room for curiosity without demanding instant calm.",
+    "bigIdea": "Beck proposes that compassionate curiosity and creative activity can interrupt self-reinforcing patterns of worry.",
+    "sections": [
+      [
+        "The Worry Loop",
+        "Her anxiety-spiral metaphor describes how fear can feed further fear."
+      ],
+      [
+        "A Kinder Response",
+        "The book encourages reducing self-attack instead of adding shame about being anxious."
+      ],
+      [
+        "Turn Toward Curiosity",
+        "A question can change how an uncertain moment is approached."
+      ],
+      [
+        "Make Something",
+        "Creative activity forms a central part of Beck’s proposed alternative pattern."
+      ],
+      [
+        "Meaning and Connection",
+        "The framework connects creative engagement with purpose and relationships."
+      ],
+      [
+        "Keep Clinical Limits",
+        "These coaching ideas and brain-based explanations are not proof of a universal cure or a replacement for care."
+      ]
+    ],
+    "take": "Try a small creative question when useful, without judging yourself if anxiety remains.",
+    "remember": "Curiosity can be an opening, not a cure-all.",
+    "tags": [
+      "Anxiety",
+      "Curiosity",
+      "Creativity"
+    ],
+    "sources": [
+      [
+        "author",
+        "Beyond Anxiety — Martha Beck",
+        "https://marthabeck.com/beyond-anxiety/"
+      ],
+      [
+        "publisher",
+        "Beyond Anxiety — The Open Field",
+        "https://penguinrandomhouselibrary.com/book/?isbn=9780593656389"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 368,
+    "title": "Strong Ground",
+    "author": "Brené Brown",
+    "slug": "strong-ground",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Brené Brown’s leadership lessons on connection, discipline, accountability and holding tensions without mistaking harshness for strength.",
+    "subtitle": "Stay grounded while conditions change.",
+    "bigIdea": "Brown argues that strong leadership joins human connection with disciplined, accountable work under uncertainty.",
+    "sections": [
+      [
+        "Connection and Performance",
+        "The book rejects treating care for people and effective performance as opposites."
+      ],
+      [
+        "Clarity of Mission",
+        "People need to understand what their work is meant to accomplish."
+      ],
+      [
+        "Hold the Tension",
+        "Leadership can require dealing with competing truths rather than forcing a simple either-or."
+      ],
+      [
+        "Grounded Confidence",
+        "Confidence can remain open to learning instead of depending on bluster or certainty."
+      ],
+      [
+        "Accountability in Practice",
+        "Values matter when reflected in decisions and follow-through."
+      ],
+      [
+        "A Reflective Playbook",
+        "Brown combines leadership experience, research-informed interpretation and other thinkers; it is not a universal formula."
+      ]
+    ],
+    "take": "Make one shared value concrete by naming the behavior it requires during a difficult decision.",
+    "remember": "Care and accountability can strengthen each other.",
+    "tags": [
+      "Leadership",
+      "Accountability",
+      "Connection"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Strong Ground — Random House",
+        "https://www.penguinrandomhouse.com/books/608374/strong-ground-by-brene-brown/9798217170760/"
+      ],
+      [
+        "author",
+        "Strong Ground — Brené Brown, overview and contents",
+        "https://brenebrown.com/book/strong-ground/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 369,
+    "title": "Nothing to Fear",
+    "author": "Julie McFadden",
+    "slug": "nothing-to-fear",
+    "year": 2024,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Julie McFadden’s hospice-informed account of dying, caregiving and preparation, distinguishing personal observations from individualized medical guidance.",
+    "subtitle": "Honest conversations can make room for care.",
+    "bigIdea": "McFadden argues that understanding dying and discussing care wishes can reduce avoidable fear and confusion.",
+    "sections": [
+      [
+        "Talk Before a Crisis",
+        "Earlier conversations can help families understand a person’s priorities."
+      ],
+      [
+        "Understand Hospice",
+        "The book addresses misconceptions about care focused on comfort near the end of life."
+      ],
+      [
+        "Know What May Happen",
+        "McFadden describes physical changes in dying; actual experiences vary."
+      ],
+      [
+        "Prepare the Practical Side",
+        "Logistical and financial planning can reduce uncertainty for caregivers."
+      ],
+      [
+        "Grief Is Part of Care",
+        "Loss can be felt before and after a death without following one timetable."
+      ],
+      [
+        "Respect Evidence Boundaries",
+        "Deathbed experiences are reported observations, not proof of supernatural claims or instructions for treatment."
+      ]
+    ],
+    "take": "Use the book to prepare questions about wishes and comfort for the person and their care team.",
+    "remember": "Understanding can support care when control is limited.",
+    "tags": [
+      "Hospice",
+      "Mortality",
+      "Caregiving"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Nothing to Fear — Tarcher",
+        "https://www.penguinrandomhouse.com/books/734126/nothing-to-fear-by-julie-mcfadden-rn/"
+      ],
+      [
+        "review",
+        "Nothing to Fear — hospice chaplain Hank Dunn review",
+        "https://hankdunn.com/2024/06/27/book-review-nothing-to-fear-demystifying-death-to-live-more-fully-by-hospicenursejulie/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 370,
+    "title": "Protocols",
+    "author": "Andrew D. Huberman with Jessica Wapner",
+    "slug": "protocols",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Andrew Huberman’s Protocols through sleep, light, exercise, stress and learning, separating general book recommendations from personal medical decisions.",
+    "subtitle": "Understand the evidence before adopting the routine.",
+    "bigIdea": "Huberman presents foundational behaviors and targeted practices intended to influence everyday mental and physical functioning.",
+    "sections": [
+      [
+        "Foundations Before Extras",
+        "The book distinguishes routine practices from tools aimed at particular challenges."
+      ],
+      [
+        "Sleep and Light",
+        "It describes timing of light exposure as one influence on sleep and daily rhythms."
+      ],
+      [
+        "Movement and Nutrition",
+        "Exercise and food are treated as recurring inputs rather than isolated fixes."
+      ],
+      [
+        "Stress Regulation",
+        "Breathing practices are among the tools discussed for managing a moment of stress."
+      ],
+      [
+        "Learning and Focus",
+        "The book connects attention and practice with changing skills and behavior."
+      ],
+      [
+        "Evidence and Suitability",
+        "Research support differs by practice and population; recommendations are not universal medical guidance."
+      ]
+    ],
+    "take": "Before adopting a protocol, ask what outcome it targets, what evidence supports it and whether it is appropriate for you.",
+    "remember": "A named protocol still needs evidence and context.",
+    "tags": [
+      "Health Literacy",
+      "Daily Routines",
+      "Evidence"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Protocols — Simon Element",
+        "https://www.simonandschuster.com/books/Protocols/Andrew-D-Huberman/9781668032145"
+      ],
+      [
+        "author",
+        "Protocols — Huberman Lab book overview",
+        "https://www.hubermanlab.com/protocols-book"
+      ]
+    ],
+    "relatedBooks": []
   }
 ]

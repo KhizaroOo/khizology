@@ -2007,5 +2007,572 @@
     ],
     "relatedBooks": [],
     "editionNote": "First published in 1983; the publisher link describes a later digital edition."
+  },
+  {
+    "number": 371,
+    "title": "Source Code: My Beginnings",
+    "author": "Bill Gates",
+    "slug": "source-code-my-beginnings",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Bill Gates’s early-life memoir through family, friendships, access to computers and the choices preceding Microsoft, without turning hindsight into a success formula.",
+    "subtitle": "Look at the beginnings before the famous outcome.",
+    "bigIdea": "Gates recounts how curiosity, relationships and unusual opportunities shaped his path toward software.",
+    "sections": [
+      [
+        "Before the Company",
+        "The memoir focuses on childhood and early adulthood rather than the full history of Microsoft."
+      ],
+      [
+        "A Demanding Curiosity",
+        "Gates describes the interests and habits that absorbed him while growing up."
+      ],
+      [
+        "Access Opens Doors",
+        "Early opportunities to use computers helped make an emerging field tangible."
+      ],
+      [
+        "Friendship and Collaboration",
+        "His account gives relationships, including Paul Allen, a central role in the path to software."
+      ],
+      [
+        "An Emerging Opportunity",
+        "The book recalls recognizing that personal computers could make software important."
+      ],
+      [
+        "Hindsight Has Limits",
+        "A founder’s account is a remembered perspective; opportunity and timing are not a repeatable recipe."
+      ]
+    ],
+    "take": "Look for the access, relationships and historical timing behind a story presented as individual genius.",
+    "remember": "Beginnings contain other people and opportunities.",
+    "tags": [
+      "Memoir",
+      "Computing",
+      "Opportunity"
+    ],
+    "sources": [
+      [
+        "author",
+        "Source Code — Bill Gates",
+        "https://www.gatesnotes.com/personal/source-code/reader"
+      ],
+      [
+        "publisher",
+        "Source Code — Knopf",
+        "https://www.penguinrandomhouse.com/books/742811/source-code-by-bill-gates/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 372,
+    "title": "Careless People",
+    "author": "Sarah Wynn-Williams",
+    "slug": "careless-people",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Sarah Wynn-Williams’s account of working at Facebook through idealism, organizational incentives and responsibility, with contested allegations explicitly attributed.",
+    "subtitle": "Ask what power rewards behind the public mission.",
+    "bigIdea": "Wynn-Williams describes a widening gap between Facebook’s public ideals and the decisions she witnessed inside the company.",
+    "sections": [
+      [
+        "Joining With Hope",
+        "She recounts entering the company believing its reach could serve positive goals."
+      ],
+      [
+        "Inside the Decisions",
+        "The memoir describes policy work near powerful executives and political institutions."
+      ],
+      [
+        "Growth and Responsibility",
+        "Her account asks what happens when expansion competes with attention to harm."
+      ],
+      [
+        "Complicity Is Uncomfortable",
+        "The story includes the author’s place within the organization she later criticizes."
+      ],
+      [
+        "Contested Testimony",
+        "Claims about people and internal conduct are her account, not independently established facts on this page."
+      ],
+      [
+        "Beyond One Memoir",
+        "Use the book to frame questions about governance, not as the only evidence about a company."
+      ]
+    ],
+    "take": "Compare an organization’s stated purpose with the incentives and safeguards governing actual decisions.",
+    "remember": "A mission statement is not accountability.",
+    "tags": [
+      "Technology",
+      "Memoir",
+      "Accountability"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Careless People — Pan Macmillan",
+        "https://www.panmacmillan.com/authors/sarah-wynn-williams/careless-people/9781035065967"
+      ],
+      [
+        "other",
+        "Former Meta official’s memoir announcement — Associated Press",
+        "https://apnews.com/article/3280059cd7c3c3022afe171c2188f557"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 373,
+    "title": "Mother Mary Comes to Me",
+    "author": "Arundhati Roy",
+    "slug": "mother-mary-comes-to-me",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Arundhati Roy’s memoir of her mother Mary Roy, independence, grief and becoming a writer, preserving the complexity of love and painful family experience.",
+    "subtitle": "Love and harm can belong to the same remembered relationship.",
+    "bigIdea": "Roy explores how her difficult, formative relationship with her mother shaped her independence and writing.",
+    "sections": [
+      [
+        "A Formidable Mother",
+        "Mary Roy appears as a powerful influence rather than a simple supporting character."
+      ],
+      [
+        "Leaving Home",
+        "The memoir connects separation with the effort to establish an independent life."
+      ],
+      [
+        "Becoming a Writer",
+        "Family, place and experience form part of Roy’s account of finding her voice."
+      ],
+      [
+        "Grief Reopens Memory",
+        "Her mother’s death becomes a starting point for revisiting their relationship."
+      ],
+      [
+        "Keep the Contradictions",
+        "Affection and painful recollections need not cancel each other out."
+      ],
+      [
+        "One Remembered View",
+        "Read this as Roy’s memoir perspective, not a diagnosis of her mother or every family relationship."
+      ]
+    ],
+    "take": "Allow a family story to hold complexity instead of forcing someone into hero or villain.",
+    "remember": "A complicated love deserves a complicated telling.",
+    "tags": [
+      "Memoir",
+      "Family",
+      "Writing"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Mother Mary Comes to Me — Penguin India",
+        "https://www.penguin.co.in/book/mother-mary-comes-to-me/"
+      ],
+      [
+        "publisher",
+        "Mother Mary Comes to Me — Scribner",
+        "https://www.simonandschuster.com/books/Mother-Mary-Comes-to-Me/Arundhati-Roy/9781668094716"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 374,
+    "title": "Memorial Days",
+    "author": "Geraldine Brooks",
+    "slug": "memorial-days",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Geraldine Brooks’s memoir of Tony Horwitz’s sudden death, making space for grief and remembering a shared life without prescribing a recovery timetable.",
+    "subtitle": "Grief needs room that ordinary life may not provide.",
+    "bigIdea": "Brooks recounts creating time and solitude to face loss after practical demands crowded out her mourning.",
+    "sections": [
+      [
+        "A Sudden Rupture",
+        "Her husband’s unexpected death interrupts a shared life rather than arriving as an orderly transition."
+      ],
+      [
+        "Practical Demands",
+        "The work following a death can leave little room for absorbing what happened."
+      ],
+      [
+        "Time Set Apart",
+        "Retreating to Flinders Island gives Brooks space to revisit the loss."
+      ],
+      [
+        "Remember a Whole Person",
+        "The memoir recalls a marriage and an accomplished life, not only its ending."
+      ],
+      [
+        "No Single Schedule",
+        "Brooks’s process offers witness to grief rather than a timetable others should follow."
+      ]
+    ],
+    "take": "Make room to remember someone without treating the act as a task that must produce closure.",
+    "remember": "Grief does not run on an administrative timetable.",
+    "tags": [
+      "Grief",
+      "Memoir",
+      "Memory"
+    ],
+    "sources": [
+      [
+        "author",
+        "Memorial Days — Geraldine Brooks",
+        "https://geraldinebrooks.com/memorial-days/"
+      ],
+      [
+        "publisher",
+        "Memorial Days — Viking",
+        "https://www.penguinrandomhouse.com/books/722841/memorial-days-by-geraldine-brooks/9780593654002/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 375,
+    "title": "A Hymn to Life",
+    "author": "Gisèle Pelicot",
+    "slug": "a-hymn-to-life",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Gisèle Pelicot’s testimony about survival, public witness and reclaiming a life, with non-graphic framing and no prescribed response to sexual violence.",
+    "subtitle": "The responsibility for abuse belongs to those who commit it.",
+    "bigIdea": "Pelicot recounts reclaiming her voice after abuse and rejecting the shame placed on survivors.",
+    "sections": [
+      [
+        "A Life Disrupted",
+        "The memoir begins from the discovery that transformed her understanding of her marriage."
+      ],
+      [
+        "Choose Public Witness",
+        "Pelicot explains her decision to waive anonymity during the 2024 trial."
+      ],
+      [
+        "Move the Shame",
+        "Her message places responsibility on perpetrators rather than on the person harmed."
+      ],
+      [
+        "More Than the Case",
+        "She tells a life story that includes identity and relationships beyond the violence."
+      ],
+      [
+        "Living Afterward",
+        "Her account of renewed life does not erase what happened or demand a particular recovery from others."
+      ],
+      [
+        "Respect Different Choices",
+        "Public testimony was her choice; privacy and other survivor responses deserve equal respect."
+      ]
+    ],
+    "take": "Listen without assigning shame or requiring survivors to respond in one approved way.",
+    "remember": "A person’s life is larger than the harm done to them.",
+    "tags": [
+      "Testimony",
+      "Dignity",
+      "Survival"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "A Hymn to Life — Penguin Press",
+        "https://www.penguinrandomhouse.com/books/812605/a-hymn-to-life-by-gisele-pelicot-translated-by-natasha-lehrer-and-ruth-diver/"
+      ],
+      [
+        "publisher",
+        "A Hymn to Life — The Bodley Head",
+        "https://www.penguin.co.uk/books/475698/a-hymn-to-life-by-pelicot-gisele/9781529970081"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "English translation by Natasha Lehrer and Ruth Diver, 2026. Content includes discussion of sexual violence without graphic detail."
+  },
+  {
+    "number": 376,
+    "title": "Swan Song",
+    "author": "Charles Spencer",
+    "slug": "swan-song",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Charles Spencer’s memoir of Diana through sibling memory, public life and grief, while distinguishing intimate recollection from disputed historical claims.",
+    "subtitle": "A public figure was also someone’s sister.",
+    "bigIdea": "Spencer presents Diana’s life and death through the perspective of a brother remembering their shared history.",
+    "sections": [
+      [
+        "Shared Childhood",
+        "His account begins with the relationship before Diana’s global public role."
+      ],
+      [
+        "A Life Under Attention",
+        "Marriage and celebrity change the boundaries between private person and public image."
+      ],
+      [
+        "Care Beyond the Image",
+        "He recalls her relationships, motherhood and concern for marginalized people."
+      ],
+      [
+        "The Week of Loss",
+        "The memoir revisits her death and funeral through his grief."
+      ],
+      [
+        "Perspective Is Partial",
+        "Love and memory shape this account; disputed claims about others require corroboration."
+      ],
+      [
+        "Keep the Person Visible",
+        "An intimate portrait need not turn its subject into either an icon or an argument."
+      ]
+    ],
+    "take": "Read a family memoir for its perspective while checking contentious claims against other evidence.",
+    "remember": "Intimacy adds a viewpoint, not the final word.",
+    "tags": [
+      "Memoir",
+      "Public Life",
+      "Memory"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Swan Song — Penguin Press",
+        "https://www.penguinrandomhouse.com/books/836436/swan-song-by-charles-spencer/"
+      ],
+      [
+        "other",
+        "Diana memoir and disputed claims — Associated Press",
+        "https://apnews.com/article/e1a79124ef65f1f01490b0a491de1896"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 377,
+    "title": "One Helluva Ride",
+    "author": "Michael Douglas with Shane Salerno & Michael Fleming Jr.",
+    "slug": "one-helluva-ride",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Michael Douglas’s memoir through identity, producing, family, ambition and later-life reflection without equating celebrity success with a flawless life.",
+    "subtitle": "The public career and the private cost coexist.",
+    "bigIdea": "Douglas recounts building an identity beyond his famous father while confronting the consequences of ambition and personal choices.",
+    "sections": [
+      [
+        "An Inherited Shadow",
+        "His account describes the effort to be seen beyond being Kirk Douglas’s son."
+      ],
+      [
+        "Making, Not Only Acting",
+        "Producing becomes an important route to creative agency in his career."
+      ],
+      [
+        "Ambition Has Consequences",
+        "The memoir combines achievement with personal decisions he revisits critically."
+      ],
+      [
+        "Family Is Not a Footnote",
+        "Relationships and family difficulties form part of the story of public success."
+      ],
+      [
+        "Facing Mortality",
+        "Illness and aging change the questions he asks about legacy and time."
+      ],
+      [
+        "Memoir Boundaries",
+        "These are recollections and reflections, not medical lessons or a complete account of everyone involved."
+      ]
+    ],
+    "take": "When evaluating success, include relationships and consequences alongside visible achievements.",
+    "remember": "A successful career is only one part of a life.",
+    "tags": [
+      "Memoir",
+      "Creative Work",
+      "Legacy"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "One Helluva Ride — Grand Central Publishing",
+        "https://www.hachettebookgroup.com/titles/michael-douglas/one-helluva-ride/9781538782224/"
+      ],
+      [
+        "interview",
+        "Michael Douglas on immortality and his memoir — Associated Press",
+        "https://apnews.com/article/4c30997ab0cc1f90506c4503b8cfd7e5"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 378,
+    "title": "Famesick",
+    "author": "Lena Dunham",
+    "slug": "famesick",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Lena Dunham’s memoir of creative ambition, illness, fame and relationships, keeping her personal account distinct from diagnosis or general health guidance.",
+    "subtitle": "A public achievement can conceal a private struggle.",
+    "bigIdea": "Dunham asks what fulfilling her ambitions cost when illness and public attention made success difficult to inhabit.",
+    "sections": [
+      [
+        "Ambition Takes Shape",
+        "The memoir follows the rise of Girls and the demands of building a creative career."
+      ],
+      [
+        "The Body Has Limits",
+        "Dunham describes illness and treatment as realities that achievement does not remove."
+      ],
+      [
+        "Visibility Distorts",
+        "Public attention can change how relationships and mistakes are experienced."
+      ],
+      [
+        "When Coping Becomes Costly",
+        "Her account addresses pain and drug use without making them a route to creative success."
+      ],
+      [
+        "Reconsider the Goal",
+        "She reflects on whether continuing to meet ambition’s demands still serves her life."
+      ],
+      [
+        "A Personal Account",
+        "Memoir offers a viewpoint; it should not become a diagnosis of the author or advice for another person’s care."
+      ]
+    ],
+    "take": "Separate loving the work from accepting every cost of the career built around it.",
+    "remember": "Achievement does not cancel human limits.",
+    "tags": [
+      "Memoir",
+      "Fame",
+      "Creative Ambition"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Famesick — Random House",
+        "https://www.penguinrandomhouse.com/books/609917/famesick-by-lena-dunham/9780593129326/"
+      ],
+      [
+        "review",
+        "Famesick — Kirkus Reviews",
+        "https://www.kirkusreviews.com/book-reviews/lena-dunham/famesick/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 379,
+    "title": "Judy Blume: A Life",
+    "author": "Mark Oppenheimer",
+    "slug": "judy-blume-a-life",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Mark Oppenheimer’s biography of Judy Blume through candid writing, young readers, censorship and the tensions between public guidance and private life.",
+    "subtitle": "Take young readers’ real questions seriously.",
+    "bigIdea": "Oppenheimer argues that Blume changed expectations of children’s literature by writing frankly about experiences adults often avoided.",
+    "sections": [
+      [
+        "Recognizable Young Lives",
+        "Her work makes ordinary fears and private questions visible to readers."
+      ],
+      [
+        "Candor as Craft",
+        "Directness about difficult topics becomes part of a distinctive literary approach."
+      ],
+      [
+        "The Readers Respond",
+        "Children and parents place trust in an author whose characters feel familiar."
+      ],
+      [
+        "Censorship and Voice",
+        "Challenges to her books connect the writing with wider arguments over what young people may read."
+      ],
+      [
+        "A Complex Adult Life",
+        "The biography contrasts her public role as a guide with her own personal uncertainties."
+      ],
+      [
+        "Read the Biography as Argument",
+        "Oppenheimer’s interpretation draws on interviews and papers rather than providing an unmediated portrait."
+      ]
+    ],
+    "take": "Ask what a book makes speakable for its readers before dismissing an uncomfortable subject.",
+    "remember": "Being heard can begin with seeing a real question on the page.",
+    "tags": [
+      "Biography",
+      "Literature",
+      "Censorship"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Judy Blume — G. P. Putnam’s Sons",
+        "https://www.penguinrandomhouse.com/books/734817/judy-blume-by-mark-oppenheimer/9780593714447/"
+      ],
+      [
+        "review",
+        "Judy Blume: A Life — Publishers Weekly",
+        "https://www.publishersweekly.com/9780593714447"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 380,
+    "title": "Never Say Die",
+    "author": "Ke Huy Quan",
+    "slug": "never-say-die",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Ke Huy Quan’s memoir through displacement, childhood stardom, limited opportunities and a later return, without reducing structural barriers to a motivational slogan.",
+    "subtitle": "An interrupted career is not an erased person.",
+    "bigIdea": "Quan recounts how displacement, relationships and changing opportunities shaped a life extending far beyond childhood fame.",
+    "sections": [
+      [
+        "Displacement Before Fame",
+        "The memoir begins with refugee experience and rebuilding life in a new country."
+      ],
+      [
+        "An Unexpected Opening",
+        "A childhood audition leads into major films and lasting relationships."
+      ],
+      [
+        "When Roles Disappear",
+        "Early success does not prevent a later shortage of acting opportunities."
+      ],
+      [
+        "Work Behind the Camera",
+        "He continues working in filmmaking outside the public spotlight."
+      ],
+      [
+        "A Later Return",
+        "Everything Everywhere All at Once provides a new opportunity after years away from acting."
+      ],
+      [
+        "Hope With Context",
+        "Persistence matters in his story, but access, collaborators and luck also shape who gets another chance."
+      ]
+    ],
+    "take": "Recognize the skills and relationships that continue during a period without visible recognition.",
+    "remember": "A quiet chapter is still part of a life.",
+    "tags": [
+      "Memoir",
+      "Opportunity",
+      "Representation"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Never Say Die — Grand Central Publishing",
+        "https://www.hbglibrary.com/titles/ke-huy-quan/never-say-die/9781538776995/"
+      ],
+      [
+        "review",
+        "Never Say Die — Kirkus Reviews",
+        "https://www.kirkusreviews.com/book-reviews/ke-huy-quan/never-say-die-2/"
+      ]
+    ],
+    "relatedBooks": []
   }
 ]

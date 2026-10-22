@@ -1989,5 +1989,579 @@
     ],
     "relatedBooks": [],
     "editionNote": "First published in 1951; sources include the expanded 2025 Library of America edition."
+  },
+  {
+    "number": 381,
+    "title": "Abundance",
+    "author": "Ezra Klein & Derek Thompson",
+    "slug": "abundance",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Klein and Thompson’s abundance argument about housing, infrastructure, science and state capacity, with policy trade-offs kept visible.",
+    "subtitle": "Judge a promise by what can actually be built.",
+    "bigIdea": "Klein and Thompson argue that solving scarcity requires institutions capable of building more of what people need.",
+    "sections": [
+      [
+        "Scarcity Can Be Chosen",
+        "The authors argue that some shortages reflect political decisions rather than unavoidable limits."
+      ],
+      [
+        "Housing and Infrastructure",
+        "They connect expensive essentials with barriers to expanding useful supply."
+      ],
+      [
+        "From Rules to Results",
+        "A well-intended process can fail when nobody checks whether it delivers its intended outcome."
+      ],
+      [
+        "Build Public Capacity",
+        "Government competence matters alongside money and ambitious targets."
+      ],
+      [
+        "Innovation Must Reach People",
+        "Discovery alone does not guarantee deployment of useful technologies."
+      ],
+      [
+        "Keep the Trade-offs",
+        "Their reform agenda is contested; building more still raises distributional, environmental and democratic questions."
+      ]
+    ],
+    "take": "When evaluating a policy, ask what prevents delivery and who benefits from the proposed fix.",
+    "remember": "A worthy goal still needs a workable path to delivery.",
+    "tags": [
+      "State Capacity",
+      "Housing",
+      "Public Policy"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Abundance — Avid Reader Press",
+        "https://www.simonandschuster.com/books/Abundance/Ezra-Klein/9781668023488"
+      ],
+      [
+        "publisher",
+        "Abundance — Profile Books",
+        "https://profilebooks.com/work/abundance/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 382,
+    "title": "Empire of AI",
+    "author": "Karen Hao",
+    "slug": "empire-of-ai",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Karen Hao’s reporting on OpenAI, organizational power, data labor and environmental costs, with the empire metaphor clearly attributed to her analysis.",
+    "subtitle": "Look behind the interface to the people and resources.",
+    "bigIdea": "Hao argues that the race to build large AI systems concentrates power while hiding human and environmental costs.",
+    "sections": [
+      [
+        "Mission and Incentives",
+        "Her account examines tensions between public-benefit promises and competitive expansion."
+      ],
+      [
+        "People Behind the Output",
+        "Data work and content moderation are part of the infrastructure behind apparently automatic systems."
+      ],
+      [
+        "A Physical Industry",
+        "Computing requires energy, water, land and material resources."
+      ],
+      [
+        "Governance Under Pressure",
+        "Internal decisions and leadership conflicts reveal questions about who can hold a company accountable."
+      ],
+      [
+        "The Empire Lens",
+        "Colonial comparison is Hao’s interpretive framework, not an uncontested description of every AI project."
+      ],
+      [
+        "Other Futures",
+        "The book challenges inevitability; criticism of one development model is not proof that all AI uses are identical."
+      ]
+    ],
+    "take": "For an AI product, ask who supplies the work and resources and who can challenge its decisions.",
+    "remember": "A frictionless interface can hide costly arrangements.",
+    "tags": [
+      "AI",
+      "Power",
+      "Labor"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Empire of AI — Penguin Press",
+        "https://www.penguinrandomhouse.com/books/743569/empire-of-ai-by-karen-hao/"
+      ],
+      [
+        "author",
+        "Empire of AI — Karen Hao",
+        "https://karendhao.com/"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 2025; the publisher also lists a 2026 paperback edition."
+  },
+  {
+    "number": 383,
+    "title": "Chokepoints",
+    "author": "Edward Fishman",
+    "slug": "chokepoints",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Edward Fishman’s account of sanctions and economic chokepoints, including financial networks, chip controls and the costs of economic coercion.",
+    "subtitle": "Connection can create leverage as well as cooperation.",
+    "bigIdea": "Fishman argues that control of critical economic networks has become a powerful instrument of geopolitical coercion.",
+    "sections": [
+      [
+        "Find the Bottleneck",
+        "An indispensable network or resource can become a point at which access is controlled."
+      ],
+      [
+        "Finance as Leverage",
+        "Dollar-linked banking can extend the reach of decisions made by the United States."
+      ],
+      [
+        "Technology Controls",
+        "Advanced chips and supply chains create other forms of strategic dependence."
+      ],
+      [
+        "Policy Is Made by People",
+        "The book follows officials and institutions building and using economic restrictions."
+      ],
+      [
+        "Effects Are Uneven",
+        "Pressure on a state can also affect businesses, civilians and countries outside the intended target."
+      ],
+      [
+        "Power Has Limits",
+        "The author’s account does not establish that sanctions always succeed or avoid fragmentation and retaliation."
+      ]
+    ],
+    "take": "Ask who controls access, which objective a restriction serves and who else pays for it.",
+    "remember": "Dependence becomes power when access can be withheld.",
+    "tags": [
+      "Geopolitics",
+      "Sanctions",
+      "Economic Networks"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Chokepoints — Portfolio",
+        "https://www.penguinrandomhouse.com/books/726149/chokepoints-by-edward-fishman/"
+      ],
+      [
+        "publisher",
+        "Chokepoints — Elliott & Thompson",
+        "https://eandtbooks.com/books/chokepoints/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 384,
+    "title": "How Progress Ends",
+    "author": "Carl Benedikt Frey",
+    "slug": "how-progress-ends",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Carl Benedikt Frey’s historical account of innovation, scaling and stagnation, including the tension between decentralized experiments and centralized delivery.",
+    "subtitle": "Progress depends on institutions that can keep learning.",
+    "bigIdea": "Frey argues that societies need both room for experimentation and capacity to scale, and can stagnate when those conditions fail.",
+    "sections": [
+      [
+        "Progress Is Not Automatic",
+        "Past success does not guarantee that a society remains a technology leader."
+      ],
+      [
+        "Ideas Need Networks",
+        "Knowledge survives and develops when people share it and others can build on it."
+      ],
+      [
+        "Many Bets",
+        "Decentralized support lets different approaches survive rejection by one authority."
+      ],
+      [
+        "Scale Needs Organization",
+        "Delivering a useful invention widely requires coordination beyond the initial experiment."
+      ],
+      [
+        "Incumbents Can Block Entry",
+        "Successful groups may protect their position at the expense of new competitors."
+      ],
+      [
+        "A Historical Argument",
+        "The account offers a framework for comparison, not one settled cause for every rise and decline."
+      ]
+    ],
+    "take": "Ask whether an institution supports new experiments as well as efficient delivery of established work.",
+    "remember": "Scaling yesterday’s answer is different from finding tomorrow’s.",
+    "tags": [
+      "Innovation",
+      "Institutions",
+      "Economic History"
+    ],
+    "sources": [
+      [
+        "official",
+        "How Progress Ends — Princeton University Press on JSTOR",
+        "https://www.jstor.org/stable/jj.26932071"
+      ],
+      [
+        "interview",
+        "Carl Frey on innovation, technology and progress — McKinsey Author Talks",
+        "https://www.mckinsey.com/featured-insights/mckinsey-on-books/author-talks-what-the-history-of-progress-and-innovation-tells-us-about-disruption"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 385,
+    "title": "Breakneck",
+    "author": "Dan Wang",
+    "slug": "breakneck",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Dan Wang’s comparison of China’s engineering state and America’s lawyerly system, including both building capacity and the dangers of unchecked power.",
+    "subtitle": "Building capacity and protecting people both matter.",
+    "bigIdea": "Wang uses an engineering-versus-law framework to compare China’s building power with America’s institutional constraints.",
+    "sections": [
+      [
+        "The Engineering State",
+        "Wang emphasizes China’s ability to build infrastructure and industrial capacity."
+      ],
+      [
+        "The Lawyerly Society",
+        "He contrasts this with American processes that can protect interests while slowing construction."
+      ],
+      [
+        "Speed Has Costs",
+        "State capacity without strong individual protections can enable damaging coercion."
+      ],
+      [
+        "Process Has Costs",
+        "Rules that prevent action can also obstruct housing, energy and transport people need."
+      ],
+      [
+        "Learn in Both Directions",
+        "Wang proposes that each country could learn from strengths in the other."
+      ],
+      [
+        "A Lens, Not a Whole Country",
+        "The comparison is an interpretive framework, not a complete account of either society or every citizen."
+      ]
+    ],
+    "take": "Evaluate a system by both what it can deliver and how people can challenge the harm it causes.",
+    "remember": "Capacity needs limits; limits still need capacity.",
+    "tags": [
+      "China",
+      "Institutions",
+      "Industrial Policy"
+    ],
+    "sources": [
+      [
+        "official",
+        "Breakneck — Penguin publisher catalogue",
+        "https://wp.penguin.co.uk/wp-content/uploads/2025/08/OnlineCatalogueAW2025-1.pdf"
+      ],
+      [
+        "author",
+        "A Nation of Lawyers Confronts China’s Engineering State — Dan Wang excerpt",
+        "https://www.theatlantic.com/ideas/archive/2025/08/china-america-tariffs-trump-economy/683895/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 386,
+    "title": "The Thinking Machine",
+    "author": "Stephen Witt",
+    "slug": "the-thinking-machine",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Stephen Witt’s account of Jensen Huang and Nvidia, linking graphics chips, engineering bets and AI infrastructure without treating business success as destiny.",
+    "subtitle": "Software’s apparent magic depends on physical computing.",
+    "bigIdea": "Witt traces how Nvidia’s engineering choices and long-term bets helped turn graphics hardware into central AI infrastructure.",
+    "sections": [
+      [
+        "A Different Starting Point",
+        "The company’s early focus was graphics for games rather than today’s generative AI market."
+      ],
+      [
+        "Parallel Work",
+        "Graphics processors perform many operations together, creating possibilities beyond drawing images."
+      ],
+      [
+        "A Long Bet",
+        "Witt describes Huang committing resources before the future value of AI hardware was obvious."
+      ],
+      [
+        "An Ecosystem, Not One Hero",
+        "Engineers, researchers, software and wider industry developments contribute to the story."
+      ],
+      [
+        "Power in Infrastructure",
+        "Control of essential computing hardware can produce economic and strategic influence."
+      ],
+      [
+        "Success Is Not a Forecast",
+        "The company history does not guarantee future dominance or prove every promise about AI."
+      ]
+    ],
+    "take": "When a technology seems purely digital, identify the hardware and organizations that make it possible.",
+    "remember": "Behind every model is an infrastructure story.",
+    "tags": [
+      "AI Hardware",
+      "Nvidia",
+      "Technology History"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Thinking Machine — Viking",
+        "https://www.penguinrandomhouse.com/books/757558/the-thinking-machine-by-stephen-witt/"
+      ],
+      [
+        "publisher",
+        "The Thinking Machine — Penguin UK",
+        "https://www.penguin.co.uk/books/462527/the-thinking-machine-by-witt-stephen/9781529936520"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 387,
+    "title": "Rewiring Democracy",
+    "author": "Bruce Schneier & Nathan E. Sanders",
+    "slug": "rewiring-democracy",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Schneier and Sanders’s scenarios for AI in lawmaking, administration, courts and civic participation, keeping democratic safeguards central.",
+    "subtitle": "Automation changes power, not only speed.",
+    "bigIdea": "Schneier and Sanders argue that AI can strengthen or weaken democracy depending on who controls it and how it is governed.",
+    "sections": [
+      [
+        "Beyond Deepfakes",
+        "Political effects extend into routine institutions, not only misinformation."
+      ],
+      [
+        "Making Laws",
+        "Tools for complex legislation could change the balance between lawmakers and administrators."
+      ],
+      [
+        "Applying Rules",
+        "Automation can support enforcement or make neglect harder to see."
+      ],
+      [
+        "Courts and Disputes",
+        "Faster legal work changes access and incentives without automatically ensuring fairness."
+      ],
+      [
+        "Citizen Voice",
+        "The authors explore ways AI might support participation and collective decisions."
+      ],
+      [
+        "Possibilities Need Safeguards",
+        "These scenarios are conditional arguments, not proof that corporate systems are ready for democratic authority."
+      ]
+    ],
+    "take": "For a proposed civic AI system, ask who can inspect, appeal and change its decisions.",
+    "remember": "Efficiency is not the same as democratic legitimacy.",
+    "tags": [
+      "Democracy",
+      "AI Governance",
+      "Participation"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Rewiring Democracy — MIT Press",
+        "https://mitpress.mit.edu/9780262049948/rewiring-democracy/"
+      ],
+      [
+        "author",
+        "Rewiring Democracy — Bruce Schneier",
+        "https://www.schneier.com/books/rewiring-democracy/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 388,
+    "title": "The Political Economy of Artificial Intelligence",
+    "author": "Ajay Agrawal, Joshua Gans, Avi Goldfarb & Catherine E. Tucker (eds.)",
+    "slug": "the-political-economy-of-artificial-intelligence",
+    "seoTitle": "Political Economy of AI | Notooo",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore this edited research volume on AI regulation, military power and political identity, with open questions and competing policy trade-offs preserved.",
+    "subtitle": "Who shapes AI also shapes its consequences.",
+    "bigIdea": "The collection examines how political and economic incentives shape AI while AI changes institutions and power.",
+    "sections": [
+      [
+        "Many Contributors",
+        "This is an edited research volume rather than one author’s single policy manifesto."
+      ],
+      [
+        "Rules and Interests",
+        "Regulation reflects institutions and interest groups as well as technical risks."
+      ],
+      [
+        "Data and Property",
+        "Control over inputs raises questions about rights, access and the distribution of value."
+      ],
+      [
+        "Military Power",
+        "AI capabilities can affect effectiveness, resources and bargaining among states."
+      ],
+      [
+        "Political Identity",
+        "Information systems and automation may influence political preferences and collective identities."
+      ],
+      [
+        "Questions Stay Open",
+        "Models and early evidence support inquiry, not a settled prediction of AI’s political future."
+      ]
+    ],
+    "take": "Separate the technical capability, the institution choosing its use and the people bearing its effects.",
+    "remember": "AI’s direction is partly an institutional choice.",
+    "tags": [
+      "Political Economy",
+      "AI Regulation",
+      "Institutions"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Political Economy of Artificial Intelligence — University of Chicago Press",
+        "https://press.uchicago.edu/ucp/books/book/chicago/P/bo270631423.html"
+      ],
+      [
+        "official",
+        "Introduction to The Political Economy of Artificial Intelligence — NBER",
+        "https://www.nber.org/books-and-chapters/political-economy-artificial-intelligence/introduction-political-economy-artificial-intelligence"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "Uses the University of Chicago Press edition marked © 2026; the NBER research record also carries a 2025 date."
+  },
+  {
+    "number": 389,
+    "title": "What Happened to Liberal Democracy?",
+    "author": "Daron Acemoglu",
+    "slug": "what-happened-to-liberal-democracy",
+    "seoTitle": "What Happened to Liberal Democracy? | Notooo",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Daron Acemoglu’s argument about liberal democracy, shared prosperity, elites and technological choices, without presenting his renewal agenda as political consensus.",
+    "subtitle": "Institutions must deliver more than their promise.",
+    "bigIdea": "Acemoglu argues that liberal democracy weakens when its institutions stop delivering broadly shared prosperity and meaningful democratic voice.",
+    "sections": [
+      [
+        "A Combined Promise",
+        "His account connects liberty, democracy, knowledge and economic opportunity."
+      ],
+      [
+        "When Benefits Narrow",
+        "The book examines how concentrated gains can weaken confidence in the system."
+      ],
+      [
+        "Elites and Exclusion",
+        "Acemoglu criticizes forms of liberalism that become detached from ordinary people’s needs."
+      ],
+      [
+        "Technology Has Direction",
+        "Choices about innovation and regulation influence whose work and interests benefit."
+      ],
+      [
+        "A Renewal Proposal",
+        "He advocates rebuilding a politics of shared prosperity rather than accepting authoritarian alternatives."
+      ],
+      [
+        "An Argument to Evaluate",
+        "This is a historical and normative interpretation, not a neutral verdict that resolves political disagreement."
+      ]
+    ],
+    "take": "Evaluate an institutional reform by whose voice it strengthens and how widely its benefits can reach.",
+    "remember": "Democratic promises need institutions that deliver.",
+    "tags": [
+      "Democracy",
+      "Shared Prosperity",
+      "Institutions"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "What Happened to Liberal Democracy? — Profile Books",
+        "https://profilebooks.com/work/what-happened-to-liberal-democracy/"
+      ],
+      [
+        "official",
+        "What Happened to Liberal Democracy? — MIT Stone Center",
+        "https://shapingwork.mit.edu/what-happened-to-liberal-democracy/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 390,
+    "title": "The Nerd Reich",
+    "author": "Gil Durán",
+    "slug": "the-nerd-reich",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Gil Durán’s critique of tech-authoritarian politics, private wealth and corporate governance ambitions, with ideological claims attributed and evidence boundaries explicit.",
+    "subtitle": "A promise of innovation can also be a claim to power.",
+    "bigIdea": "Durán argues that influential parts of the technology elite seek political power that weakens democratic accountability.",
+    "sections": [
+      [
+        "Ideas Behind the Projects",
+        "He traces intellectual influences behind proposals for privately controlled governance."
+      ],
+      [
+        "Wealth Becomes Influence",
+        "The book connects capital, political organization and institutional access."
+      ],
+      [
+        "Tools and Narratives",
+        "AI, cryptocurrency and social platforms appear in his account of political strategy."
+      ],
+      [
+        "Public Rule, Private Control",
+        "His central concern is authority moving away from accountable public institutions."
+      ],
+      [
+        "A Contested Framework",
+        "The book’s fascism and authoritarianism labels are Durán’s political analysis, not categories endorsed here for all technology workers."
+      ],
+      [
+        "Check Specific Claims",
+        "Distinguish documented statements and actions from claims about motives or a unified movement."
+      ]
+    ],
+    "take": "Ask who would govern, who could dissent and how leaders could be removed from a proposed technological future.",
+    "remember": "Technical ambition does not confer a right to rule.",
+    "tags": [
+      "Technology Politics",
+      "Accountability",
+      "Democracy"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Nerd Reich — Avid Reader Press",
+        "https://www.simonandschuster.com/books/The-Nerd-Reich/Gil-Duran/9781668221402"
+      ],
+      [
+        "author",
+        "The Nerd Reich — Gil Durán book announcement",
+        "https://www.thenerdreich.com/pre-order-the-nerd-reich-silicon-valley-fascism-the-war-on-democracy/"
+      ]
+    ],
+    "relatedBooks": []
   }
 ]

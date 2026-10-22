@@ -258,7 +258,22 @@ const newNotes = notoooModule.publishedNotoooBooks.filter(book => book.number >=
 const priorBatch = newNotes.filter(book => book.number <= 127);
 const completedCatalog = newNotes.filter(book => book.number >= 128 && book.number <= 240);
 const expansionBatch = newNotes.filter(book => book.number >= 241 && book.number <= 300);
-const latestBatch = newNotes.filter(book => book.number >= 301);
+const latestBatch = newNotes.filter(book => book.number >= 301 && book.number <= 330);
+const currentBatch = newNotes.filter(book => book.number >= 331);
+assert.equal(currentBatch.length, 60, 'Add exactly 60 notes numbered 331–390');
+assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks.filter(book => book.number <= 330))).digest('hex'), '97e418ebacf9ee9121f38f3d1bfb34b75cde9b93db19e1be19be8cf3626a8094', 'Published 001–330 must remain exactly unchanged');
+for (const book of currentBatch) {
+  const categoryIndex = notoooModule.notoooCategories.indexOf(book.category);
+  assert.ok(book.number >= 331 + categoryIndex * 10 && book.number <= 340 + categoryIndex * 10, `${book.slug}: preserve 331–390 category numbering`);
+  assert.equal(currentBatch.filter(item => item.category === book.category).length, 10, `${book.category}: add ten notes`);
+  assert.equal(book.publishedAt, '2026-10-22', `${book.slug}: record actual publication date`);
+  assert.ok(book.sources.every(source => source.accessedAt === '2026-10-22'), `${book.slug}: record actual research access date`);
+  assert.equal(new Set(book.sources.map(source => source.url)).size, book.sources.length, `${book.slug}: distinct research sources`);
+  assert.equal(notoooModule.relatedNotoooBooks(book).length, 3, `${book.slug}: three published continuations`);
+  assert.ok(notoooModule.relatedNotoooBooks(book).every(related => related.category === book.category && related.status === 'published'), `${book.slug}: relevant public continuations only`);
+  if (book.category === 'Money') assert.ok(book.khizoooTake.points.some(point => point.includes('not personalized financial advice')), `${book.slug}: financial boundary`);
+  if (book.category === 'Life') assert.ok(book.khizoooTake.points.some(point => point.includes('not individualized medical')), `${book.slug}: health boundary`);
+}
 assert.equal(latestBatch.length, 30, 'Add exactly 30 notes numbered 301–330');
 assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks.filter(book => book.number <= 300))).digest('hex'), '809f8bc2fd467dd0068903634ae83e02d5dd3a50945bb2e9cffdd72d42e7e1a5', 'Published 001–300 must remain exactly unchanged');
 assert.equal(expansionBatch.length, 60, 'Add exactly 60 notes numbered 241–300');
@@ -266,14 +281,14 @@ assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks
 assert.equal(priorBatch.length, 120, 'Preserve the approved 008–127 batch');
 assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.publishedNotoooBooks.filter(book => book.number <= 127))).digest('hex'), 'bdaf2fe6201b2463e778aff8d4ccffcec39cd75ef412181925ee3efa5dc02a12', 'Published 001–127 must remain exactly unchanged during catalog completion');
 assert.equal(completedCatalog.length, 113, 'Complete the remaining 128–240 catalog notes');
-assert.equal(notoooModule.publishedNotoooBooks.length, 330, 'Expected all 330 notes to be release-ready');
-assert.deepEqual(notoooModule.publishedNotoooBooks.map(book => book.number), Array.from({ length: 330 }, (_, i) => i + 1), 'Published numbers and schema order must cover 001–330 without gaps or duplicates');
-assert.equal(notoooModule.notoooBooks.length, 330, 'Preserve all 300 baseline notes alongside the 30 new notes');
+assert.equal(notoooModule.publishedNotoooBooks.length, 390, 'Expected all 390 notes to be release-ready');
+assert.deepEqual(notoooModule.publishedNotoooBooks.map(book => book.number), Array.from({ length: 390 }, (_, i) => i + 1), 'Published numbers and schema order must cover 001–390 without gaps or duplicates');
+assert.equal(notoooModule.notoooBooks.length, 390, 'Preserve all 330 baseline notes alongside the 60 new notes');
 assert.equal(notoooModule.notoooBooks.filter(book => book.status !== 'published').length, 0, 'Khizar approved completing the catalog: no remaining drafts');
 for (const category of notoooModule.notoooCategories) {
   assert.equal(priorBatch.filter(book => book.category === category).length, 20, `${category}: preserve 20 notes in the prior batch`);
-  assert.equal(notoooModule.publishedNotoooBooks.filter(book => book.category === category).length, 55, `${category}: expected 55 published notes`);
-  assert.equal(notoooModule.notoooBooks.filter(book => book.category === category).length, 55, `${category}: original catalog must remain intact`);
+  assert.equal(notoooModule.publishedNotoooBooks.filter(book => book.category === category).length, 65, `${category}: expected 65 published notes`);
+  assert.equal(notoooModule.notoooBooks.filter(book => book.category === category).length, 65, `${category}: original catalog must remain intact`);
   assert.equal(expansionBatch.filter(book => book.category === category).length, 10, `${category}: add ten notes`);
 }
 for (const book of latestBatch) {
@@ -399,7 +414,7 @@ for (const item of catalogItems) {
   assert.match(row || '', new RegExp(`^\\s*<h3\\b[^>]*>[\\s\\S]*?<\\/h3>\\s*<p\\b[^>]*class="book-author"[^>]*>[\\s\\S]*?<\\/p>\\s*${statusLabel}$`), 'Listing rows must show title, writer and a visible Coming label only for non-public notes');
   if (coming) assert.ok(!/<(?:a|button)\b|\b(?:href|tabindex|role|on\w+)\s*=/i.test(item), 'Coming rows must not expose links, focus stops or fake interactive semantics');
 }
-assert.equal(pages.filter(file => /^notooo[\\/]([^\\/]+)[\\/]index\.html$/.test(String(file))).length, 330, 'Generate exactly the 330 published Notooo detail routes');
+assert.equal(pages.filter(file => /^notooo[\\/]([^\\/]+)[\\/]index\.html$/.test(String(file))).length, 390, 'Generate exactly the 390 published Notooo detail routes');
 const escapeCatalogHtml = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 const readSchema = output => [...output.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap(match => JSON.parse(match[1]));
 const hubCollection = readSchema(hubHtml).find(schema => schema['@type'] === 'CollectionPage');
@@ -411,7 +426,7 @@ const hubCanonical = hubHtml.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
 assert.equal(sitemapUrls.filter(value => value === hubCanonical).length, 1, 'Notooo hub must appear exactly once in the sitemap');
 assert.deepEqual(hubCollection.mainEntity.itemListElement.map(item => item.url), notoooModule.publishedNotoooBooks.map(book => `${hubCanonical}${book.slug}/`), 'ItemList must contain only real published canonical URLs');
 assert.equal(sitemapUrls.filter(value => value.startsWith(hubCanonical)).length, notoooModule.publishedNotoooBooks.length + 1, 'No category, filter, search or draft routes may enter the Notooo sitemap');
-assert.equal(sitemapUrls.filter(value => value.startsWith(hubCanonical)).length, 331, 'Expected the Notooo hub and all 330 published notes in the sitemap');
+assert.equal(sitemapUrls.filter(value => value.startsWith(hubCanonical)).length, 391, 'Expected the Notooo hub and all 390 published notes in the sitemap');
 const publicJs = fs.readdirSync(dist, { recursive: true }).filter(file => String(file).endsWith('.js')).map(file => fs.readFileSync(path.join(dist, file), 'utf8')).join('\n');
 const bodyFields = book => [book.bigIdea, ...book.sections, book.khizoooTake, book.remember].flatMap(section => [section.oneLiner, ...section.points]);
 const publishedBody = new Set(notoooModule.publishedNotoooBooks.flatMap(bodyFields));

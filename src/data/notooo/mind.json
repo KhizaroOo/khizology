@@ -1977,5 +1977,573 @@
     ],
     "relatedBooks": [],
     "editionNote": "First published in 2009; the publisher source describes the expanded 2019 edition."
+  },
+  {
+    "number": 331,
+    "title": "A World Appears",
+    "author": "Michael Pollan",
+    "slug": "a-world-appears",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Michael Pollan’s investigation of consciousness, feeling, thought and self, with open questions kept distinct from established findings.",
+    "subtitle": "Experience is familiar; its explanation remains unfinished.",
+    "bigIdea": "Pollan explores why subjective experience exists without claiming that science has settled consciousness.",
+    "sections": [
+      [
+        "Experience First",
+        "Being conscious means there is something it feels like to experience the world."
+      ],
+      [
+        "Feeling and Survival",
+        "Pollan examines how bodily feelings may connect awareness with staying alive."
+      ],
+      [
+        "Different Inner Worlds",
+        "Inner speech and mental imagery vary; another person’s thought need not resemble yours."
+      ],
+      [
+        "A Constructed Self",
+        "Memory helps assemble the continuing person we experience ourselves to be."
+      ],
+      [
+        "Open Boundaries",
+        "Animal, plant and machine consciousness raise different questions; speculation is not proof."
+      ],
+      [
+        "Many Lenses",
+        "Scientific, philosophical and personal accounts illuminate different parts of an unsolved problem."
+      ]
+    ],
+    "take": "Separate what a person experiences from the theory offered to explain it.",
+    "remember": "A compelling theory is not the same as a solved mystery.",
+    "tags": [
+      "Consciousness",
+      "Feeling",
+      "Mind"
+    ],
+    "sources": [
+      [
+        "author",
+        "A World Appears — Michael Pollan",
+        "https://michaelpollan.com/books/a-world-appears/"
+      ],
+      [
+        "publisher",
+        "A World Appears — Penguin Press",
+        "https://www.penguinrandomhouse.com/books/646644/a-world-appears-by-michael-pollan/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 332,
+    "title": "Inside the Box",
+    "author": "David Epstein",
+    "slug": "inside-the-box",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Understand David Epstein’s case for useful constraints in creativity, choice and collaboration, without confusing helpful boundaries with needless restriction.",
+    "subtitle": "Choose boundaries that help the work.",
+    "bigIdea": "Epstein argues that well-chosen limits can direct attention and creativity better than unlimited options.",
+    "sections": [
+      [
+        "Freedom Has Costs",
+        "More choices can divide attention and make starting harder."
+      ],
+      [
+        "A Useful Boundary",
+        "A deadline, limited material or clear rule can give an open problem a workable shape."
+      ],
+      [
+        "Invent Within Limits",
+        "Constraints can push people to find approaches they would otherwise overlook."
+      ],
+      [
+        "Shared Rules",
+        "Teams can coordinate more easily when they understand the same boundaries."
+      ],
+      [
+        "Test the Box",
+        "A constraint deserves to stay only when it serves the work rather than merely restricting people."
+      ]
+    ],
+    "take": "When a project stalls, test one purposeful limit before adding more options.",
+    "remember": "The right boundary can create room to think.",
+    "tags": [
+      "Creativity",
+      "Constraints",
+      "Attention"
+    ],
+    "sources": [
+      [
+        "author",
+        "Inside the Box — David Epstein",
+        "https://davidepstein.com/inside-the-box/"
+      ],
+      [
+        "publisher",
+        "Inside the Box — Macmillan Business",
+        "https://www.panmacmillan.com/authors/david-epstein/inside-the-box/9781035031788"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 333,
+    "title": "Mattering",
+    "author": "Jennifer Breheny Wallace",
+    "slug": "mattering",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Jennifer Breheny Wallace’s mattering framework: feeling valued, contributing, being known and avoiding the trap of being endlessly needed.",
+    "subtitle": "Feel valued, and have a way to add value.",
+    "bigIdea": "Wallace argues that people need both recognition of their worth and meaningful opportunities to contribute.",
+    "sections": [
+      [
+        "Two Sides",
+        "Being valued and adding value belong together; achievement alone cannot supply both."
+      ],
+      [
+        "Notice the Impact",
+        "Specific recognition helps people see what their contribution changes."
+      ],
+      [
+        "Needed, Not Used",
+        "Being relied on can build purpose, but excessive demands can lead to exhaustion."
+      ],
+      [
+        "Known as a Person",
+        "Feeling understood involves more than being praised for useful output."
+      ],
+      [
+        "Everyday Culture",
+        "Small, repeated acts of attention can strengthen belonging at home and work."
+      ],
+      [
+        "A Framework, Not a Cure",
+        "The book’s research-informed interpretation does not explain every cause of loneliness or burnout."
+      ]
+    ],
+    "take": "Thank someone for a specific contribution, then ask what support they need.",
+    "remember": "Worth is more than performance.",
+    "tags": [
+      "Belonging",
+      "Purpose",
+      "Relationships"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Mattering — Portfolio",
+        "https://www.penguinrandomhouse.com/books/756179/mattering-by-jennifer-breheny-wallace/"
+      ],
+      [
+        "author",
+        "Mattering — Jennifer B. Wallace",
+        "https://www.jenniferbwallace.com/mattering-the-book"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 334,
+    "title": "Shift",
+    "author": "Ethan Kross",
+    "slug": "shift",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Ethan Kross’s emotion-management toolkit through attention, surroundings, relationships and perspective, with no promise of universal control.",
+    "subtitle": "Change the conditions around the feeling.",
+    "bigIdea": "Kross argues that managing emotion means adjusting its role and intensity, not eliminating uncomfortable feelings.",
+    "sections": [
+      [
+        "Emotions Carry Signals",
+        "Fear, anger and sadness can provide information without deciding your next action."
+      ],
+      [
+        "Attention Can Move",
+        "What you attend to can intensify a feeling or give you useful distance."
+      ],
+      [
+        "Use the Surroundings",
+        "Physical spaces and sensory experiences can influence emotional states."
+      ],
+      [
+        "People Matter",
+        "Relationships and cultural habits can support or undermine emotion management."
+      ],
+      [
+        "Fit the Situation",
+        "Avoidance and present-focused attention are not always helpful or always harmful."
+      ],
+      [
+        "Build a Toolkit",
+        "Different moments may need different strategies; one method is not a universal treatment."
+      ]
+    ],
+    "take": "Choose a small change in attention or surroundings before assuming a feeling cannot shift.",
+    "remember": "A feeling is information, not an order.",
+    "tags": [
+      "Emotions",
+      "Attention",
+      "Self Regulation"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Shift — Crown",
+        "https://www.penguinrandomhouse.com/books/720405/shift-by-ethan-kross/9780593444436/"
+      ],
+      [
+        "author",
+        "Ethan Kross — Shift and emotion regulation",
+        "https://www.ethankross.com/"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "First published in 2025; the linked paperback edition is dated 2026."
+  },
+  {
+    "number": 335,
+    "title": "Supercommunicators",
+    "author": "Charles Duhigg",
+    "slug": "supercommunicators",
+    "year": 2024,
+    "researchedAt": "2026-10-22",
+    "description": "Learn Charles Duhigg’s practical, emotional and social conversation model, including deeper questions and checking that you understood the other person.",
+    "subtitle": "Match the conversation before offering an answer.",
+    "bigIdea": "Duhigg argues that connection improves when people recognize what kind of conversation they are actually having.",
+    "sections": [
+      [
+        "Practical Talk",
+        "Some conversations ask what happened, what a problem means or what to do next."
+      ],
+      [
+        "Emotional Talk",
+        "Other conversations need acknowledgment of feelings before advice is useful."
+      ],
+      [
+        "Social Talk",
+        "Identity and belonging can shape the meaning beneath spoken words."
+      ],
+      [
+        "Ask Beyond Facts",
+        "Questions about experiences and values can reveal what matters to someone."
+      ],
+      [
+        "Check Understanding",
+        "Restate what you heard and ask whether you understood it correctly."
+      ],
+      [
+        "Practice, Not Magic",
+        "These are learnable communication practices, not guarantees of agreement or trust."
+      ]
+    ],
+    "take": "Before solving a problem, ask whether the person wants help, understanding or a chance to be heard.",
+    "remember": "Connection starts with finding the same conversation.",
+    "tags": [
+      "Communication",
+      "Listening",
+      "Connection"
+    ],
+    "sources": [
+      [
+        "author",
+        "Supercommunicators — Charles Duhigg",
+        "https://charlesduhigg.com/supercommunicators/"
+      ],
+      [
+        "publisher",
+        "Supercommunicators — Random House",
+        "https://www.penguinrandomhouse.com/books/677212/supercommunicators-by-charles-duhigg/9780593243923/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 336,
+    "title": "The Next Conversation",
+    "author": "Jefferson Fisher",
+    "slug": "the-next-conversation",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Jefferson Fisher’s control, confidence and connection framework for everyday disagreements, boundaries and clearer speech.",
+    "subtitle": "Choose the next sentence with intention.",
+    "bigIdea": "Fisher presents effective communication as calm delivery, clear boundaries and a goal of connection rather than victory.",
+    "sections": [
+      [
+        "Regulate Delivery",
+        "A controlled pace and response can keep a difficult exchange from escalating."
+      ],
+      [
+        "Speak With Confidence",
+        "State the point directly rather than hiding it in repeated apologies or explanations."
+      ],
+      [
+        "Connect, Do Not Defeat",
+        "Winning a moment can damage the relationship the conversation needs."
+      ],
+      [
+        "Boundaries Need Words",
+        "Explain what you will accept or do instead of expecting others to guess."
+      ],
+      [
+        "Less Can Be Clearer",
+        "A concise answer can leave more room for understanding than a defensive speech."
+      ],
+      [
+        "Know the Limits",
+        "A practical conversation framework cannot make unsafe or coercive situations safe."
+      ]
+    ],
+    "take": "Prepare one clear sentence about the issue and the boundary before a difficult conversation.",
+    "remember": "Control your contribution, not the other person.",
+    "tags": [
+      "Communication",
+      "Boundaries",
+      "Conflict"
+    ],
+    "sources": [
+      [
+        "author",
+        "The Next Conversation — Jefferson Fisher",
+        "https://www.jeffersonfisher.com/book"
+      ],
+      [
+        "publisher",
+        "The Next Conversation — Tarcher",
+        "https://www.penguinrandomhouse.com/books/750014/the-next-conversation-by-jefferson-fisher/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 337,
+    "title": "A Mother's Brain",
+    "author": "Susana Carmona",
+    "slug": "a-mothers-brain",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Susana Carmona’s account of pregnancy-related brain change, hormonal shifts and maternal adaptation without reducing mothers to stereotypes.",
+    "subtitle": "A changing brain is not a failing brain.",
+    "bigIdea": "Carmona describes pregnancy and early motherhood as major periods of brain adaptation that deserve serious study.",
+    "sections": [
+      [
+        "An Understudied Transition",
+        "The book challenges the neglect of pregnancy in research on the adult brain."
+      ],
+      [
+        "Change Across Time",
+        "Following people before and after pregnancy helps distinguish lasting patterns from a single snapshot."
+      ],
+      [
+        "Hormones and Structure",
+        "Hormonal changes accompany measurable brain changes; size differences alone do not establish ability."
+      ],
+      [
+        "Care and Connection",
+        "Carmona explores how these changes may relate to maternal wellbeing and infant bonding."
+      ],
+      [
+        "Beyond Stereotypes",
+        "The account questions dismissive ideas about mothers’ minds without claiming all mothers share one experience."
+      ],
+      [
+        "Research Boundaries",
+        "Emerging group-level findings are not an individual diagnosis or a test of good parenting."
+      ]
+    ],
+    "take": "Treat motherhood as an important adaptation needing support, not a stereotype explaining every difficulty.",
+    "remember": "Brain change needs context, not judgment.",
+    "tags": [
+      "Neuroplasticity",
+      "Motherhood",
+      "Research"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "A Mother’s Brain — MIT Press",
+        "https://mitpress.mit.edu/9780262054782/a-mothers-brain/"
+      ],
+      [
+        "review",
+        "A Mother’s Brain — Publishers Weekly",
+        "https://www.publishersweekly.com/9780262054782"
+      ]
+    ],
+    "relatedBooks": [],
+    "editionNote": "English translation by Lily Meyer, MIT Press, 2026; UK edition dates differ."
+  },
+  {
+    "number": 338,
+    "title": "What Is Intelligence?",
+    "author": "Blaise Agüera y Arcas",
+    "slug": "what-is-intelligence",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Blaise Agüera y Arcas’s prediction-based account of intelligence across life and AI while keeping machine-consciousness claims explicitly contested.",
+    "subtitle": "A model of intelligence is still a model.",
+    "bigIdea": "Agüera y Arcas argues that prediction connects intelligence in living systems and machines.",
+    "sections": [
+      [
+        "Predict to Act",
+        "Anticipating what happens next can help a system respond to its environment."
+      ],
+      [
+        "From Life to Minds",
+        "The book links computation with biology and evolutionary processes."
+      ],
+      [
+        "Intelligence Is Social",
+        "Learning and coordination can extend beyond one isolated organism or machine."
+      ],
+      [
+        "Models Meet Reality",
+        "A useful internal model captures patterns without becoming the world it describes."
+      ],
+      [
+        "The AI Argument",
+        "The author attributes intelligence, and more controversially consciousness and free will, to some AI systems."
+      ],
+      [
+        "Keep Debate Open",
+        "Those philosophical conclusions are arguments, not scientific consensus or proof of sentience."
+      ]
+    ],
+    "take": "Ask what a system predicts and how it is tested before debating whether it thinks like a person.",
+    "remember": "Good prediction does not settle every question about minds.",
+    "tags": [
+      "Intelligence",
+      "AI",
+      "Prediction"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "What Is Intelligence? — MIT Press",
+        "https://mitpress.mit.edu/9780262049955/what-is-intelligence/"
+      ],
+      [
+        "official",
+        "What Is Intelligence? — Penguin Random House distribution record",
+        "https://www.penguinrandomhouse.com/books/790337/what-is-intelligence-by-blaise-aguera-y-arcas/9780262049955/"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 339,
+    "title": "Imperfect Oracle",
+    "author": "Cass R. Sunstein",
+    "slug": "imperfect-oracle",
+    "year": 2025,
+    "researchedAt": "2026-10-22",
+    "description": "Understand Cass Sunstein’s distinction between AI’s judgment benefits and prediction limits, including human bias, inconsistent decisions and uncertainty.",
+    "subtitle": "Better judgment is not perfect foresight.",
+    "bigIdea": "Sunstein argues that AI may improve some human judgments while leaving fundamental uncertainty unresolved.",
+    "sections": [
+      [
+        "Biased Judgments",
+        "People can make systematic mistakes rather than merely random ones."
+      ],
+      [
+        "Unwanted Variation",
+        "Noise means similar cases receive inconsistent judgments for irrelevant reasons."
+      ],
+      [
+        "Compare Fairly",
+        "The useful question is how a tested system performs against realistic human decisions."
+      ],
+      [
+        "Surprise Remains",
+        "Better pattern recognition does not make the future fully predictable."
+      ],
+      [
+        "Know What Is Unknown",
+        "Some decisions involve values or knowledge limits that cannot be removed by a forecast."
+      ],
+      [
+        "No Automatic Trust",
+        "Possible benefits do not establish that every AI system is accurate, unbiased or suitable."
+      ]
+    ],
+    "take": "Judge an AI aid by its task, evidence and limits rather than its confident presentation.",
+    "remember": "Improvement is possible without infallibility.",
+    "tags": [
+      "AI",
+      "Judgment",
+      "Uncertainty"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "Imperfect Oracle — Penn Press / American Philosophical Society Press",
+        "https://www.pennpress.org/9781606181379/imperfect-oracle/"
+      ],
+      [
+        "official",
+        "Imperfect Oracle — licensed ebook preview",
+        "https://www.everand.com/book/893581148/Imperfect-Oracle-What-AI-Can-and-Cannot-Do"
+      ]
+    ],
+    "relatedBooks": []
+  },
+  {
+    "number": 340,
+    "title": "The Art of Fighting",
+    "author": "Priya Parker",
+    "slug": "the-art-of-fighting",
+    "year": 2026,
+    "researchedAt": "2026-10-22",
+    "description": "Explore Priya Parker’s case for healthy group conflict: identify the real disagreement, design the conversation and recognize limits to reconciliation.",
+    "subtitle": "Belonging does not require pretending to agree.",
+    "bigIdea": "Parker argues that healthy conflict can help groups adapt when avoidance leaves important differences unresolved.",
+    "sections": [
+      [
+        "Disagreement Is Normal",
+        "A changing group will not always share the same needs or values."
+      ],
+      [
+        "Name the Real Fight",
+        "A surface dispute can conceal a disagreement about belonging, purpose or authority."
+      ],
+      [
+        "Design the Conversation",
+        "Who participates and how they speak affect whether a dispute becomes useful."
+      ],
+      [
+        "Protect the Relationship",
+        "The book frames conflict as work on a group, rather than simply defeating an opponent."
+      ],
+      [
+        "Some Limits Remain",
+        "Not every dispute can be repaired; power and safety affect whether confrontation is wise."
+      ],
+      [
+        "Read as Practice",
+        "Parker’s facilitator framework and examples are not universal laws of human behavior."
+      ]
+    ],
+    "take": "Clarify what the group needs to decide before arguing about who is right.",
+    "remember": "A useful disagreement needs a purpose and boundaries.",
+    "tags": [
+      "Conflict",
+      "Groups",
+      "Belonging"
+    ],
+    "sources": [
+      [
+        "publisher",
+        "The Art of Fighting — Riverhead Books",
+        "https://www.penguinrandomhouse.com/books/678581/the-art-of-fighting-by-priya-parker/"
+      ],
+      [
+        "author",
+        "The Art of Fighting — Priya Parker",
+        "https://www.priyaparker.com/the-art-of-fighting"
+      ]
+    ],
+    "relatedBooks": []
   }
 ]
