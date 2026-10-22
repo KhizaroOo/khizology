@@ -1,209 +1,69 @@
 # Khizooology
 
-> **Art meets Code.** A monster-powered creative knowledge universe.
+**Art meets Code.** Original art, visual browser tools and interactive knowledge worlds by **Khizar Imtiaz (khizooo)**.
 
-Production domain: **https://khizooology.com**
+[Explore the live site](https://khizooology.com/) · [Meet the maker](https://khizooology.com/my-portfolio/)
 
-Built with **Astro 7**, **TypeScript**, **Tailwind CSS v4**, and **React**.
+## Useful without an account
 
----
+Khizooology is static and browser-first. Tool calculations run in your browser; no signup is required. Tool inputs are not sent to analytics. Optional analytics loads only after consent. Hosting, assets and consented analytics still use the network.
 
-## What Is Khizooology?
+| Family | What you can do | Live |
+|---|---|---|
+| Artooo | Explore original artworks and related pieces | [Artworks](https://khizooology.com/artworks/) |
+| Toolooo | Check, simulate, decide, plan and create with visual tools | [Toolbox](https://khizooology.com/toolbox/) |
+| Infooo | See, touch and understand interactive knowledge worlds | [Worlds](https://khizooology.com/infooo/) |
+| Notooo | Read concise, original book notes with sources and limitations | [Knowledge notes](https://khizooology.com/notooo/) |
 
-**Khizooology** is the personal creative brand site of **khizooo** — a universe organized around five monsters:
+## Try a useful problem
 
-| Monster | Module | Route |
-|---------|--------|-------|
-| 🎨 artooo | Artworks (168 original pieces) | `/artworks` |
-| 📊 infooo | Infographics (16 knowledge sections) | `/infographics` |
-| 🔧 toolooo | Toolbox (calculators & tools) | `/toolbox` |
-| 🎁 freeooo | Freebies (curated design resources) | `/freebies` |
-| 🔮 5 future monsters | Coming soon | `/future-monsters` |
+- [Retry Storm Simulator](https://khizooology.com/toolbox/retry-storm-simulator/): compare retries, backoff and recovery pressure.
+- [API Payload Doctor](https://khizooology.com/toolbox/api-payload-doctor/): inspect JSON issues and compare expected versus actual contracts locally.
+- [Queue Capacity Planner](https://khizooology.com/toolbox/queue-capacity-planner/): explore arrivals, capacity and backlog drain time.
+- [Timeout Chain Planner](https://khizooology.com/toolbox/timeout-chain-planner/): distinguish expected work from configured waiting and retry exposure.
+- [Perspective Grid Maker](https://khizooology.com/toolbox/perspective-grid-maker/): create drawing guides around vanishing points.
+- [Bleed & Safe Area Builder](https://khizooology.com/toolbox/bleed-safe-area-builder/): preview trim, bleed and safe areas before exporting a guide.
+- [Human Atlas](https://khizooology.com/infooo/human-atlas/): explore a simplified interactive 3D anatomy model; educational, not diagnostic or clinical.
 
----
+Simulators explain bounded models, not production guarantees. Print guides do not replace printer specifications. Read each tool's assumptions before applying its output.
 
-## Quick Start
+## Development
 
-```bash
-# Install dependencies
+Requires Node.js **22.19+**. Built with Astro, TypeScript, React islands and Tailwind CSS.
+
+```sh
 npm install
-
-# Start dev server at http://localhost:4321
 npm run dev
 ```
 
-## All Commands
+Use the URL printed by Astro. Reuse an existing checkout server rather than starting another.
 
-| Command | Action |
+| Command | Purpose |
 |---|---|
-| `npm install` | Install dependencies |
-| `npm run dev` | Dev server at `localhost:4321` |
-| `npm run build` | Build to `./dist/` |
-| `npm run audit:seo` | Build and audit metadata, schemas, links, assets, and sitemaps |
+| `npm run build` | Generate assets and the static site in `dist/` |
 | `npm run preview` | Preview the build locally |
-| `npm run astro check` | TypeScript check |
+| `npx astro check` | Astro and TypeScript checks |
+| `npm run audit:seo` | Build and check metadata, schemas, links, images and sitemaps |
+| `npm run audit:publish` | Full domain, SEO, prelaunch, type, Value and privacy gate |
 
----
+## Sources of truth
 
-## Project Structure
+- `src/data/tools.ts`: Toolooo registry and editorial growth priorities.
+- `src/data/infooo.ts`: Infooo worlds and framework metadata.
+- `src/data/notooo.ts` and `src/data/notooo/`: canonical book notes.
+- `src/data/artworks.ts`: artwork metadata.
+- `src/data/site.ts`: site identity and social metadata.
+- `src/components/` and `src/pages/`: shared UI, interactive experiences and routes.
+- `scripts/`: asset generation, audits and targeted tests.
 
-```
-khizology/
-├── public/
-│   ├── images/
-│   │   ├── Monsters/     Monster PNG assets
-│   │   ├── artworks/     168 original artwork images
-│   │   └── site/         Profile and brand images
-│   ├── favicon.svg
-│   ├── favicon_32x32.png
-│   ├── favicon_16x16.png
-│   └── apple-touch-icon.png
-├── src/
-│   ├── components/
-│   │   ├── layout/       BaseLayout, Navbar, Footer, SEO
-│   │   ├── ui/           MonsterCard, SkeletonCard, ComingSoonCard, Breadcrumb, ScrollTop
-│   │   ├── tools/        InstagramBioScore.tsx (React island)
-│   │   └── calculators/  ProfitMarginCalc, WebsiteCostCalc, PercentageCalc, AgeCalc (React islands)
-│   ├── data/
-│   │   ├── monsters.ts       9 monsters with metadata
-│   │   ├── artworks.ts       168 artwork entries
-│   │   ├── artworkDimensions.ts  Artwork width and height data
-│   │   ├── toolSeo.ts        Tool search intent and support copy
-│   │   ├── infographicsData.ts  16 sections × 2 posts = 32 infographic posts
-│   │   ├── toolbox.ts        Calculator categories + items, Tool categories + items
-│   │   ├── freebies.ts       13 freebie category + resource data
-│   │   └── site.ts           Global site config (URL, title, OG)
-│   ├── pages/
-│   │   ├── index.astro                        Homepage
-│   │   ├── artworks/
-│   │   │   ├── index.astro                    Artwork hub
-│   │   │   └── [category]/[slug].astro        Artwork detail
-│   │   ├── infographics/
-│   │   │   ├── index.astro                    Infographics hub
-│   │   │   └── [category]/[slug].astro        Infographic detail (32 pages)
-│   │   ├── toolbox/
-│   │   │   ├── index.astro                    Toolbox hub
-│   │   │   ├── tools.astro                    Tools listing
-│   │   │   ├── calculators.astro              Calculators listing
-│   │   │   ├── tools/[slug].astro             Tool detail (22 pages)
-│   │   │   └── calculators/[slug].astro       Calculator category + detail pages
-│   │   ├── freebies/
-│   │   │   ├── index.astro                    Freebies hub
-│   │   │   └── [slug].astro                   Freebie category (13 pages)
-│   │   ├── my-portfolio.astro
-│   │   ├── behind-the-vibes.astro
-│   │   ├── you-ask-i-answer.astro
-│   │   ├── drop-a-vibe.astro
-│   │   ├── frop-a-vibe.astro                  Redirect alias → /drop-a-vibe
-│   │   ├── future-monsters.astro
-│   │   └── 404.astro
-│   └── styles/
-│       └── global.css    Design tokens, monster palettes, dark mode, utilities
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
-```
+Follow [AGENTS.md](AGENTS.md). Add content through canonical registries and verify SEO, accessibility, privacy and user value. Do not edit generated `dist/` files.
 
----
+## Sharing and discovery
 
-## GitHub Pages Deployment
+Link to the relevant tool, world, artwork or note using its canonical URL. Share safe generated summaries; keep private payloads, tokens and personal information out of screenshots.
 
-The site is deployed automatically on every push to `main` via GitHub Actions (`.github/workflows/deploy.yml`).
+- [Distribution copy and channel packages](docs/GROWTH-DISTRIBUTION-KIT.md)
+- [Authority plan and asset matrix](docs/BACKLINK-AUTHORITY-PLAN.md)
+- [Verified links and planned opportunities](docs/BACKLINK-TRACKER.md)
 
-**Config in `astro.config.mjs`:**
-```js
-site: 'https://khizooology.com',
-base: '/',
-```
-
-**In GitHub → Repo Settings → Pages:**
-- Source: **GitHub Actions**
-- Custom domain: **khizooology.com** (set during the human domain checkpoint)
-
-Push to `main` → CI builds → auto-deploys. Done.
-
----
-
-## Theme System
-
-Khizooology uses CSS custom properties (`--k-*` global + `--m-*` per-monster overrides) for theming.
-
-### Global tokens (defined in `global.css`)
-| Token | Purpose |
-|---|---|
-| `--k-bg` | Page background |
-| `--k-bg-card` | Card background |
-| `--k-text` | Primary text |
-| `--k-text-muted` | Secondary text |
-| `--k-accent` | Global accent (khizooo red) |
-| `--k-border` | Border color |
-
-### Per-monster overrides (set via `BaseLayout accentColor` prop)
-| Token | Purpose |
-|---|---|
-| `--m-accent` | Monster primary color |
-| `--m-accent-light` | Monster light tint |
-
-### Dark mode
-Dark mode is toggled via the `html.dark` class, persisted to the legacy-compatible `localStorage('khizology-theme')` key. The theme script in `<head>` runs before paint to prevent FOUC.
-
----
-
-## How-To Guides
-
-### Add a new Monster
-
-1. Add entry to `src/data/monsters.ts`
-2. Drop monster PNG in `public/public/images/Monsters/`
-3. Create hub page at `src/pages/{monster-route}/index.astro`
-4. Add route to Navbar links in `src/components/layout/Navbar.astro`
-
-### Add an Artwork
-
-1. Drop the artwork image in `public/images/artworks/`
-2. Add entry to `src/data/artworks.ts` with all metadata
-3. Add its real dimensions to `src/data/artworkDimensions.ts`
-
-### Add an Infographic Post
-
-1. Open `src/data/infographicsData.ts`
-2. Find the target section in `infographicSections`
-3. Add a post object to `section.posts[]` with: `title`, `slug`, `summary`, `tags`, `keyPoints`
-4. The dynamic route `infographics/[category]/[slug].astro` will auto-generate the page
-
-### Add a Tool
-
-1. Add the tool and its search-intent terms to `src/data/tools.ts`
-2. Create its React component in `src/components/toolbox/tools/YourTool.tsx`
-3. Add its render case in `src/pages/toolbox/[slug].astro`
-4. Add behavior-specific assumptions to `src/data/toolSeo.ts` when needed
-
-### Add a Calculator
-
-1. Open `src/data/toolbox.ts`
-2. Add item to the relevant `calculatorItemsMap[category]` array
-3. Create a React component in `src/components/calculators/YourCalc.tsx`
-4. Add slug to `MVP_CALC_SLUGS` and add a render case in `src/pages/toolbox/calculators/[slug].astro`
-
-### Add a Freebie Category / Resource
-
-1. Open `src/data/freebies.ts`
-2. Add category to `freebiesCategories` array
-3. Add resources to `freebiesResourceMap[slug]`
-4. The dynamic route `freebies/[slug].astro` will auto-generate the page
-
----
-
-## Tech Stack
-
-| Technology | Version | Purpose |
-|---|---|---|
-| [Astro](https://astro.build) | 6.x | Static site framework |
-| [TypeScript](https://typescriptlang.org) | 5.x | Type safety |
-| [Tailwind CSS](https://tailwindcss.com) | 4.x | Utility-first styling via `@tailwindcss/vite` |
-| [React](https://react.dev) | 19.x | Interactive component islands |
-| [@astrojs/sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/) | latest | Auto sitemap generation |
-
----
-
-*By luck, a programmer. By nature, an artist. — khizooo*
+Deployment uses GitHub Actions and GitHub Pages. Local documentation changes require owner review and release to appear publicly. No unrestricted reuse rights for artwork or third-party material are implied.
