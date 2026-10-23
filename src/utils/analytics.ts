@@ -108,9 +108,9 @@ export function trackArtworkView(slug: string) {
   // Match a public SSR artwork record, never search text or an uploaded filename.
   if ([...document.querySelectorAll<HTMLElement>('[data-artwork-slug]')].some(node => node.dataset.artworkSlug === slug)) emit('artwork_view', { artwork_slug: slug });
 }
-export function trackToolExport(exportType: 'svg' | 'png' | 'json' | 'csv') {
+export function trackToolExport(exportType: 'svg' | 'png' | 'json' | 'csv' | 'md' | 'txt') {
   const metadata = toolMetadata();
-  if (metadata && ['svg', 'png', 'json', 'csv'].includes(exportType)) emit('tool_export', { ...metadata, export_type: exportType });
+  if (metadata && ['svg', 'png', 'json', 'csv', 'md', 'txt'].includes(exportType)) emit('tool_export', { ...metadata, export_type: exportType });
 }
 export function trackToolResult() {
   const metadata = toolMetadata();

@@ -28,6 +28,7 @@ const missing = fixture('', 'accepted'); missing.run('initializeAnalytics(); tra
 for (const [referrer, expected] of [
   ['https://www.google.com/search?q=NEVER_SEND#private', 'https://www.google.com/'],
   ['https://www.bing.com/search?q=NEVER_SEND', 'https://www.bing.com/'],
+  ...['chatgpt.com', 'claude.ai', 'gemini.google.com', 'copilot.microsoft.com', 'perplexity.ai'].map(host => [`https://${host}/private-project?prompt=NEVER_SEND#private`, `https://${host}/`]),
   ['https://github.com/private-person/private-project?token=NEVER_SEND', 'https://github.com/'],
   ['https://user:NEVER_SEND@google.com/', ''], ['https://private-person.google.com/', ''],
   ['https://google.com:8443/NEVER_SEND', ''], ['https://google.com.private.example/NEVER_SEND', ''],

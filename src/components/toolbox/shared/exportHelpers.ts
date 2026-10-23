@@ -1,6 +1,6 @@
 import { trackToolExport } from '../../../utils/analytics';
 /** Trigger a local file download from a Blob — never leaves the browser. */
-function downloadBlob(blob: Blob, filename: string, exportType: 'svg' | 'png' | 'json' | 'csv') {
+function downloadBlob(blob: Blob, filename: string, exportType: 'svg' | 'png' | 'json' | 'csv' | 'md' | 'txt') {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
@@ -10,6 +10,14 @@ function downloadBlob(blob: Blob, filename: string, exportType: 'svg' | 'png' | 
   a.remove();
   URL.revokeObjectURL(url);
   trackToolExport(exportType);
+}
+
+export function downloadText(text: string, filename: string) {
+  downloadBlob(new Blob([text], { type: 'text/plain;charset=utf-8' }), filename, 'txt');
+}
+
+export function downloadMarkdown(text: string, filename: string) {
+  downloadBlob(new Blob([text], { type: 'text/markdown;charset=utf-8' }), filename, 'md');
 }
 
 export function downloadSVG(svg: SVGSVGElement, filename: string) {

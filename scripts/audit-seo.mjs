@@ -406,8 +406,10 @@ for (const page of pages.filter((page) => !page.redirect && page.route !== '/inf
 const robotsFile = join(dist, 'robots.txt');
 const robotsText = existsSync(robotsFile) ? readFileSync(robotsFile, 'utf8') : '';
 if (!/^User-agent: \*$/m.test(robotsText) || !/^Allow: \/$/m.test(robotsText)) fail('robots.txt: crawl policy is missing');
-// The canonical policy permits all public assets and crawlers. Changes require review.
-if (/^Disallow:\s*\S+/mi.test(robotsText) || (robotsText.match(/^User-agent:/gmi) || []).length !== 1) fail('robots.txt: unexpected crawler restrictions or conflicting groups');
+// Search/retrieval (including Google-Extended) inherits wildcard access;
+// only the independently controlled training crawlers are restricted.
+const crawlRules = robotsText.split(/\r?\n/).map(line => line.trim()).filter(line => /^(User-agent|Allow|Disallow):/i.test(line));
+if (JSON.stringify(crawlRules) !== JSON.stringify(['User-agent: *', 'Allow: /', 'User-agent: GPTBot', 'Disallow: /', 'User-agent: ClaudeBot', 'Disallow: /'])) fail('robots.txt: search/training policy differs from the approved crawler policy');
 if (!/sitemap-index\.xml$/m.test(robotsText) || !/image-sitemap\.xml$/m.test(robotsText)) fail('robots.txt: sitemap declarations are missing');
 if (!robotsText.includes(`Sitemap: ${expectedSite}${basePath}/sitemap-index.xml`)
   || !robotsText.includes(`Sitemap: ${expectedSite}${basePath}/image-sitemap.xml`)) {

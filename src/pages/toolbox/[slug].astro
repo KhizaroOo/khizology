@@ -43,6 +43,12 @@ import ContextEngineeringSimulator from '../../components/toolbox/tools/ContextE
 import LocalCloudDecisionLab from '../../components/toolbox/tools/LocalCloudDecisionLab';
 import AgentMemoryPlanner from '../../components/toolbox/tools/AgentMemoryPlanner';
 import BrowserSbomGenerator from '../../components/toolbox/tools/BrowserSbomGenerator';
+import CodingAgentInstructionsBuilder from '../../components/toolbox/tools/CodingAgentInstructionsBuilder';
+import WebMcpReadinessDoctor from '../../components/toolbox/tools/WebMcpReadinessDoctor';
+import PromptCacheEfficiencySimulator from '../../components/toolbox/tools/PromptCacheEfficiencySimulator';
+import ProtocolDecisionLab from '../../components/toolbox/tools/ProtocolDecisionLab';
+import AiCrawlerPolicyBuilder from '../../components/toolbox/tools/AiCrawlerPolicyBuilder';
+import RagChunkingSimulator from '../../components/toolbox/tools/RagChunkingSimulator';
 import BrowserEventLoopSimulator from '../../components/toolbox/tools/BrowserEventLoopSimulator';
 import ClientStateStorageDecisionLab from '../../components/toolbox/tools/ClientStateStorageDecisionLab';
 import WebPerformanceBudgetPlanner from '../../components/toolbox/tools/WebPerformanceBudgetPlanner';
@@ -195,6 +201,12 @@ const jsonLd = pageSchema({
               {tool.slug === 'local-ai-vs-cloud-ai-decision-lab' && <LocalCloudDecisionLab client:load />}
               {tool.slug === 'agent-memory-architecture-planner' && <AgentMemoryPlanner client:load />}
               {tool.slug === 'browser-sbom-generator' && <BrowserSbomGenerator toolSlug={tool.slug} client:load />}
+              {tool.slug === 'coding-agent-instructions-builder' && <CodingAgentInstructionsBuilder toolSlug={tool.slug} client:load />}
+              {tool.slug === 'webmcp-readiness-doctor' && <WebMcpReadinessDoctor client:load />}
+              {tool.slug === 'prompt-cache-efficiency-simulator' && <PromptCacheEfficiencySimulator client:load />}
+              {tool.slug === 'mcp-vs-a2a-vs-webmcp-decision-lab' && <ProtocolDecisionLab client:load />}
+              {tool.slug === 'ai-crawler-policy-builder' && <AiCrawlerPolicyBuilder toolSlug={tool.slug} client:load />}
+              {tool.slug === 'rag-chunking-simulator' && <RagChunkingSimulator client:load />}
               {tool.slug === 'browser-event-loop-simulator' && <BrowserEventLoopSimulator client:load />}
               {tool.slug === 'client-state-storage-decision-lab' && <ClientStateStorageDecisionLab client:load />}
               {tool.slug === 'web-performance-budget-planner' && <WebPerformanceBudgetPlanner client:load />}
@@ -301,7 +313,7 @@ const jsonLd = pageSchema({
               </section>
             </div>
             <p class="tp-guide-links">
-              Toolooo is part of <a href={url('/behind-the-vibes')}>Khizooology</a>, created by
+              Toolooo is part of <a href={url('/behind-the-vibes')}>Khizooology</a>, created by{' '}
               <a href={url('/my-portfolio')}>Khizar Imtiaz (khizooo)</a>.
             </p>
           </div>
