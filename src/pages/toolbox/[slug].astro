@@ -38,6 +38,11 @@ import AgentPermissionPlanner from '../../components/toolbox/tools/AgentPermissi
 import RealTimeTransportDecisionLab from '../../components/toolbox/tools/RealTimeTransportDecisionLab';
 import AgentCostLoopSimulator from '../../components/toolbox/tools/AgentCostLoopSimulator';
 import McpSecurityDoctor from '../../components/toolbox/tools/McpSecurityDoctor';
+import PromptInjectionScanner from '../../components/toolbox/tools/PromptInjectionScanner';
+import ContextEngineeringSimulator from '../../components/toolbox/tools/ContextEngineeringSimulator';
+import LocalCloudDecisionLab from '../../components/toolbox/tools/LocalCloudDecisionLab';
+import AgentMemoryPlanner from '../../components/toolbox/tools/AgentMemoryPlanner';
+import BrowserSbomGenerator from '../../components/toolbox/tools/BrowserSbomGenerator';
 import BrowserEventLoopSimulator from '../../components/toolbox/tools/BrowserEventLoopSimulator';
 import ClientStateStorageDecisionLab from '../../components/toolbox/tools/ClientStateStorageDecisionLab';
 import WebPerformanceBudgetPlanner from '../../components/toolbox/tools/WebPerformanceBudgetPlanner';
@@ -185,6 +190,11 @@ const jsonLd = pageSchema({
               {tool.slug === 'real-time-transport-decision-lab' && <RealTimeTransportDecisionLab client:load />}
               {tool.slug === 'ai-agent-cost-loop-simulator' && <AgentCostLoopSimulator client:load />}
               {tool.slug === 'mcp-security-doctor' && <McpSecurityDoctor client:load />}
+              {tool.slug === 'ai-prompt-injection-scanner' && <PromptInjectionScanner client:load />}
+              {tool.slug === 'context-engineering-simulator' && <ContextEngineeringSimulator client:load />}
+              {tool.slug === 'local-ai-vs-cloud-ai-decision-lab' && <LocalCloudDecisionLab client:load />}
+              {tool.slug === 'agent-memory-architecture-planner' && <AgentMemoryPlanner client:load />}
+              {tool.slug === 'browser-sbom-generator' && <BrowserSbomGenerator toolSlug={tool.slug} client:load />}
               {tool.slug === 'browser-event-loop-simulator' && <BrowserEventLoopSimulator client:load />}
               {tool.slug === 'client-state-storage-decision-lab' && <ClientStateStorageDecisionLab client:load />}
               {tool.slug === 'web-performance-budget-planner' && <WebPerformanceBudgetPlanner client:load />}

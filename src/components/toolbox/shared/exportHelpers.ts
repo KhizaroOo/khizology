@@ -29,6 +29,11 @@ export function downloadJSON(data: unknown, filename: string) {
   downloadBlob(blob, filename.endsWith('.json') ? filename : `${filename}.json`, 'json');
 }
 
+/** Download already-generated JSON without parsing/stringifying a potentially large BOM again. */
+export function downloadJSONText(text: string, filename: string) {
+  downloadBlob(new Blob([text], { type: 'application/json' }), filename.endsWith('.json') ? filename : `${filename}.json`, 'json');
+}
+
 /** Quote every cell and neutralize spreadsheet formula prefixes in user-authored text. */
 export function downloadCSV(rows: readonly (readonly string[])[], filename: string) {
   const csv = rows.map(row => row.map(value => {
