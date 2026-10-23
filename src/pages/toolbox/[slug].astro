@@ -44,6 +44,10 @@ import LocalCloudDecisionLab from '../../components/toolbox/tools/LocalCloudDeci
 import AgentMemoryPlanner from '../../components/toolbox/tools/AgentMemoryPlanner';
 import BrowserSbomGenerator from '../../components/toolbox/tools/BrowserSbomGenerator';
 import CodingAgentInstructionsBuilder from '../../components/toolbox/tools/CodingAgentInstructionsBuilder';
+import StructuredOutputJsonSchemaBuilder from '../../components/toolbox/tools/StructuredOutputJsonSchemaBuilder';
+import BrowserAiCapabilityChecker from '../../components/toolbox/tools/BrowserAiCapabilityChecker';
+import SoftwareProvenanceWorkflowBuilder from '../../components/toolbox/tools/SoftwareProvenanceWorkflowBuilder';
+import LlmModelRoutingSimulator from '../../components/toolbox/tools/LlmModelRoutingSimulator';
 import WebMcpReadinessDoctor from '../../components/toolbox/tools/WebMcpReadinessDoctor';
 import PromptCacheEfficiencySimulator from '../../components/toolbox/tools/PromptCacheEfficiencySimulator';
 import ProtocolDecisionLab from '../../components/toolbox/tools/ProtocolDecisionLab';
@@ -202,6 +206,10 @@ const jsonLd = pageSchema({
               {tool.slug === 'agent-memory-architecture-planner' && <AgentMemoryPlanner client:load />}
               {tool.slug === 'browser-sbom-generator' && <BrowserSbomGenerator toolSlug={tool.slug} client:load />}
               {tool.slug === 'coding-agent-instructions-builder' && <CodingAgentInstructionsBuilder toolSlug={tool.slug} client:load />}
+              {tool.slug === 'structured-output-json-schema-builder' && <StructuredOutputJsonSchemaBuilder toolSlug={tool.slug} client:load />}
+              {tool.slug === 'browser-ai-capability-checker' && <BrowserAiCapabilityChecker toolSlug={tool.slug} client:load />}
+              {tool.slug === 'software-provenance-workflow-builder' && <SoftwareProvenanceWorkflowBuilder toolSlug={tool.slug} client:load />}
+              {tool.slug === 'llm-model-routing-simulator' && <LlmModelRoutingSimulator client:load />}
               {tool.slug === 'webmcp-readiness-doctor' && <WebMcpReadinessDoctor client:load />}
               {tool.slug === 'prompt-cache-efficiency-simulator' && <PromptCacheEfficiencySimulator client:load />}
               {tool.slug === 'mcp-vs-a2a-vs-webmcp-decision-lab' && <ProtocolDecisionLab client:load />}

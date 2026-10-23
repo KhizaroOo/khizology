@@ -1,0 +1,13 @@
+.schema-workspace{display:grid;gap:1rem;min-width:0;align-items:start}
+.schema-workspace>*{min-width:0}
+.schema-tree{max-height:240px;overflow:auto;list-style:none;padding:0;margin:.5rem 0}
+.schema-tree li{margin:.35rem 0}
+.schema-tree button{width:100%;text-align:left;overflow-wrap:anywhere}
+.schema-findings{padding-left:1.25rem}
+.schema-findings li{margin:.8rem 0}
+.schema-findings code{display:block}
+@media(min-width:1300px){.schema-workspace{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.schema-builder .tool-check{min-height:44px}
+
+.schema-builder h2{font-size:1rem;font-weight:700;margin:.5rem 0}

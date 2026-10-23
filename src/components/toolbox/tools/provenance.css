@@ -1,0 +1,12 @@
+.provenance-workspace,.provenance-output{display:grid;gap:1rem;min-width:0;align-content:start}
+.provenance-builder h2{font-size:1.15rem;font-weight:800;margin:.2rem 0 .8rem}
+.provenance-builder .tool-box>label,.provenance-builder .tool-box>.tool-grid{margin-bottom:1rem}
+.provenance-builder textarea{min-height:110px}
+.provenance-builder details{margin-block:.5rem}
+.provenance-builder pre{white-space:pre;overflow:auto;max-width:100%;padding:.8rem;background:var(--k-bg);border:1px solid var(--k-border);border-radius:.5rem}
+.provenance-flow{display:flex;flex-wrap:wrap;gap:.5rem 1.8rem;padding-left:1.5rem;font-size:.85rem}
+.provenance-flow li{padding:.4rem .1rem}
+.provenance-findings{padding-left:1.2rem;font-size:.85rem}
+.provenance-findings li+li{margin-top:.8rem}
+.provenance-builder :is(pre,summary,a):focus-visible{outline:3px solid var(--k-field-hover);outline-offset:3px}
+@media(min-width:1300px){.provenance-workspace{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:start}}

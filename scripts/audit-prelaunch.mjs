@@ -202,7 +202,9 @@ const publicLeaks = files.filter((file) => /\.(?:map|ts|tsx|astro|md|log)$/i.tes
 if (publicLeaks.length) errors.push(`Unexpected source/debug files in dist: ${publicLeaks.map(rel).join(', ')}`);
 
 const textFiles = files.filter((file) => /\.(?:html|js|css|xml|txt|json)$/i.test(file));
-const localPathFiles = textFiles.filter((file) => /(?:[A-Z]:\\|C:\/Users\/|D:\/)/i.test(fs.readFileSync(file, 'utf8')));
+// Require a drive-letter boundary: serialized YAML keys such as "permissions:\n" are not Windows paths.
+const localPathPattern = /(?:\b[A-Z]:\\|C:\/Users\/|D:\/)/i;
+const localPathFiles = textFiles.filter((file) => localPathPattern.test(fs.readFileSync(file, 'utf8')));
 if (localPathFiles.length) errors.push(`Local developer paths in dist: ${localPathFiles.map(rel).join(', ')}`);
 
 const scanFiles = [
