@@ -46,6 +46,16 @@ import BrowserSbomGenerator from '../../components/toolbox/tools/BrowserSbomGene
 import CodingAgentInstructionsBuilder from '../../components/toolbox/tools/CodingAgentInstructionsBuilder';
 import StructuredOutputJsonSchemaBuilder from '../../components/toolbox/tools/StructuredOutputJsonSchemaBuilder';
 import BrowserAiCapabilityChecker from '../../components/toolbox/tools/BrowserAiCapabilityChecker';
+import McpTasksWorkflowBuilder from '../../components/toolbox/tools/McpTasksWorkflowBuilder';
+import McpElicitationBuilder from '../../components/toolbox/tools/McpElicitationBuilder';
+import McpOAuthCimdBuilder from '../../components/toolbox/tools/McpOAuthCimdBuilder';
+import UcpProfileBuilder from '../../components/toolbox/tools/UcpProfileBuilder';
+import AgenticCommerceDecisionLab from '../../components/toolbox/tools/AgenticCommerceDecisionLab';
+import McpRegistryBuilder from '../../components/toolbox/tools/McpRegistryBuilder';
+import AgentTraceEvalBuilder from '../../components/toolbox/tools/AgentTraceEvalBuilder';
+import OpenApiMcpMapper from '../../components/toolbox/tools/OpenApiMcpMapper';
+import AgentSkillSecurityDoctor from '../../components/toolbox/tools/AgentSkillSecurityDoctor';
+import AiAgentSandboxPolicyBuilder from '../../components/toolbox/tools/AiAgentSandboxPolicyBuilder';
 import ContentCredentialsWorkflowDoctor from '../../components/toolbox/tools/ContentCredentialsWorkflowDoctor';
 import AgentSkillBuilder from '../../components/toolbox/tools/AgentSkillBuilder';
 import McpAppUiBuilder from '../../components/toolbox/tools/McpAppUiBuilder';
@@ -213,6 +223,16 @@ const jsonLd = pageSchema({
               {tool.slug === 'coding-agent-instructions-builder' && <CodingAgentInstructionsBuilder toolSlug={tool.slug} client:load />}
               {tool.slug === 'structured-output-json-schema-builder' && <StructuredOutputJsonSchemaBuilder toolSlug={tool.slug} client:load />}
               {tool.slug === 'browser-ai-capability-checker' && <BrowserAiCapabilityChecker toolSlug={tool.slug} client:load />}
+              {tool.slug === 'mcp-tasks-workflow-builder' && <McpTasksWorkflowBuilder toolSlug={tool.slug} client:load />}
+              {tool.slug === 'mcp-elicitation-builder' && <McpElicitationBuilder toolSlug={tool.slug} client:load />}
+              {tool.slug === 'mcp-oauth-cimd-builder-doctor' && <McpOAuthCimdBuilder toolSlug={tool.slug} client:load />}
+              {tool.slug === 'ucp-business-profile-builder' && <UcpProfileBuilder toolSlug={tool.slug} client:load />}
+              {tool.slug === 'agentic-commerce-protocol-decision-lab' && <AgenticCommerceDecisionLab toolSlug={tool.slug} client:load />}
+              {tool.slug === 'mcp-registry-server-json-builder' && <McpRegistryBuilder toolSlug={tool.slug} client:load />}
+              {tool.slug === 'agent-trace-eval-builder' && <AgentTraceEvalBuilder toolSlug={tool.slug} client:load />}
+              {tool.slug === 'openapi-to-mcp-tool-mapper' && <OpenApiMcpMapper toolSlug={tool.slug} client:load />}
+              {tool.slug === 'agent-skill-security-doctor' && <AgentSkillSecurityDoctor toolSlug={tool.slug} client:load />}
+              {tool.slug === 'ai-agent-sandbox-policy-builder' && <AiAgentSandboxPolicyBuilder toolSlug={tool.slug} client:load />}
               {tool.slug === 'content-credentials-workflow-doctor' && <ContentCredentialsWorkflowDoctor toolSlug={tool.slug} client:load />}
               {tool.slug === 'agent-skill-skill-md-builder' && <AgentSkillBuilder toolSlug={tool.slug} client:load />}
               {tool.slug === 'mcp-app-ui-builder' && <McpAppUiBuilder toolSlug={tool.slug} client:load />}

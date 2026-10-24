@@ -141,13 +141,16 @@ const jsonLd = pageSchema({
       <div class="tb-tools-header">
         <div>
           <span class="k-section-label" style={`color: ${ACCENT}`}>All Tools</span>
-          <h2 class="tb-section-title">
+          <h2 class="tb-section-title" aria-live="polite" aria-atomic="true">
             Showing <span id="tb-visible-count">{tools.length}</span> of {tools.length}
           </h2>
         </div>
         <button type="button" id="tb-clear-filters" class="tb-clear-btn k-button k-button--ghost" hidden>Clear filters ✕</button>
       </div>
 
+      <label class="tb-search" for="tb-search">Find a tool
+        <input id="tb-search" type="search" placeholder="Name, problem or topic" maxlength="200" autocomplete="off" />
+      </label>
       <div class="tb-tag-row">
         {allTags.map((tag) => (
           <button type="button" class="tb-tag-btn k-button k-button--secondary" data-tag-filter={tag} aria-pressed="false">{tag}</button>
@@ -191,25 +194,29 @@ const jsonLd = pageSchema({
   const countEl = document.getElementById('tb-visible-count');
   const clearBtn = document.getElementById('tb-clear-filters');
   const noResults = document.getElementById('tb-no-results');
+  const searchInput = document.getElementById('tb-search') as HTMLInputElement | null;
+  const searchText = new Map([...cards].map(card => [card, (card.textContent || '').toLocaleLowerCase()]));
 
   let activeFamily = 'all';
   let activeTag = 'all';
 
   function applyFilter() {
+    const terms = (searchInput?.value || '').trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
     let visible = 0;
     cards.forEach((card) => {
       const family = card.getAttribute('data-family');
       const tags = (card.getAttribute('data-tags') || '').split('|');
       const familyMatch = activeFamily === 'all' || family === activeFamily;
       const tagMatch = activeTag === 'all' || tags.includes(activeTag);
-      const show = familyMatch && tagMatch;
+      const show = familyMatch && tagMatch && terms.every(term => searchText.get(card)?.includes(term));
       card.hidden = !show;
       if (show) visible++;
     });
     if (countEl) countEl.textContent = String(visible);
-    if (clearBtn) clearBtn.hidden = activeFamily === 'all' && activeTag === 'all';
+    if (clearBtn) clearBtn.hidden = activeFamily === 'all' && activeTag === 'all' && terms.length === 0;
     if (noResults) noResults.hidden = visible !== 0;
   }
+  searchInput?.addEventListener('input', applyFilter);
 
   familyButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -240,6 +247,7 @@ const jsonLd = pageSchema({
   clearBtn?.addEventListener('click', () => {
     activeFamily = 'all';
     activeTag = 'all';
+    if (searchInput) searchInput.value = '';
     [...familyButtons, ...tagButtons].forEach((b) => {
       b.classList.remove('is-active');
       b.setAttribute('aria-pressed', 'false');
@@ -249,6 +257,8 @@ const jsonLd = pageSchema({
 </script>
 
 <style>
+  .tb-search { display:grid; gap:.5rem; max-width:40rem; margin-bottom:1.25rem; font-weight:700; }
+  .tb-search input { width:100%; min-width:0; min-height:44px; }
   .tb-context-clusters { padding-block:2rem; }
   .tb-context-clusters>div { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.5rem; }
   .tb-context-clusters h2 { font:800 1.4rem Poppins,sans-serif; margin-bottom:1.25rem; }

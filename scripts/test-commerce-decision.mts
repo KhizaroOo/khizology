@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';import {commercePreset,commercePresets,decideCommerce,commerceFormat} from '../src/components/toolbox/tools/commerceDecisionModel.ts';
+let n=0;const test=(f:()=>void)=>{f();n++;};
+for(const name of commercePresets)test(()=>{const p=commercePreset(name),r=decideCommerce(p);assert.ok(!r.blocked);assert.deepEqual(r,decideCommerce(p));const out=JSON.parse(r.files[0].text);assert.deepEqual(out.stack,r.stack);for(const key of ['ACP','UCP'] as const)assert.equal(r.scores[key],r.reasons.filter(v=>v.protocol===key).reduce((s,v)=>s+v.points,0));});
+test(()=>assert.equal(decideCommerce(commercePreset()).stack.commerce,'ACP'));
+test(()=>assert.equal(decideCommerce(commercePreset('Vendor-neutral retailer')).stack.commerce,'UCP'));
+test(()=>assert.ok(decideCommerce(commercePreset('Autonomous shopping agent')).stack.authorization.startsWith('AP2')));
+test(()=>{const r=decideCommerce(commercePreset('Paid API agent'));assert.ok(r.stack.payment.startsWith('x402'));assert.ok(r.stack.commerce.startsWith('No merchant'));});
+test(()=>{const r=decideCommerce(commercePreset('Existing Stripe merchant'));assert.ok(r.stack.payment.includes('existing PSP'));assert.ok(!r.stack.payment.includes('x402'));assert.ok(r.risk.includes('eligibility'));});
+test(()=>{const r=decideCommerce({...commercePreset('Vendor-neutral retailer'),human:'autonomous',integration:'mcp'});assert.equal(r.stack.commerce,'UCP');assert.ok(r.stack.authorization.startsWith('AP2'));assert.equal(r.stack.connectivity,'MCP');});
+test(()=>assert.equal(decideCommerce(commercePreset('Agent-to-agent commerce')).stack.connectivity,'A2A'));
+test(()=>assert.equal(decideCommerce(commercePreset('Multi-protocol architecture')).stack.commerce,'ACP + UCP'));
+test(()=>{const r=decideCommerce({...commercePreset(),payment:'none',human:'autonomous'});assert.ok(!r.stack.authorization.startsWith('AP2'));assert.ok(r.stack.payment.startsWith('No payment'));});
+test(()=>assert.ok(!decideCommerce(commercePreset()).stack.authorization.startsWith('AP2')));
+test(()=>{const r=decideCommerce({...commercePreset(),integration:'multi',checkout:'multi',ecosystem:'none'});assert.equal(r.stack.commerce,'ACP');assert.ok(r.reasons.some(v=>v.dimension==='Channel requirement'));});
+test(()=>assert.throws(()=>decideCommerce({...commercePreset(),goal:'private-value' as any})));
+test(()=>assert.equal(commerceFormat.protocols.find(v=>v.name==='AP2')!.version,'0.2'));
+test(()=>{const r=decideCommerce({...commercePreset(),privateData:'never-export-this'} as any);assert.ok(!JSON.stringify(r).includes('never-export-this'));});
+console.log(`PASS: ${n} commerce stack, constraint, scoring, protocol-role and deterministic export groups.`);

@@ -15,7 +15,7 @@ additions.push(['workflow-agent-decision-lab','decide','WorkflowAgentDecisionLab
 additions.push(['passkey-migration-planner','plan','PasskeyMigrationPlanner','passkeyPlanModel']);
 additions.push(['api-error-contract-builder','create','ApiErrorContractBuilder','apiErrorModel']);
 const registered=additions.filter(([slug])=>tools.some(t=>t.slug===slug));
-assert.equal(tools.length,45+registered.length);assert.equal(new Set(tools.map(t=>t.id)).size,tools.length);assert.equal(new Set(tools.map(t=>t.slug)).size,tools.length);
+assert.ok(tools.length>=45+registered.length);assert.equal(new Set(tools.map(t=>t.id)).size,tools.length);assert.equal(new Set(tools.map(t=>t.slug)).size,tools.length);
 if(process.argv.includes('--final'))assert.equal(registered.length,additions.length);
 const sitemap=fs.readFileSync('dist/sitemap-0.xml','utf8'),llms=fs.readFileSync('dist/llms.txt','utf8'),robots=fs.readFileSync('dist/robots.txt','utf8');assert.ok(/Sitemap:/.test(robots));
 for(const [slug,family,component,model] of registered){

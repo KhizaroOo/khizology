@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';import {oauthPreset,oauthPresets,buildOAuth,analyzeOAuth,authDiscovery} from '../src/components/toolbox/tools/oauthCimdModel.ts';
+let n=0;const test=(f:()=>void)=>{f();n++;};
+for(const name of oauthPresets)test(()=>{const p=oauthPreset(name),r=buildOAuth(p);assert.equal(!!r.blocked,name==='Intentionally unsafe token passthrough',name);assert.deepEqual(r,buildOAuth(p));assert.equal(r.files[0].text,JSON.stringify(p.client,null,2)+'\n');});
+for(const url of ['http://example.com/client.json','https://example.com/','https://example.com/?x=1'])test(()=>{const p=oauthPreset();p.documentUrl=url;p.client.client_id=url;assert.ok(buildOAuth(p).blocked);});
+test(()=>{const p=oauthPreset();p.client.client_id='https://other.example/client.json';assert.ok(buildOAuth(p).blocked);});
+for(const redirect of ['http://remote.example/callback','https://example.com/*','javascript:alert(1)','https://user:pass@example.com/cb'])test(()=>{const p=oauthPreset();p.client.redirect_uris=[redirect];assert.ok(buildOAuth(p).blocked);});
+test(()=>assert.ok(!buildOAuth(oauthPreset('Public desktop client')).blocked));test(()=>{const p=oauthPreset('Web application');p.client.redirect_uris=['http://localhost:3000/cb'];assert.ok(buildOAuth(p).blocked);});
+test(()=>{const p=oauthPreset();p.resource.authorization_servers=[];assert.ok(buildOAuth(p).blocked);});test(()=>{const p=oauthPreset();p.authorizationServer.issuer='https://other.example';assert.ok(buildOAuth(p).blocked);});
+for(const key of ['pkce','audience','issuer','actionScopes'])test(()=>assert.ok(buildOAuth({...oauthPreset(),[key]:false}).blocked));
+test(()=>{const p=oauthPreset();p.authorizationServer.code_challenge_methods_supported=[];assert.ok(buildOAuth(p).blocked);});
+test(()=>{const p=oauthPreset();p.resource.scopes_supported=['admin:*'];assert.ok(buildOAuth(p).findings.some(f=>f.path==='Scope breadth'));});
+test(()=>{const p=oauthPreset();p.client.client_secret='not-a-real-secret';const r=buildOAuth(p);assert.ok(r.blocked);assert.equal(r.files.length,0);assert.ok(!JSON.stringify(r).includes('not-a-real-secret'));});
+test(()=>{const p=oauthPreset();p.client.token_endpoint_auth_method='private_key_jwt';assert.ok(buildOAuth(p).blocked);});
+test(()=>assert.deepEqual(authDiscovery('https://auth.example/tenant'),['https://auth.example/.well-known/oauth-authorization-server/tenant','https://auth.example/.well-known/openid-configuration/tenant','https://auth.example/tenant/.well-known/openid-configuration']));
+test(()=>assert.equal(authDiscovery('https://auth.example').length,2));test(()=>assert.throws(()=>analyzeOAuth('{bad',oauthPreset(),'client')));
+test(()=>{const p=oauthPreset(),r=analyzeOAuth(JSON.stringify(p.client),p,'client');assert.ok(!r.blocked);assert.equal(JSON.parse(r.files[1].text).resource,p.resource.resource);});
+console.log(`PASS: ${n} OAuth/CIMD, redirects, discovery, scope, export and privacy groups.`);

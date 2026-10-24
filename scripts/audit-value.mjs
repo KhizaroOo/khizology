@@ -511,8 +511,10 @@ assert.equal(toolComponents.length, toolRegistry.tools.length, 'Expected one sou
 for (const component of toolComponents) {
   const source = fs.readFileSync(path.join(toolComponentsDirectory, component), 'utf8');
   assert.ok(/ResultPanel|<Metric|DecisionLab|<Insight|Result/.test(source), `${component}: missing a local calculated result surface`);
-  assert.ok(/<Insight|<Warning|DecisionLab|recommend|suggest|Action|tip=/.test(source), `${component}: missing a local result-driven action surface`);
+  assert.ok(/<Insight|<Warning|DecisionLab|recommend|suggest|Action|tip=|<LocalReviewOutput\s+result=\{result\}\s+toolSlug=\{toolSlug\}/.test(source), `${component}: missing a local result-driven action surface`);
 }
+const localReviewSource = fs.readFileSync(path.join(root, 'src/components/toolbox/shared/LocalReviewOutput.tsx'), 'utf8');
+for (const binding of ['<Insight what={result.summary}', 'why={result.why}', 'tip={result.action}']) assert.ok(localReviewSource.includes(binding), `Shared local review must bind real Result / Why / Action: ${binding}`);
 const toolPageSource = fs.readFileSync(path.join(root, 'src/pages/toolbox/[slug].astro'), 'utf8');
 assert.ok(toolPageSource.indexOf('variant="intro"') > toolPageSource.indexOf("tool.slug === 'api-payload-doctor'"), 'Full What and Why depth must follow the workspace');
 const privacyPosition = toolPageSource.indexOf('<PrivacyNotice');

@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';import {elicitationPresets,elicitationPreset,buildElicitation} from '../src/components/toolbox/tools/elicitationModel.ts';
+let n=0;const test=(f:()=>void)=>{f();n++;};
+for(const name of elicitationPresets)test(()=>{const p=elicitationPreset(name),r=buildElicitation(p);assert.equal(!!r.blocked,name==='Bad password form',name);assert.deepEqual(r,buildElicitation(p));const v=JSON.parse(r.files[0].text);assert.equal(v.result.resultType,'input_required');assert.equal(v.result.inputRequests.information.method,'elicitation/create');assert.ok(!('elicitationId' in v.result.inputRequests.information.params));assert.equal(v.retry.params.inputResponses.information.action,'cancel');assert.equal(v.retry.params._meta['io.modelcontextprotocol/protocolVersion'],'2026-07-28');});
+for(const name of ['api_key','access_token','payment_credentials','card_number','cvv'])test(()=>{const p=elicitationPreset();p.fields[0].name=name;assert.ok(buildElicitation(p).blocked);});
+for(const type of ['number','integer','boolean','multi'] as const)test(()=>{const p=elicitationPreset();p.fields[0].type=type;p.fields[0].defaultText=type==='multi'?'["staging"]':type==='boolean'?'false':'2';const r=buildElicitation(p);assert.ok(!r.blocked);});
+for(const url of ['http://example.com/start','https://user:pass@example.com','https://example.com/?code=private','javascript:alert(1)'])test(()=>assert.ok(buildElicitation({...elicitationPreset('Secure OAuth connection'),url}).blocked));
+for(const key of ['cancel','bound'])test(()=>assert.ok(buildElicitation({...elicitationPreset(),[key]:false}).blocked));
+test(()=>assert.ok(buildElicitation({...elicitationPreset(),ownAuth:true}).blocked));test(()=>assert.ok(buildElicitation({...elicitationPreset(),needed:false}).findings.some(f=>f.path==='Data minimization')));
+for(const fields of [[],Array.from({length:21},()=>elicitationPreset().fields[0])])test(()=>assert.throws(()=>buildElicitation({...elicitationPreset(),fields})));
+test(()=>{const p=elicitationPreset();p.fields.push({...p.fields[0]});assert.throws(()=>buildElicitation(p));});
+test(()=>{const p=elicitationPreset();p.fields[0].minimum='10';p.fields[0].maximum='2';assert.throws(()=>buildElicitation(p));});
+test(()=>{const p=elicitationPreset('Select environment');p.fields[0].defaultText='"unknown"';assert.throws(()=>buildElicitation(p));});
+test(()=>{const p=elicitationPreset();p.fields[0].defaultText=JSON.stringify('ghp_'+'A'.repeat(36));const r=buildElicitation(p);assert.ok(r.blocked);assert.equal(r.files.length,0);assert.ok(!JSON.stringify(r).includes('A'.repeat(36)));});
+console.log(`PASS: ${n} elicitation schema, URL boundary, consent, exact export and privacy groups.`);

@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {registryPreset,registryPresets,reviewRegistry,analyzeRegistry,registryFormat} from '../src/components/toolbox/tools/registryBuilderModel.ts';
+let n=0;const test=(fn:()=>void)=>{fn();n++;};
+for(const p of registryPresets)test(()=>{const r=reviewRegistry(registryPreset(p));assert.equal(!!r.blocked,p==='Intentionally invalid metadata',p);assert.deepEqual(r,reviewRegistry(registryPreset(p)));if(!r.blocked)assert.equal(JSON.parse(r.files[0].text).$schema,registryFormat.schema);});
+for(const name of ['noNamespace','a/b','io.github.example/','bad name/server','com.example/a/b'])test(()=>assert.ok(reviewRegistry({...registryPreset(),name}).blocked));
+test(()=>assert.throws(()=>analyzeRegistry('{bad')));test(()=>assert.throws(()=>analyzeRegistry('x'.repeat(250001))));
+for(const change of [{transport:{type:'http'}},{version:'^1.0.0'},{registryType:'custom'},{registryBaseUrl:'https://private.example.com'}])test(()=>{const p=registryPreset();Object.assign(p.packages[0],change);assert.ok(reviewRegistry(p).blocked);});
+test(()=>{const p=registryPreset('Remote HTTP MCP server');p.remotes[0].url='javascript:alert(1)';assert.ok(reviewRegistry(p).blocked);});
+test(()=>{const p=registryPreset('Environment-heavy server');p.packages[0].environmentVariables[0].default='not-a-real-credential';const r=reviewRegistry(p);assert.ok(r.blocked);assert.equal(r.files.length,0);assert.ok(!JSON.stringify(r).includes('not-a-real-credential'));});
+test(()=>{const p=registryPreset();p._meta={status:'active'};assert.ok(reviewRegistry(p).findings.some(f=>f.path==='_meta'));});
+test(()=>{const p=registryPreset();p.packages[0].runtimeArguments=[{type:'named',name:'--mode',value:'read-only'}];assert.ok(reviewRegistry(p).findings.some(f=>f.issue.includes('runtime hint')));});
+test(()=>{const p=registryPreset();p.remotes=[{type:'sse',url:'https://example.com/sse',headers:[{name:'Authorization',isSecret:true,isRequired:true}]}];assert.ok(!reviewRegistry(p).blocked);assert.ok(reviewRegistry(p).findings.some(f=>f.issue.includes('SSE')));});
+test(()=>{const p=registryPreset();p.oldField='legacy';assert.ok(reviewRegistry(p).findings.some(f=>f.path==='oldField'));assert.equal(JSON.parse(reviewRegistry(p).files[0].text).oldField,'legacy');});
+test(()=>{const p=registryPreset();p.packages[0].packageArguments=[{type:'named',name:'--region',value:'{region}',variables:{region:42}}];assert.ok(reviewRegistry(p).blocked);p.packages[0].packageArguments[0].variables.region={description:'Region',default:'global'};assert.ok(!reviewRegistry(p).blocked);});
+test(()=>{assert.ok(reviewRegistry({...registryPreset(),name:42}).blocked);const p=registryPreset();p.packages[0].environmentVariables=[null];assert.ok(reviewRegistry(p).blocked);});
+console.log(`PASS: ${n} Registry schema, naming, packages, remote, metadata, privacy and exact-export groups.`);

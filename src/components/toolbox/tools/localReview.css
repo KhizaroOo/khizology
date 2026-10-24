@@ -1,0 +1,17 @@
+.local-review .tool-box{display:grid;gap:1rem;align-content:start}
+.local-review .tool-box>*{min-width:0;max-width:100%}
+.local-review-columns{align-items:start}
+.local-review fieldset{min-width:0;display:grid;gap:.8rem;border:1px solid var(--k-border);border-radius:10px;padding:.9rem;margin:.5rem 0}
+.local-review legend{font-weight:700}
+.local-review details>label{margin-block:.8rem}
+.local-review .tool-check{min-height:44px}
+.local-review li{margin-block:.8rem}
+.local-review textarea{max-height:500px}
+.local-review .tool-table{min-width:0;max-width:100%}
+.local-review pre:focus-visible,.local-review summary:focus-visible{outline:3px solid var(--color-toolooo);outline-offset:3px}
+@media(min-width:1100px) and (min-height:700px){.local-review-columns>section:last-child{position:sticky;top:6rem;max-height:calc(100vh - 7rem);overflow:auto}}
+@media(max-width:650px){.tool-workbench .local-review-columns{grid-template-columns:minmax(0,1fr)}}
+
+.commerce-decision .tool-table table{min-width:700px}
+.commerce-decision .tool-table :is(th,td){overflow-wrap:normal;word-break:normal}
+.commerce-decision .tool-table:focus-visible{outline:3px solid var(--color-toolooo);outline-offset:3px}

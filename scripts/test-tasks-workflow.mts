@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {tasksPresets,tasksPreset,buildTasksWorkflow,pollingCount} from '../src/components/toolbox/tools/tasksWorkflowModel.ts';
+let n=0;const test=(fn:()=>void)=>{fn();n++;};
+for(const name of tasksPresets)test(()=>{const p=tasksPreset(name),r=buildTasksWorkflow(p);assert.ok(!r.blocked);assert.deepEqual(r,buildTasksWorkflow(p));const v=JSON.parse(r.files[0].text);assert.equal(v.examples.created.result.resultType,'task');assert.ok(!v.examples.created.result.task);assert.equal(v.examples.get.method,'tasks/get');assert.equal(v.examples.origin.params._meta['io.modelcontextprotocol/protocolVersion'],'2026-07-28');assert.equal(v.examples.terminal.result.resultType,'complete');if(p.input){assert.equal(v.examples.update.method,'tasks/update');assert.equal(v.examples.inputRequired.result.status,'input_required');}});
+test(()=>assert.equal(pollingCount(30,1,1,30),30));test(()=>assert.equal(pollingCount(30,5,1,30),6));test(()=>assert.equal(pollingCount(30,1,2,8),6));
+for(const key of ['callerBound','tenantBound','unguessable','durable'])test(()=>assert.ok(buildTasksWorkflow({...tasksPreset(),[key]:false}).blocked));
+test(()=>assert.ok(buildTasksWorkflow({...tasksPreset(),legacy:true}).blocked));
+test(()=>assert.ok(buildTasksWorkflow({...tasksPreset(),seconds:1}).findings.some(f=>f.path==='Task necessity')));
+for(const outcome of ['failed','completed','cancelled'] as const)test(()=>{const r=buildTasksWorkflow({...tasksPreset(),outcome}),t=JSON.parse(r.files[0].text).examples.terminal.result;assert.equal(t.status,outcome);assert.equal(!!t.error,outcome==='failed');assert.equal(!!t.result,outcome==='completed');});
+test(()=>{const r=buildTasksWorkflow({...tasksPreset(),pollLimitSeconds:5,ttlSeconds:10});assert.ok(r.findings.some(f=>f.path==='Reconnect'));assert.ok(r.findings.some(f=>f.path==='Expiry'));});
+test(()=>assert.ok(buildTasksWorkflow({...tasksPreset(),pollSeconds:.1}).findings.some(f=>f.path==='Polling load')));
+for(const seconds of [NaN,Infinity,-1,604801])test(()=>assert.throws(()=>buildTasksWorkflow({...tasksPreset(),seconds})));
+test(()=>assert.throws(()=>buildTasksWorkflow({...tasksPreset(),maxPollSeconds:1})));
+test(()=>{const r=buildTasksWorkflow({...tasksPreset(),name:'ghp_'+'A'.repeat(36)});assert.ok(r.blocked);assert.equal(r.files.length,0);assert.ok(!JSON.stringify(r).includes('A'.repeat(36)));});
+console.log(`PASS: ${n} Tasks lifecycle, security, polling, export and privacy groups.`);
