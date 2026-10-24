@@ -1,0 +1,5 @@
+.mcp-app-builder .tool-box{display:grid;gap:1rem;align-content:start}
+.mcp-app-builder fieldset{margin-block:.75rem;border-radius:10px;border:1px solid var(--k-border)}
+.mcp-app-builder fieldset>label{margin-block:.65rem}
+.mcp-app-builder pre{max-width:100%;min-width:0}
+.mcp-app-builder :is(input,select,textarea,fieldset){min-width:0}
