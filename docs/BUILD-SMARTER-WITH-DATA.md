@@ -21,7 +21,7 @@ Use only aggregate, consented evidence:
 - **Search Console:** impressions, clicks, CTR, average position, queries, and landing pages.
 - **GA4:** page views, sessions, engagement, source, return, and public navigation behavior.
 - **Product analytics:** public metadata-only events such as Toolooo starts, exports, safe shares, Smart Next/chain moves; artwork opens; and Infooo world, entity, or guide progression.
-- **Canonical metadata:** tool, artwork, Infooo, Notooo, content-manifest, and Compound Value relationships.
+- **Canonical metadata:** tool, artwork, Infooo, content-manifest, and Compound Value relationships.
 
 Do not treat a single metric as a conclusion. High impressions with low CTR may justify a truthful intent/snippet review. Low reach with strong use after arrival may justify promotion. Rising impressions are an opportunity to review, not an order to generate pages.
 
@@ -62,10 +62,6 @@ Review gallery opens, related-artwork exploration, safe shares, search discovery
 
 Review world entry, public entity/guide progression, safe sharing, and meaningful continuation. For Human Atlas, do not track search terms, anatomy selections as personal behavior, medical exploration, or profiles. Exploration is an educational signal, never a diagnosis signal.
 
-### Future Notooo
-
-The same structure can later review search discovery, reading engagement, related-tool/world clicks, shares, and return discovery. It does not create or publish Notooo records.
-
 ## Decision snapshot and log
 
 Record one small **Decision snapshot** per reviewed source:
@@ -87,7 +83,7 @@ Then add an equally small decision-log entry that links back to the snapshot. Th
 
 ## Compound Value and experiments
 
-When a useful artifact has weak discovery, use the [Compound Value Workflow](COMPOUND-VALUE-WORKFLOW.md) to consider one truthful social draft, visual/demo idea, internal connection, or future Notooo candidate. Do not create every output automatically.
+When a useful artifact has weak discovery, use the [Compound Value Workflow](COMPOUND-VALUE-WORKFLOW.md) to consider one truthful social draft, visual/demo idea, or internal connection. Do not create every output automatically.
 
 Prefer one small experiment: improve one internal link, prepare one social/demo pack, clarify a first screen, or test a focused companion note after approval. Measure again before expanding the work.
 

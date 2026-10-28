@@ -6,9 +6,9 @@ Prepared **2026-10-23, Asia/Karachi**. Drafts for Khizar to review and submit pe
 
 - **Short title:** Khizooology
 - **Tagline:** Art, tools and knowledge you can explore
-- **One sentence:** Khizooology brings original art, visual browser tools, interactive knowledge worlds and concise book notes into one creative universe.
+- **One sentence:** Khizooology brings original art, visual browser tools and interactive knowledge worlds into one creative universe.
 - **Short description:** Explore original artworks, solve practical problems with browser tools and learn through interactive visual worlds, without creating an account.
-- **Medium description:** Khizooology connects four experiences: Artooo for original art, Toolooo for practical visual tools, Infooo for interactive learning and Notooo for original book notes. Start with a specific problem, such as understanding retry traffic or drawing a perspective grid. Tool calculations happen locally in the browser; optional analytics is consent-controlled. Educational models explain assumptions and limits rather than promising production outcomes.
+- **Medium description:** Khizooology connects three experiences: Artooo for original art, Toolooo for practical visual tools, and Infooo for interactive learning. Start with a specific problem, such as understanding retry traffic or drawing a perspective grid. Tool calculations happen locally in the browser; optional analytics is consent-controlled. Educational models explain assumptions and limits rather than promising production outcomes.
 - **Maker story:** Khizar Imtiaz, also known as khizooo, combines programming and art in a monster-powered creative knowledge universe. These tools and worlds bring those disciplines together. This is a description of the public project, not an invented personal anecdote.
 - **Problem solved:** Makes useful technical and creative ideas approachable through visual exploration.
 - **Differentiator:** Original art and hands-on tools share one maker identity and a browser-first approach.

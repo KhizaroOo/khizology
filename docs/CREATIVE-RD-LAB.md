@@ -70,7 +70,6 @@ If a fundamental part is missing, rework it or do not publish it.
 - **Artooo → FEEL.** Visual and reflective value is legitimate. Never invent an artwork’s meaning just to make it appear useful.
 - **Toolooo → USE / DO.** Make invisible problems visible: input → visualize → result → understand → act → continue. Avoid generic calculators, thin AI wrappers, and trivial data-entry forms.
 - **Infooo → UNDERSTAND.** Use it where words alone are not enough: see → explore → isolate → connect → understand. Objects matter; relationships teach.
-- **Future Notooo.** It may later serve readable knowledge through UNDERSTAND and SHARE, after it earns a territory distinct from Infooo and Toolooo.
 - **Future monsters.** A new territory earns an identity only through the Mystery Monster Unlock Gate; content count, traffic potential, and empty slots do not qualify it.
 
 ## Protect the lab

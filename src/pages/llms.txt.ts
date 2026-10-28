@@ -3,8 +3,7 @@ import { SITE } from '../data/site';
 import { activeMonsters } from '../data/monsters';
 import { tools } from '../data/tools';
 import { families, getFamilyById } from '../data/families';
-import { infoooIdentity, infoooWorlds } from '../data/infooo';
-import { notoooIdentity, publishedNotoooBooks } from '../data/notooo';
+import { infoooIdentity, infoooWorlds, agentSystemsLab } from '../data/infooo';
 import { artworks } from '../data/artworks';
 import { getPublishedNotes, notePath } from '../data/notes';
 import { absoluteUrl } from '../utils/seo';
@@ -31,9 +30,8 @@ export const GET: APIRoute = async ({ site }) => {
     '',
     `> ${text(SITE.name)} is a personal creative R&D laboratory by ${text(SITE.author)} / ${text(SITE.artistName)}, bringing together engineering, visual art, interactive knowledge and public learning.`,
     '',
-    'Its creations help people use, understand, feel and remember. The active monsters are doorways into different kinds of public work.',
+    'Its creations help people use, understand and feel. The active monsters are doorways into different kinds of public work.',
     ...(hub('toolooo') ? ['Toolooo tools run in the browser and do not require signup. Their simulations and diagnoses have limits; check the guidance on each tool page.'] : []),
-    ...(hub('notooo') ? [`${text(notoooIdentity.disclosure)} ${text(notoooIdentity.notReplacementNotice)}`] : []),
     '',
     '## Start Here',
     '',
@@ -49,12 +47,9 @@ export const GET: APIRoute = async ({ site }) => {
   );
   if (hub('infooo')) lines.push(
     '', `## Infooo — ${infoooIdentity.type}`, '', hubLink('infooo'),
+    link(agentSystemsLab.title, `/infooo/${agentSystemsLab.slug}`, agentSystemsLab.description),
     ...infoooWorlds.filter((world) => world.status === 'published' && world.visibility === 'public')
       .map((world) => link(world.title, `/infooo/${world.slug}`, world.description)),
-  );
-  if (hub('notooo')) lines.push(
-    '', `## Notooo — ${notoooIdentity.type}`, '', hubLink('notooo'),
-    ...publishedNotoooBooks.map((book) => link(`${book.title} — ${book.author}`, `/notooo/${book.slug}`, `${book.category} — ${book.shortDescription}`)),
   );
   if (hub('artooo')) lines.push(
     '', '## Artooo — Original Art', '',

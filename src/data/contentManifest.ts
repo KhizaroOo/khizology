@@ -1,13 +1,12 @@
 import { tools } from './tools';
 import { artworks } from './artworks';
 import { infoooWorlds, type InfoooWorld } from './infooo';
-import { publishedNotoooBooks } from './notooo';
 
-export type ContentManifestType = 'tool' | 'artwork' | 'infooo_world' | 'notooo';
+export type ContentManifestType = 'tool' | 'artwork' | 'infooo_world';
 export type CompoundValueStatus = 'idea' | 'draft' | 'ready' | 'published' | 'skipped';
 
 export interface ContentManifestItem {
-  id: string; contentType: ContentManifestType; monster: 'toolooo' | 'artooo' | 'infooo' | 'notooo'; slug: string; title: string;
+  id: string; contentType: ContentManifestType; monster: 'toolooo' | 'artooo' | 'infooo'; slug: string; title: string;
   hook: string; shortDescription: string; url: string; heroAsset: string; videoAsset?: string; tags: string[]; worldNumber?: number;
   socialStatus: 'draft' | 'ready' | 'published';
 }
@@ -42,7 +41,6 @@ export interface CompoundValuePack {
   visualIdea?: string;
   demo?: CompoundValueDemo;
   related?: CompoundValueReference[];
-  notoooCandidate?: { status: Extract<CompoundValueStatus, 'idea' | 'draft' | 'skipped'>; title: string };
 }
 
 export const compoundValueStatuses: readonly CompoundValueStatus[] = ['idea', 'draft', 'ready', 'published', 'skipped'];
@@ -55,7 +53,6 @@ export const contentManifest: ContentManifestItem[] = [
   ...tools.filter(tool => tool.status === 'active').map(tool => ({ id: tool.id, contentType: 'tool' as const, monster: 'toolooo' as const, slug: tool.slug, title: tool.name, hook: tool.shortDescription, shortDescription: tool.shortDescription, url: `/toolbox/${tool.slug}`, heroAsset: '/images/Monsters/toolooo.png', tags: tool.tags, socialStatus: 'draft' as const })),
   ...artworks.map(artwork => ({ id: artwork.id, contentType: 'artwork' as const, monster: 'artooo' as const, slug: artwork.slug, title: artwork.title, hook: `Original artwork by khizooo: ${artwork.title}.`, shortDescription: artwork.tags.join(', '), url: '/artworks', heroAsset: `/images/artworks/${artwork.filename}`, tags: artwork.tags, socialStatus: 'draft' as const })),
   ...infoooWorlds.filter(world => world.status === 'published' && world.visibility === 'public').map(world => createInfoooManifestItem(world, { hook: world.description, shortDescription: world.description, heroAsset: '/images/Monsters/infooo.png', tags: world.category ? [world.category] : [], socialStatus: 'draft' })),
-  ...publishedNotoooBooks.map(book => ({ id: book.id, contentType: 'notooo' as const, monster: 'notooo' as const, slug: book.slug, title: book.title, hook: book.subtitle, shortDescription: book.shortDescription, url: `/notooo/${book.slug}`, heroAsset: '/images/Monsters/ff-04.png', tags: book.tags, socialStatus: 'draft' as const })),
 ];
 
 // Review-only material is deliberately separate from the public manifest so a
@@ -98,7 +95,6 @@ export const compoundValuePacks: CompoundValuePack[] = [
       takeaway: 'Retries need coordination, not just repetition.',
     },
     related: [{ contentType: 'tool', sourceId: 'rate-limit-playground' }],
-    notoooCandidate: { status: 'idea', title: 'Recovery logic can become traffic' },
   },
   {
     id: 'compound-artwork-skull-rose-fusion',
@@ -133,7 +129,6 @@ export const compoundValuePacks: CompoundValuePack[] = [
       reveal: 'Relationships become easier to inspect one connection at a time.',
       takeaway: 'See it. Touch it. Understand it.',
     },
-    notoooCandidate: { status: 'idea', title: 'Connected systems make anatomy easier to learn' },
   },
   {
     id: 'compound-infooo-rubiks-cube-motion-graph',
@@ -155,7 +150,6 @@ export const compoundValuePacks: CompoundValuePack[] = [
       reveal: 'The same physical corner changes position while remaining a corner.',
       takeaway: 'Cube state is a structured permutation, not a set of independent colored squares.',
     },
-    notoooCandidate: { status: 'idea', title: 'What actually moves when you turn a Rubik’s Cube?' },
   },
 ];
 

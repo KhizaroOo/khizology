@@ -21,7 +21,7 @@ A candidate may be **held** or **dropped** at any stage. This is a successful ou
 Before Khizar considers an unlock, answer all of these clearly:
 
 1. **Purpose:** What unique job does it perform for a visitor in one sentence?
-2. **Distinct territory:** Why can Artooo, Toolooo, Infooo, or Notooo not own that job?
+2. **Distinct territory:** Why can Artooo, Toolooo, or Infooo not own that job?
 3. **Repeatability:** Can it produce more coherent, valuable work without filler?
 4. **Flagship:** What real, finished experience proves the territory now?
 5. **Value Laws:** Does it pass Utility, Identity, and Truth hard gates, with a Strong-or-better result preferred?

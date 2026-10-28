@@ -1,5 +1,9 @@
 # Phase 0 — production verification baseline
 
+## Local product retirement — 28 October 2026 (not deployed)
+
+Notooo's hub and 450 book-note routes are retired. Its original mascot/color are retained as the anonymous locked `future-5` entry. The current local build has 135 physical HTML files (134 in the SEO inventory, including one embedded application; one additional provider-verification file), 128 indexable/sitemap/llms URLs, and 170 image-sitemap entries. There are three active monsters and six mysteries. Retired URLs return the ordinary 404 without redirects or robots blocking. The dated production receipts below are historical and retain their original counts; no external search or analytics account was changed.
+
 Verified **2026-10-18 21:34 Asia/Karachi (16:34 UTC)** against deployed commit `86c55ba` and a fresh production-configured build. This receipt supersedes the earlier measurement baseline's statement that the Bing repair remained uncommitted. No product or analytics code changed during this verification.
 
 ## Google Search Console

@@ -1,9 +1,10 @@
 ---
 import { preview, previewSrcset } from "../utils/imagePreview";
+import InfoooCollectionFeature from '../components/infooo/InfoooCollectionFeature.astro';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import MonsterCard from '../components/ui/MonsterCard.astro';
 import SectionHeader from '../components/ui/SectionHeader.astro';
-import { monsters } from '../data/monsters';
+import { monsters, activeMonsters } from '../data/monsters';
 import { artworks, featuredArtworks } from '../data/artworks';
 import { families } from '../data/families';
 import { getToolCountByFamily, tools as toolboxTools } from '../data/tools';
@@ -92,7 +93,7 @@ const jsonLd = {
       <SectionHeader
         label="The Universe"
         title="Meet the Monsters"
-        description="Each monster is a creative module. A world of its own. 3 are live. More are being unleashed."
+        description={`Each monster is a creative module. A world of its own. ${activeMonsters.length} are live. More are being unleashed.`}
         accentColor="var(--k-accent)"
         align="center"
       />
@@ -158,6 +159,8 @@ const jsonLd = {
       </div>
     </div>
   </section>
+
+  <div class="k-container"><InfoooCollectionFeature /></div>
 
   <!-- BEHIND THE VIBES TEASER -->
   <section class="k-section btv-section">

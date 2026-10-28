@@ -55,7 +55,6 @@ Apply only the rows touched by the release.
 | Monster system | Use the canonical registry, role, status, and voice. Keep future identities hidden until released. |
 | Content / SEO | Verify unique purpose, title, description, H1, canonical, truthful schema, internal discovery, indexability, and sitemap intent. |
 | Analytics / sharing | Consent behavior is unchanged or reviewed; no raw data reaches events, URLs, storage, logs, or share text. |
-| Notooo | Engine validation, source references, confidence, lifecycle, plain language, disclosure, Concept F, fullscreen, and PNG export remain correct. |
 
 ## 4. Severity and decision
 

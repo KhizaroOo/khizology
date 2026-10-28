@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import SkillsSupplyLab from '../../components/infooo/skills-supply/SkillsSupplyLab';
+import { infoooWorlds, infoooIdentity } from '../../data/infooo';
+import { absoluteUrl, breadcrumbSchema } from '../../utils/seo';
+import { url } from '../../utils/url';
+const world = infoooWorlds.find(w => w.id === 'world-011')!;
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const canonical = absoluteUrl(`/infooo/${world.slug}`, context);
+const related = infoooWorlds.filter(w => world.relatedWorlds?.includes(w.id) && w.status === 'published' && w.visibility === 'public');
+---
+<BaseLayout title="Agent Skills Supply Chain — Skill Security | Khizooology" description={world.description} canonical={canonical} accentColor={infoooIdentity.color} accentColorLight={infoooIdentity.colorLight} ogImage={world.hero!.asset} ogImageAlt={world.preview!.alt} socialTitle={world.title} socialDescription={world.description} jsonLd={[{ '@context': 'https://schema.org', '@type': 'WebApplication', name: world.title, description: world.description, url: canonical, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', isAccessibleForFree: true }, breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Infooo', path: '/infooo' }, { name: world.title, path: `/infooo/${world.slug}` }], context)]}>
+  <div class="k-container ss-breadcrumb"><Breadcrumb crumbs={[{ label: 'Infooo', href: url('/infooo') }, { label: world.title }]} accentColor={infoooIdentity.color}/></div>
+  <SkillsSupplyLab client:load world={world}>
+    <section class="ss-static">
+      <h2>A skill can bring more than instructions.</h2>
+      <p>Install a fictional Project Reporter skill, generate a local report, then follow a changed release from publisher and repository through distribution into the agent environment. Inspect its instructions, script, resources, provenance and requested permissions before accepting an update.</p>
+      <p>Reviewing v1 does not review v2. Top-level version pinning does not freeze a floating helper. A content digest can match a malicious release. Compare broad and constrained environments while keeping the installed skill, agent and task unchanged; watch network denial and sandboxing stop the outbound path.</p>
+      <p>This is an educational supply-chain model, not a skill-security scanner. All publishers, versions, dependencies, files and actions are fictional and deterministic. No real installation, shell, filesystem, network execution, upload or agent API is used. Permission requests and integrity labels are conceptual controls, not a universal skill-signing or permission standard.</p>
+      <nav aria-label="Related knowledge worlds">{related.map(w => <a href={url(`/infooo/${w.slug}`)}>{w.title} →</a>)}<a href={url('/infooo')}>Explore all Infooo worlds →</a></nav>
+    </section>
+  </SkillsSupplyLab>
+</BaseLayout>
+<style>
+  .ss-breadcrumb { padding-block: .5rem .25rem; }
+  .ss-static { padding-block: .5rem 1rem; }
+  .ss-static h2 { font: 800 1.1rem Poppins, sans-serif; }
+  .ss-static p { max-width: 85ch; line-height: 1.8; color: var(--k-text-muted); font-size: .85rem; }
+  .ss-static nav { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .ss-static a { color: var(--k-text); text-underline-offset: 4px; }
+</style>

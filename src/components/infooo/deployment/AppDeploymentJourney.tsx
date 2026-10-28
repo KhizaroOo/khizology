@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import type { InfoooWorld } from '../../../data/infooo';
-import { InfoooDepthControl, InfoooSourceDisclosure, InfoooTermNotes, useInfoooPlayback } from '../InfoooWorldFoundation';
+import { InfoooDepthControl, InfoooSourceDisclosure, InfoooTermNotes, useInfoooPlayback, useInfoooReducedMotion } from '../InfoooWorldFoundation';
 import { trackInfoooWorldStart, trackInfoooGuideComplete } from '../../../utils/analytics';
 import '../visual-story.css';
 import './deployment.css';
@@ -32,6 +32,7 @@ const mobileRoutes = ['M50 54 H32 V174 H50', 'M50 174 H32 V294 H50', 'M50 294 H3
 
 export default function AppDeploymentJourney({ world }: { world: InfoooWorld }) {
   const [depth, setDepth] = useState(0);
+  const reduced = useInfoooReducedMotion();
   const [scenario, setScenario] = useState('normal');
   const sequence = scenario === 'build' ? [0, 1, 1, 2, 3, 4] : scenario === 'health' || scenario === 'database' ? [0, 1, 2, 3, 2, 3, 4] : scenario === 'rollback' ? [0, 1, 2, 3, 4, 3, 4] : scenario === 'canary' ? [0, 1, 2, 3, 4, 3, 4] : [0, 1, 2, 3, 4];
   const story = useInfoooPlayback(sequence.length - 1, [4500, 5500, 6500][depth]);
@@ -59,11 +60,10 @@ export default function AppDeploymentJourney({ world }: { world: InfoooWorld }) 
   const why = ['A commit identifies exactly which change is being released.', 'Building and testing stop unusable packages before deployment.', 'Starting beside v1 lets the candidate prove readiness without replacing live traffic.', 'Readiness gates protect the traffic switch; skipping them can send users to a broken version.', 'A browser response is the visible outcome, not proof that every path works.'][active];
   const terms = step < 0 || depth === 0 ? [] : rolledBack ? [['Rollback', 'Return traffic to a previous healthy application version.'], ['Database migration', 'A schema/data change needs its own recovery plan.']] as const : scenario === 'database' && active >= 2 ? [['Database migration', 'Change the database structure or data.'], ['Backward compatible', 'Old and new app versions can use the same database safely.']] as const : canary ? [['Canary', 'Send a small share of traffic to a candidate first.'], ['Load balancer', 'Distributes requests among ready versions.']] as const : depth === 2 ? advancedMeanings[active] : meanings[active];
   const cases = [['normal', 'Normal release'], ['build', 'Build fails'], ['health', 'Health check fails'], ['rollback', 'Rollback after release'], ['canary', 'Canary release'], ['database', 'Database change problem']];
-  return <div className="visual-world deployment-world" style={{ '--infooo-accent': world.accent } as CSSProperties}>
-    <header><h1>How does code become a live app?</h1><p>Watch one release travel from a developer to your browser.</p></header>
+  return <div className="visual-world deployment-world" data-depth={depth} style={{ '--infooo-accent': world.accent } as CSSProperties}>
+    <header><h1>How does code become a live app?</h1><p>Watch one release travel from a developer to your browser.</p><p className="scene-entry-takeaway">Code must be built, started and served before a user receives it.</p></header>
     <section className="scene-card" aria-label="Release visual and playback">
-    <div className="scene-topbar"><InfoooDepthControl depth={depth} onChange={changeDepth}/>
-    {depth === 2 && <label className="scene-case">Case<select value={scenario} onChange={event => choose(event.target.value)}>{cases.map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label>}</div>
+
     <div className="release-scene" role="img" aria-label={`Code, build, server, traffic and browser share one release path. ${explain}`} data-step={step} data-running={story.running || story.done} data-failed={failed}>
       {['wide', 'tall'].map(orientation => <svg key={orientation} className={`scene-wires wire-${orientation}`} viewBox={orientation === 'wide' ? '0 0 1200 400' : '0 0 400 600'} preserveAspectRatio="none" aria-hidden="true"><defs><marker id={`release-arrow-${orientation}`} viewBox="0 0 10 10" refX="10" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="context-stroke" stroke="none"/></marker></defs>{(orientation === 'wide' ? routes : mobileRoutes).map((d, i) => <path key={d} className="scene-link" d={d} data-state={failed && i === active ? 'failed' : active > i ? 'complete' : active === i ? 'active' : 'upcoming'} markerEnd={`url(#release-arrow-${orientation})`}/>)}<path className="live-route" data-version={ready ? '2' : '1'} d={orientation === 'wide' ? 'M600 300 V350 H1080 V300 M840 350 V300' : 'M350 294 H380 V534 H350 M380 414 H350'} markerEnd={`url(#release-arrow-${orientation})`}/></svg>)}
       <span className="live-version">{canary ? 'v1 90% · v2 10%' : `● v${ready ? '2' : '1'} live`}</span>
@@ -91,9 +91,12 @@ export default function AppDeploymentJourney({ world }: { world: InfoooWorld }) 
     </div>
     <div className="scene-learning"><div className="scene-caption" role="status" aria-live="polite" aria-atomic="true"><strong>{failed ? `${stages[active]} · stopped` : rolledBack && step === 5 ? 'Rollback' : step < 0 ? 'v1 is live' : stages[active]}</strong><p>{explain}</p>{step >= 0 && <p className="scene-why">{why}</p>}<InfoooTermNotes terms={terms}/></div>
     <ul className="scene-evidence" aria-label="Release evidence">{[['Artifact', step >= 2], ['Runtime', step >= (scenario === 'build' ? 3 : 2)], ['Health', step >= (scenario === 'build' ? 4 : ['health', 'database'].includes(scenario) ? 5 : 3)], ['Traffic', step >= (scenario === 'build' ? 5 : ['health', 'database'].includes(scenario) ? 6 : 4)]].map(([label, ok]) => <li key={String(label)} data-ready={Boolean(ok)}>{ok ? '✓' : '○'} {label}</li>)}</ul>
-    <div className="scene-controls"><button type="button" className="k-button k-button--primary" onClick={story.toggle}>{story.label}</button>{step >= 0 && !story.done && story.label !== 'Step' && <button type="button" className="k-button k-button--ghost" onClick={story.advance}>Step</button>}{story.done && <button type="button" className="scene-replay-moment" onClick={() => story.replayFrom(scenario === 'build' ? 1 : 3)}>Replay key moment</button>}</div>
+    <div className="scene-controls"><button type="button" className="k-button k-button--primary" onClick={() => { if(reduced && depth === 0 && step < 0){trackInfoooWorldStart(world.slug);story.replayFrom(sequence.length-1);}else story.toggle(); }}>{step < 0 ? 'Watch a deployment' : story.label}</button>{step >= 0 && !story.done && story.label !== 'Step' && <button type="button" className="k-button k-button--ghost" onClick={story.advance}>Step</button>}{story.done && <button type="button" className="scene-replay-moment" onClick={() => story.replayFrom(scenario === 'build' ? 1 : 3)}>Replay key moment</button>}</div>
     </div></section>
+    {step>=0&&<dl className="scene-entry-result" aria-label="Release lesson"><div><dt>What happened</dt><dd>{explain}</dd></div><div><dt>Why</dt><dd>{why}</dd></div><div><dt>Next</dt><dd>{failed?'Repair the candidate and check it again; keep v1 serving.':'Keep traffic on a working version until the candidate is ready.'}</dd></div></dl>}
     {story.done && <p className="scene-takeaway">{failed ? 'The old version stays live when the new release cannot pass its gate.' : takeaway[depth]}</p>}
+    <details className="scene-explore"><summary>Explore more — depth & scenarios</summary><div className="scene-topbar"><InfoooDepthControl depth={depth} onChange={changeDepth}/>
+    {depth === 2 && <label className="scene-case">Case<select value={scenario} onChange={event => choose(event.target.value)}>{cases.map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label>}</div></details>
     <InfoooSourceDisclosure plain knowledge={world.knowledge}/>
   </div>;
 }

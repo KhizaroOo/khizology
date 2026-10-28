@@ -194,7 +194,7 @@ const redirectRoutes = new Set(['/frop-a-vibe/']);
 const titleOwners = new Map();
 const descriptionOwners = new Map();
 const canonicalOwners = new Map();
-const requiredImageAltRoutes = new Set(['/', '/my-portfolio/', '/behind-the-vibes/', '/notooo/', '/infooo/']);
+const requiredImageAltRoutes = new Set(['/', '/my-portfolio/', '/behind-the-vibes/', '/infooo/']);
 const requiredImageAltResults = new Map();
 
 for (const page of pages) {
@@ -377,7 +377,7 @@ if (sitemapUrls.length !== canonicalUrls.length || sitemapUrls.slice().sort().so
 const llmsFile = join(dist, 'llms.txt');
 const llmsText = existsSync(llmsFile) ? readFileSync(llmsFile, 'utf8') : '';
 if (!/^# Khizooology\n\n> [^\n]+\n/.test(llmsText)) fail('llms.txt: missing site name or summary');
-for (const heading of ['Start Here', 'Toolooo — Visual Browser Tools', 'Infooo — Interactive Knowledge Worlds', 'Notooo — Book in One Page', 'Artooo — Original Art', 'Optional']) {
+for (const heading of ['Start Here', 'Toolooo — Visual Browser Tools', 'Infooo — Interactive Knowledge Worlds', 'Artooo — Original Art', 'Optional']) {
   if (!llmsText.includes(`\n## ${heading}\n`)) fail(`llms.txt: missing ${heading} section`);
 }
 const llmsLinks = [...llmsText.matchAll(/^- \[((?:\\.|[^\]\\])+)\]\(([^)\s]+)\): (.+)$/gm)];
@@ -391,7 +391,7 @@ for (const target of llmsUrls) {
 }
 const llmsRequiredRoutes = new Set(['/', '/behind-the-vibes/', '/my-portfolio/', '/artworks/', '/privacy/', '/drop-a-vibe/']);
 for (const page of indexable) {
-  if (/^\/(?:toolbox|infooo|notooo|notes)(?:\/|$)/.test(page.route)) llmsRequiredRoutes.add(page.route);
+  if (/^\/(?:toolbox|infooo|notes)(?:\/|$)/.test(page.route)) llmsRequiredRoutes.add(page.route);
 }
 for (const route of llmsRequiredRoutes) {
   if (!llmsUrls.has(`${expectedSite}${basePath}${route}`)) fail(`llms.txt: missing public content ${route}`);

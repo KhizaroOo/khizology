@@ -169,4 +169,27 @@ navigator.clipboard.writeText = async text => { clipboard.push(text); };
 await buttons[0].props.onClick();
 assert.equal(shareEvents.length, 3); assert.equal(shareEvents.at(-1).action, 'copy_result');
 assert.ok(!JSON.stringify(shareEvents).includes('Only aggregate counts'), 'share text never enters analytics');
+
+// Collection navigation carries public metadata; professional intent reuses contact_click once.
+for (const saved of [null, 'declined']) {
+  const c = fixture('G-TESTONLY00', saved);c.run('initializeAnalytics(); trackInfoooCollection("start", "agent-systems-lab", "mcp-security-lab")');assert.equal(c.events().length, 0);
+}
+const collection = fixture('G-TESTONLY00', 'accepted', false, 'https://khizooology.com/infooo/agent-systems-lab/?private=NEVER_SEND#private', 'https://khizooology.com/infooo/agent-systems-lab/');
+collection.run('initializeAnalytics(); initializeAnalytics()');
+function collectionClick(action, href, trusted = true) {
+ const link = new collection.Element();link.href = href;link.dataset = { infoooCollection: 'agent-systems-lab', collectionAction: action };link.closest = selector => selector === 'a[href]' || selector === 'a[data-infooo-collection][data-collection-action]' ? link : null;
+ collection.docListeners.click({ isTrusted: trusted, target: link });
+}
+collectionClick('start','https://khizooology.com/infooo/mcp-security-lab/');
+collectionClick('world','https://khizooology.com/infooo/agent-identity-lab/');
+collectionClick('consulting','https://khizooology.com/drop-a-vibe/');
+assert.deepEqual(Array.from(collection.events(), e=>e[1]), ['page_view','infooo_collection_start','infooo_collection_world_open','contact_click']);
+assert.equal(collection.events().at(-1)[2].collection_slug,'agent-systems-lab');
+assert.equal(collection.events().at(-2)[2].destination_slug,'agent-identity-lab');
+collectionClick('world','https://external.example/infooo/NEVER_SEND/');
+collectionClick('world','https://khizooology.com/infooo/agent-identity-lab/?private=NEVER_SEND');
+collectionClick('world','https://khizooology.com/infooo/agent-identity-lab/',false);
+collection.run('trackInfoooCollection("start", "private?NEVER_SEND", "mcp-security-lab"); trackInfoooCollection("world", "agent-systems-lab", "private#NEVER_SEND")');
+assert.equal(collection.events().length,4);assert.ok(!JSON.stringify(collection.events()).includes('NEVER_SEND'));
+assert.equal(collection.scripts.length,1);
 console.log('PASS: consent/config/error/storage guards, single initialization/page view/tool start, local suppression, completion/share/copy, real share success/cancellation callbacks, related source/destination, tags, module discovery, contacts and zero raw-content leakage. Mock GA transport; live property receipt requires deployment.');

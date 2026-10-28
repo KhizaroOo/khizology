@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import AgentEconomy from '../../components/infooo/agent-economy/AgentEconomy';
+import { infoooWorlds, infoooIdentity } from '../../data/infooo';
+import { absoluteUrl, breadcrumbSchema } from '../../utils/seo';
+import { url } from '../../utils/url';
+const world = infoooWorlds.find(w => w.id === 'world-007')!;
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const canonical = absoluteUrl(`/infooo/${world.slug}`, context);
+const related = infoooWorlds.filter(w => world.relatedWorlds?.includes(w.id) && w.status === 'published' && w.visibility === 'public');
+---
+<BaseLayout title="The Agent Economy — How AI Agents Buy, Pay and Act | Khizooology" description={world.description} canonical={canonical} accentColor={infoooIdentity.color} accentColorLight={infoooIdentity.colorLight} ogImage={world.hero!.asset} ogImageAlt={world.preview!.alt} socialTitle={world.title} socialDescription={world.description} jsonLd={[{ '@context': 'https://schema.org', '@type': 'WebApplication', name: world.title, description: world.description, url: canonical, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', isAccessibleForFree: true }, breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Infooo', path: '/infooo' }, { name: world.title, path: `/infooo/${world.slug}` }], context)]}>
+  <div class="k-container economy-breadcrumb"><Breadcrumb crumbs={[{ label: 'Infooo', href: url('/infooo') }, { label: world.title }]} accentColor={infoooIdentity.color}/></div>
+  <AgentEconomy client:load world={world}>
+    <section class="economy-context">
+      <h2>AI agents need authority, not just intelligence.</h2>
+      <p>In this agentic commerce simulation, one human goal connects an AI agent to research, image generation and a data API. Each simulated payment passes an identity, intent, permission, merchant and budget check. Four images cost 48 cents; with research and data the campaign spends 59 cents of a $20 budget.</p>
+      <p>Compare assisted confirmation with bounded prior approval. Try overspending, an unrelated subscription, an unknown agent, an untrusted merchant, unlimited permission or a payment timeout. Revoke or expire authority, delegate a smaller research budget and follow a machine-to-machine service chain. Receipts show why retrying the same purchase must not charge twice.</p>
+      <p>AI wallets, agentic payments and autonomous procurement still depend on trust and governance. This browser-only world uses no real wallet, payment, AI inference or merchant connection. All identities and prices are illustrative; payment acceptance and standards vary.</p>
+      <nav aria-label="Related knowledge worlds">{related.map(w => <a href={url(`/infooo/${w.slug}`)}>{w.title} →</a>)}<a href={url('/infooo')}>Explore all Infooo worlds →</a></nav>
+    </section>
+  </AgentEconomy>
+</BaseLayout>
+<style>
+  .economy-breadcrumb { padding-block: 1.5rem .75rem; }
+  .economy-context { padding-block: 1rem; }
+  .economy-context p { max-width: 80ch; line-height: 1.75; color: var(--k-text-muted); }
+  .economy-context h2 { font: 800 1.4rem Poppins, sans-serif; }
+  .economy-context nav { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .economy-context a { color: var(--k-text); text-underline-offset: 4px; }
+</style>

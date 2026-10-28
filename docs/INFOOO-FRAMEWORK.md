@@ -61,3 +61,38 @@ Worlds 003/004 use Beginner, Intermediate and Advanced as annotation depth, not 
 ### Visual clarity and contextual terms
 
 Each visual object owns a fixed region. Connectors use the gaps and outer lanes; no detached completion marks. Current-stage term notes are plain term/meaning pairs, capped at three and replaced as the story advances. Mobile uses a vertical sequence with instant current-object following after playback begins; the existing explanation and controls remain available. Human approval is explicitly simulated, gates progression, and never publishes anything. The Advanced release walkthrough includes a labelled application rollback demonstration; database recovery remains separate.
+
+### MCP Security Lab: later learner check
+
+Planned, not completed usability evidence: give five developers or technical readers
+World 008 without explaining MCP security. After 2–3 minutes ask: why does trusting
+the model not make tools safe; what is blast radius; why narrow credentials per
+server; how can one server influence another; and which two controls reduce risk?
+The comprehension target is at least four of five learners explaining model trust
+versus execution trust, permission-limited blast radius, and least privilege plus
+an independent control. This is a future learning test, not a measured result.
+
+### Agent Reliability Lab: later learner check
+
+Planned, not measured: give five technical learners World 009 without explanation.
+After 2–3 minutes ask why timeouts can be dangerous, what idempotency protects,
+why tool success needs verification, what partial failure means and when to stop
+and escalate. The comprehension target is at least four of five explaining an
+unknown timeout outcome, duplicate side effects from retries and verification
+of actual resulting state. This is a future usability test, not an achieved score.
+
+### World 010 learner check (planned, not performed)
+
+After 2–3 minutes, ask five technical learners why browser agents differ from normal browsers, why page content cannot authorize actions, why detection alone is insufficient, how least privilege limits consequences, and when approval matters. The intended understanding threshold is four of five explaining untrusted input plus action authority and naming two independent controls. This is a future qualitative test, not a measured usability claim.
+
+### World 011 learner check (planned, not performed)
+
+After 2–3 minutes, ask five technical learners what a skill can contain, how updates change trust, what pinning does, why sandboxing matters, and what provenance means. The intended threshold is four of five explaining behavior beyond instructions, update/dependency drift, and environment-dependent impact. This future qualitative test has not been performed.
+
+### World 012 learner check (planned, not performed)
+
+After 2–3 minutes, ask five technical learners about memory versus active context, relevant versus noisy volume, stale memory versus current evidence, tool-output selection, and useful handoff state. The intended threshold is four of five explaining selected context, freshness/relevance and intentional state transfer. This future qualitative check has not been performed.
+
+### World 013 learner check (planned, not performed)
+
+With five technical learners, allow 2–3 minutes in Agent Identity Lab, then ask about identity vs credential, shared attribution, delegation, short lifetimes, orphaned agents and selective revocation. Target: at least four can explain actor, authorizer, allowed action and why dedicated attribution enables precise revocation. This is a future usability check, not measured evidence.

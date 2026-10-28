@@ -1,4 +1,5 @@
 ---
+import InfoooCollectionFeature from '../../components/infooo/InfoooCollectionFeature.astro';
 import BaseLayout from '../../components/layout/BaseLayout.astro';
 import { absoluteUrl } from '../../utils/seo';
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
@@ -22,6 +23,7 @@ const infoooVoice = voiceForMonsterId('infooo');
       </div>
       <p class="hero-stats"><strong>{worlds.length}</strong> Worlds <span>·</span> <strong>{infoooCategories.length}</strong> Categories</p>
     </section>
+    <InfoooCollectionFeature />
     <section class="worlds-section" aria-labelledby="worlds-title">
       <div class="worlds-heading"><h2 id="worlds-title">Explore Worlds</h2><p>{worlds.length} interactive {worlds.length === 1 ? 'world' : 'worlds'}</p></div>
       <div class="category-filters" role="group" aria-label="Filter worlds by category" hidden>

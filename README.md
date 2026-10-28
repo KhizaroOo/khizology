@@ -13,7 +13,6 @@ Khizooology is static and browser-first. Tool calculations run in your browser; 
 | Artooo | Explore original artworks and related pieces | [Artworks](https://khizooology.com/artworks/) |
 | Toolooo | Check, simulate, decide, plan and create with visual tools | [Toolbox](https://khizooology.com/toolbox/) |
 | Infooo | See, touch and understand interactive knowledge worlds | [Worlds](https://khizooology.com/infooo/) |
-| Notooo | Read concise, original book notes with sources and limitations | [Knowledge notes](https://khizooology.com/notooo/) |
 
 ## Try a useful problem
 
@@ -26,6 +25,8 @@ Khizooology is static and browser-first. Tool calculations run in your browser; 
 - [Human Atlas](https://khizooology.com/infooo/human-atlas/): explore a simplified interactive 3D anatomy model; educational, not diagnostic or clinical.
 
 Simulators explain bounded models, not production guarantees. Print guides do not replace printer specifications. Read each tool's assumptions before applying its output.
+
+Notooo’s book-note product was retired on 28 October 2026. Its mascot and color remain as the anonymous locked `future-5` monster; former URLs use the normal 404. Historical reports are snapshots, not current publishing instructions.
 
 ## Development
 
@@ -50,7 +51,6 @@ Use the URL printed by Astro. Reuse an existing checkout server rather than star
 
 - `src/data/tools.ts`: Toolooo registry and editorial growth priorities.
 - `src/data/infooo.ts`: Infooo worlds and framework metadata.
-- `src/data/notooo.ts` and `src/data/notooo/`: canonical book notes.
 - `src/data/artworks.ts`: artwork metadata.
 - `src/data/site.ts`: site identity and social metadata.
 - `src/components/` and `src/pages/`: shared UI, interactive experiences and routes.

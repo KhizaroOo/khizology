@@ -1,0 +1,60 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import { agents, initial, authenticate, authorize, attributeAction, normalWork, act, revoke, narrowScope, issueCredential, updateIdentity, review, canDelegate, delegateAuthority, delegationRoot, traceDelegation, delegatedAction, incidentState } from '../src/components/infooo/identity-lab/identityModel.ts';
+
+const shared = initial(), dedicated = initial('dedicated');
+for (const lab of [shared, dedicated]) assert.ok(normalWork(lab).audit.every(a => a.result.startsWith('ALLOWED')));
+assert.equal(new Set(agents.map(a => attributeAction(shared, a.id).identity)).size, 1);
+assert.equal(new Set(agents.map(a => attributeAction(dedicated, a.id).identity)).size, 3);
+assert.equal(act(shared, 'deploy', 'production.deploy').audit[0].actor, 'shared-service-account');
+assert.equal(act(dedicated, 'deploy', 'production.deploy', 'Release Workflow').audit[0].actor, 'Deploy Agent');
+assert.equal(act(dedicated, 'deploy', 'production.deploy', 'Release Workflow').audit[0].behalf, 'Release Workflow');
+for (const target of ['credential', 'identity'] as const) assert.ok(agents.every(a => !authenticate(revoke(shared, target), a.id)), 'shared resource subject cannot selectively stop B');
+for (const target of ['credential', 'identity', 'owner'] as const) {
+ const revoked = revoke(dedicated, target);
+ assert.equal(authenticate(revoked, 'deploy'), false); assert.equal(authenticate(revoked, 'research'), true); assert.equal(authenticate(revoked, 'report'), true);
+}
+const scoped = narrowScope(dedicated, 'deploy');
+assert.equal(authenticate(scoped, 'deploy'), true); assert.equal(authorize(scoped, 'deploy', 'production.deploy').allowed, false); assert.equal(authorize(scoped, 'deploy', 'staging.deploy').allowed, true);
+assert.equal(authorize(dedicated, 'deploy', 'staging.deploy', 'Report store').allowed, false);
+assert.equal(authorize(dedicated, 'research', 'production.deploy').allowed, false);
+assert.equal(authenticate(updateIdentity(shared, 'deploy', { status: 'suspended' }), 'deploy'), true, 'local agent metadata alone cannot disable use of a shared resource credential');
+assert.ok(dedicated.identities[1].scopes.filter(scope => authorize(dedicated, 'deploy', scope).allowed).length > dedicated.identities[1].scopes.filter(scope => authorize(scoped, 'deploy', scope).allowed).length, 'broad authority reaches more modeled actions than narrow authority');
+assert.equal(authorize({ ...dedicated, approval: true }, 'deploy', 'production.deploy').allowed, false);
+assert.ok(Object.keys(authorize(dedicated, 'deploy', 'production.deploy')).length > 0);
+const removed = revoke(dedicated, 'scope'); assert.equal(authorize(removed, 'deploy', 'production.deploy').allowed, false); assert.equal(authenticate(removed, 'deploy'), true);
+const short = issueCredential(dedicated, 'deploy');
+assert.equal(authenticate({ ...short, now: 14 }, 'deploy'), true); assert.equal(authenticate({ ...short, now: 15 }, 'deploy'), false);
+assert.equal(authenticate({ ...dedicated, now: 150 }, 'deploy'), true, 'static proof differs from timed proof');
+assert.equal(authenticate(issueCredential({ ...short, now: 15 }, 'deploy'), 'deploy'), true);
+assert.equal(authenticate(issueCredential(revoke(dedicated, 'identity'), 'deploy'), 'deploy'), false, 'new proof cannot reactivate revoked actor');
+assert.equal(review(updateIdentity(dedicated, 'report', { owner: '' }), 'report'), 'REVIEW REQUIRED');
+const orphan = incidentState(4); assert.equal(review(orphan, 'report'), 'REVIEW REQUIRED'); assert.equal(authenticate(orphan, 'report'), true, 'project retirement is not automatic credential revocation');
+assert.equal(review(updateIdentity(orphan, 'report', { owner: 'New Team', reviewed: true }), 'report'), 'REVIEW REQUIRED', 'retired project remains flagged');
+const suspended = updateIdentity(orphan, 'report', { status: 'suspended' }); assert.equal(authenticate(suspended, 'report'), false);
+const owned = updateIdentity(dedicated, 'research', { owner: 'Platform Team' }); const grouped = revoke(owned, 'owner'); assert.equal(authenticate(grouped, 'research'), false); assert.equal(authenticate(grouped, 'report'), true);
+assert.equal(canDelegate(['reports.read'], ['reports.delete']), false); assert.equal(canDelegate(['reports.read'], []), false);
+assert.equal(delegateAuthority(delegationRoot, 'Research Agent', ['reports.delete'], 10), null);
+assert.equal(delegateAuthority(delegationRoot, 'Research Agent', ['reports.read'], 16), null);
+assert.equal(delegateAuthority(delegationRoot, 'Research Agent', ['reports.read'], 10, 15), null);
+const child = delegateAuthority(delegationRoot, 'Research Agent', ['reports.read'], 10)!; assert.deepEqual(traceDelegation(child), ['Example User', 'Orchestrator', 'Research Agent', 'Report store']);
+assert.equal(delegatedAction('calendar.read', 0, false, true).allowed, true);
+assert.equal(delegatedAction('email.send', 0, false, true).allowed, false); assert.equal(delegatedAction('email.send', 0, true, true).allowed, true); assert.equal(delegatedAction('email.send', 10, true, true).allowed, false);
+assert.equal(delegatedAction('expense.approve', 0, true, true).allowed, false); assert.equal(delegatedAction('bank.change', 0, true, true).allowed, false);
+assert.equal(delegatedAction('reports.read', 0, false, false).principal, 'Workload itself');
+assert.equal(delegatedAction('calendar.read', 0, false, true).principal, 'Example User');
+assert.ok(incidentState(0).audit[0].result.startsWith('ALLOWED')); assert.ok(incidentState(1).audit.every(a => a.result === 'BLOCKED')); assert.ok(incidentState(2).audit[0].result.startsWith('ALLOWED')); assert.equal(incidentState(3).audit[0].result, 'BLOCKED');
+const before = JSON.stringify(dedicated); normalWork(dedicated); revoke(dedicated, 'identity'); narrowScope(dedicated, 'deploy'); assert.equal(JSON.stringify(dedicated), before);
+const audited = act(dedicated, 'deploy', 'staging.deploy'); assert.deepEqual(revoke(audited, 'identity').audit, audited.audit);
+assert.deepEqual(initial(), initial());
+const source = fs.readFileSync('src/components/infooo/identity-lab/AgentIdentityLab.tsx', 'utf8');
+assert.ok(!/\b(fetch|localStorage|sessionStorage|XMLHttpRequest|sendBeacon|URLSearchParams|console)\b/.test(source));
+if (process.argv.includes('--built')) {
+ const route = 'https://khizooology.com/infooo/agent-identity-lab/', html = fs.readFileSync('dist/infooo/agent-identity-lab/index.html', 'utf8');
+ assert.ok(html.includes(`rel="canonical" href="${route}"`)); assert.equal((html.match(/<h1\b/g)||[]).length,1); assert.ok(!html.includes('noindex'));
+ for (const key of ['og:title','og:description','og:image','og:image:alt','twitter:card','twitter:image']) assert.ok(html.includes(key),key);
+ const schemas=[...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap(m=>JSON.parse(m[1]));assert.ok(schemas.some(s=>s['@type']==='WebApplication'&&s.url===route));assert.ok(schemas.some(s=>s['@type']==='BreadcrumbList'));
+ const maps=fs.readdirSync('dist').filter(n=>/^sitemap.*\.xml$/.test(n)).map(n=>fs.readFileSync(`dist/${n}`,'utf8')).join('');assert.equal(maps.split(`<loc>${route}</loc>`).length-1,1);
+ assert.ok(fs.readFileSync('dist/llms.txt','utf8').includes(route));assert.ok(fs.readFileSync('dist/infooo/index.html','utf8').includes('agent-identity-lab/'));
+}
+console.log('Identity model PASS: attribution, selective/coarse revocation, scope/audience, approval, expiry/reissue, owner/lifecycle, bounded delegation, on-behalf-of, six incidents, immutability and privacy.');

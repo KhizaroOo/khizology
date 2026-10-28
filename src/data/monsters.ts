@@ -11,7 +11,7 @@ export interface Monster {
   route: string;
   image: string;
   status: MonsterStatus;
-  role?: 'FEEL' | 'USE' | 'UNDERSTAND' | 'REMEMBER';
+  role?: 'FEEL' | 'USE' | 'UNDERSTAND';
   tagline: string;
 }
 
@@ -62,21 +62,18 @@ export const monsters: Monster[] = [
     tagline: 'See it. Touch it. Understand it.',
   },
   {
-    id: 'notooo',
-    name: 'notooo',
-    module: 'Knowledge Notes',
+    id: 'future-5',
+    name: '???ooo',
+    module: 'Unknown',
     description:
-      'One book, filtered into a visual page of ideas worth keeping.',
-    // Matches the reserved ff-04 lab asset until Notooo receives final mascot art.
+      'A mystery still taking shape in the Khizooology lab.',
     color: '#E38D7C',
     colorLight: '#FED7AA',
     textColor: '#2A3439',
-    route: '/notooo',
-    // This reserved lab asset is never presented as Notooo's final mascot identity.
+    route: '/future-monsters',
     image: '/images/Monsters/ff-04.png',
-    status: 'active',
-    role: 'REMEMBER',
-    tagline: 'One Book. One Page.',
+    status: 'coming-soon',
+    tagline: 'Still forming.',
   },
   {
     id: 'future-2',

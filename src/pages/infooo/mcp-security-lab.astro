@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import McpSecurityLab from '../../components/infooo/mcp-security/McpSecurityLab';
+import { infoooWorlds, infoooIdentity } from '../../data/infooo';
+import { absoluteUrl, breadcrumbSchema } from '../../utils/seo';
+import { url } from '../../utils/url';
+const world = infoooWorlds.find(w => w.id === 'world-008')!;
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const canonical = absoluteUrl(`/infooo/${world.slug}`, context);
+const related = infoooWorlds.filter(w => world.relatedWorlds?.includes(w.id) && w.status === 'published' && w.visibility === 'public');
+---
+<BaseLayout title="MCP Security Lab — Explore AI Agent Tool Security | Khizooology" description={world.description} canonical={canonical} accentColor={infoooIdentity.color} accentColorLight={infoooIdentity.colorLight} ogImage={world.hero!.asset} ogImageAlt={world.preview!.alt} socialTitle={world.title} socialDescription={world.description} jsonLd={[{ '@context': 'https://schema.org', '@type': 'WebApplication', name: world.title, description: world.description, url: canonical, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', isAccessibleForFree: true }, breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Infooo', path: '/infooo' }, { name: world.title, path: `/infooo/${world.slug}` }], context)]}>
+  <div class="k-container security-breadcrumb"><Breadcrumb crumbs={[{ label: 'Infooo', href: url('/infooo') }, { label: world.title }]} accentColor={infoooIdentity.color}/></div>
+  <McpSecurityLab client:load world={world}>
+    <section class="security-context">
+      <h2>Model trust is not execution trust.</h2>
+      <p>The Model Context Protocol connects AI hosts to tools and external systems. This lab lets you run a fictional project-summary task, then keep the agent unchanged while widening permissions, changing credential scope and testing independent security controls.</p>
+      <p>Explore tool poisoning, cross-server data flow, a confused deputy, over-scoped credentials, changed tool definitions and credential misrouting. Compare exposed architecture with least privilege, meaningful approval, resource binding, execution-time policy, integrity review and isolated trust domains. Local MCP transport does not itself sandbox a process.</p>
+      <p>All actions and data are simulated. Nothing accesses your files, email, repository or credentials. The blast-radius indicator describes reachable capabilities in this educational model, not the security of a real deployment.</p>
+      <nav aria-label="Related knowledge worlds">{related.map(w => <a href={url(`/infooo/${w.slug}`)}>{w.title} →</a>)}<a href={url('/infooo')}>Explore all Infooo worlds →</a></nav>
+    </section>
+  </McpSecurityLab>
+</BaseLayout>
+<style>
+  .security-breadcrumb { padding-block: 1.5rem .75rem; }
+  .security-context { padding-block: 1rem; }
+  .security-context p { max-width: 80ch; line-height: 1.75; color: var(--k-text-muted); }
+  .security-context h2 { font: 800 1.4rem Poppins, sans-serif; }
+  .security-context nav { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .security-context a { color: var(--k-text); text-underline-offset: 4px; }
+</style>

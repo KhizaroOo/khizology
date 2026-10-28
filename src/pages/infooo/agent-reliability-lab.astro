@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import AgentReliabilityLab from '../../components/infooo/reliability/AgentReliabilityLab';
+import { infoooWorlds, infoooIdentity } from '../../data/infooo';
+import { absoluteUrl, breadcrumbSchema } from '../../utils/seo';
+import { url } from '../../utils/url';
+const world = infoooWorlds.find(w => w.id === 'world-009')!;
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const canonical = absoluteUrl(`/infooo/${world.slug}`, context);
+const related = infoooWorlds.filter(w => world.relatedWorlds?.includes(w.id) && w.status === 'published' && w.visibility === 'public');
+---
+<BaseLayout title="Agent Reliability Lab — Why AI Agents Fail | Khizooology" description={world.description} canonical={canonical} accentColor={infoooIdentity.color} accentColorLight={infoooIdentity.colorLight} ogImage={world.hero!.asset} ogImageAlt={world.preview!.alt} socialTitle={world.title} socialDescription={world.description} jsonLd={[{ '@context': 'https://schema.org', '@type': 'WebApplication', name: world.title, description: world.description, url: canonical, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', isAccessibleForFree: true }, breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Infooo', path: '/infooo' }, { name: world.title, path: `/infooo/${world.slug}` }], context)]}>
+  <div class="k-container reliability-breadcrumb"><Breadcrumb crumbs={[{ label: 'Infooo', href: url('/infooo') }, { label: world.title }]} accentColor={infoooIdentity.color}/></div>
+  <AgentReliabilityLab client:load world={world}>
+    <section class="reliability-context">
+      <h2>Successful calls are not the same as successful outcomes.</h2>
+      <p>Resolve one fictional customer order issue through lookup, eligibility, replacement, notification and independent verification. Keep the same agent and tools while changing retry policy, idempotency, checkpoints and recovery.</p>
+      <p>A timeout after submission can leave an unknown outcome. Blind replay can duplicate a committed replacement. Partial failure needs targeted recovery; a success response needs evidence; stale state needs execution-time checks; handoffs need completed-work references. Bounded attempts and escalation help the system stop responsibly.</p>
+      <p>Inspect metadata-only traces and behavior criteria to see why two agents can both report DONE while only one produced the intended result. All data and timings are simulated locally. No customer information, real tool call, trace export or AI API is used.</p>
+      <nav aria-label="Related knowledge worlds">{related.map(w => <a href={url(`/infooo/${w.slug}`)}>{w.title} →</a>)}<a href={url('/infooo')}>Explore all Infooo worlds →</a></nav>
+    </section>
+  </AgentReliabilityLab>
+</BaseLayout>
+<style>
+  .reliability-breadcrumb { padding-block: 1.5rem .75rem; }
+  .reliability-context { padding-block: 1rem; }
+  .reliability-context p { max-width: 80ch; line-height: 1.75; color: var(--k-text-muted); }
+  .reliability-context h2 { font: 800 1.4rem Poppins, sans-serif; }
+  .reliability-context nav { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .reliability-context a { color: var(--k-text); text-underline-offset: 4px; }
+</style>

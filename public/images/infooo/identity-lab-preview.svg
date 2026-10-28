@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-labelledby="title desc">
+<title id="title">Who actually acted?</title><desc id="desc">Three agents share one credential with ambiguous attribution; separate identities let Agent B alone be revoked.</desc>
+<rect width="800" height="450" rx="24" fill="#effaf6"/>
+<g font-family="Arial,sans-serif" fill="#213a35"><text x="38" y="48" font-size="24" font-weight="700">WHO ACTUALLY ACTED?</text><text x="38" y="85" font-size="17">Same agents. Different identity boundaries.</text>
+<path d="M400 115v290" stroke="#b1c9c0" stroke-dasharray="5 7"/>
+<g stroke="#329c7f" fill="none" stroke-width="4" stroke-linejoin="round"><path d="M114 176v38h157v-38M192 176v66m0 58v35"/><path d="M484 176v145m104-145v145m104-145v145"/></g>
+<g fill="#fff" stroke="#329c7f" stroke-width="2"><rect x="70" y="122" width="86" height="58" rx="13"/><rect x="149" y="122" width="86" height="58" rx="13"/><rect x="228" y="122" width="86" height="58" rx="13"/><rect x="85" y="243" width="215" height="60" rx="14"/><rect x="442" y="122" width="84" height="58" rx="13"/><rect x="546" y="122" width="84" height="58" rx="13"/><rect x="650" y="122" width="84" height="58" rx="13"/><rect x="442" y="217" width="84" height="59" rx="13"/><rect x="546" y="217" width="84" height="59" rx="13"/><rect x="650" y="217" width="84" height="59" rx="13"/></g>
+<g text-anchor="middle" font-size="21" font-weight="700"><text x="113" y="159">A</text><text x="192" y="159">B</text><text x="271" y="159">C</text><text x="192" y="281" font-size="18">SHARED KEY · ?</text><text x="484" y="159">A</text><text x="588" y="159">B</text><text x="692" y="159">C</text><text x="484" y="253" font-size="16">ID A</text><text x="588" y="253" font-size="16">ID B</text><text x="692" y="253" font-size="16">ID C</text></g>
+<rect x="58" y="335" width="270" height="57" rx="14" fill="#e3e9e6"/><text x="193" y="371" font-size="19" text-anchor="middle" font-weight="700">REVOKE → ALL STOP</text>
+<rect x="443" y="322" width="290" height="70" rx="14" fill="#d5eee5"/><text x="588" y="348" font-size="16" text-anchor="middle">REVOKE B ONLY</text><text x="588" y="378" font-size="23" text-anchor="middle" font-weight="700">A ✓    B ×    C ✓</text></g>
+</svg>

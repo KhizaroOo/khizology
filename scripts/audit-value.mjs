@@ -3,7 +3,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { stripTypeScriptTypes } from 'node:module';
-import { createHash } from 'node:crypto';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const source = fs.readFileSync(path.join(root, 'src/data/valueLaws.ts'), 'utf8');
@@ -44,6 +43,13 @@ assert.equal(activeMonsterRoles.get('artooo'), 'FEEL', 'Artooo must retain the F
 assert.equal(activeMonsterRoles.get('toolooo'), 'USE', 'Toolooo must retain the USE role');
 assert.equal(activeMonsterRoles.get('infooo'), 'UNDERSTAND', 'Infooo must retain the UNDERSTAND role');
 const activeMonsters = monsterRegistry.monsters.filter((monster) => monster.status === 'active');
+assert.deepEqual(activeMonsters.map(monster => monster.id), ['artooo', 'toolooo', 'infooo'], 'Only the three current products may be active');
+const retainedMystery = monsterRegistry.getMonsterById('future-5');
+assert.equal(retainedMystery?.status, 'coming-soon', 'The retained mascot must remain locked');
+assert.equal(retainedMystery?.image, '/images/Monsters/ff-04.png', 'Preserve the original mascot asset');
+assert.equal(retainedMystery?.color, '#E38D7C', 'Preserve the original mascot color');
+assert.ok(fs.existsSync(path.join(root, 'public', retainedMystery.image)), 'The retained mascot must exist');
+assert.equal(new Set(monsterRegistry.monsters.map(monster => monster.id)).size, monsterRegistry.monsters.length, 'All monster IDs must be unique');
 assert.equal(new Set(activeMonsters.map((monster) => monster.id)).size, activeMonsters.length, 'Active monsters must have unique canonical IDs');
 assert.equal(new Set(activeMonsters.map((monster) => monster.route)).size, activeMonsters.length, 'Active monsters must have unique public routes');
 for (const monster of activeMonsters) {
@@ -106,29 +112,19 @@ assert.equal(new Set(infoooRegistry.infoooCategories.map(category => category.id
 for (const world of infoooRegistry.infoooWorlds) {
   assert.ok(infoooRegistry.infoooCategories.some(category => category.id === world.category), `${world.slug}: invalid Infooo category`);
 }
-const { loadNotooo } = await import('./load-notooo.mjs');
-const notoooModule = await loadNotooo(root);
 const llmsText = fs.readFileSync(path.join(root, 'dist/llms.txt'), 'utf8');
 const llmsMetadata = value => value.replace(/\s+/g, ' ').trim().replace(/[\\`*_[\]<>]/g, '\\$&');
-for (const book of notoooModule.notoooBooks) {
-  assert.equal(llmsText.includes(`[${llmsMetadata(`${book.title} — ${book.author}`)}]`), book.status === 'published', `${book.slug}: llms.txt must include only published notes with correct author attribution`);
-  if (book.status !== 'published') {
-    assert.ok(!llmsText.includes(`/notooo/${book.slug}/`) && !llmsText.includes(llmsMetadata(book.shortDescription)), `${book.slug}: draft route or description leaked into llms.txt`);
-  }
-}
 for (const world of infoooRegistry.infoooWorlds) {
   assert.equal(llmsText.includes(`[${llmsMetadata(world.title)}]`), world.status === 'published' && world.visibility === 'public', `${world.slug}: llms.txt must include only public, published Infooo worlds`);
 }
 const manifestSource = manifest
   .replace("import { tools } from './tools';", `const tools = ${JSON.stringify(toolRegistry.tools)};`)
   .replace("import { artworks } from './artworks';", `const artworks = ${JSON.stringify(artworkRegistry.artworks)};`)
-  .replace("import { infoooWorlds, type InfoooWorld } from './infooo';", `const infoooWorlds = ${JSON.stringify(infoooRegistry.infoooWorlds)};`)
-  .replace("import { publishedNotoooBooks } from './notooo';", `const publishedNotoooBooks = ${JSON.stringify(notoooModule.publishedNotoooBooks)};`);
+  .replace("import { infoooWorlds, type InfoooWorld } from './infooo';", `const infoooWorlds = ${JSON.stringify(infoooRegistry.infoooWorlds)};`);
 const manifestModule = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(manifestSource))}`);
 assert.deepEqual(manifestModule.validateCompoundValuePacks(manifestModule.compoundValuePacks, manifestModule.contentManifest), [], 'Compound Value Packs must use canonical IDs, canonical URLs, safe data, and approved publishing');
 assert.deepEqual(manifestModule.validateCompoundValuePacks(manifestModule.reviewCompoundValuePacks, manifestModule.reviewContentManifest), [], 'Review-only Compound Value packs must use canonical IDs, safe data, and review sources');
 assert.equal(new Set(manifestModule.contentManifest.map((item) => manifestModule.compoundValueReferenceKey({ contentType: item.contentType, sourceId: item.id }))).size, manifestModule.contentManifest.length, 'Content manifest sources must have unique canonical references');
-assert.equal(manifestModule.contentManifest.filter((item) => item.contentType === 'notooo').length, notoooModule.publishedNotoooBooks.length, 'Every published Notooo book must have one canonical manifest record');
 assert.deepEqual(new Set(manifestModule.compoundValuePacks.map((pack) => pack.source.contentType)), new Set(['tool', 'artwork', 'infooo_world']), 'Compound Value needs one representative pack for Toolooo, Artooo, and Infooo');
 const compoundError = (packs, message) => assert.ok(manifestModule.validateCompoundValuePacks(packs, manifestModule.contentManifest).some((error) => error.includes(message)), `Compound Value workflow should reject: ${message}`);
 const compoundFixture = structuredClone(manifestModule.compoundValuePacks[0]);
@@ -148,10 +144,9 @@ assert.equal(artCompoundPack.socialDraft.copy, `${artCompoundSource.title}. Orig
 const humanAtlasCompoundPack = manifestModule.compoundValuePacks.find((pack) => pack.source.sourceId === 'world-001');
 assert.match(humanAtlasCompoundPack.socialDraft.copy, /learning and exploration, not medical diagnosis or treatment/i, 'Human Atlas compound copy must retain its educational boundary');
 assert.ok(!JSON.stringify(manifestModule.compoundValuePacks).match(/future-[0-9]|\?\?\?ooo/i), 'Compound Value Packs must not reveal mystery identities');
-assert.ok(manifestModule.compoundValuePacks.every((pack) => pack.notoooCandidate?.status !== 'published'), 'Future Notooo candidates must remain non-public planning data');
 const compoundWorkflowGuide = path.join(root, 'docs/COMPOUND-VALUE-WORKFLOW.md');
 assert.ok(fs.existsSync(compoundWorkflowGuide), 'Compound Value Workflow guide is missing');
-for (const concept of ['CREATE → EXTRACT REAL VALUE → PACKAGE → CONNECT → SHARE → MEASURE → IMPROVE', 'Human approval', 'Future Notooo', 'never visitor data']) {
+for (const concept of ['CREATE → EXTRACT REAL VALUE → PACKAGE → CONNECT → SHARE → MEASURE → IMPROVE', 'Human approval', 'never visitor data']) {
   assert.ok(fs.readFileSync(compoundWorkflowGuide, 'utf8').includes(concept), `Compound Value Workflow guide is missing ${concept}`);
 }
 const buildSmarterSource = fs.readFileSync(path.join(root, 'src/data/buildSmarter.ts'), 'utf8').replace("import type { ContentManifestItem, ContentManifestType } from './contentManifest';", '');
@@ -234,7 +229,7 @@ assert.ok(infooo.includes("status: 'active' as const"), 'Infooo must be active w
 assert.ok(infooo.includes("tagline: 'See it. Touch it. Understand it.'"), 'Infooo identity missing');
 assert.ok(infooo.includes("title: 'Human Atlas'"), 'Human Atlas world is missing');
 assert.ok(infooo.includes("id: 'world-002'"), 'Rubik’s Cube Motion Graph world is missing');
-assert.equal((infooo.match(/status: 'published'/g) || []).length, 6, 'All six implemented Infooo worlds must remain public');
+assert.equal((infooo.match(/status: 'published'/g) || []).length, 14, 'All fourteen implemented Infooo worlds must remain public');
 assert.ok(infooo.includes("id: 'world-003'"), 'App Deployment Journey is missing');
 assert.ok(infooo.includes("status: 'published', visibility: 'public'"), 'World 002 must be public after Khizar’s release approval');
 assert.ok(!/internet-request-journey|What Happens When You Press Enter/.test(infooo), 'Discarded World 002 content remains in the Infooo registry');
@@ -243,247 +238,14 @@ assert.ok(infooo.includes('fact?:') && infooo.includes('model?:') && infooo.incl
 assert.ok(fs.existsSync(path.join(root, 'src/pages/infooo/index.astro')) && fs.existsSync(path.join(root, 'src/pages/infooo/human-atlas.astro')), 'Infooo routes missing');
 for (const discarded of ['src/pages/infooo/internet-request-journey.astro', 'src/components/infooo/InternetRequestWorld.tsx', 'src/data/internetRequestJourney.ts']) assert.ok(!fs.existsSync(path.join(root, discarded)), `Discarded World 002 file remains: ${discarded}`);
 
-assert.deepEqual(notoooModule.notoooCategories, ['Mind', 'Money', 'Nature', 'Life', 'People', 'Society'], 'Notooo V1 must keep its six approved primary categories');
-assert.equal(notoooModule.notoooIdentity.role, 'REMEMBER', 'Notooo must own the REMEMBER role');
-assert.equal(notoooModule.notoooIdentity.tagline, 'One Book. One Page.', 'Notooo must keep its approved primary format');
-assert.equal(notoooModule.notoooIdentity.type, 'Book in One Page', 'Notooo must not expand into unapproved public formats');
-assert.deepEqual(notoooModule.validateNotoooBooks(notoooModule.notoooBooks), [], 'Notooo entries must use valid categories, metadata, sources, and book-only format');
-assert.deepEqual(notoooModule.getNotoooQualityWarnings(notoooModule.notoooBooks), [], 'All Notooo entries must fit the one-page quality budget');
-assert.ok(notoooModule.publishedNotoooBooks.every((book) => book.format === 'book'), 'Published Notooo entries must remain books');
-assert.ok(notoooModule.publishedNotoooBooks.every((book) => book.status === 'published'), 'Only published Notooo entries may reach public routes');
-// Khizar authorized editorial corrections across 001–450 on 2026-10-23.
-// Refresh reviewed snapshots intentionally; keep all preservation checks active.
-const preservedNotes = notoooModule.publishedNotoooBooks.filter(book => book.number <= 7);
-assert.equal(preservedNotes.length, 7, 'Published 001–007 must remain present');
-assert.equal(createHash('sha256').update(JSON.stringify(preservedNotes)).digest('hex'), 'ce9442979ee138b7761f04e2cbfd5d56bde37bffeaed7e1712eaf148c0089e91', 'Reviewed 001–007 baseline must remain intact');
-assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks)).digest('hex'), '2c6bc7c22eb6c8567eb35c3fd93c12f225d3dda09162ddeaf29b46b18585822d', 'Reviewed 001–450 content baseline must remain intact');
-const newNotes = notoooModule.publishedNotoooBooks.filter(book => book.number >= 8);
-const priorBatch = newNotes.filter(book => book.number <= 127);
-const completedCatalog = newNotes.filter(book => book.number >= 128 && book.number <= 240);
-const expansionBatch = newNotes.filter(book => book.number >= 241 && book.number <= 300);
-const latestBatch = newNotes.filter(book => book.number >= 301 && book.number <= 330);
-const currentBatch = newNotes.filter(book => book.number >= 331 && book.number <= 390);
-const newestBatch = newNotes.filter(book => book.number >= 391);
-assert.equal(newestBatch.length, 60, 'Add exactly 60 notes numbered 391–450');
-assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks.filter(book => book.number <= 390))).digest('hex'), '42abb4999b41044c32e8af5c59f4cfbb2e54eed27f795f691491f70e727ab37e', 'Reviewed 001–390 baseline must remain intact');
-assert.equal(currentBatch.length, 60, 'Add exactly 60 notes numbered 331–390');
-assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks.filter(book => book.number <= 330))).digest('hex'), '94a4a88aa99b43b1c59334596e5a7fc964302f1abe1b45ac00678c35071c488d', 'Reviewed 001–330 baseline must remain intact');
-for (const book of [...currentBatch, ...newestBatch]) {
-  const categoryIndex = notoooModule.notoooCategories.indexOf(book.category);
-  const batchStart = book.number <= 390 ? 331 : 391;
-  const batch = book.number <= 390 ? currentBatch : newestBatch;
-  assert.ok(book.number >= batchStart + categoryIndex * 10 && book.number <= batchStart + 9 + categoryIndex * 10, `${book.slug}: preserve category numbering`);
-  assert.equal(batch.filter(item => item.category === book.category).length, 10, `${book.category}: add ten notes per batch`);
-  assert.equal(book.publishedAt, '2026-10-22', `${book.slug}: record actual publication date`);
-  assert.ok(book.sources.every(source => source.accessedAt === '2026-10-22'), `${book.slug}: record actual research access date`);
-  assert.equal(new Set(book.sources.map(source => source.url)).size, book.sources.length, `${book.slug}: distinct research sources`);
-  assert.equal(notoooModule.relatedNotoooBooks(book).length, 3, `${book.slug}: three published continuations`);
-  assert.ok(notoooModule.relatedNotoooBooks(book).every(related => related.category === book.category && related.status === 'published'), `${book.slug}: relevant public continuations only`);
-  if (book.category === 'Money') assert.ok(book.khizoooTake.points.some(point => point.includes('not personalized financial advice')), `${book.slug}: financial boundary`);
-  if (book.category === 'Life') assert.ok(book.khizoooTake.points.some(point => point.includes('not individualized medical')), `${book.slug}: health boundary`);
-}
-assert.equal(latestBatch.length, 30, 'Add exactly 30 notes numbered 301–330');
-assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks.filter(book => book.number <= 300))).digest('hex'), '953ae417e87152558232c10a2d886ad0a2b1b834f00bc179b7f0a76eda8f8758', 'Reviewed 001–300 baseline must remain intact');
-assert.equal(expansionBatch.length, 60, 'Add exactly 60 notes numbered 241–300');
-assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.notoooBooks.filter(book => book.number <= 240))).digest('hex'), '17acda2ffddf5287986d8eb34659388aa59d81dcbdac5783d6791ecbda8f3369', 'Reviewed 001–240 baseline must remain intact');
-assert.equal(priorBatch.length, 120, 'Preserve the approved 008–127 batch');
-assert.equal(createHash('sha256').update(JSON.stringify(notoooModule.publishedNotoooBooks.filter(book => book.number <= 127))).digest('hex'), '42f298e35db82f1b490cccfe0a7bbcfe5555613bd664ac34398e83c29adf7f28', 'Reviewed 001–127 baseline must remain intact');
-assert.equal(completedCatalog.length, 113, 'Complete the remaining 128–240 catalog notes');
-assert.equal(notoooModule.publishedNotoooBooks.length, 450, 'Expected all 450 notes to be release-ready');
-assert.deepEqual(notoooModule.publishedNotoooBooks.map(book => book.number), Array.from({ length: 450 }, (_, i) => i + 1), 'Published numbers and schema order must cover 001–450 without gaps or duplicates');
-assert.equal(notoooModule.notoooBooks.length, 450, 'Preserve all 390 baseline notes alongside the 60 new notes');
-assert.equal(notoooModule.notoooBooks.filter(book => book.status !== 'published').length, 0, 'Khizar approved completing the catalog: no remaining drafts');
-for (const category of notoooModule.notoooCategories) {
-  assert.equal(priorBatch.filter(book => book.category === category).length, 20, `${category}: preserve 20 notes in the prior batch`);
-  assert.equal(notoooModule.publishedNotoooBooks.filter(book => book.category === category).length, 75, `${category}: expected 75 published notes`);
-  assert.equal(notoooModule.notoooBooks.filter(book => book.category === category).length, 75, `${category}: original catalog must remain intact`);
-  assert.equal(expansionBatch.filter(book => book.category === category).length, 10, `${category}: add ten notes`);
-}
-for (const book of latestBatch) {
-  const categoryIndex = notoooModule.notoooCategories.indexOf(book.category);
-  assert.ok(book.number >= 301 + categoryIndex * 5 && book.number <= 305 + categoryIndex * 5, `${book.slug}: preserve latest category numbering blocks`);
-  assert.equal(latestBatch.filter(item => item.category === book.category).length, 5, `${book.category}: add five notes`);
-}
-for (const book of [...expansionBatch, ...latestBatch]) {
-  assert.equal(notoooModule.relatedNotoooBooks(book).length, 3, `${book.slug}: provide three published continuations`);
-  assert.ok(notoooModule.relatedNotoooBooks(book).every(related => related.category === book.category && related.status === 'published'), `${book.slug}: automatic continuations must stay relevant and public`);
-  const categoryIndex = notoooModule.notoooCategories.indexOf(book.category);
-  if (book.number <= 300) assert.ok(book.number >= 241 + categoryIndex * 10 && book.number <= 250 + categoryIndex * 10, `${book.slug}: preserve category numbering blocks`);
-  assert.equal(book.publishedAt, '2026-10-20', `${book.slug}: record the actual note publication date`);
-  assert.ok(book.sources.every(source => source.accessedAt === '2026-10-20'), `${book.slug}: record actual research access date`);
-  assert.equal(new Set(book.sources.map(source => source.url)).size, book.sources.length, `${book.slug}: use distinct research source URLs`);
-  if (book.category === 'Money') assert.ok(book.khizoooTake.points.some(point => point.includes('not personalized financial advice')), `${book.slug}: retain financial boundary`);
-  if (book.category === 'Life') assert.ok(book.khizoooTake.points.some(point => point.includes('not individualized medical')), `${book.slug}: retain health boundary`);
-}
-for (const book of newNotes) {
-  assert.ok(book.sources.length >= 2 && book.sources.some(source => ['publisher', 'author', 'official'].includes(source.type)), `${book.slug}: batch research needs two recorded sources including a primary source`);
-  assert.equal(book.researchConfidence, 'medium', `${book.slug}: source-grounded synthesis must not imply full-book research`);
-  assert.ok(book.sections.length >= 5 && book.sections.length <= 8, `${book.slug}: use five to eight meaningful sections`);
-  assert.equal(book.summaryImage, '', `${book.slug}: do not generate a static preview asset for each book`);
-  assert.equal(book.originalDownload, '', `${book.slug}: reuse the browser-only lazy PNG export`);
-}
-for (const book of completedCatalog) {
-  assert.equal(book.publishedAt, '2026-10-04', `${book.slug}: use the actual local publication date`);
-  assert.equal(book.bookPublicationDate, String(book.publicationYear), `${book.slug}: book edition year must differ from the note publication date`);
-  assert.equal(new Set(book.sources.map(source => source.url)).size, book.sources.length, `${book.slug}: cross-checks must be distinct source URLs`);
-  assert.ok(book.sources.some(source => source.accessedAt === '2026-10-04'), `${book.slug}: record the completed edition cross-check`);
-  assert.ok(!/research draft|pending Khizar review|awaits Khizar/i.test(JSON.stringify(book)), `${book.slug}: unfinished editorial copy must not be published`);
-  if (book.category === 'Money') assert.ok(book.khizoooTake.points.some(point => point.includes('not personalized financial advice')), `${book.slug}: retain the financial-information boundary`);
-  if (book.category === 'Life') assert.ok(book.khizoooTake.points.some(point => point.includes('not individualized medical')), `${book.slug}: retain the health-information boundary`);
-}
-const launchBooks = new Map([
-  ['the-psychology-of-money', 'Money'], ['braiding-sweetgrass', 'Nature'], ['mans-search-for-meaning', 'Life'], ['steve-jobs', 'People'], ['sapiens', 'Society'],
-]);
-for (const [slug, category] of launchBooks) {
-  const book = notoooModule.getNotoooBook(slug);
-  assert.ok(book, `${slug}: launch book must be publicly discoverable`);
-  assert.equal(book.category, category, `${slug}: must use the canonical Notooo category`);
-  assert.equal(book.format, 'book', `${slug}: must remain a Book Note`);
-  assert.equal(book.remember.title, 'One Thing to Keep', `${slug}: must end with One Thing to Keep`);
-  assert.ok(book.sources.length >= 2 && book.researchConfidence === 'high', `${slug}: needs two research sources and high confidence`);
-}
-
-const engineFixture = structuredClone(notoooModule.notoooBooks[0]);
-const engineError = (books, message) => assert.ok(notoooModule.validateNotoooBooks(books).some((error) => error.includes(message)), `Notooo Engine should reject: ${message}`);
-const duplicateSlug = structuredClone(engineFixture); duplicateSlug.id = 'another-book'; duplicateSlug.number = 2;
-engineError([engineFixture, duplicateSlug], 'duplicate slug');
-const duplicateNumber = structuredClone(engineFixture); duplicateNumber.id = 'another-book'; duplicateNumber.slug = 'another-book';
-engineError([engineFixture, duplicateNumber], 'duplicate number');
-const missingSource = structuredClone(engineFixture); missingSource.sources = [];
-engineError([missingSource], 'add at least one research source');
-const brokenSource = structuredClone(engineFixture); brokenSource.sections[0].sourceIds = ['missing-source'];
-engineError([brokenSource], 'broken source ID missing-source');
-const missingOneLiner = structuredClone(engineFixture); missingOneLiner.sections[0].oneLiner = '';
-engineError([missingOneLiner], 'every Engine section needs a title and one-liner');
-delete missingOneLiner.sections[0].oneLiner;
-engineError([missingOneLiner], 'every Engine section needs a title and one-liner');
-const tooManyPoints = structuredClone(engineFixture); tooManyPoints.sections[0].points.push('One point too many.');
-engineError([tooManyPoints], 'at most three supporting points');
-const lowConfidencePublished = structuredClone(engineFixture); lowConfidencePublished.researchConfidence = 'low';
-engineError([lowConfidencePublished], 'published entries cannot use low research confidence');
-for (const [field, value, message] of [
-  ['category', 'Unknown', 'invalid category'],
-  ['author', undefined, 'missing author'],
-  ['publicationYear', NaN, 'invalid publicationYear'],
-  ['bigIdea', undefined, 'missing Big Idea'],
-  ['sections', undefined, 'add at least one dynamic Engine section'],
-  ['khizoooTake', undefined, 'missing Khizooo Take'],
-  ['remember', undefined, 'missing Remember'],
-  ['researchConfidence', 'invented', 'invalid research confidence'],
-  ['status', 'invented', 'invalid content status'],
-]) {
-  const invalid = structuredClone(engineFixture); invalid[field] = value;
-  engineError([invalid], message);
-}
-const draftFixture = structuredClone(engineFixture); draftFixture.status = 'draft';
-assert.equal(notoooModule.getPublishedNotoooBooks([draftFixture]).length, 0, 'Draft Notooo entries must stay out of public routes');
-
-const notoooGuide = path.join(root, 'docs/NOTOOO.md');
-assert.ok(fs.existsSync(notoooGuide), 'Notooo concept guide is missing');
-for (const concept of ['One Book. One Page.', 'Big knowledge. Small space. Simple words.', 'Discover → Understand → Download → Print → Keep', 'Clarity → Compression → Understanding → Memory']) {
-  assert.ok(fs.readFileSync(notoooGuide, 'utf8').includes(concept), `Notooo concept guide is missing ${concept}`);
-}
-const engineGuide = path.join(root, 'docs/NOTOOO_ENGINE.md');
-assert.ok(fs.existsSync(engineGuide), 'Notooo Engine guide is missing');
-for (const concept of ['Pipeline', 'Source priority and truth rules', 'Knowledge map', 'Scoring and page gates', 'JSON exchange shape', 'Research prompt', 'Author workflow']) {
-  assert.ok(fs.readFileSync(engineGuide, 'utf8').includes(concept), `Notooo Engine guide is missing ${concept}`);
-}
-
 const dist = path.join(root, 'dist');
-const pages = fs.readdirSync(dist, { recursive: true }).filter(file => String(file).endsWith('.html'));
+const generatedFiles = fs.readdirSync(dist, { recursive: true }).map(String);
+const pages = generatedFiles.filter(file => file.endsWith('.html'));
 const html = pages.map(file => fs.readFileSync(path.join(dist, file), 'utf8')).join('\n');
-const notoooSitemap = fs.readFileSync(path.join(dist, 'sitemap-0.xml'), 'utf8');
-const catalogSource = fs.readFileSync(path.join(root, 'src/utils/notoooCatalog.ts'), 'utf8');
-const { normalizeNotoooSearch, matchesNotoooCatalogItem } = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(catalogSource))}`);
-const catalogMetadata = notoooModule.notoooBooks.map(book => ({
-  search: normalizeNotoooSearch([book.title, book.author, book.category, ...book.tags].join(' ')),
-  category: book.category, status: book.status === 'published' ? 'published' : 'coming',
-}));
-const matching = (query = '', category = 'All', status = 'all') => catalogMetadata.filter(item => matchesNotoooCatalogItem(item, query, category, status));
-assert.equal(matching().length, notoooModule.notoooBooks.length, 'Default catalog must include every record');
-for (const category of notoooModule.notoooCategories) assert.equal(matching('', category).length, notoooModule.notoooBooks.filter(book => book.category === category).length, `${category}: category filter count`);
-assert.equal(matching('', 'All', 'published').length, notoooModule.publishedNotoooBooks.length, 'Published filter must use the lifecycle');
-assert.equal(matching('', 'All', 'coming').length, notoooModule.notoooBooks.length - notoooModule.publishedNotoooBooks.length, 'Coming filter must include non-public records');
-assert.equal(matching('  ATOMIC   Habits  ', 'Mind', 'published').length, 1, 'Title search must handle case, spaces, category and status together');
-assert.equal(matching('James Clear').length, 1, 'Author search must work');
-assert.equal(matching('atomic', 'Money').length, 0, 'Search must respect category');
-assert.equal(matching('atomic', 'Mind', 'coming').length, 0, 'Search must respect status');
-assert.equal(matching('The Power of Habit', 'Mind', 'coming').length, 0, 'A completed note must no longer appear as Coming');
-assert.equal(matching('The Power of Habit', 'Mind', 'published').length, 1, 'A completed note must be searchable as Published');
-assert.equal(matching('notooo-no-matching-book').length, 0, 'Search must support an empty result');
-assert.equal(normalizeNotoooSearch('Rönnlund'), 'ronnlund', 'Search must support accented names');
-const hubHtml = fs.readFileSync(path.join(dist, 'notooo/index.html'), 'utf8');
-const catalogItems = [...hubHtml.matchAll(/<li\b[^>]*\bdata-notooo-book\b[\s\S]*?<\/article>\s*<\/li>/g)].map(match => match[0]);
-assert.equal(catalogItems.length, notoooModule.notoooBooks.length, 'Build must statically render the full catalog');
-for (const item of catalogItems) {
-  const row = item.match(/<(?:a|div)\b[^>]*class="book-content"[^>]*>([\s\S]*?)<\/(?:a|div)>/)?.[1];
-  const coming = item.includes('data-status="coming"');
-  const statusLabel = coming ? '<span\\b[^>]*class="book-coming"[^>]*>Coming<\\/span>\\s*' : '';
-  assert.match(row || '', new RegExp(`^\\s*<h3\\b[^>]*>[\\s\\S]*?<\\/h3>\\s*<p\\b[^>]*class="book-author"[^>]*>[\\s\\S]*?<\\/p>\\s*${statusLabel}$`), 'Listing rows must show title, writer and a visible Coming label only for non-public notes');
-  if (coming) assert.ok(!/<(?:a|button)\b|\b(?:href|tabindex|role|on\w+)\s*=/i.test(item), 'Coming rows must not expose links, focus stops or fake interactive semantics');
+assert.ok(!fs.existsSync(path.join(dist, 'notooo')), 'Retired book routes must not be generated');
+for (const file of generatedFiles.filter(file => /\.(?:html|xml|txt|js|json|css|webmanifest)$/.test(file))) {
+  assert.ok(!/notooo|One Book\. One Page\.|Knowledge Notes|Book in One Page/i.test(fs.readFileSync(path.join(dist, file), 'utf8')), `${file}: retired product identity or discovery data must not ship`);
 }
-assert.equal(pages.filter(file => /^notooo[\\/]([^\\/]+)[\\/]index\.html$/.test(String(file))).length, 450, 'Generate exactly the 450 published Notooo detail routes');
-const escapeCatalogHtml = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
-const readSchema = output => [...output.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap(match => JSON.parse(match[1]));
-const hubCollection = readSchema(hubHtml).find(schema => schema['@type'] === 'CollectionPage');
-assert.equal(readSchema(hubHtml).find(schema => schema['@type'] === 'BreadcrumbList')?.itemListElement.length, 2, 'Hub schema must match Home → Notooo breadcrumbs');
-assert.equal(hubCollection?.mainEntity?.['@type'], 'ItemList', 'Notooo hub needs a published-note ItemList');
-assert.equal(hubCollection.mainEntity.numberOfItems, notoooModule.publishedNotoooBooks.length, 'Schema count must mean published, not inventory');
-const sitemapUrls = [...notoooSitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
-const hubCanonical = hubHtml.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
-assert.equal(sitemapUrls.filter(value => value === hubCanonical).length, 1, 'Notooo hub must appear exactly once in the sitemap');
-assert.deepEqual(hubCollection.mainEntity.itemListElement.map(item => item.url), notoooModule.publishedNotoooBooks.map(book => `${hubCanonical}${book.slug}/`), 'ItemList must contain only real published canonical URLs');
-assert.equal(sitemapUrls.filter(value => value.startsWith(hubCanonical)).length, notoooModule.publishedNotoooBooks.length + 1, 'No category, filter, search or draft routes may enter the Notooo sitemap');
-assert.equal(sitemapUrls.filter(value => value.startsWith(hubCanonical)).length, 451, 'Expected the Notooo hub and all 450 published notes in the sitemap');
-const publicJs = fs.readdirSync(dist, { recursive: true }).filter(file => String(file).endsWith('.js')).map(file => fs.readFileSync(path.join(dist, file), 'utf8')).join('\n');
-const bodyFields = book => [book.bigIdea, ...book.sections, book.khizoooTake, book.remember].flatMap(section => [section.oneLiner, ...section.points]);
-const publishedBody = new Set(notoooModule.publishedNotoooBooks.flatMap(bodyFields));
-const notoooTitles = new Set();
-for (const book of notoooModule.notoooBooks) {
-  const search = escapeCatalogHtml(normalizeNotoooSearch([book.title, book.author, book.category, ...book.tags].join(' ')));
-  const items = catalogItems.filter(item => item.includes(`data-search="${search}"`));
-  assert.equal(items.length, 1, `${book.slug}: one catalog item with metadata-only search`);
-  assert.ok(items[0].includes(`data-category="${book.category}"`), `${book.slug}: canonical category must be rendered`);
-  const title = book.seoTitle || `${book.title} in One Page | Notooo`;
-  const fullTitle = title.includes('Khizooology') ? title : `${title} — Khizooology`;
-  assert.ok(title.trim() && fullTitle.length < 70, `${book.slug}: prepare a unique title under 70 characters before release`);
-  assert.ok(!notoooTitles.has(fullTitle), `${book.slug}: duplicate Notooo SEO title`);
-  notoooTitles.add(fullTitle);
-  if (book.status === 'published') {
-    assert.ok(items[0].includes('data-status="published"') && items[0].includes(`href="${new URL(hubCanonical).pathname}${book.slug}/"`), `${book.slug}: published row must be a normal full-row link to its canonical route`);
-    assert.ok(fs.existsSync(path.join(dist, 'notooo', book.slug, 'index.html')), `${book.slug}: published listing href must resolve to generated HTML`);
-    continue;
-  }
-  assert.equal(notoooModule.getNotoooBook(book.slug), undefined, `${book.slug}: non-public note must not resolve through the public lookup`);
-  assert.ok(!manifestModule.contentManifest.some(item => item.contentType === 'notooo' && item.slug === book.slug), `${book.slug}: non-public note leaked into the content manifest`);
-  assert.ok(!fs.existsSync(path.join(dist, 'notooo', book.slug, 'index.html')), `${book.slug}: non-public note route was generated`);
-  assert.ok(!html.includes(`/notooo/${book.slug}/`) && !html.includes(`/notooo/${book.slug}\"`), `${book.slug}: non-public note leaked into public discovery`);
-  assert.ok(!notoooSitemap.includes(`/notooo/${book.slug}/`), `${book.slug}: non-public note leaked into the sitemap`);
-  assert.ok(!/<a\b/.test(items[0]) && items[0].includes('Coming'), `${book.slug}: Coming item must not look like a broken link`);
-  for (const text of [...bodyFields(book), book.whyItMatters, book.aboutThisNotooo, book.subtitle, book.shortDescription]) {
-    if (publishedBody.has(text)) continue; // A shared phrase already approved for a published note is not a draft leak.
-    assert.ok(!html.includes(text) && !html.includes(escapeCatalogHtml(text)) && !publicJs.includes(JSON.stringify(text).slice(1, -1)), `${book.slug}: private draft content shipped publicly`);
-  }
-}
-for (const book of notoooModule.publishedNotoooBooks) {
-  assert.ok(notoooModule.relatedNotoooBooks(book).length, `${book.slug}: provide a useful published continuation`);
-  assert.ok(notoooModule.relatedNotoooBooks(book).every(related => related.status === 'published'), `${book.slug}: related notes must respect public status`);
-  const noteHtml = fs.readFileSync(path.join(dist, 'notooo', book.slug, 'index.html'), 'utf8');
-  for (const related of notoooModule.relatedNotoooBooks(book)) assert.ok(noteHtml.includes(`/notooo/${related.slug}/"`), `${book.slug}: canonical related note link missing`);
-  const canonical = noteHtml.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
-  assert.equal(sitemapUrls.filter(value => value === canonical).length, 1, `${book.slug}: published sitemap entry must appear once`);
-  assert.ok(hubHtml.includes(`href="${new URL(canonical).pathname}"`), `${book.slug}: published note must have a normal discovery link`);
-  const work = readSchema(noteHtml).find(schema => schema['@type'] === 'CreativeWork');
-  assert.equal(readSchema(noteHtml).find(schema => schema['@type'] === 'BreadcrumbList')?.itemListElement.length, 3, `${book.slug}: schema must match Home → Notooo → Book breadcrumbs`);
-  assert.equal(work?.about?.['@type'], 'Book', `${book.slug}: synthesis must identify its source book`);
-  assert.equal(work.about.author.name, book.author, `${book.slug}: book author must remain separate from editorial author`);
-  assert.equal(work.author['@id'], `${new URL(canonical).origin}${new URL(canonical).pathname.split('/notooo/')[0]}/my-portfolio/#person`, `${book.slug}: editorial author must use the canonical site person`);
-  assert.equal(work.datePublished, book.publishedAt, `${book.slug}: truthful page publication date`);
-  assert.equal(work.dateModified, book.updatedAt, `${book.slug}: no invented modification date`);
-  const levels = [...noteHtml.matchAll(/<h([1-6])\b/g)].map(match => Number(match[1]));
-  levels.forEach((level, index) => assert.ok(!index || level <= levels[index - 1] + 1, `${book.slug}: heading hierarchy must not skip levels`));
-}
-console.log(`Notooo catalog audit passed: ${catalogItems.length} metadata items, ${notoooModule.publishedNotoooBooks.length} published routes, working combined filters, and 0 private draft bodies/routes/sitemap entries.`);
 const toolPages = pages.filter(file => /toolbox[\\/]([^\\/]+)[\\/]index\.html$/.test(String(file)));
 assert.equal(toolPages.length, toolRegistry.tools.length, 'Expected one generated page per registered tool');
 for (const file of toolPages) {
@@ -525,14 +287,6 @@ for (const label of ['Result', 'Why it matters', 'Action']) assert.ok(insightSou
 const knowledgeGuide = path.join(root, 'docs/TOOLOOO-KNOWLEDGE.md');
 assert.ok(fs.existsSync(knowledgeGuide), 'Toolooo knowledge guide is missing');
 for (const concept of ['**What**', '**Why**', '**Result**', '**Action**', '**Next**']) assert.ok(fs.readFileSync(knowledgeGuide, 'utf8').includes(concept), `Toolooo knowledge guide is missing ${concept}`);
-assert.ok(html.includes('One Book. One Page.') && html.includes('Notooo is not a replacement for reading the original book.'), 'Published Notooo identity and disclosure are missing');
-for (const slug of launchBooks.keys()) {
-  const file = path.join(dist, 'notooo', slug, 'index.html');
-  assert.ok(fs.existsSync(file), `${slug}: public note route is missing`);
-  const noteHtml = fs.readFileSync(file, 'utf8');
-  assert.equal((noteHtml.match(/<h1(?:\s|>)/g) || []).length, 1, `${slug}: note must have exactly one H1`);
-  assert.match(noteHtml, /One Thing to Keep/, `${slug}: note must expose its final takeaway`);
-}
 assert.ok(html.includes('Human Atlas') && html.includes('See it. Touch it. Understand it.'), 'Published Infooo identity is missing');
 assert.ok(!/What Happens When You Press Enter|internet-request-journey|Cache hit vs cache miss/.test(html), 'Discarded World 002 content remains in the build');
 assert.ok(fs.existsSync(path.join(dist, 'infooo', 'rubiks-cube-motion-graph', 'index.html')), 'World 002 public route is missing');

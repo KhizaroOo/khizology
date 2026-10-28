@@ -210,7 +210,7 @@ Prefer semantic HTML over unnecessary ARIA.
 SEO is a **completion requirement**, not an optional enhancement.
 
 Whenever creating or materially changing public Toolooo tools, Artooo artworks/pages,
-Infooo worlds/pages, Notooo notes/content, landing pages, category/listing pages,
+Infooo worlds/pages, landing pages, category/listing pages,
 or other indexable content, automatically inspect and implement all relevant SEO
 requirements without waiting for a separate request.
 

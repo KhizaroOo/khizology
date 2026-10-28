@@ -11,7 +11,7 @@ export type ValueDecision = 'REJECT' | 'REWORK' | 'PROTOTYPE' | 'STRONG' | 'FLAG
 
 export interface IdeaEvaluation {
   name: string;
-  monster: 'artooo' | 'toolooo' | 'infooo' | 'notooo';
+  monster: 'artooo' | 'toolooo' | 'infooo';
   problem: string;
   audience: string;
   existingSolution: string;

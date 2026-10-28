@@ -95,7 +95,7 @@ function toolMetadata() {
 }
 function sourceMetadata() {
   const path = new URL(pageMetadata().page_location).pathname.split('/').filter(Boolean);
-  const module = ({ toolbox: 'toolooo', artworks: 'artooo', infooo: 'infooo', notooo: 'notooo' } as Record<string, string>)[path[0]] || 'site';
+  const module = ({ toolbox: 'toolooo', artworks: 'artooo', infooo: 'infooo' } as Record<string, string>)[path[0]] || 'site';
   return { source_slug: path.at(-1) || 'home', source_module: module };
 }
 export function trackToolStart() {
@@ -158,6 +158,11 @@ export function trackInfoooGuideStart(world_slug: string, guide_id: string) { if
 export function trackInfoooGuideComplete(world_slug: string, guide_id: string) { if (validInfoooMetadata({ world_slug, guide_id })) emit('infooo_guide_complete', { world_slug, guide_id }); }
 export function trackInfoooShare(world_slug: string) { if (validInfoooMetadata({ world_slug })) emit('infooo_share', { world_slug }); }
 
+export function trackInfoooCollection(action: 'start' | 'world', collection_slug: string, destination_slug: string) {
+  if (!['start', 'world'].includes(action) || !/^[a-z0-9-]+$/.test(collection_slug) || !/^[a-z0-9-]+$/.test(destination_slug)) return;
+  emit(action === 'start' ? 'infooo_collection_start' : 'infooo_collection_world_open', { ...sourceMetadata(), collection_slug, destination_slug });
+}
+
 export function initializeAnalytics() {
   loadAnalytics();
   if (listenersAttached) return;
@@ -177,11 +182,22 @@ export function initializeAnalytics() {
     const target = new URL(link.href);
     const channel = target.protocol === 'mailto:' ? 'email' : channels[target.hostname.replace(/^www\./, '')];
     if (['email', 'whatsapp'].includes(channel) || (channel === 'linkedin' && (link.closest('.dav-connect') || sourceMetadata().source_slug === 'my-portfolio')) || (target.origin === new URL(window.location.href).origin && target.pathname.replace(/\/$/, '') === '/drop-a-vibe')) {
-      emit('contact_click', { ...sourceMetadata(), contact_type: channel || 'contact_page' });
+      const collection = link.dataset.infoooCollection;
+      emit('contact_click', { ...sourceMetadata(), contact_type: channel || 'contact_page', ...(link.dataset.collectionAction === 'consulting' && collection && /^[a-z0-9-]+$/.test(collection) ? { collection_slug: collection } : {}) });
     }
   });
   document.addEventListener('click', (event) => {
     if (!event.isTrusted || !(event.target instanceof Element)) return;
+    const collectionLink = event.target.closest<HTMLAnchorElement>('a[data-infooo-collection][data-collection-action]');
+    if (collectionLink) {
+      const action = collectionLink.dataset.collectionAction;
+      const target = new URL(collectionLink.href);
+      const segments = target.pathname.split('/').filter(Boolean);
+      if ((action === 'start' || action === 'world') && target.origin === new URL(window.location.href).origin && !target.search && !target.hash && segments.at(-2) === 'infooo') {
+        trackInfoooCollection(action, collectionLink.dataset.infoooCollection || '', segments.at(-1) || '');
+      }
+      return;
+    }
     const link = event.target.closest<HTMLElement>('[data-related-content]');
     const monster = link?.dataset.relatedMonster;
     const contentType = link?.dataset.relatedContentType;
@@ -196,7 +212,7 @@ export function initializeAnalytics() {
     if (!anchor) return;
     const target = new URL(anchor.href);
     if (target.origin !== new URL(window.location.href).origin) return;
-    const destination = ({ toolbox: 'toolooo', artworks: 'artooo', infooo: 'infooo', notooo: 'notooo' } as Record<string, string>)[target.pathname.split('/').filter(Boolean)[0]];
+    const destination = ({ toolbox: 'toolooo', artworks: 'artooo', infooo: 'infooo' } as Record<string, string>)[target.pathname.split('/').filter(Boolean)[0]];
     const source = sourceMetadata();
     if (destination && destination !== source.source_module) emit('module_discovery', { ...source, destination_module: destination });
   });

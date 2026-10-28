@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420" role="img" aria-label="Same task, focused current context versus stale noisy context, same agent, contrasting modeled pass and fail outcomes">
+<defs><pattern id="noise" width="9" height="9" patternUnits="userSpaceOnUse"><path d="m0 9 9-9" stroke="#83938e" stroke-width="2"/></pattern><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="m1 1 5 3-5 3" fill="none" stroke="#24745e" stroke-width="2"/></marker></defs>
+<rect width="720" height="420" rx="24" fill="#edf8f3"/>
+<g fill="#26343b" font-family="Arial,sans-serif" text-anchor="middle">
+<rect x="162" y="20" width="396" height="50" rx="14" fill="#fff" stroke="#b8d7ca" stroke-width="2"/><text x="360" y="51" font-size="20" font-weight="700">SAME CHECKOUT TASK</text>
+<path d="M360 73v14H186v17m174-17h174v17" fill="none" stroke="#24745e" stroke-width="3"/>
+<text x="186" y="111" font-size="17" font-weight="700">FOCUSED / CURRENT</text><text x="534" y="111" font-size="17" font-weight="700">STALE / INCOMPLETE</text>
+<g stroke="#24745e" stroke-width="2" fill="#a7f3d0"><rect x="91" y="128" width="58" height="26" rx="5"/><rect x="157" y="128" width="58" height="26" rx="5"/><rect x="223" y="128" width="58" height="26" rx="5"/></g>
+<text x="120" y="146" font-size="11">RULE</text><text x="186" y="146" font-size="11">v2 FILE</text><text x="252" y="146" font-size="11">TEST</text>
+<g stroke="#83938e" stroke-width="2"><rect x="439" y="128" width="58" height="26" rx="5" fill="url(#noise)"/><rect x="505" y="128" width="58" height="26" rx="5" fill="#fff"/><rect x="571" y="128" width="58" height="26" rx="5" fill="url(#noise)"/></g><text x="534" y="146" font-size="11">OLD v1</text>
+<path d="M78 168h216l-78 72v16h-60v-16z" fill="#fff" stroke="#5ccfaf" stroke-width="3"/><path d="M426 168h216l-78 72v16h-60v-16z" fill="#fff" stroke="#83938e" stroke-width="3" stroke-dasharray="6 4"/>
+<text x="186" y="198" font-size="16" font-weight="700">CONTEXT</text><text x="534" y="198" font-size="16" font-weight="700">CONTEXT</text>
+<path d="M186 259v16m348-16v16" stroke="#24745e" stroke-width="3" marker-end="url(#a)"/>
+<g stroke="#26343b" stroke-width="2" fill="#a7f3d0"><rect x="157" y="287" width="58" height="43" rx="12"/><rect x="505" y="287" width="58" height="43" rx="12"/></g><circle cx="175" cy="303" r="4"/><circle cx="197" cy="303" r="4"/><circle cx="523" cy="303" r="4"/><circle cx="545" cy="303" r="4"/><path d="M175 317h22m326 0h22" stroke="#26343b" stroke-width="2"/>
+<text x="360" y="312" font-size="17" font-weight="700">SAME AGENT</text>
+<rect x="91" y="350" width="190" height="45" rx="12" fill="#a7f3d0" stroke="#24745e" stroke-width="2"/><text x="186" y="379" font-size="20" font-weight="700">✓ SHARED FIX</text><rect x="439" y="350" width="190" height="45" rx="12" fill="#fff" stroke="#26343b" stroke-width="2"/><text x="534" y="379" font-size="20" font-weight="700">✕ WRONG PATH</text></g></svg>

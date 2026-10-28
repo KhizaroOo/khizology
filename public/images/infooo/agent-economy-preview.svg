@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360" viewBox="0 0 600 360" fill="none">
+  <rect width="600" height="360" rx="24" fill="#eaf8f3"/>
+  <path d="M50 304H552" stroke="#c3e7d9" stroke-width="2"/>
+  <g stroke="#258668" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M108 180H166M240 180H291M370 180H414V94H456M414 180H456M414 180V266H456"/>
+    <path d="m449 87 8 7-8 7m0 72 8 7-8 7m0 72 8 7-8 7"/>
+  </g>
+  <circle cx="75" cy="143" r="18" fill="#fff" stroke="#29423d" stroke-width="3"/>
+  <path d="M44 198V186A31 31 0 0 1 106 186V198" fill="#fff" stroke="#29423d" stroke-width="3"/>
+  <g stroke="#28654f" stroke-width="3" stroke-linejoin="round"><path d="m204 131 38 24v49l-38 24-38-24v-49z" fill="#9ce2c9"/><path d="m204 131 0 48 38-24m-38 24-38-24m38 24v49"/><path d="m188 185 12 11 24-26" stroke="#fff" stroke-width="5"/></g>
+  <rect x="165" y="65" width="78" height="36" rx="12" fill="#fff" stroke="#80bca6" stroke-width="2"/>
+  <text x="204" y="90" text-anchor="middle" fill="#29423d" font-family="Arial,sans-serif" font-size="22" font-weight="700">$20</text>
+  <path d="M292 127 331 111 370 127V188Q370 216 331 234 292 216 292 188Z" fill="#fff" stroke="#28654f" stroke-width="3"/>
+  <path d="m312 170 14 14 27-31" stroke="#258668" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#fff" stroke="#5e9f86" stroke-width="2"><rect x="458" y="62" width="76" height="64" rx="14"/><rect x="458" y="148" width="76" height="64" rx="14"/><rect x="458" y="234" width="76" height="64" rx="14"/></g>
+  <g stroke="#29423d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="491" cy="89" r="12"/><path d="m500 99 11 12"/><rect x="477" y="165" width="36" height="29" rx="3"/><path d="m481 189 10-11 8 7 6-5 8 9"/><path d="m484 251-9 15 9 15m24-30 9 15-9 15m-9-30-7 30"/></g>
+  <g fill="#29423d" font-family="Arial,sans-serif" font-size="17" font-weight="700" text-anchor="middle"><text x="75" y="259">Human</text><text x="204" y="259">Agent</text><text x="331" y="259">Trust gate</text></g>
+  <text x="300" y="336" text-anchor="middle" fill="#28654f" font-family="Arial,sans-serif" font-size="18">One goal. Three services. Bounded authority.</text>
+</svg>

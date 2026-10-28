@@ -28,7 +28,6 @@ The primary creation remains the source of truth. Derived material may use canon
 - a **visual** share idea;
 - a short **demo** plan: hook, action, reveal, takeaway;
 - meaningful **connection** references; and
-- an internal **Notooo candidate** for a future note.
 
 The lifecycle is `idea`, `draft`, `ready`, `published`, or `skipped`. `skipped` is a correct outcome when no useful derivative exists. A social draft cannot validate as published without human approval. There are no social APIs, OAuth credentials, background jobs, n8n execution, CMS, server, database, runtime AI, or UTM system in this workflow.
 
@@ -50,16 +49,12 @@ Use creator-authored story, process, medium, or date only when it exists in the 
 
 Keep facts, models, simulations, sources, limitations, and educational boundaries intact. Human Atlas material remains for learning and exploration, never diagnosis or treatment. An Infooo draft may describe a real relationship or exploration path, but it cannot overstate a model or introduce medical advice.
 
-### Future Notooo — REMEMBER
-
-Packs can hold an internal candidate for a later Notooo note when a real build lesson, knowledge insight, mental model, or creator-authored process lesson deserves deeper treatment. A candidate is not a Notooo record, route, or public promise. The Notooo Engine and its source/research gates still apply before any note is created.
-
 ## Truth, privacy, and identity rules
 
 - Reference canonical records by `contentType` and canonical `sourceId`; related references must resolve too.
 - Keep public canonical links clean. Do not create phantom SEO pages or add planning data to sitemaps.
 - Source all pack fields from public artifact definitions or approved authored material, never visitor data, analytics identifiers, raw tool inputs, uploaded files, JWTs, API payloads, favorites, or browser storage.
-- Reuse the canonical Monster Voice system as a light filter: Artooo FEEL, Toolooo USE / DO, Infooo UNDERSTAND, and Notooo REMEMBER. Clarity wins, and mystery identities stay hidden.
+- Reuse the canonical Monster Voice system as a light filter: Artooo FEEL, Toolooo USE / DO, Infooo UNDERSTAND. Clarity wins, and mystery identities stay hidden.
 - Draft planning data stays in build-time data only. It is not imported by public routes, shipped to the browser, or exposed through a network request.
 
 ## Review and validation

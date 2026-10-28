@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import BrowserAgentLab from '../../components/infooo/browser-security/BrowserAgentLab';
+import { infoooWorlds, infoooIdentity } from '../../data/infooo';
+import { absoluteUrl, breadcrumbSchema } from '../../utils/seo';
+import { url } from '../../utils/url';
+const world = infoooWorlds.find(w => w.id === 'world-010')!;
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const canonical = absoluteUrl(`/infooo/${world.slug}`, context);
+const related = infoooWorlds.filter(w => world.relatedWorlds?.includes(w.id) && w.status === 'published' && w.visibility === 'public');
+---
+<BaseLayout title="Browser Agent Under Attack — Prompt Injection | Khizooology" description={world.description} canonical={canonical} accentColor={infoooIdentity.color} accentColorLight={infoooIdentity.colorLight} ogImage={world.hero!.asset} ogImageAlt={world.preview!.alt} socialTitle={world.title} socialDescription={world.description} jsonLd={[{ '@context': 'https://schema.org', '@type': 'WebApplication', name: world.title, description: world.description, url: canonical, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', isAccessibleForFree: true }, breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Infooo', path: '/infooo' }, { name: world.title, path: `/infooo/${world.slug}` }], context)]}>
+  <div class="k-container ba-breadcrumb"><Breadcrumb crumbs={[{ label: 'Infooo', href: url('/infooo') }, { label: world.title }]} accentColor={infoooIdentity.color}/></div>
+  <BrowserAgentLab client:load world={world}>
+    <section class="ba-static">
+      <h2>Web content provides information. It does not grant authority.</h2>
+      <p>Run a fictional hotel booking, then introduce indirect prompt injection through a page, hidden content, image, cross-site request, sensitive-data request or manipulated purchase. Change the architecture while keeping the same simulated model, goal and malicious page.</p>
+      <p>Least privilege limits available tools. Minimum context limits exposed information. Intent binding and destination checks constrain proposed actions. Meaningful approval shows the exact action, recipient and amount. A trusted domain can still carry untrusted ads or comments; an audit trail records behavior but does not prevent damage.</p>
+      <p>This is an educational security model, not a browser-agent security test. All websites, hotel data, instructions, messages, files, payments and effects are fictional and deterministic. No real browsing, API, upload or private-data collection occurs. Detection and model robustness continue to improve; these simplified controls do not guarantee safety.</p>
+      <nav aria-label="Related knowledge worlds">{related.map(w => <a href={url(`/infooo/${w.slug}`)}>{w.title} →</a>)}<a href={url('/infooo')}>Explore all Infooo worlds →</a></nav>
+    </section>
+  </BrowserAgentLab>
+</BaseLayout>
+<style>
+  .ba-breadcrumb { padding-block: .5rem .25rem; }
+  .ba-static { padding-block: .5rem 1rem; }
+  .ba-static h2 { font: 800 1.1rem Poppins, sans-serif; }
+  .ba-static p { max-width: 85ch; line-height: 1.8; color: var(--k-text-muted); font-size: .85rem; }
+  .ba-static nav { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .ba-static a { color: var(--k-text); text-underline-offset: 4px; }
+</style>

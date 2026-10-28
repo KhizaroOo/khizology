@@ -17,7 +17,7 @@ Inspected canonical Toolooo metadata, retry implementation/model interface, shar
 
 Production checked 17 candidate URLs: all HTTP 200, self-canonical, with OG title/description/image and Twitter card; no missing image-alt attributes in retrieved HTML. This establishes static sharing readiness, not a new full usability, clinical-accuracy or performance certification. Generic shared social artwork is acceptable for discovery but does not replace a clear product screenshot.
 
-**First individual pitch: Retry Storm Simulator.** Its public, bounded example communicates a reliability mechanism without requiring sensitive data. API Payload Doctor is strong but requires careful demo inputs; Human Atlas is visually distinctive but needs stronger educational-limit context and a checked demonstration on the intended device. Artooo deserves visual channels; Notooo's interpretations need attribution and should not be pitched as replacements for books. Portfolio is a maker-credibility endpoint, not the first technical community pitch.
+**First individual pitch: Retry Storm Simulator.** Its public, bounded example communicates a reliability mechanism without requiring sensitive data. API Payload Doctor is strong but requires careful demo inputs; Human Atlas is visually distinctive but needs stronger educational-limit context and a checked demonstration on the intended device. Artooo deserves visual channels. Portfolio is a maker-credibility endpoint, not the first technical community pitch.
 
 No site change is justified by this inspection. README contained retired infographics/freebies routes, stale product counts and obsolete development instructions; it has been refreshed. Suggested screenshots are production-capture tasks, not claims that a final public gallery already exists. Existing ignored QA screenshots are evidence, not automatically licensed/public submission assets.
 
@@ -316,20 +316,6 @@ The following is a dated research snapshot of production, not another runtime me
 - **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: One owned artwork at useful resolution. Final gallery not prepared.
 - **Trust/context needed:** Confirm artwork title/rights and link to actual detail canonical.
 - **Priority:** A; promote a focused example after capture.
-
-### 16. Notooo — One Book, One Page — Khizooology — B
-
-- **Audience:** Book readers/learners.
-- **Problem solved:** Find concise sourced book notes.
-- **Why distinctive:** Structured original explanations across six territories.
-- **Link/share worthiness:** Useful reading companion; not a book substitute or generic launch bait.
-- **Best channels:** Reading discussions and relevant original articles.
-- **Landing canonical:** https://khizooology.com/notooo/
-- **Current title:** Notooo — One Book, One Page — Khizooology
-- **Current description:** Discover 450 one-page book notes across Mind, Money, Nature, Life, People and Society. Search by title, author or topic and find your next read.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: A note with its source/limitation context. Final gallery not prepared.
-- **Trust/context needed:** Respect author interpretation, copyright and health/finance boundaries.
-- **Priority:** B; prepare context/demo before broader promotion.
 
 ### 17. Khizar Imtiaz — Engineer & Artist | Khizooology — B
 

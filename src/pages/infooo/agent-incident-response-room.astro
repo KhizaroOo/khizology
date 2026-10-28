@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import AgentIncidentRoom from '../../components/infooo/incident-room/AgentIncidentRoom';
+import { infoooWorlds, infoooIdentity } from '../../data/infooo';
+import { absoluteUrl, breadcrumbSchema } from '../../utils/seo';
+import { url } from '../../utils/url';
+const world = infoooWorlds.find(w => w.id === 'world-014')!;
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const canonical = absoluteUrl(`/infooo/${world.slug}`, context);
+const related = infoooWorlds.filter(w => world.relatedWorlds?.includes(w.id) && w.status === 'published' && w.visibility === 'public');
+---
+<BaseLayout title="Agent Incident Response Room — Investigate | Khizooology" description={world.description} canonical={canonical} accentColor={infoooIdentity.color} accentColorLight={infoooIdentity.colorLight} ogImage={world.hero!.asset} ogImageAlt={world.preview!.alt} socialTitle={world.title} socialDescription={world.description} jsonLd={[{ '@context': 'https://schema.org', '@type': 'WebApplication', name: world.title, description: world.description, url: canonical, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', isAccessibleForFree: true }, breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Infooo', path: '/infooo' }, { name: world.title, path: `/infooo/${world.slug}` }], context)]}>
+  <div class="k-container ir-breadcrumb"><Breadcrumb crumbs={[{ label: 'Infooo', href: url('/infooo') }, { label: world.title }]} accentColor={infoooIdentity.color}/></div>
+  <AgentIncidentRoom client:load world={world}>
+    <section class="ir-static">
+      <h2>The final answer is a claim. Reconstruct the incident.</h2>
+      <p>Investigate a fictional Release Assistant whose staging brief was followed by an unexpected production change. Correlate the agent trace, identity and authentication event, tool call, policy decision, resource audit and independent system state. Reveal the timeline and distinguish observed evidence from investigator inference and unknowns.</p>
+      <p>Explore six deterministic cases: unauthorized action, misused credentials, shared identity ambiguity, a prompt-injection path, a risky skill update and a retry that duplicates a committed action. Assess what was touched, what was merely reachable and where telemetry is insufficient. Preserve evidence, choose containment, verify revocation and scope removal, inspect resulting state, restore an approved narrow workflow and monitor its next action.</p>
+      <p>Replay the same incident with stronger architecture. Dedicated identities improve attribution; least privilege, external policy and approval can stop an unwanted action. Reviewed version pinning constrains the modeled skill update. Resource-side reconciliation and idempotency prevent the repeated staging effect. Tracing and resulting-state verification help reveal failures but do not erase past effects or guarantee prevention.</p>
+      <p>This is an educational simulation, not an incident-response product or forensic certification. The lifecycle is a Khizooology model, not a universal mandated standard. All systems, agents, companies, timestamps, credentials, grants and events are fictional and browser-local. No security SDK, telemetry backend, real target, exploit payload, private reasoning, login, upload, API or persistent storage is connected. Real evidence can be incomplete or tampered with; revocation and enforcement may have propagation delays. Reachable does not mean compromised, and absence of evidence is not universal proof of absence.</p>
+      <nav aria-label="Related knowledge worlds">{related.map(w => <a href={url(`/infooo/${w.slug}`)}>{w.title} →</a>)}<a href={url('/infooo')}>Explore all Infooo worlds →</a></nav>
+    </section>
+  </AgentIncidentRoom>
+</BaseLayout>
+<style>
+  .ir-breadcrumb{padding-block:.5rem .25rem}.ir-static{padding-block:.5rem 1rem}.ir-static h2{font:800 1.1rem Poppins,sans-serif}.ir-static p{max-width:85ch;line-height:1.8;color:var(--k-text-muted);font-size:.85rem}.ir-static nav{display:flex;flex-wrap:wrap;gap:1rem}.ir-static a{color:var(--k-text);text-underline-offset:4px}
+</style>

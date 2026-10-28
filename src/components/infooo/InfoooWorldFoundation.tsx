@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, type CSSProperties, type KeyboardEvent, type ReactNode, type RefObject } from 'react';
 import type { InfoooEntity, InfoooGuide, InfoooGuideStep, InfoooKnowledge, InfoooLayer, InfoooMode, InfoooRelationship, InfoooScenario, InfoooWorld } from '../../data/infooo';
+import { url } from '../../utils/url';
 
 const accent = 'var(--infooo-accent, #5CCFAF)';
 const card = { background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem' } as const;
@@ -62,10 +63,14 @@ export function InfoooDepthControl({ depth, onChange }: { depth: number; onChang
   return <div className="learning-depth" role="radiogroup" aria-label="Knowledge depth">{infoooDepths.map((label, index) => <label key={label}><input type="radio" name="knowledge-depth" value={index} checked={depth === index} onChange={() => onChange(index)}/><span>{label}</span></label>)}</div>;
 }
 
-export function InfoooWorldShell({ world, stage, toolbar, controls, panel, footer }: { world: InfoooWorld; stage: ReactNode; toolbar?: ReactNode; controls?: ReactNode; panel?: ReactNode; footer?: ReactNode }) {
+export function InfoooWorldShell({ world, stage, toolbar, controls, panel, footer, firstVisit, onReturnToFirstVisit }: { world: InfoooWorld; stage: ReactNode; toolbar?: ReactNode; controls?: ReactNode; panel?: ReactNode; footer?: ReactNode; firstVisit?: ReactNode; onReturnToFirstVisit?: () => void }) {
+  const [exploring, setExploring] = useState(false);
+  const collection = world.collectionNavigation;
   return <section className="infooo-world-shell k-container" aria-label={`${world.title} interactive knowledge world`} style={{ '--infooo-accent': world.accent || '#5CCFAF' } as CSSProperties}>
-    <header className="infooo-world-header"><div><p>INFOOO · WORLD {String(world.worldNumber).padStart(3, '0')}</p><h1>{world.title}</h1>{world.tagline && <span>{world.tagline}</span>}</div>{controls}</header>
-    {toolbar}<div className="infooo-world-layout"><div>{stage}</div>{panel && <aside className="infooo-world-panel">{panel}</aside>}</div>{footer}
+    <header className="infooo-world-header"><div><p>INFOOO · WORLD {String(world.worldNumber).padStart(3, '0')}</p><h1>{world.title}</h1>{world.tagline && <span>{world.tagline}</span>}</div>{!firstVisit && controls}</header>
+    {firstVisit && !exploring && firstVisit}
+    {firstVisit ? <details className="infooo-entry-explore" onToggle={event => { const open=event.currentTarget.open; if(exploring && !open) onReturnToFirstVisit?.(); setExploring(open); }}><summary>Explore more — scenarios, controls & sources</summary>{controls}{toolbar}<div className="infooo-world-layout"><div>{stage}</div>{panel && <aside className="infooo-world-panel">{panel}</aside>}</div>{footer}</details> : <>{toolbar}<div className="infooo-world-layout"><div>{stage}</div>{panel && <aside className="infooo-world-panel">{panel}</aside>}</div>{footer}</>}
+    {collection && <nav className="infooo-collection-nav" aria-label={`${collection.title} journey`}><div><a href={url(`/infooo/${collection.slug}`)}>{collection.title}</a><span>Step {collection.step} of {collection.total} · {world.title}</span></div><div>{collection.previous && <a rel="prev" href={url(`/infooo/${collection.previous.slug}`)} data-infooo-collection={collection.slug} data-collection-action="world">← {collection.previous.title}</a>}{collection.next && <a rel="next" href={url(`/infooo/${collection.next.slug}`)} data-infooo-collection={collection.slug} data-collection-action="world">{collection.next.title} →</a>}<a href={url(`/infooo/${collection.slug}`)}>View all {collection.total} labs</a></div></nav>}
   </section>;
 }
 

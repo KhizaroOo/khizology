@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420" role="img" aria-label="User and agent read an untrusted browser page; a proposed action stops at a policy gate">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="m1 1 5 3-5 3" fill="none" stroke="#24745e" stroke-width="2"/></marker></defs>
+<rect width="720" height="420" rx="24" fill="#edf8f3"/>
+<g font-family="Arial,sans-serif" fill="#26343b" text-anchor="middle">
+<rect x="32" y="92" width="126" height="228" rx="20" fill="#fff" stroke="#5ccfaf" stroke-width="3"/>
+<circle cx="95" cy="137" r="16" fill="none" stroke="#26343b" stroke-width="3"/><path d="M67 183q0-31 28-31t28 31" fill="none" stroke="#26343b" stroke-width="3"/>
+<text x="95" y="209" font-size="18" font-weight="700">USER</text>
+<rect x="67" y="232" width="56" height="45" rx="12" fill="#a7f3d0" stroke="#26343b" stroke-width="2"/><circle cx="84" cy="251" r="4"/><circle cx="106" cy="251" r="4"/><path d="M84 264h22M95 232v-11" stroke="#26343b" stroke-width="2"/><text x="95" y="303" font-size="16" font-weight="700">AGENT</text>
+<path d="M165 210h46" stroke="#24745e" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="222" y="70" width="251" height="270" rx="18" fill="#fff" stroke="#819390" stroke-width="2"/><path d="M222 111h251" stroke="#819390"/><circle cx="242" cy="91" r="4" fill="#5ccfaf"/><circle cx="256" cy="91" r="4" fill="#a7f3d0"/><text x="350" y="97" font-size="14">hotel.example</text>
+<path d="M252 189v-46h35v46m-43 0h52M260 153h5m9 0h5m-19 12h5m9 0h5" fill="none" stroke="#24745e" stroke-width="3"/><text x="367" y="162" font-size="19" font-weight="700">Hotel · $182</text><path d="M310 181h127M250 211h187" stroke="#c9d9d4" stroke-width="8"/>
+<rect x="244" y="234" width="207" height="54" rx="10" fill="#f2f3f6" stroke="#26343b" stroke-width="2" stroke-dasharray="6 4"/><text x="348" y="266" font-size="17" font-weight="700">UNTRUSTED</text>
+<rect x="222" y="303" width="251" height="37" rx="10" fill="#26343b"/><text x="348" y="328" font-size="16" fill="#fff" font-weight="700">DATA ≠ AUTHORITY</text>
+<path d="M482 210h41" stroke="#24745e" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="537" y="120" width="152" height="183" rx="20" fill="#fff" stroke="#5ccfaf" stroke-width="3"/><text x="613" y="151" font-size="18" font-weight="700">ACTION</text><path d="M556 173h113" stroke="#c9d9d4" stroke-width="2"/><path d="M597 195h32v33h-32zm7 0v-8a9 9 0 0 1 18 0v8" fill="#a7f3d0" stroke="#26343b" stroke-width="3"/><text x="613" y="257" font-size="15">POLICY GATE</text><text x="613" y="284" font-size="18" font-weight="700">BLOCKED</text>
+<text x="360" y="390" font-size="20" font-weight="700">Same page. Different authority boundary.</text></g></svg>

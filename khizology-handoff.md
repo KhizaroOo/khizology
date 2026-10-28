@@ -1,5 +1,7 @@
 # Khizooology — Handoff for Codex / ChatGPT Plus
 
+> Product retirement update — 28 October 2026: Notooo is retired. Only Artooo, Toolooo and Infooo are active. The retained `ff-04.png` mascot and `#E38D7C` color belong to anonymous locked `future-5`. Older numeric implementation snapshots below are historical; current registries and README govern publishing.
+
 This document briefs a new AI collaborator (or a new human dev) on the `khizology`
 repository: what it is, how it's built, what conventions must be respected, and
 exactly where the most recent work left off.
@@ -27,8 +29,7 @@ is personified as a monster with its own role verb:
 | **artooo** | FEEL | `/artworks` | active — sticky-note art, sketches, illustrations |
 | **toolooo** | USE | `/toolbox` | active — 40 free, browser-only utilities (§5–§7) |
 | **infooo** | UNDERSTAND | `/infooo` | active — interactive "worlds" that teach a topic (§8–§9) |
-| **notooo** | REMEMBER | `/notooo` | active — "one page per book" visual knowledge pages (§10) |
-| `future-2`, `future-3`, `future-4`, `future-6`, `future-8` | — | `/future-monsters` | coming-soon — 5 generic **`???ooo`** mystery placeholders, all identical copy, all `noindex`. Some secretly reuse retired brand colors/art from old modules. **Not a bug, don't "fix" it** — this is the deliberate **Mystery Monster Unlock Gate** (§12). |
+| `future-2`, `future-3`, `future-4`, `future-5`, `future-6`, `future-8` | — | `/future-monsters` | coming-soon — 6 generic **`???ooo`** mystery placeholders, all identical copy, all `noindex`. Some secretly reuse retired brand colors/art from old modules. **Not a bug, don't "fix" it** — this is the deliberate **Mystery Monster Unlock Gate** (§12). |
 
 There is a `MonsterStatus` value `'foundation'` declared in the type but not
 currently used by any monster — reserved/dead type surface, not a bug.
@@ -179,8 +180,6 @@ src/
       index.astro                  # hub, links to both Human Atlas and Rubik's Cube Motion Graph
       human-atlas.astro
       rubiks-cube-motion-graph.astro   # published, public — World 002, see §9
-    notooo.astro                  # Notooo hub — see §10
-    notooo/[slug].astro
     notes.astro                   # Notes hub — see §11 (currently empty-state)
     notes/[slug].astro
 
@@ -200,7 +199,6 @@ src/
     artworks.ts                    # artooo gallery data
     infooo.ts                      # Infooo world registry + shared type contract, see §8
     humanAtlasLearning.ts          # Human Atlas entity/relationship/guide content (TS side, see §8)
-    notooo.ts                      # Notooo book registry + validator, see §10
     notes.ts                       # Notes collection helpers, see §11
     noteCategories.ts              # Notes category enum
     valueLaws.ts                   # the 18 Value Laws + evaluateValueLaws(), see §12
@@ -220,7 +218,6 @@ src/
       rubiks/                      # World 002's fully local engine + renderer — see §9
         RubiksCubeMotionGraph.tsx, cubeEngine.ts, cubeMotion.ts, pieceMap.ts,
         rubikExperience.ts, rubiks.css
-    notooo/NotoooSheet.astro       # renders one book page, see §10
     notes/Callout.astro, KhizoLink.astro   # Notes MDX components, see §11
     toolbox/                       # Astro primitives (server-rendered, no interactivity)
       TagChip.astro
@@ -243,9 +240,7 @@ docs/                              # 28 markdown docs — product specs, governa
                                     #   launch/SEO tracking. Every doc that defines a rule
                                     #   enforced by an audit script is cited in §12.
 public/                            # static assets, incl. self-hosted Human Atlas viewer bundle
-prototypes/                        # scratch/exploratory work, currently just
-                                    #   notooo-design-exploration.html (Notooo's still-
-                                    #   unfinished mascot/visual identity — not build-wired)
+prototypes/                        # scratch/exploratory work — not build-wired
 ```
 
 ---
@@ -305,7 +300,7 @@ Every family's `color` is the *same* value — `TOOLOOO_COLOR`, imported from
 deliberate site-wide rule: **any page inside a monster's territory themes itself
 with that monster's own primary color, not a separate per-section palette.**
 Families are visually distinguished by icon + copy, not by hue. This same
-pattern should be followed for Infooo/Notooo pages if they ever need internal
+pattern should be followed for Infooo pages if they ever need internal
 sub-sections.
 
 ### `src/data/tools.ts`
@@ -596,50 +591,9 @@ not inferred from an older doc.
 
 ---
 
-## 10. Notooo module — "One Book. One Page."
-
-**Notooo is the REMEMBER pillar**, fully separate from Toolooo/Infooo. Product
-concept: one A4-portrait visual knowledge page per book, produced through a
-documented editorial pipeline (research → compress → khizooo curation → typed
-registry entry).
-
-- **Data model**: `src/data/notooo.ts` — `notoooIdentity` (role REMEMBER,
-  tagline "One Book. One Page.", color `#E38D7C`, **mascot art not finalized
-  yet** — `mascot: null`, and `monsters.ts`'s `notooo` entry still points at a
-  reserved placeholder image `ff-04.png` with an explicit code comment that
-  it's not final). `NotoooBook` interface: id/number/slug/title/author/
-  category/tags/bigIdea/4–8 sections (each ≤3 points + sourceIds)/
-  khizoooTake/remember/sources/researchConfidence(`high|medium|low`, published
-  entries can't be `low`)/status(`draft|approved|published`).
-- **Content right now**: `notoooBooks` has **exactly 7 published entries** —
-  Atomic Habits, Thinking Fast and Slow, The Psychology of Money, Braiding
-  Sweetgrass, Man's Search for Meaning, Steve Jobs, Sapiens. No draft/approved-
-  only entries currently exist.
-- **Validator**: `assessNotoooBooks()` in the same file enforces unique ids/
-  numbers/slugs/section-ids/source-ids, HTTPS source URLs, the
-  published-can't-be-low-confidence rule, section-count targets, and word
-  budgets — run via `npm run audit:value`.
-- **Rendering**: `src/pages/notooo.astro` (hub, lists all published books by
-  category) → `src/pages/notooo/[slug].astro` (`getStaticPaths()` over
-  published books) → `src/components/notooo/NotoooSheet.astro` (the actual
-  page renderer, supports fullscreen + PNG download). Full SEO/JSON-LD
-  (CreativeWork/Book) per the content-growth rule.
-- **Rule from `docs/NOTOOO.md`**: "Notooo owns ideas from books that are worth
-  keeping. It must not blur into a Toolooo workflow or an Infooo interactive
-  world." Add a public entry only after Khizar approves release; reuse
-  `notooo.ts` and `NotoooSheet.astro`, don't build a page-specific parallel
-  system.
-- A scratch design-exploration file (`prototypes/notooo-design-exploration.html`,
-  not build-wired) exists, tied to the still-unfinished Notooo mascot/visual
-  identity — reference material, not something the build consumes.
-
----
-
 ## 11. Notes module — plain written notes (not a monster)
 
-Explicitly documented as separate from Notooo: `docs/NOTES.md` — *"Notes are
-file-based written knowledge. They are not a monster and do not replace
-Notooo's One Book. One Page. visual book format."*
+Notes are an independent file-based content surface.
 
 - **Schema**: `src/content.config.ts` defines one Astro content collection,
   `notes`, glob-loaded from `src/content/notes/**/*.{md,mdx}`, Zod-validated
@@ -663,7 +617,7 @@ Notooo's One Book. One Page. visual book format."*
   `published` (per `docs/NOTES.md`'s documented workflow).
 - **Components**: `src/components/notes/Callout.astro` (note/warning/tip
   aside), `KhizoLink.astro` (internal-link helper enforcing lowercase-hyphen
-  slugs, with root mappings for note/toolooo/infooo/notooo).
+  slugs, with root mappings for note/toolooo/infooo).
 
 ---
 
@@ -759,7 +713,7 @@ from that session worth remembering:
 substantially beyond what the prior handoff covered — Toolooo went 32→40
 tools, and three entirely new systems were added: **Infooo** (interactive
 worlds — Human Atlas published, Rubik's Cube Motion Graph in private
-development, §8–§9), **Notooo** (7 published book pages, §10), and **Notes**
+development, §8–§9), **Notes**
 (schema-complete, zero content yet, §11) — plus a full governance/audit
 pipeline (§12) that didn't exist before. This document was rewritten to
 reflect all of that.
@@ -797,8 +751,7 @@ world's current-state details.
   see the Mystery Monster Unlock Gate in §12.
 - The `MonsterStatus` type's `'foundation'` value is declared but currently
   unused by any monster entry — reserved type surface, not a bug.
-- Notooo's mascot image is a known, explicitly-commented placeholder
-  (`ff-04.png`, reused from a reserved lab asset) — final art not done yet.
+
 - Notes has zero real content despite complete plumbing — deliberate
   "foundation ready" state, see §11.
 - `README.md` is stale (describes a retired `freeooo` monster, dead

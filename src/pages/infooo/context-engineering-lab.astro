@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import ContextEngineeringLab from '../../components/infooo/context-lab/ContextEngineeringLab';
+import { infoooWorlds, infoooIdentity } from '../../data/infooo';
+import { absoluteUrl, breadcrumbSchema } from '../../utils/seo';
+import { url } from '../../utils/url';
+const world = infoooWorlds.find(w => w.id === 'world-012')!;
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const canonical = absoluteUrl(`/infooo/${world.slug}`, context);
+const related = infoooWorlds.filter(w => world.relatedWorlds?.includes(w.id) && w.status === 'published' && w.visibility === 'public');
+---
+<BaseLayout title="Context Engineering Lab — Agent Context | Khizooology" description={world.description} canonical={canonical} accentColor={infoooIdentity.color} accentColorLight={infoooIdentity.colorLight} ogImage={world.hero!.asset} ogImageAlt={world.preview!.alt} socialTitle={world.title} socialDescription={world.description} jsonLd={[{ '@context': 'https://schema.org', '@type': 'WebApplication', name: world.title, description: world.description, url: canonical, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', isAccessibleForFree: true }, breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Infooo', path: '/infooo' }, { name: world.title, path: `/infooo/${world.slug}` }], context)]}>
+  <div class="k-container ce-breadcrumb"><Breadcrumb crumbs={[{ label: 'Infooo', href: url('/infooo') }, { label: world.title }]} accentColor={infoooIdentity.color}/></div>
+  <ContextEngineeringLab client:load world={world}>
+    <section class="ce-static">
+      <h2>The model stays the same. The context changes.</h2>
+      <p>Run one fictional checkout task with selected project instructions, current component files, retrieval results, memory and tool outputs. Remove the shared-component rule, introduce a stale file, select an old memory, miss a document, flood the input with logs or lose a constraint in a handoff. Then repair the relevant context and replay the same task.</p>
+      <p>Inspect source freshness, relevance and authority. Compare six focused evidence items with 42 mixed items, and four loaded tool definitions with an eager 200-tool catalog. Compact carried state, try a deliberately lossy summary, or reset into a structured handoff. Relative space and outcomes are illustrative, not real model token limits or measured model performance.</p>
+      <p>This is an educational systems model, not a predictor of any specific model’s behavior. Every repository file, memory, retrieval result, workflow state, capacity and verification is fictional and deterministic. No AI API, real repository, upload, database or persistent memory is connected. The world shows selected inputs, observable actions and verification; it does not expose or invent private reasoning.</p>
+      <nav aria-label="Related knowledge worlds">{related.map(w => <a href={url(`/infooo/${w.slug}`)}>{w.title} →</a>)}<a href={url('/infooo')}>Explore all Infooo worlds →</a></nav>
+    </section>
+  </ContextEngineeringLab>
+</BaseLayout>
+<style>
+  .ce-breadcrumb { padding-block: .5rem .25rem; }
+  .ce-static { padding-block: .5rem 1rem; }
+  .ce-static h2 { font: 800 1.1rem Poppins, sans-serif; }
+  .ce-static p { max-width: 85ch; line-height: 1.8; color: var(--k-text-muted); font-size: .85rem; }
+  .ce-static nav { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .ce-static a { color: var(--k-text); text-underline-offset: 4px; }
+</style>

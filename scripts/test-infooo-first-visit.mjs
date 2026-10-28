@@ -9,7 +9,7 @@ function fixture(file, slug, reduced = false) {
   let cursor = 0, dirty = false, pending = [], nextTimer = 0, ui;
   const jsx = (type, props) => ({ type, props });
   const doc = { hidden: false, addEventListener: (name, cb) => listeners.set(name, cb), removeEventListener: name => listeners.delete(name) };
-  const win = { matchMedia: () => ({ matches: reduced, addEventListener() {}, removeEventListener() {} }), setTimeout: (cb, delay) => { assert.ok([4500, 5500, 6500].includes(delay)); timers.set(++nextTimer, cb); return nextTimer; }, clearTimeout: id => timers.delete(id) };
+  const win = { matchMedia: () => ({ matches: reduced, addEventListener() {}, removeEventListener() {} }), setTimeout: (cb, delay) => { assert.ok([2000, 4500, 5500, 6500].includes(delay)); timers.set(++nextTimer, cb); return nextTimer; }, clearTimeout: id => timers.delete(id) };
   const react = {
     useRef(initial) { const index = cursor++; if (!(index in state)) state[index] = { current: initial }; return state[index]; },
     useState(initial) { const index = cursor++; if (!(index in state)) state[index] = initial; return [state[index], value => { const next = typeof value === 'function' ? value(state[index]) : value; if (next !== state[index]) { state[index] = next; dirty = true; } }]; },
@@ -25,7 +25,7 @@ function fixture(file, slug, reduced = false) {
       const base = path.resolve(path.dirname(filename), id);
       return load([base, base + '.tsx', base + '.ts'].find(name => fs.existsSync(name)));
     } });
-    vm.runInContext(ts.transpileModule(fs.readFileSync(filename, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText, context);
+    vm.runInContext(ts.transpileModule(fs.readFileSync(filename, 'utf8').replaceAll('import.meta.env.BASE_URL', JSON.stringify('/')), { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText, context);
     modules.set(filename, context.exports); return context.exports;
   }
   const component = load(path.resolve(file)).default;
@@ -49,7 +49,8 @@ for (const [file, slug, last, completion] of [
     assert.equal(f.nodes().filter(node => node.props?.role === 'img').length, 1);
     assert.equal(f.nodes().filter(node => node.type === 'select').length, depth === 2 ? 1 : 0);
     assert.ok(f.nodes().some(node => node.props?.className === 'scene-card'));
-    assert.equal(f.button().props.children, 'Play'); assert.equal(f.timers.size, 0);
+    assert.ok(['Watch a deployment','Watch the agent work'].includes(f.button().props.children)); assert.equal(f.timers.size, 0);
+    if(reduced && depth===0){f.click();assert.equal(f.step(),last,'first aha in one reduced-motion action');assert.equal(f.timers.size,0);assert.equal(f.events.filter(e=>e[0]==='start').length,1);assert.equal(f.events.filter(e=>e[0]==='complete').length,1);continue;}
     f.click(); assert.equal(f.step(), 0);
     if (!reduced) { f.click(); assert.equal(f.button().props.children, 'Play'); f.tick(); assert.equal(f.step(), 0); f.click(); }
     const finish = last;

@@ -1,0 +1,12 @@
+---
+import { agentSystemsLab, agentSystemsJourney } from '../../data/infooo';
+import { url } from '../../utils/url';
+const collection = agentSystemsLab;
+---
+<section class="collection-feature" aria-label={collection.title}>
+  <div><p>FEATURED INFOOO COLLECTION</p><h2><a href={url(`/infooo/${collection.slug}`)}>{collection.title}</a></h2><span>{agentSystemsJourney.length} interactive labs about production AI agents.</span><small>Security · Reliability · Context · Identity · Recovery</small></div>
+  <a class="k-button k-button--secondary" href={url(`/infooo/${collection.slug}`)}>Explore the Lab <span aria-hidden="true">→</span></a>
+</section>
+<style>
+.collection-feature{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-block:1.25rem;padding:1.1rem 1.3rem;border:1px solid var(--m-infooo);border-radius:16px;background:color-mix(in srgb,var(--m-infooo) 7%,var(--k-bg-card))}.collection-feature p{font-size:.6rem;font-weight:800;letter-spacing:.08em;color:var(--k-text-muted);margin:0 0 .3rem}.collection-feature h2{font:800 1.25rem/1.4 Poppins,sans-serif;margin:0 0 .3rem}.collection-feature h2 a{color:var(--k-text);text-decoration:none}.collection-feature span{font-size:.85rem}.collection-feature small{display:block;color:var(--k-text-muted);font-size:.75rem;line-height:1.7;margin-top:.2rem}.collection-feature a:focus-visible{outline:3px solid var(--k-text);outline-offset:4px}@media(max-width:650px){.collection-feature{align-items:start;flex-direction:column;padding:1rem}.collection-feature>.k-button{align-self:start;max-width:100%}}
+</style>

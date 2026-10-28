@@ -1,6 +1,6 @@
 # Khizooology Notes
 
-Notes are file-based written knowledge. They are not a monster and do not replace Notooo's **One Book. One Page.** visual book format.
+Notes are file-based written knowledge. They are not a monster.
 
 ## Create a note
 
@@ -36,6 +36,6 @@ import KhizoLink from '@notes/KhizoLink.astro';
 <KhizoLink kind="toolooo" slug="api-payload-doctor">Open API Payload Doctor</KhizoLink>
 ```
 
-`KhizoLink` supports `note`, `toolooo`, `infooo`, and `notooo` targets, so internal MDX links retain the configured base path. For Markdown images, provide meaningful alt text and intrinsic `width` and `height` attributes. A frontmatter cover image requires `imageAlt`, `imageWidth`, and `imageHeight`.
+`KhizoLink` supports `note`, `toolooo`, and `infooo` targets, so internal MDX links retain the configured base path. For Markdown images, provide meaningful alt text and intrinsic `width` and `height` attributes. A frontmatter cover image requires `imageAlt`, `imageWidth`, and `imageHeight`.
 
 Git is the history, files are the storage, and the Astro build is the publishing engine. Do not add a CMS, backend, database, or placeholder notes.

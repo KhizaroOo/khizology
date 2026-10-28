@@ -1,9 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import assert from 'node:assert/strict';
 import { stripTypeScriptTypes } from 'node:module';
-import { loadNotooo } from './load-notooo.mjs';
 import { isSiteVerificationFile } from './site-verification.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -13,24 +11,6 @@ const expectedHost = process.env.SITE_URL || 'https://khizooology.com';
 const toolRegistry = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(fs.readFileSync(path.join(root, 'src/data/tools.ts'), 'utf8')))}`);
 const errors = [];
 const warnings = [];
-const { notoooBooks } = await loadNotooo(root);
-const catalogTitles = new Set(notoooBooks.map(book => book.title));
-const catalogTitleRoutes = new Set(['/notooo/', ...notoooBooks.filter(book => book.status === 'published').map(book => `/notooo/${book.slug}/`)]);
-
-// Canonical book headings can legitimately contain a numeric-sentinel word.
-function withoutCatalogTitles(html, route) {
-  if (!catalogTitleRoutes.has(route)) return html;
-  return html.replace(/<([a-z][\w-]*)\b[^>]*>([^<]+)<\/\1>/gi, (element, _tag, title) => catalogTitles.has(decodeEntities(title)) ? '' : element);
-}
-const sentinelTitle = [...catalogTitles].find(title => title.includes('Infinity'));
-if (sentinelTitle) {
-  const fixture = `<h3>${sentinelTitle}</h3><p>Infinity</p>`;
-  assert.equal(withoutCatalogTitles(fixture, '/notooo/'), '<p>Infinity</p>', 'Catalog title exception must preserve a broken result elsewhere');
-  const sentinelBook = notoooBooks.find(book => book.title === sentinelTitle && book.status === 'published');
-  if (sentinelBook) assert.equal(withoutCatalogTitles(`<span>${sentinelTitle}</span><h1>${sentinelTitle}</h1><p>Infinity</p>`, `/notooo/${sentinelBook.slug}/`), '<p>Infinity</p>', 'Published heading and breadcrumb exceptions must preserve broken results');
-  assert.equal(withoutCatalogTitles(fixture, '/other/'), fixture, 'Catalog title exception must stay scoped to Notooo routes');
-}
-
 function walk(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const full = path.join(dir, entry.name);
@@ -129,7 +109,7 @@ for (const [route, html] of htmlByRoute) {
     } catch { errors.push(`${location}: invalid JSON-LD`); }
   }
 
-  const visible = withoutCatalogTitles(html, route)
+  const visible = html
     .replace(/<head\b[\s\S]*?<\/head>/gi, ' ')
     .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
@@ -172,9 +152,8 @@ for (const [route, html] of htmlByRoute) {
 
 const toolRoutes = [...htmlByRoute.keys()].filter((route) => /^\/toolbox\/[^/]+\/$/.test(route));
 const familyRoutes = [...htmlByRoute.keys()].filter((route) => /^\/toolbox\/family\/[^/]+\/$/.test(route));
-const notoooRoutes = [...htmlByRoute.keys()].filter((route) => /^\/notooo\/[^/]+\/$/.test(route));
 const noteRoutes = [...htmlByRoute.keys()].filter((route) => /^\/notes\/[^/]+\/$/.test(route));
-const expectedSitePages = walk(path.join(root, 'src/pages')).filter(file => file.endsWith('.astro') && !file.includes('[')).length + toolRoutes.length + familyRoutes.length + notoooRoutes.length + noteRoutes.length;
+const expectedSitePages = walk(path.join(root, 'src/pages')).filter(file => file.endsWith('.astro') && !file.includes('[')).length + toolRoutes.length + familyRoutes.length + noteRoutes.length;
 const expectedHtmlPages = expectedSitePages + 1;
 const notesIndexIsNoindex = noindexRoutes.includes('/notes/');
 const expectedSiteNoindexPages = 4 + Number(notesIndexIsNoindex);
