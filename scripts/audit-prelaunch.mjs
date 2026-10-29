@@ -8,6 +8,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const expectedBase = (process.env.BASE_URL || '/').replace(/\/$/, '') || '';
 const expectedHost = process.env.SITE_URL || 'https://khizooology.com';
+await import('./test-contact.mjs');
 const toolRegistry = await import(`data:text/javascript,${encodeURIComponent(stripTypeScriptTypes(fs.readFileSync(path.join(root, 'src/data/tools.ts'), 'utf8')))}`);
 const errors = [];
 const warnings = [];

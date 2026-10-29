@@ -1,3 +1,9 @@
+export const CONTACT = {
+  whatsapp: 'https://wa.me/923007683396',
+  linkedin: 'https://www.linkedin.com/in/khizar-imtiaz',
+  email: 'khizar.imtiaz@gmail.com',
+};
+
 export const SITE = {
   name: 'Khizooology',
   title: 'Khizooology — Art meets Code | Visual Tools & Original Art',
@@ -15,7 +21,7 @@ export const SITE = {
   themeColor: '#f82d48',
   sameAs: [
     'https://github.com/KhizaroOo',
-    'https://www.linkedin.com/in/khizar-imtiaz',
+    CONTACT.linkedin,
     'https://www.instagram.com/khizooo_art',
   ],
 };

@@ -121,9 +121,11 @@ contactCta.closest = selector => selector === 'a[href]' ? contactCta : null;
 growth.docListeners.click({ isTrusted: true, target: contactCta });
 assert.equal(growth.events().at(-1)[1], 'contact_click');
 for (const href of ['mailto:private-person@example.com', 'https://wa.me/private-phone', 'https://www.linkedin.com/in/private-person']) {
+  const beforeContact = growth.events().length;
   contactCta.href = href;
   contactCta.closest = selector => ['a[href]', '.dav-connect'].includes(selector) ? contactCta : null;
   growth.docListeners.click({ isTrusted: true, target: contactCta });
+  assert.equal(growth.events().length, beforeContact + 1, 'one direct contact action emits one event');
   assert.equal(growth.events().at(-1)[1], 'contact_click');
 }
 assert.ok(!/NEVER_SEND|private-person|private-phone|example.com/.test(JSON.stringify(growth.events())));

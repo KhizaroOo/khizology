@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
-import ComingSoonCard from '../components/ui/ComingSoonCard.astro';
 import { url, img } from '../utils/url';
 
 const knowledgeTopics = [
@@ -13,13 +12,6 @@ const knowledgeTopics = [
   { label: 'Life & Wisdom', q: 'What\'s the one thing most people regret?', hint: 'A: Waiting for the perfect moment. Spoiler: it never arrives.' },
 ];
 
-const comingSoonFeatures = [
-  'Live Q&A sessions',
-  'Ask-anything text box',
-  'Community upvoted questions',
-  'Voice note answers',
-  'Weekly knowledge drops',
-];
 ---
 
 <BaseLayout
@@ -43,15 +35,10 @@ const comingSoonFeatures = [
           Just honest, direct knowledge about art, code, creativity, life, and everything in between.
         </p>
         <div class="yaia-preview-box">
-          <div class="ypb-label">
-            <span class="ypb-badge">Interactive Q&amp;A</span>
-            <span class="ypb-cs">Coming Soon</span>
-          </div>
           <p class="ypb-desc">
-            An interactive ask-anything experience is being built. Until then, browse the
-            sample questions below or Drop a Vibe to ask directly.
+            Browse the sample questions below, or choose a contact channel to share your own question.
           </p>
-          <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Ask Right Now →</a>
+          <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Choose a contact channel →</a>
         </div>
       </div>
       <div class="yaia-hero-visual">
@@ -82,37 +69,6 @@ const comingSoonFeatures = [
     </div>
   </section>
 
-  <!-- COMING SOON FEATURES -->
-  <section class="k-section coming-features">
-    <div class="k-container cf-inner">
-      <div class="cf-content">
-        <h2>What's Being Built</h2>
-        <p>
-          You Ask, I Answer is evolving into a full interactive knowledge module.
-          Here's what's coming:
-        </p>
-        <ul class="cf-features">
-          {comingSoonFeatures.map(f => (
-            <li>
-              <span class="cf-check">→</span>
-              <span>{f}</span>
-            </li>
-          ))}
-        </ul>
-        <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Submit a Question Early →</a>
-      </div>
-      <div class="cf-card">
-        <ComingSoonCard
-          title="Interactive Q&A"
-          description="Ask anything. Get honest, thoughtful answers from khizooo on art, code, creativity, and life."
-          accentColor="var(--k-accent)"
-          icon="?"
-          eta="On the roadmap"
-        />
-      </div>
-    </div>
-  </section>
-
   <!-- KNOWLEDGE CATEGORIES TEASER -->
   <section class="k-section k-section-cats">
     <div class="k-container">
@@ -130,8 +86,8 @@ const comingSoonFeatures = [
   <section class="k-section yaia-cta">
     <div class="k-container">
       <div class="yaia-cta-inner">
-        <h2>Don't wait for the feature.</h2>
-        <p>Drop your question directly. I read every message.</p>
+        <h2>Have a question?</h2>
+        <p>Choose how you’d like to get in touch.</p>
         <div class="yaia-cta-btns">
           <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Drop a Vibe</a>
           <a href={url('/behind-the-vibes')} class="k-button k-button--secondary">Behind the Vibes →</a>
@@ -158,19 +114,6 @@ const comingSoonFeatures = [
   .yaia-preview-box {
     background: var(--k-bg); border: 1px solid var(--k-border); border-radius: 1rem;
     padding: 1.25rem; display: flex; flex-direction: column; gap: var(--k-action-gap);
-  }
-  .ypb-label { display: flex; align-items: center; gap: var(--k-action-gap); }
-  .ypb-badge {
-    display: inline-flex; padding: 0.25rem 0.75rem;
-    background: var(--k-accent); color: #fff;
-    border-radius: 999px; font-size: 0.75rem; font-weight: 700;
-    font-family: 'Poppins', sans-serif;
-  }
-  .ypb-cs {
-    font-size: 0.7rem; font-weight: 700; font-family: 'Poppins', sans-serif;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--k-text-muted);
-    background: var(--k-border); padding: 0.1rem 0.5rem; border-radius: 999px;
   }
   .ypb-desc { font-size: 0.85rem; color: var(--k-text-muted); margin: 0; }
 
@@ -217,21 +160,6 @@ const comingSoonFeatures = [
     font-style: italic;
   }
 
-  /* COMING FEATURES */
-  .coming-features { background: var(--k-bg-card); }
-  .cf-inner { display: grid; grid-template-columns: 1fr 320px; gap: 3rem; align-items: center; }
-  .cf-content h2 {
-    font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 800;
-    color: var(--k-text); margin: 0 0 0.75rem;
-  }
-  .cf-content > p { font-size: 0.9rem; color: var(--k-text-muted); margin: 0 0 1.25rem; }
-  .cf-features { list-style: none; margin: 0 0 1.5rem; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
-  .cf-features li { display: flex; align-items: center; gap: 0.625rem; font-size: 0.9rem; color: var(--k-text-muted); }
-  .cf-check { color: var(--k-accent); font-weight: 700; }
-
-
-
-
   /* CATEGORIES */
   .k-section-cats { background: var(--k-bg); }
   .cats-heading {
@@ -267,6 +195,5 @@ const comingSoonFeatures = [
   @media (max-width: 900px) {
     .yaia-hero-inner { grid-template-columns: 1fr; }
     .yaia-hero-visual { display: none; }
-    .cf-inner { grid-template-columns: 1fr; }
   }
 </style>

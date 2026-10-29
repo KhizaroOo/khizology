@@ -8,6 +8,7 @@ import { pageSchema, personSchema } from '../utils/schema';
 import { personReference } from '../utils/seo';
 import { artworks } from '../data/artworks';
 import { tools } from '../data/tools';
+import { CONTACT } from '../data/site';
 
 const activeToolCount = tools.filter((tool) => tool.status === 'active').length;
 
@@ -304,7 +305,7 @@ const jsonLd = {
           </div>
           <div class="pf-hero-ctas">
             <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Get in Touch →</a>
-            <a href="https://www.linkedin.com/in/khizar-imtiaz" target="_blank" rel="noopener" class="k-button k-button--secondary">LinkedIn</a>
+            <a href={CONTACT.linkedin} target="_blank" rel="noopener" class="k-button k-button--secondary">LinkedIn</a>
             <a href="https://github.com/KhizaroOo" target="_blank" rel="noopener" class="k-button k-button--secondary">GitHub</a>
           </div>
         </div>
