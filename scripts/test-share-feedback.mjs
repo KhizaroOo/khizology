@@ -57,7 +57,8 @@ await f.click('Share'); assert.match(f.message(), /Couldn’t open sharing/); as
 delete f.navigator.share;
 await f.click('Share'); assert.match(f.message(), /Sharing isn’t supported here. Result copied/); assert.equal(f.events.at(-1).action, 'copy_result');
 f.navigator.share = async data => f.shares.push(data);
-await f.click('Share'); assert.equal(f.message(), 'Share action completed.'); assert.equal(f.events.at(-1).action, 'share_result'); assert.equal(f.shares[0].url, link);
+await f.click('Share'); assert.equal(f.message(), 'Share options opened.'); assert.equal(f.events.at(-1).action, 'share_result'); assert.equal(f.shares[0].url, link);
+assert.doesNotMatch(f.message(), /completed|sent|delivered/i, 'OS handoff does not prove a completed external share');
 assert.ok(!JSON.stringify(f.events).includes('Aggregate'), 'analytics never receives payloads');
 const art = fixture({ monster: 'artooo', contentType: 'artwork', slug: 'public-art' });
 await art.click('Copy link'); assert.equal(art.copies[0], `${link}#art-public-art`, 'artwork anchor is preserved without private location state');

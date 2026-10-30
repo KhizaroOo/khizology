@@ -309,6 +309,7 @@ export default function ArtworkGrid({ artworks, base, emptyStateText, subjects }
           text-transform: uppercase; letter-spacing: .04em;
         }
         .aw-tag.sm { font-size: .6rem; }
+        .aw-card-tags .aw-tag { background: var(--k-bg-card); }
         .aw-empty {
           text-align: center; padding: 4rem 2rem;
           display: flex; flex-direction: column; align-items: center; gap: .75rem;

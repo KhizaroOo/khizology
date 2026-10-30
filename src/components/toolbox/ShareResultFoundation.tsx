@@ -45,7 +45,8 @@ export default function ShareResultFoundation({ monster, contentType, slug, titl
     try {
       await navigator.share({ title, text: result?.summary, url: publicUrl });
       if (id !== operation.current) return;
-      report(id, 'Share action completed.');
+      // Some platforms resolve as soon as the OS takes over, before a recipient is chosen.
+      report(id, 'Share options opened.');
       trackShareAction({ monster, content_type: contentType, slug, action: result ? 'share_result' : 'web_share' });
     } catch (error) {
       const cancelled = error && typeof error === 'object' && 'name' in error && error.name === 'AbortError';

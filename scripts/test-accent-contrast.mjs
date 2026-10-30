@@ -38,4 +38,7 @@ assert.match(css, /\.k-section-label\s*\{[^}]*color: var\(--m-accent-text\)/);
 assert.match(css, /--infooo-accent-strong:var\(--m-infooo-text\)/);
 assert.match(fs.readFileSync('src/components/toolbox/lv3/MyTooloooPanel.tsx', 'utf8'), /color: 'var\(--m-toolooo-text\)'/);
 assert.match(fs.readFileSync('src/components/layout/Navbar.astro', 'utf8'), /color: color-mix\(in srgb, var\(--link-accent, var\(--k-text\)\) var\(--k-identity-text-weight\), var\(--k-identity-text-base\)\)/);
+const gallery = fs.readFileSync('src/components/artworks/ArtworkGrid.tsx', 'utf8');
+assert.match(gallery, /\.aw-card-tags \.aw-tag\s*\{\s*background:\s*var\(--k-bg-card\);\s*\}/, 'Image badges need an opaque theme surface; translucent fills inherit unpredictable image contrast');
+assert.match(gallery, /\.aw-tag\s*\{[^}]*color:\s*var\(--m-artooo-text\)/, 'Image badges retain the accessible Artooo text token checked above');
 console.log(`PASS: ${pairs} theme/surface/tint accent-text pairs and identity/button fills (WCAG 4.5:1).`);
