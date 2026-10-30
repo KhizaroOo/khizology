@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import CityHeatWorld from '../../components/infooo/city-heat/CityHeatWorld';
+import { infoooWorlds, infoooIdentity } from '../../data/infooo';
+import { absoluteUrl, breadcrumbSchema } from '../../utils/seo';
+import { url } from '../../utils/url';
+const world = infoooWorlds.find(w => w.id === 'world-015')!;
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const canonical = absoluteUrl(`/infooo/${world.slug}`, context);
+const related = infoooWorlds.filter(w => world.relatedWorlds?.includes(w.id) && w.status === 'published' && w.visibility === 'public');
+---
+<BaseLayout title="Why Cities Trap Heat — Urban Heat Island Explorer | Khizooology" description={world.description} canonical={canonical} accentColor={infoooIdentity.color} accentColorLight={infoooIdentity.colorLight} ogImage={world.hero!.asset} ogImageAlt={world.preview!.alt} socialTitle={world.title} socialDescription={world.description} jsonLd={[{ '@context': 'https://schema.org', '@type': 'WebApplication', name: world.title, description: world.description, url: canonical, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', isAccessibleForFree: true }, breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Infooo', path: '/infooo' }, { name: world.title, path: `/infooo/${world.slug}` }], context)]}>
+  <div class="k-container ch-breadcrumb"><Breadcrumb crumbs={[{ label: 'Infooo', href: url('/infooo') }, { label: world.title }]} accentColor={infoooIdentity.color}/></div>
+  <CityHeatWorld client:load world={world}>
+    <section class="ch-static">
+      <h2>Cities do not only get hot. They store heat and release it later.</h2>
+      <p>Run one hot day on two city blocks under the same sky. The dark, paved block soaks up most of the sunlight; the green, light block reflects and shades more. Watch surfaces, street air and stored heat change from dawn to the small hours, then keep the heat wave going for three days and see why nights stop cooling.</p>
+      <p>Change the weather, swap one feature on the paved block (street trees, reflective roofs, grass instead of asphalt, a more open sky) and compare what each fix does to the afternoon surface, the afternoon air, the 3 AM air and the heat held at sunset. Answer three short questions at the end.</p>
+      <p>This is an educational energy-balance model, not a forecast, a heat-risk tool or a map of any real city. Every temperature is generated in your browser from fixed, illustrative settings chosen to fall inside published ranges. There is no account, upload or backend.</p>
+      <nav aria-label="Related knowledge worlds">{related.map(w => <a href={url(`/infooo/${w.slug}`)}>{w.title} →</a>)}<a href={url('/infooo')}>Explore all Infooo worlds →</a></nav>
+    </section>
+  </CityHeatWorld>
+</BaseLayout>
+<style>
+  .ch-breadcrumb{padding-block:.5rem .25rem}.ch-static{padding-block:.5rem 1rem}.ch-static h2{font:800 1.1rem Poppins,sans-serif}.ch-static p{max-width:85ch;line-height:1.8;color:var(--k-text-muted);font-size:.85rem}.ch-static nav{display:flex;flex-wrap:wrap;gap:1rem}.ch-static a{color:var(--k-text);text-underline-offset:4px}
+</style>

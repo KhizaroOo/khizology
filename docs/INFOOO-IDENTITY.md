@@ -4,7 +4,7 @@
 **Tagline:** See it. Touch it. Understand it.  
 **Mission:** Turn difficult knowledge into something people can explore.
 
-Infooo lets people experience why things work. It is curious, observant, clever, simple in explanation, and never condescending. Its visual identity is `#5CCFAF` with the existing `infooo.png` mascot.
+Infooo makes invisible systems explorable. It lets people experience why things work. It is curious, observant, clever, simple in explanation, and never condescending. Its visual identity is `#5CCFAF` with the existing `infooo.png` mascot.
 
 ## Design contract
 
@@ -29,8 +29,11 @@ Worlds provide semantic controls, keyboard-operable entity lists, searchable obj
 
 An Infooo candidate passes only when text alone is insufficient, relationships/processes matter, interaction improves comprehension, visualization can be accurate, a mental-model gap exists, and factual knowledge can be sourced. An aha moment is desirable. It uses the shared Value Laws, emphasizing Truth, Depth, Visuality, Interaction, Clarity, Utility, and Original Contribution.
 
-## Current world and future rule
+## Current worlds and future rule
 
-- **World 001 — Human Atlas:** published as Infooo’s current public world.
+- **Worlds 001–015:** implemented and public, from Human Atlas through Why Cities Trap Heat. `agent-systems-lab` is a curated collection page over Worlds 008–014, not a world.
+- **Worlds 016–027:** approved direction only, with no route, registry entry or asset. See [INFOOO-ROADMAP](INFOOO-ROADMAP.md).
+
+Infooo must not become primarily a technology or AI education product. The knowledge universe should keep broadening across human life, nature, cities, infrastructure, economics, information, logic, behavior, science and technology.
 
 Future worlds are added only after a real idea passes Truth, accessibility, performance, and the Khizooology Value Laws. Infooo does not need multiple worlds simply to grow the count. A world is added only when the idea deserves to exist. Quality over quantity.
