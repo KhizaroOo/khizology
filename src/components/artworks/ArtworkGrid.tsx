@@ -20,6 +20,7 @@ interface Props {
   artworks: Artwork[];
   base: string;
   emptyStateText: string;
+  subjects: { tag: string; label: string }[];
 }
 
 function ArtworkModal({
@@ -110,10 +111,12 @@ function ArtworkModal({
   );
 }
 
-export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
+export default function ArtworkGrid({ artworks, base, emptyStateText, subjects }: Props) {
   const [query, setQuery] = useState('');
   const [activeTag, setActiveTag] = useState('');
   const [selected, setSelected] = useState<Artwork | null>(null);
+  const selectionRef = useRef(selected);
+  selectionRef.current = selected;
 
   const allTags = Array.from(new Set(artworks.flatMap(a => a.tags))).sort();
 
@@ -124,8 +127,35 @@ export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
     return matchQ && matchT;
   });
 
-  const handleClose = useCallback(() => setSelected(null), []);
-  const selectArtwork = useCallback((artwork: Artwork) => { setSelected(artwork); trackArtworkView(artwork.slug); }, []);
+  const handleClose = useCallback(() => {
+    setSelected(null);
+    if (window.location.hash.startsWith('#art-')) window.history.replaceState(null, '', window.location.pathname + window.location.search);
+  }, []);
+  const selectArtwork = useCallback((artwork: Artwork) => {
+    // Related work may be outside the current filter; make its context visible.
+    if (!filtered.includes(artwork)) { setQuery(''); setActiveTag(''); }
+    setSelected(artwork);
+    window.history.pushState(null, '', `#art-${artwork.slug}`);
+    trackArtworkView(artwork.slug);
+  }, [filtered]);
+  useEffect(() => {
+    const followHash = () => {
+      const artwork = artworks.find(item => `#art-${item.slug}` === window.location.hash);
+      setSelected(artwork || null);
+      if (artwork) {
+        setQuery(''); setActiveTag('');
+        if (!selectionRef.current) document.getElementById(`art-${artwork.slug}`)?.focus({ preventScroll: true });
+        trackArtworkView(artwork.slug);
+      }
+    };
+    followHash();
+    window.addEventListener('hashchange', followHash);
+    return () => window.removeEventListener('hashchange', followHash);
+  }, [artworks]);
+  const changeQuery = (value: string) => { setQuery(value); handleClose(); };
+  const changeTag = (value: string) => { setActiveTag(value); handleClose(); };
+  const availableSubjects = subjects.filter(subject => allTags.includes(subject.tag));
+  const secondaryTags = allTags.filter(tag => !availableSubjects.some(subject => subject.tag === tag));
   const related = selected ? rankRelatedArtworks(selected, artworks) : [];
 
   return (
@@ -138,37 +168,33 @@ export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
             className="aw-search"
             placeholder="Search artworks, tags…"
             value={query}
-            onChange={e => setQuery(e.target.value)}
+            onChange={e => changeQuery(e.target.value)}
             aria-label="Search artworks"
           />
           {query && (
-            <button className="aw-search-clear" onClick={() => setQuery('')} aria-label="Clear">✕</button>
+            <button className="aw-search-clear" onClick={() => changeQuery('')} aria-label="Clear artwork search">✕</button>
           )}
         </div>
-        <div className="aw-tags-scroll">
-          <button
-            aria-pressed={!activeTag} className={`aw-tag-btn k-button k-button--secondary${!activeTag ? ' active' : ''}`}
-            onClick={() => setActiveTag('')}
-          >All</button>
-          {allTags.map(t => (
-            <button
-              key={t}
-              data-artwork-tag={t}
-              aria-pressed={activeTag === t} className={`aw-tag-btn k-button k-button--secondary${activeTag === t ? ' active' : ''}`}
-              onClick={() => setActiveTag(activeTag === t ? '' : t)}
-            >{t}</button>
-          ))}
+        <div className="aw-subjects" role="group" aria-label="Artwork subjects">
+          <button type="button" aria-pressed={!activeTag} className={`aw-tag-btn k-button k-button--secondary${!activeTag ? ' active' : ''}`} onClick={() => changeTag('')}>All</button>
+          {availableSubjects.map(subject => <button type="button" key={subject.tag} data-artwork-tag={subject.tag} aria-pressed={activeTag === subject.tag} className={`aw-tag-btn k-button k-button--secondary${activeTag === subject.tag ? ' active' : ''}`} onClick={() => changeTag(activeTag === subject.tag ? '' : subject.tag)}>{subject.label}</button>)}
         </div>
+        <details className="aw-more-tags">
+          <summary>More tags{activeTag && secondaryTags.includes(activeTag) ? ` · ${activeTag}` : ''}</summary>
+          <div className="aw-tags-scroll" role="group" aria-label="More artwork tags">
+            {secondaryTags.map(tag => <button type="button" key={tag} data-artwork-tag={tag} aria-pressed={activeTag === tag} className={`aw-tag-btn k-button k-button--secondary${activeTag === tag ? ' active' : ''}`} onClick={() => changeTag(activeTag === tag ? '' : tag)}>{tag}</button>)}
+          </div>
+        </details>
       </div>
 
-      <p className="aw-count">{filtered.length} artwork{filtered.length !== 1 ? 's' : ''}</p>
+      <p className="aw-count" role="status" aria-live="polite" aria-atomic="true">{filtered.length} artwork{filtered.length !== 1 ? 's' : ''}{activeTag ? ` · ${activeTag}` : ''}</p>
 
       {filtered.length === 0 ? (
         <div className="aw-empty">
           <span className="aw-empty-icon">🎨</span>
           <h3>No artworks found</h3>
           <p>{emptyStateText}</p>
-          <button className="aw-empty-reset k-button k-button--secondary" onClick={() => { setQuery(''); setActiveTag(''); }}>
+          <button className="aw-empty-reset k-button k-button--secondary" onClick={() => { changeQuery(''); changeTag(''); }}>
             Reset filters
           </button>
         </div>
@@ -224,18 +250,23 @@ export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
         .aw-search-wrap:hover, .aw-search-wrap:focus-within { border-color: var(--k-field-hover); }
         .aw-search-icon { font-size: 1rem; opacity: .5; flex-shrink: 0; }
         .aw-search {
-          flex: 1; background: transparent; border: none; outline: none;
+          flex: 1; min-width: 0; width: 100%; background: transparent; border: none; outline: none;
           padding: .75rem .625rem; font-size: .9rem; color: var(--k-text);
           font-family: inherit;
         }
         .aw-search-clear {
           background: none; border: none; cursor: pointer; color: var(--k-text-muted);
-          font-size: .8rem; padding: .25rem; opacity: .6;
+          font-size: .8rem; min-width:44px; min-height:44px;
         }
         .aw-tags-scroll {
           display: flex; gap: .6rem; flex-wrap: wrap; padding-bottom:6px;
         }
-        .aw-tag-btn { white-space:nowrap; }
+        .aw-subjects { display:flex; flex-wrap:wrap; gap:.6rem; padding-bottom:4px; }
+        .aw-tag-btn { white-space:nowrap; min-height:44px; }
+        .aw-tag-btn[aria-pressed="true"]::before { content:'✓'; }
+        .aw-more-tags summary { cursor:pointer; min-height:44px; padding:.6rem 0; font-weight:700; color:var(--k-text); }
+        .aw-more-tags summary:focus-visible { outline:3px solid var(--k-text); outline-offset:3px; }
+        .aw-search-wrap:focus-within { outline:3px solid var(--k-text); outline-offset:3px; }
         .aw-count {
           font-size: .78rem; color: var(--k-text-muted); margin-bottom: 1.25rem;
         }
@@ -247,7 +278,7 @@ export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
         @media (min-width: 1024px) { .aw-masonry { columns: 4; } }
 
         .aw-card {
-          break-inside: avoid; display: block; width: 100%; padding: 0;
+          scroll-margin-top:7rem; break-inside: avoid; display: block; width: 100%; padding: 0;
           border: none; background: none; cursor: pointer; margin-bottom: .75rem;
           border-radius: .75rem; overflow: hidden; position: relative;
           transition: transform .2s; animation: fadeIn .35s ease both;

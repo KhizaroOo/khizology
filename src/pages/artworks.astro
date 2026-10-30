@@ -127,11 +127,7 @@ const jsonLd = pageSchema({
         <h2 class="art-gallery-title">Browse All Artworks</h2>
         <p class="art-gallery-sub">Click any artwork to see it up close.</p>
       </div>
-      <nav class="art-topic-links" aria-label="Artwork subjects">
-        {galleryTopics.map(topic => <a href={`#art-${topic.items[0].slug}`}><strong>{topic.label} · {topic.items.length}</strong><span>{topic.context}</span></a>)}
-      </nav>
-      <p class="art-gallery-context">Browse by subject or search the titles and tags. Open an artwork to explore its related subjects. Creator stories and materials appear only when provided; subject tags are not claims about how a piece was made.</p>
-      <ArtworkGrid artworks={artworks} base={base} emptyStateText={artoooVoice.microcopy.empty} client:load />
+      <ArtworkGrid artworks={artworks} subjects={galleryTopics.map(({ tag, label }) => ({ tag, label }))} base={base} emptyStateText={artoooVoice.microcopy.empty} client:load />
     </div>
   </section>
 
@@ -157,14 +153,6 @@ const jsonLd = pageSchema({
 </BaseLayout>
 
 <style>
-  .art-topic-links { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; margin-bottom:1rem; }
-  .art-topic-links a { border:1px solid var(--k-border); border-radius:12px; padding:1rem; color:var(--k-text); text-decoration:none; background:var(--k-bg-card); }
-  .art-topic-links a:hover { border-color:var(--m-accent); }
-  .art-topic-links a:focus-visible { outline:3px solid var(--k-text); outline-offset:4px; }
-  .art-topic-links strong,.art-topic-links span { display:block; }
-  .art-topic-links span,.art-gallery-context { color:var(--k-text-muted); font-size:.85rem; line-height:1.7; }
-  .art-gallery-context { max-width:850px; margin-bottom:1.5rem; }
-  @media(max-width:700px) { .art-topic-links { grid-template-columns:repeat(2,minmax(0,1fr)); } }
   /* ── Hero ── */
   .art-hero {
     background: var(--k-bg);

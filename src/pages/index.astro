@@ -1,4 +1,5 @@
 ---
+import { families as allFamilies } from '../data/families';
 import { preview, previewSrcset } from "../utils/imagePreview";
 import InfoooCollectionFeature from '../components/infooo/InfoooCollectionFeature.astro';
 import BaseLayout from '../components/layout/BaseLayout.astro';
@@ -6,15 +7,15 @@ import MonsterCard from '../components/ui/MonsterCard.astro';
 import SectionHeader from '../components/ui/SectionHeader.astro';
 import { monsters, activeMonsters } from '../data/monsters';
 import { artworks, featuredArtworks } from '../data/artworks';
-import { families } from '../data/families';
-import { getToolCountByFamily, tools as toolboxTools } from '../data/tools';
+import { getAvailableToolFamilies, getToolCountByFamily, activeTools as toolboxTools } from '../data/tools';
 import { infoooWorlds } from '../data/infooo';
 import { SITE } from '../data/site';
 import { url } from '../utils/url';
 import { personSchema, websiteSchema } from '../utils/schema';
 
+const families = getAvailableToolFamilies(allFamilies);
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
-const activeToolCount = toolboxTools.filter((tool) => tool.status === 'active').length;
+const activeToolCount = toolboxTools.length;
 const publishedInfoooCount = infoooWorlds.filter((world) => world.status === 'published' && world.visibility === 'public').length;
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -115,7 +116,7 @@ const jsonLd = {
       />
       <div class="artworks-masonry">
         {featuredArtworks.slice(0, 8).map((art) => (
-          <a href={url('/artworks')} class="artwork-thumb" aria-label={art.title}>
+          <a href={url(`/artworks#art-${art.slug}`)} class="artwork-thumb" aria-label={art.title}>
             <img
               src={preview('/images/artworks/' + art.filename)}
               srcset={previewSrcset('/images/artworks/' + art.filename)}

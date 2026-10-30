@@ -1,4 +1,4 @@
-import type { FamilyId } from './families';
+import type { Family, FamilyId } from './families';
 import type { ToolFeatureLevel } from './featureLevels';
 
 export type ToolStatus = 'active' | 'planned' | 'experimental';
@@ -742,7 +742,7 @@ export const getToolBySlug = (slug: string): Tool | undefined =>
   tools.find((t) => t.slug === slug);
 
 export const getToolsByFamily = (familyId: string): Tool[] =>
-  tools.filter((t) => t.family === familyId);
+  activeTools.filter((t) => t.family === familyId);
 
 export function getRelatedTools(tool: Tool, limit = 3): Tool[] {
   const tagSet = new Set(tool.tags);
@@ -782,15 +782,17 @@ export function getTryNextTools(tool: Tool, limit = 2): Tool[] {
 }
 
 export const getToolCountByFamily = (familyId: string): number =>
-  tools.filter((t) => t.family === familyId).length;
+  getToolsByFamily(familyId).length;
 
 export const activeTools: Tool[] = tools.filter((t) => t.status === 'active');
-export const featuredTools: Tool[] = tools.filter((t) => t.featured);
+export const getAvailableToolFamilies = (families: Family[]): Family[] =>
+  families.filter(family => getToolCountByFamily(family.id) > 0);
+export const featuredTools: Tool[] = activeTools.filter((t) => t.featured);
 export const growthPriorityTools: Tool[] = activeTools.filter((tool) => tool.growthPriority);
 
 export const getActiveToolCountByFeatureLevel = (featureLevel: ToolFeatureLevel): number =>
   activeTools.filter((tool) => tool.featureLevel === featureLevel).length;
 
 export const allTags: string[] = Array.from(
-  new Set(tools.flatMap((t) => t.tags))
+  new Set(activeTools.flatMap((t) => t.tags))
 ).sort();

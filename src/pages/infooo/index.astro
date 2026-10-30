@@ -8,6 +8,7 @@ import { voiceForMonsterId } from '../../data/monsterVoices';
 import { infoooCategories, infoooWorlds } from '../../data/infooo';
 
 const worlds = infoooWorlds.filter(world => world.status === 'published' && world.visibility === 'public');
+const availableCategories = infoooCategories.filter(category => worlds.some(world => world.category === category.id));
 
 const infoooVoice = voiceForMonsterId('infooo');
 ---
@@ -21,14 +22,14 @@ const infoooVoice = voiceForMonsterId('infooo');
         <p class="lead">{infoooVoice.microcopy.intro}</p>
         <p class="infooo-voice">{infoooVoice.microcopy.discovery}</p>
       </div>
-      <p class="hero-stats"><strong>{worlds.length}</strong> Worlds <span>·</span> <strong>{infoooCategories.length}</strong> Categories</p>
+      <p class="hero-stats"><strong>{worlds.length}</strong> Worlds <span>·</span> <strong>{availableCategories.length}</strong> Categories</p>
     </section>
     <InfoooCollectionFeature />
     <section class="worlds-section" aria-labelledby="worlds-title">
       <div class="worlds-heading"><h2 id="worlds-title">Explore Worlds</h2><p>{worlds.length} interactive {worlds.length === 1 ? 'world' : 'worlds'}</p></div>
       <div class="category-filters" role="group" aria-label="Filter worlds by category" hidden>
         <button type="button" class="k-button k-button--secondary" data-category="all" aria-pressed="true">All</button>
-        {infoooCategories.map(category => <button type="button" class="k-button k-button--secondary" data-category={category.id} aria-pressed="false">{category.label}</button>)}
+        {availableCategories.map(category => <button type="button" class="k-button k-button--secondary" data-category={category.id} aria-pressed="false">{category.label}</button>)}
       </div>
       <div class="world-links">
         {worlds.map(world => <a class="world-card" href={url(`/infooo/${world.slug}`)} data-world-category={world.category}>

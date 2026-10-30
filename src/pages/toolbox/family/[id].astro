@@ -3,7 +3,7 @@ import BaseLayout from '../../../components/layout/BaseLayout.astro';
 import Breadcrumb from '../../../components/ui/Breadcrumb.astro';
 import ToolCard from '../../../components/toolbox/ToolCard.astro';
 import { families } from '../../../data/families';
-import { getToolsByFamily } from '../../../data/tools';
+import { getAvailableToolFamilies, getToolsByFamily } from '../../../data/tools';
 import { monsters } from '../../../data/monsters';
 import { url } from '../../../utils/url';
 import { absoluteUrl } from '../../../utils/seo';
@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 const { family } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const familyTools = getToolsByFamily(family.id);
-const otherFamilies = families.filter((f) => f.id !== family.id);
+const otherFamilies = getAvailableToolFamilies(families).filter((f) => f.id !== family.id);
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
 
 const jsonLd = pageSchema({

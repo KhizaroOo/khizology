@@ -65,7 +65,7 @@ export const families: Family[] = [
     question: 'How should I arrange/build/size this?',
     description: 'Work out the layout, the fit, the sizing — visually, before you commit to it.',
     seoTitle: 'Plan Tools | Toolooo',
-    seoDescription: 'Plan frames, paper layouts, pagination, timeouts, project quotes, roadmaps, campaigns, and other practical constraints with eight visual tools.',
+    seoDescription: 'Plan frames, paper layouts, pagination, timeouts, project quotes, roadmaps, campaigns, and other practical constraints with visual tools.',
     intro: 'Plan tools turn dimensions, timing, scope, and dependencies into a layout you can inspect. They help surface collisions and fit problems while changes are still cheap.',
     howToUse: 'Enter the constraints you know, review the proposed fit or risk, and keep enough margin for the constraints the model cannot see. Verify the final plan against vendor specifications, project agreements, or system limits.',
     color: TOOLOOO_COLOR,

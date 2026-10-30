@@ -1,4 +1,4 @@
-import { useId, useMemo, useState, type KeyboardEvent } from 'react';
+import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import { trackToolResult } from '../../../utils/analytics';
 import Warning from '../shared/Warning';
 import Metric from '../shared/Metric';
@@ -326,43 +326,54 @@ export default function ApiPayloadDoctor() {
   const [mode, setMode] = useState<'diagnose' | 'contract-drift'>('diagnose');
   const id = useId();
   const [raw, setRaw] = useState(EXAMPLE);
-  const [diagnosedRaw, setDiagnosedRaw] = useState(EXAMPLE);
   const [fileError, setFileError] = useState<string | null>(null);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
 
   const [targetContext, setTargetContext] = useLocalPref<TargetContext>('apiPayloadDoctorContext', 'web');
   const [estimateGzip, setEstimateGzip] = useState(false);
   const [requestsPerDayStr, setRequestsPerDayStr] = useState('');
+  const [submitted, setSubmitted] = useState({ raw: EXAMPLE, targetContext, estimateGzip: false, requestsPerDayStr: '' });
+  const [readingFile, setReadingFile] = useState(false);
+  const fileRequest = useRef(0);
+  useEffect(() => () => { fileRequest.current++; }, []);
+  const invalidateFile = () => { fileRequest.current++; setReadingFile(false); };
+  const outdated = readingFile || raw !== submitted.raw || targetContext !== submitted.targetContext || estimateGzip !== submitted.estimateGzip || requestsPerDayStr !== submitted.requestsPerDayStr;
 
   const meta = CONTEXT_META[targetContext];
+  const resultMeta = CONTEXT_META[submitted.targetContext];
 
   const result = useMemo(() => {
-    if (!diagnosedRaw.trim()) return null;
-    return diagnose(diagnosedRaw, targetContext);
-  }, [diagnosedRaw, targetContext]);
+    if (!submitted.raw.trim()) return null;
+    return diagnose(submitted.raw, submitted.targetContext);
+  }, [submitted]);
 
   const run = () => {
-    if (!raw.trim()) return;
-    setDiagnosedRaw(raw);
+    if (!raw.trim() || readingFile) return;
+    setSubmitted({ raw, targetContext, estimateGzip, requestsPerDayStr });
     trackToolResult();
   };
 
   const loadExample = () => {
+    invalidateFile();
     setRaw(EXAMPLE);
-    setDiagnosedRaw(EXAMPLE);
     setFileError(null);
     setUploadedFileName(null);
   };
 
   const handleFile = (file: File) => {
+    const request = ++fileRequest.current;
+    setReadingFile(true);
     setFileError(null);
     readFileAsText(file)
       .then((text) => {
+        if (request !== fileRequest.current) return;
+        setReadingFile(false);
         setRaw(text);
-        setDiagnosedRaw(text);
         setUploadedFileName(file.name);
       })
       .catch(() => {
+        if (request !== fileRequest.current) return;
+        setReadingFile(false);
         setFileError("Couldn't read that file — try pasting its contents instead.");
       });
   };
@@ -371,9 +382,9 @@ export default function ApiPayloadDoctor() {
   const topIssue = result ? pickTopIssue(result.findings) : null;
   const breakdown = useMemo(() => computeSizeBreakdown(result?.parsed ?? null), [result]);
   const gzipRange = result ? estimateGzipRange(result.bytes) : { low: 0, high: 0 };
-  const requestsPerDayNum = clamp(safeNumber(requestsPerDayStr, 0), 0, 1_000_000_000);
+  const requestsPerDayNum = clamp(safeNumber(submitted.requestsPerDayStr, 0), 0, 1_000_000_000);
 
-  const inputInvalid = raw === diagnosedRaw && topIssue?.kind === 'validity';
+  const inputInvalid = raw === submitted.raw && topIssue?.kind === 'validity';
   function navigateTabs(event: KeyboardEvent<HTMLButtonElement>) {
     if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
     event.preventDefault();
@@ -407,7 +418,7 @@ export default function ApiPayloadDoctor() {
         aria-describedby={`${id}-help${inputInvalid ? ` ${id}-error` : ''}`}
         aria-invalid={inputInvalid || undefined}
         value={raw}
-        onChange={(e) => setRaw(e.target.value)}
+        onChange={(e) => { invalidateFile(); setRaw(e.target.value); }}
         placeholder="Paste a JSON request or response body here…"
         rows={8}
         style={{
@@ -425,12 +436,11 @@ export default function ApiPayloadDoctor() {
       />
 
       {inputInvalid && <p id={`${id}-error`} className="tool-note">Invalid JSON — fix the syntax, then diagnose again.</p>}
-      {raw !== diagnosedRaw && <p role="status" className="tool-note">Input edited. Diagnose again to update the result below.</p>}
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginTop: '1rem' }}>
         <button
           className="payload-action"
           onClick={run}
-          disabled={!raw.trim()}
+          disabled={!raw.trim() || readingFile}
           style={{
             background: raw.trim() ? '#DF78A0' : 'var(--k-border)',
             border: 'none',
@@ -450,7 +460,8 @@ export default function ApiPayloadDoctor() {
       </div>
 
       {result && (
-        <div style={{ marginTop: '1.5rem' }}>
+        <div role="region" aria-label="Diagnosis result" aria-describedby={`${id}-result-status`} style={{ marginTop: '1.5rem' }}>
+          <p id={`${id}-result-status`} role="status" aria-live="polite" aria-atomic="true" className="tool-note" style={{ color: 'var(--k-text)' }}>{outdated ? <><strong>Outdated</strong> — Inputs changed. Run the diagnosis again to update this result.</> : 'Diagnosis matches the current inputs.'}</p>
           <div style={{ marginBottom: '1.25rem' }}>
             {topIssue ? (
               <Insight
@@ -461,7 +472,7 @@ export default function ApiPayloadDoctor() {
             ) : (
               <Insight
                 what="No major structural concerns found"
-                why={`This payload parses cleanly, keeps consistent key casing, isn't unusually deep, and stays under the ~${formatBytes(meta.thresholdBytes)} guideline for a ${meta.label} target.`}
+                why={`This payload parses cleanly, keeps consistent key casing, isn't unusually deep, and stays under the ~${formatBytes(resultMeta.thresholdBytes)} guideline for a ${resultMeta.label} target.`}
                 tip="Check this response against the consumer’s expected contract; these heuristics do not prove business correctness."
               />
             )}
@@ -470,7 +481,7 @@ export default function ApiPayloadDoctor() {
           <AdvancedDisclosure summary="Details: all checks and size breakdown">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '.75rem', marginBottom: '1.25rem' }}>
             <Metric label="Payload size" value={formatBytes(result.bytes)} />
-            {estimateGzip && (
+            {submitted.estimateGzip && (
               <Metric
                 label="Est. gzip size"
                 value={`${formatBytes(gzipRange.low)}–${formatBytes(gzipRange.high)}`}
@@ -589,6 +600,7 @@ export default function ApiPayloadDoctor() {
           {uploadedFileName && !fileError && (
             <div style={{ fontSize: '.72rem', color: 'var(--k-text-muted)', marginTop: '.35rem' }}>Loaded: {uploadedFileName}</div>
           )}
+          {readingFile && <p role="status" className="tool-note">Reading file…</p>}
           {fileError && (
             <div role="alert" style={{ fontSize: '.72rem', color: 'var(--k-text)', marginTop: '.35rem' }}>{fileError}</div>
           )}
@@ -599,7 +611,7 @@ export default function ApiPayloadDoctor() {
           <PresetBar
             presets={CONTEXT_PRESETS}
             activeLabel={meta.label}
-            onSelect={(values: TargetContext) => setTargetContext(values)}
+            onSelect={(values: TargetContext) => { invalidateFile(); setTargetContext(values); }}
           />
         </div>
 
@@ -608,7 +620,7 @@ export default function ApiPayloadDoctor() {
           type="number"
           min="0"
           value={requestsPerDayStr}
-          onChange={setRequestsPerDayStr}
+          onChange={(value) => { invalidateFile(); setRequestsPerDayStr(value); }}
           placeholder="e.g. 50000"
         />
 
@@ -618,7 +630,7 @@ export default function ApiPayloadDoctor() {
             <input
               type="checkbox"
               checked={estimateGzip}
-              onChange={(e) => setEstimateGzip(e.target.checked)}
+              onChange={(e) => { invalidateFile(); setEstimateGzip(e.target.checked); }}
               style={{ accentColor: '#DF78A0', width: '16px', height: '16px' }}
             />
             Estimate gzip size

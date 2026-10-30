@@ -1,11 +1,10 @@
 ---
+import { families as allFamilies } from '../data/families';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
-import FamilyCard from '../components/toolbox/FamilyCard.astro';
 import ToolCard from '../components/toolbox/ToolCard.astro';
 import MyTooloooPanel from '../components/toolbox/lv3/MyTooloooPanel';
-import { families } from '../data/families';
-import { tools, growthPriorityTools, getToolCountByFamily, getActiveToolCountByFeatureLevel, allTags } from '../data/tools';
+import { activeTools as tools, getAvailableToolFamilies, growthPriorityTools, getToolCountByFamily, getActiveToolCountByFeatureLevel, allTags } from '../data/tools';
 import { toolFeatureLevels } from '../data/featureLevels';
 import { monsters } from '../data/monsters';
 import { url } from '../utils/url';
@@ -13,10 +12,12 @@ import { absoluteUrl } from '../utils/seo';
 import { pageSchema } from '../utils/schema';
 import { voiceForMonsterId } from '../data/monsterVoices';
 
+const families = getAvailableToolFamilies(allFamilies);
 const ACCENT = '#F7933C';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const activeCount = tools.filter((t) => t.status === 'active').length;
+const activeCount = tools.length;
+const activeLevels = toolFeatureLevels.filter(definition => getActiveToolCountByFeatureLevel(definition.level) > 0);
 const tooloooVoice = voiceForMonsterId('toolooo');
 const toolboxTitle = 'Toolooo — Free Visual Browser Tools | Khizooology';
 const toolboxDescription = `${activeCount} free visual tools to check, simulate, decide, plan, and create in your browser. No signup, no backend, and no uploads.`;
@@ -84,6 +85,46 @@ const jsonLd = pageSchema({
     </div>
   </section>
 
+  <!-- Tools -->
+  <section class="k-section tb-tools-section" id="tools">
+    <div class="k-container">
+      <div class="tb-tools-header">
+        <div>
+          <span class="k-section-label" style={`color: var(--m-toolooo-text)`}>All Tools</span>
+          <h2 class="tb-section-title" aria-live="polite" aria-atomic="true">
+            Showing <span id="tb-visible-count">{tools.length}</span> of {tools.length}
+          </h2>
+        </div>
+        <button type="button" id="tb-clear-filters" class="tb-clear-btn k-button k-button--ghost" hidden>Clear filters ✕</button>
+      </div>
+
+      <label class="tb-search" for="tb-search">Search tools
+        <input id="tb-search" type="search" placeholder="Name, problem or topic — try queue" maxlength="200" autocomplete="off" aria-controls="tb-tool-results" />
+      </label>
+      <div class="tb-family-choices" role="group" aria-label="Choose a tool family">
+        <button type="button" class="k-button k-button--secondary is-active" data-family-filter="all" aria-pressed="true">All <span>{tools.length}</span></button>
+        {families.map(family => <button type="button" class="k-button k-button--secondary" data-family-filter={family.id} aria-pressed="false" title={family.question}><span aria-hidden="true">{family.icon}</span> {family.name} <span>{getToolCountByFamily(family.id)}</span></button>)}
+      </div>
+      <details class="tb-topics">
+        <summary>Filter by topic <span id="tb-active-topic"></span></summary>
+        <div class="tb-tag-row" role="group" aria-label="Tool topics">
+          {allTags.map(tag => <button type="button" class="tb-tag-btn k-button k-button--secondary" data-tag-filter={tag} aria-pressed="false">{tag}</button>)}
+        </div>
+      </details>
+
+      <div class="tb-tools-grid" id="tb-tool-results">
+        {tools.map((tool) => (
+          <ToolCard tool={tool} />
+        ))}
+      </div>
+      <div id="tb-no-results" class="tb-no-results" hidden>
+        <p><strong>No tools match those filters.</strong></p>
+        <p>{tooloooVoice.microcopy.empty}</p>
+        <button type="button" class="k-button k-button--secondary" id="tb-empty-clear">Clear filters</button>
+      </div>
+    </div>
+  </section>
+
   <MyTooloooPanel client:load tools={tools.map(({ id, slug, name, icon, family }) => ({ id, slug, name, icon, family }))} base={base} />
   <section class="k-container tb-context-clusters" aria-labelledby="growth-tools-title">
     <h2 id="growth-tools-title">Useful outputs to start with</h2>
@@ -95,28 +136,12 @@ const jsonLd = pageSchema({
     <div>{toolClusters.map(cluster => <section><h3>{cluster.title}</h3><p>{cluster.context}</p><ul>{cluster.items.map(tool => <li><a href={url(`/toolbox/${tool.slug}`)} data-related-content data-related-monster="toolooo" data-related-content-type="tool" data-related-slug={tool.slug}>{tool.name}</a></li>)}</ul></section>)}</div>
   </section>
 
-  <!-- Families -->
-  <section class="k-section tb-families-section" id="families">
-    <div class="k-container">
-      <div class="tb-section-header">
-        <span class="k-section-label" style={`color: var(--m-toolooo-text)`}>Five Ways In</span>
-        <h2 class="tb-section-title">Every tool answers one of these questions</h2>
-        <p class="tb-section-sub">Click a family to filter the tools below.</p>
-      </div>
-      <div class="tb-families-grid">
-        {families.map((f) => (
-          <FamilyCard family={f} count={getToolCountByFamily(f.id)} />
-        ))}
-      </div>
-    </div>
-  </section>
-
   <section class="tb-levels-section" aria-labelledby="feature-levels-title">
     <div class="k-container tb-levels-inner">
       <div class="tb-levels-intro">
         <span class="k-section-label" style={`color: var(--m-toolooo-text)`}>Toolooo Feature Levels</span>
         <h2 id="feature-levels-title" class="tb-levels-title">How deep does the tool go?</h2>
-        <p>Levels describe experience maturity. Every current production tool targets LV2.</p>
+        <p>Levels describe experience depth.{activeLevels.length > 0 && ` Current tools use ${activeLevels.map(definition => `LV${definition.level}`).join(' and ')}.`}</p>
       </div>
       <div class="tb-level-list">
         {toolFeatureLevels.map((definition) => {
@@ -131,40 +156,6 @@ const jsonLd = pageSchema({
             </div>
           );
         })}
-      </div>
-    </div>
-  </section>
-
-  <!-- Tools -->
-  <section class="k-section tb-tools-section" id="tools">
-    <div class="k-container">
-      <div class="tb-tools-header">
-        <div>
-          <span class="k-section-label" style={`color: var(--m-toolooo-text)`}>All Tools</span>
-          <h2 class="tb-section-title" aria-live="polite" aria-atomic="true">
-            Showing <span id="tb-visible-count">{tools.length}</span> of {tools.length}
-          </h2>
-        </div>
-        <button type="button" id="tb-clear-filters" class="tb-clear-btn k-button k-button--ghost" hidden>Clear filters ✕</button>
-      </div>
-
-      <label class="tb-search" for="tb-search">Find a tool
-        <input id="tb-search" type="search" placeholder="Name, problem or topic" maxlength="200" autocomplete="off" />
-      </label>
-      <div class="tb-tag-row">
-        {allTags.map((tag) => (
-          <button type="button" class="tb-tag-btn k-button k-button--secondary" data-tag-filter={tag} aria-pressed="false">{tag}</button>
-        ))}
-      </div>
-
-      <div class="tb-tools-grid">
-        {tools.map((tool) => (
-          <ToolCard tool={tool} />
-        ))}
-      </div>
-      <div id="tb-no-results" class="tb-no-results" hidden>
-        <p><strong>No tools match those filters.</strong></p>
-        <p>{tooloooVoice.microcopy.empty}</p>
       </div>
     </div>
   </section>
@@ -194,6 +185,7 @@ const jsonLd = pageSchema({
   const countEl = document.getElementById('tb-visible-count');
   const clearBtn = document.getElementById('tb-clear-filters');
   const noResults = document.getElementById('tb-no-results');
+  const activeTopic = document.getElementById('tb-active-topic');
   const searchInput = document.getElementById('tb-search') as HTMLInputElement | null;
   const searchText = new Map([...cards].map(card => [card, (card.textContent || '').toLocaleLowerCase()]));
 
@@ -215,6 +207,7 @@ const jsonLd = pageSchema({
     if (countEl) countEl.textContent = String(visible);
     if (clearBtn) clearBtn.hidden = activeFamily === 'all' && activeTag === 'all' && terms.length === 0;
     if (noResults) noResults.hidden = visible !== 0;
+    if (activeTopic) activeTopic.textContent = activeTag === 'all' ? '' : `· ${activeTag}`;
   }
   searchInput?.addEventListener('input', applyFilter);
 
@@ -244,16 +237,20 @@ const jsonLd = pageSchema({
     });
   });
 
-  clearBtn?.addEventListener('click', () => {
+  function clearFilters() {
     activeFamily = 'all';
     activeTag = 'all';
     if (searchInput) searchInput.value = '';
     [...familyButtons, ...tagButtons].forEach((b) => {
       b.classList.remove('is-active');
-      b.setAttribute('aria-pressed', 'false');
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-family-filter') === 'all'));
+      b.classList.toggle('is-active', b.getAttribute('data-family-filter') === 'all');
     });
     applyFilter();
-  });
+    searchInput?.focus();
+  }
+  clearBtn?.addEventListener('click', clearFilters);
+  document.getElementById('tb-empty-clear')?.addEventListener('click', clearFilters);
 </script>
 
 <style>
@@ -304,14 +301,24 @@ const jsonLd = pageSchema({
   }
   .tb-section-sub { font-size: .875rem; color: var(--k-text-muted); margin: 0; }
 
-  /* Families */
-  .tb-families-section { background: var(--k-bg-card); border-top: 1px solid var(--k-border); }
-  .tb-families-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1.125rem;
+  .tb-family-choices { display:flex; flex-wrap:wrap; gap:var(--k-filter-gap); margin-bottom:1rem; padding-bottom:4px; }
+  .tb-family-choices button { min-height:44px; }
+  .tb-family-choices span { font-size:.85em; }
+  .tb-family-choices .is-active { border-color:var(--m-toolooo-text); }
+  .tb-family-choices .is-active::before { content:'✓'; }
+  .tb-topics { margin-bottom:1.25rem; }
+  .tb-topics summary { cursor:pointer; min-height:44px; padding:.6rem 0; font-weight:700; }
+  .tb-topics summary:focus-visible { outline:3px solid var(--k-text); outline-offset:3px; }
+  .tb-tools-section { padding-block:1.5rem; }
+  @media(max-width:600px) {
+    .tb-hero { padding:1rem 0; }
+    .tb-hero-title { font-size:1.75rem; }
+    .tb-hero-lead { font-size:.9rem; line-height:1.5; margin-bottom:.75rem; }
+    .tb-hero-voice { margin:0 0 .75rem; }
+    .tb-hero-stats { gap:1rem; }
+    .tb-stat-num { font-size:1.15rem; }
+    .tb-stat-label { font-size:.65rem; }
   }
-
   .tb-levels-section { background: var(--k-bg); border-top: 1px solid var(--k-border); padding: 2rem 0; }
   .tb-levels-inner { display: grid; grid-template-columns: minmax(220px, .7fr) minmax(0, 1.3fr); gap: 2rem; align-items: center; }
   .tb-levels-title { font-family: 'Poppins', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--k-text); margin: .25rem 0 .35rem; }
@@ -344,7 +351,7 @@ const jsonLd = pageSchema({
 
   .tb-tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(270px, 100%), 1fr));
     gap: 1.125rem;
   }
 

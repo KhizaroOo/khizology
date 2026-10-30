@@ -58,7 +58,7 @@ export const monsterVoices: Partial<Record<Monster['id'], MonsterVoice>> = {
     tone: 'inviting, simple, and never condescending',
     microcopy: {
       intro: "Words weren't enough. So I made it move.",
-      discovery: 'Try isolating one system. Connections become easier to see.',
+      discovery: 'Explore one idea. See how its parts connect.',
       empty: 'Nothing matches that search yet. Try another structure.',
       next: 'Follow one connection at a time.',
     },

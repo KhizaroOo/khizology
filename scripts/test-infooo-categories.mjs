@@ -12,8 +12,8 @@ const filters = { querySelectorAll: () => buttons, addEventListener: (_, handler
 const status = { textContent: '' };
 vm.runInNewContext(stripTypeScriptTypes(source.match(/<script>([\s\S]*?)<\/script>/)[1]), { document: { querySelector: selector => selector === '.category-filters' ? filters : status, querySelectorAll: () => cards } });
 assert.equal(filters.hidden, false);
-assert.equal(buttons.length, 7);
-assert.equal(cards.length, 14);
+assert.ok(cards.length > 0);
+assert.deepEqual(buttons.map(button => button.dataset.category).sort(), ['all', ...new Set(cards.map(card => card.dataset.worldCategory))].sort());
 for (const button of [...buttons, buttons[0]]) {
   click({ target: { closest: () => button } });
   const category = button.dataset.category;
@@ -23,4 +23,4 @@ for (const button of [...buttons, buttons[0]]) {
   assert.equal(buttons.filter(item => item['aria-pressed'] === 'true').length, 1);
   if (!expected) assert.equal(status.textContent, 'More worlds are coming to this category.');
 }
-console.log('Infooo categories passed: six categories, fourteen live worlds, all filters, empty states and restoration.');
+console.log(`Infooo categories passed: ${buttons.length - 1} nonempty categories, ${cards.length} live worlds, filters and restoration.`);
