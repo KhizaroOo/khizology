@@ -7,24 +7,48 @@ import ts from 'typescript';
 const source = fs.readFileSync(new URL('../src/utils/analytics.ts', import.meta.url), 'utf8');
 function fixture(id = 'G-TESTONLY00', saved = null, brokenStorage = false, href = 'https://khizooology.com/?private=NEVER_SEND', canonical = 'https://khizooology.com/toolbox/schema-drift-doctor', referrer = '') {
   const scripts = [], docListeners = {}, toolListeners = {};
-  let reloads = 0;
+  let reloads = 0, referrerReads = 0;
+  const storageWrites = [];
   class Element { dataset = {}; closest(selector) { return selector.includes('.share-foundation') ? null : this; } }
   const tool = { dataset: { toolSlug: 'schema-drift-doctor', toolFamily: 'check', featureLevel: '2' }, addEventListener: (name, fn) => toolListeners[name] = fn };
   const doc = { title: 'Public tool title', referrer, cookie: '_ga=abc', querySelector: selector => selector.includes('canonical') ? { href: canonical } : tool,
     querySelectorAll: () => [{ dataset: { artworkSlug: 'public-art' } }], createElement: () => ({ remove() {} }), head: { appendChild: s => scripts.push(s) },
     getElementById: () => scripts[0], addEventListener: (name, fn) => { const previous = docListeners[name]; docListeners[name] = event => { previous?.(event); fn(event); }; }, dispatchEvent() {} };
   const win = { location: { href, reload: () => reloads++ }, addEventListener() {} };
-  const context = vm.createContext({ window: win, document: doc, Element, URL, Event, localStorage: { getItem: () => { if (brokenStorage) throw Error(); return saved; }, setItem: (_, v) => { if (brokenStorage) throw Error(); saved = v; } } });
+  Object.defineProperty(doc, 'referrer', { get: () => { referrerReads++; return referrer; } });
+  const context = vm.createContext({ window: win, document: doc, Element, URL, Event, localStorage: { getItem: () => { if (brokenStorage) throw Error(); return saved; }, setItem: (key, v) => { if (brokenStorage) throw Error(); storageWrites.push([key, v]); saved = v; } } });
   vm.runInContext(stripTypeScriptTypes(source.replace('import.meta.env.PUBLIC_GA_MEASUREMENT_ID', JSON.stringify(id))).replace(/export /g, ''), context);
   const run = code => vm.runInContext(code, context);
   const events = () => (win.dataLayer || []).map(args => Array.from(args)).filter(args => args[0] === 'event');
-  return { run, scripts, win, docListeners, toolListeners, Element, events, reloads: () => reloads };
+  return { run, scripts, win, docListeners, toolListeners, Element, events, storageWrites, referrerReads: () => referrerReads, reloads: () => reloads };
 }
 for (const saved of [null, 'declined']) {
   const f = fixture('G-TESTONLY00', saved); f.run('initializeAnalytics(); trackToolStart(); trackArtworkView("public-art"); trackToolExport("json"); trackToolExport("csv")');
   assert.equal(f.scripts.length, 0); assert.equal(f.events().length, 0);
 }
 const missing = fixture('', 'accepted'); missing.run('initializeAnalytics(); trackToolStart()'); assert.equal(missing.scripts.length, 0);
+// F11: browser-local referral checks are not analytics transmission or storage.
+for (const saved of [null, 'declined']) {
+  const referral = fixture('G-TESTONLY00', saved, false, undefined, undefined, 'https://github.com/private-project?token=NEVER_SEND#private');
+  referral.run('initializeAnalytics(); trackShareAction({monster:"toolooo",content_type:"tool",slug:"api-payload-doctor",action:"copy_link"})');
+  assert.ok(referral.referrerReads() > 0, 'public metadata can check the browser referrer before consent');
+  assert.equal(referral.scripts.length, 0); assert.equal(referral.events().length, 0); assert.equal(referral.storageWrites.length, 0);
+  referral.run('setConsent("accepted")');
+  assert.equal(referral.scripts.length, 1); assert.equal(referral.events()[0][2].page_referrer, 'https://github.com/');
+  assert.deepEqual(referral.storageWrites, [['khizooology-analytics-consent', 'accepted']]);
+  assert.ok(!JSON.stringify(referral.win.dataLayer).includes('NEVER_SEND'));
+  referral.run('setConsent("declined"); trackShareAction({monster:"toolooo",content_type:"tool",slug:"api-payload-doctor",action:"copy_link"})');
+  assert.equal(referral.events().length, 0); assert.equal(referral.win['ga-disable-G-TESTONLY00'], true); assert.equal(referral.reloads(), 1);
+  assert.deepEqual(referral.storageWrites.at(-1), ['khizooology-analytics-consent', 'declined']);
+}
+const privacyCopy = fs.readFileSync(new URL('../src/pages/privacy.astro', import.meta.url), 'utf8');
+const noticeCopy = fs.readFileSync(new URL('../src/components/layout/AnalyticsConsent.astro', import.meta.url), 'utf8');
+assert.match(privacyCopy, /After analytics consent[\s\S]*scheme and hostname[\s\S]*limited list/);
+assert.match(privacyCopy, /paths, query parameters and fragments are removed/);
+assert.match(privacyCopy, /does not save referral addresses in browser storage/);
+assert.match(privacyCopy, /attempts to delete[\s\S]*Previously sent events cannot be recalled/);
+assert.doesNotMatch(privacyCopy, /referrers are excluded|anonymous analytics|contact form currently/i);
+assert.match(noticeCopy, /If you accept[\s\S]*referrals from selected public websites/);
 for (const [referrer, expected] of [
   ['https://www.google.com/search?q=NEVER_SEND#private', 'https://www.google.com/'],
   ['https://www.bing.com/search?q=NEVER_SEND', 'https://www.bing.com/'],

@@ -12,14 +12,17 @@ const jsonLd = pageSchema({ path: '/privacy', name: title, description, breadcru
     <h2>Your inputs stay out of analytics</h2>
     <p>JWTs, JSON, .env files, configuration, pasted text, custom URLs, filenames, pricing amounts and generated outputs are not sent to analytics.</p>
     <h2>Optional usage measurement</h2>
-    <p>Google Analytics 4 loads only after you accept analytics. It measures page visits and public interactions: starting a tool, opening an artwork, exporting a format, or choosing a contact channel. Page queries and referrers are excluded from our events. Declining does not limit Artooo or Toolooo.</p>
-    <p>After acceptance, Google receives usage events and connection information such as your IP address and browser information; analytics cookies can recognize repeat visits. Advertising features are disabled. See <a href="https://policies.google.com/privacy" rel="noopener">Google’s privacy policy</a> for its handling of data.</p>
+    <p>Google Analytics 4 loads only after you accept analytics, including an accepted choice saved from an earlier visit. It measures page visits and public interactions: starting a tool, opening an artwork, exporting a format, or choosing a contact channel. Our events use the public page address and title, without page query parameters or URL fragments. This helps us understand which content is useful. Declining does not limit the site.</p>
+    <h2>Where visits come from</h2>
+    <p>Your browser may provide the address of the page you came from. Our code checks that address in your browser. After analytics consent, our events send Google only the scheme and hostname, such as <code>https://www.google.com/</code>, for a limited list of known public referral sites. This helps us understand where visitors discover Khizooology.</p>
+    <p>Referring-page paths, query parameters and fragments are removed. Addresses containing a username, password or non-default port are excluded, as are unlisted hosts and referrals from this site. Our code does not save referral addresses in browser storage. A local check of the browser’s referral information does not itself send an analytics event.</p>
+    <p>After acceptance, Google receives usage events and may receive connection information such as your IP address and browser information; analytics cookies can recognize repeat visits. Our tag configuration disables Google Signals and advertising-personalisation signals, and advertising consent stays denied. See <a href="https://policies.google.com/privacy" rel="noopener">Google’s privacy policy</a> for its handling of data.</p>
     <h2>Your choice and local storage</h2>
     <p>Your accepted or declined choice is saved locally as <code>khizooology-analytics-consent</code>. Theme and some tool preferences also use browser storage. If storage is unavailable, your analytics choice lasts for the current page.</p>
-    <p>You can change your choice below or in the footer. Withdrawing consent disables analytics, clears this site's Google Analytics cookies, and reloads the page to remove the running analytics code. Previously sent events cannot be recalled through this control.</p>
+    <p>Before acceptance, or after declining, our code does not load Google Analytics or send analytics events. You can change your choice below or in the footer. Withdrawing consent disables further events, clears the site’s analytics queue, removes the script element, attempts to delete this site's Google Analytics cookies, and reloads the page if analytics had loaded. Browser restrictions may prevent cookie deletion. Previously sent events cannot be recalled through this control.</p>
     <button type="button" data-analytics-preferences class="k-button k-button--secondary" hidden>Analytics preferences</button>
     <h2>External destinations</h2>
-    <p>Social and other external links take you to services with their own privacy policies. Khizooology's contact form currently has no submission backend.</p>
+    <p>Social and contact links open external services or your email app, with their own privacy policies. Messages are sent through the channel you choose, not submitted through this website.</p>
   </div></section>
 </BaseLayout>
 <style>

@@ -52,17 +52,17 @@ There is no automatic deploy hook. Invoke explicitly again only after meaningful
 
 ## Consent and measurement contract
 
-Unknown and declined choices do not create a Google queue, load a Google script, or send cookieless pings. Accepted consent loads GA asynchronously once and sends a single explicit page_view. Advertising storage, ad user data, personalization and Google Signals are disabled. Canonical path and static title replace the browser URL; query state and referrer are excluded.
+Unknown and declined choices do not create a Google queue, load a Google script, or send cookieless pings. Accepted consent loads GA asynchronously once and sends a single explicit page_view. The code keeps advertising storage, ad user data and personalization denied and disables Google Signals. Canonical path and static title replace the browser URL, excluding query/hash state. The helper locally checks the browser-provided referrer and includes only scheme/hostname roots for its exact public-host allowlist in consented events. Paths, queries, fragments, credentials, non-default ports, same-site and unlisted hosts are excluded; referral addresses are not persisted in browser storage. Local checks are distinct from transmission. Public tag inspection does not establish all GA4 Admin settings, retention or provider-side processing; verify these separately rather than assuming them.
 
 Only these custom values are allowed: tool_start (tool_slug, tool_family, feature_level), artwork_view (public artwork_slug), tool_export (tool_slug, fixed svg/png/json format), contact_click (fixed contact_type). Starting a tool requires a trusted interaction and fires once per page. Central export helpers report format only, never the filename or output. There is no generic public event sender accepting arbitrary values.
 
-Withdrawal sets Google's disable flag, clears the queue and host GA cookies, removes the script element, then reloads to dispose of already-running code. Previously sent events are not recalled. Storage failure falls back to a page-local choice; script failure disables further event queuing without affecting tools.
+Withdrawal sets Google's disable flag, clears the site's queue, removes the script element, attempts to delete host GA cookies, then reloads if analytics had loaded to dispose of already-running code. Cookie access restrictions can prevent deletion. Previously sent events are not recalled. Storage failure falls back to a page-local choice; script failure disables further event queuing without affecting tools.
 
 ## Deployment validation gate
 
 - Check home, privacy, toolbox, artworks, each representative tool, robots, both sitemaps and public key on HTTPS apex. Recheck HTTPS and www redirects, canonicals and assets.
 - With fresh/declined consent, inspect network: no googletagmanager.com or Google Analytics requests. Test a tool and artwork modal.
-- Accept: confirm one tag, page_view and safe custom events. Use non-sensitive synthetic sentinels in tool input/query/referrer and inspect every analytics request for absence of those values. Check page_location lacks query/hash and page_referrer is blank, including automatically generated GA events.
+- Accept: confirm one tag, page_view and safe custom events. Use non-sensitive synthetic sentinels in tool input/query/referrer and inspect every analytics request for absence of those values. Check page_location lacks query/hash and page_referrer is the allowlisted scheme/hostname root or blank for all other sources, including automatically generated GA events. Keep Enhanced Measurement and user-provided-data collection disabled.
 - Confirm no unexpected automatic Enhanced Measurement events. Withdraw consent, observe automatic reload, and verify no further Google requests. Reopen preferences with keyboard.
 - Expected Google analytics connections after acceptance are not tool uploads. Any private input in a request is a failure. Real browser network capture and GA Realtime remain pending until an actual ID is configured.
 
