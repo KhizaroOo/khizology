@@ -53,7 +53,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <!-- Monster cards -->
   <section class="k-section fm-cards-section">
     <div class="k-container">
-      <span class="k-section-label" style="color: var(--k-accent)">Inside the Lab</span>
+      <span class="k-section-label" style="color: var(--k-accent-text)">Inside the Lab</span>
       <h2 class="fm-section-title">Locked mysteries</h2>
       <p class="fm-section-sub">They can stay unknown until a real experience earns a distinct territory.</p>
 
@@ -79,7 +79,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             </div>
             <div class="fm-card-footer">
               <div class="fm-color-swatch" style={`background: ${m.color}`}></div>
-              <span class="fm-color-label" style={`color: ${m.color}`}>{m.color}</span>
+              <span class="fm-color-label" style={`color: color-mix(in srgb, ${m.color} var(--k-identity-text-weight), var(--k-identity-text-base))`}>{m.color}</span>
             </div>
           </div>
         ))}
@@ -92,7 +92,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <div class="k-container">
       <div class="fm-timeline-inner">
         <div class="fm-timeline-text">
-          <span class="k-section-label" style="color: var(--k-accent)">The Process</span>
+          <span class="k-section-label" style="color: var(--k-accent-text)">The Process</span>
           <h2 class="fm-timeline-title">A name comes after real value.</h2>
           <p class="fm-timeline-desc">There is no launch calendar. Purpose, a distinct territory, and a real flagship come before a reveal.</p>
           <div class="fm-steps">
@@ -128,7 +128,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <section class="fm-active-section">
     <div class="k-container">
       <div class="fm-active-header">
-        <span class="k-section-label" style="color: var(--k-accent)">Meanwhile</span>
+        <span class="k-section-label" style="color: var(--k-accent-text)">Meanwhile</span>
         <h2 class="fm-active-title">{activeMonsters.length} Active Monsters Are Ready</h2>
       </div>
       <div class="fm-active-grid">
@@ -165,7 +165,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     padding: .35rem .875rem; border-radius: 999px;
     background: color-mix(in srgb, var(--k-accent) 10%, transparent);
     border: 1px solid color-mix(in srgb, var(--k-accent) 30%, transparent);
-    font-size: .75rem; font-weight: 700; color: var(--k-accent);
+    font-size: .75rem; font-weight: 700; color: var(--k-accent-text);
     font-family: 'Poppins', sans-serif; margin-bottom: .75rem;
   }
   .fm-lab-dot {
@@ -183,7 +183,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     font-size: clamp(2rem, 4.5vw, 3.25rem);
     font-weight: 900; line-height: 1.1; color: var(--k-text); margin: 0 0 1rem;
   }
-  .fm-hero-accent { color: var(--k-accent); }
+  .fm-hero-accent { color: var(--k-accent-text); }
   .fm-hero-lead {
     font-size: 1rem; color: var(--k-text-muted); line-height: 1.7;
     max-width: 480px; margin: 0;
@@ -261,18 +261,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
   .fm-num {
     font-family: 'Poppins', sans-serif; font-size: .7rem; font-weight: 700;
-    color: var(--fc); opacity: .6;
+    color: color-mix(in srgb, var(--fc, var(--k-accent)) var(--k-identity-text-weight), var(--k-identity-text-base));
   }
   .fm-card-body { display: flex; flex-direction: column; gap: .375rem; }
   .fm-name-row { display: flex; align-items: center; justify-content: space-between; }
   .fm-name {
     font-family: 'Poppins', sans-serif; font-size: 1rem;
-    font-weight: 800; color: var(--fc);
+    font-weight: 800; color: color-mix(in srgb, var(--fc, var(--k-accent)) var(--k-identity-text-weight), var(--k-identity-text-base));
   }
   .fm-desc { font-size: .8rem; color: var(--k-text-muted); line-height: 1.5; margin: 0; }
   .fm-tagline {
     font-size: .7rem; font-weight: 700; font-family: 'Poppins', sans-serif;
-    text-transform: uppercase; letter-spacing: .08em; color: var(--fc); opacity: .7;
+    text-transform: uppercase; letter-spacing: .08em; color: color-mix(in srgb, var(--fc, var(--k-accent)) var(--k-identity-text-weight), var(--k-identity-text-base));
   }
   .fm-card-footer {
     display: flex; align-items: center; gap: .5rem; padding-top: .25rem;
@@ -322,7 +322,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     font-family: 'Poppins', sans-serif; font-size: .875rem; font-weight: 700; color: var(--k-text);
   }
   .fm-step p { font-size: .78rem; color: var(--k-text-muted); margin: .125rem 0 0; }
-  .fm-step.done strong, .fm-step.active strong { color: var(--k-accent); }
+  .fm-step.done strong, .fm-step.active strong { color: var(--k-accent-text); }
 
   .fm-cta-card {
     background: var(--k-bg-card); border: 1.5px solid var(--k-accent);
@@ -372,7 +372,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   }
   .fm-active-module { font-size: .75rem; color: var(--k-text-muted); margin: 0; }
   .fm-active-arrow {
-    margin-left: auto; color: var(--mc); font-size: 1rem;
+    margin-left: auto; color: color-mix(in srgb, var(--mc, var(--k-accent)) var(--k-identity-text-weight), var(--k-identity-text-base)); font-size: 1rem;
     font-weight: 700; opacity: 0; transition: opacity .2s;
   }
   .fm-active-card:hover .fm-active-arrow { opacity: 1; }

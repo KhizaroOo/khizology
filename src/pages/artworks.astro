@@ -70,7 +70,7 @@ const jsonLd = pageSchema({
           <Breadcrumb crumbs={[{ label: 'artooo', href: url('/artworks') }]} accentColor={ACCENT} />
           <div class="art-hero-badge">
             <img src={preview("/images/Monsters/artooo.png")} alt="artooo" width="40" height="40" class="art-hero-monster" />
-            <span class="k-section-label" style={`color: ${ACCENT}`}>artooo · Artworks</span>
+            <span class="k-section-label" style={`color: var(--m-artooo-text)`}>artooo · Artworks</span>
           </div>
           <h1 class="art-hero-title">
             {artworks.length} Artworks.<br />
@@ -123,7 +123,7 @@ const jsonLd = pageSchema({
   <section class="art-gallery k-section">
     <div class="k-container">
       <div class="art-gallery-header">
-        <span class="k-section-label" style={`color: ${ACCENT}`}>The Gallery</span>
+        <span class="k-section-label" style={`color: var(--m-artooo-text)`}>The Gallery</span>
         <h2 class="art-gallery-title">Browse All Artworks</h2>
         <p class="art-gallery-sub">Click any artwork to see it up close.</p>
       </div>
@@ -200,7 +200,7 @@ const jsonLd = pageSchema({
     color: var(--k-text);
     margin: .5rem 0 1rem;
   }
-  .art-hero-accent { color: #F5CF5C; }
+  .art-hero-accent { color: var(--m-artooo-text); }
 
   .art-hero-lead {
     font-size: 1rem;
@@ -220,7 +220,7 @@ const jsonLd = pageSchema({
     font-family: 'Poppins', sans-serif;
     font-size: 1.5rem;
     font-weight: 900;
-    color: #F5CF5C;
+    color: var(--m-artooo-text);
     line-height: 1;
   }
   .art-stat-label {
@@ -296,5 +296,5 @@ const jsonLd = pageSchema({
     min-width: 72px;
     transition: border-color .2s, color .2s;
   }
-  .art-cta-monster:hover { border-color: var(--mc); color: var(--mc); }
+  .art-cta-monster:hover { border-color: var(--mc); color: color-mix(in srgb, var(--mc, var(--k-accent)) var(--k-identity-text-weight), var(--k-identity-text-base)); }
 </style>

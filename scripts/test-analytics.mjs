@@ -145,7 +145,7 @@ const shareSource = fs.readFileSync(new URL('../src/components/toolbox/ShareResu
 vm.runInNewContext(ts.transpileModule(shareSource, { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText, {
   exports: shareExports, navigator,
   document: { querySelector: () => ({ href: 'https://khizooology.com/toolbox/api-payload-doctor/' }) },
-  require: name => name === 'react/jsx-runtime' ? { jsx, jsxs: jsx } : { trackShareAction: metadata => { shareEvents.push(metadata); cross.run(`trackShareAction(${JSON.stringify(metadata)})`); } },
+  require: name => name === 'react/jsx-runtime' ? { jsx, jsxs: jsx } : name === 'react' ? { useId: () => 'share-test', useRef: value => ({ current: value }), useState: value => [value, () => {}], useLayoutEffect: () => {} } : { trackShareAction: metadata => { shareEvents.push(metadata); cross.run(`trackShareAction(${JSON.stringify(metadata)})`); } },
 });
 const shared = shareExports.default({ monster: 'toolooo', contentType: 'tool', slug: 'api-payload-doctor', title: 'Public title', result: { summary: 'Only aggregate counts' } });
 const buttons = shared.props.children.filter(child => child?.type === 'button');
@@ -162,7 +162,7 @@ contactLink.closest = selector => selector === 'a[href]' ? contactLink : null;
 cross.docListeners.click({ isTrusted: true, target: contactLink });
 assert.deepEqual(Array.from(cross.events(), e => e[1]), ['page_view', 'result_copied', 'result_shared', 'contact_click'], 'one contact interaction emits one contact, no share');
 assert.equal(nativeShares[0].url, 'https://khizooology.com/toolbox/api-payload-doctor/');
-navigator.share = async () => { throw new Error('cancelled'); };
+navigator.share = async () => { throw Object.assign(new Error('cancelled'), { name: 'AbortError' }); };
 navigator.clipboard.writeText = async () => { throw new Error('denied'); };
 await buttons[0].props.onClick(); await buttons[1].props.onClick();
 assert.equal(shareEvents.length, 2, 'failed clipboard and cancelled native share emit nothing');

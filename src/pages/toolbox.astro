@@ -64,7 +64,7 @@ const jsonLd = pageSchema({
       <div class="tb-hero-inner">
         <div class="tb-hero-badge">
           <img src={`${base}/images/Monsters/toolooo.png`} alt="toolooo" width="40" height="40" class="tb-hero-monster" />
-          <span class="k-section-label" style={`color: ${ACCENT}`}>toolooo · Toolbox</span>
+          <span class="k-section-label" style={`color: var(--m-toolooo-text)`}>toolooo · Toolbox</span>
         </div>
         <h1 class="tb-hero-title">
           Turn invisible problems<br />
@@ -99,7 +99,7 @@ const jsonLd = pageSchema({
   <section class="k-section tb-families-section" id="families">
     <div class="k-container">
       <div class="tb-section-header">
-        <span class="k-section-label" style={`color: ${ACCENT}`}>Five Ways In</span>
+        <span class="k-section-label" style={`color: var(--m-toolooo-text)`}>Five Ways In</span>
         <h2 class="tb-section-title">Every tool answers one of these questions</h2>
         <p class="tb-section-sub">Click a family to filter the tools below.</p>
       </div>
@@ -114,7 +114,7 @@ const jsonLd = pageSchema({
   <section class="tb-levels-section" aria-labelledby="feature-levels-title">
     <div class="k-container tb-levels-inner">
       <div class="tb-levels-intro">
-        <span class="k-section-label" style={`color: ${ACCENT}`}>Toolooo Feature Levels</span>
+        <span class="k-section-label" style={`color: var(--m-toolooo-text)`}>Toolooo Feature Levels</span>
         <h2 id="feature-levels-title" class="tb-levels-title">How deep does the tool go?</h2>
         <p>Levels describe experience maturity. Every current production tool targets LV2.</p>
       </div>
@@ -140,7 +140,7 @@ const jsonLd = pageSchema({
     <div class="k-container">
       <div class="tb-tools-header">
         <div>
-          <span class="k-section-label" style={`color: ${ACCENT}`}>All Tools</span>
+          <span class="k-section-label" style={`color: var(--m-toolooo-text)`}>All Tools</span>
           <h2 class="tb-section-title" aria-live="polite" aria-atomic="true">
             Showing <span id="tb-visible-count">{tools.length}</span> of {tools.length}
           </h2>
@@ -278,7 +278,7 @@ const jsonLd = pageSchema({
     font-size: clamp(2rem, 4.5vw, 3.25rem);
     font-weight: 900; line-height: 1.1; color: var(--k-text); margin: .25rem 0 1rem;
   }
-  .tb-hero-accent { color: #F7933C; }
+  .tb-hero-accent { color: var(--m-toolooo-text); }
   .tb-hero-lead {
     font-size: 1.05rem; color: var(--k-text-muted); line-height: 1.7;
     margin: 0 0 1.5rem;
@@ -288,7 +288,7 @@ const jsonLd = pageSchema({
   .tb-stat { display: flex; flex-direction: column; gap: .125rem; }
   .tb-stat-num {
     font-family: 'Poppins', sans-serif; font-size: 1.5rem;
-    font-weight: 900; color: #F7933C; line-height: 1;
+    font-weight: 900; color: var(--m-toolooo-text); line-height: 1;
   }
   .tb-stat-label {
     font-size: .72rem; font-weight: 700; text-transform: uppercase;
@@ -321,7 +321,7 @@ const jsonLd = pageSchema({
   .tb-level-item.is-current { border-color: color-mix(in srgb, #F7933C 55%, var(--k-border)); background: color-mix(in srgb, #F7933C 7%, var(--k-bg-card)); }
   .tb-level-heading { display: flex; gap: .4rem; align-items: baseline; justify-content: space-between; flex-wrap: wrap; }
   .tb-level-heading strong { font-family: 'Poppins', sans-serif; font-size: .75rem; color: var(--k-text); }
-  .tb-level-heading span { font-size: .62rem; font-weight: 800; color: #F7933C; text-transform: uppercase; }
+  .tb-level-heading span { font-size: .62rem; font-weight: 800; color: var(--m-toolooo-text); text-transform: uppercase; }
   .tb-level-item p { margin: .3rem 0 0; font-size: .7rem; line-height: 1.45; color: var(--k-text-muted); }
   @media (max-width: 760px) { .tb-levels-inner { grid-template-columns: 1fr; gap: 1rem; } }
   @media (max-width: 580px) { .tb-level-list { grid-template-columns: 1fr; } }
@@ -365,5 +365,5 @@ const jsonLd = pageSchema({
     font-size: .7rem; font-weight: 600; min-width: 64px;
     transition: border-color .2s, color .2s;
   }
-  .tb-other-link:hover { border-color: var(--mc); color: var(--mc); }
+  .tb-other-link:hover { border-color: var(--mc); color: color-mix(in srgb, var(--mc, var(--k-accent)) var(--k-identity-text-weight), var(--k-identity-text-base)); }
 </style>

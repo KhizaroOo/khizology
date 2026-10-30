@@ -428,7 +428,7 @@ const jsonLd = pageSchema({
   .tp-guide-grid h3 { font-family: 'Poppins', sans-serif; font-size: .82rem; color: var(--k-text); margin: 0 0 .4rem; }
   .tp-guide-grid p { font-size: .84rem; color: var(--k-text-muted); line-height: 1.65; margin: 0; }
   .tp-guide-links { color: var(--k-text-muted); font-size: .8rem; margin: 1rem 0 0; }
-  .tp-guide-links a, .tp-info-link { color: var(--fc, var(--k-accent)); text-decoration: none; font-weight: 700; }
+  .tp-guide-links a, .tp-info-link { color: var(--m-toolooo-text); text-decoration: none; font-weight: 700; }
   .tp-guide-links a:hover, .tp-info-link:hover { text-decoration: underline; }
 
   .tp-sidebar { display: flex; flex-direction: column; gap: 1rem; }
@@ -450,6 +450,6 @@ const jsonLd = pageSchema({
 
   .tp-monsters { display: flex; flex-direction: column; gap: .375rem; }
   .tp-monster-link { display: flex; align-items: center; gap: .5rem; padding: .5rem .625rem; border-radius: .625rem; border: 1px solid var(--k-border); text-decoration: none; color: var(--k-text-muted); font-size: .8rem; font-weight: 600; transition: border-color .2s, color .2s; }
-  .tp-monster-link:hover { border-color: var(--mc); color: var(--mc); }
+  .tp-monster-link:hover { border-color: var(--mc); color: color-mix(in srgb, var(--mc, var(--k-accent)) var(--k-identity-text-weight), var(--k-identity-text-base)); }
   .tp-monster-link img { border-radius: .25rem; object-fit: contain; }
 </style>

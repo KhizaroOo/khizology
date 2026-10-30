@@ -149,7 +149,7 @@ const currentPath = Astro.url.pathname;
   }
   .k-nav-link:hover,
   .k-nav-link.active {
-    color: var(--link-accent, var(--k-text));
+    color: color-mix(in srgb, var(--link-accent, var(--k-text)) var(--k-identity-text-weight), var(--k-identity-text-base));
     background: var(--k-bg);
   }
   .k-nav-link.active::after {

@@ -5,9 +5,9 @@ import vm from 'node:vm';
 import ts from 'typescript';
 
 // Exercise the real component handlers and effects, with deterministic React/timer adapters.
-function fixture(fileName, reduced) {
+function fixture(fileName, reduced, realShell = false) {
   const values = [], modules = new Map(), timers = new Map(), events = [], listeners = new Map();
-  let cursor = 0, dirty = false, pending = [], nextTimer = 0, ui;
+  let cursor = 0, dirty = false, pending = [], nextTimer = 0, ui, worldSlots;
   const jsx = (type, props) => ({ type, props });
   const react = {
     useState(initial) { const i = cursor++; if (!(i in values)) values[i] = typeof initial === 'function' ? initial() : initial; return [values[i], next => { values[i] = typeof next === 'function' ? next(values[i]) : next; dirty = true; }]; },
@@ -16,12 +16,13 @@ function fixture(fileName, reduced) {
   };
   function load(file) {
     if (modules.has(file)) return modules.get(file);
-    const context = vm.createContext({ exports: {}, matchMedia:()=>({matches:false,addEventListener(){},removeEventListener(){}}), setTimeout:cb=>{timers.set(++nextTimer,cb);return nextTimer;},clearTimeout:id=>timers.delete(id),document: { hidden: false, addEventListener: (n, cb) => listeners.set(n, cb), removeEventListener: n => listeners.delete(n) }, window: { setTimeout: cb => { timers.set(++nextTimer, cb); return nextTimer; }, clearTimeout: id => timers.delete(id) }, require: id => {
+    const context = vm.createContext({ exports: {}, matchMedia:()=>({matches:false,addEventListener(){},removeEventListener(){}}), setTimeout:cb=>{timers.set(++nextTimer,cb);return nextTimer;},clearTimeout:id=>timers.delete(id),document: { hidden: false, addEventListener: (n, cb) => { if (!listeners.has(n)) listeners.set(n, new Set()); listeners.get(n).add(cb); }, removeEventListener: (n, cb) => listeners.get(n)?.delete(cb) }, window: { setTimeout: cb => { timers.set(++nextTimer, cb); return nextTimer; }, clearTimeout: id => timers.delete(id) }, require: id => {
       if (id === 'react') return react;
       if (id === 'react/jsx-runtime') return { jsx, jsxs: jsx };
       if (id === 'lucide-react') return new Proxy({}, { get: () => 'svg' });
       if (id.endsWith('.css')) return {};
-      if (id.includes('InfoooWorldFoundation')) return { useInfoooReducedMotion: () => reduced, InfoooSourceDisclosure: () => null, InfoooWorldShell: props => jsx('section', { children: props.firstVisit || [props.toolbar,props.stage,props.footer] }) };
+      if (id.endsWith('/url')) return { url: value => value };
+      if (id.includes('InfoooWorldFoundation')) return { ...(realShell ? load(path.resolve('src/components/infooo/InfoooWorldFoundation.tsx')) : { InfoooWorldShell: props => jsx('section', { children: props.firstVisit || [props.toolbar,props.stage,props.footer] }) }), useInfoooReducedMotion: () => reduced, InfoooSourceDisclosure: () => null };
       if (id.includes('utils/analytics')) return Object.fromEntries(['trackInfoooWorldStart', 'trackInfoooGuideComplete', 'trackInfoooEntityView'].map(name => [name, (...args) => events.push([name, ...args])]));
       const base=path.resolve(path.dirname(file),id); return load([base,base+'.ts',base+'.tsx'].find(name=>fs.existsSync(name))); 
     } });
@@ -36,11 +37,20 @@ function fixture(fileName, reduced) {
     return [node, ...flatten(node.props?.children)];
   }
   const text = node => Array.isArray(node) ? node.map(text).join('') : node && typeof node === 'object' ? text(node.props?.children) : (typeof node === 'boolean' ? '' : String(node ?? ''));
-  function render() { do { dirty = false; cursor = 0; pending = []; ui = flatten(component({ world: { slug: 'test-world' } })); pending.forEach(cb => cb()); } while (dirty); }
+  function render() { do { dirty = false; cursor = 0; pending = []; const tree = component({ world: { slug: 'test-world', title: 'Test world', worldNumber: 1 } }); worldSlots = cursor; ui = flatten(tree); pending.forEach(cb => cb()); } while (dirty); }
   function click(name) { const button = ui.find(n => n.type === 'button' && text(n).trim() === name.trim()); assert.ok(button, `Missing ${name}`); assert.ok(!button.props.disabled, `Disabled ${name}`); button.props.onClick(); render(); }
   render();
   function drain(){for(let i=0;i<500&&timers.size;i++){const [id,cb]=timers.entries().next().value;timers.delete(id);cb();render();}assert.equal(timers.size,0,'finite first-visit playback');}
-  return { click, drain, events, text: () => ui.map(text).join(' '), nodes: () => ui };
+  function toggle(open) { const detail = ui.find(n => n.type === 'details' && /^(infooo-entry-explore|physical-explore|grid-entry-explore)$/.test(n.props.className)); assert.ok(detail?.props.onToggle, 'real disclosure callback'); detail.props.onToggle({ currentTarget: { open } }); render(); }
+  function changeControl() {
+    if (fileName.startsWith('identity-lab/')) { click('Assign owner'); return; }
+    const select = ui.find(n => n.type === 'select' && n.props.onChange);
+    if (select) { const option = flatten(select.props.children).find(n => n.type === 'option' && !n.props.disabled && String(n.props.value ?? text(n)) !== String(select.props.value)); assert.ok(option); select.props.onChange({ target: { value: String(option.props.value ?? text(option)) } }); }
+    else { const input = ui.find(n => n.type === 'input' && n.props.onChange); if (input) input.props.onChange({ target: { value: String(Number(input.props.value || 0) + 1), checked: !input.props.checked } }); else { const group = ui.find(n => n.props?.['aria-label'] === 'Scenario'); const choice = flatten(group?.props.children).filter(n => n.type === 'button')[1]; assert.ok(choice, fileName + ' advanced control missing: ' + ui.filter(n=>n.type==='button').map(text).join(' | ')); choice.props.onClick(); } }
+    render();
+  }
+  function xray() { const button = ui.find(n => n.type === 'button' && /^x[- ]?ray$/i.test(text(n).trim())); if (button) { button.props.onClick(); render(); } return Boolean(button); }
+  return { click, drain, events, toggle, changeControl, xray, snapshot: () => JSON.stringify(values.slice(0, worldSlots)), timers: () => timers.size, listeners: () => [...listeners.values()].reduce((sum, callbacks) => sum + callbacks.size, 0), entryText: () => text(ui.find(n => n.props?.className === 'infooo-entry')), text: () => ui.map(text).join(' '), nodes: () => ui };
 }
 
 
@@ -79,4 +89,50 @@ for(const reduced of [false,true]){
  assert.ok(grid.text().includes('The lights are back on'),'grid aha in one click');
  assert.ok(grid.text().includes('Restored generation now meets'),'grid explanation follows actual action');
  console.log('Entry PASS physical/grid '+(reduced?'reduced':'normal'));
+}
+
+// Exercise real shell/custom disclosure callbacks rather than the entry-only adapter.
+for (const reduced of [false, true]) for (const [file, first, second, , replay] of [...cases, ['physical/PhysicalAIWorld.tsx', 'See a plan meet reality'], ['grid/GridStory.tsx', 'Restore balanceSUPPLY RETURNS']]) {
+  const f = fixture(file, reduced, true);
+  function preserve(label) {
+    const before = f.snapshot(), events = f.events.length, timers = f.timers(), listeners = f.listeners();
+    for (let i = 0; i < 3; i++) {
+      f.toggle(true);
+      if (cases.some(([name]) => name === file)) assert.ok(f.nodes().some(n => n.props?.className === 'infooo-entry'), `${file}: entry presentation stays mounted`);
+      f.toggle(false);
+      assert.equal(f.snapshot(), before, `${file}: ${label} state survives disclosure`);
+      assert.equal(f.events.length, events, `${file}: toggling emits no analytics`);
+      assert.equal(f.timers(), timers, `${file}: toggling neither duplicates nor restarts playback`);
+      assert.equal(f.listeners(), listeners, `${file}: toggling adds no listeners`);
+    }
+  }
+  preserve('before starting');
+  f.click(first);
+  preserve('started / pending');
+  f.drain();
+  preserve('result, receipts and evidence');
+  if (file.startsWith('grid/')) {
+    f.click('Replay'); preserve('replay in progress'); f.drain(); preserve('replayed result');
+  }
+  f.toggle(true); f.changeControl(); f.toggle(false);
+  preserve('advanced input / scenario');
+  if (file.startsWith('mcp-security/')) { assert.match(f.entryText(), /current setup is ready to run/); assert.doesNotMatch(f.entryText(), /Unsafe action executed/); }
+  f.toggle(true); f.xray(); f.toggle(false);
+  preserve('advanced view');
+  if (file.startsWith('physical/')) f.toggle(true);
+  if (file.startsWith('grid/')) f.click(first);
+  const beforeReset = f.snapshot();
+  f.click(file.startsWith('physical/') || file.startsWith('grid/') ? 'Reset' : 'Try again');
+  assert.notEqual(f.snapshot(), beforeReset, `${file}: explicit reset remains intentional`);
+  assert.equal(f.timers(), 0, `${file}: explicit reset cancels pending playback`);
+  if (cases.some(([name]) => name === file)) {
+    f.click(first);
+    if (replay) f.click(second);
+    const starts = f.events.filter(event => event[0] === 'trackInfoooWorldStart').length;
+    f.click(replay || second);
+    // Incident containment recheck verifies the same run; it is not a new start.
+    assert.equal(f.events.filter(event => event[0] === 'trackInfoooWorldStart').length, starts + (file.startsWith('incident-room/') ? 0 : 1), `${file}: preserve replay/recheck analytics semantics`);
+    preserve('explicit replay');
+  }
+  console.log(`Disclosure PASS ${file} ${reduced ? 'reduced' : 'normal'}`);
 }

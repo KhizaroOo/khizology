@@ -271,7 +271,7 @@ export default function ArtworkGrid({ artworks, base, emptyStateText }: Props) {
         }
         .aw-card-tags { display: flex; gap: .25rem; flex-wrap: wrap; }
         .aw-tag {
-          background: rgba(245,207,92,.2); color: #F5CF5C;
+          background: rgba(245,207,92,.2); color: var(--m-artooo-text);
           border: 1px solid rgba(245,207,92,.4);
           font-size: .65rem; font-weight: 600; padding: .1rem .4rem;
           border-radius: 999px; font-family: 'Poppins', sans-serif;

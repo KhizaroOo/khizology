@@ -19,7 +19,7 @@ const { crumbs, accentColor } = Astro.props;
         <span aria-hidden="true" class="sep">›</span>
         {crumb.href && i < crumbs.length - 1
           ? <a href={crumb.href}>{crumb.label}</a>
-          : <span aria-current="page" style={accentColor ? `color: ${accentColor}` : ''}>{crumb.label}</span>
+          : <span aria-current="page" style={accentColor ? `color: color-mix(in srgb, ${accentColor} var(--k-identity-text-weight), var(--k-identity-text-base))` : ''}>{crumb.label}</span>
         }
       </li>
     ))}

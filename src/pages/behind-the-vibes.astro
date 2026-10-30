@@ -36,7 +36,7 @@ const faqs = [
   <section class="btv-hero">
     <div class="k-container btv-hero-grid">
       <div class="btv-hero-copy">
-        <span class="k-section-label" style="color:var(--k-accent)">Behind the Vibes</span>
+        <span class="k-section-label" style="color: var(--k-accent-text)">Behind the Vibes</span>
         <h1>Art meets <span>Code.</span></h1>
         <p class="btv-hero-lead">Khizooology is where my engineering brain and artist brain stop arguing and start building things together.</p>
         <p>It is my personal creative R&amp;D laboratory: a place to explore an idea, test it, make it useful, and share what survives the process.</p>
@@ -56,7 +56,7 @@ const faqs = [
   <section class="k-section btv-idea-section">
     <div class="k-container btv-reading-grid">
       <div class="btv-reading-copy">
-        <span class="k-section-label" style="color:var(--k-accent)">The idea</span>
+        <span class="k-section-label" style="color: var(--k-accent-text)">The idea</span>
         <h2>Two ways of seeing, one way of making.</h2>
         <p>I work in software, but I naturally think visually. Separating those sides never made much sense to me. Art helps me notice, feel, and explore. Engineering helps me give an idea structure, interaction, and a way to be useful.</p>
         <p>Khizooology is where both sides get to work together. A drawing can hold an emotion. A tool can make an invisible system visible. A knowledge world can let someone experience a difficult idea instead of only reading about it.</p>
@@ -73,7 +73,7 @@ const faqs = [
   <section class="k-section btv-monsters-section">
     <div class="k-container">
       <div class="btv-section-intro">
-        <span class="k-section-label" style="color:var(--k-accent)">One creator, many monsters</span>
+        <span class="k-section-label" style="color: var(--k-accent-text)">One creator, many monsters</span>
         <h2>The monsters are creative modes, not decoration.</h2>
         <p>Each one is a door into a different kind of value. Together, they are different parts of the same creative brain.</p>
       </div>
@@ -93,28 +93,28 @@ const faqs = [
 
   <section class="k-section btv-loop-section">
     <div class="k-container btv-loop-grid">
-      <div class="btv-loop-intro"><span class="k-section-label" style="color:var(--k-accent)">The creative R&amp;D loop</span><h2>Make it. Learn from it. Make the next thing smarter.</h2><p>Khizooology is a place to think in public, without pretending every experiment is already a finished answer.</p></div>
+      <div class="btv-loop-intro"><span class="k-section-label" style="color: var(--k-accent-text)">The creative R&amp;D loop</span><h2>Make it. Learn from it. Make the next thing smarter.</h2><p>Khizooology is a place to think in public, without pretending every experiment is already a finished answer.</p></div>
       <ol class="btv-loop" aria-label="Khizooology creative R and D process">{creativeLoop.map((step, index) => (<li><span>{String(index + 1).padStart(2, '0')}</span>{step}</li>))}</ol>
     </div>
   </section>
 
   <section class="k-section btv-values-section">
     <div class="k-container btv-values-grid">
-      <div><span class="k-section-label" style="color:var(--k-accent)">What is worth building?</span><h2>Not more. Something worth existing.</h2><p>Before an idea earns a place here, I try to ask whether it helps, whether it is honest, whether people can understand it, and whether it feels unmistakably like it belongs in this universe.</p></div>
+      <div><span class="k-section-label" style="color: var(--k-accent-text)">What is worth building?</span><h2>Not more. Something worth existing.</h2><p>Before an idea earns a place here, I try to ask whether it helps, whether it is honest, whether people can understand it, and whether it feels unmistakably like it belongs in this universe.</p></div>
       <div class="btv-values-list">{valueSignals.map((signal) => (<article><h3>{signal.title}</h3><p>{signal.body}</p></article>))}</div>
     </div>
   </section>
 
   <section class="k-section btv-faq-section">
     <div class="k-container btv-faq-grid">
-      <div><span class="k-section-label" style="color:var(--k-accent)">A few honest answers</span><h2>Questions behind the name.</h2><p>For the professional story and work history, visit my portfolio. This is the thinking behind the work.</p><a class="btv-text-link" href={url('/my-portfolio')}>Meet Khizar and view the portfolio <span aria-hidden="true">→</span></a></div>
+      <div><span class="k-section-label" style="color: var(--k-accent-text)">A few honest answers</span><h2>Questions behind the name.</h2><p>For the professional story and work history, visit my portfolio. This is the thinking behind the work.</p><a class="btv-text-link" href={url('/my-portfolio')}>Meet Khizar and view the portfolio <span aria-hidden="true">→</span></a></div>
       <div class="btv-faq-list">{faqs.map((item) => (<details class="btv-faq-item"><summary>{item.question}</summary><p>{item.answer}</p></details>))}</div>
     </div>
   </section>
 
   <section class="k-section btv-explore-section">
     <div class="k-container">
-      <div class="btv-explore-heading"><span class="k-section-label" style="color:var(--k-accent)">Explore the universe</span><h2>Choose the kind of thing you need right now.</h2></div>
+      <div class="btv-explore-heading"><span class="k-section-label" style="color: var(--k-accent-text)">Explore the universe</span><h2>Choose the kind of thing you need right now.</h2></div>
       <div class="btv-explore-grid">
         {activeMonsters.map((monster) => (<a href={url(monster.route)} class="btv-explore-card" style={`--monster-color:${monster.color}`}><span>{monster.role}</span><h3>{monster.name}</h3><p>{monster.module}</p><b aria-hidden="true">→</b></a>))}
         <a href={url('/my-portfolio')} class="btv-explore-card btv-portfolio-card"><span>MEET</span><h3>Khizar</h3><p>Portfolio and professional story</p><b aria-hidden="true">→</b></a>
@@ -130,14 +130,14 @@ const faqs = [
   .btv-hero-grid { grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr); }
   .btv-hero h1, .btv-reading-copy h2, .btv-section-intro h2, .btv-loop-intro h2, .btv-values-grid h2, .btv-faq-grid h2, .btv-explore-heading h2 { font-family: 'Poppins', sans-serif; color: var(--k-text); font-weight: 900; line-height: 1.08; margin: .5rem 0 1rem; }
   .btv-hero h1 { font-size: clamp(3rem, 7vw, 5.5rem); letter-spacing: -.055em; max-width: 680px; }
-  .btv-hero h1 span { color: var(--k-accent); }
+  .btv-hero h1 span { color: var(--k-accent-text); }
   .btv-hero-lead { font-size: clamp(1.2rem, 2.2vw, 1.55rem); color: var(--k-text); font-weight: 700; line-height: 1.45; max-width: 650px; margin: 0 0 1rem; }
   .btv-hero-copy > p:not(.btv-hero-lead), .btv-reading-copy p, .btv-section-intro > p, .btv-loop-intro p, .btv-values-grid > div > p, .btv-faq-grid > div > p { max-width: 680px; color: var(--k-text-muted); line-height: 1.75; margin: 0; }
   .btv-creator-card { position: relative; overflow: hidden; display: grid; grid-template-columns: 124px 1fr; gap: 1.25rem; align-items: center; background: var(--k-bg-card); border: 1px solid var(--k-border); border-radius: 1.5rem; padding: 1.5rem; box-shadow: 0 16px 38px color-mix(in srgb, var(--k-text) 8%, transparent); }
   .btv-creator-card::after { content: ''; position: absolute; inset: auto -3rem -4rem auto; width: 170px; height: 170px; border-radius: 50%; background: var(--k-accent); opacity: .08; pointer-events: none; }
   .btv-creator-portrait { align-self: stretch; display: flex; align-items: end; justify-content: center; background: color-mix(in srgb, var(--k-accent) 10%, var(--k-bg)); border-radius: 1rem; overflow: hidden; }
   .btv-creator-portrait img { width: 100%; height: auto; object-fit: cover; }
-  .btv-eyebrow, .btv-monster-role { font-family: 'Poppins', sans-serif; color: var(--k-accent); font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .35rem; }
+  .btv-eyebrow, .btv-monster-role { font-family: 'Poppins', sans-serif; color: var(--k-accent-text); font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .35rem; }
   .btv-creator-card h2 { color: var(--k-text); font-family: 'Poppins', sans-serif; font-size: 1.25rem; margin: 0 0 .5rem; }
   .btv-identity { color: var(--k-text-muted); font-size: .85rem; line-height: 1.6; margin: 0 0 1rem; }
   .btv-identity strong { color: var(--k-text); }
@@ -153,7 +153,7 @@ const faqs = [
   .btv-code { background: color-mix(in srgb, #F7933C 18%, var(--k-bg-card)); }
   .btv-discipline h3 { color: var(--k-text); font-family: 'Poppins', sans-serif; font-size: 1.1rem; margin: 0 0 .5rem; }
   .btv-discipline p:last-child, .btv-together { color: var(--k-text-muted); font-size: .85rem; line-height: 1.6; margin: 0; }
-  .btv-plus { color: var(--k-accent); font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 900; }
+  .btv-plus { color: var(--k-accent-text); font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 900; }
   .btv-together { grid-column: 1 / -1; padding: .5rem .25rem .15rem; }
   .btv-together strong { color: var(--k-text); }
 
@@ -167,28 +167,28 @@ const faqs = [
   .btv-monster-image-wrap { width: 88px; height: 88px; display: grid; place-items: center; flex: 0 0 auto; border-radius: .9rem; background: var(--monster-light); }
   .btv-monster-image-wrap [data-decorative-image] { width: 74px; height: 74px; object-fit: contain; }
   .btv-monster-copy { min-width: 0; }
-  .btv-monster-role { color: var(--monster-color); }
+  .btv-monster-role { color: color-mix(in srgb, var(--monster-color, var(--k-accent)) var(--k-identity-text-weight), var(--k-identity-text-base)); }
   .btv-monster-copy h3 { color: var(--k-text); font-family: 'Poppins', sans-serif; font-size: 1.1rem; margin: 0 0 .35rem; }
   .btv-monster-copy p { color: var(--k-text-muted); font-size: .82rem; line-height: 1.55; margin: 0 0 .75rem; }
-  .btv-monster-copy span { color: var(--monster-color); font-family: 'Poppins', sans-serif; font-size: .72rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+  .btv-monster-copy span { color: color-mix(in srgb, var(--monster-color, var(--k-accent)) var(--k-identity-text-weight), var(--k-identity-text-base)); font-family: 'Poppins', sans-serif; font-size: .72rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
   .btv-monster-copy b { margin-left: .15rem; }
   .btv-mystery-note { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; margin-top: 1.5rem; padding: 1rem 1.25rem; background: var(--k-bg-card); border: 1px dashed var(--k-border); border-radius: 1rem; }
-  .btv-mystery-note > span { color: var(--k-accent); font-size: 1.2rem; }
+  .btv-mystery-note > span { color: var(--k-accent-text); font-size: 1.2rem; }
   .btv-mystery-note p { flex: 1 1 420px; color: var(--k-text-muted); font-size: .84rem; line-height: 1.55; margin: 0; }
   .btv-mystery-note strong { color: var(--k-text); }
-  .btv-mystery-note a, .btv-text-link { color: var(--k-accent); font-family: 'Poppins', sans-serif; font-size: .8rem; font-weight: 800; text-decoration: none; }
+  .btv-mystery-note a, .btv-text-link { color: var(--k-accent-text); font-family: 'Poppins', sans-serif; font-size: .8rem; font-weight: 800; text-decoration: none; }
   .btv-mystery-note a:hover, .btv-text-link:hover { text-decoration: underline; }
 
   .btv-loop-section { background: var(--k-bg-card); border-block: 1px solid var(--k-border); }
   .btv-loop-grid { grid-template-columns: minmax(0, .75fr) minmax(380px, 1.25fr); }
   .btv-loop { display: flex; flex-wrap: wrap; gap: .55rem; padding: 0; margin: 0; list-style: none; }
   .btv-loop li { display: inline-flex; align-items: center; gap: .45rem; color: var(--k-text); background: var(--k-bg); border: 1px solid var(--k-border); border-radius: 999px; font-family: 'Poppins', sans-serif; font-size: .78rem; font-weight: 700; padding: .55rem .8rem .55rem .55rem; }
-  .btv-loop li span { display: grid; place-items: center; width: 1.35rem; height: 1.35rem; color: var(--k-accent); background: color-mix(in srgb, var(--k-accent) 12%, transparent); border-radius: 50%; font-size: .58rem; }
+  .btv-loop li span { display: grid; place-items: center; width: 1.35rem; height: 1.35rem; color: var(--k-accent-text); background: color-mix(in srgb, var(--k-accent) 12%, transparent); border-radius: 50%; font-size: .58rem; }
 
   .btv-values-grid { grid-template-columns: minmax(0, .8fr) minmax(350px, 1.2fr); }
   .btv-values-list { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
   .btv-values-list article { padding: 1rem; border: 1px solid var(--k-border); border-radius: .9rem; background: var(--k-bg); }
-  .btv-values-list h3 { color: var(--k-accent); font-family: 'Poppins', sans-serif; font-size: .82rem; letter-spacing: .07em; margin: 0 0 .4rem; text-transform: uppercase; }
+  .btv-values-list h3 { color: var(--k-accent-text); font-family: 'Poppins', sans-serif; font-size: .82rem; letter-spacing: .07em; margin: 0 0 .4rem; text-transform: uppercase; }
   .btv-values-list p { color: var(--k-text-muted); font-size: .78rem; line-height: 1.55; margin: 0; }
 
   .btv-faq-section { background: var(--k-bg); }
@@ -198,7 +198,7 @@ const faqs = [
   .btv-faq-item { border-bottom: 1px solid var(--k-border); }
   .btv-faq-item summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; color: var(--k-text); cursor: pointer; font-family: 'Poppins', sans-serif; font-size: .93rem; font-weight: 800; list-style: none; }
   .btv-faq-item summary::-webkit-details-marker { display: none; }
-  .btv-faq-item summary::after { color: var(--k-accent); content: '+'; font-size: 1.3rem; font-weight: 500; }
+  .btv-faq-item summary::after { color: var(--k-accent-text); content: '+'; font-size: 1.3rem; font-weight: 500; }
   .btv-faq-item[open] summary::after { content: '−'; }
   .btv-faq-item > p { color: var(--k-text-muted); font-size: .88rem; line-height: 1.65; margin: 0; padding: 0 0 1rem; }
 
@@ -207,10 +207,10 @@ const faqs = [
   .btv-explore-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .85rem; }
   .btv-explore-card { position: relative; min-height: 150px; padding: 1.1rem; overflow: hidden; text-decoration: none; background: var(--k-bg); border: 1px solid var(--k-border); border-top: 4px solid var(--monster-color, var(--k-accent)); border-radius: 1rem; transition: transform .18s ease, border-color .18s ease; }
   .btv-explore-card:hover { border-color: var(--monster-color, var(--k-accent)); transform: translateY(-3px); }
-  .btv-explore-card > span { color: var(--monster-color, var(--k-accent)); font-family: 'Poppins', sans-serif; font-size: .67rem; font-weight: 800; letter-spacing: .1em; }
+  .btv-explore-card > span { color: color-mix(in srgb, var(--monster-color, var(--k-accent)) var(--k-identity-text-weight), var(--k-identity-text-base)); font-family: 'Poppins', sans-serif; font-size: .67rem; font-weight: 800; letter-spacing: .1em; }
   .btv-explore-card h3 { color: var(--k-text); font-family: 'Poppins', sans-serif; font-size: 1.05rem; margin: .5rem 0 .2rem; }
   .btv-explore-card p { color: var(--k-text-muted); font-size: .76rem; line-height: 1.45; margin: 0; }
-  .btv-explore-card > b { position: absolute; right: 1rem; bottom: .9rem; color: var(--monster-color, var(--k-accent)); font-size: 1.1rem; }
+  .btv-explore-card > b { position: absolute; right: 1rem; bottom: .9rem; color: color-mix(in srgb, var(--monster-color, var(--k-accent)) var(--k-identity-text-weight), var(--k-identity-text-base)); font-size: 1.1rem; }
   .btv-portfolio-card { --monster-color: var(--k-accent); }
 
   @media (max-width: 960px) { .btv-hero-grid, .btv-reading-grid, .btv-loop-grid, .btv-values-grid, .btv-faq-grid { grid-template-columns: 1fr; } .btv-monster-grid { grid-template-columns: 1fr; } .btv-explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .btv-creator-card { max-width: 620px; } }

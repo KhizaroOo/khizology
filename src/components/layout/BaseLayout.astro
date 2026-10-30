@@ -84,6 +84,7 @@ const {
       <style define:vars={{ accentColor, accentColorLight: accentColorLight || accentColor }}>
         :root {
           --m-accent: var(--accentColor);
+          --m-accent-text: color-mix(in srgb, var(--m-accent) var(--k-identity-text-weight), var(--k-identity-text-base));
           --m-accent-light: var(--accentColorLight);
         }
       </style>
@@ -93,8 +94,9 @@ const {
     )}
   </head>
   <body>
+    <a class="k-skip-link" href="#main-content">Skip to main content</a>
     <Navbar />
-    <main class="page-enter">
+    <main id="main-content" tabindex="-1" class="page-enter">
       <slot />
     </main>
     <Footer />

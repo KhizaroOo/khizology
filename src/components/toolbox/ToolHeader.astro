@@ -62,7 +62,7 @@ const family = getFamilyById(tool.family);
     padding: 0.2rem 0.6rem;
     border-radius: 999px;
     background: color-mix(in srgb, var(--fc) 14%, transparent);
-    color: var(--fc);
+    color: color-mix(in srgb, var(--fc, var(--k-accent)) var(--k-identity-text-weight), var(--k-identity-text-base));
     border: 1px solid color-mix(in srgb, var(--fc) 32%, transparent);
     font-family: 'Poppins', sans-serif;
   }

@@ -68,7 +68,7 @@ const jsonLd = pageSchema({
           <span class="fp-hero-icon">{family.icon}</span>
         </div>
         <div class="fp-hero-text">
-          <span class="k-section-label" style={`color: ${family.color}`}>toolooo · {family.name}</span>
+          <span class="k-section-label" style={`color: var(--m-toolooo-text)`}>toolooo · {family.name}</span>
           <h1 class="fp-hero-title">{family.name}</h1>
           <p class="fp-hero-question">"{family.question}"</p>
           <p class="fp-hero-desc">{family.description}</p>
@@ -87,7 +87,7 @@ const jsonLd = pageSchema({
   <section class="fp-guide-section" aria-labelledby="family-guide-title">
     <div class="k-container fp-guide-grid">
       <div>
-        <span class="k-section-label" style={`color: ${family.color}`}>How this family helps</span>
+        <span class="k-section-label" style={`color: var(--m-toolooo-text)`}>How this family helps</span>
         <h2 id="family-guide-title">A clearer way to {family.name.toLowerCase()}</h2>
         <p>{family.intro}</p>
       </div>
@@ -168,7 +168,7 @@ const jsonLd = pageSchema({
   }
   .fp-hero-question {
     font-size: 1.05rem; font-style: italic; font-weight: 700;
-    color: var(--fc); margin: 0 0 0.75rem;
+    color: var(--m-toolooo-text); margin: 0 0 0.75rem;
   }
   .fp-hero-desc {
     font-size: 1rem; color: var(--k-text-muted); line-height: 1.7;
