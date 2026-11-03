@@ -33,3 +33,26 @@ for(const [slug,family,component,model] of registered){
  for(const file of [`${component}.tsx`,`${model}.ts`]){const source=fs.readFileSync(`src/components/toolbox/tools/${file}`,'utf8');assert.ok(!/\bfetch\s*\(|(?:localStorage|sessionStorage)\s*\.|sendBeacon|\beval\s*\(|new Function/.test(source),`${slug}: unsafe execution or transmission`);if(file!=='dataExposureModel.ts')assert.ok(!/URLSearchParams/.test(source),`${slug}: no private URL serialization`);}
 }
 console.log(`Browser pack audit passed: ${registered.length}/${additions.length} tools; ${tools.length} total; SEO, schemas, sitemap, llms, discovery and local-only implementation.`);
+
+for(const [id,expected]of [
+ ['mcp-security-doctor',['ai-agent-permission-planner','mcp-tool-contract-builder']],
+ ['ai-agent-cost-loop-simulator',['prompt-cache-efficiency-simulator','cloud-cost-guardrail-builder']],
+] as const){
+ const source=tools.find(t=>t.id===id)!;
+ const next=getTryNextTools(source),related=getRelatedTools(source);
+ assert.deepEqual(next.map(t=>t.id),expected);
+ assert.ok(related.every(t=>!next.some(n=>n.id===t.id)));
+ const html=fs.readFileSync(`dist/toolbox/${source.slug}/index.html`,'utf8');
+ for(const target of next){
+  assert.ok(source.nextToolReasons?.[target.id] && source.nextToolReasons[target.id].length>50);
+  assert.ok(html.includes(source.nextToolReasons![target.id]));
+ }
+ assert.deepEqual(getTryNextTools({...source,nextToolIds:[id,...expected,expected[0],'not-a-tool',tools.find(t=>t.status!=='active')?.id||'not-available']},20).map(t=>t.id),expected);
+}
+for(const source of tools){
+ const related=getRelatedTools(source),next=getTryNextTools(source,2+related.length).filter(t=>!related.some(r=>r.slug===t.slug)).slice(0,2);
+ const all=[...next,...related];
+ assert.equal(new Set(all.map(t=>t.slug)).size,all.length,source.id+': distinct Next and Related');
+ assert.ok(all.every(t=>t.status==='active'&&t.slug!==source.slug&&fs.existsSync(`dist/toolbox/${t.slug}/index.html`)),source.id+': live destinations only');
+}
+console.log('Next/Related PASS: task-specific ordered continuations and reasons, no self/duplicate/unavailable/invalid destinations across the registry.');

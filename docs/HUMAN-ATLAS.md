@@ -19,3 +19,13 @@ This is a self-hosted precompiled upstream viewer with Infooo framing. The loadi
 The viewer now has a small Infooo learning layer that leaves the rendering engine unchanged. It adds concise, source-backed knowledge for the supported heart, lungs, pulmonary vessels, aorta, and venae cavae; relationship cards that select related structures; and the `Follow the Blood` journey. The guide follows: heart → pulmonary trunk → lung → pulmonary vein → heart → aorta → vena cava. Its key insight is that artery and vein names describe direction from or to the heart, not oxygen level.
 
 The source for every educational statement is [NIH: How Blood Flows through the Heart](https://www.nhlbi.nih.gov/health/heart/blood-flow). The model remains an adult male BodyParts3D reference; it is educational only and not diagnostic, treatment, or medical advice.
+
+## Guided-learning completion
+
+Confirmed scope is the existing seven-step **Follow the Blood** route, supported structure explanations and relationship selection. Additional curricula and broader flagship ideas are not part of this repair. The original route and anatomy claims remain unchanged and use the existing NIH blood-flow reference.
+
+The guide now selects exact catalogue IDs through an Atlas-local document event. It does not simulate typing into search. The viewer validates the ID and all referenced geometry and rejects requests while loading or in an error state. Selection changes leave camera preference, rotation, explosion, layers and isolation intact. Normal search and free selection retain their existing behavior.
+
+Back, Next, Restart, Finish and Exit are explicit. Exit and Finish keep the current view and selection; only the viewer’s own Reset resets the viewer. Selecting a different structure pauses the guide’s explanation until Resume is chosen. Unavailable targets are reported without pretending that a step succeeded. The guide describes static anatomy and flow relationships, not animated or measured circulation.
+
+Run `node scripts/test-atlas-learning.mjs` for sequence/identifier, navigation, state-preservation, missing-target and lifecycle checks. Browser verification is still required for layout, actual highlighting, focus and theme behavior.

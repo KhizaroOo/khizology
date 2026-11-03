@@ -1,3 +1,53 @@
 @import url("../../styles/buttons.css");
 :root { --k-button-accent: #5CCFAF; --k-button-ink: var(--k-button-dark-ink); }
 :root{--primary:#2d9f84!important}.status-dot,.loading-track i{background:#5CCFAF!important}.identity .eyebrow{color:#278a73!important}.glass{border-color:#5CCFAF33!important}.identity h1:before{content:"INFOOO · ";font-size:.32em;letter-spacing:.13em;color:#278a73;display:block;margin-bottom:9px}.studio{background:#f5f5f8}.source-link{color:#278a73!important}
+/* The surrounding site supplies these tokens through the same-origin theme bridge. */
+:root{background:var(--k-bg,#f3f4f4);--background:var(--k-bg,#f3f4f4);--foreground:var(--k-text,#20242b);--card:var(--k-bg-card,#fff);--card-foreground:var(--foreground);--popover:var(--card);--popover-foreground:var(--foreground);--secondary:var(--k-bg-elevated,#e9ecef);--secondary-foreground:var(--foreground);--muted:var(--secondary);--muted-foreground:var(--k-text-muted,#68727d);--accent:var(--secondary);--accent-foreground:var(--foreground);--border:var(--k-border,#18253618);--input:var(--border)}
+:root.dark{color-scheme:dark;color:var(--foreground);--primary:#5ccfaf!important;--primary-foreground:#122d27;--ring:#5ccfaf}
+.studio{background:var(--background)}
+html.dark :is(.glass,.layers-panel.mobile-open,.bottom-dock,.detail-sheet,.ha-guide-controls){background:var(--card);border-color:var(--border)}
+html.dark :is(.eyebrow,.identity-meta,.identity-meta span,.small-number,.system-count,.panel-foot,.panel-foot button,.scene-caption,.slider-endpoints,.studio-footer,.studio-footer b,.studio-footer button,.loading span,.search-note,.context-note,.structure-meta,.secondary-action,.member-list h3,.about-copy,.ha-learning-knowledge dt,.ha-learning-knowledge dd,.ha-relationship-heading,.ha-relation-card,.ha-relation-card>span:last-child,.ha-guide-card p){color:var(--muted-foreground)!important}
+html.dark :is(h1 em,.top-actions button,.panel-heading,.layer-presets button,.view-controls button,.explode-label,.explode-label output,.dock-reset,.structure-meta strong,.primary-action,.about-copy strong,.about-copy h3,.ha-learning-heading strong,.ha-guide-card strong,.ha-relation-card strong){color:var(--foreground)!important}
+html.dark :is(.identity .eyebrow,.source-link,.ha-learning-source,.ha-role,.ha-learning-heading span,.ha-relationship-heading span,.ha-guide-card .ha-aha){color:#74dfc1!important}
+html.dark :is(.top-actions button,.anatomy-choice [data-slot=select-trigger],.ha-learning-button){background:var(--card)!important;color:var(--foreground)!important;border-color:var(--border)!important}
+html.dark :is(.anatomy-search-results,[role=dialog],.search-panel){background:var(--card)!important;color:var(--foreground)!important;border-color:var(--border)!important}
+html.dark .structure-description{color:var(--muted-foreground)!important}
+html.dark :is(.layer-presets,.panel-heading .small-number,.ha-guide-card,.search-panel [data-slot=input-group]){background:var(--secondary);color:var(--foreground);border-color:var(--border)}
+html.dark :is(.layer-presets button[aria-pressed=true],.view-controls .active,.primary-action.active){background:var(--secondary);color:var(--foreground)}
+html.dark button:not([data-slot]):hover{background:var(--secondary);color:var(--foreground)}
+html.dark :is(.ha-guide-launch,.ha-learning-button.primary){background:#5ccfaf!important;color:#122d27!important}
+html.dark :is(.layer-presets,.member-list button,.ha-learning-knowledge,.ha-guide-card,.ha-guide-controls,.ha-relation-card){border-color:var(--border)!important}
+html.dark :is(.error,.ha-guide-error){color:#ffb1bb}
+html.dark :is(button,a,input):focus-visible{outline:3px solid #74dfc1;outline-offset:3px}
+
+html.dark :is(.top-actions kbd,h1 .edition){opacity:1;color:var(--muted-foreground)}
+
+html.dark .system-name{color:var(--muted-foreground)}
+html.dark .enabled .system-name{color:var(--foreground)}
+html.dark .explode-label output{background:var(--secondary);color:var(--foreground);border-color:var(--border)}
+/* The site already names the world; reserve the embedded phone header for actions. */
+@media(max-width:767px){
+ html[data-site-embed] .identity{display:none}
+ html[data-site-embed] .top-actions{left:12px;right:12px;top:12px;display:grid;grid-template-columns:minmax(0,1fr) 44px 44px;gap:6px}
+ html[data-site-embed] .top-actions .ha-guide-launch{width:100%!important;min-width:44px!important;font-size:0!important;padding:8px!important}
+ html[data-site-embed] .ha-guide-launch::after{content:'Blood-flow guide';font-size:12px}
+ html[data-site-embed] .view-controls{top:72px;left:12px;right:12px;display:grid;grid-template-columns:repeat(6,44px);width:max-content;max-width:calc(100% - 24px);gap:2px;margin-inline:auto;transform:none}
+ html[data-site-embed] .view-controls i{display:none}
+ html[data-site-embed] .detail-sheet,html[data-site-embed] .detail-sheet.is-isolated{top:132px!important;bottom:24px!important;left:12px!important;right:12px!important;width:auto!important;max-width:none!important;max-height:none!important;height:auto!important}
+ html[data-site-embed] body:has(.detail-sheet) .bottom-dock{visibility:hidden}
+ html[data-site-embed] body:has(.detail-sheet) .view-controls,html[data-site-embed] body:has(.detail-sheet) .top-actions{visibility:visible}
+ html[data-site-embed] .detail-sheet .secondary-action{min-height:44px}
+}
+
+.ha-guide-notice{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.ha-guide-card h3{font-size:15px;margin:6px 0;font-weight:700}
+.ha-guide-card h3:focus{outline:2px solid var(--primary);outline-offset:3px}
+.ha-guide-controls .ha-learning-button,.ha-guide-controls .ha-learning-button.text{min-height:44px;grid-column:auto}
+.ha-guide-controls{position:static;grid-template-columns:1fr 1fr;background:transparent}
+.ha-guide-controls .ha-learning-button:focus-visible,.ha-relation-card:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+html.dark .ha-guide-card h3{color:var(--foreground)}
+html.dark .ha-guide-controls{background:transparent}
+
+.ha-guide-notice[data-error=true]{position:absolute;top:132px;left:12px;right:12px;width:auto;height:auto;clip-path:none;white-space:normal;z-index:20;padding:12px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--foreground);font-size:13px;line-height:1.5}
+
+.detail-scroll .ha-guide-controls{position:static;background:transparent}

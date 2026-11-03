@@ -18,7 +18,7 @@ for(const tool of activeTools)test(()=>{assert.ok(['check','simulate','decide','
 test(()=>{const route=fs.readFileSync('src/pages/toolbox/[slug].astro','utf8');for(const e of entries){assert.ok(route.includes(`tool.slug === '${e[5]}'`));const t=activeTools.find(t=>t.slug===e[5])!;assert.ok(t.privacySensitive);assert.ok(!getRelatedTools(t).some(r=>getTryNextTools(t).some(n=>r.id===n.id)));}});
 // Execute the real hub filter script: query + family + tag, empty state and clear.
 test(()=>{
- const handler=(attrs:Record<string,string>={},text='')=>({hidden:false,textContent:text,value:'',events:{} as Record<string,()=>void>,getAttribute:(k:string)=>attrs[k]??null,setAttribute:(k:string,v:string)=>{attrs[k]=v;},addEventListener(k:string,fn:()=>void){this.events[k]=fn;},classList:{toggle(){},remove(){}}});
+ const handler=(attrs:Record<string,string>={},text='')=>({hidden:false,textContent:text,value:'',focused:false,focus(){this.focused=true;},events:{} as Record<string,()=>void>,getAttribute:(k:string)=>attrs[k]??null,setAttribute:(k:string,v:string)=>{attrs[k]=v;},addEventListener(k:string,fn:()=>void){this.events[k]=fn;},classList:{toggle(){},remove(){}}});
  const cards=activeTools.map(t=>handler({'data-family':t.family,'data-tags':t.tags.join('|')},`${t.name} ${t.shortDescription} ${t.tags.join(' ')}`));
  const family=['check','simulate','decide','plan','create'].map(v=>handler({'data-family-filter':v})),tags=[handler({'data-tag-filter':'AI'})],input=handler(),count=handler(),clear=handler(),empty=handler();
  const script=fs.readFileSync('src/pages/toolbox.astro','utf8').match(/<script>([\s\S]*?)<\/script>/)![1];
@@ -26,7 +26,7 @@ test(()=>{
  vm.runInContext(ts.transpileModule(script,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.None}}).outputText,context);
  input.value='  OAUTH   CIMD ';input.events.input();assert.equal(count.textContent,'1');assert.equal(cards.filter(c=>!c.hidden).length,1);
  family[4].events.click();tags[0].events.click();assert.equal(count.textContent,'1');family[0].events.click();assert.equal(count.textContent,'0');assert.equal(empty.hidden,false);
- clear.events.click();assert.equal(input.value,'');assert.equal(count.textContent,'100');assert.equal(cards.filter(c=>!c.hidden).length,100);assert.equal(clear.hidden,true);
+ clear.events.click();assert.equal(input.focused,true);assert.equal(input.value,'');assert.equal(count.textContent,'100');assert.equal(cards.filter(c=>!c.hidden).length,100);assert.equal(clear.hidden,true);
  input.value='no-matching-tool-fixture';input.events.input();assert.equal(count.textContent,'0');clear.events.click();assert.equal(count.textContent,'100');
 });
 // Generated milestone coverage complements the existing SEO/Value/domain audits.
