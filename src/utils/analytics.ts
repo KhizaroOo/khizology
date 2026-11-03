@@ -8,6 +8,10 @@ let initialized = false;
 let loaded = false;
 let started = false;
 let listenersAttached = false;
+let earningObserver: IntersectionObserver | null = null;
+const earningViews = new WeakSet<Element>();
+const earningExperimentId = 'technical-clarity-review-001';
+
 
 function localPreview() {
   if (typeof window === 'undefined') return true;
@@ -58,8 +62,9 @@ export function loadAnalytics() {
   script.async = true;
   script.referrerPolicy = 'no-referrer';
   script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
-  script.onerror = () => { w[`ga-disable-${measurementId}`] = true; w.dataLayer = []; };
+  script.onerror = () => { w[`ga-disable-${measurementId}`] = true; w.dataLayer = []; stopEarningOfferObservation(); };
   document.head.appendChild(script);
+  observeEarningOffers();
 }
 export function setConsent(value: Consent) {
   const wasLoaded = loaded;
@@ -68,6 +73,7 @@ export function setConsent(value: Consent) {
   try { localStorage.setItem(consentKey, value); } catch { /* Keep in memory. */ }
   if (value === 'accepted') loadAnalytics();
   else if (typeof window !== 'undefined') {
+    stopEarningOfferObservation();
     const w = window as unknown as AnalyticsWindow;
     w[`ga-disable-${measurementId}`] = true;
     w.dataLayer = [];
@@ -85,6 +91,32 @@ export function setConsent(value: Consent) {
 function emit(name: string, params: Record<string, string | number>) {
   if (!configured() || consent() !== 'accepted' || !loaded || (window as unknown as AnalyticsWindow)[`ga-disable-${measurementId}`]) return;
   command('event', name, { ...pageMetadata(), ...params });
+}
+// Read only static offer/canonical metadata, never tool controls or link contents.
+function earningSurface(offer: Element | null) {
+  const surface = (offer as HTMLElement | null)?.dataset.earningSurface;
+  if (!surface) return null;
+  const parts = new URL(pageMetadata().page_location).pathname.split('/').filter(Boolean);
+  const expected = parts.length === 1 && ['toolbox', 'drop-a-vibe'].includes(parts[0]) ? parts[0]
+    : parts.length === 2 && parts[0] === 'toolbox' && toolMetadata()?.tool_slug === parts[1] ? parts[1] : null;
+  return surface === expected ? surface : null;
+}
+function stopEarningOfferObservation() { earningObserver?.disconnect(); earningObserver = null; }
+function observeEarningOffers() {
+  if (earningObserver || !configured() || !loaded || localPreview() || consent() !== 'accepted' || typeof IntersectionObserver === 'undefined') return;
+  const offers = [...document.querySelectorAll('[data-earning-offer]')].filter(offer => !earningViews.has(offer));
+  if (!offers.length) return;
+  earningObserver = new IntersectionObserver((entries, observer) => {
+    if (earningObserver !== observer || document.visibilityState === 'hidden' || consent() !== 'accepted' || (window as unknown as AnalyticsWindow)[`ga-disable-${measurementId}`]) return;
+    for (const entry of entries) {
+      const surface = earningSurface(entry.target);
+      if (!entry.isIntersecting || entry.intersectionRatio < 0.5 || !surface || earningViews.has(entry.target)) continue;
+      emit('earning_offer_view', { experiment_id: earningExperimentId, surface });
+      earningViews.add(entry.target);
+      observer.unobserve(entry.target);
+    }
+  }, { threshold: 0.5 });
+  offers.forEach(offer => earningObserver!.observe(offer));
 }
 function toolMetadata() {
   const node = document.querySelector<HTMLElement>('[data-tool-slug]');
@@ -181,6 +213,13 @@ export function initializeAnalytics() {
     if (!link) return;
     const target = new URL(link.href);
     const channel = target.protocol === 'mailto:' ? 'email' : channels[target.hostname.replace(/^www\./, '')];
+    const offerSurface = earningSurface(link.closest('[data-earning-offer]'));
+    if (offerSurface && link.hasAttribute('data-earning-offer-cta')) {
+      const contactMethod = target.origin === new URL(window.location.href).origin && target.pathname.replace(/\/$/, '') === '/drop-a-vibe'
+        ? 'contact_page' : ['whatsapp', 'linkedin', 'email'].includes(channel) ? channel : null;
+      if (contactMethod) emit('earning_offer_click', { experiment_id: earningExperimentId, surface: offerSurface, contact_method: contactMethod });
+    }
+
     if (['email', 'whatsapp'].includes(channel) || (channel === 'linkedin' && (link.closest('.dav-connect') || sourceMetadata().source_slug === 'my-portfolio')) || (target.origin === new URL(window.location.href).origin && target.pathname.replace(/\/$/, '') === '/drop-a-vibe')) {
       const collection = link.dataset.infoooCollection;
       emit('contact_click', { ...sourceMetadata(), contact_type: channel || 'contact_page', ...(link.dataset.collectionAction === 'consulting' && collection && /^[a-z0-9-]+$/.test(collection) ? { collection_slug: collection } : {}) });
@@ -216,6 +255,11 @@ export function initializeAnalytics() {
     const source = sourceMetadata();
     if (destination && destination !== source.source_module) emit('module_discovery', { ...source, destination_module: destination });
   });
+  if (document.querySelector('[data-earning-offer]')) {
+    window.addEventListener('pagehide', stopEarningOfferObservation);
+    window.addEventListener('pageshow', observeEarningOffers);
+    document.addEventListener('visibilitychange', () => document.visibilityState === 'hidden' ? stopEarningOfferObservation() : observeEarningOffers());
+  }
   window.addEventListener('storage', event => {
     if (event.key === consentKey) {
       if (event.newValue === 'accepted') { choice = 'accepted'; loadAnalytics(); }

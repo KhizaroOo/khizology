@@ -8,6 +8,7 @@ import ToolCard from '../../components/toolbox/ToolCard.astro';
 import PrivacyNotice from '../../components/toolbox/PrivacyNotice.astro';
 import ToolKnowledge from '../../components/toolbox/ToolKnowledge.astro';
 import ToolTruth from '../../components/toolbox/ToolTruth.astro';
+import TechnicalClarityOffer from '../../components/shared/TechnicalClarityOffer.astro';
 import ShareResultFoundation from '../../components/toolbox/ShareResultFoundation';
 import ToolWorkspaceTracker from '../../components/toolbox/lv3/ToolWorkspaceTracker';
 import ToolLv3Panel from '../../components/toolbox/lv3/ToolLv3Panel';
@@ -325,6 +326,7 @@ const jsonLd = pageSchema({
 
           {!tool.lv3 && <ToolKnowledge knowledge={knowledge} accent={family.color} variant="next" nextTools={tryNext} nextReasons={tool.nextToolReasons} />}
           <ToolTruth truth={truth} />
+          {tool.status === 'active' && tool.clarityReview && <TechnicalClarityOffer surface={tool.slug} />}
 
           <div class="tp-about">
             <h2 class="tp-section-h2">Understand {tool.name}</h2>

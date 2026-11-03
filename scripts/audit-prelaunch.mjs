@@ -17,6 +17,7 @@ await import('./test-site-consistency.mjs');
 await import('./test-tool-discovery.mjs');
 await import('./test-artwork-discovery.mjs');
 await import('./test-portfolio-evidence.mjs');
+await import('./test-earning-experiment.mjs');
 const { verifyAgentSystemsBuild } = await import('./test-agent-systems-lab.mjs');
 verifyAgentSystemsBuild();
 await import('./test-infooo-entry.mjs');

@@ -24,6 +24,8 @@ export interface Tool {
   slug: string;
   shortDescription: string;
   seoDescription?: string;
+  /** Selected for the introductory Technical Clarity Review experiment. */
+  clarityReview?: true;
   longDescription: string;
   family: FamilyId;
   tags: string[];
@@ -123,7 +125,7 @@ export const tools: Tool[] = [
     id: 'api-payload-doctor',
     growthPriority: true,
     name: 'API Payload Doctor',
-    slug: 'api-payload-doctor',
+    slug: 'api-payload-doctor', clarityReview: true,
     shortDescription: 'Paste an API request or response and get a structured diagnosis of what could go wrong with it.',
     seoDescription: 'Check API JSON for inconsistent keys, nulls, date formats and nested structures. Get clear findings and suggested fixes locally, without uploading your payload.',
     longDescription: 'Drop in a JSON payload and API Payload Doctor runs it through a checklist real backend engineers use — inconsistent key casing, ambiguous null vs. missing fields, oversized payloads, unsafe date formats, duplicate keys, and deep nesting that will bite you later. Every finding is explained, not just flagged.',
@@ -250,7 +252,7 @@ export const tools: Tool[] = [
     id: 'retry-storm-simulator',
     growthPriority: true,
     name: 'Retry Storm Simulator',
-    slug: 'retry-storm-simulator',
+    slug: 'retry-storm-simulator', clarityReview: true,
     shortDescription: 'Compare retry policies and see how attempts, backoff, jitter, and budgets change recovery pressure.',
     longDescription: 'Model a bounded outage and compare immediate, fixed, and exponential retry policies. See retry waves, load amplification, idempotency warnings, a retry budget, and how synchronized attempts can add pressure while a dependency recovers.',
     family: 'simulate',
@@ -470,7 +472,7 @@ export const tools: Tool[] = [
   {
     id: 'database-decision-lab',
     name: 'Database Decision Lab',
-    slug: 'database-decision-lab',
+    slug: 'database-decision-lab', clarityReview: true,
     shortDescription: 'Weigh database options against your own priorities and see a transparent, scored recommendation.', seoDescription: "Weight consistency, scaling, queries, operations and cost to compare database types. Inspect editorial scores and tradeoffs before testing your own workload.",
     longDescription: 'Set how much you care about consistency, scalability, query flexibility, ops simplicity, and cost, and Database Decision Lab scores PostgreSQL, MongoDB, a DynamoDB-style key-value store, and a Cassandra-style wide-column store against those exact priorities — showing which inputs caused the result, never claiming one database is universally "the best."',
     family: 'decide',
@@ -588,7 +590,7 @@ export const tools: Tool[] = [
     id: 'timeout-chain-planner',
     growthPriority: true,
     name: 'Timeout Chain Planner',
-    slug: 'timeout-chain-planner',
+    slug: 'timeout-chain-planner', clarityReview: true,
     shortDescription: 'Plan one end-to-end deadline across serial calls, retries, and remaining downstream budget.', seoDescription: "Model serial calls, local work and retries against one deadline. Compare expected latency with configured waits to find timeout inversions or unsafe budgets.",
     longDescription: 'Model how local work and serial downstream calls consume one end-to-end deadline. Compare expected latency with timeout ceilings, spot timeout inversions and retry plans that cannot fit, and make cancellation and deadline-propagation assumptions explicit.',
     family: 'plan',
