@@ -14,3 +14,5 @@ Claude and Codex both follow this. Only Khizar promotes `dev-dev` → `main`. Va
 2026-11-03 · codex-dev → dev-dev · API Payload Doctor SEO description expanded from 95 to 160 characters; meta/social/application schema use canonical SEO metadata. Khizar owns promotion and Bing recrawl after deployment.
 
 2026-11-04 · codex-dev → dev-dev · Improved 28 page descriptions through canonical SEO fields; preserved the API Payload Doctor fix and Claude worlds. Full review is in codex-info/META-DESCRIPTION-REVIEW-2026-11-04.md. Khizar owns promotion/push and post-release Bing recrawl.
+
+2026-11-04 · codex-dev → dev-dev · Integrated 72ae31f: approved $99 Technical Clarity Review, fit-first qualification, public-only contact prefills, compact process disclosure, desktop spacing and consent-safe analytics; Claude Worlds 015/016 preserved. Khizar owns main promotion/push; the separate documentation-review edits remain pending on codex-dev. No deployment performed.
