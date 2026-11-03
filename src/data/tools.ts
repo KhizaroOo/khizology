@@ -23,6 +23,7 @@ export interface Tool {
   name: string;
   slug: string;
   shortDescription: string;
+  seoDescription?: string;
   longDescription: string;
   family: FamilyId;
   tags: string[];
@@ -124,6 +125,7 @@ export const tools: Tool[] = [
     name: 'API Payload Doctor',
     slug: 'api-payload-doctor',
     shortDescription: 'Paste an API request or response and get a structured diagnosis of what could go wrong with it.',
+    seoDescription: 'Check API JSON for inconsistent keys, nulls, date formats and nested structures. Get clear findings and suggested fixes locally, without uploading your payload.',
     longDescription: 'Drop in a JSON payload and API Payload Doctor runs it through a checklist real backend engineers use — inconsistent key casing, ambiguous null vs. missing fields, oversized payloads, unsafe date formats, duplicate keys, and deep nesting that will bite you later. Every finding is explained, not just flagged.',
     family: 'check',
     tags: ['Engineering', 'Backend', 'API'],
