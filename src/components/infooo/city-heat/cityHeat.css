@@ -41,6 +41,11 @@ html.dark .city-heat{--c-a:#ff9a6b;--c-b:#5eead4;--c-ref:#9CA3AF;--night-band:rg
   .ch-dock-row>#ch-run{grid-area:run;padding-inline:1rem}.ch-clock{grid-area:clock;min-width:0}.ch-slider{grid-area:slider}.ch-dock-row>.k-button:last-child{grid-area:jump;padding-inline:.8rem}
   .ch-caption{font-size:.82rem;line-height:1.4;margin-top:.1rem}.ch-caplink{display:none}
 }
+/* Keep the clock clear of both actions on narrow phones, including three-day labels. */
+@media(max-width:480px){
+  .ch-dock-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"run jump" "clock clock" "slider slider"}
+  .ch-clock{display:flex;align-items:baseline;gap:.5rem;margin-top:.4rem}
+}
 #ch-aha{scroll-margin-top:210px}
 
 /* the two blocks */

@@ -8,9 +8,10 @@ interface Props {
   accent: string;
   variant?: 'intro' | 'next';
   nextTools?: Tool[];
+  nextReasons?: Tool['nextToolReasons'];
 }
 
-const { knowledge, accent, variant = 'intro', nextTools = [] } = Astro.props;
+const { knowledge, accent, variant = 'intro', nextTools = [], nextReasons = {} } = Astro.props;
 ---
 {variant === 'intro' ? (
   <section class="tool-knowledge" style={`--knowledge-accent:${accent}`} aria-labelledby="tool-knowledge-title" data-tool-knowledge-intro>
@@ -25,12 +26,12 @@ const { knowledge, accent, variant = 'intro', nextTools = [] } = Astro.props;
 ) : nextTools.length > 0 ? (
   <section class="tool-knowledge tool-knowledge-next" style={`--knowledge-accent:${accent}`} aria-labelledby="tool-knowledge-next-title" data-tool-knowledge-next>
     <h2 id="tool-knowledge-next-title">Next</h2>
-    <p class="tool-knowledge-next-intro">Use the result to choose a connected next move.</p>
+    <p class="tool-knowledge-next-intro">Next continues this task; Related offers other useful comparisons.</p>
     <div class="tool-knowledge-next-grid">
       {nextTools.map((tool) => (
         <a href={url(`/toolbox/${tool.slug}`)} data-related-content data-related-monster="toolooo" data-related-content-type="tool" data-related-slug={tool.slug} data-discovery-action="next">
           <span aria-hidden="true">{tool.icon}</span>
-          <span><strong>{tool.name}</strong><small>{tool.shortDescription}</small></span>
+          <span><strong>{tool.name}</strong><small>{nextReasons[tool.id] || tool.shortDescription}</small></span>
         </a>
       ))}
     </div>

@@ -54,6 +54,53 @@ function fixture(fileName, reduced, realShell = false) {
 }
 
 
+const causalWorlds = ['agent-economy/', 'mcp-security/', 'browser-security/', 'skills-supply/', 'incident-room/'];
+function verifyCausalEvidence(f,file,repaired=false) {
+ if(!causalWorlds.some(prefix=>file.startsWith(prefix)))return;
+ const evidence=f.nodes().find(n=>n.props?.className==='infooo-entry-evidence');
+ const change=f.nodes().find(n=>n.props?.className==='infooo-entry-change');
+ const limit=f.nodes().find(n=>n.props?.className==='infooo-entry-limit');
+ const evidenceText=f.text();
+ assert.ok(evidence&&change&&limit,file+': concrete evidence, comparison and limitations beside result');
+ assert.ok(evidenceText.includes('Simulated evidence')&&evidenceText.includes('External supporting sources'),file+': simulation records distinguished from external sources');
+ const slots=JSON.parse(f.snapshot());
+ if(file.startsWith('agent-economy/')){
+  const state=slots.find(v=>v?.receipts);
+  assert.equal(state.spent,state.receipts.reduce((sum,r)=>sum+r.cents,0));
+  assert.ok(state.receipts.length>0&&state.spent<=state.authority.cap);
+  for(const r of state.receipts)assert.ok(evidenceText.includes(r.key)&&evidenceText.includes('$'+(r.cents/100).toFixed(2)));
+  assert.ok(evidenceText.includes('Mission start: 0 receipts and $0.00 spent'));
+ }
+ if(file.startsWith('mcp-security/')){
+  const state=slots.find(v=>v?.config&&v?.executed);
+  assert.equal(state.status,repaired?'blocked':'exposed');assert.equal(state.config.controls.policy,repaired);
+  assert.equal(state.executed.includes('send_email'),!repaired);
+  assert.ok(evidenceText.includes('Execution-time policy: '+(repaired?'ON':'OFF')));
+  for(const record of state.trace)assert.ok(evidenceText.includes(record));
+ }
+ if(file.startsWith('browser-security/')){
+  const state=slots.find(v=>v?.decision&&v?.controls);
+  assert.equal(state.decision,repaired?'blocked':'executed');assert.equal(state.controls.intent,repaired);
+  assert.ok(evidenceText.includes('Send unrelated account summary')&&evidenceText.includes('outside.example'));
+  assert.ok(evidenceText.includes('Intent binding: '+(repaired?'ON':'OFF')));
+  if(repaired)assert.ok(evidenceText.includes('Action does not match the original user intent.'));
+ }
+ if(file.startsWith('skills-supply/')){
+  const state=slots.find(v=>v?.operation&&v?.controls);
+  assert.equal(state.outbound,!repaired);assert.equal(state.installed.version,repaired?'1.0.0':'2.0.0');
+  assert.ok(evidenceText.includes('Installed: '+state.installed.version)&&evidenceText.includes('Offered: 2.0.0'));
+  assert.ok(evidenceText.includes('Local report only')&&evidenceText.includes('Broader files'));
+  assert.ok(evidenceText.includes('An offered change is not necessarily installed.'));
+ }
+ if(file.startsWith('incident-room/')){
+  const room=slots.find(v=>v?.opened&&v?.verified);
+  assert.equal(room.effects,1);assert.equal(Boolean(room.saved),repaired);
+  assert.ok(evidenceText.includes('Production v2 activation recorded')&&evidenceText.includes('Production version = v2'));
+  assert.ok(evidenceText.includes('historical effect(s) remain')&&evidenceText.includes('UNKNOWN'));
+  if(repaired)assert.ok(evidenceText.includes('cannot create a new effect on this path'));
+ }
+}
+
 const cases=[
  ['agent-economy/AgentEconomy.tsx','Try the purchase','Replay the purchase','purchase receipts',null,null],
  ['mcp-security/McpSecurityLab.tsx','Trigger the poisoned tool','Apply an action boundary','Unsafe action executed','Replay with the boundary','Action blocked'],
@@ -70,7 +117,8 @@ for(const reduced of [false,true])for(const [file,first,second,outcome,third,fix
  assert.ok(!f.text().includes('Learning mode'),file+' no mandatory mode selection');
  f.click(first);assert.equal(f.events.filter(e=>e[0]==='trackInfoooWorldStart').length,1,file+' single start');assert.ok(f.text().toLowerCase().includes(outcome.toLowerCase()),file+' first aha: '+f.text());
  assert.ok(f.text().includes('What happened')&&f.text().includes('Why')&&f.text().includes('What changes it'));
- if(third){f.click(second);assert.ok(f.text().toLowerCase().includes(fixed.toLowerCase()),file+' repair');assert.ok(f.text().includes(third));}
+ verifyCausalEvidence(f,file);
+ if(third){f.click(second);assert.ok(f.text().toLowerCase().includes(fixed.toLowerCase()),file+' repair');assert.ok(f.text().includes(third));verifyCausalEvidence(f,file,true);}
  if(!file.includes('identity-lab')&&!file.includes('incident-room'))assert.equal(f.events.filter(e=>e[0]==='trackInfoooGuideComplete').length,third?2:1,file+' one completion per run');
  f.click('Try again');assert.ok(f.text().includes(first),file+' reset');
  assert.ok(f.events.every(e=>e.slice(1).every(v=>typeof v==='string'&&/^[a-z0-9-]+$/.test(v))),file+' analytics identifiers only');
@@ -116,6 +164,15 @@ for (const reduced of [false, true]) for (const [file, first, second, , replay] 
   }
   f.toggle(true); f.changeControl(); f.toggle(false);
   preserve('advanced input / scenario');
+  if(causalWorlds.some(prefix=>file.startsWith(prefix))){
+    assert.ok(!f.entryText().includes('Simulated evidence'),file+': changed setup cannot retain previous execution evidence as current');
+    assert.match(f.entryText(), /[Rr]eady|[Ss]ettings changed|[Ii]nputs changed/);
+  }
+  if(file.startsWith('incident-room/')){
+    f.click('Trace the incident');
+    assert.match(f.entryText(),/reports.read/);assert.doesNotMatch(f.entryText(),/Production v2 activation recorded/);
+    assert.match(f.entryText(),/Actual operator UNKNOWN/);
+  }
   if (file.startsWith('mcp-security/')) { assert.match(f.entryText(), /current setup is ready to run/); assert.doesNotMatch(f.entryText(), /Unsafe action executed/); }
   f.toggle(true); f.xray(); f.toggle(false);
   preserve('advanced view');

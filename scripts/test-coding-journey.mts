@@ -47,7 +47,7 @@ assert.equal(tools.length, 7); assert.equal(challenges.length, 5);
 for (const challenge of challenges) { assert.ok(challenge.answer < challenge.choices.length); assert.ok(failures.some(f => f.id === challenge.scenario)); }
 const html = fs.readFileSync(new URL('../dist/infooo/ai-coding-agent-journey/index.html', import.meta.url), 'utf8');
 assert.match(html, /<h1[^>]*>How does an AI coding agent work\?<\/h1>/);
-assert.match(html, />Play<\/button>/);
+assert.match(html, />Watch the agent work<\/button>/);
 assert.match(html, /class="agent-scene" role="img"/);
 for (const label of ['Task', 'Look', 'Change', 'Check', 'Report']) assert.match(html, new RegExp(`<strong>${label}</strong>`));
 assert.ok(!html.includes('id="coding-depth"'), 'advanced workspace is unavailable before core completion');

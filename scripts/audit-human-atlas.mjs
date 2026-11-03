@@ -45,6 +45,7 @@ const canonical = [...viewer.matchAll(/<link\b[^>]*>/gi)].map(match => match[0])
 assert.equal(attr(canonical || '', 'href'), `${auditOrigin}${worldPath}`, 'The viewer canonical must point to the public learning page');
 
 const moduleFiles = [];
+let themeLayer;
 let learningLayer = '';
 for (const match of viewer.matchAll(/<(?:script|link|img)\b[^>]*>/gi)) {
   const tag = match[0];
@@ -53,7 +54,8 @@ for (const match of viewer.matchAll(/<(?:script|link|img)\b[^>]*>/gi)) {
   if (!raw) continue;
   const file = asset(raw);
   if (file.endsWith('.js')) {
-    if (raw.endsWith('learning-layer.js')) learningLayer = file;
+    if (raw.endsWith('theme.js')) themeLayer = file;
+    else if (raw.endsWith('learning-layer.js')) learningLayer = file;
     else moduleFiles.push(file);
   }
   if (file.endsWith('.css')) {
@@ -64,6 +66,10 @@ for (const match of viewer.matchAll(/<(?:script|link|img)\b[^>]*>/gi)) {
   }
 }
 assert.equal(moduleFiles.length, 1, 'Expected one self-hosted viewer module');
+assert.ok(themeLayer, 'The same-origin theme bridge must load before the viewer');
+const themeBridge = fs.readFileSync(themeLayer, 'utf8');
+assert.ok(themeBridge.includes('window.parent.location.origin !== window.location.origin'));
+assert.ok(!/postMessage|localStorage|sessionStorage|fetch\(/.test(themeBridge), 'Theme sync must not add messages, persistence or requests');
 assert.ok(learningLayer, 'The Infooo learning layer must be loaded with the viewer');
 const learning = fs.readFileSync(learningLayer, 'utf8');
 assert.ok(learning.includes('Follow the Blood'), 'The learning layer must include the Follow the Blood journey');

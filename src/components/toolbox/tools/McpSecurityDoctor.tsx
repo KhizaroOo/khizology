@@ -10,28 +10,42 @@ export default function McpSecurityDoctor() {
   const [raw, setRaw] = useState('');
   const [example, setExample] = useState<keyof typeof mcpExamples>('read');
   const [result, setResult] = useState<ReturnType<typeof analyzeMcpSecurity>>();
+  const [analyzedRaw, setAnalyzedRaw] = useState('');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  const clear = () => { setResult(undefined); setError(''); setMessage(''); };
+  const clear = () => { setResult(undefined); setAnalyzedRaw(''); setError(''); setMessage(''); };
+  const outdated = Boolean(result) && raw !== analyzedRaw;
+  const exampleNotes = {
+    read: 'A fixed project scope and read-only hint: declarations still need runtime verification.',
+    write: 'Broad filesystem access and deletion: inspect scope and approval gaps.',
+    network: 'A caller-chosen destination: inspect outbound access and data exposure.',
+  };
+  function loadExample() {
+    const sample = JSON.stringify(mcpExamples[example], null, 2);
+    if (raw.trim() && raw !== sample && !window.confirm('Replace the current JSON with this fictional example?')) return;
+    setRaw(sample); setError(''); setMessage('Fictional example loaded. Analyze it to see the findings.');
+  }
   function analyze() {
-    try { const next = analyzeMcpSecurity(raw); setResult(next); setError(''); setMessage(''); trackToolResult(); }
+    try { const next = analyzeMcpSecurity(raw); setResult(next); setAnalyzedRaw(raw); setError(''); setMessage(''); trackToolResult(); }
     catch (failure) { setResult(undefined); setError((failure as Error).message); }
   }
   return <div className="tool-workbench">
     <p>Is this MCP definition granting more power than its task needs? Paste JSON, review the signals, then verify the real safeguards. Nothing is executed or connected.</p>
+    <div className="tool-grid">
+      <label htmlFor={`${id}-example`}>Fictional example<select id={`${id}-example`} value={example} aria-describedby={`${id}-example-help`} onChange={event => setExample(event.target.value as keyof typeof mcpExamples)}><option value="read">Constrained read tool</option><option value="write">Broad destructive tool</option><option value="network">Arbitrary network request</option></select></label>
+      <div><p id={`${id}-example-help`}>{exampleNotes[example]}</p><button type="button" onClick={loadExample}>Load example</button></div>
+    </div>
     <label htmlFor={`${id}-input`}>MCP tool or server JSON</label>
-    <textarea id={`${id}-input`} value={raw} maxLength={MCP_LIMITS.bytes + 1} onChange={event => { setRaw(event.target.value); clear(); }} rows={10} spellCheck={false} autoComplete="off" aria-invalid={Boolean(error)} aria-describedby={`${id}-help${error ? ` ${id}-error` : ''}`} placeholder={'{"tools": [{"name": "read_status", "inputSchema": {"type": "object"}}]}'} />
-    <small id={`${id}-help`}>100,000 UTF-8 bytes · 5,000 values · 24 levels · 100 tools. Inputs stay in page memory. Results hide values and unknown property names; your pasted editor remains visible.</small>
+    <textarea id={`${id}-input`} value={raw} maxLength={MCP_LIMITS.bytes + 1} onChange={event => { setRaw(event.target.value); setError(''); setMessage(''); }} rows={10} spellCheck={false} autoComplete="off" aria-invalid={Boolean(error)} aria-describedby={`${id}-help${error ? ` ${id}-error` : ''}`} placeholder={'{"tools": [{"name": "read_status", "inputSchema": {"type": "object"}}]}'} />
+    <small id={`${id}-help`}>Inputs stay in page memory. Results hide values and unknown property names; your pasted editor remains visible.</small>
+    <details><summary>Input formats and limits</summary><p>100,000 UTF-8 bytes · 5,000 values · 24 levels · 100 tools. Accepts one tool, a tool array, a tools/list response, mcpServers configuration or generic tool JSON.</p></details>
     <div className="tool-actions">
       <button className="k-button k-button--primary" type="button" onClick={analyze}>Analyze MCP JSON</button>
       <button type="button" onClick={() => { setRaw(''); clear(); setMessage('Input and findings cleared.'); }}>Reset</button>
     </div>
-    <details><summary>Try a fictional example</summary><div className="tool-grid">
-      <label>Example<select value={example} onChange={event => setExample(event.target.value as keyof typeof mcpExamples)}><option value="read">Constrained read tool</option><option value="write">Broad destructive tool</option><option value="network">Arbitrary network request</option></select></label>
-      <button type="button" onClick={() => { setRaw(JSON.stringify(mcpExamples[example], null, 2)); clear(); setMessage('Fictional example loaded. Analyze it to see the findings.'); }}>Load example</button>
-    </div></details>
     {error && <div id={`${id}-error`} role="alert"><Warning level="danger" title={error} /></div>}
     <span role="status">{message}</span>
+    <p role="status" aria-live="polite" aria-atomic="true">{result && (outdated ? <><strong>Outdated</strong> — Inputs changed. Run the diagnosis again to update this result.</> : 'Diagnosis matches the current inputs.')}</p>
     {result ? <>
       <Insight what={`${result.posture} · ${result.counts.FAIL} FAIL, ${result.counts.WARN} WARN`} why={`Main review area: ${result.mainRisk}. Findings describe supplied declarations, not observed server behavior.`} tip={result.firstAction} />
       <p>{result.toolCount} tool definitions · {result.counts.PASS} narrow PASS checks · {result.counts.INFO} context notes. FAIL means a stronger declared risk signal; WARN needs review; INFO records a limit or unknown. No numeric security score.</p>

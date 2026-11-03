@@ -160,3 +160,5 @@ html.dark .rubik-world .infooo-stage { --rubik-ink: #213735; --rubik-muted: #637
   .rubik-world .infooo-world-header h1 { font-size: 1.62rem; }
   .rubik-world .infooo-world-header span { font-size: .74rem; }
 }
+
+.piece-token[aria-pressed="true"] .token-outline{stroke-dasharray:3 2;stroke-width:3}

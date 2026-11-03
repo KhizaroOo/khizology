@@ -22,7 +22,9 @@ export default function AnatomyScene({atlas,state,onSelect,onProgress,onError}:P
   const motionChanged=()=>{dirty=true;schedule();};
   let renderer:T.WebGLRenderer;
   try{renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});}catch{onError('This browser could not start the 3D viewer. Please try a browser with WebGL enabled.');return;}
-  renderer.setPixelRatio(Math.min(devicePixelRatio,innerWidth<768?1.5:2));renderer.setClearColor('#f2f3f3');renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;el.appendChild(renderer.domElement);
+  renderer.setPixelRatio(Math.min(devicePixelRatio,innerWidth<768?1.5:2));renderer.setClearColor(getComputedStyle(document.documentElement).backgroundColor);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;el.appendChild(renderer.domElement);
+  const themeObserver=new MutationObserver(()=>{renderer.setClearColor(getComputedStyle(document.documentElement).backgroundColor);dirty=true;schedule();});
+  themeObserver.observe(document.documentElement,{attributes:true,attributeFilter:['class','style']});
   renderer.domElement.setAttribute('aria-label','Interactive human anatomy. Drag to orbit, pinch or scroll to zoom, and tap a structure to inspect it.');
   const scene=new T.Scene(),camera=new T.PerspectiveCamera(34,1,.005,100),controls=new OrbitControls(camera,renderer.domElement);
   camera.position.set(1.4,1.05,3.6);controls.target.set(0,.85,0);controls.enableDamping=true;controls.dampingFactor=.085;controls.minDistance=.07;controls.maxDistance=40;controls.maxPolarAngle=Math.PI*.96;controls.addEventListener('change',()=>{dirty=true;schedule();});
@@ -163,6 +165,7 @@ export default function AnatomyScene({atlas,state,onSelect,onProgress,onError}:P
   };motion.addEventListener('change',motionChanged);schedule();
   const contextLost=(e:Event)=>{e.preventDefault();onError('The 3D session was paused by your device. Reload to continue.');};renderer.domElement.addEventListener('webglcontextlost',contextLost);
   return()=>{
+   themeObserver.disconnect();
    disposed=true;motion.removeEventListener('change',motionChanged);worker.terminate();jobs.forEach(job=>job.reject(new Error('Viewer closed')));jobs.clear();wake.current=()=>{};cancelAnimationFrame(frame);observer.disconnect();controls.dispose();hover.remove();renderer.domElement.remove();
    // Keep programs valid until asynchronous compilation settles, then release GPU resources.
    void Promise.allSettled(preparations).then(()=>{geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());scene.traverse(o=>{if(o instanceof T.Mesh&&!geometries.includes(o.geometry)){o.geometry.dispose();const ms=Array.isArray(o.material)?o.material:[o.material];ms.forEach(m=>m.dispose());}});env?.dispose();room.dispose();pmrem.dispose();partTexture.dispose();selectionTexture.dispose();markerGeometry.dispose();markerMaterial.dispose();renderer.dispose();});

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {decideTransport as decide,transportDefaults as d,transportScaleDefaults as s,transportPresets as presets,transportQuestions} from '../src/components/toolbox/tools/transportDecisionModel.ts';
+import {decideTransport as decide,transportDefaults as d,transportScaleDefaults as s,transportPresets as presets,transportQuestions,transportNotes} from '../src/components/toolbox/tools/transportDecisionModel.ts';
 const run=(name:string)=>decide({...d,...presets[name]});
 assert.equal(run('Notification Feed').eligible[0].name,'SSE');
 assert.equal(run('Chat Application').eligible[0].name,'WebSocket');
@@ -34,3 +34,18 @@ assert.ok(source.includes('setInput(transportDefaults);setScale(transportScaleDe
 assert.equal((source.match(/trackToolResult\(\)/g)||[]).length,1);
 for(const file of ['RealTimeTransportDecisionLab.tsx','transportDecisionModel.ts'])assert.ok(!/\bfetch\s*\(|new (?:WebSocket|EventSource|WebTransport)|localStorage|sessionStorage|URLSearchParams|sendBeacon/.test(fs.readFileSync(`src/components/toolbox/tools/${file}`,'utf8')));
 console.log('Transport decision PASS: all presets, deterministic weights, infrastructure gates, compatibility, conflicts, bounds, reset and local-only generic analytics.');
+
+const actions=Object.values(transportNotes).map(note=>note.nextCheck);
+assert.equal(new Set(actions).size,5,'Every winning transport has its own validation action');
+for(const name of ['Chat Application','Notification Feed','Basic Status Check','Modern Streams / Datagrams']){
+ const winner=run(name).eligible[0].name;
+ assert.ok(transportNotes[winner].nextCheck.length>70);
+ assert.ok(transportNotes[winner].bestWhen.length>30);
+}
+assert.match(transportNotes.WebSocket.nextCheck,/WebSocket upgrade.*disconnect and reconnect/);
+assert.match(transportNotes.SSE.nextCheck,/text\/event-stream.*retained events/);
+assert.match(transportNotes.WebTransport.nextCheck,/HTTP\/3.*lost or reordered/);
+assert.ok(source.includes('transportNotes[winner.name].nextCheck'));
+assert.ok(source.includes('transportNotes[winner.name].bestWhen'));
+assert.ok(source.includes('When to reconsider:'));
+console.log('Transport guidance PASS: five distinct winner-specific checks; reasons, conflicts, unavailable paths and alternative caveats retained.');

@@ -7,7 +7,7 @@ import ts from 'typescript';
 // Real components/models; controlled file reads and in-memory React adapters only.
 function fixture(name) {
   const slots = [], modules = new Map(), events = [], readers = [];
-  let cursor = 0, dirty = false, effects = [], nodes, updates = 0;
+  let cursor = 0, dirty = false, effects = [], nodes, updates = 0, replace = true;
   const react = {
     useId: () => 'diagnosis-test', useMemo: fn => fn(),
     useState(value) { const i = cursor++; if (!(i in slots)) slots[i] = value; return [slots[i], next => { slots[i] = typeof next === 'function' ? next(slots[i]) : next; dirty = true; updates++; }]; },
@@ -23,10 +23,10 @@ function fixture(name) {
       if (id === 'react/jsx-runtime') return { jsx, jsxs: jsx };
       if (id.includes('utils/analytics')) return { trackToolResult: () => events.push('diagnosis'), trackContractDriftRun: () => events.push('drift'), trackToolScenarioSelect: () => events.push('scenario') };
       if (id.endsWith('useLocalPref')) return { useLocalPref: (_, value) => react.useState(value) };
-      if (id.endsWith('mathHelpers') || id === './contractDrift') return load(path.resolve(path.dirname(file), `${id}.ts`));
+      if (id.endsWith('mathHelpers') || id === './contractDrift' || id === './mcpSecurityModel') return load(path.resolve(path.dirname(file), `${id}.ts`));
       return { __esModule: true, default: Object.defineProperty(() => null, 'name', { value: path.basename(id) }) };
     };
-    vm.runInNewContext(ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText, { exports, require, Blob, FileReader: Reader });
+    vm.runInNewContext(ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText, { exports, require, Blob, TextEncoder, window: { confirm: () => replace }, FileReader: Reader });
     modules.set(file, exports); return exports;
   }
   const component = load(path.resolve(`src/components/toolbox/tools/${name}.tsx`)).default;
@@ -36,7 +36,7 @@ function fixture(name) {
   const find = test => { const n = nodes.find(test); assert.ok(n, 'Expected diagnosis control'); return n; };
   const act = (node, handler, value) => { node.props[handler](value); render(); };
   render();
-  return { act, find, text, nodes: () => nodes, events, readers, updates: () => updates, async flush() { await Promise.resolve(); await Promise.resolve(); render(); }, unmount() { slots.forEach(s => s?.cleanup?.()); } };
+  return { act, find, text, nodes: () => nodes, events, readers, confirmReplacement(value) { replace = value; }, updates: () => updates, async flush() { await Promise.resolve(); await Promise.resolve(); render(); }, unmount() { slots.forEach(s => s?.cleanup?.()); } };
 }
 const staleText = 'Inputs changed. Run the diagnosis again to update this result.';
 const api = fixture('ApiPayloadDoctor');
@@ -99,3 +99,36 @@ for (const name of ['ApiPayloadDoctor', 'ApiPayloadContractDrift']) {
   assert.doesNotMatch(source, /fetch\(|localStorage|sessionStorage|URLSearchParams|console\./, 'no private input transmission, persistence or logging');
 }
 console.log('PASS: F17 input/settings/preset snapshots, accessible outdated status, explicit diagnoses, invalid reruns/reset/retry, reordered/obsolete upload completions, unmount cleanup and stale-share suppression.');
+
+// The visible MCP loader uses the same explicit-run freshness boundary.
+const mcp = fixture('McpSecurityDoctor');
+const mcpEditor = () => mcp.find(n => n.type === 'textarea');
+const mcpButton = name => mcp.find(n => n.type === 'button' && n.props.children === name);
+const mcpSelect = () => mcp.find(n => n.type === 'select');
+const mcpRun = () => mcp.act(mcpButton('Analyze MCP JSON'), 'onClick');
+const mcpStatus = () => mcp.find(n => n.props?.['aria-live'] === 'polite');
+const mcpStale = () => mcp.text(mcpStatus()).includes(staleText);
+const mcpResult = () => mcp.find(n => n.type?.name === 'Insight').props.what;
+for (const sample of ['read', 'write', 'network']) {
+  mcp.act(mcpSelect(), 'onChange', { target: { value: sample } });
+  const events = mcp.events.length;
+  mcp.act(mcpButton('Load example'), 'onClick');
+  const expected = { read: 'read_project_status', write: 'delete_files', network: 'send_request' }[sample];
+  assert.equal(JSON.parse(mcpEditor().props.value).tools[0].name, expected);
+  assert.equal(mcp.events.length, events, 'example loading never analyzes automatically');
+  mcpRun(); assert.ok(!mcpStale());
+  const original = mcpEditor().props.value, previous = mcpResult();
+  mcp.act(mcpEditor(), 'onChange', { target: { value: '{}' } });
+  assert.ok(mcpStale()); assert.equal(mcpResult(), previous);
+  mcp.act(mcpEditor(), 'onChange', { target: { value: original } }); assert.ok(!mcpStale());
+}
+const saved = mcpEditor().props.value;
+mcp.confirmReplacement(false); mcp.act(mcpSelect(), 'onChange', { target: { value: 'read' } });
+mcp.act(mcpButton('Load example'), 'onClick'); assert.equal(mcpEditor().props.value, saved); assert.ok(!mcpStale());
+mcp.confirmReplacement(true); mcp.act(mcpButton('Load example'), 'onClick'); assert.ok(mcpStale());
+mcpRun(); assert.ok(!mcpStale());
+mcp.act(mcpEditor(), 'onChange', { target: { value: '{' } }); mcpRun();
+assert.ok(!mcp.nodes().some(n => n.type?.name === 'Insight'), 'failed rerun cannot relabel old findings as current');
+mcp.act(mcpButton('Reset'), 'onClick'); assert.equal(mcpEditor().props.value, ''); assert.ok(!mcpStale());
+assert.ok(!mcp.nodes().some(n => n.type?.name === 'ShareResultFoundation'), 'MCP findings remain unavailable for result sharing');
+console.log('PASS: MCP visible examples, replacement cancellation, explicit analysis, retained outdated findings, identical-input recovery, failed rerun and reset.');

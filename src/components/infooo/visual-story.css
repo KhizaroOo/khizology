@@ -51,3 +51,10 @@
 }
 
 .scene-entry-result{max-width:850px;margin:18px auto;display:grid;gap:10px;line-height:1.5;font-size:.85rem}.scene-entry-result dt{font-weight:800;display:inline}.scene-entry-result dd{display:inline;margin-left:8px}
+
+@media(max-width:650px){
+ .coding-world .scene-card{display:flex;flex-direction:column}
+ .coding-world .scene-learning{display:contents}
+ .coding-world .scene-controls{order:-1;padding:12px;position:static}
+ .coding-world .scene-caption{padding:12px}
+}

@@ -70,8 +70,9 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <!-- Monsters column -->
-      <nav class="k-footer-col" aria-labelledby="footer-monsters-title">
-        <h3 id="footer-monsters-title" class="k-footer-heading">Monsters</h3>
+      <details class="k-footer-col" data-footer-group open>
+        <summary class="k-footer-heading"><h3 id="footer-monsters-title">Monsters</h3><span class="k-footer-disclosure-mark" aria-hidden="true"></span></summary>
+        <nav aria-labelledby="footer-monsters-title">
         <ul>
           {activeMonsters.map(m => (
             <li>
@@ -88,11 +89,13 @@ const currentYear = new Date().getFullYear();
             </a>
           </li>
         </ul>
-      </nav>
+        </nav>
+      </details>
 
       <!-- Pages column -->
-      <nav class="k-footer-col" aria-labelledby="footer-explore-title">
-        <h3 id="footer-explore-title" class="k-footer-heading">Explore</h3>
+      <details class="k-footer-col" data-footer-group open>
+        <summary class="k-footer-heading"><h3 id="footer-explore-title">Explore</h3><span class="k-footer-disclosure-mark" aria-hidden="true"></span></summary>
+        <nav aria-labelledby="footer-explore-title">
         <ul>
           <li><a href={url('/privacy')} class="k-footer-link">Privacy</a></li>
           <li><button type="button" data-analytics-preferences hidden class="k-footer-link">Analytics preferences</button></li>
@@ -100,7 +103,8 @@ const currentYear = new Date().getFullYear();
           <li><a href={url('/you-ask-i-answer')} class="k-footer-link">You Ask, I Answer</a></li>
           <li><a href={url('/drop-a-vibe')} class="k-footer-link">Drop a Vibe</a></li>
         </ul>
-      </nav>
+        </nav>
+      </details>
 
     </div>
 
@@ -241,4 +245,21 @@ const currentYear = new Date().getFullYear();
     .k-footer-col { padding: 1rem; }
     .k-footer-bottom { flex-direction: column; text-align: center; padding-right: 0; padding-bottom: calc(var(--k-button-height) + var(--k-filter-gap)); }
   }
+</style>
+
+<script>
+  const compactFooter = window.matchMedia('(max-width: 650px)');
+  const updateFooterGroups = () => document.querySelectorAll<HTMLDetailsElement>('footer [data-footer-group]').forEach(group => { group.open = !compactFooter.matches; });
+  updateFooterGroups();
+  compactFooter.addEventListener('change', updateFooterGroups);
+</script>
+<style>
+ .k-footer-heading{cursor:pointer;list-style:none;min-height:44px;margin:0}
+ .k-footer-heading::-webkit-details-marker{display:none}
+ .k-footer-heading h3{margin:0;font:inherit}
+ .k-footer-disclosure-mark{margin-left:auto}
+ .k-footer-disclosure-mark::before{content:'+'}
+ [data-footer-group][open] .k-footer-disclosure-mark::before{content:'−'}
+ .k-footer-heading:focus-visible{outline:3px solid var(--k-text);outline-offset:4px}
+ @media(max-width:650px){.k-footer{padding-block:1.5rem 1rem}.k-footer-grid{gap:.75rem;margin-bottom:1rem}.k-footer-col{padding:.5rem 1rem}.k-footer-brand .k-footer-tagline{margin-block:.75rem}.k-footer-bottom{gap:.5rem}}
 </style>

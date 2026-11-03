@@ -44,6 +44,7 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
   const [size, setSize] = useState<CubeSize>(defaultCubeSize);
   const [state, setState] = useState<CubeState>(() => solvedCube(defaultCubeSize));
   const [history, setHistory] = useState<Move[]>([]);
+  const cubeTab = useRef<HTMLButtonElement>(null);
   const [selectedId, setSelectedId] = useState(workingExamplePieceId);
   const [cameraAngle, setCameraAngle] = useState<CameraAngle>(() => presetAngle('Front'));
   const [transition, setTransition] = useState<Transition | null>(null);
@@ -138,6 +139,7 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
     setHistory(sequence);
     setState(applySequence(solvedCube(size), sequence));
     setSelectedId(workingExamplePieceId);
+    if (view === 'motion' && window.matchMedia('(max-width: 760px)').matches) cubeTab.current?.focus({ preventScroll: true });
     setView('cube');
     setScrambleNote(`${size} by ${size} cube randomized using ${sequence.length} legal moves.`);
   };
@@ -161,6 +163,8 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
     const piece = cubieById(state, id);
     if (!piece || (piece.type === 'center' && size !== 4)) return;
     setSelectedId(id);
+    if (view === 'motion' && window.matchMedia('(max-width: 760px)').matches) cubeTab.current?.focus({ preventScroll: true });
+    setView('cube');
     if (!pieceVisible(piece, cameraAngle)) setCameraAngle(presetAngle(revealView(piece)));
   };
   const changeSize = (nextSize: CubeSize) => {
@@ -192,7 +196,7 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
       <button className="watch-one-turn randomize-btn k-button k-button--primary" type="button" onClick={randomizeCube} disabled={Boolean(visualTurn) || playing}>Randomize cube <span aria-hidden="true">⟲</span></button>
     </div>
     <div className="rubik-mobile-tabs" role="group" aria-label="Visualization view">
-      <button type="button" aria-pressed={view === 'cube'} onClick={() => setView('cube')}>Cube</button>
+      <button type="button" ref={cubeTab} aria-pressed={view === 'cube'} onClick={() => setView('cube')}>Cube</button>
       <button type="button" aria-pressed={view === 'motion'} onClick={() => setView('motion')}>Motion</button>
     </div>
     <div className={`rubik-visuals show-${view}`}>
@@ -210,7 +214,7 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
           <p><span className="location-marker" aria-hidden="true">{hidden ? '◌' : '◉'}</span><strong>{location}</strong><span>{hidden ? `Hidden from this view · still highlighted in the graph` : `Visible from ${nearestView.toLowerCase()}`}</span></p>
           {hidden && <button type="button" onClick={() => setCameraAngle(presetAngle(revealView(selected)))}>Reveal piece <span aria-hidden="true">↗</span></button>}
         </div>
-        <p className="viewpoint-hint">Drag the cube above to rotate it freely — or jump straight to a side:</p>
+        <p className="viewpoint-hint">{view === 'motion' ? 'Select a token to open its highlighted piece in Cube view.' : 'Drag the cube above to rotate it freely — or jump straight to a side:'}</p>
         <div role="group" aria-label="Jump to a side" className="viewpoint-row">{viewpoints.map(item => <button type="button" key={item} aria-pressed={isNearPreset(cameraAngle, item)} onClick={() => setCameraAngle(presetAngle(item))}>{item}</button>)}</div>
       </div>
 
@@ -321,7 +325,7 @@ function MotionGraph({ state, trace, selectedId, turn, progress, affected, showT
       const old = turn && cubieById(turn.before, token.id);
       const point = old ? graphMotionPoint(slotFor(old.position), token.slot, progress) : token.slot;
       const radius = radiusFor(token.type, selected);
-      return <g key={token.id} transform={`translate(${point[0].toFixed(3)} ${point[1].toFixed(3)})`} className={`piece-token piece-token-${token.type}${selected ? ' selected' : ''}${moving.has(token.id) ? ' moving' : ''}${affected.has(token.id) ? ' affected' : ''}`} onClick={() => onSelect(token.id)} tabIndex={0} role="button" aria-label={`${token.colors.map(color => colorNames[color]).join(', ')} ${token.type} at ${naturalPosition(token.position)}`} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onSelect(token.id); } }}>
+      return <g key={token.id} transform={`translate(${point[0].toFixed(3)} ${point[1].toFixed(3)})`} className={`piece-token piece-token-${token.type}${selected ? ' selected' : ''}${moving.has(token.id) ? ' moving' : ''}${affected.has(token.id) ? ' affected' : ''}`} onClick={() => onSelect(token.id)} tabIndex={0} role="button" aria-pressed={selected} aria-label={`${token.colors.map(color => colorNames[color]).join(', ')} ${token.type} at ${naturalPosition(token.position)}`} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onSelect(token.id); } }}>
         {selected ? <circle r={radius + 7} className="selected-halo" /> : affected.has(token.id) && <circle r={radius + 5} className="affected-halo" />}
         {token.colors.map((color, index) => <path key={color} d={sectorPath(index, token.colors.length, radius)} fill={faceColors[color]} className="token-segment" />)}<circle r={radius} className="token-outline" />{selected && token.type !== 'center' && <circle cx={radius * 0.8} cy={-radius * 0.8} r={radius > 12 ? 5 : 3.2} className="identity-dot" />}
       </g>;

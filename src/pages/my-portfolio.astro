@@ -6,9 +6,10 @@ import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import { url, img } from '../utils/url';
 import { pageSchema, personSchema } from '../utils/schema';
 import { personReference } from '../utils/seo';
-import { artworks } from '../data/artworks';
-import { tools } from '../data/tools';
-import { CONTACT } from '../data/site';
+import { artworks, featuredArtworks } from '../data/artworks';
+import { tools, getToolBySlug } from '../data/tools';
+import { agentSystemsLab } from '../data/infooo';
+import { CONTACT, SITE } from '../data/site';
 
 const activeToolCount = tools.filter((tool) => tool.status === 'active').length;
 
@@ -247,11 +248,50 @@ const projectGroups = [
   },
 ];
 
+const payloadDoctor = getToolBySlug('api-payload-doctor')!;
+const featuredArtwork = featuredArtworks[0];
+const selectedWork = [
+  {
+    title: SITE.name,
+    purpose: 'Make engineering and knowledge easier to explore through visual, browser-first experiences.',
+    role: 'Creator of Khizooology.',
+    contribution: 'Bring my engineering and visual thinking together in a personal creative R&D project.',
+    delivered: 'A working public site with browser-only tools, interactive knowledge worlds and original artwork. The implementation is available to inspect.',
+    evidence: [
+      { label: `Try ${payloadDoctor.name}`, href: url(`/toolbox/${payloadDoctor.slug}`), external: false },
+      { label: `Explore ${agentSystemsLab.title}`, href: url(`/infooo/${agentSystemsLab.slug}`), external: false },
+      { label: 'Inspect the Khizooology source on GitHub', href: 'https://github.com/KhizaroOo/khizology', external: true },
+    ],
+  },
+  {
+    title: 'Custom .NET CMS at VAIVAL',
+    purpose: 'An adaptable, customizable content-management system.',
+    role: 'Software development contributor, credited in a colleague’s public recommendation.',
+    contribution: 'Zeeshan Adil credits me with implementing the CMS building blocks and considering scalability, software design and security.',
+    delivered: 'CMS foundations described in that recommendation. A public demo or source repository is not linked for this work.',
+    evidence: [
+      { label: 'Read Zeeshan Adil’s recommendation on LinkedIn', href: CONTACT.linkedin, external: true },
+    ],
+  },
+  {
+    title: 'Original artwork',
+    purpose: 'Give drawings and illustrations a public home where people can explore them.',
+    role: `Artist, publishing as ${SITE.artistName}.`,
+    contribution: 'The original artwork shown in the gallery.',
+    delivered: 'A searchable gallery with full-size views and related-art discovery.',
+    evidence: [
+      { label: 'Explore the original-art gallery', href: url('/artworks'), external: false },
+      { label: `Open ${featuredArtwork.title}`, href: url(`/artworks#art-${featuredArtwork.slug}`), external: false },
+      { label: 'Read the creator story', href: url('/behind-the-vibes'), external: false },
+    ],
+  },
+];
+
 const softSkills = ['Leadership', 'Communication', 'Problem-Solving', 'Creativity', 'Empathy', 'Attention to Detail', 'Adaptability', 'Continuous Learning', 'Mentoring'];
 const hobbies = ['Drawing & Illustration', 'Digital Art', 'Travel', 'Photography', 'Reading', 'Exploring New Tech', 'Playing with AI Tools'];
 
 const portfolioTitle = 'Khizar Imtiaz — Engineer & Artist | Khizooology';
-const portfolioDescription = 'Meet Khizar Imtiaz (khizooo), a technical delivery manager, full-stack developer, and artist with 8+ years of experience and the creator of Khizooology.';
+const portfolioDescription = 'Explore Khizar Imtiaz’s selected software and original artwork, contribution evidence, technical delivery experience and professional contact details.';
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
 const profilePage = pageSchema({
   type: 'ProfilePage',
@@ -297,16 +337,16 @@ const jsonLd = {
           <p class="pf-role">Technical Delivery Manager &amp; Creative Developer</p>
           <div class="pf-bio">
             <p>
-              8+ years at VAIVAL Technologies — leading teams, shipping products, and solving complex problems at scale. Expert in full-stack development, blockchain/Web3, and AI integration.
+              I work across technical delivery, full-stack development and creative software. Start with the selected work below to explore what I make and the evidence behind it.
             </p>
             <p>
-              By luck, a programmer. By nature, an artist. I believe the best digital experiences live at the intersection of technical excellence and creative vision. <strong>Khizooology</strong> is proof of that.
+              By luck, a programmer. By nature, an artist. <strong>Khizooology</strong> is my personal creative R&amp;D project, bringing software and original art together.
             </p>
           </div>
           <div class="pf-hero-ctas">
-            <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Get in Touch →</a>
+            <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Discuss a project →</a>
             <a href={CONTACT.linkedin} target="_blank" rel="noopener" class="k-button k-button--secondary">LinkedIn</a>
-            <a href="https://github.com/KhizaroOo" target="_blank" rel="noopener" class="k-button k-button--secondary">GitHub</a>
+            <a href="#selected-work" class="k-button k-button--secondary">View selected work</a>
           </div>
         </div>
         <div class="pf-hero-visual">
@@ -316,6 +356,30 @@ const jsonLd = {
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="k-section pf-projects-section pf-selected" id="selected-work" tabindex="-1" aria-labelledby="selected-work-title">
+    <div class="k-container">
+      <h2 class="pf-section-title" id="selected-work-title">Selected work &amp; evidence</h2>
+      <p class="pf-evidence-intro">Working examples, original artwork and an attributed professional contribution. Each link shows what it supports.</p>
+      <div class="projects-grid">
+        {selectedWork.map(work => (
+          <article class="project-card">
+            <h3 class="pc-name">{work.title}</h3>
+            <p class="pc-desc">{work.purpose}</p>
+            <dl class="pf-contribution">
+              <dt>My role</dt><dd>{work.role}</dd>
+              <dt>My contribution</dt><dd>{work.contribution}</dd>
+              <dt>Delivered capability</dt><dd>{work.delivered}</dd>
+            </dl>
+            <ul class="pf-evidence-links" aria-label={`${work.title} evidence`}>
+              {work.evidence.map(link => <li><a class="pc-link" href={link.href} target={link.external ? '_blank' : undefined} rel={link.external ? 'noopener noreferrer' : undefined}>{link.label}</a></li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+      <p class="pf-work-contact">Have a web product, delivery problem or creative collaboration to discuss? <a href={url('/drop-a-vibe')}>Discuss your project with Khizar</a>.</p>
     </div>
   </section>
 
@@ -378,36 +442,11 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- TECHNICAL SKILLS -->
-  <section class="k-section pf-skills-section">
-    <div class="k-container">
-      <h2 class="pf-section-title">Technical Skills</h2>
-      <div class="skills-groups">
-        {skillGroups.map(group => (
-          <div class="skill-group-block">
-            <h3 class="skill-group-heading">{group.category}</h3>
-            <div class="skill-sub-list">
-              {group.sub.map(sub => (
-                <div class="skill-sub">
-                  <span class="skill-sub-label">{sub.label}</span>
-                  <div class="skill-tags">
-                    {sub.items.map(skill => (
-                      <span class="skill-tag">{skill}</span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <!-- EXPERIENCE -->
   <section class="k-section pf-exp-section">
     <div class="k-container">
       <h2 class="pf-section-title">Experience</h2>
+      <p class="pf-evidence-intro">The career timeline and team/client projects below reflect my own account. The public examples above link to inspectable work or an attributed reference.</p>
       <div class="exp-timeline">
         {experience.map((job, i) => (
           <div class="exp-item">
@@ -441,7 +480,8 @@ const jsonLd = {
   <!-- PROJECTS -->
   <section class="k-section pf-projects-section">
     <div class="k-container">
-      <h2 class="pf-section-title">Projects &amp; Contributions</h2>
+      <h2 class="pf-section-title">Additional project history</h2>
+      <p class="pf-evidence-intro">Project descriptions give context for team and client work. They do not assign company-wide results or sole authorship to me. Role-specific references are linked in the selected work above.</p>
       <div class="project-groups">
         {projectGroups.map(pg => (
           <div class="project-group">
@@ -460,8 +500,34 @@ const jsonLd = {
                     </div>
                   </div>
                   {'link' in p && p.link && (
-                    <a href={p.link} class="pc-link">View →</a>
+                    <a href={p.link} class="pc-link">Explore {p.name} →</a>
                   )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TECHNICAL SKILLS -->
+  <section class="k-section pf-skills-section">
+    <div class="k-container">
+      <h2 class="pf-section-title">Technical Skills</h2>
+      <div class="skills-groups">
+        {skillGroups.map(group => (
+          <div class="skill-group-block">
+            <h3 class="skill-group-heading">{group.category}</h3>
+            <div class="skill-sub-list">
+              {group.sub.map(sub => (
+                <div class="skill-sub">
+                  <span class="skill-sub-label">{sub.label}</span>
+                  <div class="skill-tags">
+                    {sub.items.map(skill => (
+                      <span class="skill-tag">{skill}</span>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
@@ -494,10 +560,10 @@ const jsonLd = {
     <div class="k-container">
       <div class="pf-cta-inner">
         <DecorativeImage src={preview('/images/Monsters/khizooo.png')} width="96" height="96" class="pf-cta-monster" />
-        <h2>Want to work together or just say hi?</h2>
-        <p>Open to creative collaborations, tech discussions, and good conversations about art and code.</p>
+        <h2>Let’s discuss your project</h2>
+        <p>For software delivery, web products, or creative collaboration, choose a direct contact channel. The contact page offers WhatsApp, LinkedIn and email.</p>
         <div class="pf-cta-btns">
-          <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Drop a Vibe →</a>
+          <a href={url('/drop-a-vibe')} class="k-button k-button--primary">Discuss a project →</a>
           <a href={url('/behind-the-vibes')} class="k-button k-button--secondary">Behind the Vibes</a>
         </div>
       </div>
@@ -765,6 +831,20 @@ const jsonLd = {
     color: var(--k-accent-text); text-decoration: none;
   }
   .pc-link:hover { text-decoration: underline; }
+
+  .pf-selected { scroll-margin-top: 6rem; }
+  .pf-selected .projects-grid { grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); }
+  .pf-selected .pc-desc { flex: none; }
+  .pf-evidence-intro, .pf-work-contact { max-width: 70ch; color: var(--k-text-muted); font-size: .9rem; line-height: 1.7; margin: 0 0 1.5rem; }
+  .pf-work-contact { margin: 1.5rem 0 0; }
+  .pf-contribution { margin: 0; font-size: .85rem; line-height: 1.6; }
+  .pf-contribution dt { font-weight: 800; color: var(--k-text); margin-top: .65rem; }
+  .pf-contribution dt:first-child { margin-top: 0; }
+  .pf-contribution dd { margin: .2rem 0 0; color: var(--k-text-muted); }
+  .pf-evidence-links { list-style: none; padding: 0; margin: auto 0 0; }
+  .pf-evidence-links a { min-height: 44px; line-height: 1.5; overflow-wrap: anywhere; }
+  .pf-selected a { color: var(--k-accent-text); text-decoration: underline; text-underline-offset: .2em; }
+  .pf-selected a:focus-visible { outline: 3px solid var(--k-text); outline-offset: 3px; }
 
   /* EXTRAS */
   .pf-extras-section { background: var(--k-bg); }

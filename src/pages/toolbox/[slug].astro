@@ -323,7 +323,7 @@ const jsonLd = pageSchema({
           )}
           {tool.growthPriority && !tool.lv3 && <ToolFavoriteButton client:load toolId={tool.id} toolName={tool.name} />}
 
-          {!tool.lv3 && <ToolKnowledge knowledge={knowledge} accent={family.color} variant="next" nextTools={tryNext} />}
+          {!tool.lv3 && <ToolKnowledge knowledge={knowledge} accent={family.color} variant="next" nextTools={tryNext} nextReasons={tool.nextToolReasons} />}
           <ToolTruth truth={truth} />
 
           <div class="tp-about">
