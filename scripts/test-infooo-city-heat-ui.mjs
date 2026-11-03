@@ -22,7 +22,7 @@ assert.equal(world.worldNumber, 15); assert.equal(world.category, 'world-infrast
 assert.ok(registry.exports.infoooCategories.some(c => c.id === world.category));
 assert.equal(new Set(registry.exports.infoooWorlds.map(w => w.slug)).size, registry.exports.infoooWorlds.length, 'slugs stay unique');
 for (const id of world.relatedWorlds) assert.ok(registry.exports.infoooWorlds.some(w => w.id === id && w.status === 'published'), `related ${id} must be a public world`);
-assert.ok(!registry.exports.infoooWorlds.some(w => w.worldNumber > 15 || /^world-0(1[6-9]|2\d)$/.test(w.id)), 'planned worlds 016-027 must not exist yet');
+assert.ok(!registry.exports.infoooWorlds.some(w => w.worldNumber > 16 || /^world-0(1[7-9]|2\d)$/.test(w.id)), 'planned worlds 017-027 must not exist yet');
 for (const k of ['fact', 'model', 'simulation', 'limitations', 'educationalContext', 'lastReviewed']) assert.ok(world.knowledge[k], `knowledge.${k}`);
 assert.equal(world.knowledge.sources.length, 8);
 for (const s of world.knowledge.sources) { assert.ok(s.label && /^https:\/\//.test(s.url), s.url); }

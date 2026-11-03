@@ -4,8 +4,8 @@ Planning document. A world is live only once it is in the registry with a route;
 
 | State | Count | Meaning |
 |---|---|---|
-| Implemented and public | 15 | Worlds 001–015 exist in `src/data/infooo.ts` with routes and components. World 015 was built on `claude-dev` and goes live only when Khizooo integrates and releases it. |
-| Approved / planned | 12 | Worlds 016–027 below. No registry entry, route, asset, sitemap URL or navigation card. |
+| Implemented and public | 16 | Worlds 001–016 exist in `src/data/infooo.ts` with routes and components. Worlds 015 and 016 were built on `claude-dev` and go live only when Khizooo integrates and releases them. |
+| Approved / planned | 11 | Worlds 017–027 below. No registry entry, route, asset, sitemap URL or navigation card. |
 
 `agent-systems-lab` is a curated collection page over Worlds 008–014, not a world, and is unchanged by this roadmap. Public world counts must keep reflecting implemented reality; never let a planned world change a count, a listing or a generated file.
 
@@ -52,6 +52,8 @@ System: farm, fertilizer, energy, weather, processing, transport, wholesale, ret
 **Aha:** the price on a shelf is the output of an interconnected system.
 
 **Truth requirement:** this stays an educational model. Never imply a simple percentage change predicts a real food price.
+
+**Built (route `/infooo/why-food-prices-rise`).** A deterministic cost-slice model of one dollar of food (USDA ERS Food Dollar, U.S. 2024, 21 food categories): the farm gate plus six links after the farm. The visitor pushes one cost (or wages in every link) from 0% to 100% and watches two foods' shelf prices part ways; a household panel shows the weight on the lowest, middle and highest income fifths. Choices made while building, open to change: the title stays "Why Food Prices Rise" with "Where your grocery money goes" in the tagline; the dollar row ("A $1.00 item then costs") stays; the wage row and the household panel are kept (the panel is an upper bound); the optional guess is kept; **demand shift is not modelled** because the USDA data has nothing honest to say about it; data is U.S. only. Every result is labelled a ceiling (full pass-through assumed), not a forecast. Fertilizer and weather sit inside the farm gate.
 
 ### 017 — How Misinformation Spreads
 Seed one claim, let people share, let network hubs amplify, let communities repeat, then let a correction arrive. Allow exploration of trust, repetition, network structure, influential nodes, fact-check timing and sharing probability.
