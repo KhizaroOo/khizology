@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import FoodPricesWorld from '../../components/infooo/food-prices/FoodPricesWorld';
+import { infoooWorlds, infoooIdentity } from '../../data/infooo';
+import { absoluteUrl, breadcrumbSchema } from '../../utils/seo';
+import { url } from '../../utils/url';
+const world = infoooWorlds.find(w => w.id === 'world-016')!;
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const canonical = absoluteUrl(`/infooo/${world.slug}`, context);
+const related = infoooWorlds.filter(w => world.relatedWorlds?.includes(w.id) && w.status === 'published' && w.visibility === 'public');
+---
+<BaseLayout title="Why Food Prices Rise — Where Your Grocery Money Goes | Khizooology" description={world.description} canonical={canonical} accentColor={infoooIdentity.color} accentColorLight={infoooIdentity.colorLight} ogImage={world.hero!.asset} ogImageAlt={world.preview!.alt} socialTitle={world.title} socialDescription={world.description} jsonLd={[{ '@context': 'https://schema.org', '@type': 'WebApplication', name: world.title, description: world.description, url: canonical, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', isAccessibleForFree: true }, breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Infooo', path: '/infooo' }, { name: world.title, path: `/infooo/${world.slug}` }], context)]}>
+  <div class="k-container fp-breadcrumb"><Breadcrumb crumbs={[{ label: 'Infooo', href: url('/infooo') }, { label: world.title }]} accentColor={infoooIdentity.color}/></div>
+  <FoodPricesWorld client:load world={world}>
+    <section class="fp-static">
+      <h2>A cost shock only matters as much as the slice it hits.</h2>
+      <p>One dollar spent on groceries is a stack of slices: the farm, processing and packaging, transport and storage, wholesale, retail, energy, and finance, ads and legal. Press play and push one slice up by half. On two foods side by side, one shelf price jumps by about a third and the other barely moves, because farms get most of an egg dollar but under a nickel of a bakery dollar.</p>
+      <p>Pick any cost (including wages in every link) and any two of 21 USDA food categories, compare which cost moves each shelf price most, see how the same rise weighs on the lowest, middle and highest income fifths, and answer three short questions at the end.</p>
+      <p>This is an educational cost-share model of U.S. food in 2024, not a forecast and not a price tracker. It assumes the whole extra cost reaches the shelf, so every result is a ceiling. Every number is computed in your browser from USDA Economic Research Service figures. There is no account, upload or backend.</p>
+      <nav aria-label="Related knowledge worlds">{related.map(w => <a href={url(`/infooo/${w.slug}`)}>{w.title} →</a>)}<a href={url('/infooo')}>Explore all Infooo worlds →</a></nav>
+    </section>
+  </FoodPricesWorld>
+</BaseLayout>
+<style>
+  .fp-breadcrumb{padding-block:.5rem .25rem}.fp-static{padding-block:.5rem 1rem}.fp-static h2{font:800 1.1rem Poppins,sans-serif}.fp-static p{max-width:85ch;line-height:1.8;color:var(--k-text-muted);font-size:.85rem}.fp-static nav{display:flex;flex-wrap:wrap;gap:1rem}.fp-static a{color:var(--k-text);text-underline-offset:4px}
+</style>

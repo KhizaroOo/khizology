@@ -13,7 +13,7 @@ vm.runInNewContext(ts.transpileModule(fs.readFileSync('src/data/infooo.ts','utf8
  throw Error(`Unexpected registry dependency: ${id}`);
 } });
 const { infoooWorlds: worlds, infoooCategories: categories, agentSystemsLab: collection, agentSystemsJourney: journey } = module.exports;
-assert.equal(worlds.length,14);assert.equal(categories.length,6);assert.equal(journey.length,7);
+assert.ok(worlds.length>=14);assert.deepEqual(Array.from(worlds.slice(0,14),w=>w.id),Array.from({length:14},(_,i)=>`world-${String(i+1).padStart(3,'0')}`),'the first fourteen world IDs stay unchanged; later worlds may be added');assert.equal(categories.length,6);assert.equal(journey.length,7);
 assert.deepEqual(Array.from(journey,e=>e.world.id),Array.from({length:7},(_,i)=>`world-${String(i+8).padStart(3,'0')}`));
 assert.equal(new Set(journey.map(e=>e.world.slug)).size,7);
 for(const [i, entry] of journey.entries()){
@@ -52,4 +52,4 @@ if(process.argv.includes('--built')){
  assert.ok(html.includes(`href="${collection.contactPath}/" data-infooo-collection="${collection.slug}" data-collection-action="consulting"`));
  assert.equal((html.match(/data-collection-action="start"/g)||[]).length,1);assert.equal((html.match(/data-collection-action="world"/g)||[]).length,19);
 }
-console.log('Agent Systems Lab PASS: exactly seven canonical worlds, unchanged six categories/14 world IDs, ordered journey, source-resolved previous/next, no persistence/client island; built route, links, schema, social, sitemap, llms, hub/home and consulting checks when --built.');
+console.log('Agent Systems Lab PASS: exactly seven canonical worlds, unchanged six categories/first 14 world IDs, ordered journey, source-resolved previous/next, no persistence/client island; built route, links, schema, social, sitemap, llms, hub/home and consulting checks when --built.');

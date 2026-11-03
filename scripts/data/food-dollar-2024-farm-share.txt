@@ -1,0 +1,22 @@
+account|name|farmShareCents|marketingShareCents
+Xf1100|All groceries (food at home)|18.5|81.5
+Xf1101|Cereals|11|89
+Xf1102|Bakery products|4.8|95.2
+Xf1103|Beef|52.2|47.8
+Xf1104|Pork|23.7|76.3
+Xf1105|Other meats|11.4|88.6
+Xf1106|Poultry|30.4|69.6
+Xf1107|Fish and seafood|29.3|70.7
+Xf1108|Fresh milk|50.8|49.2
+Xf1109|Processed dairy products|20.1|79.9
+Xf1110|Fresh eggs|69.1|30.9
+Xf1111|Processed eggs|15.7|84.3
+Xf1112|Fats and oils|16.9|83.1
+Xf1113|Fresh fruits|39.6|60.4
+Xf1114|Fresh vegetables|26.7|73.3
+Xf1115|Canned, frozen, and dried fruits and vegetables|14.2|85.8
+Xf1116|Sugar and sweets|7.8|92.2
+Xf1117|Snack foods|9.7|90.3
+Xf1118|Frozen prepared foods|13.9|86.1
+Xf1127|Coffee, tea, and beverage materials|10.9|89.1
+Xf1128|Soft drinks and bottled water|1.3|98.7

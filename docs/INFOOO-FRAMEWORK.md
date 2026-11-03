@@ -16,6 +16,8 @@ Infooo shares presentation and keeps world intelligence local. `InfoooWorldShell
 
 ## Future world workflow
 
+The approved subject order is [INFOOO-ROADMAP](INFOOO-ROADMAP.md). Roadmap approval reserves direction only; each world still passes its own research and Value Laws gate at implementation time.
+
 1. Pass the Infooo candidate and Value Laws checks.
 2. Add a published world record only after release approval.
 3. Build the renderer and domain data locally to its route.
