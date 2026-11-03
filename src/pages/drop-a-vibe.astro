@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
-import { img } from '../utils/url';
+import TechnicalClarityOffer from '../components/shared/TechnicalClarityOffer.astro';
 import { CONTACT } from '../data/site';
 import { pageSchema } from '../utils/schema';
 
@@ -39,9 +39,8 @@ const jsonLd = pageSchema({
         </nav>
         <p id="contact-email-help" class="dav-help">Email opens your email app.</p>
       </div>
-      <aside class="dav-monster-card" aria-label="A small vibe">
-        <img src={img('/images/Monsters/toolooo.png')} alt="toolooo" width="80" height="80" />
-        <p>Every conversation starts with a small vibe.</p>
+      <aside aria-label="Technical review option">
+        <TechnicalClarityOffer surface="drop-a-vibe" />
       </aside>
     </div>
   </section>
@@ -55,9 +54,6 @@ const jsonLd = pageSchema({
   .dav-connect { display: flex; flex-wrap: wrap; gap: var(--k-action-gap); padding-bottom: var(--k-button-depth); }
   .dav-connect a { min-height: 44px; white-space: normal; text-align: center; }
   .dav-help { font-size: .85rem; color: var(--k-text-muted); margin: .75rem 0 0; }
-  .dav-monster-card { display: flex; align-items: center; gap: 1rem; padding: 1.25rem; background: var(--k-bg-card); border: 1px solid var(--k-border); border-left: 4px solid var(--k-accent); border-radius: 0 1rem 1rem 0; }
-  .dav-monster-card img { flex-shrink: 0; }
-  .dav-monster-card p { font-size: .85rem; font-style: italic; color: var(--k-text-muted); margin: 0; line-height: 1.5; }
   @media (max-width: 900px) { .dav-inner { grid-template-columns: minmax(0, 1fr); } }
   @media (max-width: 540px) { .dav-connect { flex-direction: column; align-items: stretch; } }
 </style>

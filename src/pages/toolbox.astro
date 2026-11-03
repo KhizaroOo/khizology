@@ -3,6 +3,7 @@ import { families as allFamilies } from '../data/families';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import ToolCard from '../components/toolbox/ToolCard.astro';
+import TechnicalClarityOffer from '../components/shared/TechnicalClarityOffer.astro';
 import MyTooloooPanel from '../components/toolbox/lv3/MyTooloooPanel';
 import { activeTools as tools, getAvailableToolFamilies, growthPriorityTools, getToolCountByFamily, getActiveToolCountByFeatureLevel, allTags } from '../data/tools';
 import { toolFeatureLevels } from '../data/featureLevels';
@@ -176,6 +177,7 @@ const jsonLd = pageSchema({
       </div>
     </div>
   </section>
+  <div class="k-container"><TechnicalClarityOffer surface="toolbox" /></div>
 </BaseLayout>
 
 <script>

@@ -6,7 +6,7 @@ import { stripTypeScriptTypes } from 'node:module';
 import ts from 'typescript';
 const source = fs.readFileSync(new URL('../src/utils/analytics.ts', import.meta.url), 'utf8');
 function fixture(id = 'G-TESTONLY00', saved = null, brokenStorage = false, href = 'https://khizooology.com/?private=NEVER_SEND', canonical = 'https://khizooology.com/toolbox/schema-drift-doctor', referrer = '') {
-  const scripts = [], docListeners = {}, toolListeners = {};
+  const scripts = [], docListeners = {}, toolListeners = {}, winListeners = {};
   let reloads = 0, referrerReads = 0;
   const storageWrites = [];
   class Element { dataset = {}; closest(selector) { return selector.includes('.share-foundation') ? null : this; } }
@@ -14,13 +14,13 @@ function fixture(id = 'G-TESTONLY00', saved = null, brokenStorage = false, href 
   const doc = { title: 'Public tool title', referrer, cookie: '_ga=abc', querySelector: selector => selector.includes('canonical') ? { href: canonical } : tool,
     querySelectorAll: () => [{ dataset: { artworkSlug: 'public-art' } }], createElement: () => ({ remove() {} }), head: { appendChild: s => scripts.push(s) },
     getElementById: () => scripts[0], addEventListener: (name, fn) => { const previous = docListeners[name]; docListeners[name] = event => { previous?.(event); fn(event); }; }, dispatchEvent() {} };
-  const win = { location: { href, reload: () => reloads++ }, addEventListener() {} };
+  const win = { location: { href, reload: () => reloads++ }, addEventListener(name, fn) { winListeners[name] = fn; } };
   Object.defineProperty(doc, 'referrer', { get: () => { referrerReads++; return referrer; } });
   const context = vm.createContext({ window: win, document: doc, Element, URL, Event, localStorage: { getItem: () => { if (brokenStorage) throw Error(); return saved; }, setItem: (key, v) => { if (brokenStorage) throw Error(); storageWrites.push([key, v]); saved = v; } } });
   vm.runInContext(stripTypeScriptTypes(source.replace('import.meta.env.PUBLIC_GA_MEASUREMENT_ID', JSON.stringify(id))).replace(/export /g, ''), context);
   const run = code => vm.runInContext(code, context);
   const events = () => (win.dataLayer || []).map(args => Array.from(args)).filter(args => args[0] === 'event');
-  return { run, scripts, win, docListeners, toolListeners, Element, events, storageWrites, referrerReads: () => referrerReads, reloads: () => reloads };
+  return { run, scripts, win, doc, winListeners, docListeners, toolListeners, Element, events, storageWrites, referrerReads: () => referrerReads, reloads: () => reloads };
 }
 for (const saved of [null, 'declined']) {
   const f = fixture('G-TESTONLY00', saved); f.run('initializeAnalytics(); trackToolStart(); trackArtworkView("public-art"); trackToolExport("json"); trackToolExport("csv")');
@@ -219,3 +219,63 @@ collection.run('trackInfoooCollection("start", "private?NEVER_SEND", "mcp-securi
 assert.equal(collection.events().length,4);assert.ok(!JSON.stringify(collection.events()).includes('NEVER_SEND'));
 assert.equal(collection.scripts.length,1);
 console.log('PASS: consent/config/error/storage guards, single initialization/page view/tool start, local suppression, completion/share/copy, real share success/cancellation callbacks, related source/destination, tags, module discovery, contacts and zero raw-content leakage. Mock GA transport; live property receipt requires deployment.');
+
+// Earning experiment 001: real observer/click handlers, mocked Google transport only.
+function earningFixture(saved = null, href = 'https://khizooology.com/toolbox/api-payload-doctor/?private=NEVER_SEND#private', canonical = 'https://khizooology.com/toolbox/api-payload-doctor/') {
+  const f = fixture('G-TESTONLY00', saved, false, href, canonical);
+  const offer = new f.Element(); offer.dataset = { earningSurface: 'api-payload-doctor' };
+  const tool = { dataset: { toolSlug: 'api-payload-doctor', toolFamily: 'check', featureLevel: '3' }, addEventListener() {} };
+  const original = f.doc.querySelector;
+  f.doc.querySelector = selector => selector.includes('canonical') ? original(selector) : selector === '[data-earning-offer]' ? offer : tool;
+  f.doc.querySelectorAll = selector => selector === '[data-earning-offer]' ? [offer] : [];
+  f.doc.visibilityState = 'visible';
+  const observers = [];
+  class Observer {
+    constructor(callback, options) { this.callback = callback; this.options = options; this.targets = new Set(); observers.push(this); }
+    observe(node) { this.targets.add(node); }
+    unobserve(node) { this.targets.delete(node); }
+    disconnect() { this.targets.clear(); this.disconnected = true; }
+    fire(ratio = .6) { this.callback([{ target: offer, isIntersecting: ratio > 0, intersectionRatio: ratio }], this); }
+  }
+  f.run('globalThis.installObserver = value => { globalThis.IntersectionObserver = value; }');
+  // Provide the platform constructor in the same VM; no browser storage or fetch is added.
+  const install = f.run('installObserver'); install(Observer);
+  const link = new f.Element(); link.href = 'https://khizooology.com/drop-a-vibe/#technical-clarity-review';
+  link.hasAttribute = name => name === 'data-earning-offer-cta';
+  link.closest = selector => selector === '[data-earning-offer]' ? offer : selector === 'a[href]' ? link : null;
+  return { ...f, offer, observers, link, earning: () => f.events().filter(e => e[1].startsWith('earning_offer_')) };
+}
+for (const saved of [null, 'declined']) {
+  const f = earningFixture(saved); f.run('initializeAnalytics()');
+  assert.equal(f.observers.length, 0); f.docListeners.click({ isTrusted: true, target: f.link }); assert.equal(f.earning().length, 0);
+  f.run('setConsent("accepted")'); assert.equal(f.observers.length, 1); const observer = f.observers[0]; assert.equal(observer.options.threshold, .5);
+  observer.fire(.4); assert.equal(f.earning().length, 0); observer.fire(); observer.fire(); f.run('initializeAnalytics()'); assert.equal(f.observers.length, 1);
+  assert.equal(f.earning().filter(e => e[1] === 'earning_offer_view').length, 1, 'one consented exposure per document');
+  f.docListeners.click({ isTrusted: true, target: f.link }); f.docListeners.click({ isTrusted: true, target: f.link });
+  assert.equal(f.earning().filter(e => e[1] === 'earning_offer_click').length, 2, 'one earning event per real intended click');
+  assert.equal(f.events().filter(e => e[1] === 'contact_click').length, 2, 'only accepted contact clicks count; the pre-consent click stays suppressed');
+  for (const e of f.earning()) {
+    assert.ok(Object.keys(e[2]).every(k => ['page_location','page_referrer','page_title','experiment_id','surface','contact_method'].includes(k)));
+    assert.equal(e[2].experiment_id, 'technical-clarity-review-001'); assert.equal(e[2].surface, 'api-payload-doctor');
+    assert.ok(!JSON.stringify(e).includes('NEVER_SEND')); assert.ok(!JSON.stringify(e).includes('wa.me'));
+  }
+  assert.equal(f.earning().find(e => e[1] === 'earning_offer_click')[2].contact_method, 'contact_page');
+  f.run('setConsent("declined")'); assert.ok(observer.disconnected); observer.fire(); f.docListeners.click({ isTrusted:true, target:f.link }); assert.equal(f.earning().length,0);
+}
+{
+  const f = earningFixture('accepted'); f.run('initializeAnalytics()'); const old = f.observers[0];
+  f.doc.visibilityState = 'hidden'; f.docListeners.visibilitychange({}); old.fire(); assert.equal(f.earning().length,0);
+  f.doc.visibilityState = 'visible'; f.docListeners.visibilitychange({}); assert.equal(f.observers.length,2); old.fire(); assert.equal(f.earning().length,0, 'stale callback cannot report a view');
+  f.observers[1].fire(); f.winListeners.pagehide(); f.winListeners.pageshow(); assert.equal(f.earning().length,1); assert.equal(f.observers.length,2, 'seen offer is not reobserved on restore');
+  f.offer.dataset.earningSurface='private-user-value'; f.docListeners.click({isTrusted:true,target:f.link}); assert.equal(f.earning().length,1);
+  f.offer.dataset.earningSurface='api-payload-doctor'; f.link.href='https://wa.me/923007683396?text='+encodeURIComponent('Technical Clarity Review  NEVER_SEND'); f.docListeners.click({isTrusted:true,target:f.link});
+  const event=f.earning().at(-1); assert.equal(event[2].contact_method,'whatsapp'); assert.ok(!JSON.stringify(event).includes('923007683396'));
+  f.link.href='mailto:khizar.imtiaz@gmail.com?subject=Technical+Clarity+Review&body='+encodeURIComponent('Technical Clarity Review  NEVER_SEND'); f.docListeners.click({isTrusted:true,target:f.link}); assert.equal(f.earning().at(-1)[2].contact_method,'email'); assert.ok(!JSON.stringify(f.earning()).includes('khizar.imtiaz@gmail.com'));
+  assert.ok(!JSON.stringify(f.events()).includes('NEVER_SEND'), 'prefilled messages never enter analytics');
+  f.docListeners.click({isTrusted:false,target:f.link}); assert.equal(f.earning().filter(e=>e[1]==='earning_offer_click').length,2);
+}
+{
+  const local=earningFixture('accepted','http://127.0.0.1:4332/toolbox/api-payload-doctor/');local.run('initializeAnalytics()');assert.equal(local.observers.length,0);assert.equal(local.scripts.length,0);
+  const failed=earningFixture('accepted');failed.run('initializeAnalytics()');failed.scripts[0].onerror();failed.observers[0].fire();assert.equal(failed.earning().length,0);
+}
+console.log('Earning analytics PASS: consent, 50% visible exposure once, intended clicks, safe canonical/channel metadata, no private/contact values, hidden/page lifecycle cleanup and local/failed-tag suppression.');
