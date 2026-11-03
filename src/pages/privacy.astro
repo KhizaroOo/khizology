@@ -2,7 +2,7 @@
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import { pageSchema } from '../utils/schema';
 const title = 'Privacy & Optional Analytics | Khizooology';
-const description = 'How Khizooology handles local tool inputs, uploaded images, optional analytics and your consent preferences.';
+const description = "Learn how local tool inputs, optional Google Analytics and limited referrals work, how consent controls analytics, and how to change or withdraw your consent.";
 const jsonLd = pageSchema({ path: '/privacy', name: title, description, breadcrumbs: [{ name: 'Home', path: '/' }, { name: 'Privacy', path: '/privacy' }] }, { site: Astro.site!, base: import.meta.env.BASE_URL });
 ---
 <BaseLayout title={title} description={description} jsonLd={jsonLd}>

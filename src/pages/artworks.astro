@@ -15,7 +15,7 @@ const monster = monsters.find(m => m.id === 'artooo')!;
 const artoooVoice = getMonsterVoice(monster);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const artworkTitle = `Artooo — ${artworks.length} Original Artworks | Khizooology`;
-const artworkDescription = `${artworks.length} original sticky-note artworks, illustrations, digital paintings, and visual stories by Khizar Imtiaz (khizooo).`;
+const artworkDescription = `Browse ${artworks.length} original artworks by Khizar Imtiaz (khizooo), from sticky-note sketches to digital paintings. Filter by subject and view each piece up close.`;
 const seoContext = { site: Astro.site!, base: import.meta.env.BASE_URL };
 const galleryTopics = [
   { tag: 'nature', label: 'Nature', context: 'Plants, landscapes and natural subjects.' },
