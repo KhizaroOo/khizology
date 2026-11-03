@@ -152,7 +152,7 @@ const jsonLd = pageSchema({
     '@type': 'WebApplication',
     '@id': `${absoluteUrl(`/toolbox/${tool.slug}`, seoContext)}#application`,
     name: tool.name,
-    description: tool.shortDescription,
+    description: seo.description,
     url: absoluteUrl(`/toolbox/${tool.slug}`, seoContext),
     applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'Any',

@@ -10,3 +10,5 @@ Claude and Codex both follow this. Only Khizar promotes `dev-dev` → `main`. Va
 2026-11-03 · codex-dev → dev-dev · Completed MVP, Atlas guide/theme/mobile fixes and release-test repairs; preserved Worlds 015/016 and separated the narrow-phone city clock from its actions. Khizar must review verified dev-dev before promoting to main.
 
 2026-11-03 · codex-dev → dev-dev · Added codex-info/2026-11-03-release-handoff.md; runtime code unchanged, blocker suites and public GA gate rechecked. Khizar owns promotion/push.
+
+2026-11-03 · codex-dev → dev-dev · API Payload Doctor SEO description expanded from 95 to 160 characters; meta/social/application schema use canonical SEO metadata. Khizar owns promotion and Bing recrawl after deployment.

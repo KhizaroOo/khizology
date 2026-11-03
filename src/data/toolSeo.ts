@@ -181,7 +181,7 @@ export function getToolSeo(tool: Tool, family: Family): ToolSeoContent {
 
   return {
     title: `${tool.name} | Toolooo`,
-    description: tool.shortDescription,
+    description: tool.seoDescription || tool.shortDescription,
     primaryProblem,
     relatedPhrases,
     whatYouLearn: tool.longDescription,
