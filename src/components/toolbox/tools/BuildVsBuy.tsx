@@ -16,8 +16,8 @@ const DIMENSIONS = [
 ];
 
 const OPTIONS = [
-  { name: 'Build in-house', color: BUILD_COLOR, scores: { cost: 4, control: 9, speed: 3, maintenance: 4 } },
-  { name: 'Buy / integrate', color: BUY_COLOR, scores: { cost: 7, control: 4, speed: 9, maintenance: 7 } },
+  { name: 'Build in-house', nextStep: "Prototype the capability that needs custom control, then check the cost model against measured engineering and maintenance effort.", color: BUILD_COLOR, scores: { cost: 4, control: 9, speed: 3, maintenance: 4 } },
+  { name: 'Buy / integrate', nextStep: "Trial the candidate product against required workflows, integration effort, exit options and actual license terms before buying.", color: BUY_COLOR, scores: { cost: 7, control: 4, speed: 9, maintenance: 7 } },
 ];
 
 const CHART_YEARS = 5;

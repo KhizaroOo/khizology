@@ -8,10 +8,10 @@ const DIMENSIONS = [
 ];
 
 const OPTIONS = [
-  { name: 'Node.js + React', color: '#5CCFAF', scores: { ecosystem: 9, performance: 6, learningCurve: 7, hiring: 9 } },
-  { name: 'Python + Django', color: '#F5CF5C', scores: { ecosystem: 8, performance: 5, learningCurve: 8, hiring: 8 } },
-  { name: 'Java + Spring', color: '#F7933C', scores: { ecosystem: 8, performance: 8, learningCurve: 4, hiring: 7 } },
-  { name: 'Go + stdlib', color: '#6CA6FF', scores: { ecosystem: 6, performance: 9, learningCurve: 6, hiring: 5 } },
+  { name: 'Node.js + React', nextStep: "Build a small Node.js/React slice of the actual product; measure responsiveness and confirm the team can operate and maintain it.", color: '#5CCFAF', scores: { ecosystem: 9, performance: 6, learningCurve: 7, hiring: 9 } },
+  { name: 'Python + Django', nextStep: "Prototype the important data and request paths in Django; verify delivery effort and measured performance with your team.", color: '#F5CF5C', scores: { ecosystem: 8, performance: 5, learningCurve: 8, hiring: 8 } },
+  { name: 'Java + Spring', nextStep: "Test a representative Spring service with the intended deployment; check team experience and operating costs alongside performance.", color: '#F7933C', scores: { ecosystem: 8, performance: 8, learningCurve: 4, hiring: 7 } },
+  { name: 'Go + stdlib', nextStep: "Prototype the required integrations and request path in Go; verify library coverage and team maintenance effort before choosing it.", color: '#6CA6FF', scores: { ecosystem: 6, performance: 9, learningCurve: 6, hiring: 5 } },
 ];
 
 export default function TechStackBattle() {

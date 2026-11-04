@@ -1,6 +1,7 @@
 ---
 import type { ToolKnowledge as Knowledge } from '../../data/toolKnowledge';
 import type { Tool } from '../../data/tools';
+import { getToolKnowledge } from '../../data/toolKnowledge';
 import { url } from '../../utils/url';
 
 interface Props {
@@ -20,7 +21,7 @@ const { knowledge, accent, variant = 'intro', nextTools = [], nextReasons = {} }
       <section><h3>What</h3><p>{knowledge.what}</p></section>
       <section><h3>Why</h3><p>{knowledge.why}</p></section>
     </div>
-    <p class="tool-knowledge-result-note">Your <strong>Result</strong> and <strong>Action</strong> update in the tool as you change its inputs.</p>
+    <p class="tool-knowledge-result-note"><strong>Result</strong> and <strong>Action</strong> reflect the inputs used for that output. Rerun checks after edits when required.</p>
     <details class="tool-knowledge-note"><summary>Model note</summary><p>{knowledge.modelNote}</p></details>
   </section>
 ) : nextTools.length > 0 ? (
@@ -31,7 +32,7 @@ const { knowledge, accent, variant = 'intro', nextTools = [], nextReasons = {} }
       {nextTools.map((tool) => (
         <a href={url(`/toolbox/${tool.slug}`)} data-related-content data-related-monster="toolooo" data-related-content-type="tool" data-related-slug={tool.slug} data-discovery-action="next">
           <span aria-hidden="true">{tool.icon}</span>
-          <span><strong>{tool.name}</strong><small>{nextReasons[tool.id] || tool.shortDescription}</small></span>
+          <span><strong>{tool.name}</strong><small>{nextReasons[tool.id] || getToolKnowledge(tool).whenToUse}</small></span>
         </a>
       ))}
     </div>

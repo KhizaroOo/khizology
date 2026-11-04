@@ -263,7 +263,9 @@ for (const tool of toolRegistry.tools) {
     assert.ok(/Smart next moves/i.test(toolHtml), `${tool.slug}: LV3 next moves must remain available`);
     assert.ok(!/data-tool-knowledge-next/.test(toolHtml), `${tool.slug}: LV3 must not render duplicate canonical Next links`);
   } else {
-    assert.ok(/data-tool-knowledge-next/.test(toolHtml), `${tool.slug}: missing canonical Next section after the tool output`);
+    const related = toolRegistry.getRelatedTools(tool, 3);
+    const next = toolRegistry.getTryNextTools(tool, 2 + related.length).filter(candidate => !related.some(item => item.id === candidate.id)).slice(0, 2);
+    assert.equal(/data-tool-knowledge-next/.test(toolHtml), next.length > 0, `${tool.slug}: show Next only for a real task continuation`);
     assert.ok(!/Smart next moves/i.test(toolHtml), `${tool.slug}: non-LV3 must not render an orphaned Smart Next system`);
   }
 }

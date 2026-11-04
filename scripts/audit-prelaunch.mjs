@@ -15,6 +15,8 @@ await import('./test-skip-navigation.mjs');
 await import('./test-api-diagnosis-state.mjs');
 await import('./test-site-consistency.mjs');
 await import('./test-tool-discovery.mjs');
+const { verifyToolKnowledgeBuild } = await import('./test-tool-knowledge-content.mjs');
+verifyToolKnowledgeBuild();
 await import('./test-artwork-discovery.mjs');
 await import('./test-portfolio-evidence.mjs');
 await import('./test-earning-experiment.mjs');

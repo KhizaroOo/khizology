@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import InputField from '../shared/InputField';
 import Metric from '../shared/Metric';
-import Warning from '../shared/Warning';
+import Insight from '../shared/Insight';
 import VisualizationContainer from '../shared/VisualizationContainer';
 import { clamp, formatNumber, safeDiv, safeNumber } from '../shared/mathHelpers';
 
@@ -43,9 +43,7 @@ export default function ProjectQuoteRiskPlanner() {
   const computed = useMemo(() => {
     const withAdjusted = items.map((it) => {
       const riskAdjustedHours = it.hours * (1 + it.riskPct / 100);
-      // Risk-safe applies the same historical risk a second time, on top of the
-      // already-adjusted hours -- a deliberately conservative "quote this if you
-      // need certainty" number, not a second independent risk.
+      // Apply the same assumed uplift twice for sensitivity, not a confidence interval or guarantee.
       const riskSafeHours = riskAdjustedHours * (1 + it.riskPct / 100);
       return { ...it, riskAdjustedHours, riskSafeHours };
     });
@@ -59,6 +57,9 @@ export default function ProjectQuoteRiskPlanner() {
   }, [items]);
 
   const { totalQuoted, totalRiskAdjusted, totalRiskSafe, bufferPct, sortedForChart, highestRisk } = computed;
+  const largestUplift = computed.withAdjusted.reduce((largest, item) =>
+    item.riskAdjustedHours - item.hours > largest.riskAdjustedHours - largest.hours ? item : largest
+  );
 
   const level = highestRisk.riskPct >= 40 ? 'danger' : highestRisk.riskPct >= 25 ? 'warn' : 'good';
   const levelColor = level === 'danger' ? '#ef4444' : level === 'warn' ? '#F7933C' : '#22c55e';
@@ -74,28 +75,28 @@ export default function ProjectQuoteRiskPlanner() {
   const chartHeight = sortedForChart.length * rowHeight + topPad;
   const maxScale = Math.max(1, ...sortedForChart.map((it) => it.riskAdjustedHours)) * 1.08;
 
-  // three-scenario comparison (Optimistic -> Likely -> Risk-safe), scaled to the largest of the three
+  // Three assumed-effort scenarios, scaled to the largest of the three.
   const scenarios = [
     {
-      label: 'Optimistic',
+      label: 'Base estimate',
       value: totalQuoted,
       color: '#6CA6FF',
       opacity: 0.9,
-      note: 'No risk applied — the raw quoted hours',
+      note: 'Your entered hours, before assumed extra effort',
     },
     {
-      label: 'Likely',
+      label: 'With uplift',
       value: totalRiskAdjusted,
       color: levelColor,
       opacity: 0.55,
-      note: "Each item's historical risk applied once — the realistic total",
+      note: "Each item's fixed planning uplift applied once — not a predicted outcome",
     },
     {
-      label: 'Risk-safe',
+      label: 'Twice applied',
       value: totalRiskSafe,
       color: levelColor,
       opacity: 1,
-      note: 'That same risk applied a second time — quote this when the client needs certainty',
+      note: 'The same uplift compounded twice — a sensitivity scenario, not a safe upper bound',
     },
   ];
   const scenarioMax = Math.max(1, totalQuoted, totalRiskAdjusted, totalRiskSafe);
@@ -103,9 +104,8 @@ export default function ProjectQuoteRiskPlanner() {
   return (
     <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
       <p style={{ fontSize: '.82rem', color: 'var(--k-text-muted)', margin: '0 0 1.25rem', lineHeight: 1.5 }}>
-        Enter your estimated hours per line item. Each item carries an editorial "historical overrun risk" — how
-        often work like this runs past its estimate in real projects. Nobody bills for risk, so we show you where
-        it's hiding before the quote goes out.
+        Enter estimated hours per line item. Fixed editorial uplift percentages illustrate extra effort;
+        they are not historical measurements or probabilities. Compare these assumptions with your own project evidence.
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '1.25rem', marginBottom: '1.5rem' }}>
@@ -128,18 +128,24 @@ export default function ProjectQuoteRiskPlanner() {
                 fontFamily: "'Poppins', sans-serif",
               }}
             >
-              {it.riskPct}% historical overrun risk
+              {it.riskPct}% assumed extra effort
             </div>
           </div>
         ))}
       </div>
+
+      <Insight
+        what={totalQuoted === 0 ? 'No estimated hours entered yet.' : `${formatNumber(totalQuoted, 1)} estimated hours become ${formatNumber(totalRiskAdjusted, 1)}h with the assumed uplift (${formatNumber(bufferPct, 1)}% extra).`}
+        why="The extra hours come from fixed editorial percentages applied to your estimates. Applying them twice is a sensitivity scenario, not a measured likelihood or guarantee."
+        tip={totalQuoted === 0 ? 'Enter estimated work before comparing contingency.' : `Review ${largestUplift.name}: it contributes ${formatNumber(largestUplift.riskAdjustedHours - largestUplift.hours, 1)}h of assumed extra effort. Check scope, dependencies and your own delivery evidence before agreeing a buffer.`}
+      />
 
       <VisualizationContainer minHeight={chartHeight + 40}>
         <svg
           viewBox={`0 0 ${chartWidth} ${chartHeight}`}
           style={{ width: '100%', maxWidth: `${chartWidth}px`, height: 'auto' }}
           role="img"
-          aria-label="Quoted hours per line item with risk-adjusted overrun extension, sorted by risk"
+          aria-label="Estimated hours with assumed extra effort, sorted by uplift percentage"
         >
           <defs>
             {sortedForChart.map((it, i) => {
@@ -180,7 +186,7 @@ export default function ProjectQuoteRiskPlanner() {
                   {it.name}
                 </text>
                 <text x={0} y={barY + 21} fontSize="9.5" fill={c} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700 }}>
-                  {it.riskPct}% risk
+                  {it.riskPct}% uplift
                 </text>
                 <rect x={x0} y={barY} width={Math.max(0, quotedW)} height={barHeight} rx={4} fill="#6CA6FF" opacity={0.9} />
                 <rect x={x0 + quotedW} y={barY} width={Math.max(0, extraW)} height={barHeight} rx={4} fill={`url(#hatch-${i})`} />
@@ -206,7 +212,7 @@ export default function ProjectQuoteRiskPlanner() {
         </span>
         <span>
           <span style={{ display: 'inline-block', width: '10px', height: '10px', background: 'repeating-linear-gradient(45deg, #F7933C, #F7933C 2px, transparent 2px, transparent 4px)', borderRadius: '2px', marginRight: '.375rem', verticalAlign: 'middle' }} />
-          Risk-adjusted extra hours (hatched, colored by severity)
+          Assumed extra hours (hatched, colored by uplift percentage)
         </span>
       </div>
 
@@ -225,18 +231,17 @@ export default function ProjectQuoteRiskPlanner() {
           Three numbers to quote from
         </h3>
         <p style={{ fontSize: '.78rem', color: 'var(--k-text-muted)', margin: '0 0 1rem', lineHeight: 1.5 }}>
-          This is a planning aid, not an exact estimator — treat these as three defensible totals to choose between,
-          not three guaranteed outcomes.
+          Compare assumed effort scenarios, not predicted outcomes or guaranteed upper bounds.
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '.75rem', marginBottom: '1.25rem' }}>
-          <Metric label="Optimistic" value={`${formatNumber(totalQuoted, 0)}h`} color="#6CA6FF" sublabel="No risk applied" />
-          <Metric label="Likely" value={`${formatNumber(totalRiskAdjusted, 0)}h`} color={levelColor} sublabel="Risk applied once" />
-          <Metric label="Risk-safe" value={`${formatNumber(totalRiskSafe, 0)}h`} color={levelColor} sublabel="Risk applied twice" />
+          <Metric label="Base estimate" value={`${formatNumber(totalQuoted, 0)}h`} color="#6CA6FF" sublabel="Your entered hours" />
+          <Metric label="With uplift" value={`${formatNumber(totalRiskAdjusted, 0)}h`} color={levelColor} sublabel="Assumption applied once" />
+          <Metric label="Twice applied" value={`${formatNumber(totalRiskSafe, 0)}h`} color={levelColor} sublabel="Assumption compounded twice" />
           <Metric
-            label="Recommended buffer"
+            label="Assumed buffer"
             value={`${formatNumber(bufferPct, 0)}%`}
-            sublabel="add this to reach Likely"
+            sublabel="extra hours in the With uplift scenario"
             color={levelColor}
           />
         </div>
@@ -288,26 +293,6 @@ export default function ProjectQuoteRiskPlanner() {
         </VisualizationContainer>
       </div>
 
-      <div style={{ marginTop: '1.25rem' }}>
-        {level === 'danger' && (
-          <Warning level="danger" title={`${highestRisk.name} is your riskiest line item at ${highestRisk.riskPct}% historical overrun`}>
-            Line items this volatile blow through estimates more often than not. Either pad this line item's hours
-            specifically, or draw a hard scope boundary with the client in writing before you send the quote —
-            don't let the buffer get lost in the total.
-          </Warning>
-        )}
-        {level === 'warn' && (
-          <Warning level="warn" title={`${highestRisk.name} carries the most risk at ${highestRisk.riskPct}% historical overrun`}>
-            Not a red flag on its own, but worth a specific note to the client about what's in and out of scope for
-            this line item before you commit to the number.
-          </Warning>
-        )}
-        {level === 'good' && (
-          <Warning level="good" title={`${highestRisk.name} is your highest-risk item, and even that is only ${highestRisk.riskPct}%`}>
-            This quote is low-volatility overall — the recommended buffer above is mostly a cushion, not a rescue.
-          </Warning>
-        )}
-      </div>
     </div>
   );
 }

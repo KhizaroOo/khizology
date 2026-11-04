@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import RangeControl from './RangeControl';
 import VisualizationContainer from './VisualizationContainer';
+import Insight from './Insight';
 
 export interface DecisionDimension {
   key: string;
@@ -19,6 +20,7 @@ export interface DecisionOption {
   color: string;
   scores: Record<string, number>;
   dealBreakers?: DealBreaker[];
+  nextStep?: string;
 }
 
 interface DecisionLabProps {
@@ -60,6 +62,20 @@ export default function DecisionLab({ dimensions, options, assumptionsNote, acce
   const winner = results.find((r) => !r.disqualified) ?? results[0];
   const runnerUp = results.find((r) => r !== winner && !r.disqualified);
   const topDim = [...winner.contributions].sort((a, b) => b.contribution - a.contribution)[0];
+  const hasPriorities = dimensions.some(d => priorities[d.key] > 0);
+  const tied = results.filter(r => !r.disqualified && Math.abs(r.score - winner.score) < 1e-9);
+  const conclusion = !hasPriorities ? 'No priorities selected — there is no weighted recommendation.'
+    : winner.disqualified ? 'No option clears your current deal-breakers.'
+    : tied.length > 1 ? `${tied.map(r => r.opt.name).join(' and ')} tie under your selected priorities.`
+    : `${winner.opt.name} leads under your selected priorities (${winner.score.toFixed(1)} / 10).`;
+  const reason = !hasPriorities ? 'With every weight at zero, all weighted scores are zero. The displayed order is not evidence of a better fit.'
+    : winner.disqualified ? 'Every candidate triggers at least one declared constraint. A higher score does not override a deal-breaker.'
+    : tied.length > 1 ? 'The eligible options have equal weighted editorial scores; this model cannot choose a unique winner.'
+    : `${topDim.dimension} makes the largest weighted contribution to ${winner.opt.name}'s score. These are editorial assumptions, not measurements of your system.`;
+  const action = !hasPriorities ? 'Give at least one relevant priority a non-zero weight, then compare again.'
+    : winner.disqualified ? 'Review the constraints below. Change a requirement only if the real project permits it, or evaluate another option outside this comparison.'
+    : tied.length > 1 ? `Compare ${tied.map(r => r.opt.name).join(' and ')} against a concrete project requirement or a small prototype before choosing.`
+    : winner.opt.nextStep || `Test ${winner.opt.name} against your actual ${topDim.dimension.toLowerCase()} requirement before adopting it.`;
 
   // "What would change the winner?" — the dimension where the runner-up's raw score
   // most exceeds the winner's; turning that priority up would favor the runner-up.
@@ -101,6 +117,8 @@ export default function DecisionLab({ dimensions, options, assumptionsNote, acce
           />
         ))}
       </div>
+
+      <Insight what={conclusion} why={reason} tip={action} />
 
       <VisualizationContainer minHeight={Math.max(options.length * 44, 120)}>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '.875rem' }}>
@@ -145,15 +163,13 @@ export default function DecisionLab({ dimensions, options, assumptionsNote, acce
       )}
 
       <div style={{ marginTop: '1.25rem', background: 'var(--k-bg-elevated)', border: '1.5px solid var(--k-border)', borderRadius: '.875rem', padding: '1.125rem' }}>
-        <p style={{ margin: '0 0 .625rem', fontSize: '.9rem', color: 'var(--k-text)', lineHeight: 1.6 }}>
-          <strong>For the priorities you selected, {winner.opt.name} scores highest</strong> — driven mostly by <strong>{topDim.dimension.toLowerCase()}</strong>.
-        </p>
-        {flipHint && (
+        {hasPriorities && !winner.disqualified && tied.length === 1 && flipHint && (
           <p style={{ margin: '0 0 .625rem', fontSize: '.82rem', color: 'var(--k-text-muted)', lineHeight: 1.6 }}>
-            <strong style={{ color: 'var(--k-text)' }}>What would change this:</strong> {runnerUp!.opt.name} scores higher on {flipHint.dimension.toLowerCase()} — raise that priority enough and it can overtake {winner.opt.name}.
+            <strong style={{ color: 'var(--k-text)' }}>Trade-off to test:</strong> {runnerUp!.opt.name} has a higher editorial score for {flipHint.dimension.toLowerCase()}. Compare that strength with your actual project needs; changing one weight may not change the leader.
           </p>
         )}
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '.78rem' }}>
+          <caption style={{ textAlign: 'left', color: 'var(--k-text)', marginBottom: '.5rem' }}>Score breakdown for {winner.opt.name}{(!hasPriorities || winner.disqualified || tied.length > 1) && ' — not a unique recommendation'}</caption>
           <thead>
             <tr>
               <th style={{ textAlign: 'left', padding: '.375rem 0', color: 'var(--k-text-muted)', fontWeight: 700, borderBottom: '1px solid var(--k-border)' }}>Dimension</th>

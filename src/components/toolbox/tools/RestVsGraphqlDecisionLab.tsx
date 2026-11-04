@@ -9,9 +9,9 @@ const DIMENSIONS = [
 ];
 
 const OPTIONS = [
-  { name: 'REST', color: '#6CA6FF', scores: { queryFlex: 5, caching: 9, learningCurve: 8, tooling: 9, streaming: 3 } },
-  { name: 'GraphQL', color: '#DF78A0', scores: { queryFlex: 9, caching: 4, learningCurve: 5, tooling: 7, streaming: 6 } },
-  { name: 'gRPC', color: '#A78BFA', scores: { queryFlex: 6, caching: 3, learningCurve: 4, tooling: 6, streaming: 9 } },
+  { name: 'REST', nextStep: "Prototype resource endpoints, pagination and HTTP caching against a real client flow before choosing REST.", color: '#6CA6FF', scores: { queryFlex: 5, caching: 9, learningCurve: 8, tooling: 9, streaming: 3 } },
+  { name: 'GraphQL', nextStep: "Prototype a real client query and measure resolver work, authorization and caching before choosing GraphQL.", color: '#DF78A0', scores: { queryFlex: 9, caching: 4, learningCurve: 5, tooling: 7, streaming: 6 } },
+  { name: 'gRPC', nextStep: "Test generated clients, streaming and deployment compatibility in the intended environment before choosing gRPC.", color: '#A78BFA', scores: { queryFlex: 6, caching: 3, learningCurve: 4, tooling: 6, streaming: 9 } },
 ];
 
 export default function RestVsGraphqlDecisionLab() {

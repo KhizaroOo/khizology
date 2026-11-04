@@ -9,8 +9,8 @@ const DIMENSIONS = [
 ];
 
 const OPTIONS = [
-  { name: 'Monolith', color: '#6CA6FF', scores: { teamFit: 8, deployFreq: 5, opsSimplicity: 9, scaling: 4 } },
-  { name: 'Microservices', color: '#DF78A0', scores: { teamFit: 4, deployFreq: 9, opsSimplicity: 3, scaling: 9 } },
+  { name: 'Monolith', nextStep: "Keep module boundaries explicit and test deployment and load needs before introducing service boundaries.", color: '#6CA6FF', scores: { teamFit: 8, deployFreq: 5, opsSimplicity: 9, scaling: 4 } },
+  { name: 'Microservices', nextStep: "Trial one stable boundary with independent deployment, failure handling and observability; verify the team can support that operating cost.", color: '#DF78A0', scores: { teamFit: 4, deployFreq: 9, opsSimplicity: 3, scaling: 9 } },
 ];
 
 const RECONSIDER_WHEN = [

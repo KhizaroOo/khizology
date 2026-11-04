@@ -310,12 +310,12 @@ export default function CacheValueSimulator() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '.75rem', marginTop: '1.5rem' }}>
           <Metric label="Overall hit rate" value={`${(result.hitRate * 100).toFixed(1)}%`} color={result.hitRate > 0.7 ? '#22c55e' : result.hitRate > 0.4 ? '#F7933C' : '#ef4444'} />
-          <Metric label="Avg. staleness on hit" value={`${result.avgStaleness.toFixed(1)}s`} sublabel="how old the served value was" />
+          <Metric label="Avg. entry age on hit" value={`${result.avgStaleness.toFixed(1)}s`} sublabel="time since insertion in this simulation" />
           <Metric label="Evictions" value={String(result.evictions)} sublabel="items removed for space" />
         </div>
 
         <p style={{ fontSize: '.78rem', color: 'var(--k-text-muted)', margin: '.75rem 0 0', lineHeight: 1.5 }}>
-          Longer TTL raises hit rate but serves staler data — there's no single correct TTL, just a tradeoff to set deliberately for this data.
+          Longer TTL can increase reuse and entry age here. Without source updates, this simulation cannot establish whether cached values are stale.
         </p>
 
         <div style={{ marginTop: '1.25rem' }}>
