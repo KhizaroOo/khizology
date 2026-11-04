@@ -16,3 +16,5 @@ Claude and Codex both follow this. Only Khizar promotes `dev-dev` → `main`. Va
 2026-11-04 · codex-dev → dev-dev · Improved 28 page descriptions through canonical SEO fields; preserved the API Payload Doctor fix and Claude worlds. Full review is in codex-info/META-DESCRIPTION-REVIEW-2026-11-04.md. Khizar owns promotion/push and post-release Bing recrawl.
 
 2026-11-04 · codex-dev → dev-dev · Integrated 72ae31f: approved $99 Technical Clarity Review, fit-first qualification, public-only contact prefills, compact process disclosure, desktop spacing and consent-safe analytics; Claude Worlds 015/016 preserved. Khizar owns main promotion/push; the separate documentation-review edits remain pending on codex-dev. No deployment performed.
+
+2026-11-04 · codex-dev → dev-dev · Integrated f0d7c92: Toolooo knowledge clarity, truthful result/action guidance, curated Next links and regression protections; Claude Infooo work and approved earning offer preserved. Khizar owns main promotion/push; separate documentation-review changes remain pending on codex-dev. No deployment performed.
