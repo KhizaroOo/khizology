@@ -9,10 +9,10 @@ const DIMENSIONS = [
 ];
 
 const OPTIONS = [
-  { name: 'PostgreSQL', color: '#6CA6FF', scores: { consistency: 9, scalability: 6, queryFlexibility: 9, opsSimplicity: 7, cost: 7 } },
-  { name: 'MongoDB', color: '#5CCFAF', scores: { consistency: 6, scalability: 8, queryFlexibility: 7, opsSimplicity: 7, cost: 6 } },
+  { name: 'PostgreSQL', nextStep: "Prototype the relational schema and representative queries in PostgreSQL; measure workload throughput and operating costs before committing.", color: '#6CA6FF', scores: { consistency: 9, scalability: 6, queryFlexibility: 9, opsSimplicity: 7, cost: 7 } },
+  { name: 'MongoDB', nextStep: "Prototype document access and updates in MongoDB; verify validation and cross-document consistency needs against the real workload.", color: '#5CCFAF', scores: { consistency: 6, scalability: 8, queryFlexibility: 7, opsSimplicity: 7, cost: 6 } },
   {
-    name: 'DynamoDB-style KV',
+    name: 'DynamoDB-style KV', nextStep: "Test partition keys, access patterns and capacity costs against the actual service limits before choosing a key-value design.",
     color: '#F7933C',
     scores: { consistency: 5, scalability: 10, queryFlexibility: 3, opsSimplicity: 9, cost: 5 },
     dealBreakers: [
@@ -24,7 +24,7 @@ const OPTIONS = [
     ],
   },
   {
-    name: 'Cassandra-style wide-column',
+    name: 'Cassandra-style wide-column', nextStep: "Prototype partition design and consistency settings; measure your read/write workload before accepting wide-column operational costs.",
     color: '#DF78A0',
     scores: { consistency: 4, scalability: 10, queryFlexibility: 4, opsSimplicity: 4, cost: 6 },
     dealBreakers: [
