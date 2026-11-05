@@ -1,20 +1,9 @@
 import { preview, previewSrcset } from "../../utils/imagePreview";
-import { rankRelatedArtworks } from '../../utils/artworkRelations';
+import type { Artwork } from '../../data/artworks';
+import { artworkRelationshipReason, rankRelatedArtworks } from '../../utils/artworkRelations';
 import { trackArtworkView } from '../../utils/analytics';
 import ShareResultFoundation from '../toolbox/ShareResultFoundation';
 import { useState, useEffect, useCallback, useRef } from 'react';
-
-interface Artwork {
-  id: string;
-  slug: string;
-  title: string;
-  filename: string;
-  tags: string[];
-  width: number;
-  height: number;
-  description?: string;
-  story?: string; year?: number; medium?: string; whatIWasThinking?: string; collection?: string; relatedArtwork?: string[]; behindTheSketch?: string;
-}
 
 interface Props {
   artworks: Artwork[];
@@ -47,7 +36,7 @@ function ArtworkModal({
       if (e.key === 'Escape') onClose();
       if (e.key !== 'Tab') return;
       const modal = closeButtonRef.current?.closest('.aw-modal-box');
-      const focusable = modal?.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      const focusable = Array.from(modal?.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, summary, [tabindex]:not([tabindex="-1"])') || []).filter(element => element.getClientRects().length && !element.hasAttribute('disabled'));
       if (!focusable?.length) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
@@ -67,9 +56,7 @@ function ArtworkModal({
       previouslyFocused?.focus();
     };
   }, [onClose]);
-
-  const desc = artwork.description ||
-    `An original artwork by khizooo — ${artwork.tags.slice(0, 3).join(', ')}.`;
+  useEffect(() => { closeButtonRef.current?.focus(); }, [artwork.slug]);
 
   return (
     <div
@@ -93,18 +80,19 @@ function ArtworkModal({
         </div>
         <div className="aw-modal-info">
           <h2 className="aw-modal-title">{artwork.title}</h2>
-          <p className="aw-modal-desc">{desc}</p>
-          <div className="aw-modal-tags">
-            {artwork.tags.map(t => (
-              <span key={t} className="aw-tag">{t}</span>
-            ))}
-          </div>
           {(artwork.year || artwork.medium || artwork.collection) && <p className="aw-modal-meta">{[artwork.year, artwork.medium, artwork.collection].filter(Boolean).join(' · ')}</p>}
+          {artwork.description && <p className="aw-modal-desc">{artwork.description}</p>}
           {artwork.story && <p className="aw-modal-desc">{artwork.story}</p>}
-          {artwork.whatIWasThinking && <p className="aw-modal-desc"><strong>What I was thinking:</strong> {artwork.whatIWasThinking}</p>}
-          {artwork.behindTheSketch && <p className="aw-modal-desc"><strong>Behind the sketch:</strong> {artwork.behindTheSketch}</p>}
+          {artwork.whatIWasThinking && <section className="aw-artist-note"><h3>What I was thinking</h3><p>{artwork.whatIWasThinking}</p></section>}
+          {artwork.behindTheSketch && <details className="aw-artist-note"><summary>Behind the sketch</summary><p>{artwork.behindTheSketch}</p></details>}
+          <div className="aw-modal-tags" aria-label="Artwork tags">
+            {artwork.tags.map(t => <span key={t} className="aw-tag">{t}</span>)}
+          </div>
           <ShareResultFoundation monster="artooo" contentType="artwork" slug={artwork.slug} title={artwork.title} />
-          {related.length > 0 && <section className="aw-related"><h3>Related artworks</h3><div>{related.map(item => <button key={item.id} type="button" onClick={() => onSelect(item)} data-related-content data-related-monster="artooo" data-related-content-type="artwork" data-related-slug={item.slug} data-related-source={artwork.slug}>{item.title}</button>)}</div></section>}
+          {related.length > 0 && <section className="aw-related"><h3>Related artworks</h3><div className="aw-related-list">{related.map(item => <button key={item.id} type="button" onClick={() => onSelect(item)} data-related-content data-related-monster="artooo" data-related-content-type="artwork" data-related-slug={item.slug} data-related-source={artwork.slug}>
+            <img src={preview(`/images/artworks/${item.filename}`)} alt="" width="56" height="56" loading="lazy" decoding="async" />
+            <span><strong>{item.title}</strong><small>{artworkRelationshipReason(artwork, item)}</small></span>
+          </button>)}</div></section>}
         </div>
       </div>
     </div>
@@ -127,6 +115,9 @@ export default function ArtworkGrid({ artworks, base, emptyStateText, subjects }
     return matchQ && matchT;
   });
 
+  const filteredRef = useRef(filtered);
+  filteredRef.current = filtered;
+
   const handleClose = useCallback(() => {
     setSelected(null);
     if (window.location.hash.startsWith('#art-')) window.history.replaceState(null, '', window.location.pathname + window.location.search);
@@ -143,7 +134,7 @@ export default function ArtworkGrid({ artworks, base, emptyStateText, subjects }
       const artwork = artworks.find(item => `#art-${item.slug}` === window.location.hash);
       setSelected(artwork || null);
       if (artwork) {
-        setQuery(''); setActiveTag('');
+        if (!filteredRef.current.includes(artwork)) { setQuery(''); setActiveTag(''); }
         if (!selectionRef.current) document.getElementById(`art-${artwork.slug}`)?.focus({ preventScroll: true });
         trackArtworkView(artwork.slug);
       }
@@ -345,20 +336,22 @@ export default function ArtworkGrid({ artworks, base, emptyStateText, subjects }
         .aw-modal-close {
           position: absolute; top: .75rem; right: .75rem;
           background: var(--k-bg); border: 1px solid var(--k-border);
-          border-radius: 999px; width: 2rem; height: 2rem;
+          border-radius: 999px; width: 44px; height: 44px;
           display: flex; align-items: center; justify-content: center;
           cursor: pointer; color: var(--k-text-muted); font-size: .8rem;
           z-index: 1; transition: background .15s;
         }
         .aw-modal-close:hover { background: var(--k-border); }
-        .aw-modal-img-wrap { overflow: hidden; border-radius: 1.25rem 1.25rem 0 0; }
+        .aw-modal-img-wrap { overflow: hidden; border-radius: 1.25rem 1.25rem 0 0; background: var(--k-bg); padding: 1rem; display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 0; }
         @media (min-width: 640px) {
+          .aw-modal-box { overflow: hidden; }
           .aw-modal-img-wrap { border-radius: 1.25rem 0 0 1.25rem; }
+          .aw-modal-info { max-height: 90vh; overflow-y: auto; }
         }
-        .aw-modal-img { width: 100%; height: 100%; object-fit: cover; min-height: 260px; }
+        .aw-modal-img { width: 100%; height: auto; max-height: 70vh; object-fit: contain; display: block; }
         .aw-modal-info {
           padding: 1.5rem; display: flex; flex-direction: column; gap: .75rem;
-          justify-content: center;
+          justify-content: flex-start; min-width: 0; overflow-wrap: anywhere;
         }
         .aw-modal-title {
           font-family: 'Poppins', sans-serif; font-size: 1.25rem;
@@ -370,9 +363,17 @@ export default function ArtworkGrid({ artworks, base, emptyStateText, subjects }
         .aw-modal-meta { font-size: .78rem; color: var(--k-text-muted); margin: 0; }
         .aw-related { border-top: 1px solid var(--k-border); padding-top: .875rem; }
         .aw-related h3 { margin: 0 0 .5rem; font: 700 .75rem 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: .06em; color: var(--k-text); }
-        .aw-related div { display: flex; flex-wrap: wrap; gap: .375rem; }
-        .aw-related button { border: 1px solid var(--k-border); border-radius: .5rem; background: var(--k-bg); color: var(--k-text); cursor: pointer; font: 600 .72rem inherit; padding: .4rem .55rem; }
+        .aw-related-list { display: grid; gap: .5rem; }
+        .aw-related img { width: 56px; height: 56px; object-fit: contain; background: var(--k-bg-card); border-radius: .25rem; flex-shrink: 0; }
+        .aw-related span { display: grid; gap: .2rem; min-width: 0; }
+        .aw-related small { color: var(--k-text-muted); font-weight: 400; }
+        .aw-artist-note h3, .aw-artist-note summary { font-size: .8rem; font-weight: 700; color: var(--k-text); margin: 0; }
+        .aw-artist-note summary { cursor: pointer; padding: .7rem 0; min-height: 44px; }
+        .aw-artist-note p { font-size: .875rem; line-height: 1.6; color: var(--k-text-muted); margin: .4rem 0 0; }
+        .aw-related button { border: 1px solid var(--k-border); border-radius: .5rem; background: var(--k-bg); color: var(--k-text); cursor: pointer; font-family: inherit; font-size: .78rem; padding: .5rem; min-height: 72px; display: flex; align-items: center; gap: .65rem; text-align: left; width: 100%; }
         .aw-related button:focus-visible { outline: 3px solid #F5CF5C; outline-offset: 2px; }
+
+        @media (prefers-reduced-motion: reduce) { .aw-card, .aw-modal-backdrop, .aw-modal-box { animation: none; transition: none; } }
 
         @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(16px) } to { opacity: 1; transform: translateY(0) } }

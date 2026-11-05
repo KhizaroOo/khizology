@@ -84,6 +84,8 @@ assert.ok(modal());
 assert.equal(cards().length, filteredCount, 'Opening a matching artwork preserves search context');
 assert.equal(f.location.hash, `#art-${modal().props.artwork.slug}`);
 assert.equal(f.events.length, 1);
+f.navigate(f.location.hash);
+assert.equal(cards().length, filteredCount, 'History within the active result set preserves search context');
 search('no-match-zzzz');
 assert.equal(modal(), undefined, 'Filter changes cannot retain an excluded selection');
 assert.equal(f.location.hash, '');
@@ -107,6 +109,56 @@ for (const artwork of featuredArtworks.slice(0, 8)) {
   assert.equal(direct.location.hash, '');
   direct.unmount();
 }
+// All canonical identities and objective assets remain valid; related results are stable and unique.
+const { rankRelatedArtworks, artworkRelationshipReason } = load('src/utils/artworkRelations.ts');
+assert.equal(artworks.length, 170);
+assert.equal(artworks.filter(a => a.story && a.whatIWasThinking && a.behindTheSketch).length, 20, 'Artist-supplied batch retains all three fields');
+assert.equal(artworks.find(a => a.slug === 'portal-to-the-past').story, 'I like old doors because they always make me think about the past. So many people may have used the same door before us.');
+assert.equal(artworks.find(a => a.slug === 'big-slave').whatIWasThinking, 'Power does not always mean freedom.');
+assert.equal(new Set(artworks.map(a => a.id)).size, artworks.length);
+assert.equal(new Set(artworks.map(a => a.slug)).size, artworks.length);
+for (const artwork of artworks) {
+  assert.ok(fs.existsSync(path.join('public/images/artworks', artwork.filename)));
+  assert.ok(artwork.width > 0 && artwork.height > 0);
+  assert.equal(new Set(artwork.tags).size, artwork.tags.length);
+  for (const slug of artwork.relatedArtwork || []) assert.ok(artworks.some(a => a.slug === slug && a.id !== artwork.id));
+  const related = rankRelatedArtworks(artwork, artworks);
+  assert.deepEqual(related.map(a => a.id), rankRelatedArtworks(artwork, [...artworks].reverse()).map(a => a.id));
+  assert.equal(new Set(related.map(a => a.id)).size, related.length);
+  assert.ok(related.every(a => a.id !== artwork.id && artworkRelationshipReason(artwork, a).length));
+}
+for (const prefix of ['tree-house', 'flower', 'raw-beauty', 'jack-and-sally']) {
+  const members = artworks.filter(a => a.filename.toLowerCase().startsWith(prefix) && /[ -]\d+\.jpg$/i.test(a.filename));
+  for (const art of members) assert.ok(rankRelatedArtworks(art, artworks).slice(0, Math.min(3, members.length - 1)).every(a => members.includes(a)), `${prefix}: numbered family first`);
+}
+const sample = (slug, tags, extra = {}) => ({ id: slug, slug, title: slug, filename: slug + '.jpg', tags, width: 1, height: 1, ...extra });
+const source = sample('source', ['portrait', 'figure', 'sea', 'fantasy']);
+const specific = sample('specific', ['sea', 'fantasy']);
+const broad = Array.from({ length: 15 }, (_, i) => sample('broad-' + i, ['portrait', 'figure']));
+assert.equal(rankRelatedArtworks(source, [source, specific, ...broad])[0].slug, 'specific', 'Rare shared subjects beat broad portrait overlap');
+assert.equal(rankRelatedArtworks({ ...source, relatedArtwork: [broad[0].slug] }, [specific, ...broad])[0].slug, broad[0].slug);
+assert.equal(rankRelatedArtworks({ ...source, collection: 'Artist classified' }, [specific, { ...broad[0], collection: 'Artist classified' }])[0].slug, broad[0].slug);
+assert.equal(rankRelatedArtworks(source, [source, specific, specific]).length, 1);
+assert.equal(rankRelatedArtworks(source, [specific], 0).length, 0);
+assert.equal(rankRelatedArtworks(source, [sample('unrelated', ['space'])]).length, 0);
+const basic = fixture('#art-' + artworks[0].slug);
+const basicModal = basic.nodes().find(node => node.type?.name === 'ArtworkModal');
+const basicTree = flatten(basicModal.type(basicModal.props));
+assert.ok(!text(basicTree).includes('An original artwork by khizooo'));
+assert.ok(!basicTree.some(node => ['What I was thinking', 'Behind the sketch'].includes(text(node))));
+const relatedButtons = basicTree.filter(node => node.props?.['data-related-content']);
+assert.ok(relatedButtons.length > 0 && relatedButtons.length <= 3);
+for (const button of relatedButtons) {
+  const image = flatten(button).find(node => node.type === 'img');
+  assert.equal(image.props.loading, 'lazy');
+  assert.equal(image.props.alt, '', 'Adjacent title already names this thumbnail link');
+  assert.ok(text(button).includes('Shared:') || text(button).includes('series'));
+}
+const authoredTree = flatten(basicModal.type({ ...basicModal.props, artwork: { ...artworks[0], story: 'Fixture artist story.', year: 2020, medium: 'Fixture medium', collection: 'Fixture collection', whatIWasThinking: 'Fixture perspective.', behindTheSketch: 'Fixture process.' } }));
+assert.ok(text(authoredTree).includes('2020 · Fixture medium · Fixture collection'));
+assert.ok(authoredTree.some(node => node.type === 'h3' && text(node) === 'What I was thinking'));
+assert.ok(authoredTree.some(node => node.type === 'details' && !node.props.open && text(node).includes('Fixture process.')));
+basic.unmount();
 const home = read('src/pages/index.astro');
 assert.ok(home.includes('href={url(`/artworks#art-${art.slug}`)}'));
 if (process.argv.includes('--built')) {
@@ -117,5 +169,16 @@ if (process.argv.includes('--built')) {
   }
   assert.equal([...gallery.matchAll(/data-artwork-slug=/g)].length, artworks.length);
   assert.ok(!gallery.includes('art-topic-links'));
+  const schemas = [...gallery.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap(match => JSON.parse(match[1])).flatMap(data => data['@graph'] || data);
+  const collection = schemas.find(schema => schema.mainEntity?.['@type'] === 'ItemList');
+  assert.equal(collection.mainEntity.numberOfItems, artworks.length);
+  for (const { item } of collection.mainEntity.itemListElement) {
+    const art = artworks.find(a => item['@id'].endsWith('#art-' + a.slug));
+    assert.ok(art);
+    assert.equal(item.description, art.description || art.story);
+    assert.equal(item.artMedium, art.medium);
+    assert.equal(item.dateCreated, art.year ? String(art.year) : undefined);
+  }
+  assert.equal([...read('dist/image-sitemap.xml').matchAll(/<image:image>/g)].length, artworks.length);
 }
 console.log('Artwork discovery PASS: canonical subject/tag filters, stable choices, combined search, empty recovery, exact teaser/hash selection, related selection, history, listener cleanup and view-event integrity.');
