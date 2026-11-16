@@ -20,8 +20,33 @@ export interface Part {id:string;name:string;conceptId:string;system:SystemId;ch
 export interface Concept {id:string;name:string;elements:string[]}
 export interface Atlas {version:string;sex?:'male';source?:string;scope?:string;parts:Part[];concepts:Concept[];chunks:{url:string;bytes:number;gzip?:string;gzipBytes?:number}[];triangles:number}
 export type View = 'three-quarter'|'front'|'back'|'side';
-export interface SceneState {inspectorOpen?:boolean;explode:number;visible:SystemId[];selected:string[];isolate:boolean;view:View;rotate:boolean;reset:number}
+// frame > 0 asks the scene to frame the current selection in body context (search and guide); 0 keeps the camera (tap-to-inspect).
+export interface SceneState {inspectorOpen?:boolean;frame?:number;explode:number;visible:SystemId[];selected:string[];isolate:boolean;view:View;rotate:boolean;reset:number}
 export const DEFAULT_VISIBLE:SystemId[] = ['cardiac','sensory','skeletal','muscular','arterial','venous','nervous','respiratory','digestive','urinary','lymphatic','endocrine','reproductive','connective'];
+
+export function geometryLoadOrder(atlas: Atlas): number[] {
+ const partChunks=new Map(atlas.parts.map(part=>[part.id,part.chunk]));
+ const order=new Set<number>();
+ const addConcept=(id:string)=>{
+  for(const partId of atlas.concepts.find(concept=>concept.id===id)?.elements??[]){
+   const chunk=partChunks.get(partId);if(chunk!==undefined)order.add(chunk);
+  }
+ };
+ addConcept('FMA7088'); // Heart, first guide step and default search.
+ addConcept('FMA8612'); // Pulmonary trunk, second guide step.
+ const skeleton=atlas.parts.find(part=>part.system==='skeletal');
+ if(skeleton)order.add(skeleton.chunk);
+ // Complete the remaining guide targets before the rest of the catalogue.
+ for(const id of ['FMA7309','FMA66643','FMA3734','FMA10951'])addConcept(id);
+ for(const [index] of atlas.chunks.entries())order.add(index);
+ return [...order];
+}
+
+export function conceptGeometryReady(concept:Concept,parts:ReadonlyMap<string,Part>,chunks:ReadonlySet<number>):boolean{
+ return concept.elements.length>0&&concept.elements.every(id=>{
+  const part=parts.get(id);return !!part&&chunks.has(part.chunk);
+ });
+}
 export const EXPLANATIONS:Record<string,string> = {
  'heart':'A muscular pump in the chest. Its right side sends blood to the lungs; its left side sends blood through the systemic circulation.',
  'liver':'A large organ beneath the right side of the diaphragm. It processes absorbed nutrients, produces bile, and synthesizes many proteins carried in the blood.',

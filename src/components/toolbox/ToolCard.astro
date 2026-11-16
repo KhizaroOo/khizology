@@ -5,8 +5,9 @@ import { getFamilyById } from '../../data/families';
 
 interface Props {
   tool: Tool;
+  searchable?: boolean;
 }
-const { tool } = Astro.props;
+const { tool, searchable } = Astro.props;
 const family = getFamilyById(tool.family);
 ---
 
@@ -16,6 +17,7 @@ const family = getFamilyById(tool.family);
   data-tool-card
   data-family={tool.family}
   data-tags={tool.tags.join('|')}
+  data-search-keywords={searchable ? tool.keywords?.join(' ') : undefined}
   style={`--fc: ${family?.color ?? '#F7933C'}`}
 >
   <div class="tc-top">

@@ -4,8 +4,8 @@ Planning document. A world is live only once it is in the registry with a route;
 
 | State | Count | Meaning |
 |---|---|---|
-| Implemented and public | 16 | Worlds 001–016 exist in `src/data/infooo.ts` with routes and components. Worlds 015 and 016 were built on `claude-dev` and go live only when Khizooo integrates and releases them. |
-| Approved / planned | 11 | Worlds 017–027 below. No registry entry, route, asset, sitemap URL or navigation card. |
+| Implemented and public | 17 | Worlds 001–017 exist in `src/data/infooo.ts` with routes and components. Worlds 015 and 016 are live. World 017 is included in this release. |
+| Approved / planned | 10 | Worlds 018–027 below. No registry entry, route, asset, sitemap URL or navigation card. |
 
 `agent-systems-lab` is a curated collection page over Worlds 008–014, not a world, and is unchanged by this roadmap. Public world counts must keep reflecting implemented reality; never let a planned world change a count, a listing or a generated file.
 
@@ -61,6 +61,8 @@ Seed one claim, let people share, let network hubs amplify, let communities repe
 **Aha:** information does not spread only because it is true; network structure and behavior matter.
 
 **Boundary:** neutral educational framing only. Not political persuasion.
+
+**Built (route `/infooo/how-misinformation-spreads`).** A guided five-step story on one map of a made-up town of 120 people: one quiet post dies out, a hub spreads the same rumor to most of the town, friends repeat it, a late truth reaches few, then the visitor tries to stop it (who posts first, checking before sharing, when the truth comes). A deterministic network-sharing model in which truth is never an input; the story shows one representative run. Shaped by Khizar's review: simple visuals, one idea per step, few words, details collapsed. Research basis: Vosoughi et al. 2018 and Juul & Ugander 2021 (spread follows how often people share, not truth), Goel et al. 2016, illusory-truth research and correction meta-analyses. Rule sizes are simplified and labelled so.
 
 ### 018 — Financial Literacy
 Build one foundational mechanism, not a finance dashboard. Candidates: purchasing power, compound debt, interest, saving, risk, cash flow, inflation. **Narrow to one primary question and one interactive aha before implementation.** Explain a system; do not duplicate Toolooo calculators; never give individualized financial advice.

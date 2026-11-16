@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import MisinformationWorld from '../../components/infooo/misinformation/MisinformationWorld';
+import { infoooWorlds, infoooIdentity } from '../../data/infooo';
+import { absoluteUrl, breadcrumbSchema } from '../../utils/seo';
+import { url } from '../../utils/url';
+const world = infoooWorlds.find(w => w.id === 'world-017')!;
+const context = { site: Astro.site!, base: import.meta.env.BASE_URL };
+const canonical = absoluteUrl(`/infooo/${world.slug}`, context);
+const related = infoooWorlds.filter(w => world.relatedWorlds?.includes(w.id) && w.status === 'published' && w.visibility === 'public');
+---
+<BaseLayout title="How Misinformation Spreads — Rumor Simulator | Khizooology" description={world.description} canonical={canonical} accentColor={infoooIdentity.color} accentColorLight={infoooIdentity.colorLight} ogImage={world.hero!.asset} ogImageAlt={world.preview!.alt} socialTitle={world.title} socialDescription={world.description} jsonLd={[{ '@context': 'https://schema.org', '@type': 'WebApplication', name: world.title, description: world.description, url: canonical, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', isAccessibleForFree: true }, breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Infooo', path: '/infooo' }, { name: world.title, path: `/infooo/${world.slug}` }], context)]}>
+  <div class="k-container mi-breadcrumb"><Breadcrumb crumbs={[{ label: 'Infooo', href: url('/infooo') }, { label: world.title }]} accentColor={infoooIdentity.color}/></div>
+  <MisinformationWorld client:load world={world}>
+    <section class="mi-static">
+      <h2>How does misinformation spread?</h2>
+      <p>Not because it is true. In this simulation of a made-up town of 120 people, the same false rumor dies out when a person with few connections posts it, but reaches most of the town when a person with many connections posts it. Friends repeat it, and a correction posted later and shared less often reaches only a few.</p>
+      <p>The model tracks who sees a post and who passes it on, not what anyone believes or intends, so it shows misinformation (false information shared regardless of intent), not disinformation. It is built on research about how false news travels online. The town and rumor are made up, and everything is computed in your browser. No account needed. Assumptions, limits and sources are listed above.</p>
+      <nav aria-label="Related knowledge worlds">{related.map(w => <a href={url(`/infooo/${w.slug}`)}>{w.title} →</a>)}<a href={url('/infooo')}>Explore all Infooo worlds →</a></nav>
+    </section>
+  </MisinformationWorld>
+</BaseLayout>
+<style>
+  .mi-breadcrumb{padding-block:.5rem .25rem}.mi-static{padding-block:1.2rem 1rem}.mi-static h2{font:800 1.1rem Poppins,sans-serif}.mi-static p{max-width:85ch;line-height:1.8;color:var(--k-text-muted);font-size:.85rem}.mi-static nav{display:flex;flex-wrap:wrap;gap:1rem}.mi-static a{color:var(--k-text);text-underline-offset:4px}
+</style>

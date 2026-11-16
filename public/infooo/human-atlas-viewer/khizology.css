@@ -51,3 +51,43 @@ html.dark .ha-guide-controls{background:transparent}
 .ha-guide-notice[data-error=true]{position:absolute;top:132px;left:12px;right:12px;width:auto;height:auto;clip-path:none;white-space:normal;z-index:20;padding:12px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--foreground);font-size:13px;line-height:1.5}
 
 .detail-scroll .ha-guide-controls{position:static;background:transparent}
+
+/* Guided learning: navigation lives in the sheet's fixed footer, never inside the scrolling step text. */
+.detail-actions .ha-guide-controls{display:grid;grid-template-columns:1fr 1.4fr;gap:6px;position:static;background:transparent;border:0;border-bottom:1px solid var(--border,#18253618);padding:0 0 8px;margin:0 0 6px}
+.detail-actions .ha-guide-controls .ha-guide-progress{order:-1;grid-column:1/-1;font-size:10px;line-height:1.2;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#397a76}
+.detail-actions .ha-guide-controls .ha-learning-button{min-height:44px;grid-column:auto}
+.detail-actions .ha-guide-controls :is([data-action=restart],[data-action=exit]){min-height:32px;padding:4px 8px;font-size:12px}
+html.dark .detail-actions .ha-guide-controls .ha-guide-progress{color:#74dfc1}
+/* Desktop: use the free height below the sheet so step text and fixed controls both fit. */
+@media (min-width:768px) and (min-height:601px){
+ .detail-sheet{top:88px!important;bottom:56px!important}
+}
+/* Narrow desktop/tablet: the centered dock would sit under the taller sheet, so move it left while a structure is open. */
+@media (min-width:768px) and (max-width:1279px) and (min-height:601px){
+ body:has(.detail-sheet) .bottom-dock{left:16px;right:auto;transform:none;margin:0;width:auto;max-width:calc(100% - 440px)}
+}
+.ha-compact-toggle{display:none}
+/* Phones: a bottom sheet that leaves the anatomy visible above it, with an optional compact mode. */
+@media (max-width:767px){
+ html[data-site-embed] .detail-sheet,html[data-site-embed] .detail-sheet.is-isolated{top:auto!important;bottom:12px!important;max-height:56dvh!important}
+ html[data-site-embed] .detail-sheet[data-ha-compact=true] .detail-scroll{display:none}
+ html[data-site-embed] .detail-sheet .eyebrow{padding-right:150px}
+ html[data-site-embed] .ha-compact-toggle{display:inline-flex;align-items:center;justify-content:center;position:absolute;top:3px;right:50px;min-height:44px!important;min-width:88px;padding:4px 10px!important;font-size:12px!important;border:0!important;background:transparent!important;text-decoration:underline;text-underline-offset:3px}
+ html[data-site-embed] .detail-actions:has(.ha-guide-controls){display:grid;grid-template-columns:1fr 1fr;column-gap:6px}
+ html[data-site-embed] .detail-actions:has(.ha-guide-controls)>.ha-guide-controls{grid-column:1/-1}
+ html[data-site-embed] .detail-actions:has(.ha-guide-controls) :is(.primary-action,.secondary-action){min-height:44px;font-size:12px;white-space:normal;line-height:1.2}
+}
+.ha-compact-toggle:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+/* Short phone stages (about 520px tall): tighten spacing so the last action row is never clipped. */
+@media (max-width:767px) and (max-height:600px){
+ html[data-site-embed] .detail-sheet,html[data-site-embed] .detail-sheet.is-isolated{gap:8px!important;padding:12px!important}
+ html[data-site-embed] .detail-actions .ha-guide-controls .ha-guide-progress{display:none}
+ html[data-site-embed] .detail-actions .ha-guide-controls{padding-bottom:6px;margin-bottom:4px}
+ html[data-site-embed] .detail-actions .ha-guide-controls :is([data-action=restart],[data-action=exit]){min-height:28px}
+}
+/* Shorter desktop stages: the step card already shows progress, so give its line back to the step text. */
+@media (min-width:768px) and (min-height:601px) and (max-height:720px){
+ .detail-actions .ha-guide-controls .ha-guide-progress{display:none}
+}
+/* Keep progressive status visible without covering the model. */
+.scene-caption.atlas-progress{display:flex;color:var(--muted-foreground)}

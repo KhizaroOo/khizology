@@ -6,15 +6,16 @@ import {createExplosionLayout} from './explosion-layout';
 import type { assembleChunk } from './geometry-assembly';
 import {PointerTap} from './pointer-tap';
 import {explodeStep,allowAutoRotate} from './motion';
-import {SYSTEMS,type Atlas,type SceneState} from './anatomy';
-interface Props {atlas:Atlas;state:SceneState;onSelect:(id:string)=>void;onProgress:(n:number)=>void;onError:(s:string)=>void}
-export default function AnatomyScene({atlas,state,onSelect,onProgress,onError}:Props){
+import {geometryLoadOrder,SYSTEMS,type Atlas,type SceneState} from './anatomy';
+interface Props {atlas:Atlas;state:SceneState;onSelect:(id:string)=>void;onChunkReady:(id:number)=>void;onError:(s:string)=>void}
+export default function AnatomyScene({atlas,state,onSelect,onChunkReady,onError}:Props){
  const host=useRef<HTMLDivElement>(null),latest=useRef(state),select=useRef(onSelect);
  latest.current=state;select.current=onSelect;
  const wake=useRef<()=>void>(()=>{});
  useEffect(()=>wake.current(),[state]);
  useEffect(()=>{
-  const el=host.current!;let disposed=false,frame=0,dirty=true,ready=false,lastView='',lastReset=-1,lastIsolate='',layoutKey='',amount=0;
+  const el=host.current!;let disposed=false,frame=0,dirty=true,lastView='',lastReset=-1,lastIsolate='',layoutKey='',amount=0;
+  const renderedChunks=new Set<number>(), pendingChunks=new Set<number>();
   let lastState:SceneState|null=null;
   const schedule=()=>{if(!disposed&&!frame)frame=requestAnimationFrame(animate);};
   wake.current=()=>{dirty=true;schedule();};
@@ -23,7 +24,7 @@ export default function AnatomyScene({atlas,state,onSelect,onProgress,onError}:P
   let renderer:T.WebGLRenderer;
   try{renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});}catch{onError('This browser could not start the 3D viewer. Please try a browser with WebGL enabled.');return;}
   renderer.setPixelRatio(Math.min(devicePixelRatio,innerWidth<768?1.5:2));renderer.setClearColor(getComputedStyle(document.documentElement).backgroundColor);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;el.appendChild(renderer.domElement);
-  const themeObserver=new MutationObserver(()=>{renderer.setClearColor(getComputedStyle(document.documentElement).backgroundColor);dirty=true;schedule();});
+  const themeObserver=new MutationObserver(()=>{renderer.setClearColor(getComputedStyle(document.documentElement).backgroundColor);syncGhostColor();dirty=true;schedule();});
   themeObserver.observe(document.documentElement,{attributes:true,attributeFilter:['class','style']});
   renderer.domElement.setAttribute('aria-label','Interactive human anatomy. Drag to orbit, pinch or scroll to zoom, and tap a structure to inspect it.');
   const scene=new T.Scene(),camera=new T.PerspectiveCamera(34,1,.005,100),controls=new OrbitControls(camera,renderer.domElement);
@@ -57,20 +58,37 @@ export default function AnatomyScene({atlas,state,onSelect,onProgress,onError}:P
    for(const t of targets){const dx=Math.max(t.left-x,0,x-t.right),dy=Math.max(t.top-y,0,y-t.bottom),distance=Math.hypot(dx,dy);if(distance>radius)continue;const candidate=distance+Math.hypot(t.x-x,t.y-y)*.025;if(candidate<score){score=candidate;best=t.index;}}
    return best;
   };
+  // Focus mode: while something is selected (and not isolated), the selection stays solid and every other
+  // visible part is drawn as a faint see-through "ghost" so the selection is visible inside its body context.
+  const focusActive={value:0},ghostColor={value:new T.Color(0x40515e)};
+  const syncGhostColor=()=>{const hsl={h:0,s:0,l:0};new T.Color(getComputedStyle(document.documentElement).backgroundColor).getHSL(hsl);ghostColor.value.set(hsl.l>.5?0x7a8a96:0xb7c6d0);};
+  syncGhostColor();
+  const stateShader=(shader:Parameters<T.Material['onBeforeCompile']>[0])=>{
+   shader.uniforms.partState={value:partTexture};shader.uniforms.selectionState={value:selectionTexture};shader.uniforms.stateWidth={value:width};shader.uniforms.focusActive=focusActive;
+   shader.vertexShader='attribute float partIndex; uniform sampler2D partState; uniform sampler2D selectionState; uniform float stateWidth; varying float partVisible; varying float partSelected;\n'+shader.vertexShader;
+   shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvec2 stateUv = vec2((partIndex + 0.5) / stateWidth, 0.5); vec4 state = texture2D(partState, stateUv); transformed += state.xyz; partVisible = state.w; partSelected = texture2D(selectionState, stateUv).r;');
+   shader.fragmentShader='uniform float focusActive; varying float partVisible; varying float partSelected;\n'+shader.fragmentShader;
+  };
   const materialFor=(system:string)=>{
    const m=new T.MeshStandardMaterial({color:SYSTEMS.find(s=>s.id===system)?.color??'#aebbb8',metalness:.08,roughness:.53,side:T.DoubleSide,transparent:system==='integumentary',opacity:system==='integumentary'?.1:1,depthWrite:system!=='integumentary'});
    m.onBeforeCompile=shader=>{
-    shader.uniforms.partState={value:partTexture};shader.uniforms.selectionState={value:selectionTexture};shader.uniforms.stateWidth={value:width};
-    shader.vertexShader='attribute float partIndex; uniform sampler2D partState; uniform sampler2D selectionState; uniform float stateWidth; varying float partVisible; varying float partSelected;\n'+shader.vertexShader;
-    shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvec2 stateUv = vec2((partIndex + 0.5) / stateWidth, 0.5); vec4 state = texture2D(partState, stateUv); transformed += state.xyz; partVisible = state.w; partSelected = texture2D(selectionState, stateUv).r;');
-    shader.fragmentShader='varying float partVisible; varying float partSelected;\n'+shader.fragmentShader;
-    shader.fragmentShader=shader.fragmentShader.replace('#include <clipping_planes_fragment>','#include <clipping_planes_fragment>\nif (partVisible < 0.5) discard;');
-    shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.42, 0.85, 0.78), partSelected * 0.75);');
+    stateShader(shader);
+    shader.fragmentShader=shader.fragmentShader.replace('#include <clipping_planes_fragment>','#include <clipping_planes_fragment>\nif (partVisible < 0.5 || (focusActive > 0.5 && partSelected < 0.5)) discard;');
+    // Selected parts: saturated teal plus a little self-light so they read clearly against the ghosted body in both themes.
+    shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.1, 0.62, 0.54), partSelected * 0.9);');
+    shader.fragmentShader=shader.fragmentShader.replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\ntotalEmissiveRadiance += vec3(0.02, 0.16, 0.13) * partSelected;');
    };materials.push(m);return m;
   };
   const mats=new Map(SYSTEMS.map(s=>[s.id,materialFor(s.id)]));
-  let loaded=0;
-  const batches:Array<{system:string;mesh:T.Mesh}>=[];
+  const ghostMaterial=new T.MeshLambertMaterial({transparent:true,depthWrite:false,side:T.DoubleSide});
+  ghostMaterial.onBeforeCompile=shader=>{
+   stateShader(shader);shader.uniforms.ghostColor=ghostColor;
+   shader.fragmentShader='uniform vec3 ghostColor;\n'+shader.fragmentShader.replace('#include <clipping_planes_fragment>','#include <clipping_planes_fragment>\nif (partVisible < 0.5 || partSelected > 0.5 || focusActive < 0.5) discard;');
+   // Rim-weighted alpha: outlines carry the body shape while facing surfaces stay nearly clear.
+   shader.fragmentShader=shader.fragmentShader.replace('#include <dithering_fragment>','#include <dithering_fragment>\nfloat rim = 1.0 - abs(dot(normalize(normal), normalize(vViewPosition)));\ngl_FragColor = vec4(ghostColor, 0.02 + 0.22 * pow(rim, 3.0));');
+  };materials.push(ghostMaterial);
+  let ghostWarmed=false;
+  const batches:Array<{system:string;mesh:T.Mesh;ghost:T.Mesh}>=[];
   const warmedSystems=new Set<string>();
   let worker:Worker;
   try{worker=new Worker(new URL('./geometry-worker.ts',import.meta.url),{type:'module'});}catch{disposed=true;controls.dispose();pmrem.dispose();room.dispose();partTexture.dispose();selectionTexture.dispose();renderer.dispose();renderer.domElement.remove();hover.remove();onError('This browser could not start anatomy preparation. Please reload or try another browser.');return;}
@@ -101,14 +119,57 @@ export default function AnatomyScene({atlas,state,onSelect,onProgress,onError}:P
     geometry.setAttribute('normal',new T.BufferAttribute(group.normals,3,true));
     geometry.setAttribute('partIndex',new T.BufferAttribute(group.partIndices,1));
     geometry.setIndex(new T.BufferAttribute(group.indices,1));geometries.push(geometry);
-    const mesh=new T.Mesh(geometry,mats.get(group.system as never));mesh.frustumCulled=false;scene.add(mesh);batches.push({system:group.system,mesh});
-    if(!warmedSystems.has(group.system)){compiling++;try{const preparation=renderer.compileAsync(scene,camera);preparations.push(preparation);await preparation;}finally{compiling--;}warmedSystems.add(group.system);}
-    if(disposed)return;lastState=null;dirty=true;schedule();await yieldPaint();
+    const mesh=new T.Mesh(geometry,mats.get(group.system as never));mesh.frustumCulled=false;scene.add(mesh);
+    const ghost=new T.Mesh(geometry,ghostMaterial);ghost.frustumCulled=false;ghost.renderOrder=2;ghost.visible=false;scene.add(ghost);
+    batches.push({system:group.system,mesh,ghost});
+    if(!warmedSystems.has(group.system)){
+     // Warm the focus material with the first anatomical batch, before early selection is offered.
+     const warmGhost=!ghostWarmed;ghostWarmed=true;
+     if(warmGhost)ghost.visible=true;
+     compiling++;
+     try{
+      let preparation:Promise<unknown>;
+      try{preparation=renderer.compileAsync(scene,camera);}finally{if(warmGhost)ghost.visible=false;}
+      preparations.push(preparation);await preparation;
+     }finally{compiling--;}
+     warmedSystems.add(group.system);
+    }
+    if(disposed)return;
    }
-   if(!disposed){loaded++;onProgress(Math.round(loaded/atlas.chunks.length*100));}
+   // The chunk becomes usable as a batch. Avoid intermediate frame uploads for
+   // every system mesh while the rest of this chunk is still being prepared.
+   if(!disposed){pendingChunks.add(ci);lastState=null;dirty=true;schedule();}
   };
-  (async()=>{try{let cursor=0;await Promise.all(Array.from({length:3},async()=>{while(cursor<atlas.chunks.length){const i=cursor++;await loadChunk(i);}}));if(!disposed){ready=true;dirty=true;schedule();}}catch(e){if(!disposed)onError(e instanceof Error?e.message:'Could not load the anatomy.');}})();
+  (async()=>{try{
+   const order=geometryLoadOrder(atlas);let cursor=0;
+   await Promise.all(Array.from({length:3},async()=>{
+    while(!disposed&&cursor<order.length)await loadChunk(order[cursor++]);
+   }));
+  }catch(e){if(!disposed)onError(e instanceof Error?e.message:'Could not load the anatomy.');}})();
+  // Camera framing shared by isolate (tight) and focus (structure plus surrounding body).
+  let offX=0,offY=0,layoutBump=0,lastFocus='';
+  let frameTween:{t:number;fromPos:T.Vector3;toPos:T.Vector3;fromTarget:T.Vector3;toTarget:T.Vector3;fromOff:[number,number];toOff:[number,number]}|null=null;
+  const applyOffset=(x:number,y:number)=>{offX=x;offY=y;const w=el.clientWidth,h=el.clientHeight;if(Math.abs(x)<.5&&Math.abs(y)<.5)camera.clearViewOffset();else camera.setViewOffset(w,h,x,y,w,h);};
+  controls.addEventListener('start',()=>{frameTween=null;});
+  const layoutChanged=()=>{layoutBump++;dirty=true;schedule();};document.addEventListener('infooo-atlas-layout',layoutChanged);
+  // Screen area not covered by panels, so the framed structure lands where it can be seen.
+  const freeRect=(inspectorOpen?:boolean)=>{
+   const w=el.clientWidth,h=el.clientHeight,mobile=w<768,landscape=w>h&&h<=600;let left=20,right=w-20,top=mobile?175:110,bottom=h-170;
+   if(inspectorOpen){if(landscape){right=w-335;top=100;bottom=h-125;}else if(mobile){const sheet=document.querySelector('.detail-sheet')?.getBoundingClientRect();let chrome=0;for(const selector of ['.identity','.top-actions','.view-controls']){const node=document.querySelector(selector),rect=node?.getBoundingClientRect();if(node&&rect&&rect.height>0&&getComputedStyle(node).visibility!=='hidden')chrome=Math.max(chrome,rect.bottom);}top=(chrome||94)+16;bottom=(sheet?.top??h*.58-139)-16;}else{right=w-370;left=w>1100?285:25;}}
+   return {w,h,left,right,top,bottom};
+  };
+  const selectionBox=(ids:string[])=>{const box=new T.Box3(),wanted=new Set(ids);atlas.parts.forEach((p,i)=>{if(wanted.has(p.id))box.union(bounds[i].clone().translate(new T.Vector3(data[i*4],data[i*4+1],data[i*4+2])));});return box;};
+  const frameFor=(box:T.Box3,context:boolean,inspectorOpen?:boolean)=>{
+   const center=box.getCenter(new T.Vector3()),size=box.getSize(new T.Vector3()),{w,h,left,right,top,bottom}=freeRect(inspectorOpen);
+   const availableWidth=Math.max(150,right-left),availableHeight=Math.max(40,bottom-top),span=2*Math.tan(T.MathUtils.degToRad(camera.fov/2));
+   const tight=Math.max(size.y*h/availableHeight,size.x*w/availableWidth/camera.aspect,size.z)/span;
+   // Context framing keeps at least ~0.6 m of body visible around small structures and never zooms out past the whole body.
+   const minContext=.62*h/availableHeight/span,maxContext=Math.max(minContext,1.9*h/availableHeight/span);
+   const distance=context?T.MathUtils.clamp(tight*3.2,minContext,maxContext):Math.max(.07,tight*1.35);
+   return {center,distance,offset:[w/2-(left+right)/2,h/2-(top+bottom)/2] as [number,number]};
+  };
   const fit=(view:string,extent=0)=>{
+   frameTween=null;applyOffset(0,0);
    const aspect=camera.aspect,mobile=el.clientWidth<768,normalDistance=mobile?Math.max(4.5,1.8*el.clientHeight/Math.max(160,el.clientHeight-350)/(2*Math.tan(T.MathUtils.degToRad(camera.fov/2)))):4;
    const reservedHeight=mobile?350:270;const availableAspect=Math.max(.35,(el.clientWidth-(mobile?40:340))/Math.max(160,el.clientHeight-reservedHeight));const atlasDistance=Math.max(packingHeight,packingWidth/availableAspect)/(2*Math.tan(T.MathUtils.degToRad(camera.fov/2)))*(el.clientHeight/Math.max(160,el.clientHeight-reservedHeight))*1.08;
    const distance=T.MathUtils.lerp(normalDistance,Math.max(.2,atlasDistance),extent);if(extent>.8)view='front';
@@ -121,9 +182,9 @@ export default function AnatomyScene({atlas,state,onSelect,onProgress,onError}:P
   const move=(e:PointerEvent)=>{tap.move(e.pointerId,e.clientX,e.clientY);if(e.buttons||amount<.5||e.pointerType==='touch'){hover.hidden=true;return;}const rect=el.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top,index=findTarget(x,y,12);hover.hidden=index<0;renderer.domElement.style.cursor=index<0?'grab':'pointer';if(index>=0){hover.textContent=atlas.parts[index].name;hover.style.left=`${Math.max(8,Math.min(x+14,el.clientWidth-260))}px`;hover.style.top=`${Math.max(8,Math.min(y+18,el.clientHeight-55))}px`;}};
   const cancel=(e:PointerEvent)=>tap.cancel(e.pointerId);
   const up=(e:PointerEvent)=>{
-   const validTap=tap.up(e.pointerId,e.clientX,e.clientY);if(!validTap||!ready)return;const rect=renderer.domElement.getBoundingClientRect();pointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);raycaster.setFromCamera(pointer,camera);
-   let nearest=Infinity,found=-1;const hasSolid=atlas.parts.some((p,i)=>p.system!=='integumentary'&&data[i*4+3]>.5);
-   pickers.forEach((mesh,i)=>{if(!mesh||data[i*4+3]<.5||(hasSolid&&atlas.parts[i].system==='integumentary'))return;worldBox.copy(bounds[i]).translate(mesh.position);if(!raycaster.ray.intersectBox(worldBox,hitPoint))return;const hits=raycaster.intersectObject(mesh,false);if(hits[0]&&hits[0].distance<nearest){nearest=hits[0].distance;found=i;}});
+   const validTap=tap.up(e.pointerId,e.clientX,e.clientY);if(!validTap||!renderedChunks.size)return;const rect=renderer.domElement.getBoundingClientRect();pointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);raycaster.setFromCamera(pointer,camera);
+   let nearest=Infinity,found=-1;const hasSolid=atlas.parts.some((p,i)=>p.system!=='integumentary'&&renderedChunks.has(p.chunk)&&data[i*4+3]>.5);
+   pickers.forEach((mesh,i)=>{if(!mesh||!renderedChunks.has(atlas.parts[i].chunk)||data[i*4+3]<.5||(hasSolid&&atlas.parts[i].system==='integumentary'))return;worldBox.copy(bounds[i]).translate(mesh.position);if(!raycaster.ray.intersectBox(worldBox,hitPoint))return;const hits=raycaster.intersectObject(mesh,false);if(hits[0]&&hits[0].distance<nearest){nearest=hits[0].distance;found=i;}});
    if(found<0&&amount>.45)found=findTarget(e.clientX-rect.left,e.clientY-rect.top,e.pointerType==='touch'?24:16);if(found>=0){hover.hidden=true;select.current(atlas.parts[found].id);}
   };
   renderer.domElement.addEventListener('pointerdown',down);renderer.domElement.addEventListener('pointermove',move);renderer.domElement.addEventListener('pointerup',up);renderer.domElement.addEventListener('pointercancel',cancel);
@@ -136,7 +197,8 @@ export default function AnatomyScene({atlas,state,onSelect,onProgress,onError}:P
    if(changed||moving||lastExtent<0){
     const visible=new Set(s.visible),selection=new Set(s.selected);
     const selectedSystems=new Set(atlas.parts.filter(p=>selection.has(p.id)).map(p=>p.system));
-    batches.forEach(({system,mesh})=>{mesh.visible=s.isolate?selectedSystems.has(system as never):visible.has(system as never)||selectedSystems.has(system as never);});
+    const focusOn=selection.size>0&&!s.isolate;focusActive.value=focusOn?1:0;
+    batches.forEach(({system,mesh,ghost})=>{const shown=s.isolate?selectedSystems.has(system as never):visible.has(system as never)||selectedSystems.has(system as never);mesh.visible=shown&&(!focusOn||selectedSystems.has(system as never));ghost.visible=shown&&focusOn;});
     const visibleParts=atlas.parts.filter(p=>s.isolate?selection.has(p.id):visible.has(p.system)||selection.has(p.id));
     const nextLayoutKey=visibleParts.map(p=>p.id).join(',')+':'+camera.aspect.toFixed(3);
     if(nextLayoutKey!==layoutKey){const layout=createExplosionLayout(visibleParts,camera.aspect);packingWidth=layout.width;packingHeight=layout.height;atlas.parts.forEach((p,i)=>{const cell=layout.cells.get(p.id);offsets[i]=cell?new T.Vector3(cell.x,cell.y+.85,0):centers[i].clone();});layoutKey=nextLayoutKey;if(amount>.05&&!s.isolate)fit(s.view,Math.max(0,(amount-.3)/.7));}
@@ -146,26 +208,44 @@ export default function AnatomyScene({atlas,state,onSelect,onProgress,onError}:P
      if(amount<=.45){const t=amount/.45;const group=SYSTEMS.findIndex(sys=>sys.id===p.system);const angle=group/SYSTEMS.length*Math.PI*2;dx=Math.sin(angle)*t*.48;dy=(c.y-.85)*t*.28;dz=Math.cos(angle)*t*.48;}
      else {const t=(amount-.45)/.55,group=SYSTEMS.findIndex(sys=>sys.id===p.system),angle=group/SYSTEMS.length*Math.PI*2;dx=T.MathUtils.lerp(Math.sin(angle)*.48,destination.x-c.x,t);dy=T.MathUtils.lerp((c.y-.85)*.28,destination.y-c.y,t);dz=T.MathUtils.lerp(Math.cos(angle)*.48,-c.z,t);}
      const selected=selection.has(p.id);data.set([dx,dy,dz,(s.isolate?selected:visible.has(p.system)||selected)?1:0],i*4);selectedData[i*4]=selected?255:0;
-     markerPositions.set(data[i*4+3]>.5?[c.x+dx,c.y+dy,c.z+dz]:[10000,10000,10000],i*3);const mesh=pickers[i];if(mesh){mesh.position.set(dx,dy,dz);mesh.updateMatrix();mesh.updateMatrixWorld(true);}
+     markerPositions.set(data[i*4+3]>.5&&(renderedChunks.has(p.chunk)||pendingChunks.has(p.chunk))?[c.x+dx,c.y+dy,c.z+dz]:[10000,10000,10000],i*3);const mesh=pickers[i];if(mesh){mesh.position.set(dx,dy,dz);mesh.updateMatrix();mesh.updateMatrixWorld(true);}
     });partTexture.needsUpdate=true;selectionTexture.needsUpdate=true;markerGeometry.attributes.position.needsUpdate=true;lastState=s;lastExtent=amount;dirty=true;
    }
    if(s.view!==lastView||s.reset!==lastReset){fit(s.view,amount);lastView=s.view;lastReset=s.reset;}
    if(moving&&!s.isolate)fit(amount>.5?'front':s.view,Math.max(0,(amount-.3)/.7));
-   const isolateKey=s.isolate?s.selected.join(',')+':'+s.reset+':'+s.inspectorOpen+':'+camera.aspect:'';
+   const isolateKey=s.isolate?s.selected.join(',')+':'+s.reset+':'+s.inspectorOpen+':'+camera.aspect+':'+layoutBump:'';
    if(isolateKey!==lastIsolate||(s.isolate&&moving)){
-    if(s.isolate){const box=new T.Box3();atlas.parts.forEach((p,i)=>{if(s.selected.includes(p.id))box.union(bounds[i].clone().translate(new T.Vector3(data[i*4],data[i*4+1],data[i*4+2])));});
-     if(!box.isEmpty()){const center=box.getCenter(new T.Vector3()),size=box.getSize(new T.Vector3());const w=el.clientWidth,h=el.clientHeight,mobile=w<768,landscape=w>h&&h<=600;let left=20,right=w-20,top=mobile?175:110,bottom=h-170;if(s.inspectorOpen){if(landscape){right=w-335;top=100;bottom=h-125;}else if(mobile){const sheet=document.querySelector('.detail-sheet')?.getBoundingClientRect(),header=document.querySelector('.identity')?.getBoundingClientRect();top=(header?.bottom??94)+16;bottom=(sheet?.top??h*.58-139)-16;}else{right=w-370;left=w>1100?285:25;}}const availableWidth=Math.max(150,right-left),availableHeight=Math.max(40,bottom-top);camera.setViewOffset(w,h,w/2-(left+right)/2,h/2-(top+bottom)/2,w,h);const distance=Math.max(.07,Math.max(size.y*h/availableHeight,size.x*w/availableWidth/camera.aspect,size.z)/(2*Math.tan(T.MathUtils.degToRad(camera.fov/2)))*1.35);controls.maxDistance=Math.max(40,distance*2);controls.target.copy(center);camera.position.copy(center).add(new T.Vector3(.2,.1,1).normalize().multiplyScalar(distance));controls.update();dirty=true;}
-    }else if(lastIsolate){camera.clearViewOffset();fit(s.view,amount);}
+    if(s.isolate){const box=selectionBox(s.selected);
+     if(!box.isEmpty()){frameTween=null;const f=frameFor(box,false,s.inspectorOpen);applyOffset(f.offset[0],f.offset[1]);controls.maxDistance=Math.max(40,f.distance*2);controls.target.copy(f.center);camera.position.copy(f.center).add(new T.Vector3(.2,.1,1).normalize().multiplyScalar(f.distance));controls.update();dirty=true;}
+    }else if(lastIsolate){fit(s.view,amount);}
     lastIsolate=isolateKey;
    }
+   // Search and guide selections (frame > 0) move the camera to the structure while keeping the current viewing direction.
+   const focusKey=!s.isolate&&s.selected.length&&(s.frame??0)>0&&amount<.05?s.frame+':'+s.inspectorOpen+':'+camera.aspect.toFixed(3)+':'+layoutBump:'';
+   if(focusKey!==lastFocus){
+    if(focusKey){const box=selectionBox(s.selected);
+     if(!box.isEmpty()){const f=frameFor(box,true,s.inspectorOpen),direction=camera.position.clone().sub(controls.target);if(direction.lengthSq()<1e-8)direction.set(.35,.06,1);direction.normalize();
+      const toPos=f.center.clone().addScaledVector(direction,f.distance);controls.maxDistance=Math.max(40,f.distance*2);
+      if(motion.matches){frameTween=null;applyOffset(f.offset[0],f.offset[1]);controls.target.copy(f.center);camera.position.copy(toPos);controls.update();}
+      else frameTween={t:0,fromPos:camera.position.clone(),toPos,fromTarget:controls.target.clone(),toTarget:f.center,fromOff:[offX,offY],toOff:f.offset};
+      dirty=true;}}
+    lastFocus=focusKey;
+   }
+   if(frameTween){frameTween.t=Math.min(1,frameTween.t+dt/.7);const k=1-Math.pow(1-frameTween.t,3);camera.position.lerpVectors(frameTween.fromPos,frameTween.toPos,k);controls.target.lerpVectors(frameTween.fromTarget,frameTween.toTarget,k);applyOffset(T.MathUtils.lerp(frameTween.fromOff[0],frameTween.toOff[0],k),T.MathUtils.lerp(frameTween.fromOff[1],frameTween.toOff[1],k));if(frameTween.t>=1)frameTween=null;dirty=true;}
    controls.enableRotate=amount<.8;controls.mouseButtons.LEFT=amount<.8?T.MOUSE.ROTATE:T.MOUSE.PAN;controls.touches.ONE=amount<.8?T.TOUCH.ROTATE:T.TOUCH.PAN;ground.visible=platform.visible=ring.visible=innerRing.visible=amount<.5&&!s.isolate;markers.visible=amount>.75;controls.autoRotate=allowAutoRotate(s.rotate,s.isolate,amount,motion.matches);controls.autoRotateSpeed=.65;controls.update();if(controls.autoRotate)dirty=true;
-   if(dirty&&compiling===0){renderer.render(scene,camera);targets=[];if(amount>.45){const hasSolid=atlas.parts.some((p,i)=>p.system!=='integumentary'&&data[i*4+3]>.5);atlas.parts.forEach((p,i)=>{if(data[i*4+3]<.5||(hasSolid&&p.system==='integumentary'))return;let left=Infinity,right=-Infinity,top=Infinity,bottom=-Infinity;for(let corner=0;corner<8;corner++){projected.set(p.bounds[(corner&1)?1:0][0]+data[i*4],p.bounds[(corner&2)?1:0][1]+data[i*4+1],p.bounds[(corner&4)?1:0][2]+data[i*4+2]).project(camera);const x=(projected.x+1)*el.clientWidth/2,y=(1-projected.y)*el.clientHeight/2;left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y);}projected.copy(centers[i]).add(new T.Vector3(data[i*4],data[i*4+1],data[i*4+2])).project(camera);if(projected.z< -1||projected.z>1)return;targets.push({index:i,x:(projected.x+1)*el.clientWidth/2,y:(1-projected.y)*el.clientHeight/2,left,right,top,bottom});});}dirty=false;}
+   if(dirty&&compiling===0){
+    renderer.render(scene,camera);
+    // Only publish chunks once both the render batches and their picking meshes have reached a frame.
+    for(const chunk of pendingChunks){renderedChunks.add(chunk);onChunkReady(chunk);}
+    pendingChunks.clear();
+    targets=[];if(amount>.45){const hasSolid=atlas.parts.some((p,i)=>p.system!=='integumentary'&&renderedChunks.has(p.chunk)&&data[i*4+3]>.5);atlas.parts.forEach((p,i)=>{if(!renderedChunks.has(p.chunk)||data[i*4+3]<.5||(hasSolid&&p.system==='integumentary'))return;let left=Infinity,right=-Infinity,top=Infinity,bottom=-Infinity;for(let corner=0;corner<8;corner++){projected.set(p.bounds[(corner&1)?1:0][0]+data[i*4],p.bounds[(corner&2)?1:0][1]+data[i*4+1],p.bounds[(corner&4)?1:0][2]+data[i*4+2]).project(camera);const x=(projected.x+1)*el.clientWidth/2,y=(1-projected.y)*el.clientHeight/2;left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y);}projected.copy(centers[i]).add(new T.Vector3(data[i*4],data[i*4+1],data[i*4+2])).project(camera);if(projected.z< -1||projected.z>1)return;targets.push({index:i,x:(projected.x+1)*el.clientWidth/2,y:(1-projected.y)*el.clientHeight/2,left,right,top,bottom});});}dirty=false;
+   }
 
-   if(moving||controls.autoRotate)schedule();
+   if(moving||controls.autoRotate||frameTween)schedule();
   };motion.addEventListener('change',motionChanged);schedule();
   const contextLost=(e:Event)=>{e.preventDefault();onError('The 3D session was paused by your device. Reload to continue.');};renderer.domElement.addEventListener('webglcontextlost',contextLost);
   return()=>{
-   themeObserver.disconnect();
+   themeObserver.disconnect();document.removeEventListener('infooo-atlas-layout',layoutChanged);
    disposed=true;motion.removeEventListener('change',motionChanged);worker.terminate();jobs.forEach(job=>job.reject(new Error('Viewer closed')));jobs.clear();wake.current=()=>{};cancelAnimationFrame(frame);observer.disconnect();controls.dispose();hover.remove();renderer.domElement.remove();
    // Keep programs valid until asynchronous compilation settles, then release GPU resources.
    void Promise.allSettled(preparations).then(()=>{geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());scene.traverse(o=>{if(o instanceof T.Mesh&&!geometries.includes(o.geometry)){o.geometry.dispose();const ms=Array.isArray(o.material)?o.material:[o.material];ms.forEach(m=>m.dispose());}});env?.dispose();room.dispose();pmrem.dispose();partTexture.dispose();selectionTexture.dispose();markerGeometry.dispose();markerMaterial.dispose();renderer.dispose();});

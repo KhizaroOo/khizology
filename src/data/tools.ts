@@ -158,7 +158,7 @@ export const tools: Tool[] = [
     featureLevel: 2,
     privacySensitive: true,
     icon: '🕰️',
-    keywords: ['jwt decoder', 'token expiry', 'jwt debugger', 'auth token checker'],
+    keywords: ['jwt decoder', 'token expiry', 'expired JWT', 'jwt debugger', 'auth token checker'],
   },
   {
     id: 'cors-doctor',
@@ -357,7 +357,7 @@ export const tools: Tool[] = [
     status: 'active',
     featureLevel: 3,
     icon: '🌳',
-    keywords: ['fan-out latency', 'tail latency', 'parallel requests', 'p99 latency'],
+    keywords: ['fan-out latency', 'tail latency', 'parallel requests', 'slow API dependency', 'p99 latency'],
     lv3: {
       capabilities: { scenario: true, shareResults: true, myToolooo: true, smartNextMoves: true, toolChains: true },
       nextMoves: [
@@ -598,7 +598,7 @@ export const tools: Tool[] = [
     status: 'active',
     featureLevel: 3,
     icon: '⏱️',
-    keywords: ['timeout budget', 'service chain timeout', 'request timeout planning'],
+    keywords: ['timeout budget', 'service chain timeout', 'API timeout planning', 'request timeout planning'],
     lv3: {
       capabilities: { scenario: true, shareResults: true, myToolooo: true, smartNextMoves: true, toolChains: true },
       nextMoves: [

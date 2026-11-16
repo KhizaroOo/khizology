@@ -3,6 +3,8 @@ export type Idempotency = 'yes' | 'no' | 'unknown';
 export interface RetryInputs { originalRps: number; failureRate: number; failureDuration: number; maxAttempts: number; strategy: RetryStrategy; initialDelay: number; multiplier: number; maxDelay: number; jitter: boolean; retryBudgetPercent: number; capacity: number; errorKind: 'transient' | 'non-retryable'; idempotency: Idempotency; }
 export interface RetryTick { original: number; retry: number; total: number; }
 const TICKS = 24;
+// Educational bands, based on modeled headroom rather than a production safety limit.
+export const RETRY_PRESSURE_THRESHOLDS = { near: 0.9, severe: 1.25 } as const;
 const random = (seed: number) => { const x = Math.sin(seed * 12.9898) * 43758.5453; return x - Math.floor(x); };
 export function retryDelay(attempt: number, input: RetryInputs, seed: number): number {
   if (input.strategy === 'immediate') return 0;
@@ -31,7 +33,9 @@ export function simulateRetry(input: RetryInputs) {
   const totalRetry = ticks.reduce((sum, tick) => sum + tick.retry, 0);
   const peak = Math.max(...ticks.map((tick) => tick.total));
   const peakRetry = Math.max(...ticks.map((tick) => tick.retry));
-  const pressure = peak > input.capacity * 1.25 ? 'severe' : peak > input.capacity ? 'risk' : 'low';
+  const pressure: 'severe' | 'risk' | 'near' | 'low' = peak > input.capacity * RETRY_PRESSURE_THRESHOLDS.severe ? 'severe'
+    : peak > input.capacity ? 'risk'
+    : peak >= input.capacity * RETRY_PRESSURE_THRESHOLDS.near ? 'near' : 'low';
   return { ticks, totalOriginal, totalRetry, peak, peakRetry, amplification: peak / Math.max(input.originalRps, 1), budgetUsed: totalRetry / Math.max(totalOriginal * input.retryBudgetPercent / 100, 1), pressure };
 }
 

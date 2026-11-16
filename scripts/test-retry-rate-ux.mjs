@@ -82,6 +82,12 @@ for (const name of ['RetryStormSimulator', 'RateLimitPlayground']) {
     compare();
   }
   if (retry) {
+    const safer = presets.find(preset => preset.label.startsWith('Safer'));
+    f.action(f.find(n => isComponent(n, 'PresetBar')), 'onSelect', safer.values, safer.label);
+    assert.match(result().what, /near capacity/i);
+    assert.match(result().why, /259 req\/s against 260 req\/s/);
+    assert.match(result().tip, /headroom/);
+    assert.match(f.find(n => isComponent(n, 'ShareResultFoundation')).props.result.summary, /Near capacity at 259 req\/s against 260 req\/s/);
     assert.ok(!withinDepth(f, f.find(n => isComponent(n, 'RangeControl') && n.props.label === 'Total attempts per request')));
     assert.ok(withinDepth(f, f.find(n => n.type === 'button' && n.props.children === 'Exponential')));
     update('Total attempts per request', 1); compare();

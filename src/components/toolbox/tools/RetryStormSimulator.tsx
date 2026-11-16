@@ -7,7 +7,7 @@ import PresetBar from '../shared/PresetBar';
 import AdvancedDisclosure from '../shared/AdvancedDisclosure';
 import Warning from '../shared/Warning';
 import ShareResultFoundation from '../ShareResultFoundation';
-import { simulateRetry, type RetryInputs, type RetryStrategy, type Idempotency } from './retryRateModels';
+import { RETRY_PRESSURE_THRESHOLDS, simulateRetry, type RetryInputs, type RetryStrategy, type Idempotency } from './retryRateModels';
 import './retry-rate-ux.css';
 
 const ACCENT = '#F7933C'; const label = { display: 'block' as const, font: '700 .76rem Poppins, sans-serif', textTransform: 'uppercase' as const, letterSpacing: '.06em', color: 'var(--k-text-muted)', marginBottom: '.4rem' };
@@ -24,10 +24,24 @@ export default function RetryStormSimulator() {
   const model = useMemo(() => simulateRetry(input), [input]);
   const comparison = useMemo(() => simulateRetry({ ...input, strategy: 'exponential', jitter: true, maxAttempts: Math.min(input.maxAttempts, 3), retryBudgetPercent: Math.min(input.retryBudgetPercent, 25) }), [input]);
   const max = Math.max(...model.ticks.map((x) => x.total), input.capacity, 1); const w = 640; const h = 190; const bar = w / model.ticks.length;
-  const pressure = model.pressure === 'severe' ? ['danger', 'Severe retry pressure'] as const : model.pressure === 'risk' ? ['warn', 'Recovery risk'] as const : ['good', 'Low pressure'] as const;
-  const action = input.errorKind === 'non-retryable' ? 'This model treats the error as non-retryable. Resolve the request or API semantics before automating another attempt.' : input.idempotency !== 'yes' ? 'Review whether repeating this operation can repeat side effects before enabling automated retries.' : model.totalRetry === 0 && model.peak > input.capacity ? 'Original traffic already exceeds simulated capacity. Reduce incoming traffic or review service capacity; retry tuning alone cannot fix that baseline.' : input.maxAttempts === 1 ? 'Keep retries disabled unless the API documents a retryable failure and repeating the operation is safe.' : model.pressure !== 'low' ? 'Test fewer attempts, a bounded retry budget, and exponential backoff with jitter against your real dependency limits.' : 'Keep the policy bounded and test it with the API’s documented retryable errors and recovery behavior.';
+  const pressure = ({
+    severe: ['danger', 'Severe retry pressure'],
+    risk: ['warn', 'Recovery risk'],
+    near: ['warn', 'Near capacity'],
+    low: ['good', 'Low pressure'],
+  } as const)[model.pressure];
+  const action = model.totalRetry === 0 && model.pressure !== 'low'
+    ? `Original traffic alone ${model.peak > input.capacity ? 'exceeds simulated capacity' : 'leaves little or no headroom'}. Review baseline load and service capacity before adding retries.`
+    : input.errorKind === 'non-retryable' ? 'This model treats the error as non-retryable. Resolve the request or API semantics before automating another attempt.'
+    : input.idempotency !== 'yes' ? 'Review whether repeating this operation can repeat side effects before enabling automated retries.'
+    : input.maxAttempts === 1 ? 'Keep retries disabled unless the API documents a retryable failure and repeating the operation is safe.'
+    : model.pressure === 'near' ? 'Allow more headroom for traffic spikes. Test fewer attempts or a tighter retry budget against real dependency limits.'
+    : model.pressure !== 'low' ? 'Test fewer attempts, a bounded retry budget, and exponential backoff with jitter against your real dependency limits.'
+    : 'Keep the policy bounded and test it with the API’s documented retryable errors and recovery behavior.';
   const totalAttempts = Math.round(model.totalOriginal + model.totalRetry);
-  const reason = model.totalRetry > 0 ? `Failed requests created about ${Math.round(model.totalRetry).toLocaleString('en-US')} extra attempts over 24 seconds. Peak traffic reached ${Math.round(model.peak)} req/s against ${input.capacity} req/s simulated capacity.` : input.errorKind === 'non-retryable' ? 'No retries are scheduled for a non-retryable error in this model.' : input.maxAttempts === 1 ? 'One total attempt means the original request only; there are no retries.' : input.failureRate === 0 ? 'No modeled failures means no follow-up retries.' : 'The configured retry budget prevents additional attempts in this scenario.';
+  const peak = `${Math.round(model.peak)} req/s against ${input.capacity} req/s simulated capacity`;
+  const retryReason = model.totalRetry > 0 ? `Failed requests created about ${Math.round(model.totalRetry).toLocaleString('en-US')} extra attempts over 24 seconds.` : input.errorKind === 'non-retryable' ? 'No retries are scheduled for a non-retryable error in this model.' : input.maxAttempts === 1 ? 'One total attempt means the original request only; there are no retries.' : input.failureRate === 0 ? 'No modeled failures means no follow-up retries.' : 'The configured retry budget prevents additional attempts in this scenario.';
+  const reason = `${retryReason} Peak traffic reached ${peak}.`;
   return <div className="retry-storm retry-rate-workspace">
     <p className="retry-rate-purpose">Failures → retries → more attempts → more pressure. Compare the current policy with bounded retries.</p>
     <p style={label}>Try a retry scenario</p><PresetBar presets={scenarios} activeLabel={active} onSelect={apply} accent={ACCENT} />
@@ -53,7 +67,8 @@ export default function RetryStormSimulator() {
     <AdvancedDisclosure summary="Supporting metrics and safer-policy comparison">
     <div className="supporting-metrics" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(145px,1fr))', gap: '.7rem', marginTop: '1rem' }}><Metric label="Load amplification" value={`${model.amplification.toFixed(1)}×`} sublabel="peak vs original" color={pressure[0] === 'danger' ? '#ef4444' : pressure[0] === 'warn' ? ACCENT : '#22c55e'}/><Metric label="Retry traffic" value={`${Math.round(model.totalRetry)}`} sublabel="24-second model"/><Metric label="Peak retry wave" value={`${Math.round(model.peakRetry)} req/s`}/><Metric label="Recovery pressure" value={pressure[1]}/><Metric label="Jitter comparison" value={`${Math.round(comparison.peak)} req/s`} sublabel="bounded exponential + jitter"/></div>
     <p className="retry-rate-note">The comparison keeps the same traffic and failure settings while using bounded exponential backoff with jitter. It illustrates this scenario, not a promise about production recovery.</p>
+    <p className="retry-rate-note">Pressure uses peak traffic: low below {RETRY_PRESSURE_THRESHOLDS.near * 100}% of capacity, near capacity through 100%, recovery risk above 100%, and severe above {RETRY_PRESSURE_THRESHOLDS.severe * 100}%. These bands are guides for this model.</p>
     </AdvancedDisclosure>
-    <ShareResultFoundation monster="toolooo" contentType="tool" slug="retry-storm-simulator" title="Retry Storm Simulator" result={{ summary: `Educational retry model: ${input.strategy}${input.jitter ? ' + jitter' : ''}, ${input.maxAttempts} total attempts, ${model.amplification.toFixed(1)}× peak load amplification and ${Math.round(model.peakRetry)} req/s peak retry traffic.` }}/>
+    <ShareResultFoundation monster="toolooo" contentType="tool" slug="retry-storm-simulator" title="Retry Storm Simulator" result={{ summary: `Educational retry model: ${input.strategy}${input.jitter ? ' + jitter' : ''}, ${input.maxAttempts} total attempts, ${model.amplification.toFixed(1)}× peak load amplification. ${pressure[1]} at ${peak}, including ${Math.round(model.peakRetry)} req/s in the largest retry wave.` }}/>
   </div>;
 }

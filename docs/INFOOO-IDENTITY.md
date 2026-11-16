@@ -31,8 +31,8 @@ An Infooo candidate passes only when text alone is insufficient, relationships/p
 
 ## Current worlds and future rule
 
-- **Worlds 001–016:** implemented and public, from Human Atlas through Why Food Prices Rise. `agent-systems-lab` is a curated collection page over Worlds 008–014, not a world.
-- **Worlds 017–027:** approved direction only, with no route, registry entry or asset. See [INFOOO-ROADMAP](INFOOO-ROADMAP.md).
+- **Worlds 001–017:** implemented and public, from Human Atlas through How Misinformation Spreads. `agent-systems-lab` is a curated collection page over Worlds 008–014, not a world.
+- **Worlds 018–027:** approved direction only, with no route, registry entry or asset. See [INFOOO-ROADMAP](INFOOO-ROADMAP.md).
 
 Infooo must not become primarily a technology or AI education product. The knowledge universe should keep broadening across human life, nature, cities, infrastructure, economics, information, logic, behavior, science and technology.
 
