@@ -1,10 +1,10 @@
 # Infooo roadmap — approved Worlds 015–027
 
-Planning document. A world is live only once it is in the registry with a route; every other world here is reserved intent, not released content.
+Planning document. A registry record and route establish implementation; a successful production deployment establishes that a world is live; every other world here is reserved intent, not released content.
 
 | State | Count | Meaning |
 |---|---|---|
-| Implemented and public | 17 | Worlds 001–017 exist in `src/data/infooo.ts` with routes and components. Worlds 015 and 016 are live. World 017 is included in this release. |
+| Implemented and public | 17 | Worlds 001–017 exist in `src/data/infooo.ts` with routes and components. Worlds 015 and 016 are live. World 017 shipped in the Phase 2 release; deployment evidence is linked from the current handoff. |
 | Approved / planned | 10 | Worlds 018–027 below. No registry entry, route, asset, sitemap URL or navigation card. |
 
 `agent-systems-lab` is a curated collection page over Worlds 008–014, not a world, and is unchanged by this roadmap. Public world counts must keep reflecting implemented reality; never let a planned world change a count, a listing or a generated file.

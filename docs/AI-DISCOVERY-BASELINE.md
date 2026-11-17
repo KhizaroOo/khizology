@@ -1,5 +1,7 @@
 # AI discovery baseline
 
+> Historical evidence. Counts, pending states and permissions below apply to the dated observations only. For current operation use the [project handoff](../khizology-handoff.md), canonical registries and a fresh build/audit.
+
 Date: 2026-10-23. Technical readiness receipt, not evidence of AI citations or new visitors. No deployment, submissions, manufactured visits or AI-answer prompting performed.
 
 ## Inventory and access

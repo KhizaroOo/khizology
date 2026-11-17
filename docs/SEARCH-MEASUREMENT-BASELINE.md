@@ -1,5 +1,7 @@
 # Search and measurement baseline
 
+> Historical evidence. Counts, pending states and permissions below apply to the dated observations only. For current operation use the [project handoff](../khizology-handoff.md), canonical registries and a fresh build/audit.
+
 ## Phase 0: Product Clarity Reset
 
 **Status: COMPLETE — final closure, 2026-10-18 (Asia/Karachi).** This supersedes the earlier incomplete Phase 0 attempt. The latest owner-provided production exports/Admin observations are accepted as the missing evidence; they are not relabelled as connector reads. GSC Wizard account reads remain subscription-blocked and Windsor's earlier empty Bing query pulls are not the search baseline. No broad audit repeated. No account setting, owner filter, IP handling, advertising feature, Google Signals, commit, push or deployment changed.

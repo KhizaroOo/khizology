@@ -1,5 +1,7 @@
 # Phase 0 — production verification baseline
 
+> Historical evidence. Counts, pending states and permissions below apply to the dated observations only. For current operation use the [project handoff](../khizology-handoff.md), canonical registries and a fresh build/audit.
+
 ## Local product retirement — 28 October 2026 (not deployed)
 
 Notooo's hub and 450 book-note routes are retired. Its original mascot/color are retained as the anonymous locked `future-5` entry. The current local build has 135 physical HTML files (134 in the SEO inventory, including one embedded application; one additional provider-verification file), 128 indexable/sitemap/llms URLs, and 170 image-sitemap entries. There are three active monsters and six mysteries. Retired URLs return the ordinary 404 without redirects or robots blocking. The dated production receipts below are historical and retain their original counts; no external search or analytics account was changed.

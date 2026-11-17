@@ -1,6 +1,6 @@
 # Khizooology SEO launch checklist
 
-Use this checklist as `https://khizooology.com` is connected. The repository build now targets the custom domain at the root; GitHub and DNS activation remain human-controlled steps.
+Historical launch checklist, retained as a reusable release checklist. Unchecked boxes below are not a current project-status report. Read the current [handoff](../khizology-handoff.md), [measurement definitions](GROWTH-MEASUREMENT.md) and dated verification receipts before repeating account setup. No checklist grants deployment or submission permission.
 
 ## Domain and deployment
 
@@ -33,6 +33,6 @@ Use this checklist as `https://khizooology.com` is connected. The repository bui
 - [ ] Create the real analytics property before adding analytics; keep the integration centralized in the shared layout.
 
 
-## Mission 5 search and measurement checkpoint
+## Historical Mission 5 search and measurement checkpoint
 
 Local preparation adds an indexable Privacy page: 56 generated pages / 52 indexable URLs. See SEARCH-ANALYTICS-SETUP.md for account setup, consent/network validation and the manual IndexNow command; see MISSION-5-VALIDATION.md for evidence and pending live checks. Google requests are expected only after explicit analytics acceptance. Any private tool input in an analytics request remains a failure. Search submission receipts must never be reported as indexing evidence.

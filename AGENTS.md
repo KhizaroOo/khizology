@@ -353,6 +353,17 @@ unless explicitly requested.
 
 Inspect Git state before risky operations.
 
+Use separate working folders for parallel work. Codex owns assigned MVP work on
+`codex-dev`; Claude owns approved Infooo work on `claude-dev`. Coordinate one
+integration turn through Khizooo for `dev-dev`. Khizooo controls promotion to
+`main` and pushing unless a specific mission explicitly authorizes those actions
+or a different working branch. Preserve other worktrees and unrelated changes.
+
+Assistant progress notes belong in `codex-info/`, `claude-info/`, and
+`khizooo-info/`. Keep shared requirements authoritative in the existing project
+guides. Dated handoffs are historical evidence and grant no continuing permission.
+See `khizology-handoff.md` for current architecture and verification entry points.
+
 ---
 
 ## Token / Tool Efficiency

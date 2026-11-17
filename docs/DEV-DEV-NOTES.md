@@ -1,7 +1,7 @@
 # dev-dev notes
 
-Read the last 3 lines before you start. After every merge into `dev-dev`, add ONE line at the bottom: `date · from → dev-dev · what changed · what the next agent must do`.
-Claude and Codex both follow this. Only Khizar promotes `dev-dev` → `main`. Validate the other agent's changes, and the SEO of anything new, before and after each merge.
+Read the latest entries as dated evidence, then verify current branch heads and working state. After every merge into `dev-dev`, add ONE line at the bottom: `date · from → dev-dev · what changed · what the next agent must do`.
+Claude and Codex both follow this. Khizar controls promotion and pushing unless the current mission explicitly authorizes an assistant. Validate the other agent's changes, and the SEO of anything new, before and after each merge.
 
 ---
 

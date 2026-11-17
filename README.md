@@ -43,12 +43,14 @@ Use the URL printed by Astro. Reuse an existing checkout server rather than star
 |---|---|
 | `npm run build` | Generate assets and the static site in `dist/` |
 | `npm run preview` | Preview the build locally |
+| `npm run verify:release` | Verify an existing production build; run `npm run build` first |
 | `npx astro check` | Astro and TypeScript checks |
 | `npm run audit:seo` | Build and check metadata, schemas, links, images and sitemaps |
 | `npm run audit:publish` | Full domain, SEO, prelaunch, type, Value and privacy gate |
 
 ## Sources of truth
 
+- `src/data/monsters.ts`: active modules and locked future identities.
 - `src/data/tools.ts`: Toolooo registry and editorial growth priorities.
 - `src/data/infooo.ts`: Infooo worlds and framework metadata.
 - `src/data/artworks.ts`: artwork metadata.
@@ -56,11 +58,11 @@ Use the URL printed by Astro. Reuse an existing checkout server rather than star
 - `src/components/` and `src/pages/`: shared UI, interactive experiences and routes.
 - `scripts/`: asset generation, audits and targeted tests.
 
-Follow [AGENTS.md](AGENTS.md). Add content through canonical registries and verify SEO, accessibility, privacy and user value. Do not edit generated `dist/` files.
+Start with [the current handoff](khizology-handoff.md) and follow [AGENTS.md](AGENTS.md). Add content through canonical registries and verify SEO, accessibility, privacy and user value. Do not edit generated `dist/` files.
 
 ## Sharing and discovery
 
-Link to the relevant tool, world, artwork or note using its canonical URL. Share safe generated summaries; keep private payloads, tokens and personal information out of screenshots.
+Link to a published tool, world, artwork or note using its canonical URL. Share safe generated summaries; keep private payloads, tokens and personal information out of screenshots.
 
 - [Distribution copy and channel packages](docs/GROWTH-DISTRIBUTION-KIT.md)
 - [Authority plan and asset matrix](docs/BACKLINK-AUTHORITY-PLAN.md)

@@ -1,3 +1,79 @@
+# Khizooology — current project handoff
+
+Reviewed 18 November 2026 against release `7cd3cf97a87ddab27350025435920b12dc46f63d`. The [GitHub Pages run](https://github.com/KhizaroOo/khizology/actions/runs/44187321359) reported that commit deployed successfully. A local edit, integration commit and successful deployment are separate states. Recheck branch heads and deployment status before the next release.
+
+## Read first
+
+Current code, registries, configuration and tests take priority, followed by Khizar's latest approved decisions, [AGENTS.md](AGENTS.md), and maintained documentation. Dated reports record the evidence available at their date. The [README](README.md) describes the current product.
+
+Use this handoff for orientation, `AGENTS.md` for shared working rules, and the relevant module guide for implementation. Update only guidance affected by the task.
+
+## Product and canonical sources
+
+| Area | Current behavior | Source |
+| --- | --- | --- |
+| Artooo | Original artworks, modal context, subject filtering and related art at `/artworks/` | `src/data/artworks.ts`, `artworkDimensions.ts`, `src/utils/artworkRelations.ts` |
+| Toolooo | Browser tools at `/toolbox/`, with Check, Simulate, Decide, Plan and Create families | `src/data/tools.ts`, `families.ts`, `featureLevels.ts`, `src/pages/toolbox/[slug].astro` |
+| Infooo | Interactive worlds at `/infooo/`; Agent Systems Lab curates existing worlds | `src/data/infooo.ts`, local world components and models |
+| Monsters | Artooo, Toolooo and Infooo active; anonymous future monsters locked | `src/data/monsters.ts`, `monsterVoices.ts` |
+| Contact | WhatsApp, LinkedIn and email through `/drop-a-vibe/` | `CONTACT` in `src/data/site.ts` |
+| Identity and SEO | Shared metadata, canonical URLs and generated discovery | `src/data/site.ts`, `src/utils/seo.ts`, `url.ts`, `src/components/layout/SEO.astro` |
+
+Notooo is retired. Its former routes use the ordinary 404. Notes are a separate file-based foundation under `src/content/notes`, with draft/published checks; an empty Notes index is noindex and excluded from the sitemap. The retained mascot/color belong to locked `future-5`.
+
+Derive inventory from active tools, published/public world records, artwork records and monster status. [Infooo identity](docs/INFOOO-IDENTITY.md) distinguishes implemented worlds from the [roadmap](docs/INFOOO-ROADMAP.md). Rebuild and use `scripts/audit-seo.mjs` for current document, indexable route, sitemap and image-entry counts. Artwork modal fragments are not separate HTML routes.
+
+## Architecture and environment
+
+Astro 7, React 19 islands, TypeScript 6 and Tailwind 4. Exact versions are locked in `package-lock.json`; `package.json` requires Node >=22.19.0. Shared styles and theme tokens live under `src/styles/`. Follow nearby patterns instead of imposing an old styling ban.
+
+The static build uses `https://khizooology.com` at base `/`. `SITE_URL` and `BASE_URL` overrides are for intentional validation. Use existing URL and metadata helpers for routes/assets. Build hooks generate image previews and the Atlas viewer before Astro.
+
+Human Atlas is built from `vendor/human-atlas/`, with a lazy scene and geometry worker. Its learning, theme and attribution files live in `public/infooo/human-atlas-viewer/`; anatomy assets are self-hosted separately. Actual geometry readiness gates selection. The seven-step Follow the Blood guide, fixed controls, selected-structure framing and ghost context are implemented. See [Human Atlas](docs/HUMAN-ATLAS.md) and `vendor/human-atlas/SOURCE.md`. A validated same-origin bridge sends fixed public analytics actions to the parent.
+
+Toolooo shares presentation, export/share helpers and bounded local workspace behavior. Recents and favorites exist. Infooo keeps world intelligence local. Preserve state when toggling Explore more. Artooo derives discovery from canonical metadata.
+
+## Analytics and privacy
+
+`src/utils/analytics.ts` is the measurement boundary. Unknown/declined consent and local development send no Google analytics. Accepted consent grants analytics storage while advertising consent stays denied. Canonical page locations exclude private query/hash state. Only a complete validated campaign source/medium/name tuple and allowlisted referral origins may cross the boundary.
+
+World starts and guide completions deduplicate after successful emission per document. Entity views and deliberate exports/copies remain repeatable. Native sharing reports options opened, with no delivery guarantee. Contract Drift reports an analysis run without sending result counts or claiming completion. Contact and earning clicks express intent; confirmed leads/customers/revenue remain unmeasured.
+
+The footer's FoundrList image is a passive external request with no Referer, disclosed on Privacy. See [measurement definitions](docs/GROWTH-MEASUREMENT.md), [setup/verification](docs/SEARCH-ANALYTICS-SETUP.md), and [earning experiment](docs/EARNING-EXPERIMENT-001.md). Verify live GA receipt and Admin settings separately.
+
+## Working folders and integration
+
+Keep separate folders for parallel work. Codex owns assigned MVP repairs on `codex-dev`; Claude owns approved Infooo work on `claude-dev`. `dev-dev` is integration, and `main` is production. Inspect folder, branch and status before editing. A mission may explicitly authorize work in the existing integration folder, as MVP #6 did.
+
+Coordinate an integration turn through Khizooo before either assistant touches shared integration work. Khizooo controls promotion and pushing unless a specific mission authorizes those actions. Preserve other worktrees, changes and stashes. Notes belong in `codex-info/`, `claude-info/`, and `khizooo-info/`; shared requirements keep one source. The repository has no `CLAUDE.md`; its absence does not require a duplicate instruction file.
+
+## Verification and release
+
+```sh
+npm ci
+npm run dev
+npm run build
+npm run preview
+npx astro check
+npm run audit:publish
+npm run audit:search
+npm run audit:human-atlas
+node scripts/test-analytics.mjs
+```
+
+Use the URL Astro prints. Build once before `npm run verify:release`; that command checks existing `dist/` and does not build it. Individual `audit:*` wrappers vary; inspect `package.json` before choosing checks. Run affected tests in `scripts/` and `git diff --check`. A successful build is not live browser, real-device or GA property evidence.
+
+`.github/workflows/deploy.yml` builds on pushes to `main` and supports manual dispatch. It uses Node 22, `npm ci`, `npm run build`, `npm run verify:release`, then publishes `dist/` through GitHub Pages. The repository variable `GA_MEASUREMENT_ID` supplies build-time `PUBLIC_GA_MEASUREMENT_ID`. No credential belongs in source.
+
+A push to `dev-dev` alone does not trigger this workflow. Confirm deployment success and its SHA, then smoke-test production. Search submission requires separate authorization; an IndexNow receipt does not establish indexing. Bing reporting screenshots are historical evidence; recrawl, Site Explorer warnings and backlinks need separate follow-up. Theme redesign remains paused.
+
+## Historical handoff
+
+The preserved September handoff below describes earlier implementation states. Its counts, README warning, route/status statements, unfinished-feature notes and instructions are obsolete where they conflict with the current sections above. They grant no new task or release authorization.
+
+<details>
+<summary>September 2026 handoff and session history</summary>
+
 # Khizooology — Handoff for Codex / ChatGPT Plus
 
 > Product retirement update — 28 October 2026: Notooo is retired. Only Artooo, Toolooo and Infooo are active. The retained `ff-04.png` mascot and `#E38D7C` color belong to anonymous locked `future-5`. Older numeric implementation snapshots below are historical; current registries and README govern publishing.
@@ -829,3 +905,5 @@ world's current-state details.
    explicitly asked.
 9. When you finish a body of work, **update this document** — especially §9
    (current in-flight status) and §13 (session history) — before handing off.
+
+</details>

@@ -1,6 +1,6 @@
-# Mission 5 account checkpoint
+# Search and analytics setup runbook
 
-Owner continuation confirmed Search Console verified, both Google sitemaps submitted, Bing connected/verified, and GA4 created. Commit/push/deployment and initial IndexNow submission are authorized. GA_MEASUREMENT_ID is now configured in GitHub. Production activation still requires the privacy settings gate below.
+Current setup and verification runbook. Owner-confirmed Search Console/Bing setup and earlier submission receipts are dated evidence in [MISSION-5-VALIDATION](MISSION-5-VALIDATION.md) and [SEARCH-MEASUREMENT-BASELINE](SEARCH-MEASUREMENT-BASELINE.md). Check current account state before repeating setup. Earlier release/submission permission does not authorize a new action. The workflow maps repository variable `GA_MEASUREMENT_ID` into the build; verify its current configured value without printing credentials.
 
 ## Google Search Console — human
 
@@ -46,7 +46,7 @@ Run `npm run build` then `npm run indexnow:check` for a local dry run. After dep
 }
 ```
 
-Endpoint: `https://api.indexnow.org/indexnow`. The first submission selects all current canonical indexable URLs (currently 52). Noindex pages, redirects, duplicates, foreign hosts and query/hash URLs fail validation. Network errors and non-200/202 responses fail visibly. HTTP 202 means received with key validation pending; 200 means received. Neither proves indexing. IndexNow serves participating search engines, not Google.
+Endpoint: `https://api.indexnow.org/indexnow`. The first submission selects all current canonical indexable URLs (derived from the current build). Noindex pages, redirects, duplicates, foreign hosts and query/hash URLs fail validation. Network errors and non-200/202 responses fail visibly. HTTP 202 means received with key validation pending; 200 means received. Neither proves indexing. IndexNow serves participating search engines, not Google.
 
 There is no automatic deploy hook. Invoke explicitly again only after meaningful content changes. Avoid repeated blind retries; for 403 check the hosted key, 422 the host/payload, and 429 wait before retrying.
 
@@ -54,7 +54,7 @@ There is no automatic deploy hook. Invoke explicitly again only after meaningful
 
 Unknown and declined choices do not create a Google queue, load a Google script, or send cookieless pings. Accepted consent loads GA asynchronously once and sends a single explicit page_view. The code keeps advertising storage, ad user data and personalization denied and disables Google Signals. Canonical path and static title replace the browser URL, excluding query/hash state. The helper locally checks the browser-provided referrer and includes only scheme/hostname roots for its exact public-host allowlist in consented events. Paths, queries, fragments, credentials, non-default ports, same-site and unlisted hosts are excluded; referral addresses are not persisted in browser storage. Local checks are distinct from transmission. Public tag inspection does not establish all GA4 Admin settings, retention or provider-side processing; verify these separately rather than assuming them.
 
-Only these custom values are allowed: tool_start (tool_slug, tool_family, feature_level), artwork_view (public artwork_slug), tool_export (tool_slug, fixed svg/png/json format), contact_click (fixed contact_type). Starting a tool requires a trusted interaction and fires once per page. Central export helpers report format only, never the filename or output. There is no generic public event sender accepting arbitrary values.
+The current contract is [GROWTH-MEASUREMENT](GROWTH-MEASUREMENT.md) and `src/utils/analytics.ts`. Tool starts require trusted workspace interaction. Explicit generated results, artwork opens, export formats, public navigation, copy success, share options, Infooo progress and commercial intent have separate meanings. World starts and guide completions deduplicate only after successful emission. Atlas messages validate same origin, iframe source and fixed public actions. Valid campaign source/medium/name labels are read only after consent and are not persisted by site code. Other landing query values stay excluded. No generic public event sender accepts raw input or result contents.
 
 Withdrawal sets Google's disable flag, clears the site's queue, removes the script element, attempts to delete host GA cookies, then reloads if analytics had loaded to dispose of already-running code. Cookie access restrictions can prevent deletion. Previously sent events are not recalled. Storage failure falls back to a page-local choice; script failure disables further event queuing without affecting tools.
 
@@ -62,9 +62,9 @@ Withdrawal sets Google's disable flag, clears the site's queue, removes the scri
 
 - Check home, privacy, toolbox, artworks, each representative tool, robots, both sitemaps and public key on HTTPS apex. Recheck HTTPS and www redirects, canonicals and assets.
 - With fresh/declined consent, inspect network: no googletagmanager.com or Google Analytics requests. Test a tool and artwork modal.
-- Accept: confirm one tag, page_view and safe custom events. Use non-sensitive synthetic sentinels in tool input/query/referrer and inspect every analytics request for absence of those values. Check page_location lacks query/hash and page_referrer is the allowlisted scheme/hostname root or blank for all other sources, including automatically generated GA events. Keep Enhanced Measurement and user-provided-data collection disabled.
+- Accept: confirm one tag, page_view and safe custom events. Use non-sensitive synthetic sentinels in tool input/query/referrer and inspect every analytics request for absence of those values. Check page_location lacks query/hash, page_referrer is an allowlisted scheme/hostname root or blank, and campaign fields contain only a complete validated public tuple. Check unexpected provider-generated events separately. Keep Enhanced Measurement and user-provided-data collection disabled.
 - Confirm no unexpected automatic Enhanced Measurement events. Withdraw consent, observe automatic reload, and verify no further Google requests. Reopen preferences with keyboard.
-- Expected Google analytics connections after acceptance are not tool uploads. Any private input in a request is a failure. Real browser network capture and GA Realtime remain pending until an actual ID is configured.
+- Expected Google analytics connections after acceptance are not tool uploads. Any private input in a request is a failure. Recheck live browser requests and GA Realtime after each measurement release. Local tests and an available public ID do not establish GA property receipt or Admin settings.
 
 References: [Google basic consent](https://developers.google.com/tag-platform/security/concepts/consent-mode), [Enhanced Measurement fields](https://support.google.com/analytics/answer/9216061), [IndexNow protocol](https://www.indexnow.org/documentation).
 

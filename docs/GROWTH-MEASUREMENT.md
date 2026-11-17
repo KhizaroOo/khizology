@@ -20,7 +20,7 @@ Use the existing opt-in GA4 integration. No tag, page view or custom event is se
 | `contact_click` | Email, WhatsApp, contact-page CTA, or LinkedIn on portfolio/contact surfaces. Ordinary social browsing is not a conversion. |
 | `module_discovery` | Navigation into a different public monster territory. Related links use their specific event instead. |
 
-Existing artwork views, Infooo guide progression, favorites, scenarios, chain continuation and Contract Drift run events remain available. `related_content_click` becomes the tool/art-specific names; LV3 `tool_next_move` becomes `try_next_click`. MVP #6 retires the legacy `result_shared` and Contract Drift `tool_complete` emissions. Record the reporting definition change at release. No collection event is invented: the current artwork registry has no authored collections.
+Existing artwork views, Infooo guide progression, favorites, scenarios, chain continuation and Contract Drift run events remain available. `related_content_click` becomes the tool/art-specific names; LV3 `tool_next_move` becomes `try_next_click`. MVP #6 retires the legacy `result_shared` and Contract Drift `tool_complete` emissions. Record the reporting definition change against release `7cd3cf9`. No collection event is invented: the current artwork registry has no authored collections.
 
 ## GA4 Admin setup — owner review required
 
@@ -34,7 +34,7 @@ Register only useful event-scoped custom dimensions in Admin → Data display �
 
 ## Weekly decision view
 
-Compare consistent 28-day windows: Search Console organic clicks/impressions → GA4 landing-page engaged sessions → tool use/output/contact/share → related and cross-module discovery. Segment by module, tool/family and source/destination. Review engaged sessions with value events rather than event totals alone. With six active users, report absolute counts and avoid drawing strong conclusions from rates.
+Compare consistent 28-day windows: Search Console organic clicks/impressions → GA4 landing-page engaged sessions → tool use/output/contact/share → related and cross-module discovery. Segment by module, tool/family and source/destination. Review engaged sessions with value events rather than event totals alone. When the observed sample is small, report absolute counts and avoid drawing strong conclusions from rates.
 
 Page locations are canonical, without query/hash. After consent, events include only scheme/hostname roots for the explicit public referral-host allowlist in `analytics.ts`; other and same-site referrals are blank. Referrer paths, queries, fragments, credentials and non-default ports are excluded. Local browser checks can read the browser-provided referrer before an event is sent; the site does not persist referral addresses in browser storage. Consent still gates all analytics transmission. After consent, initialization may also pass one complete, validated source/medium/campaign tuple. Other campaign parameters and the full landing query stay out of application commands. Use Search Console for organic acquisition evidence. Revenue is not a target unless a real commercial flow exists.
 

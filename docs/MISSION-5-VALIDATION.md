@@ -1,5 +1,7 @@
 # Mission 5 — code preparation scorecard
 
+> Historical evidence. Counts, pending states and permissions below apply to the dated observations only. For current operation use the [project handoff](../khizology-handoff.md), canonical registries and a fresh build/audit.
+
 Validated locally 2026-09-07. Account setup was confirmed by the owner; the Google tag's public configuration was also checked after Enhanced Measurement and user-provided-data capabilities were disabled. Deployment and live validation remain pending.
 
 | Check | Result / evidence |

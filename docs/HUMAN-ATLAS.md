@@ -1,6 +1,6 @@
 # Human Atlas
 
-The viewer is now source-built and performance-recovered. See [performance recovery](HUMAN-ATLAS-PERFORMANCE.md) for the pinned source, build process, controlled measurements and verification. The precompiled-viewer notes below describe the historical implementation.
+The viewer is source-built with progressive geometry readiness, guide controls, selection framing and a same-origin analytics bridge. See [performance recovery](HUMAN-ATLAS-PERFORMANCE.md) for the pinned source, build process, controlled measurements and verification. The precompiled-viewer notes below describe the historical implementation.
 
 Human Atlas is Infooo World 001. Its isolated viewer bundle and BodyParts3D-derived anatomy files load only on `/infooo/human-atlas`; no backend or API key is used. The viewer supports system layers, search, direct selection, isolation, reset, and exploded anatomy. Attribution and limitations are in `HUMAN-ATLAS-ATTRIBUTION.md`.
 
@@ -24,7 +24,7 @@ The source for every educational statement is [NIH: How Blood Flows through the 
 
 Confirmed scope is the existing seven-step **Follow the Blood** route, supported structure explanations and relationship selection. Additional curricula and broader flagship ideas are not part of this repair. The original route and anatomy claims remain unchanged and use the existing NIH blood-flow reference.
 
-The guide now selects exact catalogue IDs through an Atlas-local document event. It does not simulate typing into search. The viewer validates the ID and all referenced geometry and rejects requests while loading or in an error state. Selection changes leave camera preference, rotation, explosion, layers and isolation intact. Normal search and free selection retain their existing behavior.
+The guide now selects exact catalogue IDs through an Atlas-local document event. It does not simulate typing into search. The viewer validates the ID and its required geometry. Loaded structures can be selected while other chunks continue loading; unavailable targets and viewer errors are reported honestly. Guide selection retains view, layer and isolation settings while requesting camera framing of the chosen structure. Pointer selection and search retain their existing distinct framing behavior. Normal search and free selection retain their existing behavior.
 
 Back, Next, Restart, Finish and Exit are explicit. Exit and Finish keep the current view and selection; only the viewer’s own Reset resets the viewer. Selecting a different structure pauses the guide’s explanation until Resume is chosen. Unavailable targets are reported without pretending that a step succeeded. The guide describes static anatomy and flow relationships, not animated or measured circulation.
 
