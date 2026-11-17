@@ -17,11 +17,10 @@ export default function GridStory(){
  const current=compactScenarios.find(s=>s.id===scenario)!;
  function load(id:CompactScenario,isChallenge=false){completed.current=false;setPreview(null);setScenario(id);setChallenge(isChallenge);setState(compactInitial(id,isChallenge));setHistory([]);setBefore(null);setSelected(null);setPending(false);setPaused(false);setReplay(null);}
  function commit(action:GridAction){
-  if(!history.length)trackInfoooWorldStart('the-living-grid');
   const next=compactAction(state,action);setBefore(compactResult(state));setState(next);setHistory(old=>[...old,action]);setSelected(null);setPending(false);
   if(compactResult(next).shortfall<.01&&!completed.current){completed.current=true;trackInfoooGuideComplete('the-living-grid',challenge?'compact-challenge':`compact-${scenario}`);}
  }
- function choose(action:GridAction){if(action==='generation')setPending(true);else commit(action);}
+ function choose(action:GridAction){trackInfoooWorldStart('the-living-grid');if(action==='generation')setPending(true);else commit(action);}
  useEffect(()=>{if(!pending)return;const timer=setTimeout(()=>commit('generation'),1000);return()=>clearTimeout(timer);},[pending]);
  useEffect(()=>{if(!draining||paused||pending||replay!==null)return;const timer=setTimeout(()=>setState(old=>compactTick(old)),1400);return()=>clearTimeout(timer);},[state,draining,paused,pending,replay]);
  useEffect(()=>{if(replay===null||paused)return;const timer=setTimeout(()=>{

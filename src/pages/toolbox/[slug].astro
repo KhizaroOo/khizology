@@ -202,7 +202,7 @@ const jsonLd = pageSchema({
           {tool.privacySensitive && <PrivacyNotice />}
 
           {tool.status === 'active' ? (
-            <>
+            <div data-tool-workspace>
 
               {tool.slug === 'date-time-contract-doctor' && <DateTimeContractDoctor client:load />}
               {tool.slug === 'replica-lag-simulator' && <ReplicaLagSimulator client:load />}
@@ -304,7 +304,7 @@ const jsonLd = pageSchema({
               {tool.slug === 'responsive-content-fit-lab' && <ResponsiveContentFitLab client:load />}
               {tool.slug === 'multi-format-campaign-planner' && <MultiFormatCampaignPlanner client:load />}
               {tool.slug === 'ai-project-pricing-lab' && <AiProjectPricingLab client:load />}
-            </>
+            </div>
           ) : (
             <ComingSoonCard
               title={`${tool.name} is ${tool.status === 'experimental' ? 'experimental' : 'coming soon'}`}
@@ -424,6 +424,7 @@ const jsonLd = pageSchema({
   .tp-depth > summary { cursor: pointer; font-weight: 700; color: var(--k-text); min-height: 28px; }
   .tp-layout { display: grid; grid-template-columns: 1fr; gap: 2rem; }
   .tp-main { min-width: 0; }
+  [data-tool-workspace] { display: contents; }
   .tp-main :global(.tool-workbench > p) { max-width: 75ch; }
   @media (min-width: 900px) { .tp-layout { grid-template-columns: minmax(0, 1fr) 280px; } }
 

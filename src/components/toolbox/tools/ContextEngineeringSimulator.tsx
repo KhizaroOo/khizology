@@ -1,7 +1,6 @@
 import { useId, useMemo, useState } from 'react';
 import Insight from '../shared/Insight';
 import Warning from '../shared/Warning';
-import { trackToolResult } from '../../../utils/analytics';
 import { contextBounds, contextDefaults, contextGroups, contextPresets, contextStrategies, simulateContext, type ContextConfig, type ContextNumber, type ContextStrategy } from './contextEngineeringModel';
 import './newTools.css';
 
@@ -69,8 +68,8 @@ export default function ContextEngineeringSimulator() {
   return <div className="tool-workbench">
     <p><strong>More context is not automatically better.</strong> Compare what enters a window and what each strategy removes. Numeric assumptions only—no private prompts, model calls or accuracy predictions.</p>
     <div className="tool-grid">
-      <label htmlFor={`${id}-preset`}>Scenario<select id={`${id}-preset`} value={preset} onChange={event => { const item = contextPresets.find(p => p.name === event.target.value); if (item) { setConfig({ ...item.config }); setPreset(item.name); setMessage(''); trackToolResult(); } }}>{preset === 'Custom' && <option value="Custom" disabled>Custom settings</option>}{contextPresets.map(item => <option key={item.name}>{item.name}</option>)}</select></label>
-      <label htmlFor={`${id}-strategy`}>Compare strategy<select id={`${id}-strategy`} value={strategy} onChange={event => { setStrategy(event.target.value as ContextStrategy); setMessage(''); if (review.result) trackToolResult(); }}>{Object.entries(contextStrategies).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
+      <label htmlFor={`${id}-preset`}>Scenario<select id={`${id}-preset`} value={preset} onChange={event => { const item = contextPresets.find(p => p.name === event.target.value); if (item) { setConfig({ ...item.config }); setPreset(item.name); setMessage(''); } }}>{preset === 'Custom' && <option value="Custom" disabled>Custom settings</option>}{contextPresets.map(item => <option key={item.name}>{item.name}</option>)}</select></label>
+      <label htmlFor={`${id}-strategy`}>Compare strategy<select id={`${id}-strategy`} value={strategy} onChange={event => { setStrategy(event.target.value as ContextStrategy); setMessage(''); }}>{Object.entries(contextStrategies).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
     </div>
     <div className="tool-grid"><NumericField field="window" config={config} change={change} /><NumericField field="reserve" config={config} change={change} /></div>
     <p>{strategyHelp[strategy]}</p>

@@ -24,13 +24,13 @@ export default function MisinformationWorld({ world, children }: { world: Infooo
   const [step, setStep] = useState(0), [done, setDone] = useState<boolean[]>(() => STEPS.map(() => false));
   const [run, setRun] = useState<RunResult | null>(null), [hour, setHour] = useState(HOURS), [playing, setPlaying] = useState(false), [rings, setRings] = useState(false);
   const [pick, setPick] = useState<Pick>(START_PICK), [mode, setMode] = useState<'challenge' | 'free'>('challenge');
-  const root = useRef<HTMLDivElement>(null), started = useRef(false), card = useRef<HTMLElement>(null), viz = useRef<HTMLDivElement>(null), title = useRef<HTMLHeadingElement>(null), moved = useRef(false);
+  const root = useRef<HTMLDivElement>(null), card = useRef<HTMLElement>(null), viz = useRef<HTMLDivElement>(null), title = useRef<HTMLHeadingElement>(null), moved = useRef(false);
   const st = STEPS[step];
 
   const finish = (at: number) => {
     setPlaying(false); setHour(HOURS);
     setDone(d => d.map((v, i) => i === at ? true : v));
-    if (STEPS[at].id === 'truth') trackInfoooGuideComplete(slug, 'story');
+    if (at === STEPS.length - 1) trackInfoooGuideComplete(slug, 'story');
   };
   useEffect(() => {
     if (!playing) return;
@@ -52,7 +52,7 @@ export default function MisinformationWorld({ world, children }: { world: Infooo
     const ro = new ResizeObserver(set); ro.observe(nav); return () => ro.disconnect();
   }, []);
 
-  const begin = () => { if (!started.current) { started.current = true; trackInfoooWorldStart(slug); } };
+  const begin = () => { trackInfoooWorldStart(slug); };
   const ch = useChallenge({ reduced, slug, begin });
   /** The challenge and the free story keep separate state, so switching between them loses nothing. */
   const leave = () => { ch.pause(); setMode('free'); };

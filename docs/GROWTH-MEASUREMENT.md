@@ -1,34 +1,32 @@
 # Growth measurement
 
-Use the existing opt-in GA4 integration. No tag, page view or custom event is sent before acceptance or on localhost/loopback previews. Initialization attaches listeners once. Advertising signals remain disabled. Collection/tag controls are public catalog metadata, never search text.
+Use the existing opt-in GA4 integration. No tag, page view or custom event is sent before acceptance or during local development and loopback previews. Initialization attaches listeners once. Advertising signals remain disabled. Collection/tag controls are public catalog metadata, never search text.
 
 ## Actual signals
 
 | Event | Evidence |
 | --- | --- |
 | `tool_start` | First eligible tool interaction per page; existing use signal, not completion. |
-| `result_generated` | Explicit non-empty API Payload Doctor diagnosis; not a successful contract assertion. Other calculators are not falsely counted on mount. |
+| `result_generated` | Explicit successful generation or analysis in instrumented tools; an API diagnosis does not establish contract compliance. Other calculators are not falsely counted on mount. |
 | `tool_export` | Existing local export trigger, with format and tool family; not proof that a file was saved. |
-| `result_shared` | Native result share resolves successfully; cancellation does not count. |
 | `result_copied` | Result clipboard write succeeds; includes share fallback to clipboard. |
-| `share_action` | Public page/link sharing; `action` distinguishes copy link and native share. |
+| `share_action` | Link copied or native share options opened. The action distinguishes page and result share options. Opening options does not establish delivery. |
 | `related_tool_click` | Related tool link with public source/destination. |
 | `try_next_click` | Curated Next / Smart Next action; does not also emit a related click. |
-| `tool_complete` | Successful Contract Drift review after both JSON documents validate; not contract compliance or file-save proof. |
+| `contract_drift_run` | An explicit Contract Drift comparison produced a valid result. Result counts stay in the browser. |
+| `infooo_world_start` / `infooo_guide_complete` | First emitted interaction per world or completed guide per world and guide, each scoped to the page load. |
 | `related_art_click` | Related artwork selection, with the current artwork as source. |
 | `artwork_tag_click` | Selection of a catalog subject tag, not free-text search. |
 | `contact_click` | Email, WhatsApp, contact-page CTA, or LinkedIn on portfolio/contact surfaces. Ordinary social browsing is not a conversion. |
 | `module_discovery` | Navigation into a different public monster territory. Related links use their specific event instead. |
 
-Existing artwork views, Infooo guide progression, favorites, scenarios, chain continuation and Contract Drift run events remain available. `related_content_click` becomes the tool/art-specific names; LV3 `tool_next_move` becomes `try_next_click`. Result actions previously under `share_action` now use the dedicated names. Treat release day as a reporting definition change, not sudden organic growth. No collection event is invented: the current artwork registry has no authored collections.
+Existing artwork views, Infooo guide progression, favorites, scenarios, chain continuation and Contract Drift run events remain available. `related_content_click` becomes the tool/art-specific names; LV3 `tool_next_move` becomes `try_next_click`. MVP #6 retires the legacy `result_shared` and Contract Drift `tool_complete` emissions. Record the reporting definition change at release. No collection event is invented: the current artwork registry has no authored collections.
 
 ## GA4 Admin setup — owner review required
 
 **Release privacy gate (2026-10-13):** `audit:ga-config` found Enhanced Measurement modules in the production Google tag configuration (forms, outbound clicks, page views, scroll, site search, downloads and video). User-provided-data capabilities and automatic collection were disabled. Turn off Enhanced Measurement in the web stream, then rerun the existing gate after propagation. Application allowlists cannot guarantee privacy or prevent automatic duplicate events while Google's independent collection remains enabled. No settings were changed.
 
-**Phase 0 final owner decision (2026-10-18):** mark **contact_click** and **result_shared**. Current supplied Admin evidence shows only purchase marked and no corresponding stream data; Khizar will apply the two selected toggles and remove purchase if applicable. Future candidates result_generated, tool_export and infooo_guide_complete require useful actual production events first. Do not mark every click, default calculation or tool_start. An event name in code is not automatically a GA4 Key Event. The shared attribution repair now supplies only allowlisted public referral roots; canonical page_location and all consent/privacy restrictions remain. Record its release date separately from UX effects.
-
-In Admin → Data display → Events, mark the selected received events as key events. Use Realtime to verify receipt after deployment; use DebugView only in an intentional test session. Check one event per action, declined consent, cancelled share, and successful copy/export. No GA4 Admin settings are changed by this implementation.
+**MVP #6 reporting policy:** Visits, starts, generated results, art opens, sharing, exports and discovery are engagement. Genuine tool and guide completions are product value. Offer and contact clicks are commercial intent. Confirmed leads, bookings and revenue require separate evidence. The site does not emit `generate_lead`. The Phase 0 key-event selection was historical. Current GA4 Admin settings and event receipt require separate verification. No settings were changed.
 
 Register only useful event-scoped custom dimensions in Admin → Data display → Custom definitions: `source_slug`, `source_module`, `destination_slug`, `destination_module`, `tool_slug`, `tool_family`, `contact_type`, `action`, `export_type` and `tag`. They contain public metadata only. Dimensions are not retroactive.
 
@@ -38,7 +36,7 @@ Register only useful event-scoped custom dimensions in Admin → Data display �
 
 Compare consistent 28-day windows: Search Console organic clicks/impressions → GA4 landing-page engaged sessions → tool use/output/contact/share → related and cross-module discovery. Segment by module, tool/family and source/destination. Review engaged sessions with value events rather than event totals alone. With six active users, report absolute counts and avoid drawing strong conclusions from rates.
 
-Page locations are canonical, without query/hash. After consent, events include only scheme/hostname roots for the explicit public referral-host allowlist in `analytics.ts`; other and same-site referrals are blank. Referrer paths, queries, fragments, credentials and non-default ports are excluded. Local browser checks can read the browser-provided referrer before an event is sent; the site does not persist referral addresses in browser storage. Consent still gates all analytics transmission. This restricted coverage limits referral/campaign attribution; do not restore arbitrary URLs or referrer strings for acquisition reporting. Use Search Console for organic acquisition evidence. Revenue is not a target unless a real commercial flow exists.
+Page locations are canonical, without query/hash. After consent, events include only scheme/hostname roots for the explicit public referral-host allowlist in `analytics.ts`; other and same-site referrals are blank. Referrer paths, queries, fragments, credentials and non-default ports are excluded. Local browser checks can read the browser-provided referrer before an event is sent; the site does not persist referral addresses in browser storage. Consent still gates all analytics transmission. After consent, initialization may also pass one complete, validated source/medium/campaign tuple. Other campaign parameters and the full landing query stay out of application commands. Use Search Console for organic acquisition evidence. Revenue is not a target unless a real commercial flow exists.
 
 Sharing uses canonical page URLs; artwork fragments contain public slugs only. Safe result adapters remain curated summaries. Analytics never receives the summary, clipboard content, filename, payload, JWT, upload, form value or share URL.
 
@@ -65,4 +63,4 @@ The existing toolbox hub surfaces three registry-selected starters. All ten reta
 
 The existing bounded My Toolooo workspace remains the return surface: recents, favorites and clear controls. Favorites are no longer repeated in Recent; the two priority makers can use the existing favorite control without a separate storage system. Related Art retains canonical subject/explicit relationships. No collection event is emitted while there are no authored collections.
 
-Use `tool_complete` as an optional key event only if completed contract review is a useful outcome for the chosen report. Keep it separate from diagnostic success, compliance and commercial conversions. `copy_result` was superseded by `result_copied` before deployment; do not emit both names for one copy.
+Keep tool and guide completions separate from diagnostic success, compliance and commercial conversions.

@@ -23,7 +23,7 @@ export default function FoodPricesWorld({ world, children }: { world: InfoooWorl
   const [guess, setGuess] = useState<GuessId | null>(null), [touched, setTouched] = useState(false), [reveal, setReveal] = useState<{ guess: GuessId | null } | null>(null);
   const [stamp, setStamp] = useState(0), [spoken, setSpoken] = useState('');
   const [picked, setPicked] = useState<(number | null)[]>(() => QUIZ.map(() => null)), [checked, setChecked] = useState<boolean[]>(() => QUIZ.map(() => false));
-  const root = useRef<HTMLDivElement>(null), stackCard = useRef<HTMLDivElement>(null), started = useRef(false), live = useRef({ guess, reveal, pct });
+  const root = useRef<HTMLDivElement>(null), stackCard = useRef<HTMLDivElement>(null), live = useRef({ guess, reveal, pct });
   live.current.guess = guess; live.current.reveal = reveal; live.current.pct = pct;
 
   const nA = shortName(foodA), nB = shortName(foodB);
@@ -38,8 +38,8 @@ export default function FoodPricesWorld({ world, children }: { world: InfoooWorl
     if (next >= SHOW_AHA_AT && !live.current.reveal) { const r = { guess: live.current.guess }; live.current.reveal = r; setReveal(r); }
   }, []);
   const commit = useCallback(() => setStamp(n => n + 1), []);
-  const { playing, play, pause } = useShockPlayback({ pct, goTo, onEnd: commit, reduced });
-  useEffect(() => { if (reveal) trackInfoooGuideComplete(slug, 'shock-run'); }, [reveal, slug]);
+  const finishRun = () => { commit(); trackInfoooGuideComplete(slug, 'shock-run'); };
+  const { playing, play, pause } = useShockPlayback({ pct, goTo, onEnd: finishRun, reduced });
   useEffect(() => { if (stamp) setSpoken(`${capTitle} ${capText}`); }, [stamp]);   // announced on commit (release, choice, end of run), never on every frame
   // The site header is sticky, so the control dock sits just below it.
   useEffect(() => {
@@ -48,13 +48,13 @@ export default function FoodPricesWorld({ world, children }: { world: InfoooWorl
     const ro = new ResizeObserver(set); ro.observe(nav); return () => ro.disconnect();
   }, []);
 
-  const begin = () => { if (!started.current) { started.current = true; trackInfoooWorldStart(slug); } setTouched(true); };
+  const begin = () => { trackInfoooWorldStart(slug); setTouched(true); };
   const showStack = () => { const el = stackCard.current; if (!el) return; const r = el.getBoundingClientRect(), dock = (el.ownerDocument.getElementById('fp-dock')?.offsetHeight ?? 0); if (r.top < dock + 4 || r.bottom > window.innerHeight - 4) el.scrollIntoView({ block: 'start', behavior: reduced ? 'auto' : 'smooth' }); };
   const atTarget = pct >= TARGET - 1e-6;
   const runLabel = reduced ? (atTarget ? '↻ Start again' : '▶ Play the shock') : playing ? '⏸ Pause' : atTarget ? '↻ Replay' : pct > 0.5 ? '▶ Resume' : '▶ Play the shock';
   function run() {
     begin();
-    if (reduced) { goTo(atTarget ? 0 : TARGET); commit(); } else if (playing) { pause(); commit(); } else play();
+    if (reduced && atTarget) { goTo(0); commit(); } else if (playing) { pause(); commit(); } else play();
   }
   function chooseCost(id: CostId, size?: number, trackId = `cost-${id}`) {
     pause(); begin(); setCost(id);

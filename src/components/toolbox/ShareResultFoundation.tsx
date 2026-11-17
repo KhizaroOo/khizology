@@ -47,7 +47,7 @@ export default function ShareResultFoundation({ monster, contentType, slug, titl
       if (id !== operation.current) return;
       // Some platforms resolve as soon as the OS takes over, before a recipient is chosen.
       report(id, 'Share options opened.');
-      trackShareAction({ monster, content_type: contentType, slug, action: result ? 'share_result' : 'web_share' });
+      trackShareAction({ monster, content_type: contentType, slug, action: result ? 'result_share_options_opened' : 'share_options_opened' });
     } catch (error) {
       const cancelled = error && typeof error === 'object' && 'name' in error && error.name === 'AbortError';
       report(id, cancelled ? 'Share cancelled.' : 'Couldn’t open sharing. Use the copy button or select and copy below.', !cancelled);

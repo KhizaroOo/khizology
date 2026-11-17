@@ -57,6 +57,10 @@
     return request.defaultPrevented && getId() === target.id;
   }
   function announce(message, error = false) { if (notice) { if (notice.textContent !== message) notice.textContent = message; notice.dataset.error = String(error); } }
+  function reportAnalytics(action) {
+    if (window.parent !== window) window.parent.postMessage('khizooology:atlas:' + action, window.location.origin);
+  }
+  document.addEventListener('infooo-atlas-interaction', () => reportAnalytics('interact'));
   function button(label, className, handler) {
     const control = document.createElement('button'); control.type = 'button'; control.className = `ha-learning-button ${className || ''}`; control.textContent = label; control.addEventListener('click', handler); return control;
   }
@@ -121,6 +125,7 @@
   function moveGuide(index, fromAction) {
     guideIndex = Math.max(0, Math.min(guide.length - 1, index));
     unavailable = !selectStructure(guide[guideIndex][0]);
+    if (!unavailable && guideIndex === 0) reportAnalytics('guide-start');
     announce(unavailable ? `Could not select ${targets[guide[guideIndex][0]].name}. The Atlas may be loading or the structure is unavailable. Your previous selection is unchanged. Use the guide button to retry.` : `Step ${guideIndex + 1} of ${guide.length}: ${targets[guide[guideIndex][0]].name} selected.`, unavailable);
     injectDetails();
     const scroll = document.querySelector('.detail-sheet .detail-scroll'); if (scroll) scroll.scrollTop = 0;
@@ -129,6 +134,9 @@
     (control || (fromAction && document.querySelector('.ha-guide-controls [data-action="next"]')) || document.querySelector('#ha-guide-step'))?.focus({ preventScroll: true });
   }
   function finishGuide(complete) {
+    if (complete && !unavailable && guideIndex === guide.length - 1 && getId() === targets[guide[guideIndex][0]].id) {
+      reportAnalytics('guide-complete');
+    }
     guideIndex = -1; unavailable = false; injectDetails();
     announce(complete ? 'Guide complete: you followed the lung and body circuits. Your view is unchanged; start again whenever you like.' : 'Guide closed. Your selection, layers, isolation and camera are unchanged.');
     document.querySelector('.ha-guide-launch')?.focus({ preventScroll: true });

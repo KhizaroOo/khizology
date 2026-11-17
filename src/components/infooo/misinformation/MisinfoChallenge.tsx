@@ -13,12 +13,12 @@ export function useChallenge({ reduced, slug, begin }: { reduced: boolean; slug:
   const [runs] = useState(() => runsFor());
   const [stage, setStage] = useState<Stage>('start'), [sel, setSel] = useState<PersonId>(BASE), [view, setView] = useState<View>('mine');
   const [hour, setHour] = useState(0), [playing, setPlaying] = useState(false), [odds, setOdds] = useState<{ wins: number; count: number } | null>(null);
-  const title = useRef<HTMLHeadingElement>(null), card = useRef<HTMLElement>(null), moved = useRef(false), began = useRef(false), done = useRef(false);
+  const title = useRef<HTMLHeadingElement>(null), card = useRef<HTMLElement>(null), moved = useRef(false), began = useRef(false);
 
   const go = (next: Stage) => { moved.current = true; setStage(next); };
-  const finish = (id: PersonId) => {
+  const finish = (id: PersonId, completed = true) => {
     setPlaying(false); setHour(HOURS); go('result'); setView('mine');
-    if (id !== BASE) { setOdds(paired(id)); if (!done.current) { done.current = true; trackInfoooGuideComplete(slug, 'challenge'); } }
+    if (id !== BASE) { setOdds(paired(id)); if (completed) trackInfoooGuideComplete(slug, 'challenge'); }
   };
   useEffect(() => {
     if (!playing) return;
@@ -34,18 +34,20 @@ export function useChallenge({ reduced, slug, begin }: { reduced: boolean; slug:
   }, [stage]);
 
   const watch = () => {
-    if (!began.current) { began.current = true; begin(); trackInfoooEntityView(slug, 'challenge-start'); }
+    begin();
+    if (!began.current) { began.current = true; trackInfoooEntityView(slug, 'challenge-start'); }
     setHour(0); go('first');
   };
   /** Every option runs the moment it is chosen, and chosen again it replays. Nothing is disabled. */
   const choose = (id: PersonId) => {
+    begin();
     setSel(id); setOdds(null); setView('mine'); setHour(0);
     if (reduced) { finish(id); return; }
     setPlaying(true); go('running');
   };
   const restart = () => { setPlaying(false); setSel(BASE); setOdds(null); setHour(0); setView('mine'); go('start'); };
   /** Leaving mid-run shows the finished run instead of letting a hidden timer play on. */
-  const pause = () => { if (stage === 'running') finish(sel); };
+  const pause = () => { if (stage === 'running') finish(sel, false); };
 
   const base = sel === BASE || view === 'base';
   const shown: RunResult | null = stage === 'start' ? null : stage === 'first' ? runs[BASE] : stage === 'running' ? runs[sel] : (base ? runs[BASE] : runs[sel]);

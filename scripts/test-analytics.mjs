@@ -5,7 +5,7 @@ import vm from 'node:vm';
 import { stripTypeScriptTypes } from 'node:module';
 import ts from 'typescript';
 const source = fs.readFileSync(new URL('../src/utils/analytics.ts', import.meta.url), 'utf8');
-function fixture(id = 'G-TESTONLY00', saved = null, brokenStorage = false, href = 'https://khizooology.com/?private=NEVER_SEND', canonical = 'https://khizooology.com/toolbox/schema-drift-doctor', referrer = '') {
+function fixture(id = 'G-TESTONLY00', saved = null, brokenStorage = false, href = 'https://khizooology.com/?private=NEVER_SEND', canonical = 'https://khizooology.com/toolbox/schema-drift-doctor', referrer = '', dev = false) {
   const scripts = [], docListeners = {}, toolListeners = {}, winListeners = {};
   let reloads = 0, referrerReads = 0;
   const storageWrites = [];
@@ -14,10 +14,10 @@ function fixture(id = 'G-TESTONLY00', saved = null, brokenStorage = false, href 
   const doc = { title: 'Public tool title', referrer, cookie: '_ga=abc', querySelector: selector => selector.includes('canonical') ? { href: canonical } : tool,
     querySelectorAll: () => [{ dataset: { artworkSlug: 'public-art' } }], createElement: () => ({ remove() {} }), head: { appendChild: s => scripts.push(s) },
     getElementById: () => scripts[0], addEventListener: (name, fn) => { const previous = docListeners[name]; docListeners[name] = event => { previous?.(event); fn(event); }; }, dispatchEvent() {} };
-  const win = { location: { href, reload: () => reloads++ }, addEventListener(name, fn) { winListeners[name] = fn; } };
+  const win = { location: { href, origin: new URL(href).origin, reload: () => reloads++ }, addEventListener(name, fn) { winListeners[name] = fn; } };
   Object.defineProperty(doc, 'referrer', { get: () => { referrerReads++; return referrer; } });
   const context = vm.createContext({ window: win, document: doc, Element, URL, Event, localStorage: { getItem: () => { if (brokenStorage) throw Error(); return saved; }, setItem: (key, v) => { if (brokenStorage) throw Error(); storageWrites.push([key, v]); saved = v; } } });
-  vm.runInContext(stripTypeScriptTypes(source.replace('import.meta.env.PUBLIC_GA_MEASUREMENT_ID', JSON.stringify(id))).replace(/export /g, ''), context);
+  vm.runInContext(stripTypeScriptTypes(source.replace('import.meta.env.PUBLIC_GA_MEASUREMENT_ID', JSON.stringify(id)).replace('import.meta.env.DEV', JSON.stringify(dev))).replace(/export /g, ''), context);
   const run = code => vm.runInContext(code, context);
   const events = () => (win.dataLayer || []).map(args => Array.from(args)).filter(args => args[0] === 'event');
   return { run, scripts, win, doc, winListeners, docListeners, toolListeners, Element, events, storageWrites, referrerReads: () => referrerReads, reloads: () => reloads };
@@ -52,7 +52,7 @@ assert.match(noticeCopy, /If you accept[\s\S]*referrals from selected public web
 for (const [referrer, expected] of [
   ['https://www.google.com/search?q=NEVER_SEND#private', 'https://www.google.com/'],
   ['https://www.bing.com/search?q=NEVER_SEND', 'https://www.bing.com/'],
-  ...['chatgpt.com', 'claude.ai', 'gemini.google.com', 'copilot.microsoft.com', 'perplexity.ai'].map(host => [`https://${host}/private-project?prompt=NEVER_SEND#private`, `https://${host}/`]),
+  ...['chatgpt.com', 'claude.ai', 'gemini.google.com', 'copilot.microsoft.com', 'perplexity.ai', 'news.ycombinator.com', 'dev.to', 'peerlist.io', 'producthunt.com', 'medium.com', 'hashnode.com', 'threads.net', 'tiktok.com', 'discord.com', 'discordapp.com', 'l.facebook.com', 'lm.facebook.com', 'l.instagram.com'].map(host => [`https://${host}/private-project?prompt=NEVER_SEND#private`, `https://${host}/`]),
   ['https://github.com/private-person/private-project?token=NEVER_SEND', 'https://github.com/'],
   ['https://user:NEVER_SEND@google.com/', ''], ['https://private-person.google.com/', ''],
   ['https://google.com:8443/NEVER_SEND', ''], ['https://google.com.private.example/NEVER_SEND', ''],
@@ -64,6 +64,60 @@ for (const [referrer, expected] of [
   assert.equal(referred.events()[0][2].page_referrer, expected);
   assert.ok(!/NEVER_SEND|private-person|private-project/.test(JSON.stringify(referred.win.dataLayer)));
 }
+const campaignKeys = ['campaign_source', 'campaign_medium', 'campaign_name'];
+const expectedCampaign = ['reddit', 'community', 'api-doctor-launch'];
+const validQuery = 'utm_source=%20ReDDit%20&utm_medium=COMMUNITY&utm_campaign=Api-Doctor-Launch';
+for (const [query, expected] of [
+  [validQuery + '&utm_term=NEVER_SEND&utm_content=NEVER_SEND&unexpected=NEVER_SEND', expectedCampaign],
+  ['utm_source=reddit&utm_medium=community', undefined],
+  [validQuery + '&utm_source=duplicate', undefined],
+  [validQuery.replace('COMMUNITY', 'hello%40example.com'), undefined],
+  [validQuery.replace('COMMUNITY', 'hello%20world'), undefined],
+  [validQuery.replace('COMMUNITY', 'a'.repeat(65)), undefined],
+  [validQuery.replace('COMMUNITY', 'sk-live-NEVER_SEND'), undefined],
+  [validQuery.replace('COMMUNITY', 'https%3A%2F%2Fgithub.com'), undefined],
+]) {
+  const visitor = fixture('G-TESTONLY00', null, false, `https://khizooology.com/?${query}#NEVER_SEND`);
+  visitor.run('initializeAnalytics()');
+  assert.equal(visitor.scripts.length, 0);
+  assert.equal(visitor.win.dataLayer, undefined);
+  assert.equal(visitor.storageWrites.length, 0);
+  visitor.run('setConsent("accepted")');
+  const config = Array.from(visitor.win.dataLayer, args => Array.from(args)).find(args => args[0] === 'config')[2];
+  if (expected) assert.deepEqual(campaignKeys.map(key => config[key]), expected);
+  else assert.ok(campaignKeys.every(key => !(key in config)));
+  assert.equal(config.page_location, 'https://khizooology.com/toolbox/schema-drift-doctor');
+  assert.deepEqual(visitor.storageWrites, [['khizooology-analytics-consent', 'accepted']]);
+  assert.doesNotMatch(JSON.stringify(visitor.win.dataLayer), /NEVER_SEND|utm_|hello@|hello world|#|\?/);
+}
+const journey = fixture();
+const plays = 'trackInfoooWorldStart("the-living-grid"); trackInfoooGuideComplete("the-living-grid","compact-challenge")';
+journey.run(`initializeAnalytics(); ${plays}; ${plays}`);
+assert.equal(journey.win.dataLayer, undefined);
+journey.run(`setConsent("accepted"); ${plays}; ${plays};
+  trackInfoooWorldStart("human-atlas");
+  trackInfoooGuideComplete("the-living-grid","another-guide");
+  trackInfoooEntityView("the-living-grid","battery");trackInfoooEntityView("the-living-grid","battery");`);
+assert.deepEqual(Array.from(journey.events(), e => e[1]), ['page_view', 'infooo_world_start', 'infooo_guide_complete', 'infooo_world_start', 'infooo_guide_complete', 'infooo_entity_view', 'infooo_entity_view']);
+
+const bridge = fixture();
+bridge.run(`const viewer = {}; const send = (data, origin = window.location.origin, source = viewer) =>
+  trackAtlasViewerMessage({ data, origin, source }, viewer);
+  initializeAnalytics(); send("khizooology:atlas:guide-start"); setConsent("accepted");
+  send("khizooology:atlas:interact", "https://example.org");
+  send("khizooology:atlas:interact", window.location.origin, {});
+  send("khizooology:atlas:exit"); send("khizooology:atlas:restart");
+  send({ type: "khizooology:atlas:interact", query: "NEVER_SEND" });`);
+assert.deepEqual(Array.from(bridge.events(), e => e[1]), ['page_view']);
+bridge.run(`send("khizooology:atlas:interact"); send("khizooology:atlas:interact");
+  send("khizooology:atlas:guide-start"); send("khizooology:atlas:guide-start");
+  send("khizooology:atlas:guide-complete"); send("khizooology:atlas:guide-complete");`);
+assert.deepEqual(Array.from(bridge.events(), e => e[1]), ['page_view', 'infooo_world_start', 'infooo_guide_start', 'infooo_guide_complete']);
+for (const e of bridge.events().slice(2)) {
+  assert.equal(e[2].world_slug, 'human-atlas');
+  assert.equal(e[2].guide_id, 'follow-the-blood');
+}
+assert.doesNotMatch(JSON.stringify(bridge.win.dataLayer), /NEVER_SEND/);
 const errorPage = fixture('G-TESTONLY00', 'accepted', false, 'https://khizooology.com/NEVER_SEND%2Fsecret?token=NEVER_SEND#private', 'https://khizooology.com/404/');
 errorPage.run('initializeAnalytics(); initializeAnalytics(); setConsent("accepted")');
 assert.equal(errorPage.events().length, 1, '404 navigation emits only one page view');
@@ -98,10 +152,10 @@ const csvEvent = f.events().at(-1);
 assert.equal(csvEvent[1], 'tool_export');
 assert.equal(csvEvent[2].export_type, 'csv');
 assert.ok(Object.keys(csvEvent[2]).every(key => ['page_location','page_referrer','page_title','tool_slug','tool_family','feature_level','export_type'].includes(key)));
-f.run('trackToolFavorite("capacity-cliff-simulator", true); trackToolScenarioSelect("capacity-cliff-simulator", "safer-plan"); trackToolNextMove("capacity-cliff-simulator", "queue-capacity-planner"); trackToolChainAction("tool_chain_next", "capacity-cliff-simulator", "capacity-planning", "queue-capacity-planner"); trackContractDriftRun(4, { likelyBreaking: 1, needsReview: 2, additive: 1 })');
-const lv3Events = f.events().slice(-6);
-assert.deepEqual(Array.from(lv3Events, event => event[1]), ['tool_favorite', 'tool_scenario_select', 'try_next_click', 'tool_chain_next', 'contract_drift_run', 'tool_complete']);
-for (const event of lv3Events) assert.ok(Object.keys(event[2]).every(key => ['page_location', 'page_referrer', 'page_title', 'tool_id', 'scenario_id', 'target_tool_id', 'chain_id', 'change_count_bucket', 'likely_breaking_count', 'needs_review_count', 'additive_count', 'source_slug', 'source_module', 'destination_slug', 'destination_module', 'tool_slug', 'tool_family', 'feature_level', 'completion_type'].includes(key)));
+f.run('trackToolFavorite("capacity-cliff-simulator", true); trackToolScenarioSelect("capacity-cliff-simulator", "safer-plan"); trackToolNextMove("capacity-cliff-simulator", "queue-capacity-planner"); trackToolChainAction("tool_chain_next", "capacity-cliff-simulator", "capacity-planning", "queue-capacity-planner"); trackContractDriftRun()');
+const lv3Events = f.events().slice(-5);
+assert.deepEqual(Array.from(lv3Events, event => event[1]), ['tool_favorite', 'tool_scenario_select', 'try_next_click', 'tool_chain_next', 'contract_drift_run']);
+for (const event of lv3Events) assert.ok(Object.keys(event[2]).every(key => ['page_location', 'page_referrer', 'page_title', 'tool_id', 'scenario_id', 'target_tool_id', 'chain_id', 'source_slug', 'source_module', 'destination_slug', 'destination_module', 'tool_slug', 'tool_family', 'feature_level'].includes(key)));
 assert.ok(!/NEVER_SEND|super-secret|api[_-]?key/i.test(JSON.stringify(lv3Events)), 'LV3 analytics must remain metadata-only');
 f.run('setConsent("declined"); trackToolExport("json")'); assert.equal(f.win['ga-disable-G-TESTONLY00'], true); assert.equal(f.events().length, 0); assert.equal(f.reloads(), 1);
 const failed = fixture('G-TESTONLY00', 'accepted'); failed.run('initializeAnalytics()'); failed.scripts[0].onerror(); failed.run('trackToolExport("png")'); assert.equal(failed.events().length, 0);
@@ -111,9 +165,13 @@ for (const host of ['localhost', '127.0.0.1', '[::1]', '0.0.0.0']) {
   local.run('initializeAnalytics(); trackToolResult(); trackToolExport("json")');
   assert.equal(local.scripts.length, 0); assert.equal(local.events().length, 0);
 }
+const devHost = fixture('G-TESTONLY00', 'accepted', false, 'http://192.0.2.10:4321/', undefined, '', true);
+devHost.run('initializeAnalytics(); trackToolStart(); trackInfoooWorldStart("human-atlas")');
+assert.equal(devHost.scripts.length, 0);
+assert.equal(devHost.win.dataLayer, undefined);
 const growth = fixture('G-TESTONLY00', 'accepted');
-growth.run('initializeAnalytics(); initializeAnalytics(); trackToolResult(); trackShareAction({ monster: "toolooo", content_type: "tool", slug: "schema-drift-doctor", action: "share_result", payload: "NEVER_SEND" }); trackShareAction({ monster: "toolooo", content_type: "tool", slug: "schema-drift-doctor", action: "copy_result" }); trackRelatedContentClick({ monster: "toolooo", content_type: "tool", slug: "api-payload-doctor", private_text: "NEVER_SEND" }); trackRelatedContentClick({ monster: "artooo", content_type: "artwork", slug: "public-art" }, "public-art");');
-assert.deepEqual(Array.from(growth.events(), e => e[1]), ['page_view', 'result_generated', 'result_shared', 'result_copied', 'related_tool_click', 'related_art_click']);
+growth.run('initializeAnalytics(); initializeAnalytics(); trackToolResult(); trackShareAction({ monster: "toolooo", content_type: "tool", slug: "schema-drift-doctor", action: "result_share_options_opened", payload: "NEVER_SEND" }); trackShareAction({ monster: "toolooo", content_type: "tool", slug: "schema-drift-doctor", action: "copy_result" }); trackRelatedContentClick({ monster: "toolooo", content_type: "tool", slug: "api-payload-doctor", private_text: "NEVER_SEND" }); trackRelatedContentClick({ monster: "artooo", content_type: "artwork", slug: "public-art" }, "public-art");');
+assert.deepEqual(Array.from(growth.events(), e => e[1]), ['page_view', 'result_generated', 'share_action', 'result_copied', 'related_tool_click', 'related_art_click']);
 assert.equal(growth.scripts.length, 1);
 assert.equal(growth.events().at(-1)[2].source_slug, 'public-art');
 assert.ok(!/NEVER_SEND|"payload":|"private_text":/.test(JSON.stringify(growth.events())));
@@ -177,14 +235,14 @@ await buttons[1].props.onClick();
 assert.equal(shareEvents.length, 1); assert.equal(shareEvents[0].action, 'copy_result');
 assert.equal(clipboard[0], 'Public title\nOnly aggregate counts\nhttps://khizooology.com/toolbox/api-payload-doctor/');
 await buttons[0].props.onClick();
-assert.equal(shareEvents.length, 2); assert.equal(shareEvents[1].action, 'share_result');
+assert.equal(shareEvents.length, 2); assert.equal(shareEvents[1].action, 'result_share_options_opened');
 const shareButton = new cross.Element(); shareButton.closest = () => null;
 cross.docListeners.click({ isTrusted: true, target: shareButton });
-assert.deepEqual(Array.from(cross.events(), e => e[1]), ['page_view', 'result_copied', 'result_shared'], 'share callback and bubbled button click emit one share, no contact');
+assert.deepEqual(Array.from(cross.events(), e => e[1]), ['page_view', 'result_copied', 'share_action'], 'share callback and bubbled button click emit one share, no contact');
 const contactLink = new cross.Element(); contactLink.href = 'https://khizooology.com/drop-a-vibe/';
 contactLink.closest = selector => selector === 'a[href]' ? contactLink : null;
 cross.docListeners.click({ isTrusted: true, target: contactLink });
-assert.deepEqual(Array.from(cross.events(), e => e[1]), ['page_view', 'result_copied', 'result_shared', 'contact_click'], 'one contact interaction emits one contact, no share');
+assert.deepEqual(Array.from(cross.events(), e => e[1]), ['page_view', 'result_copied', 'share_action', 'contact_click'], 'one contact interaction emits one contact, no share');
 assert.equal(nativeShares[0].url, 'https://khizooology.com/toolbox/api-payload-doctor/');
 navigator.share = async () => { throw Object.assign(new Error('cancelled'), { name: 'AbortError' }); };
 navigator.clipboard.writeText = async () => { throw new Error('denied'); };
@@ -218,7 +276,7 @@ collectionClick('world','https://khizooology.com/infooo/agent-identity-lab/',fal
 collection.run('trackInfoooCollection("start", "private?NEVER_SEND", "mcp-security-lab"); trackInfoooCollection("world", "agent-systems-lab", "private#NEVER_SEND")');
 assert.equal(collection.events().length,4);assert.ok(!JSON.stringify(collection.events()).includes('NEVER_SEND'));
 assert.equal(collection.scripts.length,1);
-console.log('PASS: consent/config/error/storage guards, single initialization/page view/tool start, local suppression, completion/share/copy, real share success/cancellation callbacks, related source/destination, tags, module discovery, contacts and zero raw-content leakage. Mock GA transport; live property receipt requires deployment.');
+console.log('PASS: consent/config/error/storage guards, single initialization/page view/tool start, local suppression, deduplication, Atlas bridge, campaign allowlist, share-open/copy/cancellation callbacks, related source/destination, tags, module discovery, contacts and zero raw-content leakage. Mock GA transport; live property receipt requires deployment.');
 
 // Earning experiment 001: real observer/click handlers, mocked Google transport only.
 function earningFixture(saved = null, href = 'https://khizooology.com/toolbox/api-payload-doctor/?private=NEVER_SEND#private', canonical = 'https://khizooology.com/toolbox/api-payload-doctor/') {

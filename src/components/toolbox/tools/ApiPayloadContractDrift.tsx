@@ -30,7 +30,7 @@ export default function ApiPayloadContractDrift() {
     if (!inputs.expected.trim() || !inputs.actual.trim()) return;
     const next = compareContractJson(inputs.expected, inputs.actual);
     setSubmitted(inputs); setSelected(next.items[0] ?? null);
-    if (!next.expectedError && !next.actualError) trackContractDriftRun(next.items.length, driftSummary(next.items));
+    if (!next.expectedError && !next.actualError) trackContractDriftRun();
   };
   const applyScenario = (scenario: ToolScenario<Inputs>) => { setInputs({ ...empty, ...scenario.inputPatch }); setActiveScenario(scenario.id); trackToolScenarioSelect('api-payload-doctor', scenario.id); };
   const health = summary.likelyBreaking ? 'HIGH RISK' : summary.needsReview ? 'REVIEW' : 'STABLE';

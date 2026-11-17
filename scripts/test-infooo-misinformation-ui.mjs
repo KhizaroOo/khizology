@@ -204,7 +204,7 @@ f.click('Next step'); f.click('Post the truth'); f.flush();
 ok(f.byClass('mi-tx').length === Array.from(late.fromX).filter(v => v >= 0).length, 'one blue trail per person the truth reached');
 ok(result() === `The truth reached ${late.corrected + late.warned}. ${late.rumorNow} are left with only the rumor.`, `step 4 result: ${result()}`);
 ok(count().includes(`${late.rumorNow} still have only the rumor`), 'only-rumor count next to the map');
-ok(f.events.some(e => e[0] === 'trackInfoooGuideComplete' && e[2] === 'story'), 'analytics: story complete after the truth step');
+ok(!f.events.some(e => e[0] === 'trackInfoooGuideComplete' && e[2] === 'story'), 'analytics: step four does not complete the story');
 // ---- step 5 ----
 f.click('Next step');
 ok(f.ui().filter(n => n.type === 'fieldset').length === 3, 'three choices');
@@ -220,6 +220,7 @@ for (const seed of ['quiet', 'hub']) for (const pause of ['no', 'yes']) for (con
   combos++;
 }
 ok(combos === 12, 'all 12 step-5 combinations match the model');
+ok(f.events.some(e => e[0] === 'trackInfoooGuideComplete' && e[2] === 'story'), 'analytics: the final experiment completes the story');
 // ---- navigation ----
 f.find(n => n.type === 'button' && f.text(n).includes('A hub') && n.props['aria-current'] !== 'step', 'rail step 2').props.onClick(); f.render();
 ok(count().startsWith(String(h.reached)) && result().startsWith(`${h.reached} of 120`), 'rail jumps back to step 2 with its finished run');

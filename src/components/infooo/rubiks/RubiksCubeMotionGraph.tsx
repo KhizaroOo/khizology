@@ -75,7 +75,6 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
     return points.filter((point): point is Vec => Boolean(point));
   }, [history, selectedId, size]);
 
-  useEffect(() => { trackInfoooWorldStart(world.slug); }, [world.slug]);
   useEffect(() => {
     if (!visualTurn) return;
     if (motionPaused) return;
@@ -133,6 +132,7 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
   };
 
   const randomizeCube = () => {
+    trackInfoooWorldStart(world.slug);
     const sequence = newScramble(size);
     clearPlayback();
     setScramble(sequence);
@@ -145,6 +145,7 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
   };
   const startSolve = () => {
     if (!scramble) return;
+    trackInfoooWorldStart(world.slug);
     setScrambleNote('');
     setPlayback({ moves: invertSequence(scramble), baseHistory: scramble });
     setPlayIndex(0); setPlaying(true); setView('cube');
@@ -162,6 +163,7 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
   const selectPiece = (id: string) => {
     const piece = cubieById(state, id);
     if (!piece || (piece.type === 'center' && size !== 4)) return;
+    trackInfoooWorldStart(world.slug);
     setSelectedId(id);
     if (view === 'motion' && window.matchMedia('(max-width: 760px)').matches) cubeTab.current?.focus({ preventScroll: true });
     setView('cube');
@@ -169,6 +171,7 @@ export default function RubiksCubeMotionGraph({ world }: { world: InfoooWorld })
   };
   const changeSize = (nextSize: CubeSize) => {
     if (nextSize === size) return;
+    trackInfoooWorldStart(world.slug);
     setSize(nextSize);
     setState(solvedCube(nextSize));
     setHistory([]); setScramble(null); setScrambleNote('');

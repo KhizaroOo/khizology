@@ -32,7 +32,7 @@ export default function CityHeatWorld({ world, children }: { world: InfoooWorld;
   const [weather, setWeather] = useState<WeatherId>('clear'), [lever, setLever] = useState<LeverId>('none'), [days, setDays] = useState(1);
   const [hour, setHour] = useState(START), [tab, setTab] = useState<ChartTab>('surface'), [guess, setGuess] = useState<GuessId | null>(null), [stage, setStage] = useState(0);
   const [picked, setPicked] = useState<(number | null)[]>(() => QUIZ.map(() => null)), [checked, setChecked] = useState<boolean[]>(() => QUIZ.map(() => false));
-  const root = useRef<HTMLDivElement>(null), chartCard = useRef<HTMLDivElement>(null), started = useRef(false), playAfterDays = useRef(false), holdReveal = useRef(false), liveHour = useRef(START);
+  const root = useRef<HTMLDivElement>(null), chartCard = useRef<HTMLDivElement>(null), playAfterDays = useRef(false), holdReveal = useRef(false), liveHour = useRef(START);
 
   const sims = useMemo(() => runSims(weather, lever, days), [weather, lever, days]);
   const stats = useMemo(() => computeStats(sims, days), [sims, days]);
@@ -61,7 +61,7 @@ export default function CityHeatWorld({ world, children }: { world: InfoooWorld;
   const end = hour >= endHour(days) - 1e-6, atStart = hour <= START + 1e-6;
   const runLabel = reduced ? (end ? '↻ Start again' : atStart ? '▶ First moment' : 'Next moment ▶') : playing ? '⏸ Pause' : end ? '↻ Replay' : atStart ? '▶ Run the day' : '▶ Resume';
   function run() {
-    if (!started.current) { started.current = true; trackInfoooWorldStart(slug); }
+    trackInfoooWorldStart(slug);
     if (reduced) { if (end) moveTo(START); else next(); } else if (playing) pause(); else play();
   }
   function changeDays(n: number, andPlay: boolean) {

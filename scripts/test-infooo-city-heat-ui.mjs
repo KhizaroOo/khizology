@@ -65,7 +65,7 @@ function fixture(reduced) {
         if (id === 'react/jsx-runtime') return { jsx, jsxs: jsx };
         if (id.endsWith('.css')) return {};
         if (id.includes('InfoooWorldFoundation')) return { useInfoooReducedMotion: () => reduced, InfoooWorldShell: props => jsx('section', { children: [props.controls, props.stage, props.footer] }) };
-        if (id.includes('utils/analytics')) return Object.fromEntries(['trackInfoooWorldStart', 'trackInfoooGuideComplete', 'trackInfoooEntityView'].map(name => [name, (...args) => events.push([name, ...args])]));
+        if (id.includes('utils/analytics')) return Object.fromEntries(['trackInfoooWorldStart', 'trackInfoooGuideComplete', 'trackInfoooEntityView'].map(name => [name, (...args) => { if (name !== 'trackInfoooWorldStart' || !events.some(event => event[0] === name && event[1] === args[0])) events.push([name, ...args]); }]));
         const base = path.resolve(path.dirname(file), id); return load([base, `${base}.ts`, `${base}.tsx`].find(name => fs.existsSync(name) && fs.statSync(name).isFile()));
       },
     });

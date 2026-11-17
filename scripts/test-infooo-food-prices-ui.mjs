@@ -65,7 +65,7 @@ function fixture(reduced) {
         if (id === 'react/jsx-runtime') return { jsx, jsxs: jsx };
         if (id.endsWith('.css')) return {};
         if (id.includes('InfoooWorldFoundation')) return { useInfoooReducedMotion: () => reduced, InfoooWorldShell: props => jsx('section', { children: [props.controls, props.stage, props.footer] }) };
-        if (id.includes('utils/analytics')) return Object.fromEntries(['trackInfoooWorldStart', 'trackInfoooGuideComplete', 'trackInfoooEntityView'].map(name => [name, (...args) => events.push([name, ...args])]));
+        if (id.includes('utils/analytics')) return Object.fromEntries(['trackInfoooWorldStart', 'trackInfoooGuideComplete', 'trackInfoooEntityView'].map(name => [name, (...args) => { if (name !== 'trackInfoooWorldStart' || !events.some(event => event[0] === name && event[1] === args[0])) events.push([name, ...args]); }]));
         const base = path.resolve(path.dirname(file), id); return load([base, `${base}.ts`, `${base}.tsx`].find(name => fs.existsSync(name) && fs.statSync(name).isFile()));
       },
     });
@@ -171,6 +171,7 @@ const ahaHidden = f => byId(f, 'fp-aha').props.hidden;
   f.click('Retail'); assert.equal(f.find('button', 'Retail').props['aria-pressed'], true); assert.equal(selects(f)[0].props.value, 'retail', 'a table row puts that cost on the stack');
   assert.ok(f.nodes().some(n => n.props?.className === 'fp-best'), 'the largest cost per food is flagged'); assert.ok(f.text().includes('(largest)'));
   f.click('Fuel spike: energy +50%'); assert.equal(pct(f), 50); assert.equal(selects(f)[0].props.value, 'energy'); assert.equal(f.find('button', 'Fuel spike: energy +50%').props['aria-pressed'], true); assert.equal(ahaHidden(f), false, 'a story that reaches 40% reveals the aha');
+  assert.ok(!f.events.some(e => e[0] === 'trackInfoooGuideComplete'), 'a preset may show the reveal without completing guided playback');
   f.click('Beef vs soft drinks'); assert.deepEqual([selects(f)[1].props.value, selects(f)[2].props.value], ['Xf1103', 'Xf1128']); assert.ok(f.nodes().some(n => n.type === 'th' && f.label(n) === 'Soft drinks & water'), 'table headers follow the foods');
   f.click('Wage rise: +10% in every link'); assert.equal(selects(f)[0].props.value, 'wages');
   f.click('Same foods, new shock: wages +10%'); assert.equal(pct(f), 10);

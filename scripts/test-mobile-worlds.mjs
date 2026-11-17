@@ -18,11 +18,11 @@ const ast=ts.createSourceFile('cube.tsx',cubeSource,ts.ScriptTarget.Latest,true,
 let select;
 function visit(node){if(ts.isVariableDeclaration(node)&&node.name.getText(ast)==='selectPiece')select=node.initializer.getText(ast);ts.forEachChild(node,visit);}visit(ast);
 assert.ok(select);
-let selected='',view='',focused=0,camera=0;
-const scope={cubieById:(_,id)=>id==='invalid'?null:{type:'corner'},state:{},size:3,view:'motion',window:{matchMedia:()=>({matches:true})},cubeTab:{current:{focus(){focused++;}}},setSelectedId:id=>{selected=id;},setView:value=>{view=value;},pieceVisible:()=>false,cameraAngle:{},setCameraAngle:()=>{camera++;},presetAngle:()=>({}),revealView:()=> 'Bottom'};
+let selected='',view='',focused=0,camera=0,starts=0;
+const scope={world:{slug:'rubiks-cube-motion-graph'},trackInfoooWorldStart(slug){assert.equal(slug,'rubiks-cube-motion-graph');starts++;},cubieById:(_,id)=>id==='invalid'?null:{type:'corner'},state:{},size:3,view:'motion',window:{matchMedia:()=>({matches:true})},cubeTab:{current:{focus(){focused++;}}},setSelectedId:id=>{selected=id;},setView:value=>{view=value;},pieceVisible:()=>false,cameraAngle:{},setCameraAngle:()=>{camera++;},presetAngle:()=>({}),revealView:()=> 'Bottom'};
 const selectPiece=vm.runInNewContext(ts.transpileModule(`(${select})`,{compilerOptions:{target:ts.ScriptTarget.ES2022}}).outputText,scope);
-selectPiece('corner');assert.equal(selected,'corner');assert.equal(view,'cube');assert.equal(focused,1);assert.equal(camera,1);
-selectPiece('invalid');assert.equal(focused,1,'invalid selections do not change tabs or focus');
+selectPiece('corner');assert.equal(selected,'corner');assert.equal(view,'cube');assert.equal(focused,1);assert.equal(camera,1);assert.equal(starts,1);
+selectPiece('invalid');assert.equal(focused,1,'invalid selections do not change tabs or focus');assert.equal(starts,1,'invalid selections do not start the world');
 assert.ok(cubeSource.includes('role="button" aria-pressed={selected}'));
 assert.ok(cubeSource.includes('Select a token to open its highlighted piece in Cube view.'));
 

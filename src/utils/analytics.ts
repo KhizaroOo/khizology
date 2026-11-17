@@ -9,12 +9,13 @@ let loaded = false;
 let started = false;
 let listenersAttached = false;
 let earningObserver: IntersectionObserver | null = null;
-const earningViews = new WeakSet<Element>();
+let earningViewed = false;
+const infoooOnce = new Set<string>();
 const earningExperimentId = 'technical-clarity-review-001';
 
 
 function localPreview() {
-  if (typeof window === 'undefined') return true;
+  if (import.meta.env.DEV || typeof window === 'undefined') return true;
   return ['localhost', '127.0.0.1', '[::1]', '0.0.0.0'].includes(new URL(window.location.href).hostname);
 }
 
@@ -31,7 +32,7 @@ export function consent(): Consent | null {
   return choice;
 }
 // Only known public referral hosts; never forward private hosts, paths or URL state.
-const publicReferralHosts = new Set(['google.com', 'google.co.uk', 'google.com.pk', 'bing.com', 'duckduckgo.com', 'search.yahoo.com', 'github.com', 'linkedin.com', 'reddit.com', 'youtube.com', 'facebook.com', 'instagram.com', 'pinterest.com', 'x.com', 't.co', 'chatgpt.com', 'perplexity.ai', 'claude.ai', 'gemini.google.com', 'copilot.microsoft.com']);
+const publicReferralHosts = new Set(['google.com', 'google.co.uk', 'google.com.pk', 'bing.com', 'duckduckgo.com', 'search.yahoo.com', 'github.com', 'linkedin.com', 'news.ycombinator.com', 'dev.to', 'peerlist.io', 'producthunt.com', 'medium.com', 'hashnode.com', 'threads.net', 'tiktok.com', 'discord.com', 'discordapp.com', 'm.facebook.com', 'l.facebook.com', 'lm.facebook.com', 'l.instagram.com', 'reddit.com', 'youtube.com', 'facebook.com', 'instagram.com', 'pinterest.com', 'x.com', 't.co', 'chatgpt.com', 'perplexity.ai', 'claude.ai', 'gemini.google.com', 'copilot.microsoft.com']);
 function safeReferrer() {
   try {
     const referrer = new URL(document.referrer);
@@ -44,7 +45,23 @@ function pageMetadata() {
   const page = new URL(canonical || 'https://khizooology.com/');
   return { page_location: `https://khizooology.com${page.pathname}`, page_referrer: safeReferrer(), page_title: document.title };
 }
-function command(...args: unknown[]) { (window as unknown as AnalyticsWindow).gtag?.(...args); }
+function campaignMetadata() {
+  const query = new URL(window.location.href).searchParams;
+  const entries = ['utm_source', 'utm_medium', 'utm_campaign'].map(name => query.getAll(name));
+  if (entries.some(values => values.length !== 1)) return {};
+  const [campaign_source, campaign_medium, campaign_name] = entries.map(([value]) => value.trim().toLowerCase());
+  const publicId = /^[a-z][a-z0-9]*(?:[-_][a-z0-9]+)*$/;
+  const privatePrefix = /^(?:https?|gh[pousr]|github_pat|sk|pk|xox[baprs]|bearer|secret|password|token|apikey|api_key)[-_]/;
+  if (![campaign_source, campaign_medium, campaign_name].every(value =>
+    value.length <= 64 && !privatePrefix.test(value) && publicId.test(value))) return {};
+  return { campaign_source, campaign_medium, campaign_name };
+}
+function command(...args: unknown[]) {
+  const w = window as unknown as AnalyticsWindow;
+  if (typeof w.gtag !== 'function') return false;
+  w.gtag(...args);
+  return true;
+}
 export function loadAnalytics() {
   if (!configured() || localPreview() || consent() !== 'accepted' || loaded) return;
   loaded = true;
@@ -55,7 +72,7 @@ export function loadAnalytics() {
   command('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
   command('consent', 'update', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
   command('js', new Date());
-  command('config', measurementId, { ...pageMetadata(), send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false, cookie_domain: 'none', cookie_flags: 'SameSite=Lax;Secure' });
+  command('config', measurementId, { ...pageMetadata(), ...campaignMetadata(), send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false, cookie_domain: 'none', cookie_flags: 'SameSite=Lax;Secure' });
   command('event', 'page_view', pageMetadata());
   const script = document.createElement('script');
   script.id = 'khizooology-ga';
@@ -90,7 +107,7 @@ export function setConsent(value: Consent) {
 }
 function emit(name: string, params: Record<string, string | number>) {
   if (!configured() || consent() !== 'accepted' || !loaded || (window as unknown as AnalyticsWindow)[`ga-disable-${measurementId}`]) return;
-  command('event', name, { ...pageMetadata(), ...params });
+  return command('event', name, { ...pageMetadata(), ...params });
 }
 // Read only static offer/canonical metadata, never tool controls or link contents.
 function earningSurface(offer: Element | null) {
@@ -103,17 +120,19 @@ function earningSurface(offer: Element | null) {
 }
 function stopEarningOfferObservation() { earningObserver?.disconnect(); earningObserver = null; }
 function observeEarningOffers() {
-  if (earningObserver || !configured() || !loaded || localPreview() || consent() !== 'accepted' || typeof IntersectionObserver === 'undefined') return;
-  const offers = [...document.querySelectorAll('[data-earning-offer]')].filter(offer => !earningViews.has(offer));
+  if (earningViewed || earningObserver || !configured() || !loaded || localPreview() || consent() !== 'accepted' || typeof IntersectionObserver === 'undefined') return;
+  const offers = [...document.querySelectorAll('[data-earning-offer]')];
   if (!offers.length) return;
   earningObserver = new IntersectionObserver((entries, observer) => {
     if (earningObserver !== observer || document.visibilityState === 'hidden' || consent() !== 'accepted' || (window as unknown as AnalyticsWindow)[`ga-disable-${measurementId}`]) return;
     for (const entry of entries) {
       const surface = earningSurface(entry.target);
-      if (!entry.isIntersecting || entry.intersectionRatio < 0.5 || !surface || earningViews.has(entry.target)) continue;
-      emit('earning_offer_view', { experiment_id: earningExperimentId, surface });
-      earningViews.add(entry.target);
-      observer.unobserve(entry.target);
+      if (!entry.isIntersecting || entry.intersectionRatio < 0.5 || !surface) continue;
+      if (emit('earning_offer_view', { experiment_id: earningExperimentId, surface })) {
+        earningViewed = true;
+        stopEarningOfferObservation();
+        break;
+      }
     }
   }, { threshold: 0.5 });
   offers.forEach(offer => earningObserver!.observe(offer));
@@ -133,8 +152,7 @@ function sourceMetadata() {
 export function trackToolStart() {
   const metadata = toolMetadata();
   if (started || !metadata || consent() !== 'accepted' || !configured()) return;
-  started = true;
-  emit('tool_start', metadata);
+  if (emit('tool_start', metadata)) started = true;
 }
 export function trackArtworkView(slug: string) {
   // Match a public SSR artwork record, never search text or an uploaded filename.
@@ -150,11 +168,11 @@ export function trackToolResult() {
 }
 type SharedFeatureMetadata = { monster: 'toolooo' | 'artooo' | 'infooo'; content_type: 'tool' | 'artwork' | 'infooo_world'; slug: string; action: string };
 function validSharedMetadata(metadata: SharedFeatureMetadata) {
-  return ['toolooo', 'artooo', 'infooo'].includes(metadata.monster) && ['tool', 'artwork', 'infooo_world'].includes(metadata.content_type) && /^[a-z0-9-]+$/.test(metadata.slug) && ['copy_result', 'share_result', 'copy_link', 'web_share', 'open'].includes(metadata.action);
+  return ['toolooo', 'artooo', 'infooo'].includes(metadata.monster) && ['tool', 'artwork', 'infooo_world'].includes(metadata.content_type) && /^[a-z0-9-]+$/.test(metadata.slug) && ['copy_result', 'copy_link', 'result_share_options_opened', 'share_options_opened', 'open'].includes(metadata.action);
 }
 export function trackShareAction(metadata: SharedFeatureMetadata) {
   if (!validSharedMetadata(metadata)) return;
-  const name = metadata.action === 'share_result' ? 'result_shared' : metadata.action === 'copy_result' ? 'result_copied' : 'share_action';
+  const name = metadata.action === 'copy_result' ? 'result_copied' : 'share_action';
   emit(name, { monster: metadata.monster, content_type: metadata.content_type, slug: metadata.slug, action: metadata.action, ...sourceMetadata() });
 }
 export function trackRelatedContentClick(metadata: Omit<SharedFeatureMetadata, 'action'>, artworkSource?: string, next = false) {
@@ -173,10 +191,8 @@ export function trackToolNextMove(toolId: string, targetToolId: string) {
   if (validToolId(toolId) && validToolId(targetToolId)) emit('try_next_click', { ...sourceMetadata(), source_slug: toolId, destination_slug: targetToolId, destination_module: 'toolooo', ...(toolMetadata() || {}) });
 }
 export function trackToolChainAction(event: 'tool_chain_next', toolId: string, chainId: string, targetToolId?: string) { trackToolLv3(event, toolId, { chain_id: chainId, ...(targetToolId ? { target_tool_id: targetToolId } : {}) }); }
-export function trackContractDriftRun(changeCount: number, summary: { likelyBreaking: number; needsReview: number; additive: number }) {
-  const bucket = changeCount === 0 ? 'none' : changeCount <= 3 ? 'few' : changeCount <= 10 ? 'several' : 'many';
-  emit('contract_drift_run', { tool_id: 'api-payload-doctor', change_count_bucket: bucket, likely_breaking_count: summary.likelyBreaking, needs_review_count: summary.needsReview, additive_count: summary.additive });
-  emit('tool_complete', { tool_slug: 'api-payload-doctor', tool_family: 'check', completion_type: 'contract_review' });
+export function trackContractDriftRun() {
+  emit('contract_drift_run', { tool_id: 'api-payload-doctor' });
 }
 
 type InfoooAnalyticsMetadata = { world_slug: string; entity_id?: string; guide_id?: string };
@@ -184,10 +200,31 @@ function validInfoooMetadata(metadata: InfoooAnalyticsMetadata) {
   return /^[a-z0-9-]+$/.test(metadata.world_slug) && (!metadata.entity_id || /^[a-z0-9-]+$/.test(metadata.entity_id)) && (!metadata.guide_id || /^[a-z0-9-]+$/.test(metadata.guide_id));
 }
 // Infooo events carry only public world metadata. Never pass search text, viewer state, or personal information.
-export function trackInfoooWorldStart(world_slug: string) { if (validInfoooMetadata({ world_slug })) emit('infooo_world_start', { world_slug }); }
+function emitInfoooOnce(name: string, world_slug: string, guide_id?: string) {
+  if (!validInfoooMetadata({ world_slug, guide_id }) || guide_id === '') return;
+  const key = JSON.stringify([name, world_slug, guide_id]);
+  if (infoooOnce.has(key)) return;
+  if (emit(name, guide_id === undefined ? { world_slug } : { world_slug, guide_id })) infoooOnce.add(key);
+}
+export function trackInfoooWorldStart(world_slug: string) { emitInfoooOnce('infooo_world_start', world_slug); }
 export function trackInfoooEntityView(world_slug: string, entity_id: string) { if (validInfoooMetadata({ world_slug, entity_id })) emit('infooo_entity_view', { world_slug, entity_id }); }
-export function trackInfoooGuideStart(world_slug: string, guide_id: string) { if (validInfoooMetadata({ world_slug, guide_id })) emit('infooo_guide_start', { world_slug, guide_id }); }
-export function trackInfoooGuideComplete(world_slug: string, guide_id: string) { if (validInfoooMetadata({ world_slug, guide_id })) emit('infooo_guide_complete', { world_slug, guide_id }); }
+export function trackInfoooGuideStart(world_slug: string, guide_id: string) { emitInfoooOnce('infooo_guide_start', world_slug, guide_id); }
+export function trackInfoooGuideComplete(world_slug: string, guide_id: string) { emitInfoooOnce('infooo_guide_complete', world_slug, guide_id); }
+export function trackAtlasViewerMessage(event: MessageEvent, viewer: Window | null) {
+  if (!viewer || event.source !== viewer || event.origin !== window.location.origin) return;
+  switch (event.data) {
+    case 'khizooology:atlas:interact':
+      trackInfoooWorldStart('human-atlas');
+      break;
+    case 'khizooology:atlas:guide-start':
+      trackInfoooWorldStart('human-atlas');
+      trackInfoooGuideStart('human-atlas', 'follow-the-blood');
+      break;
+    case 'khizooology:atlas:guide-complete':
+      trackInfoooGuideComplete('human-atlas', 'follow-the-blood');
+      break;
+  }
+}
 export function trackInfoooShare(world_slug: string) { if (validInfoooMetadata({ world_slug })) emit('infooo_share', { world_slug }); }
 
 export function trackInfoooCollection(action: 'start' | 'world', collection_slug: string, destination_slug: string) {
@@ -199,13 +236,13 @@ export function initializeAnalytics() {
   loadAnalytics();
   if (listenersAttached) return;
   listenersAttached = true;
-  const tool = document.querySelector('[data-tool-slug]');
+  const tool = document.querySelector('[data-tool-workspace]');
   const interaction = (event: Event) => {
     if (event.isTrusted && event.target instanceof Element && event.target.closest('input,textarea,select,button') && !event.target.closest('.share-foundation, [aria-label="Toolooo connections"]')) trackToolStart();
   };
-  tool?.addEventListener('input', interaction);
-  tool?.addEventListener('change', interaction);
-  tool?.addEventListener('click', interaction);
+  tool?.addEventListener('input', interaction, true);
+  tool?.addEventListener('change', interaction, true);
+  tool?.addEventListener('click', interaction, true);
   const channels: Record<string, string> = { 'instagram.com': 'instagram', 'linkedin.com': 'linkedin', 'facebook.com': 'facebook', 'twitter.com': 'twitter', 'wa.me': 'whatsapp', 't.me': 'telegram', 'threads.net': 'threads', 'tiktok.com': 'tiktok', 'snapchat.com': 'snapchat', 'pinterest.com': 'pinterest', 'discordapp.com': 'discord', 'github.com': 'github', 'medium.com': 'medium', 'codepen.io': 'codepen' };
   document.addEventListener('click', (event) => {
     if (!event.isTrusted || !(event.target instanceof Element)) return;
