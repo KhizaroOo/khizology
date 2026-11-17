@@ -291,7 +291,7 @@ export function initializeAnalytics() {
     const destination = ({ toolbox: 'toolooo', artworks: 'artooo', infooo: 'infooo' } as Record<string, string>)[target.pathname.split('/').filter(Boolean)[0]];
     const source = sourceMetadata();
     if (destination && destination !== source.source_module) emit('module_discovery', { ...source, destination_module: destination });
-  });
+  }, true);
   if (document.querySelector('[data-earning-offer]')) {
     window.addEventListener('pagehide', stopEarningOfferObservation);
     window.addEventListener('pageshow', observeEarningOffers);

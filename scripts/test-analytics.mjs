@@ -6,21 +6,21 @@ import { stripTypeScriptTypes } from 'node:module';
 import ts from 'typescript';
 const source = fs.readFileSync(new URL('../src/utils/analytics.ts', import.meta.url), 'utf8');
 function fixture(id = 'G-TESTONLY00', saved = null, brokenStorage = false, href = 'https://khizooology.com/?private=NEVER_SEND', canonical = 'https://khizooology.com/toolbox/schema-drift-doctor', referrer = '', dev = false) {
-  const scripts = [], docListeners = {}, toolListeners = {}, winListeners = {};
+  const scripts = [], docListeners = {}, capturedListeners = {}, toolListeners = {}, winListeners = {};
   let reloads = 0, referrerReads = 0;
   const storageWrites = [];
   class Element { dataset = {}; closest(selector) { return selector.includes('.share-foundation') ? null : this; } }
   const tool = { dataset: { toolSlug: 'schema-drift-doctor', toolFamily: 'check', featureLevel: '2' }, addEventListener: (name, fn) => toolListeners[name] = fn };
   const doc = { title: 'Public tool title', referrer, cookie: '_ga=abc', querySelector: selector => selector.includes('canonical') ? { href: canonical } : tool,
     querySelectorAll: () => [{ dataset: { artworkSlug: 'public-art' } }], createElement: () => ({ remove() {} }), head: { appendChild: s => scripts.push(s) },
-    getElementById: () => scripts[0], addEventListener: (name, fn) => { const previous = docListeners[name]; docListeners[name] = event => { previous?.(event); fn(event); }; }, dispatchEvent() {} };
+    getElementById: () => scripts[0], addEventListener: (name, fn, capture = false) => { if (capture) capturedListeners[name] = fn; const previous = docListeners[name]; docListeners[name] = event => { previous?.(event); fn(event); }; }, dispatchEvent() {} };
   const win = { location: { href, origin: new URL(href).origin, reload: () => reloads++ }, addEventListener(name, fn) { winListeners[name] = fn; } };
   Object.defineProperty(doc, 'referrer', { get: () => { referrerReads++; return referrer; } });
   const context = vm.createContext({ window: win, document: doc, Element, URL, Event, localStorage: { getItem: () => { if (brokenStorage) throw Error(); return saved; }, setItem: (key, v) => { if (brokenStorage) throw Error(); storageWrites.push([key, v]); saved = v; } } });
   vm.runInContext(stripTypeScriptTypes(source.replace('import.meta.env.PUBLIC_GA_MEASUREMENT_ID', JSON.stringify(id)).replace('import.meta.env.DEV', JSON.stringify(dev))).replace(/export /g, ''), context);
   const run = code => vm.runInContext(code, context);
   const events = () => (win.dataLayer || []).map(args => Array.from(args)).filter(args => args[0] === 'event');
-  return { run, scripts, win, doc, winListeners, docListeners, toolListeners, Element, events, storageWrites, referrerReads: () => referrerReads, reloads: () => reloads };
+  return { run, scripts, win, doc, winListeners, docListeners, capturedListeners, toolListeners, Element, events, storageWrites, referrerReads: () => referrerReads, reloads: () => reloads };
 }
 for (const saved of [null, 'declined']) {
   const f = fixture('G-TESTONLY00', saved); f.run('initializeAnalytics(); trackToolStart(); trackArtworkView("public-art"); trackToolExport("json"); trackToolExport("csv")');
@@ -41,6 +41,16 @@ for (const saved of [null, 'declined']) {
   assert.equal(referral.events().length, 0); assert.equal(referral.win['ga-disable-G-TESTONLY00'], true); assert.equal(referral.reloads(), 1);
   assert.deepEqual(referral.storageWrites.at(-1), ['khizooology-analytics-consent', 'declined']);
 }
+const modalDiscovery = fixture('G-TESTONLY00', 'accepted');
+modalDiscovery.run('initializeAnalytics()');
+assert.equal(typeof modalDiscovery.capturedListeners.click, 'function', 'Discovery runs in capture before modal bubbling is stopped');
+const relatedArt = new modalDiscovery.Element();
+relatedArt.dataset = { relatedMonster: 'artooo', relatedContentType: 'artwork', relatedSlug: 'another-public-art', relatedSource: 'public-art' };
+relatedArt.closest = selector => selector === '[data-related-content]' ? relatedArt : null;
+modalDiscovery.capturedListeners.click({ isTrusted: true, target: relatedArt });
+assert.equal(modalDiscovery.events().filter(event => event[1] === 'related_art_click').length, 1);
+assert.equal(modalDiscovery.events().at(-1)[2].source_slug, 'public-art');
+assert.equal(modalDiscovery.events().at(-1)[2].destination_slug, 'another-public-art');
 const privacyCopy = fs.readFileSync(new URL('../src/pages/privacy.astro', import.meta.url), 'utf8');
 const noticeCopy = fs.readFileSync(new URL('../src/components/layout/AnalyticsConsent.astro', import.meta.url), 'utf8');
 assert.match(privacyCopy, /After analytics consent[\s\S]*scheme and hostname[\s\S]*limited list/);

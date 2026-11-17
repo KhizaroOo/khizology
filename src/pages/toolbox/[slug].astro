@@ -368,11 +368,11 @@ const jsonLd = pageSchema({
             <h3 class="tp-sidebar-h3">Tool Info</h3>
             <div class="tp-info-rows">
               <div class="tp-info-row"><span class="tp-info-label">Family</span><a class="tp-info-link" href={url(`/toolbox/family/${family.id}`)}>{family.icon} {family.name}</a></div>
-              <div class="tp-info-row"><span class="tp-info-label">Price</span><span class="tp-info-val" style="color:#22c55e;font-weight:700">Free</span></div>
+              <div class="tp-info-row"><span class="tp-info-label">Price</span><span class="tp-info-val" style="font-weight:700">Free</span></div>
               <div class="tp-info-row"><span class="tp-info-label">Login</span><span class="tp-info-val">Not required</span></div>
               <div class="tp-info-row">
                 <span class="tp-info-label">Status</span>
-                <span class="tp-info-val" style={`color: ${tool.status === 'active' ? '#22c55e' : 'var(--k-text-muted)'}; font-weight:700`}>
+                <span class="tp-info-val" style="font-weight:700">
                   {tool.status === 'active' ? 'Live ✓' : tool.status === 'planned' ? 'Planned' : 'Experimental'}
                 </span>
               </div>
