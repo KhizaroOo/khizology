@@ -25,7 +25,8 @@
     "prebuild": "npm run images:generate && npm run human-atlas:build",
     "predev": "npm run images:generate && npm run human-atlas:build",
     "test:rubiks-cube": "node --experimental-strip-types scripts/test-rubiks-cube.mts",
-    "human-atlas:build": "node scripts/build-human-atlas.mjs"
+    "human-atlas:build": "node scripts/build-human-atlas.mjs",
+    "verify:release": "npx astro check && node scripts/audit-seo.mjs && node scripts/audit-prelaunch.mjs && node scripts/audit-domain.mjs && node scripts/audit-search.mjs && node scripts/audit-value.mjs && node scripts/audit-human-atlas.mjs && npm run test:contract-drift && node --experimental-strip-types scripts/test-retry-rate-models.ts && node scripts/test-retry-rate-ux.mjs && node --experimental-strip-types scripts/test-atlas-geometry.mts && node --experimental-strip-types scripts/test-infooo-misinformation.mts && node scripts/test-infooo-misinformation-ui.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.1",
