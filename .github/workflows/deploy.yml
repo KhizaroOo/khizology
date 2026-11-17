@@ -40,6 +40,11 @@ jobs:
           PUBLIC_GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
         run: npm run build
 
+      - name: Release quality gate
+        env:
+          PUBLIC_GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
+        run: npm run verify:release
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
