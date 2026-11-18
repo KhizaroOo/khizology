@@ -12,3 +12,5 @@
 .retry-rate-workspace label:has(input[type=checkbox]){min-height:44px;display:flex;align-items:center;gap:.5rem;line-height:1.5}
 
 .retry-rate-workspace .supporting-metrics,.retry-rate-workspace details>div>div:has(select){grid-column:1/-1}
+
+.retry-rate-comparison{padding:1rem;border-left:3px solid var(--m-toolooo-text);background:var(--k-bg-elevated);color:var(--k-text);font-size:.85rem;line-height:1.65}

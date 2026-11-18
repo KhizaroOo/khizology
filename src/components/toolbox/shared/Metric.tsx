@@ -21,7 +21,7 @@ export default function Metric({ label, value, color, sublabel }: MetricProps) {
       >
         {label}
       </div>
-      <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1.25rem', color: color || 'var(--k-text)' }}>
+      <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '1.25rem', color: color ? `color-mix(in srgb, ${color} var(--k-identity-text-weight), var(--k-identity-text-base))` : 'var(--k-text)' }}>
         {value}
       </div>
       {sublabel && (

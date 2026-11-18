@@ -29,7 +29,7 @@ export default function RangeControl({ label, value, onChange, min, max, step = 
         >
           {label}
         </label>
-        <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '.85rem', color: accent }}>
+        <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '.85rem', color: `color-mix(in srgb, ${accent} var(--k-identity-text-weight), var(--k-identity-text-base))` }}>
           {formatValue ? formatValue(value) : value}
         </span>
       </div>

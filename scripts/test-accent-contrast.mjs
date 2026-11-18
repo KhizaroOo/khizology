@@ -26,6 +26,9 @@ for (const [theme, overrides] of [['light', light], ['dark', dark]]) {
     }
     assert.ok(ratio(rgb(value(buttons, '--k-button-dark-ink')), identity) >= 4.5, `${module} fill`);
   }
+  for (const accent of ['#F7933C', '#ef4444', '#22c55e']) {
+    for (const surface of surfaces) assert.ok(ratio(mix(rgb(accent), base, weight), surface) >= 4.5, `${theme}: shared range/metric numeric text`);
+  }
   const brand = rgb(value(light, '--k-accent'));
   const brandWeight = Number(token('--k-accent-text').match(/(\d+)%/)[1]) / 100;
   const brandInk = mix(brand, theme === 'light' ? [0, 0, 0] : [255, 255, 255], brandWeight);
@@ -45,3 +48,5 @@ const gallery = fs.readFileSync('src/components/artworks/ArtworkGrid.tsx', 'utf8
 assert.match(gallery, /\.aw-card-tags \.aw-tag\s*\{\s*background:\s*var\(--k-bg-card\);\s*\}/, 'Image badges need an opaque theme surface; translucent fills inherit unpredictable image contrast');
 assert.match(gallery, /\.aw-tag\s*\{[^}]*color:\s*var\(--m-artooo-text\)/, 'Image badges retain the accessible Artooo text token checked above');
 console.log(`PASS: ${pairs} theme/surface/tint accent-text pairs and identity/button fills (WCAG 4.5:1).`);
+
+for (const file of ['RangeControl.tsx', 'Metric.tsx']) assert.match(fs.readFileSync('src/components/toolbox/shared/' + file, 'utf8'), /color-mix.*--k-identity-text-weight.*--k-identity-text-base/);

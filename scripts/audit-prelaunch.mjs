@@ -10,6 +10,8 @@ const expectedBase = (process.env.BASE_URL || '/').replace(/\/$/, '') || '';
 const expectedHost = process.env.SITE_URL || 'https://khizooology.com';
 await import('./test-contact.mjs');
 await import('./test-accent-contrast.mjs');
+await import('./test-flagship-readiness.mjs');
+await import('./test-bleed-safe-area.mjs');
 await import('./test-share-feedback.mjs');
 await import('./test-skip-navigation.mjs');
 await import('./test-api-diagnosis-state.mjs');

@@ -21,6 +21,7 @@ function fixture(name) {
     const context = vm.createContext({ exports: {}, Blob, FileReader: class {}, require: id => {
       if (id === 'react') return react;
       if (id === 'react/jsx-runtime') return { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) };
+      if (id.endsWith('useToolResult')) return { __esModule: true, default: () => {} };
       if (id.includes('utils/analytics')) return { trackToolResult: () => events.push('result') };
       if (id.endsWith('useLocalPref')) return { useLocalPref: (_, initial) => react.useState(initial) };
       if (id.endsWith('.css')) return {};
@@ -71,6 +72,7 @@ for (const name of ['RetryStormSimulator', 'RateLimitPlayground']) {
     const svg = f.find(n => n.type === 'svg');
     const titles = [...renderToStaticMarkup(toReact(svg)).matchAll(/<title>(.*?)<\/title>/g)];
     assert.equal(titles.length, 24);
+    if (retry) { const line = f.find(n => n.type === 'polyline'); assert.equal(line.props.points.split(' ').length, 24); assert.equal(line.props.strokeDasharray, '3 3'); }
     assert.ok(titles.every(title => title[1].length > 0), 'React 19 must server-render every SVG title; fragmented title children break hydration');
   };
   compare();

@@ -16,9 +16,10 @@ function fixture(name) {
   };
   function load(file) {
     if (modules.has(file)) return modules.get(file);
-    const context = vm.createContext({ exports: {}, Blob, FileReader: class {}, require: id => {
+    const context = vm.createContext({ exports: {}, document: { createElement: () => ({localCanvas: true, getContext: () => ({clearRect(){},fillRect(){},setLineDash(){},strokeRect(){}})}) }, Blob, FileReader: class {}, require: id => {
       if (id === 'react') return react;
       if (id === 'react/jsx-runtime') return { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) };
+      if (id.endsWith('useToolResult')) return { __esModule: true, default: () => {} };
       if (id.includes('utils/analytics')) return { trackToolResult: () => events.push('result') };
       if (id.endsWith('useLocalPref')) return { useLocalPref: (_, initial) => react.useState(initial) };
       if (id.endsWith('.css')) return {};
@@ -61,11 +62,32 @@ for (const preset of presets) {
   assert.equal(named('InputField', 'Trim width').props.value, oldHeight);
   assert.equal(named('InputField', 'Trim height').props.value, oldWidth);
 }
-preview().props.ref.current = {localCanvas:true};
+// Unit changes preserve vector geometry and make the converted inputs editable.
+const vectorInches = svg().props.width;
+f.action(f.find(n => n.type === 'select'), 'onChange', {target:{value:'mm'}});
+assert.equal(svg().props.width, vectorInches);
+f.action(named('InputField', 'Safe margin'), 'onChange', '3.175');
+f.action(named('InputField', 'Trim width'), 'onChange', '25.4');
+assert.equal(named('InputField', 'Trim width').props.value, '25.4');
+assert.equal(svg().props.viewBox.split(' ')[2], '1.5'); // 1 inch trim + two 0.25 inch bleeds
+f.action(named('InputField', 'Safe margin'), 'onChange', '25.4');
+assert.ok(f.nodes().some(n => n.props?.role === 'alert'));
+assert.ok(f.find(n => n.type === 'button' && n.props.children === 'Download SVG guide').props.disabled);
+f.action(f.find(n => n.type === 'select'), 'onChange', {target:{value:'in'}});
+const business = presets.find(p => p.label === 'Business card');
+f.action(f.find(n => n.type?.name === 'PresetBar'), 'onSelect', business.values);
+f.action(named('InputField', 'Output DPI'), 'onChange', '300');
+preview().props.ref.current = {localCanvas:true,getContext:()=>({clearRect(){},fillRect(){},setLineDash(){},strokeRect(){}})};
 svg().props.ref.current = {localVector:true};
+f.action(named('InputField', 'Bleed'), 'onChange', '0.126');
+assert.ok(preview().props.ref.current.width <= 900 && preview().props.ref.current.height <= 900, 'Preview allocation is independent of output DPI');
 f.action(f.find(n => n.type === 'button' && n.props.children === 'Download SVG guide'), 'onClick');
 f.action(f.find(n => n.type === 'button' && String(n.props.children).startsWith('Download PNG')), 'onClick');
 assert.deepEqual(f.events.map(e=>e.kind), ['svg','png'], 'One export for each intended action');
 assert.ok(f.events[0].node.localVector && f.events[1].node.localCanvas);
 assert.ok(f.events.every(e=>e.name.startsWith('bleed-guide-') && !e.name.includes('http')));
-console.log('Bleed: preset/orientation geometry, accessible preview/selected state, SVG DPI independence and once-per-action local export PASS.');
+f.action(f.find(n => n.type?.name === 'PresetBar'), 'onSelect', presets.find(p=>p.label==='Poster').values);
+f.action(named('InputField', 'Output DPI'), 'onChange', '600');
+assert.equal(f.find(n => n.type === 'button' && String(n.props.children).startsWith('Download PNG')).props.disabled, true, 'Large raster exports are blocked without allocating their output');
+assert.equal(f.find(n => n.type === 'button' && n.props.children === 'Download SVG guide').props.disabled, false);
+console.log('Bleed PASS: all presets, orientation, units/physical invariance, invalid safe margins, bounded preview, PNG memory limit and physical SVG/PNG exports.');

@@ -1,3 +1,9 @@
 .bleed-workspace{min-width:0;overflow-wrap:anywhere}
 .bleed-workspace input,.bleed-workspace button{min-height:44px}
 .bleed-workspace :focus-visible{outline:3px solid var(--k-text);outline-offset:3px}
+
+.bleed-units{display:grid;gap:.4rem;max-width:18rem;font-weight:750;margin-bottom:1rem}
+.bleed-units select{min-height:44px;padding:.6rem;color:var(--k-text);background:var(--k-bg);border:1px solid var(--k-border);border-radius:.5rem}
+.bleed-printer-note{padding:.875rem;border-left:3px solid var(--m-toolooo-text);background:var(--k-bg-elevated);color:var(--k-text);font-size:.85rem;line-height:1.6}
+.bleed-export-note{color:var(--k-text-muted);font-size:.85rem;line-height:1.6;max-width:70ch}
+.bleed-workspace button:disabled{opacity:.6;cursor:not-allowed}
