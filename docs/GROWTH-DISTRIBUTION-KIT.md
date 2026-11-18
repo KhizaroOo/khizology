@@ -1,6 +1,6 @@
 # Khizooology distribution kit
 
-Prepared **2026-10-23, Asia/Karachi**. Drafts for Khizar to review and submit personally. Nothing has been published, submitted or messaged. No traffic, acceptance, ranking or link-attribute guarantees. Use canonical HTTPS targets without query/hash. Screenshots must use examples, never real private input.
+Original packages prepared **2026-10-23, Asia/Karachi**; Mission #10 update **2026-11-18** below governs current execution. Drafts for Khizar to review and submit personally. No Mission #10 distribution has been executed by Codex. No traffic, acceptance, ranking or link-attribute guarantees. Use canonical HTTPS targets without query/hash. Screenshots must use examples, never real private input.
 
 ## A — Khizooology
 
@@ -66,7 +66,7 @@ Prepared **2026-10-23, Asia/Karachi**. Drafts for Khizar to review and submit pe
 - **Screenshots:** Same scenario under current immediate retries and safer bounded-jitter preset, including capacity line and result. Verify live values rather than copying stale numbers.
 - **Post angle:** Why a retry policy can worsen recovery. Present the simplified model and ask which assumption readers would test first.
 
-## Channel packages
+## Earlier channel catalogue — not the Mission #10 execution queue
 
 All channels require a manual owner action. “Listing/contextual/profile” describes intended placement, not guaranteed links or attributes. Categories below are suggestions to map to actual form choices.
 
@@ -77,7 +77,7 @@ All channels require a manual owner action. “Listing/contextual/profile” des
 | [Product Hunt](https://www.producthunt.com/launch) | A — https://khizooology.com/ | Khizooology | Art, tools and knowledge you can explore. Design Tools, Developer Tools, Education. | Owner account; prepare gallery/maker comment and schedule only when ready. | Product listing; MEDIUM; maker discovery/referrals. |
 | [GitHub](https://github.com/KhizaroOo/khizology) | A — https://khizooology.com/ | Khizooology | Browser-first visual tools, knowledge worlds and original art. Topics below. | Review README diff; set About fields manually; release through normal workflow later. | Repository/profile; HIGH; developer discovery; existing domain. |
 | [LinkedIn](https://www.linkedin.com/in/khizar-imtiaz) | D — https://khizooology.com/toolbox/retry-storm-simulator/ | When retries make recovery harder | Compare retry pressure visually; what would you test in this model? backend, reliability. | Owner account; attach safe comparison screenshots; publish reviewed draft. | Contextual owner post; HIGH; professional referrals. |
-| [Show HN](https://news.ycombinator.com/showhn.html) | D — https://khizooology.com/toolbox/retry-storm-simulator/ | Show HN: A browser simulator for retry storms and bounded backoff | Interactive retry amplification model; no signup. No tag field assumed. | Account; maker personally tests and discusses; no coordinated votes. | Contextual submission; HIGH conditional; technical discussion/referrals. |
+| [Show HN](https://news.ycombinator.com/showhn.html) | D — https://khizooology.com/toolbox/retry-storm-simulator/ | Owner-written title beginning Show HN | Owner-written text only; factual notes below. No tag field assumed. | Account; maker personally tests and discusses; no coordinated votes. | Contextual submission; HIGH conditional; technical discussion/referrals. |
 | [Reddit](https://www.reddit.com/r/webdev/about/rules/) | D — https://khizooology.com/toolbox/retry-storm-simulator/ | I made retry traffic visible in a browser model | Model comparison and request for critique; community-required flair only. | Owner reads logged-in rules, participates and posts only where allowed. | Community discussion; MEDIUM conditional; qualified referrals. |
 | [DEV](https://dev.to/terms) | D — https://khizooology.com/toolbox/retry-storm-simulator/ | Why retries can multiply backend traffic | Worked retry example, assumptions and optional interactive companion. backend, webdev, tutorial. | Author account; write standalone article, disclose authorship, review content policy. | Contextual article; HIGH; education/developer discovery. |
 | [Hashnode](https://hashnode.com/) | Timeout — https://khizooology.com/toolbox/timeout-chain-planner/ | Expected work is not your timeout budget | Explain serial work, deadlines and retry exposure with a worked example. backend, distributed-systems. | Author account/publication; inspect current rules; publish distinct useful article. | Contextual article; HIGH; developer discovery. |
@@ -105,35 +105,21 @@ Use the exact title, URL and short description in the channel table. **Maker for
 
 Public availability does not establish an open-source license. Check repository LICENSE/asset rights before choosing a license field. Do not falsely describe the whole site as a Postman alternative, a production load tester or a medical atlas replacement. Adapt copy to form limits without adding claims.
 
-## Show HN draft — one project, one canonical
+## Show HN — owner-written submission only
 
-**Title:** Show HN: A browser simulator for retry storms and bounded backoff
+Current [HN guidelines](https://news.ycombinator.com/newsguidelines.html) prohibit generated and AI-edited posts/comments. The earlier generated maker comment is withdrawn. Do not paste kit prose, including a generated title, into HN. Khizar must write his own submission, title and replies without AI rewriting.
 
-**URL:** https://khizooology.com/toolbox/retry-storm-simulator/
+Private factual preparation notes, not submission copy:
 
-**Draft maker comment (Khizar must review and own):**
+- Direct working URL: https://khizooology.com/toolbox/retry-storm-simulator/
+- React, local deterministic model, 24-second timeline; no requests to a failing real service.
+- Separates original/retry traffic and compares a policy with bounded attempts, budget, backoff and jitter. The comparison changes several policy settings, not jitter alone.
+- Explain the real personal reason for building it; no invented incident or traction.
+- Discuss simplifications, idempotency and retryable errors; simulated results are not production benchmarks.
+- After the first cohort finds it understandable, Khizar writes what he wants technical feedback on and stays available to discuss.
+- [Show HN requirements](https://news.ycombinator.com/showhn.html): usable personal work, no signup barrier, factual presentation, no coordinated votes/comments or repeated submissions.
 
-I built a small browser-based model to make retry amplification visible. A failing dependency can receive extra attempts just as it is struggling; the chart separates original traffic from retry traffic so the extra work is visible.
-
-It compares bounded policies on a 24-second modeled timeline, including backoff, deterministic jitter and retry budgets. The implementation uses React and a local model rather than sending requests to a test service. I kept idempotency and non-retryable-error warnings visible because a lower chart is not proof that repeating an operation is safe.
-
-This is an educational comparison, not a production predictor or benchmark of a particular SDK. I would value feedback on the assumptions and whether the visual makes synchronized retries easier to understand.
-
-Before submitting: Khizar should personally inspect `retryRateModels`, run the presets and be ready to explain the model. Do not claim the simulated numbers are measured incident data. Follow [Show HN guidance](https://news.ycombinator.com/showhn.html); no voting requests or repeat submissions to chase visibility.
-
-## LinkedIn draft
-
-Retries can add traffic at exactly the wrong moment: while a dependency is failing.
-
-In this browser model, compare immediate retries with bounded backoff and jitter. The chart separates original requests from extra attempts, then explains the modeled recovery pressure.
-
-It is a simplified educational model, not a prediction of your production service. Which assumption would you test first against your own system?
-
-I build this as part of Toolooo: https://khizooology.com/toolbox/retry-storm-simulator/
-
-Owner: approve first-person wording, attach safe screenshots and answer technical questions. Do not post identical text in multiple communities.
-
-## Reddit: conditional communities, not a cross-post list
+## Earlier Reddit notes — not cleared for Mission #10
 
 | Community / rules checked | Asset and useful angle | Promotion status / concerns | Owner action |
 |---|---|---|---|
@@ -159,7 +145,7 @@ Publish one useful original article first; do not syndicate thin near-duplicates
 | More connections do not always mean more throughput | A capacity/concurrency example with wait versus timeout | Connection Pool Simulator | Hashnode |
 | Trim, bleed and safe area are different boundaries | A dimensioned print example plus printer-specific limitations | Bleed & Safe Area Builder | LinkedIn article |
 
-## Research and owner checks
+## Earlier research — recheck before using channels outside Mission #10
 
 - [DevHunt FAQ](https://devhunt.org/faq): developer audience and manual submission process.
 - [Peerlist launch rules](https://help.peerlist.io/individual/launchpad/guidelines-faqs): review current eligibility; no unsolicited vote requests or oversharing.
@@ -171,3 +157,114 @@ Publish one useful original article first; do not syndicate thin near-duplicates
 - Hashnode/Indie Hackers current detailed rules were not accessible in this research. Check in the owner UI before publication. LinkedIn/Pinterest drafts require ordinary account access and a final current-policy review.
 
 No domain-authority scores, link attributes, search volumes, paid placements or invented testimonials are included. Recheck live policies at submission time.
+
+
+## Mission #10 — first cohort and staged distribution
+
+**2026-11-18, Asia/Karachi. Status: IN PROGRESS — DISTRIBUTION READY.** Prepared is not executed. Recorded verified external humans for this mission: **0**. Actual existing traffic and unreported outreach are unknown, not zero. No outreach, public post, article or listing was sent/created by this pass. Earlier references/listings do not establish a Mission #10 cohort.
+
+### Current channel research
+
+Reviewed official sources on 2026-11-18. Recheck immediately before posting. These are material constraints, not reach predictions.
+
+| Channel | Current constraints and decision |
+| --- | --- |
+| HN | [Show HN](https://news.ycombinator.com/showhn.html) needs working personal work and maker discussion. [General rules](https://news.ycombinator.com/newsguidelines.html) prohibit generated/AI-edited text, automated posts and solicited votes/comments. Owner-written only; HOLD until first-cohort comprehension is supported. |
+| LinkedIn | [Community policies](https://www.linkedin.com/legal/professional-community-policies) require authentic professional content; prohibit unwanted/repetitive promotion and arranged engagement. Start with one relevant feed post, not connection-request advertising. [Article rules](https://www.linkedin.com/help/linkedin/answer/a519782/) exclude product advertisements from article publishing; the feed draft below is not an article-placement recommendation. |
+| Peerlist | [Launch instructions](https://help.peerlist.io/individual/launchpad/how-to-launch-a-project-on-peerlist-launchpad): verified individual profile, project 100% complete with required assets/link. Monday launch; scheduling available other days. [Rules](https://help.peerlist.io/individual/launchpad/guidelines-faqs): no unsolicited vote DMs, oversharing or vote requests. Profile verification, prior launch eligibility and actual owner UI are unverified. Conditional launch, not guaranteed acceptance. |
+| DEV | [Terms](https://dev.to/terms) require substantial useful content rather than promotion/backlinks. [AI policy](https://dev.to/guidelines-for-ai-assisted-articles-on-dev) requires disclosure/fact-checking and forbids AI-assisted promotional articles. Khizar writes the educational article himself; no generated promotional article supplied. If AI assistance is used, disclose it and remove promotional framing/link or obtain policy clarification first. |
+| Reddit | [Current spam policy](https://support.reddithelp.com/hc/en-us/articles/360043504051-Spam) prohibits repeated/unsolicited mass engagement; exact community rules govern. [r/webdev rules](https://www.reddit.com/r/webdev/about/rules/) and [r/devops rules](https://www.reddit.com/r/devops/about/rules/) returned shells without readable rules. Both SKIPPED for execution until Khizar verifies rules/account eligibility. Prefer evaluating r/devops for reliability critique; no posting recommendation yet. The old self-promotion wiki says it is no longer updated: do not treat its 10% heuristic as permission. |
+
+No other channel is proposed for this first pass. Earlier directory ideas remain historical options, not a bulk-submission list.
+
+### First 10: owner-led invitations
+
+Select relevant existing contacts or people who have agreed to give feedback. No unsolicited automated DMs, pressure, vote requests or rewards. Send individually, in Khizar's own voice. No names/contact lists/private replies belong in Git.
+
+| Target | Audience | One small task | Main question |
+| --- | --- | --- | --- |
+| 4 Retry | One backend developer, API developer, DevOps/SRE person, technical lead/architect | Compare Current with Safer using built-in samples. Read the comparison and capacity line. | Did the visual make it clear why retries can increase pressure during failure? |
+| 3 Bleed | Designer, print/design person, artist preparing print work | Choose a sample size; identify trim/bleed/safe boundaries and export a guide. | Is trim vs bleed vs safe area clearer now? |
+| 3 Atlas | Learner, educator, curious non-medical visitor | Find Heart, isolate/show surroundings and follow part of the blood guide. | Could you understand where the structures were and how they relate without already knowing anatomy? |
+
+Optional follow-ups: Retry — what assumption would you question before applying it? Bleed — would this save time before sending work to a printer? Atlas — which spatial relationship remained unclear? No health questions or anatomy exploration history.
+
+Adaptable invitation (not for HN): “Could you try this small [retry comparison / print guide / anatomy exploration]? I made it and would value your honest feedback. [One task above.] [Relevant clean URL.] [One main question.] No signup needed.” Participation is optional. A sent invitation or link click is not a verified user.
+
+Canonical destinations:
+
+- Retry: https://khizooology.com/toolbox/retry-storm-simulator/
+- Bleed: https://khizooology.com/toolbox/bleed-safe-area-builder/
+- Atlas: https://khizooology.com/infooo/human-atlas/
+
+### Three demo storyboards
+
+Concepts, not completed videos. Record readable 10–30 second clips using only built-in/sample data. Keep one visual idea per clip, captions and an unhurried final frame. Do not imply the model produced measurements from a real system.
+
+| Flagship / hook | Shot sequence | Honest ending |
+| --- | --- | --- |
+| Retry: Same failure. Two retry policies. Very different pressure. | 0–5s Current: point out original requests and retry traffic; 5–15s show capacity and the dotted bounded-policy curve; 15–25s switch to Safer and inspect actual numbers. Keep outage inputs unchanged. | Bounded attempts/budget/backoff/jitter can reduce modeled pressure. Near capacity is still near capacity; an equal peak is not an improvement. Do not edit footage to promise the hook in every scenario. |
+| Atlas: See → isolate → understand → connect | 0–7s find Heart with body context; 7–14s isolate then show surrounding anatomy; 14–25s start the existing blood guide and show the next relationship with labels. Use settled geometry and slow camera motion. | Simplified educational reference, not diagnosis. Credit BodyParts3D / DBCLS, CC BY 4.0; viewer ashemag, MIT, and retain source/attribution links from the Atlas page. |
+| Bleed: Trim ≠ Bleed ≠ Safe Area | 0–6s Business card example; 6–15s point out the three preview boundaries; 15–25s export SVG or PNG and show the guide. | Example specs only: confirm your printer's requirements. Guide is not print-ready artwork or a guarantee against cutting errors. |
+
+No synthetic testimonials or traffic counters. Before recording, use the actual visible result; no stale hardcoded peaks. Keep license attribution with Atlas media when shared outside the site. Existing local QA screenshots are evidence, not automatically approved finished launch assets.
+
+### Distribution sequence and prepared copy
+
+1. First invite the 4 + 3 + 3 cohort; record only confirmed interaction. Review feedback before expanding. Fix only verified meaningful P0/P1 issues through an assigned implementation task.
+2. LinkedIn: one Retry feed post after reviewing the demo; reply personally. Review responses and aggregate signals after 48–72 hours before choosing another channel. This is a review window, not a promised traffic target.
+3. Peerlist: verify profile/project eligibility; prepare project and schedule one launch. Suggested positioning: **Retry Storm Simulator by Toolooo**. Tagline: **See retry pressure during an outage**. Description: **Compare original and retry traffic with bounded policy settings in a browser model. Inspect capacity, assumptions and limitations without calling a real service.** Demo URL: Retry canonical above. Maker: Khizar Imtiaz (khizooo); no invented credentials or traction. Cover: readable Current/comparison view. Launch comment should describe the model's limits and ask which assumption needs clarification. Khizar reviews all copy and available platform fields first.
+4. HN: only after cohort comprehension. Khizar independently writes the submission and maker explanation using factual preparation above; no AI-written title/comment.
+5. DEV: owner-written standalone lesson outlined below; optional disclosed companion only where current policy allows. No generated marketing article or link-only teaser.
+6. Reddit: currently SKIPPED, not queued for automatic posting. If one community's rules/account history permit it, write a new native discussion, disclose authorship, give an example and limitation before an optional link, ask for model critique, remain for replies. Never reuse the feed post across subreddits.
+
+LinkedIn feed draft for Khizar to adapt (not submitted):
+
+> A retry is another request, not free recovery.
+>
+> During an outage, repeated attempts can add pressure while a service is already struggling. Waiting between attempts can spread that work out; limiting attempts and the retry budget also matters.
+>
+> I built a browser model to make that traffic visible. Compare the same failure with a bounded policy and look at the capacity line, not just whether one curve is lower.
+>
+> It is a simplified model, not a load test or a production-safe policy recommendation.
+>
+> Interactive example: https://khizooology.com/toolbox/retry-storm-simulator/
+>
+> What would you need to check before trusting a retry policy in your system?
+
+Attach one reviewed Retry demo. Do not ask anyone to like/repost or imply they used it when they have not.
+
+DEV owner-writing outline — **Why retries can multiply backend traffic during failure**:
+
+- Define an original request versus a retry attempt. Worked arithmetic: 100 original requests, each making at most 3 total attempts, creates an upper bound of 300 attempts if every request reaches that limit. This is total work, not automatically 300 requests per second; timing and failures matter.
+- Explain why synchronized failures can synchronize retries; backoff changes waits, jitter spreads timing, an attempt cap/budget bounds additional work. None creates backend capacity.
+- Discuss retryable errors, deadlines and idempotency before suggesting a policy; a timeout does not prove an operation had no side effect.
+- Show one concrete timeline and a policy trade-off in the article itself. A reader should learn without visiting the tool.
+- Cite [AWS's first-party explanation](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/) and distinguish it from the site's simplified deterministic simulation. This outline is not an SDK prescription.
+- End with a useful operational question. A companion link is optional, authorship disclosed, and subject to the AI/content restrictions above; no sales pitch, fake incident, invented benchmark or promise.
+
+### Progression and evidence
+
+Measurement definitions, anonymous ledger and execution log live in [Growth measurement — Mission #10](GROWTH-MEASUREMENT.md#mission-10--external-cohort-evidence). Do not create a separate tracking application.
+
+- **10 confirmed humans:** inspect comprehension and useful feedback, not just clicks. No public-launch gate based on impressions alone.
+- **25:** compare flagship/channel interest using absolute feedback and product-event counts; do not optimize tiny percentage differences.
+- **50:** use [Build Smarter](BUILD-SMARTER-WITH-DATA.md): PROMOTE for useful work with weak discovery, IMPROVE for demonstrated experience gaps, CONNECT for missing onward paths, HOLD for insufficient/noisy evidence.
+- **100 aggregate external visitors:** assess repeatable discovery while reporting verified-human evidence separately. Do not claim 100 verified people from GA users/sessions. Owner visits, consent loss, referrer stripping and cross-device identities limit the denominator. Do not invent conversion rates.
+
+### Exact owner actions now
+
+1. Review the three live flagships and these drafts. Confirm which relevant contacts are willing to try them; send the first invitations yourself.
+2. Record only anonymous confirmed-use outcomes in the existing measurement ledger. Report the 4/3/3 totals, useful paraphrased feedback and whether anyone is a repeat participant. Keep identity/deduplication context outside the repository; if unsure, leave the person uncounted.
+3. Record three short demos from public/sample state following the shot lists; review readability and Atlas attribution before posting.
+4. Publish one reviewed LinkedIn feed post yourself and supply its public URL/date. Stay available for replies; no coordinated engagement.
+5. Review the first responses at 48–72 hours. Verify Peerlist eligibility before scheduling. Do not submit HN until the initial cohort supports comprehension; write HN independently.
+6. Supply aggregate GA4 landing/engagement/event evidence for the same dated window where available. Never send private messages, recipient identities or raw analytics user trails. No first-party traffic export was accessed in this pass.
+
+### Verification record — 2026-11-18
+
+Production and remote main/dev-dev were checked, not assumed from a push. Both remote refs point to d661be92f23852ca4d434c28746b5a27a5e946c2 (MVP #9); later documentation-only commits do not deploy the site.
+
+Current production URLs, canonical/meta/Open Graph/Twitter descriptions and social-image HTTP status were checked with local Playwright at 1440×900 and 390×844. Canonical link copying was exercised with keyboard and no external share. Consent transport was intercepted to avoid test traffic in GA: none before consent, one tag load on acceptance, no additional tag on withdrawal and subsequent copy. This proves application behavior, not live GA ingestion or user acquisition. Production Retry and Bleed sample edits also emitted result_generated in the intercepted command stream. Guide-completion behavior retains MVP #9 browser/test evidence; no new full Atlas performance benchmark is claimed.
+
+Analytics and flagship regression tests pass. Google's public configuration audit reports no Enhanced Measurement modules or enabled user-provided-data capabilities. Private GA4 Admin/report settings, actual first-cohort feedback and acquisition totals remain unverified. No runtime code, measurement architecture, dependency or public route change was needed. Mission completion awaits real owner distribution and measured engagement.

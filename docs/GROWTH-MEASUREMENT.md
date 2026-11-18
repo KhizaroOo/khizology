@@ -7,7 +7,7 @@ Use the existing opt-in GA4 integration. No tag, page view or custom event is se
 | Event | Evidence |
 | --- | --- |
 | `tool_start` | First eligible tool interaction per page; existing use signal, not completion. |
-| `result_generated` | Explicit successful generation or analysis in instrumented tools; an API diagnosis does not establish contract compliance. Other calculators are not falsely counted on mount. |
+| `result_generated` | Explicit successful generation/analysis in instrumented tools; Retry and Bleed also emit once after a settled valid input change (MVP #9), never on initial render. An API diagnosis does not establish contract compliance. |
 | `tool_export` | Existing local export trigger, with format and tool family; not proof that a file was saved. |
 | `result_copied` | Result clipboard write succeeds; includes share fallback to clipboard. |
 | `share_action` | Link copied or native share options opened. The action distinguishes page and result share options. Opening options does not establish delivery. |
@@ -64,3 +64,42 @@ The existing toolbox hub surfaces three registry-selected starters. All ten reta
 The existing bounded My Toolooo workspace remains the return surface: recents, favorites and clear controls. Favorites are no longer repeated in Recent; the two priority makers can use the existing favorite control without a separate storage system. Related Art retains canonical subject/explicit relationships. No collection event is emitted while there are no authored collections.
 
 Keep tool and guide completions separate from diagnostic success, compliance and commercial conversions.
+
+
+## Mission #10 — external cohort evidence
+
+Started 2026-11-18 (Asia/Karachi). [Current distribution kit](GROWTH-DISTRIBUTION-KIT.md#mission-10--first-cohort-and-staged-distribution). No new analytics or persistence is required.
+
+**Verified external humans recorded for this mission: 0.** No outreach evidence has been supplied yet. This is a recorded lower bound, not a claim that the site has no external users. Aggregate acquisition/traffic totals: **not queried / unknown**. Do not substitute synthetic Build Smarter examples, owner QA sessions or historical listings for evidence.
+
+### A — verified external human
+
+Count only reasonable evidence of interaction: confirmation of testing, a specific result/interface observation, useful feedback, or a launch comment establishing use. A sent invitation, like, upvote, impression, link click or generic congratulations is not enough. One person counts once across channels/flagships. Use E001, E002, etc. only after evidence arrives; no placeholder people.
+
+Allowed fields: anonymous ID, date, channel, flagship, evidence type, broad action, brief non-sensitive feedback paraphrase. No names, usernames, email/IP, private message text/URLs, screenshots with identities or individual analytics trails. Khizar confirms repeat/unique status without committing identifying crosswalks. If uniqueness is uncertain, record it outside the counted cohort until clarified; do not infer identity from GA or fingerprints.
+
+| Anonymous ID | Date | Channel | Flagship | Evidence type | Broad action | Useful feedback summary |
+| --- | --- | --- | --- | --- | --- | --- |
+
+No verified records yet. Cohort target: Retry 4, Bleed 3, Atlas 3; targets are not executed counts.
+
+### B — aggregate analytics / traffic
+
+For a dated window, record sessions and engaged sessions by canonical landing page and available source/referral, plus eligible tool_start, result_generated, tool_export, result_copied, share_action, infooo_world_start and infooo_guide_complete. Use actual event names; share options are not deliveries, exports are not confirmed saved files, a generated result is not a successful real-world fix. Do not sum page-load-deduped events into unique people.
+
+Use only existing consent-controlled canonical/referrer allowlists. Clean flagship URLs; no new IDs, hidden attribution, UTM requirement, query/hash state, fingerprinting, backend or database. Referrer stripping and direct messaging can leave acquisition unknown. Owner production usage is intentionally measured after consent; do not introduce owner exclusions or call all traffic external. Sessions, GA users and verified people are separate quantities; no uncertain conversion denominator.
+
+### Execution log
+
+Statuses: Planned / Executed / Measured / Skipped. Executed requires owner confirmation or public evidence; Measured also needs outcomes. For public activity record its real public URL and date/time, then aggregate comment/engagement counts where available. No private outreach URL/content in Git. Zero recorded verified users below means no confirmed records, not proven zero reach.
+
+| Date | Channel | Flagship | Activity | Status | Verified humans | Aggregate traffic evidence | Meaningful engagement | Learning | Next action |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-18 | Direct owner invitations | Retry / Bleed / Atlas | 4 / 3 / 3 relevant testers | Planned | 0 recorded | Unknown | Not supplied | None yet | Khizar sends individual invitations |
+| 2026-11-18 | LinkedIn | Retry | One insight-led feed post + demo | Planned | 0 recorded | Unknown | Not supplied | None yet | Owner reviews, publishes and supplies public URL |
+| 2026-11-18 | Peerlist | Retry | One completed project/conditional launch | Planned | 0 recorded | Unknown | Not supplied | Profile/eligibility not checked | Owner verifies eligibility before scheduling |
+| 2026-11-18 | HN | Retry | Owner-written Show HN after cohort | Planned | 0 recorded | Unknown | Not supplied | AI-written text prohibited | Owner writes independently after comprehension evidence |
+| 2026-11-18 | DEV | Retry | Standalone owner-written explanation | Planned | 0 recorded | Unknown | Not supplied | AI-assisted promotion restricted | Owner writes and checks policy fit |
+| 2026-11-18 | Reddit | Retry | Considered r/devops and r/webdev | Skipped | 0 recorded | Unknown | Not supplied | Community rules not readable | Do not post until rules/eligibility confirmed |
+
+Checkpoints: 10 verified humans → qualitative comprehension review; 25 → compare channels/flagships with absolute numbers; 50 → PROMOTE/IMPROVE/CONNECT/HOLD; 100 external-visitor objective → document repeatability and uncertainty separately from the verified cohort. No Mission #10 completion until actual execution and measurement support it.
