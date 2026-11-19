@@ -1,334 +1,117 @@
-# Backlink authority sprint
+# Backlink & authority growth
 
-**Prepared 2026-10-23, Asia/Karachi.** Earn relevant mentions through useful work. This is distribution preparation, not a claim that backlinks or visitors have been earned. No external writes, account changes, purchases, commits, pushes or deployments were performed.
+Updated **2026-11-19, Asia/Karachi — Mission #11 (Backlink & Authority Growth)**. This is separate from Earning Experiment 001. Authority preparation is ready; no new placement was submitted by Codex. **Mission #10 remains AFTER MVP — DEFERRED (P2).** No tester invitations, LinkedIn campaign, generic social launch or first-100-visitor activity is authorized here.
 
 ## Current baseline
 
-- [Tracker](BACKLINK-TRACKER.md): two publicly observed reference-bearing domains, including a relevant owner-controlled GitHub README and a third-party LinkedIn domain-discovery mention. The latter is not counted as qualified earned authority. Full referring-domain/backlink totals in Bing/GSC remain **unknown**, not zero.
-- **Qualified independent domains newly earned during this sprint: 0.** Search-result pages are not backlinks. An automated catalogue reference is not automatically a trustworthy editorial recommendation.
-- Latest supplied Bing recommendation: insufficient high-quality inbound links. No fresh account-level backlink export was read in this mission; do not claim the warning is cleared.
-- Existing owner evidence in [measurement baseline](SEARCH-MEASUREMENT-BASELINE.md): GA4 2026-09-18–2026-10-17: 41 sessions, 29 engaged, 40 Direct, 1 Unassigned, 0 reported Referral/Organic Search; 13 contact_click and 13 result_shared, each across four users. Old attribution restrictions mean reported zero referrals is not proof of zero external visitors.
-- Owner's Phase 0 evidence: Google approximately 73 impressions/1 click, 97 indexed; Bing 0 impressions/clicks, 29 indexed in the displayed view. These historical observations are not today's live account readings. External audience remains unconfirmed.
-- Internal milestone: **5–10 legitimate qualified referring domains and 100 genuine external visitors**. Neither is a Bing requirement, deadline guarantee or reason to buy links.
+[Tracker](BACKLINK-TRACKER.md) is the reference ledger. Freshly verified: **2 reference-bearing domains / 2 source pages**. This is a narrow observed lower bound, not a full backlink inventory. GitHub is owner-controlled (C); the LinkedIn domain-discovery mention is excluded (D). **New qualified independent LIVE domains verified by this mission: 0.** Existing independent domains outside these checks remain unknown.
 
-## Readiness findings
+Bing/GSC backlink totals: **DATA UNAVAILABLE**. GSC Wizard `list_bing_sites` and `list_sites` both returned `payment_required / subscription_required` on 2026-11-19. No account link counts, source/target/anchor export or fresh GA4 referral report was obtained. Do not treat this as zero or claim Bing's warning has cleared. Owner-provided Bing/GSC exports can close the account-data gap without purchasing another tool.
 
-Inspected canonical Toolooo metadata, retry implementation/model interface, shared measurement helper, family registries, existing Top-10 production QA receipts and current production HTML. A live browser inspection of Retry Storm confirmed the result/reason/action, presets, chart, limitations and safe sharing controls. Existing Phase 4 browser receipts are historical evidence, not freshly repeated all-tool interaction tests.
+FoundrList's known product URL returns HTTP 200 after redirecting to its apex host, but the retrieved page is titled Product preview, has null initial product data and no verifiable Khizooology outbound anchor. Browser rendering could not be completed. It remains **UNKNOWN**, not LIVE or REMOVED. The footer badge/outbound link does not prove an inbound listing exists. No new domain is counted from it.
 
-Production checked 17 candidate URLs: all HTTP 200, self-canonical, with OG title/description/image and Twitter card; no missing image-alt attributes in retrieved HTML. This establishes static sharing readiness, not a new full usability, clinical-accuracy or performance certification. Generic shared social artwork is acceptable for discovery but does not replace a clear product screenshot.
+## Current rules that change decisions
 
-**First individual pitch: Retry Storm Simulator.** Its public, bounded example communicates a reliability mechanism without requiring sensitive data. API Payload Doctor is strong but requires careful demo inputs; Human Atlas is visually distinctive but needs stronger educational-limit context and a checked demonstration on the intended device. Artooo deserves visual channels. Portfolio is a maker-credibility endpoint, not the first technical community pitch.
+- [Google spam policies](https://developers.google.com/search/docs/essentials/spam-policies#link-spam): no purchased ranking links, automated links, manipulative exchanges, low-value directories or optimized-anchor campaigns. Paid advertising needs appropriate link qualification; do not buy passing ranking credit. Its site-reputation policy also rejects third-party content primarily exploiting a host's ranking signals. A useful editorial article must serve its own audience.
+- [Bing Webmaster Guidelines](https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a): live JavaScript-rendered guidance prohibits link schemes and artificial promotion. Crawl/index/content fundamentals also support grounding/citation eligibility; no separate AI-backlink tactic or citation guarantee follows.
+- [Bing Backlinks documentation](https://www.bing.com/webmasters/help/backlinks-c3a334e8): live rendered documentation says the detailed link profile is representative, not exhaustive. Source pages, target pages and anchor text are the useful evidence, not a single warning or domain score.
+- [GSC Links report](https://support.google.com/webmasters/answer/9049606): sampled, normalized/deduplicated, may include old links; not a complete live inventory. Check source pages before counting them as currently LIVE.
+- [DevHunt FAQ](https://devhunt.org/faq): free listing has a permanent page/nofollow link. A $49 launch advertises dofollow and paid exposure. Prepare only the free listing; do not pay for the ranking-link benefit or assume a free submission requires a launch.
+- [AlternativeTo FAQ](https://alternativeto.net/faq/): currently excludes simple online tools and bundles of them. The old Perspective submission recommendation is withdrawn; HOLD instead of forcing eligibility.
 
-No site change is justified by this inspection. README contained retired infographics/freebies routes, stale product counts and obsolete development instructions; it has been refreshed. Suggested screenshots are production-capture tasks, not claims that a final public gallery already exists. Existing ignored QA screenshots are evidence, not automatically licensed/public submission assets.
+These official pages were reviewed on 2026-11-19. No third-party domain-rating estimates, promised ranking effects or paid directory packages are used.
 
-## GitHub owner actions
+## GitHub surface — already correct
 
-Public API inspection confirmed repository `KhizaroOo/khizology` is public; description is currently `khizology`, homepage empty and topics empty. Do not print credential-bearing remotes or add secrets.
+Fresh authenticated read-only [repository API](https://api.github.com/repos/KhizaroOo/khizology) and [main README](https://raw.githubusercontent.com/KhizaroOo/khizology/main/README.md), not cached search snippets:
 
-In repository **About → Edit** set:
+- Description: Browser-first visual tools, interactive knowledge worlds and original art by Khizar Imtiaz.
+- Website: https://khizooology.com/
+- Topics: astro, browser-tools, developer-tools, interactive-tools, privacy-first, typescript, visual-tools.
+- README explains the three current modules, browser-local tools/consent boundaries, relevant deep links and the retired Notooo product. Node/Astro/React/TypeScript/Tailwind match current configuration. No stale fixed catalogue count was found there.
+- GitHub reports no detected repository license. Public source is not blanket permission to reuse the project/artwork; upstream Atlas licenses remain separate. README does not invent an overall open-source license.
 
-- **Description:** Browser-first visual tools, interactive knowledge worlds and original art by Khizar Imtiaz.
-- **Website:** https://khizooology.com/
-- **Topics:** developer-tools, browser-tools, astro, typescript, visual-tools, interactive-tools, privacy-first.
+**No GitHub/README update needed.** The old October About description/homepage/topics finding is superseded. GitHub remains class C and the same referring domain regardless of how many links or metadata fields it has.
 
-Keep topics truthful. Do not choose medical-device, production-benchmark or open-source/license claims without checking scope and rights. Review the README, then use the owner's normal review/release workflow; this mission does not authorize pushing. Existing GitHub domain does not become an additional referring domain when About improves.
+## Small priority ladder
 
-## Top 15 channels
+Class B is legitimate presence, not independent endorsement. Class A requires an actual independent reference based on usefulness; owner-authored placement alone does not qualify. Each account/publication action remains Khizar's responsibility.
 
-Exact drafts, targets, categories, submission fields and restrictions are in the [distribution kit](GROWTH-DISTRIBUTION-KIT.md#channel-packages).
+| Order | Opportunity / verified current rules | Relevant asset and context | Readiness / next owner action |
+| --- | --- | --- | --- |
+| 1 | GitHub repository / maker surface | Inspectable source, working examples, portfolio | Already LIVE, class C. Leave correct metadata alone. |
+| 2 | [DevHunt free listing](https://devhunt.org/faq) | Retry Storm: an actual developer reliability model | PREPARED. Owner signs in, checks for an existing listing, adds accurate fields/screenshots, selects free listing only and supplies the real listing URL. No paid launch, vote request or announcement campaign. Class B until independent editorial evidence exists. |
+| 3 | [DEV standalone technical explanation](https://dev.to/terms) and [AI restrictions](https://dev.to/guidelines-for-ai-assisted-articles-on-dev) | Why retries amplify work during failure; optional Retry companion | PREPARED outline, not a published article. Khizar authors a substantial educational explanation, understands/checks every claim and discloses assistance if applicable. AI-assisted promotion is prohibited; no generated promotional article or comments. Owner-authored publication is class B; independent citation is a later class A event. |
+| 4 | [TOOOLS.design submission](https://www.toools.design/submission) | Bleed & Safe Area Builder for designers preparing print guides | PREPARED. Official page considers useful design tools after review; public form asks URL/name, description capped at 120 characters and pricing. Owner checks existing listings, reviews form/terms and submits one relevant tool. No acceptance/time/link-attribute promise or payment. Human review does not by itself prove endorsement. |
+| 5 | [MERLOT material submission](https://info.merlot.org/merlothelp/Add_a_Material.htm) / [membership](https://info.merlot.org/merlothelp/Membership.htm) | Human Atlas as introductory spatial anatomy, not a clinical atlas | CONDITIONAL. Membership is free; only a real online learning resource with its own URL and honest metadata. Confirm OER/rights eligibility and current discipline/type fields first: free access does not automatically grant reuse rights. Credit BodyParts3D/DBCLS CC BY 4.0 and upstream viewer MIT separately; do not label the entire experience CC-licensed. No clinical/diagnostic claim. |
 
-| Order | Channel | Asset | Fit | Main benefit | Owner gate |
-|---|---|---|---|---|---|
-| 1 | GitHub | Umbrella | HIGH | Developer discovery/trust | About fields and README review |
-| 2 | DevHunt | Toolooo | HIGH | Developer referrals | Manual listing, eligibility/scheduling |
-| 3 | Peerlist | Toolooo | HIGH | Builder discovery | Project plus current launch rules |
-| 4 | LinkedIn | Retry | HIGH | Relevant professional discussion | Safe comparison and maker disclosure |
-| 5 | Product Hunt | Umbrella | MEDIUM | Product/maker discovery | Gallery and launch readiness |
-| 6 | DEV | Retry | HIGH | Useful technical education | Standalone article; no backlink filler |
-| 7 | Hashnode | Timeout | HIGH | Developer education | Original worked example/current policy |
-| 8 | Indie Hackers | Umbrella | MEDIUM | Founder feedback | Genuine maker discussion; rules check |
-| 9 | Show HN | Retry | HIGH conditional | Technical critique/referrals | Maker can explain model; no vote requests |
-| 10 | Reddit | Retry | MEDIUM conditional | Audience feedback | Logged-in rules/allowed promotion window |
-| 11 | Uneed | Toolooo | MEDIUM | Product discovery | Review imported data; no link purchase |
-| 12 | AlternativeTo | Perspective | MEDIUM conditional | Drawing-tool discovery | Real software category fit |
-| 13 | SaaSHub | Toolooo | MEDIUM | Software discovery | Ordinary listing, not bulk distribution |
-| 14 | Pinterest | Artooo | MEDIUM | Original visual discovery | Owned artwork and exact detail URL |
-| 15 | BetaList | Umbrella | LOW / HOLD | Possible early-adopter discovery | Paid submission/current maturity conflict |
+Tier B later: Peerlist project presence only, subject to [individual-profile/project rules](https://help.peerlist.io/individual/launchpad/guidelines-faqs). [Launch eligibility](https://help.peerlist.io/individual/launchpad/how-to-launch-a-project-on-peerlist-launchpad) requires a verified profile and completed project. Do not reactivate Launchpad/social distribution under this narrower mission. No new Peerlist profile or launch was created.
 
-Platform fit is editorial judgment, not measured search demand or a domain-authority score. No promise that placements will be indexed, retained, followed or credited. Prefer educator/article references earned by genuine utility over collecting profiles.
+HOLD: AlternativeTo simple-utility submission; paid ranking-link launches/packages; unclear or weak-fit directories; Curated's paid review/placement route; all other historical mass-catalogue opportunities. No reciprocal badge or new outbound link is required to earn placement. If any form requires a backlink or paid ranking credit, stop and reassess rather than submitting.
 
-## Link target policy
+## Prepared owner submission packets
 
-- Retry explanations → https://khizooology.com/toolbox/retry-storm-simulator/
-- Queue lessons → https://khizooology.com/toolbox/queue-capacity-planner/
-- Anatomy education → https://khizooology.com/infooo/human-atlas/
-- Drawing perspective → https://khizooology.com/toolbox/perspective-grid-maker/
-- Specific original art → its verified artwork detail canonical; use https://khizooology.com/artworks/ only for the collection.
-- A specific book discussion → its published note canonical with author attribution and note limitations.
-- Maker/profile mentions → https://khizooology.com/ or https://khizooology.com/my-portfolio/ according to context.
+These are field drafts only. Do not label them SUBMITTED. Use clean public HTTPS URLs and natural names, not SEO anchors. Keep screenshots to built-in/sample public data.
 
-Do not point everything at the homepage. Do not invent additional routes, landing pages, badges or keyword anchors. A source article should make sense even if its optional tool link is removed.
+### DevHunt — first executable path
 
-## 30-day plan
+- Name: Retry Storm Simulator.
+- Website: https://khizooology.com/toolbox/retry-storm-simulator/
+- Description: Compare original and retry traffic during a modeled outage. Explore backoff, jitter, attempt limits and budgets against capacity. Browser-only educational model; no real service is called.
+- Maker: Khizar Imtiaz (khizooo). Pricing: free to use. Technology: Astro/React/TypeScript; do not select an unsupported whole-project open-source license.
+- Logo: existing Toolooo identity asset. Screenshot: readable Current policy, capacity line and bounded-policy comparison using defaults; capture actual values, not a marketing montage. No final submitted gallery is claimed.
+- Owner checks duplicate listings, reviews the free path and exact platform fields, submits personally, then supplies confirmation/public URL. Do not pay to change nofollow into dofollow.
 
-Day 1 begins when Khizar starts manual distribution, not automatically on this file's date. Respect the existing observation/release freeze; no product redesign is needed.
+### Technical reference — owner writing notes
 
-| Window | Owner actions | Concrete output / review |
-|---|---|---|
-| Week 1 | Set GitHub About; review/release README separately; capture safe Toolooo demo; submit DevHunt and Peerlist if eligible; post one LinkedIn comparison. | Actual source URLs and submission receipts in tracker. Record unknown/pending honestly. |
-| Week 2 | Prepare Product Hunt gallery and maker comment; launch only when ready to answer; write one DEV retry article and a distinct Hashnode timeout example; join a relevant Indie Hackers discussion. | Two substantive articles, not duplicated promotion; record any live links/referrals. |
-| Week 3 | Personally rehearse Retry model explanation; submit one Show HN if ready; use one eligible Reddit community, not mass cross-posting; assess Uneed organic listing. | Technical feedback and one actionable model/communication learning; no coordinated votes. |
-| Week 4 | Evaluate Perspective on AlternativeTo; ordinary SaaSHub listing; original-art Pinterest pins; leave BetaList on hold unless fit/policy changes. Compare evidence and refine best channels. | Domain-deduplicated results; 30-day acquisition/engagement review with limitations. |
+Working subject: why retries can multiply backend traffic during failure. The article should independently explain an original request versus attempts, waiting versus capacity, and the need for retryable errors, deadlines and idempotency. Worked example: 100 original requests × at most 3 total attempts gives a 300-attempt upper bound, not automatically 300 requests/second. A timeline should make the timing distinction visible without clicking a link.
 
-Do not force a platform's launch date into this timetable. Where an account, eligibility rule or moderation decision blocks a channel, use the time for a better standalone explanation rather than another directory. No unsolicited outreach is authorized. A future editor/educator pitch needs Khizar's approval and a concrete relevant recipient.
+Use [AWS's first-party explanation](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/) as a source; distinguish it from the simplified local deterministic model. Explain that the tool's comparison changes attempt/budget limits as well as backoff/jitter. No production incident, measured performance improvement or guaranteed policy is invented. An optional, disclosed companion link can use Retry's natural name and canonical URL if current publication policy permits it. Do not publish primarily to obtain a backlink.
+
+### Creator/design packet
+
+- Name: Bleed & Safe Area Builder.
+- URL: https://khizooology.com/toolbox/bleed-safe-area-builder/
+- Description (under 120 characters): Preview trim, bleed and safe margins for a print size, then export an SVG or PNG guide.
+- Pricing: Free (choose only an actual offered form value). Screenshot: sample business card with the three boundaries clearly visible.
+- Optional note: A guide for preparing layout boundaries, not artwork or printer certification; confirm printer-specific requirements. No blanket license or acceptance claim.
+
+### Educational visualization packet — eligibility first
+
+- Title: Human Atlas — introductory 3D anatomy exploration.
+- URL: https://khizooology.com/infooo/human-atlas/
+- Description: Explore an adult male reference body, search and isolate structures, and follow a seven-stop introductory heart/lung relationship guide. A simplified educational representation, not diagnosis or clinical training software.
+- Suggested audience/format: introductory learners, interactive browser visualization, English. Map to existing discipline/type options; do not invent platform categories or a WCAG certification.
+- Author: Khizar Imtiaz for this adaptation/framing; preserve upstream dataset/viewer credits and restrictions. Confirm OER metadata/permissions before submission. The static text route is also available; do not imply every device supports 3D equally.
+
+## Current link-worthy assets
+
+Live checks on 2026-11-19: seven targets HTTP 200, self-canonical HTTPS/apex/slash URLs, useful static main content, title/description, matching description across meta/OG/Twitter, indexable and social images HTTP 200. All **113 distinct same-origin main-content destinations** extracted from those pages returned HTTP 200. That check is not a full external-link crawl or new all-device usability/medical certification.
+
+| Asset / canonical | Standalone value and appropriate visual | Boundary / placement reason |
+| --- | --- | --- |
+| [Retry Storm](https://khizooology.com/toolbox/retry-storm-simulator/) | Traffic/capacity and a bounded-policy comparison; immediate sample presets | Educational deterministic model; no service traffic or production prediction. Comparison changes several policy settings. Strong first developer listing target. |
+| [Human Atlas](https://khizooology.com/infooo/human-atlas/) | Structure search, isolation, spatial context, seven-stop guide and text route | Simplified adult male anatomy; attribution and educational limits visible. Not diagnosis, clinical reference or representative of all bodies. Geometry load/device constraints remain relevant. |
+| [Bleed builder](https://khizooology.com/toolbox/bleed-safe-area-builder/) | Dimensioned trim/bleed/safe preview and SVG/PNG guide | Printer-specific requirements; does not guarantee print results or include the finished artwork. Appropriate designer resource. |
+| [Queue Capacity Planner](https://khizooology.com/toolbox/queue-capacity-planner/) | Relates arrivals, service capacity, backlog growth and drain | Model assumptions are not production sizing guarantees. Useful supporting technical-article example, not a second parallel listing campaign. |
+| [Perspective Grid Maker](https://khizooology.com/toolbox/perspective-grid-maker/) | Editable one/two/three-point drawing guides and export | Drawing aid, not a full editor; local image/context limitations remain visible. Design-context deep link, not AlternativeTo eligibility. |
+| [Toolooo](https://khizooology.com/toolbox/) | Canonical searchable collection with families and useful starting points | Good umbrella when a platform genuinely lists a suite; prefer the specific flagship for a focused reference. |
+| [Portfolio](https://khizooology.com/my-portfolio/) | Selected work and evidence before skills; creator/contact context | Distinguishes inspectable work, attributed contributions and self-reported career context. Maker-profile target, not independent proof of every career claim. |
+
+Actual DOM inspection and existing canonical implementations support this review; no healthy product was redesigned. Fresh local generated SEO audit: **131 canonical/llms URLs, 170 image entries separately, 0 errors**. These are generated inventory counts, not indexed-page or traffic totals. The old October matrix/counts/attribution statement is superseded by this current record and the Git history remains available.
 
 ## Measurement
 
-Use existing account reports and analytics. Do not build another tracking system.
+Keep authority separate from traffic. Count only source pages with a verified link as LIVE, deduplicate registrable domains and distinguish A/B/C/D. A product profile is not independent editorial endorsement just because it lives on another host. A submitted form, search result, badge or captured page preview is not a live backlink. Record link attributes only when actually inspected; ranking credit is not inferred from follow/nofollow alone.
 
-| Source | Baseline / record | Weekly and day-30 comparison |
-|---|---|---|
-| Bing Webmaster backlinks | Export pending: referring domains, pages and target URLs unknown | Export actual referring domains/pages, inspect source URLs, deduplicate domains; record lost links too. Warning disappearance is not the only outcome. |
-| GSC Links + Performance | Links export pending; historical search figures above | Top linking sites/pages/targets if available; compare clicks/impressions and branded vs non-branded queries in equal windows. GSC samples are not exhaustive. |
-| GA4 | Historical 30-day baseline above | Referral users, source/medium, canonical landing page, engaged sessions; tool_complete, result_shared and contact_click. Events are not unique people. No fake conversions. |
-| Manual tracker | Two observed reference-bearing domains, 0 newly earned qualified domains | Inspect actual pages/links and classify independent editorial vs owner-created profiles/listings; aggregate domains once. |
+Existing consented analytics can supply aggregate referral/landing/engagement/product signals when available; no report was accessed here. The old plan's event names and allowlist findings are historical: current implementation includes sanitized origins for HN, DEV, Peerlist and Product Hunt, but not every directory. [Current measurement](GROWTH-MEASUREMENT.md) is authoritative. No allowlist expansion, UTM requirement, personal tracking or attribution guarantee was added. Missing referrals do not prove zero visitors. Never sum backlink counts, platform clicks and GA sessions into visitors or infer ranking causation.
 
-**Attribution limitation found:** `src/utils/analytics.ts` allows only specific public referral hosts and sends origin only. GitHub, LinkedIn, Reddit and Pinterest are covered; DevHunt, Product Hunt, Peerlist, DEV, Hashnode, HN, Uneed and others are not currently allowlisted. Queries/hashes are excluded from canonical page_location, so adding UTM links is not a reliable substitute here. External browser referrer policies and consent/ad blockers further reduce coverage. Do not interpret missing GA4 referrals as proof a link has no visitors. No analytics architecture/privacy change was made in this documentation mission. A future narrowly scoped allowlist change requires its own tests/review.
+Milestone remains **5–10 legitimate qualified referring domains**, a planning target rather than a search-engine requirement. Do not close the earned-authority milestone from prepared packets. Owner execution can continue operationally after engineering readiness.
 
-**100 visitors is a target, not a claim we can fully count now.** Report consented externally attributed users as a lower bound and record aggregate platform click reports separately where genuinely available. Never sum platform clicks and GA users into unique visitors or claim to identify every owner visit. Do not use fingerprinting, IP handling, owner exclusion or raw URL/input tracking to bridge gaps. Maintain the existing owner-traffic policy and label self-test activity where known.
+## Verification and handoff
 
-## Verification / scope
+Documentation-only changes to this plan and [tracker](BACKLINK-TRACKER.md); no runtime code, dependencies, page metadata, account write or submission. Proportional checks: current source URLs/read-only GitHub API/README, official policy/form pages, seven production targets and their internal destinations, current generated SEO audit, local document destinations and `git diff --check`. No expensive build/type/privacy suite was rerun for these documentation-only edits. Existing analytics and flagship tests from the immediately preceding missions are historical regression evidence, not new results claimed here.
 
-README and three Markdown documents only. No runtime/source, route, canonical, schema, sitemap, analytics or dependency changes. The brief's **318** sitemap figure is historical: the existing generated SEO audit reports **540 canonical sitemap URLs**, preserved without rebuilding or deleting pages. It passed with zero SEO errors, broken internal links, orphan indexable pages, invalid JSON-LD or missing image-alt attributes. Candidate production readiness and local generated SEO checks are separate from account-level backlink evidence. Full build/type/Value/privacy gates were not rerun for documentation-only edits. Diff and local document-link checks complete the proportional verification; no new performance or interaction certification is claimed.
+Owner actions: review one free developer listing packet, submit personally only if desired, provide its actual public source URL, then choose the technical/design opportunity on audience value. Confirm MERLOT rights/eligibility before using it. Separately inspect FoundrList while signed in and supply an actual public listing if one exists. Export Bing Backlinks and GSC Links through the owner UI (or reconnect GSC Wizard with an active plan/connected account) to replace DATA UNAVAILABLE. Do not submit every opportunity at once or resume deferred distribution.
 
-Every external action must pass: **real user value + relevant audience + truthful context + natural link**. Reject paid ranking links, reciprocal schemes, automated comments, fake profiles/sites, junk directory batches and manufactured authority.
-
-## Link-worthy asset matrix
-
-The following is a dated research snapshot of production, not another runtime metadata registry. A = strong pitch candidate; B = useful with channel-specific context/demo preparation; C = not a primary promotion target yet. Ratings are qualitative. Every screenshot/gallery still needs a final current capture and owner review; model/tool limitations must remain visible in demonstrations.
-
-### 1. Khizooology — Art meets Code | Visual Tools & Original Art — B
-
-- **Audience:** General makers/learners.
-- **Problem solved:** Discover the four product families.
-- **Why distinctive:** One programmer/artist identity joins art and practical learning.
-- **Link/share worthiness:** Good umbrella share; weaker technical pitch than a specific tool.
-- **Best channels:** Product Hunt, maker profiles.
-- **Landing canonical:** https://khizooology.com/
-- **Current title:** Khizooology — Art meets Code | Visual Tools & Original Art
-- **Current description:** Explore original artworks by khizooo and free visual browser tools built by Khizar Imtiaz inside the monster-powered Khizooology universe.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: Homepage plus one useful result. Final gallery not prepared.
-- **Trust/context needed:** Lead with a concrete task; no invented traction.
-- **Priority:** B; prepare context/demo before broader promotion.
-
-### 2. Toolooo — Free Visual Browser Tools | Khizooology — A
-
-- **Audience:** Developers/designers.
-- **Problem solved:** Find a tool for a practical task.
-- **Why distinctive:** Five task families and related pathways.
-- **Link/share worthiness:** High utility; collection pitch for developer directories.
-- **Best channels:** DevHunt, Peerlist, GitHub.
-- **Landing canonical:** https://khizooology.com/toolbox/
-- **Current title:** Toolooo — Free Visual Browser Tools | Khizooology
-- **Current description:** 70 free visual tools to check, simulate, decide, plan, and create in your browser. No signup, no backend, and no uploads.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: One representative tool result, then hub. Final gallery not prepared.
-- **Trust/context needed:** Avoid overwhelming first pitch with the full catalogue.
-- **Priority:** A; promote a focused example after capture.
-
-### 3. API Payload Doctor | Toolooo — Khizooology — A
-
-- **Audience:** API/backend developers.
-- **Problem solved:** Diagnose JSON and contract differences.
-- **Why distinctive:** Diagnosis plus expected/actual comparison and focused paths.
-- **Link/share worthiness:** Strong contextual reference for API debugging; useful safe summaries.
-- **Best channels:** DEV, API educators, LinkedIn.
-- **Landing canonical:** https://khizooology.com/toolbox/api-payload-doctor/
-- **Current title:** API Payload Doctor | Toolooo — Khizooology
-- **Current description:** Paste an API request or response and get a structured diagnosis of what could go wrong with it.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: Example diagnosis and drift comparison. Final gallery not prepared.
-- **Trust/context needed:** Use synthetic examples; not proof of runtime API correctness.
-- **Priority:** A; promote a focused example after capture.
-
-### 4. Retry Storm Simulator | Toolooo — Khizooology — A
-
-- **Audience:** Backend engineers/SRE learners.
-- **Problem solved:** Understand retry amplification.
-- **Why distinctive:** Original/retry traffic chart and bounded safety comparison.
-- **Link/share worthiness:** Best first technical pitch; visual and needs no private input.
-- **Best channels:** Show HN, DEV, LinkedIn.
-- **Landing canonical:** https://khizooology.com/toolbox/retry-storm-simulator/
-- **Current title:** Retry Storm Simulator | Toolooo — Khizooology
-- **Current description:** Compare retry policies and see how attempts, backoff, jitter, and budgets change recovery pressure.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: Same outage before/after bounded retry preset. Final gallery not prepared.
-- **Trust/context needed:** Explicit 24-second model and SDK/production limits.
-- **Priority:** A; promote a focused example after capture.
-
-### 5. Rate Limit Playground | Toolooo — Khizooology — A
-
-- **Audience:** API developers.
-- **Problem solved:** Understand admission/throttling trade-offs.
-- **Why distinctive:** Interactive rate-limit behavior with outcomes.
-- **Link/share worthiness:** Strong explanatory companion; compare rather than promise performance.
-- **Best channels:** Backend articles, Peerlist.
-- **Landing canonical:** https://khizooology.com/toolbox/rate-limit-playground/
-- **Current title:** Rate Limit Playground | Toolooo — Khizooology
-- **Current description:** Design and compare a rate-limit policy under steady traffic, bursts, overload, and client retries.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: Allowed versus throttled requests. Final gallery not prepared.
-- **Trust/context needed:** Explain algorithm assumptions; no production benchmark claim.
-- **Priority:** A; promote a focused example after capture.
-
-### 6. Circuit Breaker Playground | Toolooo — Khizooology — B
-
-- **Audience:** Backend reliability learners.
-- **Problem solved:** Understand failure protection and recovery.
-- **Why distinctive:** Visual state transitions and recovery checks.
-- **Link/share worthiness:** Useful article companion; terminology needs a short setup.
-- **Best channels:** DEV, reliability educators.
-- **Landing canonical:** https://khizooology.com/toolbox/circuit-breaker-playground/
-- **Current title:** Circuit Breaker Playground | Toolooo — Khizooology
-- **Current description:** See when a circuit breaker stops calls to a failing dependency and how it tests recovery.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: Open/half-open recovery transition. Final gallery not prepared.
-- **Trust/context needed:** Distinguish breaker from retry; rehearse recovery demo.
-- **Priority:** B; prepare context/demo before broader promotion.
-
-### 7. Connection Pool Simulator | Toolooo — Khizooology — B
-
-- **Audience:** Backend/database engineers.
-- **Problem solved:** Reason about waiting and pool pressure.
-- **Why distinctive:** Local capacity/concurrency visualization.
-- **Link/share worthiness:** Relevant specialist reference; not a universal tuning recommendation.
-- **Best channels:** Hashnode, backend educators.
-- **Landing canonical:** https://khizooology.com/toolbox/connection-pool-simulator/
-- **Current title:** Connection Pool Simulator | Toolooo — Khizooology
-- **Current description:** See when callers wait for a pooled connection and how pool size, hold time, scale-out, and database budget interact.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: Wait versus timeout under pressure. Final gallery not prepared.
-- **Trust/context needed:** Explain bounded workload and real DB resource constraints.
-- **Priority:** B; prepare context/demo before broader promotion.
-
-### 8. Queue Capacity Planner | Toolooo — Khizooology — A
-
-- **Audience:** Backend/platform engineers.
-- **Problem solved:** See whether backlog grows or drains.
-- **Why distinctive:** Rates, capacity and backlog consequences together.
-- **Link/share worthiness:** Clear worked-example companion and shareable result.
-- **Best channels:** DEV, Hashnode, engineering teaching.
-- **Landing canonical:** https://khizooology.com/toolbox/queue-capacity-planner/
-- **Current title:** Queue Capacity Planner | Toolooo — Khizooology
-- **Current description:** See when queues absorb bursts, build backlog, drain, or expose downstream capacity pressure.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: Arrivals above/below processing capacity. Final gallery not prepared.
-- **Trust/context needed:** Unit assumptions and real variability belong in caption.
-- **Priority:** A; promote a focused example after capture.
-
-### 9. Fan-Out Latency Simulator | Toolooo — Khizooology — B
-
-- **Audience:** Distributed-systems learners.
-- **Problem solved:** Find the dependency gating a response.
-- **Why distinctive:** Critical required branch versus optional work.
-- **Link/share worthiness:** Strong visual lesson; tail-risk assumptions need context.
-- **Best channels:** Backend articles, technical teaching.
-- **Landing canonical:** https://khizooology.com/toolbox/fan-out-latency-simulator/
-- **Current title:** Fan-Out Latency Simulator | Toolooo — Khizooology
-- **Current description:** Model fan-out tail latency, critical paths, optional work, and deadline headroom.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: One slow required branch and deadline. Final gallery not prepared.
-- **Trust/context needed:** State independence assumption; no all-optional scenario.
-- **Priority:** B; prepare context/demo before broader promotion.
-
-### 10. Timeout Chain Planner | Toolooo — Khizooology — A
-
-- **Audience:** Backend/API engineers.
-- **Problem solved:** Separate expected latency from unsafe wait exposure.
-- **Why distinctive:** One decision using expected work and configured budgets.
-- **Link/share worthiness:** Useful deep link for deadline/retry explanations.
-- **Best channels:** Hashnode, DEV, LinkedIn.
-- **Landing canonical:** https://khizooology.com/toolbox/timeout-chain-planner/
-- **Current title:** Timeout Chain Planner | Toolooo — Khizooology
-- **Current description:** Plan one end-to-end deadline across serial calls, retries, and remaining downstream budget.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: Healthy expected work but risky configured exposure. Final gallery not prepared.
-- **Trust/context needed:** Explain model assumptions; do not imply end-to-end guarantees.
-- **Priority:** A; promote a focused example after capture.
-
-### 11. Perspective Grid Maker | Toolooo — Khizooology — A
-
-- **Audience:** Artists/designers.
-- **Problem solved:** Create perspective drawing guides.
-- **Why distinctive:** Direct manipulation around vanishing points.
-- **Link/share worthiness:** Visual output makes a focused design reference/share.
-- **Best channels:** AlternativeTo, Pinterest, drawing educators.
-- **Landing canonical:** https://khizooology.com/toolbox/perspective-grid-maker/
-- **Current title:** Perspective Grid Maker | Toolooo — Khizooology
-- **Current description:** Generate and download a customizable 1, 2, or 3-point perspective grid for drawing practice.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: Readable grid and vanishing points. Final gallery not prepared.
-- **Trust/context needed:** Not a full drawing editor; verify export format before pitching.
-- **Priority:** A; promote a focused example after capture.
-
-### 12. Bleed & Safe Area Builder | Toolooo — Khizooology — A
-
-- **Audience:** Print designers.
-- **Problem solved:** Understand trim/bleed/safe boundaries.
-- **Why distinctive:** Preview/export rather than an abstract dimension checklist.
-- **Link/share worthiness:** Strong specific design-reference target.
-- **Best channels:** Design educators, Pinterest, LinkedIn.
-- **Landing canonical:** https://khizooology.com/toolbox/bleed-safe-area-builder/
-- **Current title:** Bleed & Safe Area Builder | Toolooo — Khizooology
-- **Current description:** Generate a downloadable bleed and safe-area guide for any print size.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: Trim, bleed and safe area annotated. Final gallery not prepared.
-- **Trust/context needed:** Always defer to actual printer specifications.
-- **Priority:** A; promote a focused example after capture.
-
-### 13. Infooo — Interactive Knowledge Worlds | Khizooology — B
-
-- **Audience:** Curious learners/educators.
-- **Problem solved:** Find an interactive knowledge world.
-- **Why distinctive:** Multiple subjects with visual previews.
-- **Link/share worthiness:** Good umbrella learning reference; individual world usually stronger.
-- **Best channels:** Education discussions, maker profiles.
-- **Landing canonical:** https://khizooology.com/infooo/
-- **Current title:** Infooo — Interactive Knowledge Worlds | Khizooology
-- **Current description:** See it. Touch it. Understand it. Explore interactive knowledge worlds by Khizooology.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: One world preview with actual experience. Final gallery not prepared.
-- **Trust/context needed:** Do not call every world a clinically/technically complete simulation.
-- **Priority:** B; prepare context/demo before broader promotion.
-
-### 14. Human Atlas — Interactive 3D Anatomy Explorer | Infooo · Khizooology — B
-
-- **Audience:** Introductory anatomy learners.
-- **Problem solved:** See spatial relationships in the body.
-- **Why distinctive:** Interactive 3D isolation/layers and connected learning.
-- **Link/share worthiness:** Distinctive visual reference; health-related trust requires care.
-- **Best channels:** Educational visualization, LinkedIn, educators.
-- **Landing canonical:** https://khizooology.com/infooo/human-atlas/
-- **Current title:** Human Atlas — Interactive 3D Anatomy Explorer | Infooo · Khizooology
-- **Current description:** Explore an adult male reference anatomy in 3D. Search structures, reveal systems, isolate parts, and learn how they connect.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: Whole-body context plus isolated structure. Final gallery not prepared.
-- **Trust/context needed:** Educational simplification, asset attribution and device demo essential.
-- **Priority:** B; prepare context/demo before broader promotion.
-
-### 15. Artooo — 170 Original Artworks | Khizooology — A
-
-- **Audience:** Art viewers/design audiences.
-- **Problem solved:** Explore original art.
-- **Why distinctive:** Original maker-owned creative work.
-- **Link/share worthiness:** Natural visual discovery; choose exact artwork deep link when possible.
-- **Best channels:** Pinterest, art/design profiles.
-- **Landing canonical:** https://khizooology.com/artworks/
-- **Current title:** Artooo — 170 Original Artworks | Khizooology
-- **Current description:** 170 original sticky-note artworks, illustrations, digital paintings, and visual stories by Khizar Imtiaz (khizooo).
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: One owned artwork at useful resolution. Final gallery not prepared.
-- **Trust/context needed:** Confirm artwork title/rights and link to actual detail canonical.
-- **Priority:** A; promote a focused example after capture.
-
-### 17. Khizar Imtiaz — Engineer & Artist | Khizooology — B
-
-- **Audience:** Collaborators/potential clients.
-- **Problem solved:** Understand maker experience and contact context.
-- **Why distinctive:** Connects public creative/technical work to its maker.
-- **Link/share worthiness:** Useful credibility/profile target, not first Show HN submission.
-- **Best channels:** GitHub, LinkedIn, maker profiles.
-- **Landing canonical:** https://khizooology.com/my-portfolio/
-- **Current title:** Khizar Imtiaz — Engineer & Artist | Khizooology
-- **Current description:** Meet Khizar Imtiaz (khizooo), a technical delivery manager, full-stack developer, and artist with 8+ years of experience and the creator of Khizooology.
-- **Screenshot/demo readiness:** Existing live UI and social metadata; suggested capture: Representative work plus actual role. Final gallery not prepared.
-- **Trust/context needed:** Do not invent clients, outcomes or testimonials.
-- **Priority:** B; prepare context/demo before broader promotion.
-
-**C-tier for this sprint:** retired/redirect-only routes, drafts, generic future-monster placeholders and weak-fit startup listings. Do not distribute them as useful standalone tools or expose hidden identities.
+**Status: IN PROGRESS — AUTHORITY EXECUTION READY.** No verified P0/P1 site-readiness blocker was found in the checked targets. External placements/independent authority are not claimed complete; account-data, FoundrList and conditional-platform gaps remain explicitly open.

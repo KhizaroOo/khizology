@@ -1,42 +1,59 @@
 # Backlink tracker
 
-Checked **2026-10-23, Asia/Karachi**. An observed lower bound, not a backlink-index export. Unknown traffic is not zero. Link attributes and search-engine credit remain unverified.
+Checked **2026-11-19, Asia/Karachi — Mission #11 (Backlink & Authority Growth)**. Observed lower bounds only. Unknown traffic/account totals are not zero. [Current plan and submission packets](BACKLINK-AUTHORITY-PLAN.md).
 
-Statuses: **PLANNED / SUBMITTED / LIVE / REJECTED / REMOVED / UNKNOWN**. Record a source URL only after it exists. Count registrable domains once; separate owner-controlled links from independent editorial links.
+Statuses: **PLANNED / SUBMITTED / LIVE / REJECTED / REMOVED / UNKNOWN**. PREPARED describes readiness of a PLANNED activity, not a submitted or live placement. Only LIVE references count toward observed referring-domain totals. Only qualified, genuinely independent LIVE references count toward the earned-authority milestone.
 
-## Verified current references
+Classes: **A** qualified independent authority; **B** legitimate external presence without proven independent endorsement; **C** owner-controlled; **D** low-value/excluded. Domain counts use registrable domains, once per group and once in the overall union. Owner-authored posts/listings are not class A merely because an external service hosts them. No search snippets or guessed source URLs are counted.
 
-| Date | Domain | Source page | Target URL | Channel | Status | Link type | Traffic observed | Notes |
-|---|---|---|---|---|---|---|---|---|
-| 2026-10-23 | github.com | [Repository README](https://github.com/KhizaroOo/khizology) | https://khizooology.com/ | GitHub | LIVE | Owner-controlled direct link | Unknown | Relevant repository link verified; one domain, not independent endorsement. |
-| 2026-10-23 | linkedin.com | [Domain Arrivals post](https://www.linkedin.com/posts/domain-arrivals_a-record-press-with-a-04-mm-nozzle-activity-7503030401972613120-CQ_E) | https://khizooology.com/ | LinkedIn | LIVE | Third-party contextual mention/redirect | Unknown | Public text and redirect to HTTP homepage verified. Automated domain-discovery context; excluded from qualified earned tally pending editorial assessment. |
+## Current observed references
 
-Observed: **two reference-bearing domains**, one relevant self-controlled direct link. **New qualified independent domains earned by this sprint: 0.** Bing/GSC backlink totals unknown. No submissions made.
+| Observed date | Domain | Source URL | Target URL | Channel | Status | Class | Qualified independent? | Contextual relevance | Traffic evidence | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-19 | github.com | [Repository README/About](https://github.com/KhizaroOo/khizology) | https://khizooology.com/ | GitHub | LIVE | C | No | Public source, maker explanation and working examples | Unknown | Fresh API/main README inspection confirms homepage plus canonical tool/world/portfolio links. Count one referring source page/domain, not one per README link. About description/homepage/topics are already correct. |
+| 2026-11-19 | linkedin.com | [Domain Arrivals post](https://www.linkedin.com/posts/domain-arrivals_a-record-press-with-a-04-mm-nozzle-activity-7503030401972613120-CQ_E) | http://khizooology.com/ (destination embedded in public LinkedIn redirect; canonical is https://khizooology.com/) | LinkedIn | LIVE | D | No | Third-party domain-discovery roundup, not demonstrated technical/editorial recommendation | Unknown | Fresh anonymous HTTP 200 source contains the explicit Khizooology anchor and redirect destination; earlier cached page text independently shows the mention. Stale artwork count in the external post is not copied into site facts. Redirect click-through and final link attribute/ranking treatment were not established. |
 
-The [Domain Arrivals issue](https://domainarrivals.com/issues/2026-09-07/) is a new-domain catalogue. No direct Khizooology reference was found in the retrieved issue. Do not count it as another referring domain or high-quality endorsement.
+**Observed LIVE reference-bearing domains: 2; source pages: 2.** Class A: **0 verified in this inspected set**. Class B: **0 verified in this inspected set**. Class C: **1**; class D: **1**, excluded from qualified authority. **New qualified independent LIVE domains earned by this mission: 0.** This is not proof that the entire web has no other references. No referral traffic, ranking improvement or AI citation is inferred.
 
-## Planned opportunities
+## Unverified existing candidate — not counted
 
-Dates are planning dates. Source page is **not created**, except the existing GitHub README. Intended placement types below do not establish link attributes. All traffic unknown.
+| Checked date | Domain | Source URL | Intended target | Channel | Status | Provisional class | Independent? | Relevance | Traffic | Evidence / next step |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-19 | foundrlist.com | https://www.foundrlist.com/product/khizooology | https://khizooology.com/ (intended, no outbound link verified) | Product listing | UNKNOWN | B if verified | Not established | Product presence, not automatic endorsement | Unknown | HTTP 200 resolves to apex product-preview shell; null initial product data, no outbound target anchor found. Browser rendering failed. Existing badge/outbound footer link is not inbound-link evidence. Owner checks listing while signed in and supplies a real public source. Not marked REMOVED or counted LIVE. |
 
-| Date | Domain | Source page | Target URL | Channel | Status | Link type | Traffic observed | Owner action |
-|---|---|---|---|---|---|---|---|---|
-| 2026-10-23 | devhunt.org | Not created | https://khizooology.com/toolbox/ | DevHunt | PLANNED | Listing | Unknown | Submit Toolooo manually. |
-| 2026-10-23 | peerlist.io | Not created | https://khizooology.com/toolbox/ | Peerlist | PLANNED | Project/launch | Unknown | Check eligibility; create project. |
-| 2026-10-23 | producthunt.com | Not created | https://khizooology.com/ | Product Hunt | PLANNED | Product listing | Unknown | Prepare gallery and maker comment. |
-| 2026-10-23 | github.com | Existing README above | https://khizooology.com/ | GitHub | PLANNED | About metadata | Unknown | Update description/homepage/topics; no new domain. |
-| 2026-10-23 | linkedin.com | Not created | https://khizooology.com/toolbox/retry-storm-simulator/ | LinkedIn | PLANNED | Owner post | Unknown | Review draft; no new observed domain. |
-| 2026-10-23 | news.ycombinator.com | Not created | https://khizooology.com/toolbox/retry-storm-simulator/ | Show HN | PLANNED | Project submission | Unknown | Personally test model and discuss decisions. |
-| 2026-10-23 | reddit.com | Not created | https://khizooology.com/toolbox/retry-storm-simulator/ | Reddit | PLANNED | Community post | Unknown | Check logged-in rules first. |
-| 2026-10-23 | dev.to | Not created | https://khizooology.com/toolbox/retry-storm-simulator/ | DEV | PLANNED | Technical article | Unknown | Write a standalone worked example. |
-| 2026-10-23 | hashnode.com | Not created | https://khizooology.com/toolbox/timeout-chain-planner/ | Hashnode | PLANNED | Technical article | Unknown | Record actual publication domain, including custom domain if used. |
-| 2026-10-23 | indiehackers.com | Not created | https://khizooology.com/ | Indie Hackers | PLANNED | Maker discussion/profile | Unknown | Verify current rules; share real decisions. |
-| 2026-10-23 | uneed.best | Not created | https://khizooology.com/toolbox/ | Uneed | PLANNED | Listing | Unknown | Review imported text; no link purchase. |
-| 2026-10-23 | alternativeto.net | Not created | https://khizooology.com/toolbox/perspective-grid-maker/ | AlternativeTo | PLANNED | Software listing | Unknown | Confirm functional fit and verified account. |
-| 2026-10-23 | saashub.com | Not created | https://khizooology.com/toolbox/ | SaaSHub | PLANNED | Software listing | Unknown | Ordinary product listing, not bulk submission service. |
-| 2026-10-23 | pinterest.com | Not created | https://khizooology.com/artworks/ | Pinterest | PLANNED | Original visual pin | Unknown | Use owned art; choose actual artwork canonical for each pin. |
-| 2026-10-23 | betalist.com | Not created | https://khizooology.com/ | BetaList | PLANNED | Conditional startup listing | Unknown | HOLD: paid submission/current maturity make this poor fit. |
+The earlier [Domain Arrivals issue](https://domainarrivals.com/issues/2026-09-07/) was not a confirmed direct reference in the October audit. It was not revalidated as a linking source here and adds no domain. A directory’s own stats or search results do not fill missing evidence.
 
-## Weekly record
+## Account data
 
-Append date range, account/property, actual source URLs, new live referring pages/domains, independent qualified domains, target pages, consented referral users/engagement/value events and evidence. Keep owner activity separate where known; never infer identity. Preserve report timezone. Record removals and rejections too. See [measurement limitations](BACKLINK-AUTHORITY-PLAN.md#measurement).
+| Source / check date | Available evidence | Status / limitation |
+| --- | --- | --- |
+| Bing Webmaster, 2026-11-19 | No referring-domain/page/target/anchor export | DATA UNAVAILABLE. GSC Wizard list_bing_sites refused with payment_required/subscription_required. Bing documentation says link detail is representative, not exhaustive. |
+| GSC Links, 2026-11-19 | No fresh Links export | DATA UNAVAILABLE. GSC Wizard list_sites was also subscription-blocked; Search Analytics would not replace the Links report anyway. Owner UI/export remains an alternative. |
+| GA4 referrals/engagement | Not queried in this mission | UNKNOWN. No traffic numbers or causal ranking claims recorded. |
+
+No account reconnection, subscription purchase or settings change was made. Account figures require their own property/date/window and export; never replace them with these public lower bounds. If a link appears in an account report, inspect its actual source and target before promoting it to LIVE/A.
+
+## Current prepared opportunities — owner action required
+
+Source URL means an actual published placement. None exists yet for the rows below; platform forms/help pages are **not** fabricated backlinks. No submission by Codex occurred. No target below is counted as earned authority.
+
+| Prepared date | Domain | Source URL | Target URL | Channel | Status | Expected class if listed | Independent? | Relevance | Traffic | Owner action |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-19 | devhunt.org | Not created | https://khizooology.com/toolbox/retry-storm-simulator/ | Free developer listing | PLANNED | B | No endorsement established | Reliability/developer model | Unknown | PREPARED packet in plan. Check duplicates and free listing; submit personally, provide confirmation and public URL. Free is nofollow; do not buy $49 dofollow launch for SEO. |
+| 2026-11-19 | dev.to | Not created | https://khizooology.com/toolbox/retry-storm-simulator/ | Standalone technical article | PLANNED | B if owner-authored; A only for later genuinely independent citation | Not established | Retry amplification / educational reference | Unknown | PREPARED owner-writing outline, not AI promotional copy. Follow original/substantial-content and AI restrictions. Link is optional and useful only if policy permits. |
+| 2026-11-19 | toools.design | Not created | https://khizooology.com/toolbox/bleed-safe-area-builder/ | Curated designer resource | PLANNED | B until independent editorial evidence | Not established | Print-layout guide | Unknown | PREPARED fields under current 120-character description cap. Owner checks terms, actual pricing choices and existing listings; submits one useful tool. No acceptance or link-attribute guarantee. |
+| 2026-11-19 | merlot.org | Not created | https://khizooology.com/infooo/human-atlas/ | Educational visualization resource | PLANNED | B until independent educational reference/review | Not established | Introductory spatial anatomy | Unknown | CONDITIONAL packet. Confirm OER/rights eligibility and actual discipline/type choices before owner submission; preserve dataset/viewer attribution and non-clinical boundaries. |
+
+GitHub About improvement is no longer a pending opportunity: verified correct, no write needed. The earlier 15-channel list is superseded by this small ladder; its entries were preparation, not submissions. Peerlist is later/conditional project presence; no launch. AlternativeTo is HOLD due its current simple-tool exclusions. Paid ranking placements and uncertain directories are HOLD. Mission #10 tester/social/first-100 distribution remains AFTER MVP — DEFERRED (P2).
+
+## Updating this tracker
+
+When Khizar confirms a submission, record date and safe public confirmation if available; change PLANNED → SUBMITTED only then. Change to LIVE only after inspecting a real public source with its actual target link. Keep rejected/removed records; distinguish a retrieval failure (UNKNOWN) from evidence of removal. Capture observed anchor/rel attributes where possible, not promises from submit forms.
+
+Record class/independence, context, source/target URL and aggregate traffic separately. Track new qualified independent domains, relevant pages and targets, while deduplicating domains and avoiding double-counting the same source. The roadmap target is 5–10 qualified referring domains, not five profiles created by the owner. Do not add private identities/messages/credentials or combine backlink counts with platform clicks and sessions into visitors.
+
+### 2026-11-19 execution record
+
+PREPARED: current plan, packets and this upgraded ledger. VERIFIED: existing GitHub and LinkedIn references, current About/README, official rules, seven public assets and their internal targets. SUBMITTED by this mission: **none**. New LIVE placements by this mission: **none verified**. Public observation is not execution of an external submission.
+
+Documentation-only verification: document destinations, source checks above, fresh generated SEO audit (131 canonical pages / 170 separate image entries / 0 errors), and git diff --check. No full rebuild or runtime/privacy suite was needed; no runtime code changed. Account-wide link totals remain DATA UNAVAILABLE. **IN PROGRESS — AUTHORITY EXECUTION READY.**
