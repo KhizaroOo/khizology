@@ -13,6 +13,7 @@ assert.deepEqual(selected.map(tool => tool.slug).sort(), ['api-payload-doctor', 
 assert.ok(selected.every(tool => tool.status === 'active'));
 const expected = new Set(['toolbox/index.html', 'drop-a-vibe/index.html', ...selected.map(tool => `toolbox/${tool.slug}/index.html`)]);
 const dist = fileURLToPath(new URL('dist/', root));
+const portfolioPath = `${(process.env.BASE_URL || '/').replace(/\/$/, '')}/my-portfolio/`;
 function walk(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
     const full = path.join(dir, entry.name);
@@ -34,12 +35,19 @@ for (const file of walk(dist)) {
   assert.match(html, />Check if my problem fits<\/a>/);
   assert.match(html, /No payment required to ask\./);
   assert.match(html, /I only accept reviews where I believe I can create useful technical value\./);
+  const offer = html.match(/<section\b[^>]*data-earning-offer[^>]*>([\s\S]*?)<\/section>/)?.[1];
+  assert.ok(offer);
+  assert.ok(offer.includes(`href="${portfolioPath}"`));
+  assert.match(offer, />Khizar’s work and experience<\/a>/);
+  assert.match(offer, /private payloads, proprietary source code or sensitive customer data/);
   const process = html.match(/<details\b[^>]*class="clarity-process"[^>]*>([\s\S]*?)<\/details>/);
   assert.ok(process && !/\sopen(?:\s|>)/.test(process[0].split('>')[0]), 'Full process starts collapsed');
   assert.equal([...process[1].matchAll(/<li\b/g)].length, 7);
   assert.match(process[1], /there is no payment/);
   assert.match(process[1], /not implementation or unlimited support/);
-  assert.match(process[1], /private keys or sensitive customer data/);
+  assert.match(process[1], /private keys, private payloads, proprietary source code or sensitive customer data/);
+  assert.match(process[1], /non-sensitive diagrams, screenshots, documentation or sanitized technical context/);
+  assert.ok(!process[1].includes('code context'), 'Do not request proprietary source code');
   for (const area of ['software/system architecture', 'APIs/integrations', 'backend/.NET', 'databases', 'cloud/deployment', 'scalability/performance', 'microservices', 'AI integration architecture', 'blockchain application architecture', 'technical delivery decisions']) assert.ok(process[1].includes(area));
   const ctas = [...html.matchAll(/<a\b[^>]*data-earning-offer-cta[^>]*>/g)].map(match => match[0]);
   assert.equal(ctas.length, 2, 'WhatsApp and email offer actions');

@@ -1,6 +1,6 @@
-# Earning experiment 001 — local review handoff
+# Earning experiment 001 — implementation and readiness evidence
 
-Branch: `codex-dev`. This is a local implementation and verification record, not deployment evidence. Khizar authorized committing and merging this approved experiment into local `dev-dev` on 4 November 2026. The separate documentation-review changes remain pending and were preserved. Approved offer/measurement definitions: [experiment](../docs/EARNING-EXPERIMENT-001.md).
+**Historical 2026-11-04 record; see the 2026-11-19 Mission #11 update below.** Branch at the time: `codex-dev`. This is a local implementation and verification record, not deployment evidence. Khizar authorized committing and merging this approved experiment into local `dev-dev` on 4 November 2026. The separate documentation-review changes remain pending and were preserved. Approved offer/measurement definitions: [experiment](../docs/EARNING-EXPERIMENT-001.md).
 
 ## Changed
 
@@ -35,3 +35,67 @@ Follow-up gates: `npm run audit:publish` PASS (build, SEO, prelaunch, domain, As
 The primary CTA is now “Check if my problem fits”; public-only message prefills ask about fit. The compact default card explains no payment is needed to ask, acceptance depends on useful technical value, and credentials/secrets/private keys/customer data must not be sent. A native, initially collapsed disclosure contains the approved seven-step process, suitable technical areas, manual payment after scope agreement, and clarity/direction-only limitations. The 45–60 minute deliverable is explicitly the solution session. The approved desktop layout remains flexible copy + a 336px right action column; no analytics implementation or contact destinations changed.
 
 Build, offer/prefill regression, contact regression, analytics/privacy VM checks, SEO and diff checks passed. Local Playwright exercised all six surfaces at 1440, 1920, 320, 375 and 390px in both themes (60 layouts), keyboard disclosure open/close, seven process steps, safe messages and preserved contact destinations. Mocked browser analytics retained consent gates, single view/click semantics and no message/private data transmission. Desktop measurements confirm balanced padding and the 336px action column; desktop closed/open and 320px screenshot crops were inspected. Phone checks are emulation; no external messages or shares were completed. Product requirements are recorded in the shared experiment document above.
+
+
+## Mission #11 — readiness verification, 2026-11-19
+
+### Snapshot and status
+
+Worktree: `khizology-dev`, branch `dev-dev`, clean starting HEAD `b55bc99db85986d846f68fe7fed8b214917ca973`. Remote main and dev-dev matched that head at inspection. No other worktree, Infooo world or tool model was edited. Production behavior was inspected separately from the local built candidate.
+
+**READY — NOT LAUNCHED.** The card being present on production is not the explicit owner LIVE declaration. Launch date and deadline remain NOT SET. No inquiries, payments, delivered reviews, revenue or visitor totals are invented; none are confirmed by this mission. No outreach or external share was completed.
+
+### Research that affected the review
+
+Reviewed current accessible guidance on 2026-11-19; these are design/operational references, not proof that any particular country's consumer law applies to this transaction.
+
+- [NN/G trust research](https://www.nngroup.com/articles/trustworthy-design/): clear disclosure and links to inspectable information support credibility. The existing offer had no direct connection to the portfolio. Added one small work/experience link, without testimonials or a larger résumé card.
+- [FTC advertising guidance](https://www.ftc.gov/business-guidance/resources/advertising-faqs-guide-small-business): service claims and material qualifications should be truthful, substantiated and understandable. Preserve visible introductory pricing, free qualification, limitations and no guarantees. Do not add reviews, success metrics or scarcity.
+- [GOV.UK distance-selling guidance](https://www.gov.uk/online-and-distance-selling-for-businesses/distance-selling): illustrates the importance of service/price/payment/cancellation information before entering a transaction and retainable confirmation. The site only opens an inquiry channel. Khizar must agree the specific scope, timing, total payable amount and applicable terms before manually accepting payment; no universal cancellation/refund/tax policy was invented. Customer jurisdiction and transaction terms were not audited. No material change requiring new checkout/booking infrastructure was established by these reviewed sources; no comprehensive legal compliance conclusion is made.
+
+### Production findings and local changes
+
+All six intended production surfaces already show $99 USD, the 45–60 minute solution session plus written plan, free fit check, initially collapsed seven-step process, approved areas, manual payment after acceptance/scope agreement, and implementation/support/outcome boundaries. General contact still exposes the three canonical channels. Tool prefills contain fixed offer copy and the registry name/canonical tool URL; hub/contact messages are generic. Edited harmless API input and incoming query/hash sentinels did not alter the message.
+
+Two tiny justified improvements only:
+- Link the shared offer to the existing portfolio through the route helper. The portfolio distinguishes inspectable personal work and an attributed .NET contribution from self-reported career/team context. This connection is evidence to inspect, not independent verification of every career claim or proof that a paid review will succeed.
+- Explicitly prohibit private payloads and proprietary source code in the visible warning and summary step. Replace the open-ended request for code context with sanitized, non-sensitive technical context. No additional service area, deliverable, contact value, payment feature or tracking was added.
+
+The source/regression change is shared across the same six surfaces, not a new opt-in. Existing canonical registry flags and URL/contact helpers remain authoritative. No metadata or indexable service page was added: current static offer copy, portfolio/contact metadata and contextual links already expose the offering without a thin duplicate page.
+
+### Qualification and measurement
+
+Problem outline → fit check → optional discovery → agreed scope/manual $99 payment → analysis → 45–60 minute solution session → written action plan. Asking is free. Declined problems require no payment. The visitor writes the problem manually and retains control over sending.
+
+The baseline in `docs/EARNING-EXPERIMENT-001.md` is the authoritative experiment definition: offer v1.1, same experiment ID and six surfaces, no launch/deadline, unknown/unconfirmed inquiries/payments/revenue. Ten offer clicks, three qualified inquiries and one paid review remain directional experiment rules. Earning clicks and contact clicks can represent the same action; never sum them as conversions. Qualified inquiry, actual payment and delivery need owner confirmation, not GA inference.
+
+The latest owner decision defers Mission #10 until after MVP (P2). Its two existing preparation documents now reflect that status while preserving the unexecuted plan and evidence definitions. Nothing was distributed and the earning clock was not started.
+
+### Browser evidence
+
+Local Playwright / installed Chrome against actual production: six surfaces × 1440×900, 390×844, 360×844 × light/dark = **36 layouts**. Built candidate repeated the same **36 layouts**. This is phone emulation, not physical-device or screen-reader-speech testing.
+
+Checked correct price/deliverable/CTA, fixed canonical context and destination encoding, 44px offer contact actions, keyboard focus/activation, seven disclosure steps and close/reopen, boundaries, page overflow and uncaught errors. Desktop/light and phone/dark offer screenshots were visually inspected. The candidate portfolio link was followed with keyboard to Selected work & evidence. A sample edited API input remained absent from both contact prefills in production and candidate. Navigation of WhatsApp/mailto was prevented at the actual click; no message/email was sent.
+
+Sampled actual computed/composited offer text/background colors, with alpha/opacity and the inherited background chain: lowest verified normal-text ratio **5.52:1 light / 6.47:1 dark** in both production and candidate, including disclosure content. These are offer samples, not exhaustive site contrast certification. No overflow or uncaught page error was observed in the completed checks.
+
+Google transport was intercepted with an inert script, preventing QA traffic from being ingested. No tag/event before acceptance; exactly one offer exposure after the visibility threshold; one earning click and one intentional contact click per action, with channel enums only. No duplicate view after interactions/disclosure. Fixed experiment/surface/canonical metadata only; no message, contact value or query/hash sentinel. Candidate API checks also reloaded after withdrawal and verified no later initialization/events. Existing VM tests cover explicit rejection, repeat clicks, visibility changes, failed Google loading, local-preview suppression and cleanup. No actual GA property receipt, private Admin settings or commercial demand is inferred.
+
+One candidate 360px dark run timed out in Playwright's element-stability scroll helper; that six-page batch was rerun using instant native scrolling and passed all assertions. It is not counted as a product defect or silently passed. The other 30 candidate layouts and all 36 production layouts passed the original harness.
+
+### Verification commands
+
+- `npm run build`: PASS; 136 Astro routes, no new route or dependency. Existing approximately 504 KB Atlas renderer warning remains unrelated and unchanged.
+- `node scripts/test-earning-experiment.mjs`: PASS, including new proof-link/sensitive-data regression and all six public-only prefills.
+- `node scripts/test-contact.mjs`, `node scripts/test-analytics.mjs`, `node scripts/test-accent-contrast.mjs`: PASS.
+- `node scripts/audit-ga-config.mjs` with the confirmed public ID supplied through process environment: PASS, no Enhanced Measurement modules or enabled user-provided-data capabilities. No provider setting changed.
+- `node scripts/audit-seo.mjs`, `node scripts/audit-prelaunch.mjs`, `node scripts/audit-domain.mjs`, `node scripts/audit-search.mjs`, `node scripts/audit-value.mjs`: PASS on the fresh build. These run the existing publish/prelaunch gates without repeating the build through nested npm aliases.
+
+- `npx astro check`: PASS, 515 files, 0 errors, 0 warnings, 14 existing hints.
+- `git diff --check` and edited documentation relative-link destinations: PASS before commit.
+
+### Limits / owner handoff
+
+No verified offer P0/P1 remains in the tested scope. The portfolio link and explicit warnings are small improvements; they are local candidate changes until Khizar promotes dev-dev to main. Production evidence above describes the pre-change offer, not an assumed deployment of these additions. The new baseline does not retroactively activate a launch.
+
+Private GA reports, customer jurisdiction/terms, actual inquiries and payments are unverified. Before a real engagement, Khizar confirms the agreed scope, timing and payment/terms directly. Later he may explicitly declare LIVE and record the start date; until then the 30-day target has no deadline. No main update, deployment, checkout, backend, booking, outreach or new data collection was performed.

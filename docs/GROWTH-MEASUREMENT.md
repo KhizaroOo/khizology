@@ -68,7 +68,7 @@ Keep tool and guide completions separate from diagnostic success, compliance and
 
 ## Mission #10 — external cohort evidence
 
-Started 2026-11-18 (Asia/Karachi). [Current distribution kit](GROWTH-DISTRIBUTION-KIT.md#mission-10--first-cohort-and-staged-distribution). No new analytics or persistence is required.
+Preparation started 2026-11-18 (Asia/Karachi). **2026-11-19 owner decision: AFTER MVP — DEFERRED (P2).** Planned rows below are retained preparation, not an active outreach queue. [Current distribution kit](GROWTH-DISTRIBUTION-KIT.md#mission-10--first-cohort-and-staged-distribution). No new analytics or persistence is required.
 
 **Verified external humans recorded for this mission: 0.** No outreach evidence has been supplied yet. This is a recorded lower bound, not a claim that the site has no external users. Aggregate acquisition/traffic totals: **not queried / unknown**. Do not substitute synthetic Build Smarter examples, owner QA sessions or historical listings for evidence.
 

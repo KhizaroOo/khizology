@@ -2,6 +2,7 @@
 import { CONTACT } from '../../data/site';
 import { tools } from '../../data/tools';
 import { absoluteUrl } from '../../utils/seo';
+import { url } from '../../utils/url';
 interface Props { surface: string; }
 const { surface } = Astro.props;
 // Build public context only. Never read the visitor's location or tool state.
@@ -20,13 +21,14 @@ const email = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Technical C
     <p class="clarity-deliverable">45–60 min solution session + written action plan</p>
     <p class="clarity-price">Introductory price: <strong>$99 USD</strong></p>
     <p>I only accept reviews where I believe I can create useful technical value.</p>
+    <a href={url('/my-portfolio')} class="clarity-email">Khizar’s work and experience</a>
   </div>
   <div class="clarity-action">
     <a href={whatsapp.href} class="k-button k-button--secondary" data-earning-offer-cta target="_blank" rel="noopener noreferrer" aria-describedby="clarity-fit-help clarity-channel-help">Check if my problem fits</a>
     <a href={email} class="clarity-email" data-earning-offer-cta aria-describedby="clarity-channel-help">Email about a review</a>
     <p id="clarity-channel-help">Opens WhatsApp or your email app. Edit the message before sending.</p>
     <p id="clarity-fit-help">No payment required to ask. We first confirm whether your problem is something I can genuinely help with.</p>
-    <p>Do not send credentials, secrets, private keys or sensitive customer data.</p>
+    <p>Do not send credentials, secrets, private keys, private payloads, proprietary source code or sensitive customer data.</p>
   </div>
   <details class="clarity-process">
     <summary>How it works · scope and suitable problems</summary>
@@ -36,11 +38,11 @@ const email = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Technical C
       <p><strong>Suitable areas:</strong> software/system architecture, APIs/integrations, backend/.NET, databases, cloud/deployment, scalability/performance, microservices, AI integration architecture, blockchain application architecture, and technical delivery decisions.</p>
       <h3>How it works</h3>
       <ol>
-        <li><strong>Send a short problem summary.</strong> Describe what you want to achieve, what is happening, your main technical problem, relevant technologies, and what you have tried. Do not send passwords, credentials, production secrets, private keys or sensitive customer data.</li>
+        <li><strong>Send a short problem summary.</strong> Describe what you want to achieve, what is happening, your main technical problem, relevant technologies, and what you have tried. Do not send passwords, credentials, production secrets, private keys, private payloads, proprietary source code or sensitive customer data.</li>
         <li><strong>I check whether I can genuinely help.</strong> I review the description first. If the problem is not accepted, there is no payment and no unnecessary call.</li>
         <li><strong>Short discovery call only if useful.</strong> We clarify the context, constraints and expected outcome. This call is for understanding the problem, not delivering the full solution.</li>
         <li><strong>Confirm scope + $99 payment.</strong> If the problem fits, we agree on the scope. The introductory $99 USD payment is arranged manually before technical analysis begins.</li>
-        <li><strong>Technical analysis.</strong> I review relevant material, architecture, options, risks and possible solutions. I may request diagrams, screenshots, documentation, code context or further technical details.</li>
+        <li><strong>Technical analysis.</strong> I review relevant material, architecture, options, risks and possible solutions. I may request non-sensitive diagrams, screenshots, documentation or sanitized technical context.</li>
         <li><strong>45–60 min solution session.</strong> We review findings, important trade-offs and realistic options, agree on a recommended direction, and clarify your next actions.</li>
         <li><strong>Written action plan.</strong> You receive a concise plan: Problem → Findings → Recommended Direction → Priority Actions → Risks → Next Step.</li>
       </ol>
@@ -54,7 +56,7 @@ const email = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Technical C
   .clarity-copy{flex:1 1 24rem;min-width:0}.clarity-copy p{max-width:66ch}.clarity-action{flex:0 1 21rem;max-width:100%;min-width:0}
   .clarity-offer h2{font:800 1.15rem/1.4 Poppins,sans-serif;margin:.25rem 0 .5rem}.clarity-offer p{font-size:.85rem;line-height:1.65;margin:.4rem 0;color:var(--k-text-muted)}
   .clarity-offer .clarity-question,.clarity-offer .clarity-deliverable{color:var(--k-text);font-weight:600}.clarity-offer .clarity-price{color:var(--k-text)}.clarity-price strong{white-space:nowrap}
-  .clarity-action a{min-height:44px;max-width:100%;white-space:normal;text-align:center}.clarity-action a:focus-visible{outline:3px solid var(--k-text);outline-offset:4px}.clarity-action p{font-size:.75rem;margin-top:.7rem}
+  .clarity-offer a{min-height:44px;max-width:100%;white-space:normal}.clarity-action a{text-align:center}.clarity-offer a:focus-visible{outline:3px solid var(--k-text);outline-offset:4px}.clarity-action p{font-size:.75rem;margin-top:.7rem}
   .clarity-email{display:flex;align-items:center;justify-content:center;width:fit-content;margin-top:.5rem;padding:.25rem .5rem;color:var(--k-text);font-size:.85rem;text-decoration:underline;text-underline-offset:3px}
   .clarity-process{flex:1 1 100%;min-width:0;border-top:1px solid var(--k-border);padding-top:.5rem}.clarity-process summary{padding:.65rem 0;min-height:44px;font-size:.85rem;font-weight:700;cursor:pointer}.clarity-process summary:focus-visible{outline:3px solid var(--k-text);outline-offset:3px;border-radius:.25rem}
   .clarity-process-copy{max-width:72ch}.clarity-process h3{font-size:.95rem;margin:1rem 0 .5rem}.clarity-process ol{list-style:decimal;padding-left:1.4rem;margin:.75rem 0}.clarity-process li{font-size:.85rem;line-height:1.65;margin:.75rem 0;color:var(--k-text-muted)}.clarity-process strong{color:var(--k-text)}
