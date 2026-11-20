@@ -217,7 +217,7 @@ export default function ProjectQuoteRiskPlanner() {
       </div>
 
       <div style={{ marginTop: '2rem' }}>
-        <h3
+        <h2
           style={{
             fontFamily: "'Poppins', sans-serif",
             fontWeight: 700,
@@ -229,7 +229,7 @@ export default function ProjectQuoteRiskPlanner() {
           }}
         >
           Three numbers to quote from
-        </h3>
+        </h2>
         <p style={{ fontSize: '.78rem', color: 'var(--k-text-muted)', margin: '0 0 1rem', lineHeight: 1.5 }}>
           Compare assumed effort scenarios, not predicted outcomes or guaranteed upper bounds.
         </p>

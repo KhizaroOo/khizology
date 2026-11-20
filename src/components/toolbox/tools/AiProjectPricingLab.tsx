@@ -121,7 +121,7 @@ export default function AiProjectPricingLab() {
       </div>
 
       <section>
-        <h3 style={H3}>What surrounds the implementation?</h3>
+        <h2 style={H3}>What surrounds the implementation?</h2>
         <div style={GRID}>
           {(['complexity', 'clarity', 'revisions'] as PricingFactor[]).map(factorSelect)}
           {responsibilitySelect('architecture')}
@@ -157,7 +157,7 @@ export default function AiProjectPricingLab() {
         </div>
 
         <section style={{ padding: '1.25rem', background: 'var(--k-bg-elevated)', border: '1.5px solid var(--k-border)', borderRadius: '1rem', minWidth: 0 }}>
-          <h3 style={H3}>Time shrinks. The whole commitment may not.</h3>
+          <h2 style={H3}>Time shrinks. The whole commitment may not.</h2>
           <div style={{ display: 'grid', gap: '1.05rem' }}>
             {[
               { label: 'Traditional implementation', total: input.traditionalHours, segments: [{ amount: input.traditionalHours, color: 'var(--k-text-muted)' }] },
@@ -180,7 +180,7 @@ export default function AiProjectPricingLab() {
         </section>
 
         <section>
-          <h3 style={H3}>Responsibility stays visible: {responsibilityLabel.toLowerCase()}</h3>
+          <h2 style={H3}>Responsibility stays visible: {responsibilityLabel.toLowerCase()}</h2>
           <div style={GRID}>{(Object.keys(RESPONSIBILITY) as (keyof typeof RESPONSIBILITY)[]).map(key => <div key={key} style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '.75rem', padding: '.9rem' }}><div style={{ fontSize: '.72rem', color: 'var(--k-text-muted)', marginBottom: '.35rem' }}>{RESPONSIBILITY[key].label}</div><div style={{ fontWeight: 700, fontSize: '.87rem', color: 'var(--k-text)' }}>{RESPONSIBILITY[key].options[form[key]]}</div></div>)}</div>
           <p style={NOTE}>Qualitative context, with no money multiplier: any full architecture ownership, core-business impact, or operational ownership makes this panel “High”; shared ownership, bounded support, or important workflow impact makes it “Moderate”; otherwise it is “Limited.” Faster implementation does not change those commitments. Business value needs a conversation about outcomes, alternatives, and accountability.</p>
         </section>
@@ -210,7 +210,7 @@ export default function AiProjectPricingLab() {
         </details>
 
         <section>
-          <h3 style={H3}>Before you quote · {checked.length}/{checklist.length} considered</h3>
+          <h2 style={H3}>Before you quote · {checked.length}/{checklist.length} considered</h2>
           <div style={{ display: 'grid', gap: '.7rem' }}>{checklist.map((item, index) => <label key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '.65rem', fontSize: '.85rem', color: 'var(--k-text)', lineHeight: 1.6 }}><input type="checkbox" checked={checked.includes(String(index))} onChange={event => setChecked(previous => event.target.checked ? [...previous, String(index)] : previous.filter(key => key !== String(index)))} style={{ accentColor: ACCENT, marginTop: '.3rem', flexShrink: 0 }} /><span>{item}</span></label>)}</div>
           <p style={NOTE}>This checklist stays in this tab and resets when the scenario changes. It is a planning aid, not a guarantee of project or pricing outcomes.</p>
         </section>

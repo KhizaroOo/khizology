@@ -104,7 +104,7 @@ export default function PaperNestingPlanner() {
       </AdvancedDisclosure>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '.5rem', marginBottom: '.75rem' }}>
-        <h3
+        <h2
           style={{
             fontFamily: "'Poppins', sans-serif",
             fontWeight: 800,
@@ -116,7 +116,7 @@ export default function PaperNestingPlanner() {
           }}
         >
           Nesting layout
-        </h3>
+        </h2>
         <button
           onClick={handleExport}
           disabled={!hasPieces}

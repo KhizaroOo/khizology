@@ -82,7 +82,7 @@ export default function BuildVsBuy() {
   return (
     <>
       <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
-        <h3 style={sectionHeadingStyle}>The numbers: cost over time</h3>
+        <h2 style={sectionHeadingStyle}>The numbers: cost over time</h2>
         <p style={sectionSubStyle}>
           One-time setup versus ongoing fees — see when, if ever, one path becomes cheaper than the other.
         </p>
@@ -166,7 +166,7 @@ export default function BuildVsBuy() {
       </div>
 
       <div style={{ marginTop: '1.5rem' }}>
-        <h3 style={sectionHeadingStyle}>The priorities: how each path scores</h3>
+        <h2 style={sectionHeadingStyle}>The priorities: how each path scores</h2>
         <p style={sectionSubStyle}>
           Cost is only one lens — weigh it against control, speed to ship, and ongoing maintenance overhead below.
         </p>

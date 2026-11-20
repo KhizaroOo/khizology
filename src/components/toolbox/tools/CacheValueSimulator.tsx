@@ -174,7 +174,7 @@ export default function CacheValueSimulator() {
   return (
     <div style={{ background: 'var(--k-bg-card)', border: '1px solid var(--k-border)', borderRadius: '1rem', padding: '1.5rem' }}>
       {/* ---- Section 1 ---- */}
-      <h3 style={sectionHeadingStyle}>Hit rate → DB load &amp; latency</h3>
+      <h2 style={sectionHeadingStyle}>Hit rate → DB load &amp; latency</h2>
       <p style={sectionSubStyle}>
         Drag hit rate directly and see how it reshapes database pressure and response time — no cache configuration needed.
       </p>
@@ -281,7 +281,7 @@ export default function CacheValueSimulator() {
 
       {/* ---- Section 2 ---- */}
       <div style={{ borderTop: '1px solid var(--k-border)', paddingTop: '1.5rem' }}>
-        <h3 style={sectionHeadingStyle}>Or: simulate hit rate from a cache configuration</h3>
+        <h2 style={sectionHeadingStyle}>Or: simulate hit rate from a cache configuration</h2>
         <p style={sectionSubStyle}>
           Instead of setting hit rate directly, derive it from TTL, cache size, and how many unique keys get requested — replayed over {TOTAL_REQUESTS} simulated requests.
         </p>

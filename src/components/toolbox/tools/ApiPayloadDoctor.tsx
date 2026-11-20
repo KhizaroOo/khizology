@@ -504,9 +504,9 @@ export default function ApiPayloadDoctor() {
           </div>
 
           <div style={{ marginBottom: '1.25rem' }}>
-            <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '.85rem', color: 'var(--k-text)', marginTop: 0, marginBottom: '.6rem', textTransform: 'uppercase', letterSpacing: '.06em' }}>
+            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: '.85rem', color: 'var(--k-text)', marginTop: 0, marginBottom: '.6rem', textTransform: 'uppercase', letterSpacing: '.06em' }}>
               Size breakdown by top-level key
-            </h3>
+            </h2>
             <VisualizationContainer minHeight={breakdown.items.length ? 200 : 100}>
               {breakdown.items.length === 0 ? (
                 <p style={{ fontSize: '.85rem', color: 'var(--k-text-muted)', textAlign: 'center', margin: 0 }}>

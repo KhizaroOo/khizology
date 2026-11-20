@@ -79,7 +79,7 @@ export default function MultiFormatCampaignPlanner() {
       <div style={grid}><Metric label="Requested outputs" value={String(targets.length)} /><Metric label="Suggested masters" value={String(groups.length)} color={orange} /><Metric label="Layouts potentially reused" value={String(targets.length - groups.length)} sublabel="Every output still needs a final check" /></div>
       <section aria-label="Master composition map" style={{ display: 'grid', gap: '1rem' }}>
         {groups.map((g, i) => <article key={g.formats[0].id} style={box}>
-          <h3 style={{ margin: '0 0 .3rem' }}>Master {i + 1} · {ratioLabel(g.ratio)}</h3>
+          <h2 style={{ margin: '0 0 .3rem' }}>Master {i + 1} · {ratioLabel(g.ratio)}</h2>
           <p style={{ margin: '0 0 1rem', fontSize: '.85rem', color: 'var(--k-text-muted)' }}>{g.formats.length === 1 ? 'Separate treatment at this crop limit.' : `${g.formats.length} compatible canvases at your crop limit.`} Suggested raster canvas: {g.width.toLocaleString('en-US')} × {g.height.toLocaleString('en-US')} px.</p>
           <div style={grid}>{g.formats.map(f => {
             const r = f.width / f.height, loss = cropLoss(g.ratio, r);

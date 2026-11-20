@@ -272,7 +272,7 @@ export default function HttpCacheLab() {
       </div>
 
       {/* ---- Interactive time-progression ---- */}
-      <h3 style={sectionHeadingStyle}>Live: what happens right now</h3>
+      <h2 style={sectionHeadingStyle}>Live: what happens right now</h2>
       <div style={{ marginBottom: '1rem' }}>
         <RangeControl
           label="Time since first fetch"
@@ -343,7 +343,7 @@ export default function HttpCacheLab() {
         />
       </div>
 
-      <h3 style={sectionHeadingStyle}>Quick reference — three fixed points in time</h3>
+      <h2 style={sectionHeadingStyle}>Quick reference — three fixed points in time</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '.75rem' }}>
         {results.map((r) => (
           <Warning

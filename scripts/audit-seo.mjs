@@ -5,6 +5,7 @@ import { isSiteVerificationFile } from './site-verification.mjs';
 const root = process.cwd();
 const dist = join(root, 'dist');
 const errors = [];
+const reviewNotes = [];
 const configuredBase = process.env.BASE_URL?.trim() || '/';
 const basePath = configuredBase === '/' ? '' : `/${configuredBase.replace(/^\/+|\/+$/g, '')}`;
 const expectedSite = new URL(process.env.SITE_URL?.trim() || 'https://khizooology.com').origin;
@@ -12,6 +13,7 @@ const quality = {
   missingDescriptions: 0,
   duplicateDescriptions: 0,
   missingH1: 0,
+  skippedHeadingLevels: 0,
   missingCanonicals: 0,
   invalidCanonicals: 0,
   nonSelfCanonicals: 0,
@@ -208,7 +210,8 @@ for (const page of pages) {
 
   if (!/^<!doctype html>/i.test(html) || !/<html\b[^>]*\blang=["']en["']/i.test(html)) fail(`${route}: missing HTML5 doctype or lang=en`);
   if (titleMatches.length !== 1 || !titleMatches[0]) fail(`${route}: expected exactly one non-empty title`);
-  if (!page.noindex && !page.redirect && titleMatches[0]?.length >= 70) fail(`${route}: title must be under 70 characters (${titleMatches[0].length})`);
+  // Readability review only: search engines do not impose a title character limit.
+  if (!page.noindex && !page.redirect && titleMatches[0]?.length >= 70) reviewNotes.push(`${route}: review title readability (${titleMatches[0].length} characters; not an indexing failure)`);
   if (descriptionTags.length !== 1 || !descriptionTags[0]?.content) { quality.missingDescriptions += 1; fail(`${route}: expected exactly one meta description`); }
   if (robotsTags.length !== 1 || !page.robots) fail(`${route}: expected exactly one robots directive`);
   if (!page.noindex && !page.redirect && tags(head, 'meta').some(item => ['googlebot', 'bingbot'].includes((item.name || '').toLowerCase()) && /\b(?:noindex|none)\b/i.test(item.content || ''))) fail(`${route}: bot-specific directive conflicts with intended indexability`);
@@ -227,6 +230,12 @@ for (const page of pages) {
   if (!page.noindex && !page.redirect) {
     if (!page.robots.includes('index') || !page.robots.includes('follow') || !page.robots.includes('max-image-preview:large')) fail(`${route}: incomplete indexable robots directive`);
     if (h1Count !== 1) { quality.missingH1 += 1; fail(`${route}: expected exactly one H1, found ${h1Count}`); }
+    let previousHeading = 0;
+    for (const match of html.matchAll(/<h([1-6])\b[^>]*>/gi)) {
+      const level = Number(match[1]);
+      if (level > previousHeading + 1) { quality.skippedHeadingLevels += 1; fail(`${route}: heading skips from H${previousHeading} to H${level}`); }
+      previousHeading = level;
+    }
 
     const title = titleMatches[0];
     const description = descriptionTags[0].content;
@@ -494,7 +503,6 @@ for (const filename of artworkFilenames) {
   if (/\.(jpg|jpeg|png|webp)$/i.test(title)) fail(`Artooo: filename extension in title for ${filename}`);
   if (!/[a-z]/i.test(title)) fail(`Artooo: title is mostly numeric for ${filename}`);
   if (suspiciousArtworkTitle.test(title) || numberedGenericArtworkTitle.test(title)) fail(`Artooo: placeholder or import-style title for ${filename}: ${title}`);
-  if (title.length > 54) fail(`Artooo: title cannot form a sub-70-character SEO title for ${filename}: ${title}`);
   if (artworkTitleOwners.has(titleKey)) fail(`Artooo: duplicate title ${title} for ${filename} and ${artworkTitleOwners.get(titleKey)}`);
   else artworkTitleOwners.set(titleKey, filename);
 }
@@ -539,6 +547,7 @@ const summary = {
   missingDescriptions: quality.missingDescriptions,
   duplicateDescriptions: quality.duplicateDescriptions,
   missingH1: quality.missingH1,
+  skippedHeadingLevels: quality.skippedHeadingLevels,
   missingCanonicals: quality.missingCanonicals,
   invalidCanonicals: quality.invalidCanonicals,
   nonSelfCanonicals: quality.nonSelfCanonicals,
@@ -559,6 +568,7 @@ const summary = {
   serverRenderedArtworkCards: artworkCards,
   reviewedArtworkTitles: artworkTitleOwners.size,
   errors: errors.length,
+  reviewNotes,
 };
 
 console.log(JSON.stringify(summary, null, 2));
