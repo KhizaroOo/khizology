@@ -1,0 +1,4364 @@
+{
+  "requestedOn": "2026-11-22",
+  "property": "https://khizooology.com",
+  "googleOutcome": "Authenticated Search Console property accessed; GSC Wizard connector still subscription-blocked, but no longer blocks this mission.",
+  "status": "Current Google and Bing browser evidence obtained; initial connector/access blockers resolved through owner-assisted browser sign-in.",
+  "connectorLimitations": {
+    "google": "GSC Wizard subscription required; no Windsor GSC account",
+    "bing": "Cached connector rows only; browser reports used for current evidence; query/page pairs available in browser despite connector limitation."
+  },
+  "google": {
+    "property": "sc-domain:khizooology.com",
+    "source": "Authenticated Google Search Console browser + downloaded CSV ZIPs",
+    "lastCompleteDay": "2026-11-19",
+    "web": {
+      "A": {
+        "from": "2026-10-23",
+        "to": "2026-11-19",
+        "clicks": 3,
+        "impressions": 171,
+        "ctrDisplayed": "1.8%",
+        "positionDisplayed": 30.7
+      },
+      "B": {
+        "from": "2026-09-25",
+        "to": "2026-10-22",
+        "clicks": 1,
+        "impressions": 81,
+        "ctrDisplayed": "1.2%",
+        "positionDisplayed": 9.2
+      },
+      "context": {
+        "from": "2026-08-22",
+        "to": "2026-11-19",
+        "chartAvailableFrom": "2026-09-05",
+        "clicks": 4,
+        "impressions": 269,
+        "ctrDisplayed": "1.5%",
+        "positionDisplayed": 22.7
+      }
+    },
+    "exports": {
+      "context": {
+        "filename": "khizooology.com-Performance-on-Search-2026-11-22.zip",
+        "sha256": "11f862f04c7636eead16a7bb11f358dea2027bd857506f364a89a751335a03ef",
+        "tables": {
+          "Chart": [
+            {
+              "Date": "2026-09-05",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-06",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-07",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-08",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-09",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-10",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-11",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-12",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "4"
+            },
+            {
+              "Date": "2026-09-13",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "5"
+            },
+            {
+              "Date": "2026-09-14",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-15",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "11"
+            },
+            {
+              "Date": "2026-09-16",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "7.5"
+            },
+            {
+              "Date": "2026-09-17",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "9.5"
+            },
+            {
+              "Date": "2026-09-18",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "3"
+            },
+            {
+              "Date": "2026-09-19",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "6"
+            },
+            {
+              "Date": "2026-09-20",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-21",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-22",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "6"
+            },
+            {
+              "Date": "2026-09-23",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "8.5"
+            },
+            {
+              "Date": "2026-09-24",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "4.5"
+            },
+            {
+              "Date": "2026-09-25",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "3"
+            },
+            {
+              "Date": "2026-09-26",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-27",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-28",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-29",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-09-30",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "4"
+            },
+            {
+              "Date": "2026-10-01",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Date": "2026-10-02",
+              "Clicks": "0",
+              "Impressions": "4",
+              "CTR": "0%",
+              "Position": "3.8"
+            },
+            {
+              "Date": "2026-10-03",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-10-04",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "12"
+            },
+            {
+              "Date": "2026-10-05",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "9.3"
+            },
+            {
+              "Date": "2026-10-06",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "3"
+            },
+            {
+              "Date": "2026-10-07",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "4"
+            },
+            {
+              "Date": "2026-10-08",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Date": "2026-10-09",
+              "Clicks": "0",
+              "Impressions": "7",
+              "CTR": "0%",
+              "Position": "4"
+            },
+            {
+              "Date": "2026-10-10",
+              "Clicks": "0",
+              "Impressions": "9",
+              "CTR": "0%",
+              "Position": "8.4"
+            },
+            {
+              "Date": "2026-10-11",
+              "Clicks": "0",
+              "Impressions": "5",
+              "CTR": "0%",
+              "Position": "11.2"
+            },
+            {
+              "Date": "2026-10-12",
+              "Clicks": "0",
+              "Impressions": "8",
+              "CTR": "0%",
+              "Position": "7.8"
+            },
+            {
+              "Date": "2026-10-13",
+              "Clicks": "1",
+              "Impressions": "6",
+              "CTR": "16.67%",
+              "Position": "4.3"
+            },
+            {
+              "Date": "2026-10-14",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "23.5"
+            },
+            {
+              "Date": "2026-10-15",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "5"
+            },
+            {
+              "Date": "2026-10-16",
+              "Clicks": "0",
+              "Impressions": "4",
+              "CTR": "0%",
+              "Position": "31"
+            },
+            {
+              "Date": "2026-10-17",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "24"
+            },
+            {
+              "Date": "2026-10-18",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Date": "2026-10-19",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "11"
+            },
+            {
+              "Date": "2026-10-20",
+              "Clicks": "0",
+              "Impressions": "7",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Date": "2026-10-21",
+              "Clicks": "0",
+              "Impressions": "5",
+              "CTR": "0%",
+              "Position": "3.8"
+            },
+            {
+              "Date": "2026-10-22",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "23.3"
+            },
+            {
+              "Date": "2026-10-23",
+              "Clicks": "0",
+              "Impressions": "9",
+              "CTR": "0%",
+              "Position": "6.2"
+            },
+            {
+              "Date": "2026-10-24",
+              "Clicks": "1",
+              "Impressions": "12",
+              "CTR": "8.33%",
+              "Position": "15"
+            },
+            {
+              "Date": "2026-10-25",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "43.5"
+            },
+            {
+              "Date": "2026-10-26",
+              "Clicks": "0",
+              "Impressions": "9",
+              "CTR": "0%",
+              "Position": "11.6"
+            },
+            {
+              "Date": "2026-10-27",
+              "Clicks": "0",
+              "Impressions": "7",
+              "CTR": "0%",
+              "Position": "25.1"
+            },
+            {
+              "Date": "2026-10-28",
+              "Clicks": "0",
+              "Impressions": "7",
+              "CTR": "0%",
+              "Position": "19.1"
+            },
+            {
+              "Date": "2026-10-29",
+              "Clicks": "0",
+              "Impressions": "12",
+              "CTR": "0%",
+              "Position": "40.1"
+            },
+            {
+              "Date": "2026-10-30",
+              "Clicks": "0",
+              "Impressions": "11",
+              "CTR": "0%",
+              "Position": "29.8"
+            },
+            {
+              "Date": "2026-10-31",
+              "Clicks": "1",
+              "Impressions": "5",
+              "CTR": "20%",
+              "Position": "20.2"
+            },
+            {
+              "Date": "2026-11-01",
+              "Clicks": "0",
+              "Impressions": "28",
+              "CTR": "0%",
+              "Position": "68.4"
+            },
+            {
+              "Date": "2026-11-02",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Date": "2026-11-03",
+              "Clicks": "0",
+              "Impressions": "4",
+              "CTR": "0%",
+              "Position": "45.5"
+            },
+            {
+              "Date": "2026-11-04",
+              "Clicks": "0",
+              "Impressions": "7",
+              "CTR": "0%",
+              "Position": "3.9"
+            },
+            {
+              "Date": "2026-11-05",
+              "Clicks": "0",
+              "Impressions": "6",
+              "CTR": "0%",
+              "Position": "21.8"
+            },
+            {
+              "Date": "2026-11-06",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "7.7"
+            },
+            {
+              "Date": "2026-11-07",
+              "Clicks": "0",
+              "Impressions": "5",
+              "CTR": "0%",
+              "Position": "19.4"
+            },
+            {
+              "Date": "2026-11-08",
+              "Clicks": "0",
+              "Impressions": "11",
+              "CTR": "0%",
+              "Position": "45.4"
+            },
+            {
+              "Date": "2026-11-09",
+              "Clicks": "0",
+              "Impressions": "0",
+              "CTR": "",
+              "Position": ""
+            },
+            {
+              "Date": "2026-11-10",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "3.7"
+            },
+            {
+              "Date": "2026-11-11",
+              "Clicks": "0",
+              "Impressions": "4",
+              "CTR": "0%",
+              "Position": "6.2"
+            },
+            {
+              "Date": "2026-11-12",
+              "Clicks": "0",
+              "Impressions": "4",
+              "CTR": "0%",
+              "Position": "46.5"
+            },
+            {
+              "Date": "2026-11-13",
+              "Clicks": "1",
+              "Impressions": "4",
+              "CTR": "25%",
+              "Position": "5"
+            },
+            {
+              "Date": "2026-11-14",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "32.7"
+            },
+            {
+              "Date": "2026-11-15",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "9.5"
+            },
+            {
+              "Date": "2026-11-16",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "92"
+            },
+            {
+              "Date": "2026-11-17",
+              "Clicks": "0",
+              "Impressions": "7",
+              "CTR": "0%",
+              "Position": "37.1"
+            },
+            {
+              "Date": "2026-11-18",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Date": "2026-11-19",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "4.3"
+            }
+          ],
+          "Queries": [
+            {
+              "Top queries": "manufactured emotions",
+              "Clicks": "0",
+              "Impressions": "32",
+              "CTR": "0%",
+              "Position": "73.88"
+            },
+            {
+              "Top queries": "khizarooo.github.io",
+              "Clicks": "0",
+              "Impressions": "21",
+              "CTR": "0%",
+              "Position": "3.14"
+            },
+            {
+              "Top queries": "artooo",
+              "Clicks": "0",
+              "Impressions": "20",
+              "CTR": "0%",
+              "Position": "6.2"
+            },
+            {
+              "Top queries": "ooology",
+              "Clicks": "0",
+              "Impressions": "16",
+              "CTR": "0%",
+              "Position": "11.19"
+            },
+            {
+              "Top queries": "infooo",
+              "Clicks": "0",
+              "Impressions": "6",
+              "CTR": "0%",
+              "Position": "4.17"
+            },
+            {
+              "Top queries": "jwt unix timestamp",
+              "Clicks": "0",
+              "Impressions": "5",
+              "CTR": "0%",
+              "Position": "42.2"
+            },
+            {
+              "Top queries": "agent system labs",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "6.67"
+            },
+            {
+              "Top queries": "prompt caching calculator",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "93.33"
+            },
+            {
+              "Top queries": "vesper flights meaning",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "35.5"
+            },
+            {
+              "Top queries": "latency simulator",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "67"
+            },
+            {
+              "Top queries": "protocols by andrew d. huberman with jessica wapner",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "8"
+            },
+            {
+              "Top queries": "fulgent genetics",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "21"
+            },
+            {
+              "Top queries": "the laws of wealth",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "47"
+            },
+            {
+              "Top queries": "lag generator online",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "62"
+            },
+            {
+              "Top queries": "edwin rist",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "70"
+            },
+            {
+              "Top queries": "the golden mole",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "80"
+            },
+            {
+              "Top queries": "webmcp vs mcp",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "83"
+            }
+          ],
+          "Pages": [
+            {
+              "Top pages": "https://khizooology.com/",
+              "Clicks": "2",
+              "Impressions": "26",
+              "CTR": "7.69%",
+              "Position": "7.23"
+            },
+            {
+              "Top pages": "https://khizooology.com/drop-a-vibe/",
+              "Clicks": "1",
+              "Impressions": "26",
+              "CTR": "3.85%",
+              "Position": "4.65"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/apple-in-china/",
+              "Clicks": "1",
+              "Impressions": "1",
+              "CTR": "100%",
+              "Position": "18"
+            },
+            {
+              "Top pages": "https://khizooology.com/my-portfolio/",
+              "Clicks": "0",
+              "Impressions": "34",
+              "CTR": "0%",
+              "Position": "5.85"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/how-emotions-are-made/",
+              "Clicks": "0",
+              "Impressions": "34",
+              "CTR": "0%",
+              "Position": "69.82"
+            },
+            {
+              "Top pages": "https://khizooology.com/artworks/",
+              "Clicks": "0",
+              "Impressions": "31",
+              "CTR": "0%",
+              "Position": "7.68"
+            },
+            {
+              "Top pages": "https://khizooology.com/infooo/agent-systems-lab/",
+              "Clicks": "0",
+              "Impressions": "15",
+              "CTR": "0%",
+              "Position": "4.93"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/poor-charlies-almanack/",
+              "Clicks": "0",
+              "Impressions": "9",
+              "CTR": "0%",
+              "Position": "6.22"
+            },
+            {
+              "Top pages": "https://khizooology.com/behind-the-vibes/",
+              "Clicks": "0",
+              "Impressions": "9",
+              "CTR": "0%",
+              "Position": "15"
+            },
+            {
+              "Top pages": "https://khizooology.com/infooo",
+              "Clicks": "0",
+              "Impressions": "6",
+              "CTR": "0%",
+              "Position": "6"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-feather-thief/",
+              "Clicks": "0",
+              "Impressions": "6",
+              "CTR": "0%",
+              "Position": "86.67"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/a-little-history-of-the-earth/",
+              "Clicks": "0",
+              "Impressions": "5",
+              "CTR": "0%",
+              "Position": "7.4"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/jwt-time-machine/",
+              "Clicks": "0",
+              "Impressions": "5",
+              "CTR": "0%",
+              "Position": "42.2"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/prompt-cache-efficiency-simulator/",
+              "Clicks": "0",
+              "Impressions": "5",
+              "CTR": "0%",
+              "Position": "57.4"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/environment-drift-detector/",
+              "Clicks": "0",
+              "Impressions": "4",
+              "CTR": "0%",
+              "Position": "4.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-wealth-ladder/",
+              "Clicks": "0",
+              "Impressions": "4",
+              "CTR": "0%",
+              "Position": "30"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/queue-capacity-planner/",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "3.67"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-innovators/",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "4.33"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/atomic-habits/",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "4.67"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/protocols/",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "5"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/capacity-cliff-simulator/",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "7.33"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/amusing-ourselves-to-death/",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "41"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/rag-chunking-simulator/",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "69.33"
+            },
+            {
+              "Top pages": "https://khizooology.com/infooo/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "2"
+            },
+            {
+              "Top pages": "https://khizooology.com/drop-a-vibe",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "3"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "3"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-minds-eye/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "4"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/retry-storm-simulator/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/steve-jobs/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "5.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-power-of-habit/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "6"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/becoming/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "6.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-expectation-effect/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "6.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/braiding-sweetgrass/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Top pages": "https://khizooology.com/infooo/rubiks-cube-motion-graph/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "7.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/wintering/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "7.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/passkey-migration-planner/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "10.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-power-of-now/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "16"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-book-of-eels/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "33"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/vesper-flights/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "35.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/connection-pool-simulator/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "39.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/mcp-vs-a2a-vs-webmcp-decision-lab/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "50"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/fan-out-latency-simulator/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "67"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/replica-lag-simulator/",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "80"
+            },
+            {
+              "Top pages": "http://khizooology.com/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/infooo/mcp-security-lab/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/how-progress-ends/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/set-boundaries-find-peace/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-age-of-surveillance-capitalism/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-molecule-of-more/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-scout-mindset/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-world-without-us/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/browser-sbom-generator/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/mcp-elicitation-builder/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/sticky-note-frame-planner/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-second-mountain/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "2"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/fierce-country/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "4"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/supremacy/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "4"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-butterfly-season/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-millionaire-next-door/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/trillions/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "5"
+            },
+            {
+              "Top pages": "https://khizooology.com/infooo/physical-ai-world/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "6"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/h-is-for-hawk/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "6"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/how-to-do-nothing/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "6"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/transitions/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "6"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/family/simulate/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "6"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/adaptive-markets/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/same-as-ever/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/supercommunicators/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/why-fish-dont-exist/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/ai-agent-permission-planner/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/openapi-to-mcp-tool-mapper/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/a-sand-county-almanac/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/capital-returns/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/debt-the-first-5-000-years/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/gathering-moss/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/seeing-like-a-state/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-crowd/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-psychology-of-money/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/wilding/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/family/create/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/chip-war/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "9"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/poor-economics/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "9"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/shattered/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "9"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/subliminal/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "9"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-shallows/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "9"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-technological-republic/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "9"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/wild-new-world/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "9"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/your-money-or-your-life/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "9"
+            },
+            {
+              "Top pages": "https://khizooology.com/infooo/app-deployment-journey/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "10"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-inner-clock/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "10"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-man-who-knew-infinity/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "10"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/four-thousand-weeks/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "11"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/how-to-be-good-at-life/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "11"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-happiness-hypothesis/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "11"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/cache-stampede-simulator/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "16"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/feel-good-productivity/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "20"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-treeline/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "26"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/cache-value-simulator/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "31"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/structured-output-json-schema-builder/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "37"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-immortal-life-of-henrietta-lacks/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "43"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-laws-of-wealth/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "47"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-little-book-of-behavioral-investing/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "55"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/benjamin-franklin-an-american-life/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "58"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-intelligence-trap/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "61"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-golden-mole/",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "80"
+            }
+          ],
+          "Countries": [
+            {
+              "Country": "Pakistan",
+              "Clicks": "3",
+              "Impressions": "19",
+              "CTR": "15.79%",
+              "Position": "13.79"
+            },
+            {
+              "Country": "France",
+              "Clicks": "1",
+              "Impressions": "1",
+              "CTR": "100%",
+              "Position": "18"
+            },
+            {
+              "Country": "United States",
+              "Clicks": "0",
+              "Impressions": "101",
+              "CTR": "0%",
+              "Position": "34.51"
+            },
+            {
+              "Country": "United Kingdom",
+              "Clicks": "0",
+              "Impressions": "18",
+              "CTR": "0%",
+              "Position": "19.56"
+            },
+            {
+              "Country": "India",
+              "Clicks": "0",
+              "Impressions": "15",
+              "CTR": "0%",
+              "Position": "4.93"
+            },
+            {
+              "Country": "Brazil",
+              "Clicks": "0",
+              "Impressions": "12",
+              "CTR": "0%",
+              "Position": "30.42"
+            },
+            {
+              "Country": "Canada",
+              "Clicks": "0",
+              "Impressions": "8",
+              "CTR": "0%",
+              "Position": "10.38"
+            },
+            {
+              "Country": "Australia",
+              "Clicks": "0",
+              "Impressions": "7",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Country": "Mexico",
+              "Clicks": "0",
+              "Impressions": "6",
+              "CTR": "0%",
+              "Position": "6.5"
+            },
+            {
+              "Country": "Hong Kong",
+              "Clicks": "0",
+              "Impressions": "5",
+              "CTR": "0%",
+              "Position": "6.2"
+            },
+            {
+              "Country": "Colombia",
+              "Clicks": "0",
+              "Impressions": "5",
+              "CTR": "0%",
+              "Position": "12"
+            },
+            {
+              "Country": "Russia",
+              "Clicks": "0",
+              "Impressions": "5",
+              "CTR": "0%",
+              "Position": "27.8"
+            },
+            {
+              "Country": "Indonesia",
+              "Clicks": "0",
+              "Impressions": "4",
+              "CTR": "0%",
+              "Position": "28.5"
+            },
+            {
+              "Country": "Bangladesh",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "4.67"
+            },
+            {
+              "Country": "Netherlands",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "5.33"
+            },
+            {
+              "Country": "Spain",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "7.67"
+            },
+            {
+              "Country": "Philippines",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "22"
+            },
+            {
+              "Country": "Singapore",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "24.33"
+            },
+            {
+              "Country": "Ukraine",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "56.67"
+            },
+            {
+              "Country": "Ecuador",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Country": "Saudi Arabia",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "3"
+            },
+            {
+              "Country": "Finland",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "4"
+            },
+            {
+              "Country": "Guatemala",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "5"
+            },
+            {
+              "Country": "Tunisia",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "5"
+            },
+            {
+              "Country": "Thailand",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Country": "Romania",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "16"
+            },
+            {
+              "Country": "South Africa",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "26.5"
+            },
+            {
+              "Country": "Peru",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "30"
+            },
+            {
+              "Country": "Nepal",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "39.5"
+            },
+            {
+              "Country": "Argentina",
+              "Clicks": "0",
+              "Impressions": "2",
+              "CTR": "0%",
+              "Position": "85"
+            },
+            {
+              "Country": "Egypt",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "1"
+            },
+            {
+              "Country": "Uruguay",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "2"
+            },
+            {
+              "Country": "Belarus",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "3"
+            },
+            {
+              "Country": "Iran",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "3"
+            },
+            {
+              "Country": "Armenia",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "4"
+            },
+            {
+              "Country": "Malaysia",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "4"
+            },
+            {
+              "Country": "Portugal",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "4"
+            },
+            {
+              "Country": "Slovakia",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "4"
+            },
+            {
+              "Country": "Iraq",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "5"
+            },
+            {
+              "Country": "China",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "6"
+            },
+            {
+              "Country": "Guam",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Country": "Vietnam",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "7"
+            },
+            {
+              "Country": "Bulgaria",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "8"
+            },
+            {
+              "Country": "Greece",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "8"
+            },
+            {
+              "Country": "Serbia",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "8"
+            },
+            {
+              "Country": "Germany",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "9"
+            },
+            {
+              "Country": "Iceland",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "9"
+            },
+            {
+              "Country": "United Arab Emirates",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "10"
+            },
+            {
+              "Country": "Czechia",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "10"
+            },
+            {
+              "Country": "Italy",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "10"
+            },
+            {
+              "Country": "Uzbekistan",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "14"
+            },
+            {
+              "Country": "Cyprus",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "47"
+            },
+            {
+              "Country": "Japan",
+              "Clicks": "0",
+              "Impressions": "1",
+              "CTR": "0%",
+              "Position": "48"
+            }
+          ],
+          "Devices": [
+            {
+              "Device": "Mobile",
+              "Clicks": "3",
+              "Impressions": "90",
+              "CTR": "3.33%",
+              "Position": "23.39"
+            },
+            {
+              "Device": "Desktop",
+              "Clicks": "1",
+              "Impressions": "176",
+              "CTR": "0.57%",
+              "Position": "22.59"
+            },
+            {
+              "Device": "Tablet",
+              "Clicks": "0",
+              "Impressions": "3",
+              "CTR": "0%",
+              "Position": "9.33"
+            }
+          ],
+          "Search appearance": [],
+          "Filters": [
+            {
+              "Filter": "Search type",
+              "Value": "Web (text-based)"
+            },
+            {
+              "Filter": "Date",
+              "Value": "Aug 22, 2026-Nov 19, 2026"
+            }
+          ]
+        }
+      },
+      "comparison": {
+        "filename": "khizooology.com-Performance-on-Search-2026-11-22 (1).zip",
+        "sha256": "9e9181f2faf0539f4f3df02de264255b388ed0c61d164aac3b24081055f4ec7f",
+        "tables": {
+          "Queries": [
+            {
+              "Top queries": "manufactured emotions",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "32",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "73.88",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top queries": "artooo",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "16",
+              "9/25/26 - 10/22/26 Impressions": "4",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "6.88",
+              "9/25/26 - 10/22/26 Position": "3.5"
+            },
+            {
+              "Top queries": "khizarooo.github.io",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "8",
+              "9/25/26 - 10/22/26 Impressions": "11",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "3.38",
+              "9/25/26 - 10/22/26 Position": "3"
+            },
+            {
+              "Top queries": "ooology",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "5",
+              "9/25/26 - 10/22/26 Impressions": "8",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "11.4",
+              "9/25/26 - 10/22/26 Position": "11"
+            },
+            {
+              "Top queries": "jwt unix timestamp",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "5",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "42.2",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top queries": "agent system labs",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "3",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "6.67",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top queries": "prompt caching calculator",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "3",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "93.33",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top queries": "infooo",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "2",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top queries": "vesper flights meaning",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "35.5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top queries": "latency simulator",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "67",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top queries": "protocols by andrew d. huberman with jessica wapner",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "8",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top queries": "the laws of wealth",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "47",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top queries": "lag generator online",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "62",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top queries": "edwin rist",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "70",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top queries": "the golden mole",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "80",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top queries": "webmcp vs mcp",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "83",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top queries": "fulgent genetics",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "21"
+            }
+          ],
+          "Pages": [
+            {
+              "Top pages": "https://khizooology.com/",
+              "10/23/26 - 11/19/26 Clicks": "1",
+              "9/25/26 - 10/22/26 Clicks": "1",
+              "10/23/26 - 11/19/26 Impressions": "13",
+              "9/25/26 - 10/22/26 Impressions": "10",
+              "10/23/26 - 11/19/26 CTR": "7.69%",
+              "9/25/26 - 10/22/26 CTR": "10%",
+              "10/23/26 - 11/19/26 Position": "5.69",
+              "9/25/26 - 10/22/26 Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/drop-a-vibe/",
+              "10/23/26 - 11/19/26 Clicks": "1",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "10",
+              "9/25/26 - 10/22/26 Impressions": "15",
+              "10/23/26 - 11/19/26 CTR": "10%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "5.6",
+              "9/25/26 - 10/22/26 Position": "3.73"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/apple-in-china/",
+              "10/23/26 - 11/19/26 Clicks": "1",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "100%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "18",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/how-emotions-are-made/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "34",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "69.82",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/artworks/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "22",
+              "9/25/26 - 10/22/26 Impressions": "9",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "6.27",
+              "9/25/26 - 10/22/26 Position": "11.11"
+            },
+            {
+              "Top pages": "https://khizooology.com/infooo/agent-systems-lab/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "15",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "4.93",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/my-portfolio/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "14",
+              "9/25/26 - 10/22/26 Impressions": "17",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "5.93",
+              "9/25/26 - 10/22/26 Position": "5.59"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-feather-thief/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "6",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "86.67",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/a-little-history-of-the-earth/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "5",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "7.4",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/behind-the-vibes/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "5",
+              "9/25/26 - 10/22/26 Impressions": "4",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "21.6",
+              "9/25/26 - 10/22/26 Position": "6.75"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/jwt-time-machine/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "5",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "42.2",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/prompt-cache-efficiency-simulator/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "5",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "57.4",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-wealth-ladder/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "4",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "30",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/protocols/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "3",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/poor-charlies-almanack/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "3",
+              "9/25/26 - 10/22/26 Impressions": "6",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "5.67",
+              "9/25/26 - 10/22/26 Position": "6.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/rag-chunking-simulator/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "3",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "69.33",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/infooo/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "2",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-minds-eye/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "4",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/retry-storm-simulator/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/passkey-migration-planner/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "10.5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/vesper-flights/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "35.5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/connection-pool-simulator/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "39.5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/mcp-vs-a2a-vs-webmcp-decision-lab/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "50",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/fan-out-latency-simulator/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "67",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/replica-lag-simulator/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "80",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/infooo/mcp-security-lab/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "1",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/how-progress-ends/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "1",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-world-without-us/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "1",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/browser-sbom-generator/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "1",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/mcp-elicitation-builder/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "1",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/sticky-note-frame-planner/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "1",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-second-mountain/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "2",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/environment-drift-detector/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "3",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "2",
+              "9/25/26 - 10/22/26 Position": "5.33"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "3",
+              "9/25/26 - 10/22/26 Position": "3"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/fierce-country/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "4",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/supremacy/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "4",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/queue-capacity-planner/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "2",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "4",
+              "9/25/26 - 10/22/26 Position": "3.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-butterfly-season/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/trillions/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/infooo/physical-ai-world/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "6",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/h-is-for-hawk/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "6",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/transitions/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "6",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/adaptive-markets/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "7",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/supercommunicators/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "7",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/openapi-to-mcp-tool-mapper/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "7",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/debt-the-first-5-000-years/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "8",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/seeing-like-a-state/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "8",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/wilding/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "8",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/family/create/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "8",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/chip-war/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "9",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/poor-economics/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "9",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/shattered/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "9",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/subliminal/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "9",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-technological-republic/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "9",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/wild-new-world/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "9",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/infooo/app-deployment-journey/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "10",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-inner-clock/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "10",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/wintering/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "10",
+              "9/25/26 - 10/22/26 Position": "5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/how-to-be-good-at-life/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "11",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/cache-stampede-simulator/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "16",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/feel-good-productivity/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "20",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-treeline/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "26",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/cache-value-simulator/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "31",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/structured-output-json-schema-builder/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "37",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-laws-of-wealth/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "47",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-little-book-of-behavioral-investing/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "55",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/benjamin-franklin-an-american-life/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "58",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-intelligence-trap/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "61",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-golden-mole/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "80",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-innovators/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "3",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "4.33"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/amusing-ourselves-to-death/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "3",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "41"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/steve-jobs/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "2",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "5.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-power-of-habit/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "2",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "6"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/becoming/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "2",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "6.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-expectation-effect/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "2",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "6.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/braiding-sweetgrass/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "2",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "7"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/capacity-cliff-simulator/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "2",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "7"
+            },
+            {
+              "Top pages": "https://khizooology.com/infooo/rubiks-cube-motion-graph/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "2",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "7.5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-power-of-now/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "2",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "16"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-book-of-eels/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "2",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "33"
+            },
+            {
+              "Top pages": "http://khizooology.com/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/set-boundaries-find-peace/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-age-of-surveillance-capitalism/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-molecule-of-more/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-scout-mindset/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "1"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/atomic-habits/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "4"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-millionaire-next-door/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "5"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/how-to-do-nothing/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "6"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/family/simulate/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "6"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/same-as-ever/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "7"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/why-fish-dont-exist/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "7"
+            },
+            {
+              "Top pages": "https://khizooology.com/toolbox/ai-agent-permission-planner/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "7"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/a-sand-county-almanac/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/capital-returns/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/gathering-moss/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-crowd/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "8"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-shallows/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "9"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/your-money-or-your-life/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "9"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-man-who-knew-infinity/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "10"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/four-thousand-weeks/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "11"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-happiness-hypothesis/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "11"
+            },
+            {
+              "Top pages": "https://khizooology.com/notooo/the-immortal-life-of-henrietta-lacks/",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "43"
+            }
+          ],
+          "Countries": [
+            {
+              "Country": "Pakistan",
+              "10/23/26 - 11/19/26 Clicks": "2",
+              "9/25/26 - 10/22/26 Clicks": "1",
+              "10/23/26 - 11/19/26 Impressions": "10",
+              "9/25/26 - 10/22/26 Impressions": "8",
+              "10/23/26 - 11/19/26 CTR": "20%",
+              "9/25/26 - 10/22/26 CTR": "12.5%",
+              "10/23/26 - 11/19/26 Position": "23",
+              "9/25/26 - 10/22/26 Position": "3.38"
+            },
+            {
+              "Country": "France",
+              "10/23/26 - 11/19/26 Clicks": "1",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "100%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "18",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "United States",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "63",
+              "9/25/26 - 10/22/26 Impressions": "31",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "49.7",
+              "9/25/26 - 10/22/26 Position": "10"
+            },
+            {
+              "Country": "United Kingdom",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "13",
+              "9/25/26 - 10/22/26 Impressions": "4",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "23.08",
+              "9/25/26 - 10/22/26 Position": "10"
+            },
+            {
+              "Country": "Brazil",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "9",
+              "9/25/26 - 10/22/26 Impressions": "3",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "30.33",
+              "9/25/26 - 10/22/26 Position": "30.67"
+            },
+            {
+              "Country": "India",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "6",
+              "9/25/26 - 10/22/26 Impressions": "7",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "3.67",
+              "9/25/26 - 10/22/26 Position": "5.71"
+            },
+            {
+              "Country": "Mexico",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "6",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "6.5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Hong Kong",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "5",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "6.2",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Colombia",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "5",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "12",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Canada",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "3",
+              "9/25/26 - 10/22/26 Impressions": "5",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "10.33",
+              "9/25/26 - 10/22/26 Position": "10.4"
+            },
+            {
+              "Country": "Indonesia",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "3",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "34.33",
+              "9/25/26 - 10/22/26 Position": "11"
+            },
+            {
+              "Country": "Russia",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "3",
+              "9/25/26 - 10/22/26 Impressions": "2",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "41.33",
+              "9/25/26 - 10/22/26 Position": "7.5"
+            },
+            {
+              "Country": "Ukraine",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "3",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "56.67",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Saudi Arabia",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "3",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Finland",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "4",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Guatemala",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Australia",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "3",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "6.5",
+              "9/25/26 - 10/22/26 Position": "4.67"
+            },
+            {
+              "Country": "Netherlands",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "7",
+              "9/25/26 - 10/22/26 Position": "2"
+            },
+            {
+              "Country": "Spain",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "8.5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Romania",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "16",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "South Africa",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "26.5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Peru",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "30",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Argentina",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "2",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "85",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Ecuador",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "1",
+              "9/25/26 - 10/22/26 Position": "1"
+            },
+            {
+              "Country": "Egypt",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "1",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Philippines",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "2",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "2",
+              "9/25/26 - 10/22/26 Position": "32"
+            },
+            {
+              "Country": "Uruguay",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "2",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Iran",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "3",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Portugal",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "4",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Iraq",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Tunisia",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "5",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "China",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "6",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Vietnam",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "7",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Serbia",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "8",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Germany",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "9",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Iceland",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "9",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Thailand",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "9",
+              "9/25/26 - 10/22/26 Position": "5"
+            },
+            {
+              "Country": "United Arab Emirates",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "10",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Italy",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "10",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Uzbekistan",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "14",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Cyprus",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "47",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Japan",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "48",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Singapore",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "2",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "57",
+              "9/25/26 - 10/22/26 Position": "8"
+            },
+            {
+              "Country": "Nepal",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "1",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "75",
+              "9/25/26 - 10/22/26 Position": "0"
+            },
+            {
+              "Country": "Bangladesh",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "3",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "4.67"
+            },
+            {
+              "Country": "Belarus",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "3"
+            },
+            {
+              "Country": "Armenia",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "4"
+            },
+            {
+              "Country": "Malaysia",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "4"
+            },
+            {
+              "Country": "Guam",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "7"
+            },
+            {
+              "Country": "Bulgaria",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "8"
+            },
+            {
+              "Country": "Greece",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "8"
+            },
+            {
+              "Country": "Czechia",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "0",
+              "9/25/26 - 10/22/26 Impressions": "1",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "0",
+              "9/25/26 - 10/22/26 Position": "10"
+            }
+          ],
+          "Devices": [
+            {
+              "Device": "Mobile",
+              "10/23/26 - 11/19/26 Clicks": "3",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "57",
+              "9/25/26 - 10/22/26 Impressions": "24",
+              "10/23/26 - 11/19/26 CTR": "5.26%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "32.84",
+              "9/25/26 - 10/22/26 Position": "7.04"
+            },
+            {
+              "Device": "Desktop",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "1",
+              "10/23/26 - 11/19/26 Impressions": "111",
+              "9/25/26 - 10/22/26 Impressions": "57",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "1.75%",
+              "10/23/26 - 11/19/26 Position": "30.15",
+              "9/25/26 - 10/22/26 Position": "10.14"
+            },
+            {
+              "Device": "Tablet",
+              "10/23/26 - 11/19/26 Clicks": "0",
+              "9/25/26 - 10/22/26 Clicks": "0",
+              "10/23/26 - 11/19/26 Impressions": "3",
+              "9/25/26 - 10/22/26 Impressions": "0",
+              "10/23/26 - 11/19/26 CTR": "0%",
+              "9/25/26 - 10/22/26 CTR": "0%",
+              "10/23/26 - 11/19/26 Position": "9.33",
+              "9/25/26 - 10/22/26 Position": "0"
+            }
+          ],
+          "Search appearance": [],
+          "Filters": [
+            {
+              "Filter": "Search type",
+              "Value": "Web (text-based)"
+            },
+            {
+              "Filter": "Date",
+              "Value": "Oct 23, 2026-Nov 19, 2026"
+            }
+          ]
+        }
+      }
+    },
+    "image": {
+      "source": "Authenticated UI; Image Search explicitly selected",
+      "A": {
+        "from": "2026-10-23",
+        "to": "2026-11-19",
+        "clicks": 0,
+        "impressions": 0,
+        "position": null
+      },
+      "B": {
+        "from": "2026-09-25",
+        "to": "2026-10-22",
+        "clicks": 0,
+        "impressions": 3,
+        "positionDisplayed": 51.7
+      },
+      "context": {
+        "from": "2026-08-22",
+        "to": "2026-11-19",
+        "clicks": 0,
+        "impressions": 5,
+        "positionDisplayed": 36.4
+      },
+      "comparisonPages": [
+        {
+          "route": "/artworks/",
+          "AImpressions": 0,
+          "BImpressions": 2,
+          "BPosition": 70
+        },
+        {
+          "route": "/",
+          "AImpressions": 0,
+          "BImpressions": 1,
+          "BPosition": 15
+        }
+      ],
+      "exportDownloaded": false
+    },
+    "accountHealth": {
+      "manualActions": "No issues detected",
+      "securityIssues": "No issues detected",
+      "cwv": {
+        "updated": "2026-11-20",
+        "mobile": "Not enough usage data in last 90 days",
+        "desktop": "Not enough usage data in last 90 days"
+      },
+      "indexing": {
+        "updated": "2026-11-16",
+        "scope": "All known pages, including historical routes",
+        "indexed": 401,
+        "notIndexed": 75,
+        "reasons": {
+          "Page with redirect": 14,
+          "Not found (404)": 37,
+          "Crawled - currently not indexed": 2,
+          "Excluded by noindex": 5,
+          "Discovered - currently not indexed": 17
+        }
+      },
+      "sitemaps": [
+        {
+          "url": "https://khizooology.com/sitemap-index.xml",
+          "lastRead": "2026-11-21",
+          "status": "Success",
+          "discoveredPages": 131
+        },
+        {
+          "url": "https://khizooology.com/image-sitemap.xml",
+          "lastRead": "2026-11-17",
+          "status": "Success",
+          "discoveredPages": 1
+        }
+      ]
+    },
+    "inspections": [
+      {
+        "route": "/",
+        "status": "Indexed",
+        "lastCrawlAsDisplayed": "Nov 16, 2026, 2:29:28 AM",
+        "declaredCanonical": "https://khizooology.com/",
+        "selectedCanonical": "Inspected URL",
+        "crawlAllowed": "Yes",
+        "indexingAllowed": "Yes",
+        "pageFetch": "Successful"
+      },
+      {
+        "route": "/toolbox/",
+        "status": "Indexed",
+        "lastCrawlAsDisplayed": "Nov 21, 2026, 10:01:54 PM",
+        "declaredCanonical": "https://khizooology.com/toolbox/",
+        "selectedCanonical": "Inspected URL",
+        "crawlAllowed": "Yes",
+        "indexingAllowed": "Yes",
+        "pageFetch": "Successful"
+      },
+      {
+        "route": "/toolbox/jwt-time-machine/",
+        "status": "Indexed",
+        "lastCrawlAsDisplayed": "Nov 16, 2026, 4:21:24 PM",
+        "declaredCanonical": "https://khizooology.com/toolbox/jwt-time-machine/",
+        "selectedCanonical": "Inspected URL",
+        "crawlAllowed": "Yes",
+        "indexingAllowed": "Yes",
+        "pageFetch": "Successful"
+      },
+      {
+        "route": "/toolbox/retry-storm-simulator/",
+        "status": "Indexed",
+        "lastCrawlAsDisplayed": "Oct 24, 2026, 5:26:26 AM",
+        "declaredCanonical": "https://khizooology.com/toolbox/retry-storm-simulator/",
+        "selectedCanonical": "Inspected URL",
+        "crawlAllowed": "Yes",
+        "indexingAllowed": "Yes",
+        "pageFetch": "Successful"
+      },
+      {
+        "route": "/infooo/human-atlas/",
+        "status": "Unknown to Google",
+        "lastCrawlAsDisplayed": null,
+        "declaredCanonical": null,
+        "selectedCanonical": null,
+        "crawlAllowed": null,
+        "indexingAllowed": null,
+        "pageFetch": null
+      },
+      {
+        "route": "/artworks/",
+        "status": "Indexed",
+        "lastCrawlAsDisplayed": "Nov 15, 2026, 4:42:20 AM",
+        "declaredCanonical": "https://khizooology.com/artworks/",
+        "selectedCanonical": "Inspected URL",
+        "crawlAllowed": "Yes",
+        "indexingAllowed": "Yes",
+        "pageFetch": "Successful"
+      },
+      {
+        "route": "/infooo/agent-systems-lab/",
+        "status": "Indexed",
+        "lastCrawlAsDisplayed": "Oct 31, 2026, 4:44:47 AM",
+        "declaredCanonical": "https://khizooology.com/infooo/agent-systems-lab/",
+        "selectedCanonical": "Inspected URL",
+        "crawlAllowed": "Yes",
+        "indexingAllowed": "Yes",
+        "pageFetch": "Successful"
+      },
+      {
+        "route": "/toolbox/environment-drift-detector/",
+        "status": "Crawled - currently not indexed",
+        "lastCrawlAsDisplayed": "Sep 9, 2026, 12:38:16 PM",
+        "declaredCanonical": "https://khizooology.com/toolbox/environment-drift-detector/",
+        "selectedCanonical": "Inspected URL",
+        "crawlAllowed": "Yes",
+        "indexingAllowed": "Yes",
+        "pageFetch": "Successful"
+      },
+      {
+        "route": "/toolbox/multi-format-campaign-planner/",
+        "status": "Crawled - currently not indexed",
+        "lastCrawlAsDisplayed": "Nov 16, 2026, 5:24:39 PM",
+        "declaredCanonical": "https://khizooology.com/toolbox/multi-format-campaign-planner/",
+        "selectedCanonical": "Inspected URL",
+        "crawlAllowed": "Yes",
+        "indexingAllowed": "Yes",
+        "pageFetch": "Successful"
+      }
+    ],
+    "queryPagePairs": [
+      {
+        "query": "jwt unix timestamp",
+        "route": "/toolbox/jwt-time-machine/",
+        "A": {
+          "clicks": 0,
+          "impressions": 5,
+          "ctr": 0,
+          "positionDisplayed": 42.2
+        },
+        "B": {
+          "clicks": 0,
+          "impressions": 0,
+          "position": null
+        },
+        "source": "Query filter -> Pages in authenticated comparison report"
+      },
+      {
+        "query": "agent system labs",
+        "route": "/infooo/agent-systems-lab/",
+        "A": {
+          "clicks": 0,
+          "impressions": 3,
+          "ctr": 0,
+          "positionDisplayed": 6.7
+        },
+        "B": {
+          "clicks": 0,
+          "impressions": 0,
+          "position": null
+        },
+        "source": "Query filter -> Pages in authenticated comparison report"
+      },
+      {
+        "query": "prompt caching calculator",
+        "route": "/toolbox/prompt-cache-efficiency-simulator/",
+        "A": {
+          "clicks": 0,
+          "impressions": 3,
+          "ctr": 0,
+          "positionDisplayed": 93.3
+        },
+        "B": {
+          "clicks": 0,
+          "impressions": 0,
+          "position": null
+        },
+        "source": "Query filter -> Pages in authenticated comparison report"
+      },
+      {
+        "query": "manufactured emotions",
+        "route": "/notooo/how-emotions-are-made/",
+        "A": {
+          "clicks": 0,
+          "impressions": 32,
+          "ctr": 0,
+          "positionDisplayed": 73.9
+        },
+        "B": {
+          "clicks": 0,
+          "impressions": 0,
+          "position": null
+        },
+        "source": "Query filter -> Pages in authenticated comparison report"
+      }
+    ],
+    "discoveredNotIndexedRoutes": [
+      "/infooo/human-atlas/",
+      "/toolbox/accessibility-remediation-planner/",
+      "/toolbox/async-messaging-decision-lab/",
+      "/toolbox/cloud-cost-guardrail-builder/",
+      "/toolbox/date-time-contract-doctor/",
+      "/toolbox/drawing-grid-maker/",
+      "/toolbox/llm-eval-case-builder/",
+      "/toolbox/llm-output-assurance-decision-lab/",
+      "/toolbox/monolith-vs-microservices-lab/",
+      "/toolbox/network-failure-ux-simulator/",
+      "/toolbox/rest-vs-graphql-decision-lab/",
+      "/toolbox/slo-incident-burn-simulator/",
+      "/toolbox/ux-research-study-planner/",
+      "/toolbox/value-study-maker/",
+      "/toolbox/web-performance-budget-planner/",
+      "/toolbox/web-rendering-strategy-decision-lab/",
+      "/toolbox/zero-downtime-schema-change-planner/"
+    ],
+    "redirectSample": [
+      "https://khizooology.com/my-portfolio",
+      "https://khizooology.com/privacy",
+      "https://khizooology.com/toolbox/family/check",
+      "http://khizooology.com/",
+      "https://khizooology.com/toolbox/family/create",
+      "https://khizooology.com/toolbox/family/plan",
+      "https://khizooology.com/toolbox/family/simulate",
+      "http://www.khizooology.com/",
+      "https://khizooology.com/behind-the-vibes",
+      "https://khizooology.com/artworks"
+    ],
+    "notFoundSample": [
+      "/notooo/otherlands/",
+      "/notooo/emotional-intelligence/",
+      "/notooo/just-keep-buying/",
+      "/notooo/against-the-gods/",
+      "/notooo/the-power-of-regret/",
+      "/notooo/how-we-know-what-isnt-so/",
+      "/notooo/the-death-and-life-of-great-american-cities/",
+      "/notooo/the-ascent-of-money/",
+      "/notooo/mindset/",
+      "/notooo/the-story-of-more/"
+    ],
+    "visibleQueryClassification": {
+      "method": "Explicit brand/module/person matches; ooology ambiguous; remaining topical queries non-branded, retired/unrelated intent separately excluded from active-product demand. Returned query totals are not site totals.",
+      "categories": {
+        "branded": {
+          "AImpressions": 26,
+          "BImpressions": 15,
+          "queries": [
+            "artooo",
+            "khizarooo.github.io",
+            "infooo"
+          ]
+        },
+        "ambiguous": {
+          "AImpressions": 5,
+          "BImpressions": 8,
+          "queries": [
+            "ooology"
+          ]
+        },
+        "nonBranded": {
+          "AImpressions": 53,
+          "BImpressions": 1,
+          "queries": [
+            "manufactured emotions",
+            "jwt unix timestamp",
+            "agent system labs",
+            "prompt caching calculator",
+            "vesper flights meaning",
+            "latency simulator",
+            "protocols by andrew d. huberman with jessica wapner",
+            "the laws of wealth",
+            "lag generator online",
+            "edwin rist",
+            "the golden mole",
+            "webmcp vs mcp",
+            "fulgent genetics"
+          ]
+        }
+      },
+      "visibleAImpressions": 84,
+      "visibleBImpressions": 24,
+      "visibleClicksBoth": 0
+    }
+  },
+  "bingBrowser": {
+    "source": "Authenticated Bing Webmaster Tools browser on 2026-11-22",
+    "performance": {
+      "selectedRange": "3 M",
+      "from": "2026-08-22",
+      "to": "2026-11-21",
+      "chartDataFrom": "2026-09-07",
+      "chartDataThrough": "2026-11-20",
+      "scope": "Web and Chat; keyword/page/device/country details are Web only as UI states",
+      "clicks": 0,
+      "impressions": 8,
+      "ctrDisplayed": "0%",
+      "positionDisplayed": 3.8
+    },
+    "crawl": {
+      "selectedRange": "3 M",
+      "requests": 606,
+      "errors": 55,
+      "indexedPagesMetric": 95
+    },
+    "siteExplorer": {
+      "scope": "root folder, last 6 months snapshot",
+      "indexed": 49,
+      "error": 0,
+      "warning": 2,
+      "excluded": 4,
+      "urls": 55,
+      "guidelinesExample": {
+        "url": "https://khizooology.com/my-portfolio",
+        "status": "Excluded",
+        "lastCrawled": "2026-11-09",
+        "http": 200
+      },
+      "otherIssuesFilter": "No data available"
+    },
+    "sitemaps": [
+      {
+        "url": "https://khizooology.com/sitemap-index.xml",
+        "lastCrawl": "2026-11-20",
+        "status": "Success",
+        "discoveredUrls": 131
+      },
+      {
+        "url": "https://khizooology.com/image-sitemap.xml",
+        "lastCrawl": "2026-11-19",
+        "status": "Success",
+        "discoveredUrls": 1
+      }
+    ],
+    "siteScan": {
+      "latestName": "First Scan - v9",
+      "ageAsDisplayed": "26 days ago",
+      "pages": 100,
+      "errors": 0,
+      "warnings": 0,
+      "notCurrentReleaseProof": true
+    },
+    "indexNow": {
+      "historicalSubmissionDate": "2026-10-24",
+      "submittedUrls": 570,
+      "submittedLast7Hours": 0,
+      "notCanonicalInventory": true,
+      "chartAriaDatesInconsistent": "ARIA chart labels January 2022; visible table shows October 24, 2026; use table, not ARIA date range."
+    },
+    "inspections": [
+      {
+        "route": "/",
+        "status": "Indexed successfully",
+        "lastCrawlAsDisplayed": "27 Oct 2026 at 22:11",
+        "crawlAllowed": "Yes",
+        "indexingAllowed": "Yes",
+        "canonical": "not provided (-- in UI)"
+      },
+      {
+        "route": "/toolbox/jwt-time-machine/",
+        "status": "Indexed successfully",
+        "lastCrawlAsDisplayed": "01 Nov 2026 at 17:30",
+        "crawlAllowed": "Yes",
+        "indexingAllowed": "Yes",
+        "canonical": "not provided (-- in UI)"
+      },
+      {
+        "route": "/infooo/human-atlas/",
+        "status": "Indexed successfully",
+        "lastCrawlAsDisplayed": "25 Oct 2026 at 00:57",
+        "crawlAllowed": "Yes",
+        "indexingAllowed": "Yes",
+        "canonical": "not provided (-- in UI)",
+        "processingWarnings": "UI also says SEO/markup processing available only on indexed URLs; do not overstate processing completeness."
+      },
+      {
+        "route": "/my-portfolio/",
+        "status": "Discovered but not crawled",
+        "discovered": "2026-10-07",
+        "lastCrawl": null,
+        "reason": "Generic guideline message; specific cause not provided."
+      }
+    ],
+    "queryPagePairs": [
+      {
+        "query": "distributed systems tax",
+        "route": "/toolbox/distributed-systems-tax/",
+        "clicks": 0,
+        "impressions": 2,
+        "ctr": 0,
+        "position": 2,
+        "source": "Keyword details -> Served pages in authenticated browser; 1 actual grid row despite Served pages header showing 2."
+      }
+    ]
+  },
+  "bingConnector": {
+    "requestedWindow": {
+      "from": "2026-08-24",
+      "to": "2026-11-21"
+    },
+    "daily": [
+      {
+        "date": "2026-10-16",
+        "clicks": 0,
+        "impressions": 2,
+        "data_fetched_at": "2026-11-20T13:09:47"
+      },
+      {
+        "date": "2026-10-21",
+        "clicks": 0,
+        "impressions": 1,
+        "data_fetched_at": "2026-11-20T13:09:47"
+      },
+      {
+        "date": "2026-10-25",
+        "clicks": 0,
+        "impressions": 1,
+        "data_fetched_at": "2026-11-20T13:09:47"
+      },
+      {
+        "date": "2026-10-26",
+        "clicks": 0,
+        "impressions": 1,
+        "data_fetched_at": "2026-11-20T13:09:47"
+      },
+      {
+        "date": "2026-10-28",
+        "clicks": 0,
+        "impressions": 2,
+        "data_fetched_at": "2026-11-20T13:09:47"
+      },
+      {
+        "date": "2026-10-29",
+        "clicks": 0,
+        "impressions": 1,
+        "data_fetched_at": "2026-11-20T13:09:47"
+      }
+    ],
+    "queries": [
+      {
+        "date": "2026-10-16",
+        "query": "capacity cliff",
+        "clicks": 0,
+        "impressions": 1,
+        "position": 1,
+        "data_fetched_at": "2026-11-20T13:09:48"
+      },
+      {
+        "date": "2026-10-16",
+        "query": "value study practice generator",
+        "clicks": 0,
+        "impressions": 1,
+        "position": 8,
+        "data_fetched_at": "2026-11-20T13:09:48"
+      },
+      {
+        "date": "2026-10-16",
+        "query": "collision drawable roadmap",
+        "clicks": 0,
+        "impressions": 1,
+        "position": 5,
+        "data_fetched_at": "2026-11-20T13:09:48"
+      },
+      {
+        "date": "2026-10-23",
+        "query": "distributed systems tax",
+        "clicks": 0,
+        "impressions": 2,
+        "position": 2,
+        "data_fetched_at": "2026-11-20T13:09:48"
+      },
+      {
+        "date": "2026-10-23",
+        "query": "[redacted profile-URL identity query]",
+        "clicks": 0,
+        "impressions": 1,
+        "position": 5,
+        "data_fetched_at": "2026-11-20T13:09:48"
+      },
+      {
+        "date": "2026-10-23",
+        "query": "[redacted profile-URL identity query]",
+        "clicks": 0,
+        "impressions": 1,
+        "position": 5,
+        "data_fetched_at": "2026-11-20T13:09:48"
+      },
+      {
+        "date": "2026-10-23",
+        "query": "distyributed system tax",
+        "clicks": 0,
+        "impressions": 1,
+        "position": 2,
+        "data_fetched_at": "2026-11-20T13:09:48"
+      }
+    ],
+    "pages": [
+      {
+        "date": "2026-10-16",
+        "page": "https://khizooology.com/toolbox/value-study-maker/",
+        "clicks": 0,
+        "impressions": 1,
+        "position": 8,
+        "data_fetched_at": "2026-11-20T13:09:48"
+      },
+      {
+        "date": "2026-10-16",
+        "page": "https://khizooology.com/toolbox/capacity-cliff-simulator/",
+        "clicks": 0,
+        "impressions": 1,
+        "position": 1,
+        "data_fetched_at": "2026-11-20T13:09:48"
+      },
+      {
+        "date": "2026-10-16",
+        "page": "https://khizooology.com/toolbox/roadmap-collision-detector/",
+        "clicks": 0,
+        "impressions": 1,
+        "position": 5,
+        "data_fetched_at": "2026-11-20T13:09:48"
+      },
+      {
+        "date": "2026-10-23",
+        "page": "https://khizooology.com/toolbox/distributed-systems-tax/",
+        "clicks": 0,
+        "impressions": 3,
+        "position": 2,
+        "data_fetched_at": "2026-11-20T13:09:48"
+      },
+      {
+        "date": "2026-10-23",
+        "page": "https://khizooology.com/my-portfolio/",
+        "clicks": 0,
+        "impressions": 2,
+        "position": 5,
+        "data_fetched_at": "2026-11-20T13:09:48"
+      }
+    ],
+    "pairsAvailable": false,
+    "pairsError": "Bing Queries and Weekly Pages cannot be requested together; the engine reports separate tables.",
+    "refreshOutcome": "Cached data only; current plan does not permit on-request refresh."
+  }
+}
