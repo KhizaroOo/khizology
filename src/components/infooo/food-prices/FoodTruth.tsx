@@ -11,6 +11,7 @@ interface Props { sources: readonly { label: string; url: string }[]; lastReview
 export default function FoodTruth({ sources, lastReviewed }: Props) {
   const f = (id: string) => cents(food(id).farmShare);
   const facts: ReactNode[] = [
+    <>These figures use USDA’s March 10, 2026 release of 2024 data. USDA revised earlier years and released 2025 data on November 17, 2026. This model keeps its historical inputs; they are not the latest estimates. {note(1)}</>,
     <>In 2024 U.S. farms received {f(ALL_GROCERIES)} of each dollar spent on food at home (groceries), {cents(AWAY_FROM_HOME_FARM_SHARE)} of each dollar spent on food away from home, and {cents(ALL_FOOD_FARM_SHARE)} across all domestically produced food. The rest, the “marketing share”, pays for processing, transport, storage, wholesale and retail. {note(1)}</>,
     <>The farm share differs a lot by food: {f('Xf1110')} for fresh eggs, {f('Xf1103')} for beef, {f('Xf1108')} for fresh milk, {f('Xf1102')} for bakery products, {f('Xf1128')} for soft drinks and bottled water. {note(2)}</>,
     <>Seen another way, salaries and benefits across the whole chain are {cents(food(ALL_GROCERIES).labor)} of the average grocery dollar. This is a second accounting of the same dollar, not an extra slice. {note(2, 3)}</>,
@@ -27,7 +28,7 @@ export default function FoodTruth({ sources, lastReviewed }: Props) {
   const simulation = [
     '“Play the shock” slides the chosen cost from 0% to 50% over a few seconds. Nothing is random.',
     'Every number you see is computed in your browser from the 2024 USDA figures bundled in this page. None is a live price, a forecast, or a reading from a real store.',
-    'The model runs in your browser. No account, no upload, nothing stored. If you accepted the site’s analytics, anonymous counts of which controls were used are recorded; nothing else leaves this page.',
+    'The simulation runs locally without an account or upload. With analytics consent, fixed interaction events and limited page/referral metadata may be sent. The Privacy page explains analytics and external resources.',
   ];
   const limits: ReactNode[] = [
     <><b>A ceiling, not a prediction.</b> It assumes the full extra cost reaches the shelf at once, shoppers keep buying the same things, and no one absorbs it in profit. Real prices rarely behave that neatly.</>,
@@ -36,7 +37,7 @@ export default function FoodTruth({ sources, lastReviewed }: Props) {
     <><b>Energy counts only after the farm.</b> Farms’ own fuel and fertilizer costs sit inside the farm-gate slice, so the energy row understates how much fuel matters overall.</>,
     <><b>Profit and fairness are left out.</b> The slices show where money goes, not who deserves what or who has market power.</>,
     <><b>Demand is not modelled.</b> Shortages, stockpiling and shifting demand also move prices. They are not here.</>,
-    <><b>U.S. only, one year.</b> 2024 data on domestically produced food, from a model USDA revised in 2026. Results are not comparable with older USDA releases.</>,
+    <><b>U.S. only, one historical release.</b> 2024 data on domestically produced food, as released March 10, 2026. Later revisions may change those figures. Results are not comparable across USDA releases.</>,
     <><b>The household panel is an upper bound.</b> USDA’s food spending includes eating out; the panel treats the whole food bill like groceries. Not financial advice.</>,
   ];
   return <section className="fp-block" aria-labelledby="fp-truth-title">
@@ -56,7 +57,7 @@ export default function FoodTruth({ sources, lastReviewed }: Props) {
     </details>
     <div className="fp-card fp-wide" id="fp-sources"><h3>Sources</h3>
       <ol>{sources.map((s, i) => <li key={s.url} id={`fp-s${i + 1}`}><a href={s.url} target="_blank" rel="noreferrer">{s.label}</a></li>)}</ol>
-      {lastReviewed && <p className="fp-meta">Last reviewed {lastReviewed}. USDA updates the Food Dollar every year (this edition: March 10, 2026). Refresh the bundled numbers and re-check the links each spring.</p>}
+      {lastReviewed && <p className="fp-meta">Last reviewed {lastReviewed}. The bundled figures remain the March 10, 2026 release of 2024 data. USDA’s live source includes the November 17 revision. A future data refresh must update all inputs and explanations together.</p>}
     </div>
   </section>;
 }

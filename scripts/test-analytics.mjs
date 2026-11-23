@@ -62,7 +62,12 @@ assert.match(noticeCopy, /If you accept[\s\S]*referrals from selected public web
 for (const [referrer, expected] of [
   ['https://www.google.com/search?q=NEVER_SEND#private', 'https://www.google.com/'],
   ['https://www.bing.com/search?q=NEVER_SEND', 'https://www.bing.com/'],
-  ...['chatgpt.com', 'claude.ai', 'gemini.google.com', 'copilot.microsoft.com', 'perplexity.ai', 'news.ycombinator.com', 'dev.to', 'peerlist.io', 'producthunt.com', 'medium.com', 'hashnode.com', 'threads.net', 'tiktok.com', 'discord.com', 'discordapp.com', 'l.facebook.com', 'lm.facebook.com', 'l.instagram.com'].map(host => [`https://${host}/private-project?prompt=NEVER_SEND#private`, `https://${host}/`]),
+  ...['chatgpt.com', 'claude.ai', 'gemini.google.com', 'copilot.microsoft.com', 'copilot.com', 'perplexity.ai', 'news.ycombinator.com', 'dev.to', 'peerlist.io', 'producthunt.com', 'medium.com', 'hashnode.com', 'threads.net', 'tiktok.com', 'discord.com', 'discordapp.com', 'l.facebook.com', 'lm.facebook.com', 'l.instagram.com'].map(host => [`https://${host}/private-project?prompt=NEVER_SEND#private`, `https://${host}/`]),
+  ['https://www.copilot.com/chats/private-project?prompt=NEVER_SEND#private', 'https://www.copilot.com/'],
+  ['https://copilot.com.private.example/NEVER_SEND', ''],
+  ['https://private.copilot.com/NEVER_SEND', ''],
+  ['https://user:NEVER_SEND@copilot.com/', ''],
+  ['https://copilot.com:8443/NEVER_SEND', ''],
   ['https://github.com/private-person/private-project?token=NEVER_SEND', 'https://github.com/'],
   ['https://user:NEVER_SEND@google.com/', ''], ['https://private-person.google.com/', ''],
   ['https://google.com:8443/NEVER_SEND', ''], ['https://google.com.private.example/NEVER_SEND', ''],
@@ -347,3 +352,12 @@ for (const saved of [null, 'declined']) {
   const failed=earningFixture('accepted');failed.run('initializeAnalytics()');failed.scripts[0].onerror();failed.observers[0].fire();assert.equal(failed.earning().length,0);
 }
 console.log('Earning analytics PASS: consent, 50% visible exposure once, intended clicks, safe canonical/channel metadata, no private/contact values, hidden/page lifecycle cleanup and local/failed-tag suppression.');
+
+for (const file of ['city-heat/HeatTruth.tsx', 'food-prices/FoodTruth.tsx']) {
+  const copy = fs.readFileSync(new URL(`../src/components/infooo/${file}`, import.meta.url), 'utf8');
+  assert.ok(!copy.includes('nothing else leaves this page') && !copy.includes('anonymous counts'), 'world disclosure must not overstate privacy');
+  assert.match(copy, /With analytics consent/);
+  assert.match(copy, /limited page\/referral metadata/);
+  assert.match(copy, /Privacy page explains analytics and external resources/);
+}
+console.log('World privacy copy PASS: consent, metadata and external-resource boundaries remain explicit.');

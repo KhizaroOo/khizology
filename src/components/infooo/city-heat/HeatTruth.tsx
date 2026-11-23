@@ -24,7 +24,7 @@ export default function HeatTruth({ sources, params, lastReviewed }: Props) {
   const simulation = [
     'A deterministic day: sunrise 6:00 AM, sunset 7:30 PM. Day 1 is the first hot day after cooler weather, so both blocks start the morning at the air temperature (24 °C). The regional air behind the weather warms to 35 °C by mid-afternoon.',
     'Every number you see is generated in your browser by the model. None is a forecast or a reading from a real street.',
-    'The model runs in your browser. No account, no upload, nothing stored. If you accepted the site’s analytics, anonymous counts of which controls were used are recorded; nothing else leaves this page.',
+    'The simulation runs locally without an account or upload. With analytics consent, fixed interaction events and limited page/referral metadata may be sent. The Privacy page explains analytics and external resources.',
   ];
   const limits: ReactNode[] = [
     <><b>Temperature only.</b> No humidity or heat index, and nothing about how hot a person feels or any health risk. This is not medical advice.</>,

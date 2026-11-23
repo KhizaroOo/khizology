@@ -1,5 +1,13 @@
 # AI discovery baseline
 
+## Current receipt — 2026-11-23
+
+The [complete-site AI visibility review](../codex-info/AI-SEARCH-VISIBILITY-2026-11-23.md) supersedes the operational counts and pending states below. Fresh inventory: **131 indexable pages, 100 tools, 17 worlds, 170 artwork entities, 3 active monsters**; Notooo is retired. Generated llms.txt contains 131 unique public page URLs (27,642 bytes on production), not 170 separate artwork pages.
+
+Live training restrictions are deployed. Google’s generative-AI report and Include control, Bing AI Performance and GA4 source/medium reports were inspected. Manual results and untested queries are recorded separately; access eligibility is not citation. The candidate adds exact-host copilot.com referral support without forwarding private URL state. No new deployment is implied.
+
+## Historical receipt — 2026-10-23
+
 > Historical evidence. Counts, pending states and permissions below apply to the dated observations only. For current operation use the [project handoff](../khizology-handoff.md), canonical registries and a fresh build/audit.
 
 Date: 2026-10-23. Technical readiness receipt, not evidence of AI citations or new visitors. No deployment, submissions, manufactured visits or AI-answer prompting performed.

@@ -25,6 +25,11 @@ for (const id of world.relatedWorlds) assert.ok(registry.exports.infoooWorlds.so
 assert.ok(!registry.exports.infoooWorlds.some(w => w.worldNumber > 17 || /^world-0(1[89]|2\d)$/.test(w.id)), 'planned worlds 018-027 must not exist yet');
 for (const k of ['fact', 'model', 'simulation', 'limitations', 'educationalContext', 'lastReviewed']) assert.ok(world.knowledge[k], `knowledge.${k}`);
 assert.equal(world.knowledge.sources.length, 6);
+assert.match(world.knowledge.fact, /Historical snapshot.*March 10, 2026.*November 17, 2026/);
+assert.match(world.knowledge.limitations, /historical inputs are not the latest estimates/);
+const truthCopy = fs.readFileSync('src/components/infooo/food-prices/FoodTruth.tsx', 'utf8');
+assert.match(truthCopy, /not the latest estimates/);
+assert.match(truthCopy, /Later revisions may change those figures/);
 for (const s of world.knowledge.sources) { assert.ok(s.label && /^https:\/\//.test(s.url), s.url); }
 assert.equal(new Set(world.knowledge.sources.map(s => s.url)).size, 6, 'sources are unique');
 for (const asset of [world.hero.asset, world.preview.asset]) assert.ok(fs.existsSync(path.join('public', asset)), `${asset} must exist`);

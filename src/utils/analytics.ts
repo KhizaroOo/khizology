@@ -32,7 +32,7 @@ export function consent(): Consent | null {
   return choice;
 }
 // Only known public referral hosts; never forward private hosts, paths or URL state.
-const publicReferralHosts = new Set(['google.com', 'google.co.uk', 'google.com.pk', 'bing.com', 'duckduckgo.com', 'search.yahoo.com', 'github.com', 'linkedin.com', 'news.ycombinator.com', 'dev.to', 'peerlist.io', 'producthunt.com', 'medium.com', 'hashnode.com', 'threads.net', 'tiktok.com', 'discord.com', 'discordapp.com', 'm.facebook.com', 'l.facebook.com', 'lm.facebook.com', 'l.instagram.com', 'reddit.com', 'youtube.com', 'facebook.com', 'instagram.com', 'pinterest.com', 'x.com', 't.co', 'chatgpt.com', 'perplexity.ai', 'claude.ai', 'gemini.google.com', 'copilot.microsoft.com']);
+const publicReferralHosts = new Set(['google.com', 'google.co.uk', 'google.com.pk', 'bing.com', 'duckduckgo.com', 'search.yahoo.com', 'github.com', 'linkedin.com', 'news.ycombinator.com', 'dev.to', 'peerlist.io', 'producthunt.com', 'medium.com', 'hashnode.com', 'threads.net', 'tiktok.com', 'discord.com', 'discordapp.com', 'm.facebook.com', 'l.facebook.com', 'lm.facebook.com', 'l.instagram.com', 'reddit.com', 'youtube.com', 'facebook.com', 'instagram.com', 'pinterest.com', 'x.com', 't.co', 'chatgpt.com', 'perplexity.ai', 'claude.ai', 'gemini.google.com', 'copilot.microsoft.com', 'copilot.com']);
 function safeReferrer() {
   try {
     const referrer = new URL(document.referrer);

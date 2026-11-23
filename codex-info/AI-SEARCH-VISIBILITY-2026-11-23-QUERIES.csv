@@ -1,0 +1,25 @@
+id,category,query,ChatGPT,Claude,Gemini,Google AI,Copilot,Perplexity
+R1,Reliability,"How can retries turn a small backend outage into a retry storm, and is there an interactive way to compare backoff and jitter?",NOT FOUND,NOT TESTED,NOT FOUND,NOT FOUND,NOT TESTED,NOT FOUND
+R2,Reliability,How do full jitter and exponential backoff without jitter change retry traffic?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+R3,Reliability,How can I compare token bucket and sliding-window rate limiting under a burst?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+R4,Reliability,How can I tell whether workers will drain a growing message queue?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+R5,Reliability,How should I divide an API deadline across downstream calls and retries?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+R6,Reliability,Why can adding database connections make a connection-pool problem worse?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+R7,Reliability,Why can one slow required dependency control a parallel API response?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+A1,APIs,How can I inspect a malformed JSON API payload locally without uploading it?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+A2,APIs,What is the difference between a missing JSON field and null for an API consumer?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+A3,APIs,How can I compare two API response samples for schema drift?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+A4,APIs,How should I design consistent API error responses and retry advice?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+M1,Agents,How can I learn MCP security risks with safe interactive examples?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+M2,Agents,How do I scope AI agent permissions and decide which actions need approval?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+M3,Agents,What should I check when designing OAuth authorization for a public MCP client?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+M4,Agents,"How can I compare retrieval, memory and history compression within a context budget?",NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+M5,Agents,"How can retries, verification and evidence affect an AI agent’s reliability?",NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+M6,Agents,What should I inspect before installing an agent skill from an unfamiliar repository?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+D1,Design,"I am preparing a business card for printing. How do trim, bleed and safe area differ, and where can I preview them?",NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT FOUND
+D2,Design,Where can I generate a perspective grid for drawing practice in my browser?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+D3,Design,Where can I explore original pencil drawings with short notes from the artist?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+E1,Education,Is there a browser anatomy atlas that explains how the heart and lungs connect?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+E2,Education,Why can city surfaces cool after sunset while the street air stays warm?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+E3,Education,Why can the same farm cost increase affect eggs and bread differently?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
+E4,Education,Can an interactive model explain how repetition and connections spread misinformation?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
