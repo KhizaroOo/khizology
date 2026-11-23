@@ -3210,7 +3210,7 @@
       "Claude": "NOT TESTED",
       "Gemini": "NOT FOUND",
       "Google AI": "NOT FOUND",
-      "Copilot": "NOT TESTED",
+      "Copilot": "NOT FOUND",
       "Perplexity": "NOT FOUND"
     },
     {
@@ -3548,11 +3548,23 @@
       ],
       "citationUrl": null,
       "scope": "One answer only; visible source examples, not exhaustive competitor enumeration; no Khizooology mention/link/citation in displayed answer."
+    },
+    {
+      "date": "2026-11-23",
+      "platform": "Copilot",
+      "query": "How can retries turn a small backend outage into a retry storm, and is there an interactive way to compare backoff and jitter?",
+      "mode": "Signed in; Auto; public web citations; no model version exposed",
+      "outcome": "NOT FOUND",
+      "sourceUrls": [
+        "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_mitigate_interaction_failure_limit_retries.html",
+        "https://builder.aws.com/content/3JltT4T9OAxMK0W8A3cOLYYQeRV/when-retries-make-an-outage-worse-understanding-retry-storms-in-cloud-systems"
+      ],
+      "citationUrl": null,
+      "scope": "Completed answer and Sources pane inspected. No Khizooology mention/link/citation. Two citation destinations opened and recorded; not an exhaustive competitor-source inventory. Sources pane reported no personalization sources."
     }
   ],
   "platformAccessGaps": {
-    "Claude": "Existing Google sign-in returned to login; owner sign-in requested; no usable search conversation. NOT TESTED, not NOT FOUND.",
-    "Copilot": "Redirected to copilot.com, requires Microsoft sign-in; owner sign-in requested. NOT TESTED, not NOT FOUND."
+    "Claude": "Owner sign-in succeeded. Incognito session selected; subscription-paused notice remained and Send message was disabled after entering R1. No query was submitted and no answer was obtained. NOT TESTED. No billing or subscription change attempted."
   },
   "candidateBrowser": {
     "base": "http://localhost:4321",
@@ -3598,5 +3610,18 @@
     "report paths / schema references / artwork files / credential-pattern scope scan": "PASS",
     "git diff --check": "PASS",
     "notes": "Mock GA transport; no live analytics test event. Existing approximately 504 KB Atlas chunk warning and 14 Astro hints; no build/type errors. Local browser emulation and account UI receipts are separate from production implementation deployment."
+  },
+  "accessFollowup": {
+    "date": "2026-11-23",
+    "ownerSignInConfirmed": [
+      "Claude",
+      "Copilot"
+    ],
+    "completedAdditionalAnswers": 1,
+    "claudeModelLabel": "Opus 5 High",
+    "claudeAnswerAvailable": false,
+    "claudeSendEnabled": false,
+    "claudeDraftCleared": true,
+    "copilotCompleted": true
   }
 }

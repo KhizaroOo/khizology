@@ -1,5 +1,5 @@
 id,category,query,ChatGPT,Claude,Gemini,Google AI,Copilot,Perplexity
-R1,Reliability,"How can retries turn a small backend outage into a retry storm, and is there an interactive way to compare backoff and jitter?",NOT FOUND,NOT TESTED,NOT FOUND,NOT FOUND,NOT TESTED,NOT FOUND
+R1,Reliability,"How can retries turn a small backend outage into a retry storm, and is there an interactive way to compare backoff and jitter?",NOT FOUND,NOT TESTED,NOT FOUND,NOT FOUND,NOT FOUND,NOT FOUND
 R2,Reliability,How do full jitter and exponential backoff without jitter change retry traffic?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
 R3,Reliability,How can I compare token bucket and sliding-window rate limiting under a burst?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED
 R4,Reliability,How can I tell whether workers will drain a growing message queue?,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED,NOT TESTED

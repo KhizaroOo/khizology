@@ -54,7 +54,7 @@ GA4 showed no identifiable `chatgpt.com` source row in the measured periods belo
 
 ## Claude
 
-Claude-SearchBot probes and live robots eligibility passed; training remains restricted separately. The existing Google sign-in flow returned to the Claude login page. Owner sign-in was requested; no usable search conversation became available. Manual outcome: **NOT TESTED**, not NOT FOUND. No new account, subscription, CAPTCHA bypass or unsupported claim of Claude visibility was made. No identifiable `claude.ai` GA4 row was observed.
+Claude-SearchBot probes and live robots eligibility passed; training remains restricted separately. The initial Google sign-in flow returned to login. After the owner completed sign-in, an incognito session showed **Your subscription is paused** and the Send message control remained disabled with R1 entered. No query was submitted; the test draft was cleared. The displayed model was Opus 5 High. Manual outcome remains **NOT TESTED**, not NOT FOUND. Authentication is now confirmed; account access prevents the answer check. No invoice payment, subscription change, new account or CAPTCHA bypass was attempted. No identifiable `claude.ai` GA4 row was observed.
 
 ## Gemini
 
@@ -80,7 +80,7 @@ Clicks and search queries were **not exposed in this AI report**. Impressions ar
 
 ## Copilot / Bing AI
 
-Actual navigation redirected `copilot.microsoft.com` to **copilot.com**, which required sign-in. Microsoft documents that migration for personal use. Manual answer outcome: **NOT TESTED** pending owner authentication. [Microsoft support](https://support.microsoft.com/en-us/microsoft-365-copilot/troubleshoot-content-copilot-app), [current service domains](https://www.microsoft.com/en-us/microsoft-copilot/for-individuals/termsofuse).
+Actual navigation redirected `copilot.microsoft.com` to **copilot.com**, which initially required sign-in. After owner authentication, a fresh signed-in Auto-mode R1 answer completed with public web citations. Khizooology was **NOT FOUND** in the answer or Sources pane. Two citation destinations were opened to verify their exact public URLs; they are recorded in evidence. The pane reported no personalization sources. This is one answer, not a platform-wide visibility claim. Microsoft documents the domain migration for personal use. [Microsoft support](https://support.microsoft.com/en-us/microsoft-365-copilot/troubleshoot-content-copilot-app), [current service domains](https://www.microsoft.com/en-us/microsoft-copilot/for-individuals/termsofuse).
 
 Authenticated Bing AI Performance, “Microsoft Copilots and Partners”:
 
@@ -156,9 +156,9 @@ This was a proportional source/claim audit, not a fresh scientific replication o
 | ACCESS / ENTITY / EXTRACTION blocker | None verified across the complete inventory; no justified P0/P1 remains in checked scope. Actual verified provider-IP crawling is unknown. |
 | CITATION OPPORTUNITY | Google AI impressions demonstrate some exposure, particularly gallery/home/collection. No query-level AI evidence supports a specific page rewrite yet. |
 | AUTHORITY GAP — handled by #11 | Existing authority ledger verifies zero newly earned qualified independent domains in its sprint. It does not prove authority is the cause of absent citations. No link buying or outreach here. |
-| HOLD | One-answer absences, missing Claude/Copilot authentication, unrun matrix queries, unavailable Bing topic/share rows and future crawler standards do not justify speculative content changes. |
+| HOLD | One-answer absences, paused Claude account access, unrun matrix queries, unavailable Bing topic/share rows and future crawler standards do not justify speculative content changes. |
 
-The neutral 24-query set spans seven reliability, four API, six agent, three design and four education questions. **Six answer checks were run**, across two query rows; unrun cells remain NOT TESTED. Google AI Overview and AI Mode are separately recorded in evidence even though the matrix combines their column. No brand/URL forcing, repeated tuning until a mention, fabricated citation score or claim of 144 completed tests.
+The neutral 24-query set spans seven reliability, four API, six agent, three design and four education questions. **Seven answer checks were run**, across two query rows; unrun cells remain NOT TESTED. The seventh answer was the authenticated Copilot follow-up after owner sign-in. Google AI Overview and AI Mode are separately recorded in evidence even though the matrix combines their column. No brand/URL forcing, repeated tuning until a mention, fabricated citation score or claim of 144 completed tests.
 
 ## Verified
 
@@ -180,7 +180,7 @@ The exact implementation commit SHA is supplied in the Git handoff; this report 
 
 ## Data gaps / blockers
 
-No unresolved repository blocker. Claude/Copilot answer checks need owner authentication. Other unrun query cells are a transparent sampling limit, not observed absence. Official crawler-IP logs, provider internals, missing referrers, complete paper texts behind access challenges and unexposed account metrics remain unknown. These limitations are not converted into defects, zeros or citation guarantees.
+No unresolved repository blocker. Owner authentication was completed for both platforms. Copilot’s answer check is complete; Claude’s paused subscription and disabled Send control still prevent its answer check. Other unrun query cells are a transparent sampling limit, not observed absence. Official crawler-IP logs, provider internals, missing referrers, complete paper texts behind access challenges and unexposed account metrics remain unknown. These limitations are not converted into defects, zeros or citation guarantees.
 
 ## Final
 
